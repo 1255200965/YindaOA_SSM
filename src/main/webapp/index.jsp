@@ -7,6 +7,6 @@
 <body>
 <h2>Hello World!</h2>
 
-<h5><a href="<%=basePath%>user/findAllUser">进入用户管理页</a></h5>
+<h5><a href="<%=basePath%>user/findAllUser.do">进入用户管理页</a></h5>
 </body>
 </html>

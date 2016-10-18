@@ -40,25 +40,28 @@ public class UserInfoServiceImpl  implements IUserInfoService{
              ) {
             int result = userMapper.insert(temp);
             if (result == 0){
-                //
+                //插入报错
             }
         }
 
         return 0;
     }
-
+    //查询用户信息分页
     @Override
     public List<UserDto> selectUserByQuery(List UserDto, int index, int pages) {
         return null;
     }
-
+    //查询用户信息
     @Override
     public UserDto selectUserByID(Integer sequenceNum) {
-        return null;
-    }
 
+        UserDto selectUser = userMapper.selectByPrimaryKey(sequenceNum);
+        return selectUser;
+    }
+    //更新用户信息
     @Override
     public int updateUserByID(UserDto record) {
-        return 0;
+        int result = userMapper.updateByPrimaryKey(record);
+        return result;
     }
 }

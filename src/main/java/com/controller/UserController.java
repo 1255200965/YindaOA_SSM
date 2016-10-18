@@ -21,7 +21,7 @@ import com.service.IUserService;
         @Resource
         private IUserService userService;
 
-        @RequestMapping("/findAllUser")
+        @RequestMapping("/findAllUser.do")
         public String findAllUser(HttpServletRequest request){
             List<User> listUser =  userService.findAllUser();
             request.setAttribute("listUser", listUser);
