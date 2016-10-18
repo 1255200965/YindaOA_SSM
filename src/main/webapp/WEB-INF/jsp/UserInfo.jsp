@@ -20,7 +20,7 @@
     var result = null;
     function ajaxTest(){
         $.ajax({
-            data:"name="+$("#name").val(),
+            data:"name="+$("#nr1").val(),
             type:"get",
             dataType: 'json',
             url:"../userinfo/login.do",
@@ -68,7 +68,7 @@
             });
             self.GetUserList = function(){
                 $.ajax({
-                    data:"name="+$("#name").val(),
+                    data:"name="+$("#nr1").val(),
                     type:"get",
                     dataType: 'json',
                     url:"../userinfo/login.do",
@@ -76,23 +76,78 @@
                         alert("出错了！！:"+data.msg);
                     },
                     success:function(data){
-                        //result = eval(data.usertest);
+                        result = eval(data.usertest);
                         self.ShowList.removeAll();
                         //清空viewmodel
-                        for (var i = 0; i < data.length; i++) {
-                            self.ShowList.push(data[i]);
+                        for (var i = 0; i < result.length; i++) {
+                            self.ShowList.push(result[i]);
                             //加入每行题目信息
 
                         }
                     }
                 });
             }
+            self.ClickUpdate = function(item) {
+/*                self.changeItem(item);
+                self.GetTreeList(item.题目分类);
+                $('#model1').click();*/
+            }
+            //点击删除
+            self.DeleteItem = function (item) {
+                /*$.ajax({
+                    type: 'POST',
+                    async: false,
+                    url: '../EditTable/DeleteItem/',
+                    dataType: "json",
+                    data: { "试题编号": item.试题编号,"修改者": user },
+                    success: function (data) {
+                        if (data == '1') {
+                            alert("删除成功！");
+                            //静态更新AllList
+                            for (var i = 0; i < self.AllList().length; i++) {
+                                if (item.试题编号 == self.AllList()[i].试题编号) {
+                                    self.AllList.remove(self.AllList()[i]);
+                                }
+                            }
+                        }
 
+                    },
+                    error: function () {
+                    }
+                });
+                self.GetSearchListByPage();*/
+            }
+            self.ClickSearch = function () {
+                self.GetUserList();
+            }
+            self.ClickClear = function() {
+/*                searchlab = 0;
+                $("#nr1").val("");
+                $("#zzs1").val("");
+                $("#stfx1").val("");
+                $("#sh1").val("");
+                $("#nd1").val("");*/
+            }
 
         }
         ko.applyBindings(new ViewModel);
     });
-
+    function GetUrl(id) {
+        var ans = "Login";
+        switch (id) {
+            case 1: ans = "UpLoad"; break;
+            case 2: ans = "ViewTable"; break;
+            case 3: ans = "ShowStat"; break;
+            case 4: ans = "ShowRepeat"; break;
+            case 5: ans = "ShowTree"; break;
+        }
+        var url = location.search;
+        if (url.indexOf("?") != -1) {
+            var s = url.indexOf("?");
+            ans += url.substring(s);// t就是?后面的东西了
+        }
+        return ans;
+    }
 </script>
 
 <head>
@@ -150,7 +205,7 @@
             </div>
         </div>
         <div class="top-right">
-            <p>欢迎您！<span data-bind="text:GetUser()">张三三</span></p>
+            <p>欢迎您！<span >张三三</span></p>
             <a href="Login"><img src="~/Content/images/guanbi.png" /></a> </div>
     </div>
     <div class="row-fluid">
@@ -170,6 +225,9 @@
         </div>
         <div class="col-md-10" >
             <div class="caidan-tiku" style="margin-bottom:2%">
+                <div style="float:left">
+                    <input data-bind="click:$root.ClickSearch" type="button" value="新增"  class="chaxun">
+                </div>
                 <div class="caidan-tiku-s" style="margin-right:5%"> <span>姓名：</span>
                     <input id="nr1" type="text" name="name" class="shuruk-a2" placeholder="">
                 </div>
@@ -205,17 +263,17 @@
                     <td width="7%">审核 </td>
                 </tr>
                 <tbody data-bind="foreach:ShowList">
-                <tr data-bind="style: { color: 审核 == '1' ? 'green' : 'black',fontWeight: 审核 == '1' ? 'bold' : 'normal'}">
-                    <td data-bind="text:试题编号">编号</td>
-                    <td data-bind="text:标题">标题</td>
-                    <td data-bind="text:题型">题型</td>
-                    <td data-bind="text:难度">难度</td>
-                    <td data-bind="text:知识树编号">知识树编号</td>
-                    <td data-bind="text:所属知识">所属知识</td>
-                    <td data-bind="text:修改者">修改者</td>
-                    <td data-bind="text:transFormat(审核)">审核状态</td>
+                <tr >
+                    <td data-bind="text:sequenceNum">编号</td>
+                    <td data-bind="text:name">标题</td>
+                    <td data-bind="text:idcard">题型</td>
+                    <td data-bind="text:department">难度</td>
+                    <td data-bind="text:cellphone">知识树编号</td>
+                    <td data-bind="text:mail">所属知识</td>
+                    <td data-bind="text:userId">修改者</td>
+                    <td data-bind="text:userState">审核状态</td>
                     <td><input data-bind="click:$root.ClickUpdate" type="button" value="更新" class="gx-btn"/><input  data-bind="click:$root.DeleteItem" type="button" value="删除" class="gx-btn" style="background:#fd9162;"/></td>
-                    <td><input data-bind="click:$root.SHItem,style: { display: role == 'admin' ? 'block' : 'none' }" type="button" value="审核" class="gx-btn" style="background:#fab807;"/></td>
+                    <td><input  type="button" value="审核" class="gx-btn" style="background:#fab807;"/></td>
 
                 </tr>
                 </tbody>

@@ -40,18 +40,19 @@ public class UserInfoController {
 
     @RequestMapping(value = "/login.do", method = RequestMethod.GET)
     public @ResponseBody Map<String,Object> login(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        System.out.println(request.getParameter("name"));
+        //查询指定id，填充进map
         Map<String,Object> map = new HashMap<String,Object>();
-        int id = Integer.parseInt(request.getParameter("name"));
-        map.put("usertest",userService.selectUserByID(id));
+        List<UserDto> userDtoList = new ArrayList<UserDto>();
+        int id = 0;
+        if (request.getParameter("name")!= null) {
+            id = Integer.parseInt(request.getParameter("name"));
+        }
+        userDtoList.add(userService.selectUserByID(id));
+        map.put("usertest",userDtoList);
 
-
-
-        if(request.getParameter("name").equals("123")){
-            System.out.println("城东");
+        if(id != 0){
             map.put("msg", "成功");
         }else{
-            System.out.println("失败");
             map.put("msg", "失败");
         }
         return map;
