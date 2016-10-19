@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.DepartmentMapper" >
+  <resultMap id="BaseResultMap" type="com.model.Department" >
+    <id column="dep_ID" property="depId" jdbcType="INTEGER" />
+    <result column="dep_name" property="depName" jdbcType="VARCHAR" />
+    <result column="dep_dd_ID" property="depDdId" jdbcType="VARCHAR" />
+    <result column="dep_parentid" property="depParentid" jdbcType="VARCHAR" />
+    <result column="dep_state" property="depState" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    dep_ID, dep_name, dep_dd_ID, dep_parentid, dep_state
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.model.DepartmentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from department
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from department
+    where dep_ID = #{depId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from department
+    where dep_ID = #{depId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.model.Department" >
+    insert into department (dep_ID, dep_name, dep_dd_ID, 
+      dep_parentid, dep_state)
+    values (#{depId,jdbcType=INTEGER}, #{depName,jdbcType=VARCHAR}, #{depDdId,jdbcType=VARCHAR}, 
+      #{depParentid,jdbcType=VARCHAR}, #{depState,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.Department" >
+    insert into department
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="depId != null" >
+        dep_ID,
+      </if>
+      <if test="depName != null" >
+        dep_name,
+      </if>
+      <if test="depDdId != null" >
+        dep_dd_ID,
+      </if>
+      <if test="depParentid != null" >
+        dep_parentid,
+      </if>
+      <if test="depState != null" >
+        dep_state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="depId != null" >
+        #{depId,jdbcType=INTEGER},
+      </if>
+      <if test="depName != null" >
+        #{depName,jdbcType=VARCHAR},
+      </if>
+      <if test="depDdId != null" >
+        #{depDdId,jdbcType=VARCHAR},
+      </if>
+      <if test="depParentid != null" >
+        #{depParentid,jdbcType=VARCHAR},
+      </if>
+      <if test="depState != null" >
+        #{depState,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.Department" >
+    update department
+    <set >
+      <if test="depName != null" >
+        dep_name = #{depName,jdbcType=VARCHAR},
+      </if>
+      <if test="depDdId != null" >
+        dep_dd_ID = #{depDdId,jdbcType=VARCHAR},
+      </if>
+      <if test="depParentid != null" >
+        dep_parentid = #{depParentid,jdbcType=VARCHAR},
+      </if>
+      <if test="depState != null" >
+        dep_state = #{depState,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where dep_ID = #{depId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.Department" >
+    update department
+    set dep_name = #{depName,jdbcType=VARCHAR},
+      dep_dd_ID = #{depDdId,jdbcType=VARCHAR},
+      dep_parentid = #{depParentid,jdbcType=VARCHAR},
+      dep_state = #{depState,jdbcType=VARCHAR}
+    where dep_ID = #{depId,jdbcType=INTEGER}
+  </update>
+</mapper>
