@@ -1,6 +1,7 @@
 package com.service;
 
 import com.model.UserDto;
+import com.model.UserInfo;
 
 import java.util.List;
 
@@ -20,6 +21,7 @@ public interface IUserInfoService {
     UserDto selectUserByID(Integer sequenceNum);
     //更新用户
     int updateUserByID(UserDto record);
-
+    /*通过工号来查询员工信息*/
+    List<UserInfo> searchUserInfoByUserId(String userId);
 
 }
