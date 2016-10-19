@@ -4,6 +4,7 @@ import com.model.UserDto;
 import com.service.IUserInfoService;
 import com.service.IUserService;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -57,5 +58,28 @@ public class UserInfoController {
         }
         return map;
     }
+    @RequestMapping(value = "/adduser.do", method = RequestMethod.POST)
+    public @ResponseBody Map<String,Object> adduser(@RequestBody UserDto user, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Map<String,Object> map = new HashMap<String,Object>();
 
+        int result = userService.insertUser(user);
+        if(result != 0){
+            map.put("msg", "成功");
+        }else{
+            map.put("msg", "失败");
+        }
+        return map;
+    }
+    @RequestMapping(value = "/updateuser.do", method = RequestMethod.POST)
+    public @ResponseBody Map<String,Object> updateuser(@RequestBody UserDto user, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Map<String,Object> map = new HashMap<String,Object>();
+
+        int result = userService.updateUserByID(user);
+        if(result != 0){
+            map.put("msg", "成功");
+        }else{
+            map.put("msg", "失败");
+        }
+        return map;
+    }
 }

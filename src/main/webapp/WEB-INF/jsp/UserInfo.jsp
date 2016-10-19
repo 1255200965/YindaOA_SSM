@@ -66,9 +66,10 @@
 
 
             });
+            //获取用户列表测试用
             self.GetUserList = function(){
                 $.ajax({
-                    data:"name="+$("#nr1").val(),
+                    data:"name="+$("#search_name").val(),
                     type:"get",
                     dataType: 'json',
                     url:"../userinfo/login.do",
@@ -87,48 +88,93 @@
                     }
                 });
             }
-            self.ClickUpdate = function(item) {
-/*                self.changeItem(item);
-                self.GetTreeList(item.题目分类);
-                $('#model1').click();*/
-            }
-            //点击删除
-            self.DeleteItem = function (item) {
-                /*$.ajax({
-                    type: 'POST',
-                    async: false,
-                    url: '../EditTable/DeleteItem/',
-                    dataType: "json",
-                    data: { "试题编号": item.试题编号,"修改者": user },
-                    success: function (data) {
-                        if (data == '1') {
-                            alert("删除成功！");
-                            //静态更新AllList
-                            for (var i = 0; i < self.AllList().length; i++) {
-                                if (item.试题编号 == self.AllList()[i].试题编号) {
-                                    self.AllList.remove(self.AllList()[i]);
-                                }
-                            }
-                        }
 
+
+
+
+            //===============================
+            //获取部门列表
+            self.GetDepartment = function(){}
+            //获取部门成员
+            self.GetUserListByDep = function(){}
+            //查询成员列表（部门，姓名，电话，工号）
+            self.GetUserByQuery = function(){}
+            //新增部门成员
+            self.AddNewUser = function(){
+                $.ajax({
+                    data:JSON.stringify(self.changeItem()),
+                    type:"post",
+                    headers: { 'Content-Type': 'application/json' },
+                    dataType: 'json',
+                    url:"../userinfo/adduser.do",
+                    error:function(data){
+                        alert("出错了！！:"+data.msg);
                     },
-                    error: function () {
+                    success:function(data){
+                        alert("success:"+data.msg);
+
                     }
                 });
-                self.GetSearchListByPage();*/
+
             }
+            //修改部门成员
+            self.UpdateUser = function(){
+                $.ajax({
+                    data:JSON.stringify(self.changeItem()),
+                    type:"post",
+                    headers: { 'Content-Type': 'application/json' },
+                    dataType: 'json',
+                    url:"../userinfo/updateuser.do",
+                    error:function(data){
+                        alert("出错了！！:"+data.msg);
+                    },
+                    success:function(data){
+                        alert("success:"+data.msg);
+
+                    }
+                });
+            }
+            //删除部门成员
+            self.DeleteUser = function(){}
+            //点击事件-点击添加用户按钮
+            self.ClickAdd = function(){
+                self.changeItem().sequenceNum=null;
+                self.rootid(1);
+                $("#model1").click();
+            };
+            //点击事件-点击更新用户按钮
+            self.ClickUpdate = function(item){
+                self.changeItem(item);
+                self.rootid(0);
+                $("#model1").click();
+            };
+            //点击事件-点击删除用户按钮
+            self.ClickDelete = function(){};
+            //点击事件-点击搜索
             self.ClickSearch = function () {
                 self.GetUserList();
             }
+            //点击事件-点击清空搜索项
             self.ClickClear = function() {
-/*                searchlab = 0;
-                $("#nr1").val("");
-                $("#zzs1").val("");
-                $("#stfx1").val("");
-                $("#sh1").val("");
-                $("#nd1").val("");*/
+                /*                searchlab = 0;
+                 $("#nr1").val("");
+                 $("#zzs1").val("");
+                 $("#stfx1").val("");
+                 $("#sh1").val("");
+                 $("#nd1").val("");*/
             }
-
+            //点击事件-模态框确定
+            self.ClickModelYes = function() {
+                if (self.rootid() == 0) {
+                        self.UpdateUser();
+                    } else {
+                        self.AddNewUser();
+                }
+            };
+            //点击事件-模态框关闭
+            self.ClickModelNo = function(){
+                $("#close1").click();
+            };
         }
         ko.applyBindings(new ViewModel);
     });
@@ -222,21 +268,88 @@
                 </li>
 
             </ul>
+
+            <!--左导航开始 -->
+            <div class="page-sidebar nav-collapse collapse">
+                <!-- 左导航菜单开始 -->
+                <ul class="page-sidebar-menu">
+                    <!-- 固定展开按钮开始-->
+                    <li>
+
+                        <div class="sidebar-toggler hidden-phone"><i class="icon-pushpin" style="color:white;font-size:16px; margin-top:5px;margin-left:5px;"></i></div>
+
+                    </li>
+                    <!-- 固定开始按钮结束 -->
+                    <li>
+                        <!-- 搜索导航开始 -->
+                        <form class="sidebar-search">
+                            <div class="input-box">
+                                <a href="javascript:;" class="remove"></a>
+                                <input type="text" style="width:90%" placeholder="输入拼音码搜索"  />
+                                <input type="button" class="submit" value=" "  />
+                            </div>
+                        </form>
+                        <!-- 搜索导航结束 -->
+                    </li>
+                    <li class="start">
+                        <a href="index.html">
+                            <i class="icon-hospital"></i>
+                            <span class="title">所有系统<span class="grade" >80/100</span></span>
+                        </a>
+                        <ul class="sub-menu" d>
+                            <li>
+                                <a href="#" >
+                                    <div  style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width:200px;">机房建设</div>
+                                    <div class="pull-right littlegrade" style="margin-top:-7%">
+                                        <div >6/10</div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="active open ">
+                        <a href="javascript:;">
+                            <i class="icon-stethoscope"></i>
+                            <span class="title">基础设施<span class="grade" >10/30</span></span>
+                            <span class="selected"></span>
+                            <span class="arrow open"></span>
+                        </a>
+                        <ul class="sub-menu" >
+                            <li>
+                                <a href="#" >
+                                    <div  style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width:200px;">机房建设</div>
+                                    <div class="pull-right littlegrade" style="margin-top:-7%">
+                                        <div >6/10</div>
+                                    </div>
+                                </a>
+                            </li>
+                            @*<li>
+                            <a href="#">
+                                容灾系统<span class="pull-right littlegrade"><span>6/8</span></span>
+                            </a>
+                        </li>*@
+                        </ul>
+                    </li>
+
+                </ul>
+                <!-- END SIDEBAR MENU -->
+            </div>
+            <!-- END SIDEBAR -->
         </div>
         <div class="col-md-10" >
             <div class="caidan-tiku" style="margin-bottom:2%">
                 <div style="float:left">
-                    <input data-bind="click:$root.ClickSearch" type="button" value="新增"  class="chaxun">
+                    <input data-bind="click:$root.ClickAdd" type="button" value="新增"  class="chaxun">
                 </div>
                 <div class="caidan-tiku-s" style="margin-right:5%"> <span>姓名：</span>
-                    <input id="nr1" type="text" name="name" class="shuruk-a2" placeholder="">
+                    <input id="search_name" type="text" name="name" class="shuruk-a2" placeholder="">
                 </div>
                 <div class="caidan-tiku-s" style="margin-right:5%"> <span>电话：</span>
-                    <input data-bind="click:function(){$root.CilckClass(0)},textinput:classid" id="class1" type="text" name="firstname" class="shuruk-a2" >
+                    <input id="search_phone" type="text" name="cellphone" class="shuruk-a2" placeholder="">
                 </div>
 
                 <div class="caidan-tiku-s" style="margin-right:5%"> <span>工号：</span>
-                    <input id="workid" type="text" name="firstname" class="shuruk-a2" placeholder="">
+                    <input id="search_workid" type="text" name="workid" class="shuruk-a2" placeholder="">
                 </div>
 <%--                <div class="caidan-tiku-s"> <span>是否审核：</span>
                     <select id="sh1" class="riqi-xiala" style="width:70px;" data-bind="options: [0,1], optionsText: function (item) {  if (item == 0) return '否'; else return '是';},optionsCaption:''"></select>
@@ -272,7 +385,7 @@
                     <td data-bind="text:mail">所属知识</td>
                     <td data-bind="text:userId">修改者</td>
                     <td data-bind="text:userState">审核状态</td>
-                    <td><input data-bind="click:$root.ClickUpdate" type="button" value="更新" class="gx-btn"/><input  data-bind="click:$root.DeleteItem" type="button" value="删除" class="gx-btn" style="background:#fd9162;"/></td>
+                    <td><input data-bind="click:$root.ClickUpdate" type="button" value="更新" class="gx-btn"/><input  data-bind="click:$root.ClickDelete" type="button" value="删除" class="gx-btn" style="background:#fd9162;"/></td>
                     <td><input  type="button" value="审核" class="gx-btn" style="background:#fab807;"/></td>
 
                 </tr>
@@ -281,6 +394,56 @@
         </div>
     </div>
 </div>
+<!-- Button trigger modal -->
+<button type="button" id="model1" style="display: none" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+    modal
+</button>
+<div class="container">
+    <!-- Modal -->
+    <div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false">
+        <div class="modal-dialog " style="width:80%;margin-left: 10%;margin-top:0%" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">用户信息详情</h4>
+                </div>
+                <div class="modal-body">
+                    <div data-bind="with:changeItem">
+                                <span style="margin-bottom: 10px;" class="input-group">
+                                    <span class="input-group-addon">姓名:</span><input id="bt" class="form-control" style="width:95%" data-bind="textinput:name" />
+                                </span>
 
+<%--                        <div style="margin-bottom: 5px;" class="input-group">
+                            <span class="input-group-addon">难度:</span><select id="nd" class="form-control" style="border: 1px solid #621313; width:60px; margin-right:5px;" data-bind="options: [1,2,3,4,5,6,7,8,9], optionsText: function (item) {  return item;},textinput:难度,optionsCaption:''"></select>
+                            <span style="margin-left: 2px;" class="input-group-addon">题目类型:</span><select id="tx" class="form-control" style="border: 1px solid #621313; width:100px; margin-right:5px;" data-bind="options: ['单选题','多选题','判断题'], optionsText: function (item) {  return item;},textinput:题型,optionsCaption:''"></select>
+                            <span style="margin-left: 2px;" class="input-group-addon">题目分类:</span><input class="form-control" style="width: 80%" id="class" data-bind="textinput:题目分类,click:function(){$root.CilckClass(1);}" />
+                            <span style="margin-left: 2px;" class="input-group-addon"><button data-bind="click:function(){$root.CilckTree(1);}">知识树编号</button>:</span><input class="form-control" style="width: 80%" id="zzs" data-bind="textinput:知识树编号" />
+                        </div>--%>
+                        <div style="margin-bottom: 10px;" class="input-group">
+                            <span style="margin-left: 2px;" class="input-group-addon">工号:</span><input class="form-control" style="width: 80%" id="da" data-bind="textinput:idcard" />
+                            <span style="margin-left: 2px;" class="input-group-addon">电话:</span><input class="form-control" style="width: 80%" id="sszz" data-bind="textinput:cellphone" />
+                        </div>
+                        <div style="margin-bottom: 5px;" class="input-group">
+                            <span style="margin-left: 2px;" class="input-group-addon">部门:</span><input class="form-control" style="width:80%" id="kxda1" data-bind="textinput:department" />
+                            <span style="margin-left: 2px;" class="input-group-addon">邮箱:</span><input class="form-control" style="width:80%" id="kxda2" data-bind="textinput:mail" />
+                        </div>
+                        <div style="margin-bottom: 5px;" class="input-group">
+                            <span style="margin-left: 2px;" class="input-group-addon">钉钉id:</span><input class="form-control" style="width: 80%" id="kxda3" data-bind="textinput:userId" />
+                            <span style="margin-left: 2px;" class="input-group-addon">用户状态:</span><input class="form-control" style="width: 80%" id="kxda4" data-bind="textinput:userState" />
+                        </div>
+
+
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="close1" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-bind="click:$root.ClickModelYes">提交</button>
+                    <button type="button" class="btn btn-primary">审核</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
