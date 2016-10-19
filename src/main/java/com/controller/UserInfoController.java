@@ -1,11 +1,20 @@
 package com.controller;
 
+import java.io.File;
+import java.io.InputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.*;
 
 import com.model.UserInfo;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;   // allow Spring injection
 import org.springframework.stereotype.Controller;   // allow controller
 import org.springframework.ui.Model;   // allow model
@@ -22,8 +31,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.*;
 
 /**
  * Created by ma on 2016/10/17.
@@ -46,13 +53,26 @@ public class UserInfoController {
         userDtoList.add(userService.selectUserByID(id));
 
         map.put("listUser", userDtoList);
+
+        try {
+            readL1();
+        } catch (IOException e) {
+            // 直接输出异常，帮助分析
+            e.printStackTrace();
+        }
+
         return "/UserInfo";
     }
 
+    /**
+     * 点击查询按钮后，根据输入框产生的实体类进行查询，页面不跳转
+     * @param userInfo
+     * @return
+     * @throws IOException
+     */
     @RequestMapping(value = "/login.do", method = RequestMethod.GET)
-    public Map<String,Object> login( @RequestParam("userId") String userId) throws IOException {
-        //查询指定id，填充进map
-        List<UserInfo> list = userService.searchUserInfoByUserId(userId);
+    public Map<String,Object> login(UserInfo userInfo) throws IOException {
+        List<UserInfo> list = userService.searchUserInfoByEntity(userInfo);
         Map<String,Object> map = new HashMap<String,Object>();
         map.put("usertest",list);
         if(list.size() != 0){
@@ -86,5 +106,15 @@ public class UserInfoController {
             map.put("msg", "失败");
         }
         return map;
+    }
+
+    void readL1() throws IOException{
+        File file = new File("/home/baili/workspace/YindaOA_SSM/test.xls");
+        InputStream is = new FileInputStream(file);
+        HSSFWorkbook hssfWorkbook = new HSSFWorkbook(is);
+        HSSFSheet hssfSheet = hssfWorkbook.getSheetAt(0);
+        HSSFRow hssfRow = hssfSheet.getRow(2);
+        String name = hssfRow.getCell(1).toString();
+        System.out.println("My name is "+name);
     }
 }

@@ -22,6 +22,6 @@ public interface IUserInfoService {
     //更新用户
     int updateUserByID(UserDto record);
     /*通过工号来查询员工信息*/
-    List<UserInfo> searchUserInfoByUserId(String userId);
+    List<UserInfo> searchUserInfoByEntity(UserInfo userInfo);
 
 }

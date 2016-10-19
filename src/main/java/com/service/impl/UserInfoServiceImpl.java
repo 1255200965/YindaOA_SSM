@@ -59,6 +59,7 @@ public class UserInfoServiceImpl implements IUserInfoService{
         UserDto selectUser = userMapper.selectByPrimaryKey(sequenceNum);
         return selectUser;
     }
+
     //更新用户信息
     public int updateUserByID(UserDto record) {
         int result = userMapper.updateByPrimaryKey(record);
@@ -66,11 +67,20 @@ public class UserInfoServiceImpl implements IUserInfoService{
     }
 
     /**
-     * 通过工号来查询员工信息
+     * 通过params来查询员工信息
+     * like是精髓，字符串中包含部门的都会被搜索出来
      */
-    public List<UserInfo> searchUserInfoByUserId(String userId) {
+    public List<UserInfo> searchUserInfoByEntity(UserInfo userInfo) {
+        String userId = userInfo.getUserId();
+        String name = userInfo.getName();
+        String depart = userInfo.getDepartment();
+        String depart2 = "%"+depart+"%";
+
         UserInfoExample userInfoExample = new UserInfoExample();
-        userInfoExample.or().andIdcardEqualTo(userId);
+        userInfoExample.createCriteria()
+                .andUserIdEqualTo(userId)
+                .andNameEqualTo(name)
+                .andDepartmentLike(depart2);
         List<UserInfo> list = userInfoMapper.selectByExample(userInfoExample);
         return list;
     }
