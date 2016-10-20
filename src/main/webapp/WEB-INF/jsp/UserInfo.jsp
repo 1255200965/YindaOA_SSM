@@ -9,11 +9,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <link type="text/css" rel="stylesheet" href="../stylesheets/style.css" />
-<link href="../stylesheets/bootstrap-theme.min.css" rel="stylesheet" />
 <link href="../stylesheets/bootstrap.min.css" rel="stylesheet" />
+<link href="../stylesheets/bootstrap-theme.min.css" rel="stylesheet" />
+<link href="../stylesheets/bootstrap-treeview.min.css" rel="stylesheet" />
 <link href="../stylesheets/shujutongji.css" rel="stylesheet" />
 <script type="text/javascript" src="../javascripts/jquery-1.10.2.js"></script>
 <script type="text/javascript" src="../javascripts/bootstrap.min.js"></script>
+<script type="text/javascript" src="../javascripts/bootstrap-treeview.min.js"></script>
 <script src="../javascripts//knockout-3.4.0rc.js"></script>
 
 <script type="text/javascript">
@@ -36,6 +38,19 @@
     }
 
     //============================================
+    //当前选择的部门
+    var nowDep = null;
+    //最后一次触发节点Id
+    var lastSelectedNodeId = null;
+    //最后一次触发时间
+    var lastSelectTime = null;
+    //部门树
+    var tree = [];
+    //当前显示的页码
+    var showindex = 0;
+    //当前显示的分页条目
+    var showpage = 20;
+
     $(document).ready(function () {
 
         var ViewModel = function () {
@@ -47,7 +62,7 @@
             self.rootid = ko.observable();
             //搜索的知识树编号
             self.classid = ko.observable();
-            self.changeItem = ko.observable();
+
             //待修改题目
             self.overItem = ko.observable(0);
             self.allItem = ko.observable(0);
@@ -56,14 +71,14 @@
             self.AllList = ko.observableArray();
             //绑定题目列表对象
 
-
-            self.ShowList = ko.observableArray();
+            //当前被修改的用户信息
+            self.changeItem = ko.observable();
             //当前显示的人员列表
-
+            self.ShowList = ko.observableArray();
 
             //ko初始化数据加载
             $(function () {
-
+                self.GetDepartment();
 
             });
             //获取用户列表测试用
@@ -93,12 +108,54 @@
 
 
             //===============================
-            //获取部门列表
-            self.GetDepartment = function(){}
             //获取部门成员
-            self.GetUserListByDep = function(){}
+            self.GetUserListByDep = function(depddid){
+                $.ajax({
+                    data:JSON.stringify(new UserModel(depddid,null,null,null)),
+                    type:"post",
+                    headers: { 'Content-Type': 'application/json' },
+                    dataType: 'json',
+                    url:"../userinfo/login.do",
+                    error:function(data){
+                        alert("出错了！！:"+data.msg);
+                    },
+                    success:function(data){
+                        result = eval(data.usertest);
+                        self.ShowList.removeAll();
+                        //清空viewmodel
+                        for (var i = 0; i < result.length; i++) {
+                            self.ShowList.push(result[i]);
+                            //加入每行题目信息
+
+                        }
+                    }
+                });
+
+            }
             //查询成员列表（部门，姓名，电话，工号）
-            self.GetUserByQuery = function(){}
+            self.GetUserByQuery = function(){
+                $.ajax({
+                    data:JSON.stringify(new UserModel(nowDep.id,$("#search_name").val(),$("#search_workid").val(),$("#search_phone").val())),
+                    type:"post",
+                    headers: { 'Content-Type': 'application/json' },
+                    dataType: 'json',
+                    url:"../userinfo/login.do",
+                    error:function(data){
+                        alert("出错了！！:"+data.msg);
+                    },
+                    success:function(data){
+                        result = eval(data.usertest);
+                        self.ShowList.removeAll();
+                        //清空viewmodel
+                        for (var i = 0; i < result.length; i++) {
+                            self.ShowList.push(result[i]);
+                            //加入每行题目信息
+
+                        }
+                    }
+                });
+
+            }
             //新增部门成员
             self.AddNewUser = function(){
                 $.ajax({
@@ -138,7 +195,7 @@
             self.DeleteUser = function(){}
             //点击事件-点击添加用户按钮
             self.ClickAdd = function(){
-                self.changeItem().sequenceNum=null;
+                self.changeItem(new UserModel());
                 self.rootid(1);
                 $("#model1").click();
             };
@@ -152,7 +209,7 @@
             self.ClickDelete = function(){};
             //点击事件-点击搜索
             self.ClickSearch = function () {
-                self.GetUserList();
+                self.GetUserByQuery();
             }
             //点击事件-点击清空搜索项
             self.ClickClear = function() {
@@ -175,9 +232,77 @@
             self.ClickModelNo = function(){
                 $("#close1").click();
             };
+            //==========部门列表方法==============
+            //获取部门列表
+            self.GetDepartment = function () {
+                $.ajax({
+                    type: "post",
+                    async: false,
+                    contentType: "text/json",
+                    url: "../department/GetDepList.do",
+                    headers: { 'Content-Type': 'application/json' },
+                    error:function(data){
+                        alert("出错了！！:"+data.msg);
+                    },
+                    success:function(data){
+                        //alert("success:"+data.msg);
+                        tree = eval(data.dep);
+                    }
+                });
+                //显示部门列表
+                $('#tree').treeview({
+                    data: tree,
+                    onNodeSelected: function (event, data) {
+                        nowDep = data;
+                        self.clickNode1(event, data);
+                    },
+                    onNodeUnselected: function (event, data) {
+                        nowDep = null;
+                        self.clickNode1(event, data);
+                    }
+                });
+                $('#tree').treeview('collapseAll');
+            }
+            //点击部门事件
+            self.clickNode1 = function (event, data) {
+                if (lastSelectedNodeId && lastSelectTime) {
+                    var time = new Date().getTime();
+                    var t = time - lastSelectTime;
+                    if (lastSelectedNodeId == data.id && t < 300) {
+                        nowDep = data;
+                        self.chooseDep();
+                        alert("选择部门:"+data.name);
+                    }
+                }
+                lastSelectedNodeId = data.id;
+                lastSelectTime = new Date().getTime();
+            }
+            //选择部门
+            self.chooseDep = function () {
+                var id = "";
+                if (nowDep != null) {
+                    id = nowDep.id;
+                }
+
+                //获取部门用户
+                self.GetUserListByDep(id);
+            }
         }
         ko.applyBindings(new ViewModel);
     });
+    function UserModel(depid,name,workid,cellphone) {
+        this.sequenceNum = null;
+        this.name = name;
+        this.age = null;
+        this.sex = null;
+        this.department = depid;
+        this.idcard = workid;
+        this.cellphone = cellphone;
+        this.userId = null;
+        this.userState = null;
+        this.mail = null;
+        return this;
+    }
     function GetUrl(id) {
         var ans = "Login";
         switch (id) {
@@ -235,7 +360,7 @@
 
 <div class="container-fluid">
     <div class="row-fluid top-tiku">
-        <div class="top-left"> <img src="~/Content/images/logo.png" />
+        <div class="top-left"> <img src="../images/logo.png" />
             <p>人事管理系统</p>
         </div>
         <div id="box">
@@ -252,11 +377,11 @@
         </div>
         <div class="top-right">
             <p>欢迎您！<span >张三三</span></p>
-            <a href="Login"><img src="~/Content/images/guanbi.png" /></a> </div>
+            <a href="Login"><img src="../images/guanbi.png" /></a> </div>
     </div>
     <div class="row-fluid">
         <div class="col-md-2" >
-            <ul class="nav nav-stacked nav-pills">
+<%--            <ul class="nav nav-stacked nav-pills">
                 <li class="active">
                     <a href="#">人事部</a>
                 </li>
@@ -267,74 +392,9 @@
                     <a href="#">创新部</a>
                 </li>
 
-            </ul>
+            </ul>--%>
+            <div id="tree"></div>
 
-            <!--左导航开始 -->
-            <div class="page-sidebar nav-collapse collapse">
-                <!-- 左导航菜单开始 -->
-                <ul class="page-sidebar-menu">
-                    <!-- 固定展开按钮开始-->
-                    <li>
-
-                        <div class="sidebar-toggler hidden-phone"><i class="icon-pushpin" style="color:white;font-size:16px; margin-top:5px;margin-left:5px;"></i></div>
-
-                    </li>
-                    <!-- 固定开始按钮结束 -->
-                    <li>
-                        <!-- 搜索导航开始 -->
-                        <form class="sidebar-search">
-                            <div class="input-box">
-                                <a href="javascript:;" class="remove"></a>
-                                <input type="text" style="width:90%" placeholder="输入拼音码搜索"  />
-                                <input type="button" class="submit" value=" "  />
-                            </div>
-                        </form>
-                        <!-- 搜索导航结束 -->
-                    </li>
-                    <li class="start">
-                        <a href="index.html">
-                            <i class="icon-hospital"></i>
-                            <span class="title">所有系统<span class="grade" >80/100</span></span>
-                        </a>
-                        <ul class="sub-menu" d>
-                            <li>
-                                <a href="#" >
-                                    <div  style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width:200px;">机房建设</div>
-                                    <div class="pull-right littlegrade" style="margin-top:-7%">
-                                        <div >6/10</div>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="active open ">
-                        <a href="javascript:;">
-                            <i class="icon-stethoscope"></i>
-                            <span class="title">基础设施<span class="grade" >10/30</span></span>
-                            <span class="selected"></span>
-                            <span class="arrow open"></span>
-                        </a>
-                        <ul class="sub-menu" >
-                            <li>
-                                <a href="#" >
-                                    <div  style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width:200px;">机房建设</div>
-                                    <div class="pull-right littlegrade" style="margin-top:-7%">
-                                        <div >6/10</div>
-                                    </div>
-                                </a>
-                            </li>
-                            @*<li>
-                            <a href="#">
-                                容灾系统<span class="pull-right littlegrade"><span>6/8</span></span>
-                            </a>
-                        </li>*@
-                        </ul>
-                    </li>
-
-                </ul>
-                <!-- END SIDEBAR MENU -->
-            </div>
-            <!-- END SIDEBAR -->
         </div>
         <div class="col-md-10" >
             <div class="caidan-tiku" style="margin-bottom:2%">
