@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.*;
 
-import com.model.UserInfo;
+import com.model.StaffInfo;
 import com.util.ExcelToMysql;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -26,8 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;   // allow map ta
 import org.springframework.web.bind.annotation.RequestParam;   // allow using name to pass argument
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.model.UserDto;
-import com.service.IUserInfoService;
+import com.service.IStaffInfoService;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -41,24 +40,24 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Controller
 @RequestMapping("/userinfo")
-public class UserInfoController {
+public class StaffInfoController {
     @Resource
-    private IUserInfoService userInfoService;
+    private IStaffInfoService userInfoService;
 
     @RequestMapping("/testMethod.do")
-    public String getAllUser(Map<String,Object> map,HttpServletRequest request){
-        List<UserInfo> userDtoList = new ArrayList<UserInfo>();
+    public String getAllStaff(Map<String,Object> map,HttpServletRequest request){
+        List<StaffInfo> userDtoList = new ArrayList<StaffInfo>();
         //int index = Integer.parseInt(request.getParameter("index"));
         //int page = Integer.parseInt(request.getParameter("page"));
         int id = 0;
         if (request.getParameter("name")!= null) {
             id = Integer.parseInt(request.getParameter("name"));
         }
-        userDtoList.add(userInfoService.selectUserByID(id));
+        userDtoList.add(userInfoService.selectStaffByID(id));
 
-        map.put("listUser", userDtoList);
+        map.put("listStaff", userDtoList);
 
-        return "/UserInfo";
+        return "/StaffInfo";
     }
 
     /**
@@ -68,9 +67,9 @@ public class UserInfoController {
      * @throws IOException
      */
     @RequestMapping(value = "/login.do", method = RequestMethod.POST)
-    public @ResponseBody Map<String,Object> login(@RequestBody UserInfo user) throws IOException {
+    public @ResponseBody Map<String,Object> login(@RequestBody StaffInfo user) throws IOException {
         //查询指定id，填充进map
-        List<UserInfo> list = userInfoService.searchUserInfoByEntity(user);
+        List<StaffInfo> list = userInfoService.searchStaffInfoByEntity(user);
         Map<String,Object> map = new HashMap<String,Object>();
         map.put("usertest",list);
         if(list.size() != 0){
@@ -82,10 +81,10 @@ public class UserInfoController {
     }
 
     @RequestMapping(value = "/adduser.do", method = RequestMethod.POST)
-    public @ResponseBody Map<String,Object> adduser(@RequestBody UserInfo user, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public @ResponseBody Map<String,Object> adduser(@RequestBody StaffInfo user, HttpServletRequest request, HttpServletResponse response) throws IOException {
         Map<String,Object> map = new HashMap<String,Object>();
 
-        int result = userInfoService.insertUser(user);
+        int result = userInfoService.insertStaff(user);
         if(result != 0){
             map.put("msg", "成功");
         }else{
@@ -94,10 +93,10 @@ public class UserInfoController {
         return map;
     }
     @RequestMapping(value = "/updateuser.do", method = RequestMethod.POST)
-    public @ResponseBody Map<String,Object> updateuser(@RequestBody UserInfo user, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public @ResponseBody Map<String,Object> updateuser(@RequestBody StaffInfo user, HttpServletRequest request, HttpServletResponse response) throws IOException {
         Map<String,Object> map = new HashMap<String,Object>();
 
-        int result = userInfoService.updateUserByID(user);
+        int result = userInfoService.updateStaffByID(user);
         if(result != 0){
             map.put("msg", "成功");
         }else{
