@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.StaffInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.model.StaffInfo" >
+    <id column="sqnc_nmbr" property="sqncNmbr" jdbcType="INTEGER" />
+    <result column="stff_id" property="stffId" jdbcType="CHAR" />
+    <result column="name" property="name" jdbcType="CHAR" />
+    <result column="age" property="age" jdbcType="INTEGER" />
+    <result column="sex" property="sex" jdbcType="CHAR" />
+    <result column="cellphone" property="cellphone" jdbcType="CHAR" />
+    <result column="email" property="email" jdbcType="CHAR" />
+    <result column="id_crd" property="idCrd" jdbcType="CHAR" />
+    <result column="hshld_addrss" property="hshldAddrss" jdbcType="VARCHAR" />
+    <result column="nation" property="nation" jdbcType="CHAR" />
+    <result column="lv_addrss" property="lvAddrss" jdbcType="VARCHAR" />
+    <result column="brnch_cmpny" property="brnchCmpny" jdbcType="CHAR" />
+    <result column="department" property="department" jdbcType="CHAR" />
+    <result column="sgn_addrss" property="sgnAddrss" jdbcType="VARCHAR" />
+    <result column="sgn_dt" property="sgnDt" jdbcType="CHAR" />
+    <result column="cntrct_type" property="cntrctType" jdbcType="CHAR" />
+    <result column="cntrct_bgn" property="cntrctBgn" jdbcType="CHAR" />
+    <result column="cntrct_end" property="cntrctEnd" jdbcType="CHAR" />
+    <result column="slry_crd" property="slryCrd" jdbcType="CHAR" />
+    <result column="expns_crd" property="expnsCrd" jdbcType="CHAR" />
+    <result column="stff_state" property="stffState" jdbcType="CHAR" />
+    <result column="grdt_schl" property="grdtSchl" jdbcType="VARCHAR" />
+    <result column="schl_rcrd" property="schlRcrd" jdbcType="CHAR" />
+    <result column="grdt_dt" property="grdtDt" jdbcType="CHAR" />
+    <result column="nt_unt" property="ntUnt" jdbcType="CHAR" />
+    <result column="tchnldg_lv" property="tchnldgLv" jdbcType="CHAR" />
+    <result column="idntfy_unt" property="idntfyUnt" jdbcType="VARCHAR" />
+    <result column="accnt_type" property="accntType" jdbcType="CHAR" />
+    <result column="accnt_state" property="accntState" jdbcType="CHAR" />
+    <result column="wtr_itm" property="wtrItm" jdbcType="CHAR" />
+    <result column="wtr_ordr" property="wtrOrdr" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    sqnc_nmbr, stff_id, name, age, sex, cellphone, email, id_crd, hshld_addrss, nation, 
+    lv_addrss, brnch_cmpny, department, sgn_addrss, sgn_dt, cntrct_type, cntrct_bgn, 
+    cntrct_end, slry_crd, expns_crd, stff_state, grdt_schl, schl_rcrd, grdt_dt, nt_unt, 
+    tchnldg_lv, idntfy_unt, accnt_type, accnt_state, wtr_itm, wtr_ordr
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.model.StaffInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from staff_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from staff_info
+    where sqnc_nmbr = #{sqncNmbr,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from staff_info
+    where sqnc_nmbr = #{sqncNmbr,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.model.StaffInfo" >
+    insert into staff_info (sqnc_nmbr, stff_id, name, 
+      age, sex, cellphone, email, 
+      id_crd, hshld_addrss, nation, 
+      lv_addrss, brnch_cmpny, department, 
+      sgn_addrss, sgn_dt, cntrct_type, 
+      cntrct_bgn, cntrct_end, slry_crd, 
+      expns_crd, stff_state, grdt_schl, 
+      schl_rcrd, grdt_dt, nt_unt, tchnldg_lv, 
+      idntfy_unt, accnt_type, accnt_state, 
+      wtr_itm, wtr_ordr)
+    values (#{sqncNmbr,jdbcType=INTEGER}, #{stffId,jdbcType=CHAR}, #{name,jdbcType=CHAR}, 
+      #{age,jdbcType=INTEGER}, #{sex,jdbcType=CHAR}, #{cellphone,jdbcType=CHAR}, #{email,jdbcType=CHAR}, 
+      #{idCrd,jdbcType=CHAR}, #{hshldAddrss,jdbcType=VARCHAR}, #{nation,jdbcType=CHAR}, 
+      #{lvAddrss,jdbcType=VARCHAR}, #{brnchCmpny,jdbcType=CHAR}, #{department,jdbcType=CHAR}, 
+      #{sgnAddrss,jdbcType=VARCHAR}, #{sgnDt,jdbcType=CHAR}, #{cntrctType,jdbcType=CHAR}, 
+      #{cntrctBgn,jdbcType=CHAR}, #{cntrctEnd,jdbcType=CHAR}, #{slryCrd,jdbcType=CHAR}, 
+      #{expnsCrd,jdbcType=CHAR}, #{stffState,jdbcType=CHAR}, #{grdtSchl,jdbcType=VARCHAR}, 
+      #{schlRcrd,jdbcType=CHAR}, #{grdtDt,jdbcType=CHAR}, #{ntUnt,jdbcType=CHAR}, #{tchnldgLv,jdbcType=CHAR}, 
+      #{idntfyUnt,jdbcType=VARCHAR}, #{accntType,jdbcType=CHAR}, #{accntState,jdbcType=CHAR}, 
+      #{wtrItm,jdbcType=CHAR}, #{wtrOrdr,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.StaffInfo" >
+    insert into staff_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sqncNmbr != null" >
+        sqnc_nmbr,
+      </if>
+      <if test="stffId != null" >
+        stff_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="age != null" >
+        age,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="cellphone != null" >
+        cellphone,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="idCrd != null" >
+        id_crd,
+      </if>
+      <if test="hshldAddrss != null" >
+        hshld_addrss,
+      </if>
+      <if test="nation != null" >
+        nation,
+      </if>
+      <if test="lvAddrss != null" >
+        lv_addrss,
+      </if>
+      <if test="brnchCmpny != null" >
+        brnch_cmpny,
+      </if>
+      <if test="department != null" >
+        department,
+      </if>
+      <if test="sgnAddrss != null" >
+        sgn_addrss,
+      </if>
+      <if test="sgnDt != null" >
+        sgn_dt,
+      </if>
+      <if test="cntrctType != null" >
+        cntrct_type,
+      </if>
+      <if test="cntrctBgn != null" >
+        cntrct_bgn,
+      </if>
+      <if test="cntrctEnd != null" >
+        cntrct_end,
+      </if>
+      <if test="slryCrd != null" >
+        slry_crd,
+      </if>
+      <if test="expnsCrd != null" >
+        expns_crd,
+      </if>
+      <if test="stffState != null" >
+        stff_state,
+      </if>
+      <if test="grdtSchl != null" >
+        grdt_schl,
+      </if>
+      <if test="schlRcrd != null" >
+        schl_rcrd,
+      </if>
+      <if test="grdtDt != null" >
+        grdt_dt,
+      </if>
+      <if test="ntUnt != null" >
+        nt_unt,
+      </if>
+      <if test="tchnldgLv != null" >
+        tchnldg_lv,
+      </if>
+      <if test="idntfyUnt != null" >
+        idntfy_unt,
+      </if>
+      <if test="accntType != null" >
+        accnt_type,
+      </if>
+      <if test="accntState != null" >
+        accnt_state,
+      </if>
+      <if test="wtrItm != null" >
+        wtr_itm,
+      </if>
+      <if test="wtrOrdr != null" >
+        wtr_ordr,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sqncNmbr != null" >
+        #{sqncNmbr,jdbcType=INTEGER},
+      </if>
+      <if test="stffId != null" >
+        #{stffId,jdbcType=CHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=CHAR},
+      </if>
+      <if test="age != null" >
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=CHAR},
+      </if>
+      <if test="cellphone != null" >
+        #{cellphone,jdbcType=CHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=CHAR},
+      </if>
+      <if test="idCrd != null" >
+        #{idCrd,jdbcType=CHAR},
+      </if>
+      <if test="hshldAddrss != null" >
+        #{hshldAddrss,jdbcType=VARCHAR},
+      </if>
+      <if test="nation != null" >
+        #{nation,jdbcType=CHAR},
+      </if>
+      <if test="lvAddrss != null" >
+        #{lvAddrss,jdbcType=VARCHAR},
+      </if>
+      <if test="brnchCmpny != null" >
+        #{brnchCmpny,jdbcType=CHAR},
+      </if>
+      <if test="department != null" >
+        #{department,jdbcType=CHAR},
+      </if>
+      <if test="sgnAddrss != null" >
+        #{sgnAddrss,jdbcType=VARCHAR},
+      </if>
+      <if test="sgnDt != null" >
+        #{sgnDt,jdbcType=CHAR},
+      </if>
+      <if test="cntrctType != null" >
+        #{cntrctType,jdbcType=CHAR},
+      </if>
+      <if test="cntrctBgn != null" >
+        #{cntrctBgn,jdbcType=CHAR},
+      </if>
+      <if test="cntrctEnd != null" >
+        #{cntrctEnd,jdbcType=CHAR},
+      </if>
+      <if test="slryCrd != null" >
+        #{slryCrd,jdbcType=CHAR},
+      </if>
+      <if test="expnsCrd != null" >
+        #{expnsCrd,jdbcType=CHAR},
+      </if>
+      <if test="stffState != null" >
+        #{stffState,jdbcType=CHAR},
+      </if>
+      <if test="grdtSchl != null" >
+        #{grdtSchl,jdbcType=VARCHAR},
+      </if>
+      <if test="schlRcrd != null" >
+        #{schlRcrd,jdbcType=CHAR},
+      </if>
+      <if test="grdtDt != null" >
+        #{grdtDt,jdbcType=CHAR},
+      </if>
+      <if test="ntUnt != null" >
+        #{ntUnt,jdbcType=CHAR},
+      </if>
+      <if test="tchnldgLv != null" >
+        #{tchnldgLv,jdbcType=CHAR},
+      </if>
+      <if test="idntfyUnt != null" >
+        #{idntfyUnt,jdbcType=VARCHAR},
+      </if>
+      <if test="accntType != null" >
+        #{accntType,jdbcType=CHAR},
+      </if>
+      <if test="accntState != null" >
+        #{accntState,jdbcType=CHAR},
+      </if>
+      <if test="wtrItm != null" >
+        #{wtrItm,jdbcType=CHAR},
+      </if>
+      <if test="wtrOrdr != null" >
+        #{wtrOrdr,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.StaffInfo" >
+    update staff_info
+    <set >
+      <if test="stffId != null" >
+        stff_id = #{stffId,jdbcType=CHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=CHAR},
+      </if>
+      <if test="age != null" >
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=CHAR},
+      </if>
+      <if test="cellphone != null" >
+        cellphone = #{cellphone,jdbcType=CHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=CHAR},
+      </if>
+      <if test="idCrd != null" >
+        id_crd = #{idCrd,jdbcType=CHAR},
+      </if>
+      <if test="hshldAddrss != null" >
+        hshld_addrss = #{hshldAddrss,jdbcType=VARCHAR},
+      </if>
+      <if test="nation != null" >
+        nation = #{nation,jdbcType=CHAR},
+      </if>
+      <if test="lvAddrss != null" >
+        lv_addrss = #{lvAddrss,jdbcType=VARCHAR},
+      </if>
+      <if test="brnchCmpny != null" >
+        brnch_cmpny = #{brnchCmpny,jdbcType=CHAR},
+      </if>
+      <if test="department != null" >
+        department = #{department,jdbcType=CHAR},
+      </if>
+      <if test="sgnAddrss != null" >
+        sgn_addrss = #{sgnAddrss,jdbcType=VARCHAR},
+      </if>
+      <if test="sgnDt != null" >
+        sgn_dt = #{sgnDt,jdbcType=CHAR},
+      </if>
+      <if test="cntrctType != null" >
+        cntrct_type = #{cntrctType,jdbcType=CHAR},
+      </if>
+      <if test="cntrctBgn != null" >
+        cntrct_bgn = #{cntrctBgn,jdbcType=CHAR},
+      </if>
+      <if test="cntrctEnd != null" >
+        cntrct_end = #{cntrctEnd,jdbcType=CHAR},
+      </if>
+      <if test="slryCrd != null" >
+        slry_crd = #{slryCrd,jdbcType=CHAR},
+      </if>
+      <if test="expnsCrd != null" >
+        expns_crd = #{expnsCrd,jdbcType=CHAR},
+      </if>
+      <if test="stffState != null" >
+        stff_state = #{stffState,jdbcType=CHAR},
+      </if>
+      <if test="grdtSchl != null" >
+        grdt_schl = #{grdtSchl,jdbcType=VARCHAR},
+      </if>
+      <if test="schlRcrd != null" >
+        schl_rcrd = #{schlRcrd,jdbcType=CHAR},
+      </if>
+      <if test="grdtDt != null" >
+        grdt_dt = #{grdtDt,jdbcType=CHAR},
+      </if>
+      <if test="ntUnt != null" >
+        nt_unt = #{ntUnt,jdbcType=CHAR},
+      </if>
+      <if test="tchnldgLv != null" >
+        tchnldg_lv = #{tchnldgLv,jdbcType=CHAR},
+      </if>
+      <if test="idntfyUnt != null" >
+        idntfy_unt = #{idntfyUnt,jdbcType=VARCHAR},
+      </if>
+      <if test="accntType != null" >
+        accnt_type = #{accntType,jdbcType=CHAR},
+      </if>
+      <if test="accntState != null" >
+        accnt_state = #{accntState,jdbcType=CHAR},
+      </if>
+      <if test="wtrItm != null" >
+        wtr_itm = #{wtrItm,jdbcType=CHAR},
+      </if>
+      <if test="wtrOrdr != null" >
+        wtr_ordr = #{wtrOrdr,jdbcType=CHAR},
+      </if>
+    </set>
+    where sqnc_nmbr = #{sqncNmbr,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.StaffInfo" >
+    update staff_info
+    set stff_id = #{stffId,jdbcType=CHAR},
+      name = #{name,jdbcType=CHAR},
+      age = #{age,jdbcType=INTEGER},
+      sex = #{sex,jdbcType=CHAR},
+      cellphone = #{cellphone,jdbcType=CHAR},
+      email = #{email,jdbcType=CHAR},
+      id_crd = #{idCrd,jdbcType=CHAR},
+      hshld_addrss = #{hshldAddrss,jdbcType=VARCHAR},
+      nation = #{nation,jdbcType=CHAR},
+      lv_addrss = #{lvAddrss,jdbcType=VARCHAR},
+      brnch_cmpny = #{brnchCmpny,jdbcType=CHAR},
+      department = #{department,jdbcType=CHAR},
+      sgn_addrss = #{sgnAddrss,jdbcType=VARCHAR},
+      sgn_dt = #{sgnDt,jdbcType=CHAR},
+      cntrct_type = #{cntrctType,jdbcType=CHAR},
+      cntrct_bgn = #{cntrctBgn,jdbcType=CHAR},
+      cntrct_end = #{cntrctEnd,jdbcType=CHAR},
+      slry_crd = #{slryCrd,jdbcType=CHAR},
+      expns_crd = #{expnsCrd,jdbcType=CHAR},
+      stff_state = #{stffState,jdbcType=CHAR},
+      grdt_schl = #{grdtSchl,jdbcType=VARCHAR},
+      schl_rcrd = #{schlRcrd,jdbcType=CHAR},
+      grdt_dt = #{grdtDt,jdbcType=CHAR},
+      nt_unt = #{ntUnt,jdbcType=CHAR},
+      tchnldg_lv = #{tchnldgLv,jdbcType=CHAR},
+      idntfy_unt = #{idntfyUnt,jdbcType=VARCHAR},
+      accnt_type = #{accntType,jdbcType=CHAR},
+      accnt_state = #{accntState,jdbcType=CHAR},
+      wtr_itm = #{wtrItm,jdbcType=CHAR},
+      wtr_ordr = #{wtrOrdr,jdbcType=CHAR}
+    where sqnc_nmbr = #{sqncNmbr,jdbcType=INTEGER}
+  </update>
+</mapper>
