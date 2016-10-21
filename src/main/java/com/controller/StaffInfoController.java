@@ -4,14 +4,15 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.math.BigDecimal;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.*;
 
 import com.model.StaffInfo;
-import com.util.ExcelToMysql;
+import com.service.IStaffInfoService;
+import com.util.DateUtil;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -21,15 +22,15 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;   // allow Spring injection
 import org.springframework.stereotype.Controller;   // allow controller
-import org.springframework.ui.Model;   // allow model
 import org.springframework.web.bind.annotation.RequestMapping;   // allow map tag
-import org.springframework.web.bind.annotation.RequestParam;   // allow using name to pass argument
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.service.IStaffInfoService;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -45,19 +46,90 @@ public class StaffInfoController {
     private IStaffInfoService userInfoService;
 
     @RequestMapping("/testMethod.do")
-    public String getAllStaff(Map<String,Object> map,HttpServletRequest request){
+    public String getAllUser(Map<String,Object> map,HttpServletRequest request){
         List<StaffInfo> userDtoList = new ArrayList<StaffInfo>();
-        //int index = Integer.parseInt(request.getParameter("index"));
-        //int page = Integer.parseInt(request.getParameter("page"));
-        int id = 0;
-        if (request.getParameter("name")!= null) {
-            id = Integer.parseInt(request.getParameter("name"));
+
+
+        map.put("listUser", userDtoList);
+        return "/UserInfo";
+    }
+    @RequestMapping("/import.do")
+    public String ImportUser(Map<String,Object> map,HttpServletRequest request){
+        List<StaffInfo> userDtoList = new ArrayList<StaffInfo>();
+
+
+        map.put("listUser", userDtoList);
+        return "/ImportUser";
+    }
+    @RequestMapping("/importMethod.do")
+    public ModelAndView upload2(HttpServletRequest request, HttpServletResponse response) throws IllegalStateException, IOException {
+        Map<String,Object> map = new HashMap<String,Object>();
+        List<String> filelist = new ArrayList<String>();
+        try {
+            String tab = request.getParameter("tab");
+            String fileans = "";
+            map.put("tab",tab);
+            //创建一个通用的多部分解析器
+            CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
+            //判断 request 是否有文件上传,即多部分请求
+            if (multipartResolver.isMultipart(request)) {
+                //转换成多部分request
+                MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
+                //取得request中的所有文件名
+                Iterator<String> iter = multiRequest.getFileNames();
+                while (iter.hasNext()) {
+                    //记录上传过程起始时的时间，用来计算上传时间
+                    int pre = (int) System.currentTimeMillis();
+                    //取得上传文件
+                    MultipartFile file = multiRequest.getFile(iter.next());
+                    if (file != null) {
+                        //取得当前上传文件的文件名称
+                        String myFileName = file.getOriginalFilename();
+                        //如果名称不为“”,说明该文件存在，否则说明该文件不存在
+                        if (myFileName.trim() != "") {
+                            System.out.println(myFileName);
+                            String time = DateUtil.getCurrentTimeMillis();
+                            //重命名上传后的文件名
+                            String fileName = time + "_" + file.getOriginalFilename();
+                            //定义上传路径
+                            //String path = "H:/" + fileName;
+                            String path = request.getSession().getServletContext().getRealPath("upload/") + "/" +fileName;
+                            File localFile = new File(path);
+                            //创建失败
+                            if (!localFile.exists()&&!localFile.isDirectory()){
+                                localFile.mkdir();
+                            }
+                            file.transferTo(localFile);
+                            filelist.add(path);
+                            fileans += file.getOriginalFilename() + "<br/>";
+                        }
+                    }
+                    //记录上传该文件后的时间
+                    int finaltime = (int) System.currentTimeMillis();
+                    System.out.println(finaltime - pre);
+                }
+            }
+
+            //=========导入成功后处理excel
+            for (String path:filelist){
+                boolean ck = checkFile(path);
+                if (ck) {
+                    map.put("validate","文件验证通过！");
+                } else {
+                    map.put("validate","文件验证失败！");
+                    break;
+                }
+                //添加文件到数据库
+                //map.putAll(xxxMethod(path));
+            }
+
+            map.put("filename",fileans);
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            map.put("error",e.toString());
         }
-        userDtoList.add(userInfoService.selectStaffByID(id));
-
-        map.put("listStaff", userDtoList);
-
-        return "/StaffInfo";
+        return new ModelAndView("/ImportUser",map);
     }
 
     /**
@@ -67,7 +139,7 @@ public class StaffInfoController {
      * @throws IOException
      */
     @RequestMapping(value = "/login.do", method = RequestMethod.POST)
-    public @ResponseBody Map<String,Object> login(@RequestBody StaffInfo user) throws IOException {
+    public @ResponseBody Map<String,Object> login1(@RequestBody StaffInfo user, HttpServletRequest request, HttpServletResponse response) throws IOException {
         //查询指定id，填充进map
         List<StaffInfo> list = userInfoService.searchStaffInfoByEntity(user);
         Map<String,Object> map = new HashMap<String,Object>();

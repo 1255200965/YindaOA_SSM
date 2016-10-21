@@ -14,9 +14,8 @@
 }
 .hover {
 	background:#2d83dd; 
-	color::#FFF;
+	color:#FFF;
 }
-a{color:#fff;}
 #menu {
 }
 #menu ul li {
@@ -38,7 +37,7 @@ a{color:#fff;}
 }
 #menu ul li a:hover{
 	background:#2d83dd; 
-	color::#FFF;
+	color:#FFF;
 }
 
 .top-right{ width:161px; float:right;  height:55px;}

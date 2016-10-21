@@ -7,12 +7,17 @@
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String path = request.getContextPath();
+    String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 <html>
 <link type="text/css" rel="stylesheet" href="../stylesheets/style.css" />
 <link href="../stylesheets/bootstrap.min.css" rel="stylesheet" />
 <link href="../stylesheets/bootstrap-theme.min.css" rel="stylesheet" />
 <link href="../stylesheets/bootstrap-treeview.min.css" rel="stylesheet" />
 <link href="../stylesheets/shujutongji.css" rel="stylesheet" />
+<link href="../stylesheets/ddcss.css" rel="stylesheet" />
 <script type="text/javascript" src="../javascripts/jquery-1.10.2.js"></script>
 <script type="text/javascript" src="../javascripts/bootstrap.min.js"></script>
 <script type="text/javascript" src="../javascripts/bootstrap-treeview.min.js"></script>
@@ -23,7 +28,7 @@
     function ajaxTest(){
         $.ajax({
             data:"name="+$("#nr1").val(),
-            type:"get",
+            type:"post",
             dataType: 'json',
             url:"../userinfo/login.do",
             error:function(data){
@@ -134,8 +139,9 @@
             }
             //查询成员列表（部门，姓名，电话，工号）
             self.GetUserByQuery = function(){
+                if (nowDep != null){var depid = nowDep.id;} else {depid = null;}
                 $.ajax({
-                    data:JSON.stringify(new UserModel(nowDep.id,$("#search_name").val(),$("#search_workid").val(),$("#search_phone").val())),
+                    data:JSON.stringify(new UserModel(depid,$("#search_name").val(),$("#search_workid").val(),$("#search_phone").val())),
                     type:"post",
                     headers: { 'Content-Type': 'application/json' },
                     dataType: 'json',
@@ -213,12 +219,11 @@
             }
             //点击事件-点击清空搜索项
             self.ClickClear = function() {
-                /*                searchlab = 0;
-                 $("#nr1").val("");
-                 $("#zzs1").val("");
-                 $("#stfx1").val("");
-                 $("#sh1").val("");
-                 $("#nd1").val("");*/
+
+                 $("#search_name").val("");
+                 $("#search_workid").val("");
+                 $("#search_phone").val("");
+
             }
             //点击事件-模态框确定
             self.ClickModelYes = function() {
@@ -254,11 +259,12 @@
                     data: tree,
                     onNodeSelected: function (event, data) {
                         nowDep = data;
-                        self.clickNode1(event, data);
+                        self.chooseDep();
+                        //self.clickNode1(event, data);
                     },
                     onNodeUnselected: function (event, data) {
                         nowDep = null;
-                        self.clickNode1(event, data);
+                        //self.clickNode1(event, data);
                     }
                 });
                 $('#tree').treeview('collapseAll');
@@ -291,72 +297,24 @@
         ko.applyBindings(new ViewModel);
     });
     function UserModel(depid,name,workid,cellphone) {
-        this.sequenceNum = null;
+        this.sqncNmbr = null;
         this.name = name;
         this.age = null;
         this.sex = null;
         this.department = depid;
-        this.idcard = workid;
+        this.idCrd = workid;
         this.cellphone = cellphone;
-        this.userId = null;
-        this.userState = null;
-        this.mail = null;
+        this.stffId = null;
+        this.stffState = null;
+        this.email = null;
         return this;
-    }
-    function GetUrl(id) {
-        var ans = "Login";
-        switch (id) {
-            case 1: ans = "UpLoad"; break;
-            case 2: ans = "ViewTable"; break;
-            case 3: ans = "ShowStat"; break;
-            case 4: ans = "ShowRepeat"; break;
-            case 5: ans = "ShowTree"; break;
-        }
-        var url = location.search;
-        if (url.indexOf("?") != -1) {
-            var s = url.indexOf("?");
-            ans += url.substring(s);// t就是?后面的东西了
-        }
-        return ans;
     }
 </script>
 
 <head>
-    <title>Title</title>
+    <title>通讯录查看</title>
 </head>
 <body>
-<%--
-
-<div style="width:30%;height:500px;background-color: #1b6d85;float:left">
-    <input type="text" name="name" id="name"/>
-    <input type="submit" value="登录" onclick="ajaxTest();"/>
-    <input type="submit" value="更新" onclick=""/>
-    <div id="result"></div>
-</div>
-
-<div style="width:70%;height:500px;background-color: #5cb85c;float:left">
-    <table border="1">
-        <tbody>
-        <tr>
-            <th>姓名</th>
-            <th>工号</th>
-            <th>电话</th>
-            <th>邮箱</th>
-        </tr>
-        <c:if test="${!empty listUser }">
-            <c:forEach items="${listUser}" var="list">
-                <tr>
-                    <td>${list.name }</td>
-                    <td>${list.idcard }</td>
-                    <td>${list.cellphone }</td>
-                    <td>${list.mail }</td>
-                </tr>
-            </c:forEach>
-        </c:if>
-        </tbody>
-    </table>
-</div>
---%>
 
 <div class="container-fluid">
     <div class="row-fluid top-tiku">
@@ -367,40 +325,29 @@
             <script language="javascript">          function switchMenustyle(num) { for (var id = 1; id <= 5; id++) { if (id == num) { document.getElementById("mynav" + id).className = "hover"; } else { document.getElementById("mynav" + id).className = ""; } } }          </script>
             <div id="menu">
                 <ul>
-                    <li ><a  id="mynav1" onclick="switchMenustyle(1)"data-bind="attr: { href: GetUrl(1)}">人员导入 </a></li>
-                    <li><a  class="hover" id="mynav2" onclick="switchMenustyle(2)"data-bind="attr: { href: GetUrl(2)}"> 通讯录 </a></li>
-                    <li ><a  id="mynav3" onclick="switchMenustyle(3)" data-bind="attr: { href: GetUrl(3)}">人员统计 </a></li>
-                    <li ><a  id="mynav4" onclick="switchMenustyle(4)" data-bind="attr: { href: GetUrl(4)}"> 部门统计</a></li>
-                    <li ><a  id="mynav5" onclick="switchMenustyle(5)"data-bind="attr: { href: GetUrl(5)}"> 趋势统计</a></li>
+                    <li ><a  id="mynav1" onclick="switchMenustyle(1)"data-bind="attr: { href: '<%=basePath%>userinfo/import.do'}">人员导入 </a></li>
+                    <li><a  class="hover" id="mynav2" onclick="switchMenustyle(2)"data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}"> 通讯录 </a></li>
+                    <li ><a  id="mynav3" onclick="switchMenustyle(3)" data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">人员统计 </a></li>
+                    <li ><a  id="mynav4" onclick="switchMenustyle(4)" data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}"> 部门统计</a></li>
+                    <li ><a  id="mynav5" onclick="switchMenustyle(5)"data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}"> 趋势统计</a></li>
                 </ul>
             </div>
         </div>
         <div class="top-right">
-            <p>欢迎您！<span >张三三</span></p>
-            <a href="Login"><img src="../images/guanbi.png" /></a> </div>
+            <p>欢迎您！<span >管理员</span></p>
+            <a href=""><img src="../images/guanbi.png" /></a> </div>
     </div>
-    <div class="row-fluid">
-        <div class="col-md-2" >
-<%--            <ul class="nav nav-stacked nav-pills">
-                <li class="active">
-                    <a href="#">人事部</a>
-                </li>
-                <li>
-                    <a href="#">财务部</a>
-                </li>
-                <li class="disabled">
-                    <a href="#">创新部</a>
-                </li>
-
-            </ul>--%>
+    <div class="row-fluid c_box" style="width:100%;">
+        <div class="col-md-2 c_left_box" >
+            <div style="margin-top:3%"></div>
             <div id="tree"></div>
 
         </div>
-        <div class="col-md-10" >
-            <div class="caidan-tiku" style="margin-bottom:2%">
-                <div style="float:left">
+        <div class="col-md-10 c_right_box" >
+            <div class="caidan-tiku" style="margin-bottom:3%">
+<%--                <div style="float:left">
                     <input data-bind="click:$root.ClickAdd" type="button" value="新增"  class="chaxun">
-                </div>
+                </div>--%>
                 <div class="caidan-tiku-s" style="margin-right:5%"> <span>姓名：</span>
                     <input id="search_name" type="text" name="name" class="shuruk-a2" placeholder="">
                 </div>
@@ -422,18 +369,17 @@
                     <input  data-bind="click:$root.ClickClear" type="button" value="清空"  class="chaxun" style="background:#fd9162">
                 </div>
             </div>
-            <table style="margin-top:15px;" width="95%" border="1" cellspacing="0" cellpadding="0" class="table-1">
+            <table  width="95%" border="1" cellspacing="0" cellpadding="0" class="table-1">
                 <tr class="table-1-tou">
-                    <td width="5%">编号 </td>
-                    <td width="38%">姓名</td>
-                    <td width="5%">工号</td>
-                    <td width="5%"> 部门 </td>
+                    <td width="7%">编号 </td>
+                    <td width="7%">姓名</td>
+                    <td width="7%">工号</td>
+                    <td width="7%"> 部门 </td>
                     <td width="7%">手机号 </td>
                     <td width="7%"> 邮箱 </td>
                     <td width="7%"> 相关信息 </td>
                     <td width="7%"> 状态 </td>
-                    <td width="12%"> 操作 </td>
-                    <td width="7%">审核 </td>
+                    <td width="7%"> 操作 </td>
                 </tr>
                 <tbody data-bind="foreach:ShowList">
                 <tr >
@@ -445,13 +391,24 @@
                     <td data-bind="text:mail">所属知识</td>
                     <td data-bind="text:userId">修改者</td>
                     <td data-bind="text:userState">审核状态</td>
-                    <td><input data-bind="click:$root.ClickUpdate" type="button" value="更新" class="gx-btn"/><input  data-bind="click:$root.ClickDelete" type="button" value="删除" class="gx-btn" style="background:#fd9162;"/></td>
-                    <td><input  type="button" value="审核" class="gx-btn" style="background:#fab807;"/></td>
+                    <td>
+                        <input data-bind="click:$root.ClickUpdate" type="button" value="更新" class="gx-btn"/>
+                        <input  data-bind="click:$root.ClickDelete" type="button" value="删除" class="gx-btn" style="background:#fd9162;"/>
+                    </td>
 
                 </tr>
                 </tbody>
             </table>
         </div>
+    </div>
+    <div class="row-fluid">
+        <div class="footer" data-reactid=".0.a">
+            <div style="margin-bottom:5px;" data-reactid=".0.a.0">
+            <span data-reactid=".0.a.0.0">
+                <img width="11px" src="https://gw.alicdn.com/tps/TB14UngLXXXXXXQapXXXXXXXXXX-22-26.png" data-reactid=".0.a.0.0.0"></span>
+                <span data-reactid=".0.a.0.1">上海音达科技实业有限公司</span></div>
+
+    </div>
     </div>
 </div>
 <!-- Button trigger modal -->
@@ -460,46 +417,82 @@
 </button>
 <div class="container">
     <!-- Modal -->
-    <div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false">
-        <div class="modal-dialog " style="width:80%;margin-left: 10%;margin-top:0%" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false">
+        <div class="modal-dialog c_side_modal_box"  role="document" style="margin: 0px;">
+            <div class="modal-content c_side_modal " >
+                <div class="modal-header c_modal_head">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel">用户信息详情</h4>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body c_modal_body">
                     <div data-bind="with:changeItem">
-                                <span style="margin-bottom: 10px;" class="input-group">
-                                    <span class="input-group-addon">姓名:</span><input id="bt" class="form-control" style="width:95%" data-bind="textinput:name" />
-                                </span>
+                        <div class="c_action_content" >手机端展示信息</div>
+                        <div class="c_ding_form" >
+                            <div class="c_ding_form_group" >
+                                <label><i class="iconfont c_ding_from_icon" >*</i><span >姓名:</span></label>
+                                <div class="input_content" >
+                                    <input class="c_ding_input" data-bind="textinput:name"/>
+                                </div>
+                            </div>
 
-<%--                        <div style="margin-bottom: 5px;" class="input-group">
-                            <span class="input-group-addon">难度:</span><select id="nd" class="form-control" style="border: 1px solid #621313; width:60px; margin-right:5px;" data-bind="options: [1,2,3,4,5,6,7,8,9], optionsText: function (item) {  return item;},textinput:难度,optionsCaption:''"></select>
-                            <span style="margin-left: 2px;" class="input-group-addon">题目类型:</span><select id="tx" class="form-control" style="border: 1px solid #621313; width:100px; margin-right:5px;" data-bind="options: ['单选题','多选题','判断题'], optionsText: function (item) {  return item;},textinput:题型,optionsCaption:''"></select>
-                            <span style="margin-left: 2px;" class="input-group-addon">题目分类:</span><input class="form-control" style="width: 80%" id="class" data-bind="textinput:题目分类,click:function(){$root.CilckClass(1);}" />
-                            <span style="margin-left: 2px;" class="input-group-addon"><button data-bind="click:function(){$root.CilckTree(1);}">知识树编号</button>:</span><input class="form-control" style="width: 80%" id="zzs" data-bind="textinput:知识树编号" />
-                        </div>--%>
-                        <div style="margin-bottom: 10px;" class="input-group">
-                            <span style="margin-left: 2px;" class="input-group-addon">工号:</span><input class="form-control" style="width: 80%" id="da" data-bind="textinput:idcard" />
-                            <span style="margin-left: 2px;" class="input-group-addon">电话:</span><input class="form-control" style="width: 80%" id="sszz" data-bind="textinput:cellphone" />
+                            <div class="c_ding_form_group" >
+                                <label><i class="iconfont c_ding_from_icon" >*</i><span >电话:</span></label>
+                                <div class="input_content" >
+                                    <input class="c_ding_input" data-bind="textinput:cellphone"/>
+                                </div>
+                            </div>
+                            <div class="c_ding_form_group" >
+                                <label><i class="iconfont c_ding_from_icon" ></i><span >部门:</span></label>
+                                <div class="input_content" >
+                                    <input class="c_ding_input" data-bind="textinput:department"/>
+                                </div>
+                            </div>
+                            <div class="c_ding_form_group" >
+                                <label><i class="iconfont c_ding_from_icon" ></i><span >邮箱:</span></label>
+                                <div class="input_content" >
+                                    <input class="c_ding_input" data-bind="textinput:email"/>
+                                </div>
+                            </div>
+                            <div class="c_ding_form_group" >
+                                <label><i class="iconfont c_ding_from_icon" ></i><span >合同类型:</span></label>
+                                <div class="input_content" >
+                                    <input class="c_ding_input" data-bind="textinput:cntrctType"/>
+                                </div>
+                            </div>
                         </div>
-                        <div style="margin-bottom: 5px;" class="input-group">
-                            <span style="margin-left: 2px;" class="input-group-addon">部门:</span><input class="form-control" style="width:80%" id="kxda1" data-bind="textinput:department" />
-                            <span style="margin-left: 2px;" class="input-group-addon">邮箱:</span><input class="form-control" style="width:80%" id="kxda2" data-bind="textinput:mail" />
+                        <div class="c_action_content" >手机端不展示信息</div>
+                        <div class="c_ding_form" >
+                            <div class="c_ding_form_group" >
+                                <label><i class="iconfont c_ding_from_icon" ></i><span >工号:</span></label>
+                                <div class="input_content" >
+                                    <input class="c_ding_input" data-bind="textinput:idCrd"/>
+                                </div>
+                            </div>
+                            <div class="c_ding_form_group" >
+                                <label><i class="iconfont c_ding_from_icon" ></i><span >职位:</span></label>
+                                <div class="input_content" >
+                                    <input class="c_ding_input" data-bind="textinput:techLevel"/>
+                                </div>
+                            </div>
+                            <div class="c_ding_form_group" >
+                                <label><i class="iconfont c_ding_from_icon" ></i><span >钉钉id:</span></label>
+                                <div class="input_content" >
+                                    <input class="c_ding_input" data-bind="textinput:stffId"/>
+                                </div>
+                            </div>
+                            <div class="c_ding_form_group" >
+                                <label><i class="iconfont c_ding_from_icon" ></i><span >用户状态:</span></label>
+                                <div class="input_content" >
+                                    <input class="c_ding_input" data-bind="textinput:userState"/>
+                                </div>
+                            </div>
                         </div>
-                        <div style="margin-bottom: 5px;" class="input-group">
-                            <span style="margin-left: 2px;" class="input-group-addon">钉钉id:</span><input class="form-control" style="width: 80%" id="kxda3" data-bind="textinput:userId" />
-                            <span style="margin-left: 2px;" class="input-group-addon">用户状态:</span><input class="form-control" style="width: 80%" id="kxda4" data-bind="textinput:userState" />
-                        </div>
-
-
 
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button id="close1" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-bind="click:$root.ClickModelYes">提交</button>
-                    <button type="button" class="btn btn-primary">审核</button>
+                <div class="modal-footer c_modal_foot">
+                    <button id="close1" type="button" class="c_ding_btn" data-dismiss="modal">Close</button>
+                    <button type="button" class="c_ding_btn c_ding_btn_primary" data-bind="click:$root.ClickModelYes">提交</button>
                 </div>
             </div>
         </div>
