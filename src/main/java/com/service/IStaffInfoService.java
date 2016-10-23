@@ -2,7 +2,9 @@ package com.service;
 
 import com.model.StaffInfo;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by ma on 2016/10/15.
@@ -23,5 +25,8 @@ public interface IStaffInfoService {
     int updateStaffByID(StaffInfo record);
     /*通过工号来查询员工信息*/
     List<StaffInfo> searchStaffInfoByEntity(StaffInfo staffInfo);
+
+    /*插入从excel行得到的实体类*/
+    Map<String, Object> insert(String fileDir) throws IOException;
 
 }

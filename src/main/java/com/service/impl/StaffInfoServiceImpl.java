@@ -17,7 +17,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -97,8 +99,11 @@ public class StaffInfoServiceImpl implements IStaffInfoService{
      * @return
      * @throws IOException
      */
-    public List<StaffInfo> insert(String fileDir) throws IOException {
+    public Map<String, Object> insert(String fileDir) throws IOException {
+        Map<String, Object> map = new HashMap<String, Object>();
         List<StaffInfo> listFail = new ArrayList<StaffInfo>();
+        int successAmount = 0;
+
         File file = new File(fileDir);
         InputStream is = new FileInputStream(file);
         XSSFWorkbook xssfWorkbook = new XSSFWorkbook(is);
@@ -149,7 +154,7 @@ public class StaffInfoServiceImpl implements IStaffInfoService{
             List<StaffInfo> listAdd = staffInfoMapper.selectByExample(staffInfoExample);
 
             if (listAdd.size() != 0) {   // 说明有重样的
-                listFail.addAll(listAdd);
+                listFail.add(staffInfo);
                 continue;
             }
 
@@ -158,7 +163,13 @@ public class StaffInfoServiceImpl implements IStaffInfoService{
             } catch (Exception e) {
                 listFail.add(staffInfo);
             }
+
+            // 到了这里都没有出问题，说明成功！
+            successAmount++;
         }
-        return listFail;
+        // 循环结束后，把成功数目和失败列表返回到map
+        map.put("successAmount", successAmount);
+        map.put("listFail", listFail);
+        return map;
     }
 }

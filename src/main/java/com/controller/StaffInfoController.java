@@ -49,14 +49,12 @@ public class StaffInfoController {
     public String getAllUser(Map<String,Object> map,HttpServletRequest request){
         List<StaffInfo> userDtoList = new ArrayList<StaffInfo>();
 
-
         map.put("listUser", userDtoList);
         return "/UserInfo";
     }
     @RequestMapping("/import.do")
     public String ImportUser(Map<String,Object> map,HttpServletRequest request){
         List<StaffInfo> userDtoList = new ArrayList<StaffInfo>();
-
 
         map.put("listUser", userDtoList);
         return "/ImportUser";
@@ -120,7 +118,8 @@ public class StaffInfoController {
                     break;
                 }
                 //添加文件到数据库
-                //map.putAll(xxxMethod(path));
+                Map<String, Object> map2 = userInfoService.insert(path);
+                map.putAll(map2);
             }
 
             map.put("filename",fileans);
@@ -190,36 +189,37 @@ public class StaffInfoController {
         XSSFSheet xssfSheet = xssfWorkbook.getSheetAt(0);
         XSSFRow xssfRow = xssfSheet.getRow(0);
 
-        if (xssfRow.getCell(0).toString() != "员工号") return false;
-        if (xssfRow.getCell(1).toString() != "姓名") return false;
-        if (xssfRow.getCell(2).toString() != "年龄") return false;
-        if (xssfRow.getCell(3).toString() != "性别") return false;
-        if (xssfRow.getCell(4).toString() != "联系电话") return false;
-        if (xssfRow.getCell(5).toString() != "邮箱") return false;
-        if (xssfRow.getCell(6).toString() != "身份证号") return false;
-        if (xssfRow.getCell(7).toString() != "户籍地址") return false;
-        if (xssfRow.getCell(8).toString() != "民族") return false;
-        if (xssfRow.getCell(9).toString() != "常住地址") return false;
-        if (xssfRow.getCell(10).toString() != "分公司") return false;
-        if (xssfRow.getCell(11).toString() != "部门") return false;
-        if (xssfRow.getCell(12).toString() != "签到地点") return false;
-        if (xssfRow.getCell(13).toString() != "入职日期") return false;
-        if (xssfRow.getCell(14).toString() != "合同类型") return false;
-        if (xssfRow.getCell(15).toString() != "最新合同起始日期") return false;
-        if (xssfRow.getCell(16).toString() != "最新合同结束日期") return false;
-        if (xssfRow.getCell(17).toString() != "工资卡") return false;
-        if (xssfRow.getCell(18).toString() != "报销卡") return false;
-        if (xssfRow.getCell(19).toString() != "员工状态") return false;
-        if (xssfRow.getCell(20).toString() != "毕业院校") return false;
-        if (xssfRow.getCell(21).toString() != "最高学历") return false;
-        if (xssfRow.getCell(22).toString() != "毕业日期") return false;
-        if (xssfRow.getCell(23).toString() != "网元") return false;
-        if (xssfRow.getCell(24).toString() != "技术等级") return false;
-        if (xssfRow.getCell(25).toString() != "认证单位") return false;
-        if (xssfRow.getCell(26).toString() != "账号类型") return false;
-        if (xssfRow.getCell(27).toString() != "账号状态") return false;
-        if (xssfRow.getCell(28).toString() != "WTR项目") return false;
-        if (xssfRow.getCell(29).toString() != "WTR订单") return false;
+        if (!xssfRow.getCell(0).toString().equals("员工号")) return false;
+        if (!xssfRow.getCell(1).toString().equals("姓名")) return false;
+        if (!xssfRow.getCell(2).toString().equals("年龄")) return false;
+        if (!xssfRow.getCell(0).toString().equals("员工号")) return false;
+        if (!xssfRow.getCell(3).toString().equals("性别")) return false;
+        if (!xssfRow.getCell(4).toString().equals("联系电话")) return false;
+        if (!xssfRow.getCell(5).toString().equals("邮箱")) return false;
+        if (!xssfRow.getCell(6).toString().equals("身份证号")) return false;
+        if (!xssfRow.getCell(7).toString().equals("户籍地址")) return false;
+        if (!xssfRow.getCell(8).toString().equals("民族")) return false;
+        if (!xssfRow.getCell(9).toString().equals("常住地址")) return false;
+        if (!xssfRow.getCell(10).toString().equals("分公司")) return false;
+        if (!xssfRow.getCell(11).toString().equals("部门")) return false;
+        if (!xssfRow.getCell(12).toString().equals("签到地点")) return false;
+        if (!xssfRow.getCell(13).toString().equals("入职日期")) return false;
+        if (!xssfRow.getCell(14).toString().equals("合同类型")) return false;
+        if (!xssfRow.getCell(15).toString().equals("最新合同起始日期")) return false;
+        if (!xssfRow.getCell(16).toString().equals("最新合同结束日期")) return false;
+        if (!xssfRow.getCell(17).toString().equals("工资卡")) return false;
+        if (!xssfRow.getCell(18).toString().equals("报销卡")) return false;
+        if (!xssfRow.getCell(19).toString().equals("员工状态")) return false;
+        if (!xssfRow.getCell(20).toString().equals("毕业院校")) return false;
+        if (!xssfRow.getCell(21).toString().equals("最高学历")) return false;
+        if (!xssfRow.getCell(22).toString().equals("毕业日期")) return false;
+        if (!xssfRow.getCell(23).toString().equals("网元")) return false;
+        if (!xssfRow.getCell(24).toString().equals("技术等级")) return false;
+        if (!xssfRow.getCell(25).toString().equals("认证单位")) return false;
+        if (!xssfRow.getCell(26).toString().equals("账号类型")) return false;
+        if (!xssfRow.getCell(27).toString().equals("账号状态")) return false;
+        if (!xssfRow.getCell(28).toString().equals("WTR项目")) return false;
+        if (!xssfRow.getCell(29).toString().equals("WTR订单")) return false;
         return true;
     }
 
