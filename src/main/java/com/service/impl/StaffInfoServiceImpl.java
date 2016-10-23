@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -90,21 +91,29 @@ public class StaffInfoServiceImpl implements IStaffInfoService{
         return list;
     }
 
-    public boolean insert(String fileDir) throws IOException {
+    /**
+     * 插入从excel行得到的实体类
+     * @param fileDir
+     * @return
+     * @throws IOException
+     */
+    public List<StaffInfo> insert(String fileDir) throws IOException {
+        List<StaffInfo> listFail = new ArrayList<StaffInfo>();
         File file = new File(fileDir);
         InputStream is = new FileInputStream(file);
         XSSFWorkbook xssfWorkbook = new XSSFWorkbook(is);
         XSSFSheet xssfSheet = xssfWorkbook.getSheetAt(0);
-        XSSFRow xssfRow = xssfSheet.getRow(0);
 
-        for (int i=0; i<xssfRow.getRowNum(); i++) {
+        for (int i=0; i<xssfSheet.getLastRowNum(); i++) {
+            // 得到当前行
+            XSSFRow xssfRow = xssfSheet.getRow(i);
             StaffInfo staffInfo = new StaffInfo();
-            staffInfo.setStffId(xssfRow.getCell(0).toString());
-            staffInfo.setName(xssfRow.getCell(1).toString());
+            staffInfo.setStffId(xssfRow.getCell(0).getStringCellValue());
+            staffInfo.setName(xssfRow.getCell(1).getStringCellValue());
             staffInfo.setAge((int)(xssfRow.getCell(2).getNumericCellValue()));
-            staffInfo.setSex(xssfRow.getCell(3).toString());
-            staffInfo.setCellphone(xssfRow.getCell(4).toString());
-            staffInfo.setEmail(xssfRow.getCell(5).toString());
+            staffInfo.setSex(xssfRow.getCell(3).getStringCellValue());
+            staffInfo.setCellphone(xssfRow.getCell(4).getStringCellValue());
+            staffInfo.setEmail(xssfRow.getCell(5).getStringCellValue());
             staffInfo.setIdCrd(xssfRow.getCell(6).toString());
             staffInfo.setHshldAddrss(xssfRow.getCell(7).toString());
             staffInfo.setNation(xssfRow.getCell(8).toString());
@@ -130,12 +139,12 @@ public class StaffInfoServiceImpl implements IStaffInfoService{
             staffInfo.setWtrItm(xssfRow.getCell(28).toString());
             staffInfo.setWtrOrdr(xssfRow.getCell(29).toString());
 
-            try {
+            try {   // 尝试性地向数据库插入从excel行得到的实体类
                 staffInfoMapper.insert(staffInfo);
             } catch (Exception e) {
-                return false;
+                listFail.add(staffInfo);
             }
         }
-        return true;
+        return listFail;
     }
 }
