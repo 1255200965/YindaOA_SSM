@@ -50,7 +50,7 @@ public class StaffInfoController {
 
         // 添加文件到数据库
         String path = "/home/baili/Documents/yindaTech/007.xlsx";
-        Map<String, Object> map = userInfoService.insertAndUpdate(path);
+        Map<String, Object> map = userInfoService.insert(path);
         Object obj = map.get("listFail");
         List<StaffInfo> list = (List<StaffInfo>)obj;
         System.out.println(map.get("successAmount"));

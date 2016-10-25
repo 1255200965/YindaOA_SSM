@@ -23,11 +23,8 @@ import java.util.Map;
 
 /**
  * Created by ma on 2016/10/15.
- * 现有问题：
- * 1.现在仅仅返回插入或更新失败的列表，并没有包含失败原因
- * 2.身份证号为空会报错
- * 3.excel全部设为文本型，很蛋疼
- * 4.数据库里的日期字段都是string类型，也蛋疼
+ * 说明：
+ * 1.excel中所有的数值列，如工号，年龄，身份证号，所有的日期，都必须输入为纯数字，一旦一个单元格冒泡，后面所有的item都无法更新。即还没完成对excel文件的校验
  */
 
 @Transactional
@@ -117,39 +114,46 @@ public class StaffInfoServiceImpl implements IStaffInfoService{
             // 得到当前行
             XSSFRow xssfRow = xssfSheet.getRow(i);
             StaffInfo staffInfo = new StaffInfo();
-            // 一定要先判空再赋值，不然会报空指针异常
-            if (xssfRow.getCell(0) != null) staffInfo.setStffId(xssfRow.getCell(0).toString());
+
+            if (xssfRow.getCell(0) != null) staffInfo.setStffId(String.valueOf((int)(xssfRow.getCell(0).getNumericCellValue())));
             if (xssfRow.getCell(1) != null) staffInfo.setName(xssfRow.getCell(1).toString());
-            if (xssfRow.getCell(2) != null) staffInfo.setAge(Integer.parseInt(xssfRow.getCell(2).toString()));
+            if (xssfRow.getCell(2) != null) staffInfo.setAge((int)(xssfRow.getCell(0).getNumericCellValue()));
             if (xssfRow.getCell(3) != null) staffInfo.setSex(xssfRow.getCell(3).toString());
-            if (xssfRow.getCell(4) != null) staffInfo.setCellphone(xssfRow.getCell(4).toString());
+            if (xssfRow.getCell(4) != null) staffInfo.setCellphone(String.valueOf((int)(xssfRow.getCell(4).getNumericCellValue())));
             if (xssfRow.getCell(5) != null) staffInfo.setEmail(xssfRow.getCell(5).toString());
-            if (xssfRow.getCell(6) != null) staffInfo.setIdCrd(xssfRow.getCell(6).toString());
             if (xssfRow.getCell(7) != null) staffInfo.setHshldAddrss(xssfRow.getCell(7).toString());
             if (xssfRow.getCell(8) != null) staffInfo.setNation(xssfRow.getCell(8).toString());
             if (xssfRow.getCell(9) != null) staffInfo.setLvAddrss(xssfRow.getCell(9).toString());
             if (xssfRow.getCell(10) != null) staffInfo.setBrnchCmpny(xssfRow.getCell(10).toString());
             if (xssfRow.getCell(11) != null) staffInfo.setDepartment(xssfRow.getCell(11).toString());
             if (xssfRow.getCell(12) != null) staffInfo.setSgnAddrss(xssfRow.getCell(12).toString());
-            if (xssfRow.getCell(13) != null) staffInfo.setSgnDt(xssfRow.getCell(13).toString());
+            if (xssfRow.getCell(13) != null) staffInfo.setSgnDt(String.valueOf((int)(xssfRow.getCell(13).getNumericCellValue())));
             if (xssfRow.getCell(14) != null) staffInfo.setCntrctType(xssfRow.getCell(14).toString());
-            if (xssfRow.getCell(15) != null) staffInfo.setCntrctBgn(xssfRow.getCell(15).toString());
-            if (xssfRow.getCell(16) != null) staffInfo.setCntrctEnd(xssfRow.getCell(16).toString());
-            if (xssfRow.getCell(17) != null) staffInfo.setSlryCrd(xssfRow.getCell(17).toString());
-            if (xssfRow.getCell(18) != null) staffInfo.setExpnsCrd(xssfRow.getCell(18).toString());
+            if (xssfRow.getCell(15) != null) staffInfo.setCntrctBgn(String.valueOf((int)(xssfRow.getCell(15).getNumericCellValue())));
+            if (xssfRow.getCell(16) != null) staffInfo.setCntrctEnd(String.valueOf((int)(xssfRow.getCell(16).getNumericCellValue())));
+            if (xssfRow.getCell(17) != null) staffInfo.setSlryCrd(String.valueOf((int)(xssfRow.getCell(17).getNumericCellValue())));
+            if (xssfRow.getCell(18) != null) staffInfo.setExpnsCrd(String.valueOf((int)(xssfRow.getCell(18).getNumericCellValue())));
             if (xssfRow.getCell(19) != null) staffInfo.setStffState(xssfRow.getCell(19).toString());
             if (xssfRow.getCell(20) != null) staffInfo.setGrdtSchl(xssfRow.getCell(20).toString());
             if (xssfRow.getCell(21) != null) staffInfo.setSchlRcrd(xssfRow.getCell(21).toString());
-            if (xssfRow.getCell(22) != null) staffInfo.setGrdtDt(xssfRow.getCell(22).toString());
+            if (xssfRow.getCell(22) != null) staffInfo.setGrdtDt(String.valueOf((int)(xssfRow.getCell(22).getNumericCellValue())));
             if (xssfRow.getCell(23) != null) staffInfo.setNtUnt(xssfRow.getCell(23).toString());
-            if (xssfRow.getCell(24) != null) staffInfo.setTchnldgLv(xssfRow.getCell(24).toString());
             if (xssfRow.getCell(25) != null) staffInfo.setIdntfyUnt(xssfRow.getCell(25).toString());
+            if (xssfRow.getCell(24) != null) staffInfo.setTchnldgLv(String.valueOf((int)(xssfRow.getCell(24).getNumericCellValue())));
             if (xssfRow.getCell(26) != null) staffInfo.setAccntType(xssfRow.getCell(26).toString());
             if (xssfRow.getCell(27) != null) staffInfo.setAccntState(xssfRow.getCell(27).toString());
             if (xssfRow.getCell(28) != null) staffInfo.setWtrItm(xssfRow.getCell(28).toString());
             if (xssfRow.getCell(29) != null) staffInfo.setWtrOrdr(xssfRow.getCell(29).toString());
 
-            // 如果身份证号相同，那么把该实体类返回到失败列表当中
+            // 判断身份证号，为空直接GG
+            if (xssfRow.getCell(6) != null) {
+                staffInfo.setIdCrd(xssfRow.getCell(6).toString());
+            } else {
+                listFail.add(staffInfo);
+                continue;
+            }
+
+            // 查找身份证号，如果相同就把该实体类返回到失败列表当中
             String idNo = xssfRow.getCell(6).toString();
             StaffInfoExample staffInfoExample = new StaffInfoExample();
             staffInfoExample.createCriteria().andIdCrdEqualTo(idNo);
@@ -196,37 +200,44 @@ public class StaffInfoServiceImpl implements IStaffInfoService{
             // 得到当前行
             XSSFRow xssfRow = xssfSheet.getRow(i);
             StaffInfo staffInfo = new StaffInfo();
-            // 一定要先判空再赋值，不然会报空指针异常
-            if (xssfRow.getCell(0) != null) staffInfo.setStffId(xssfRow.getCell(0).toString());
+
+            if (xssfRow.getCell(0) != null) staffInfo.setStffId(String.valueOf((int)(xssfRow.getCell(0).getNumericCellValue())));
             if (xssfRow.getCell(1) != null) staffInfo.setName(xssfRow.getCell(1).toString());
-            if (xssfRow.getCell(2) != null) staffInfo.setAge(Integer.parseInt(xssfRow.getCell(2).toString()));
+            if (xssfRow.getCell(2) != null) staffInfo.setAge((int)(xssfRow.getCell(0).getNumericCellValue()));
             if (xssfRow.getCell(3) != null) staffInfo.setSex(xssfRow.getCell(3).toString());
-            if (xssfRow.getCell(4) != null) staffInfo.setCellphone(xssfRow.getCell(4).toString());
+            if (xssfRow.getCell(4) != null) staffInfo.setCellphone(String.valueOf((int)(xssfRow.getCell(4).getNumericCellValue())));
             if (xssfRow.getCell(5) != null) staffInfo.setEmail(xssfRow.getCell(5).toString());
-            if (xssfRow.getCell(6) != null) staffInfo.setIdCrd(xssfRow.getCell(6).toString());
             if (xssfRow.getCell(7) != null) staffInfo.setHshldAddrss(xssfRow.getCell(7).toString());
             if (xssfRow.getCell(8) != null) staffInfo.setNation(xssfRow.getCell(8).toString());
             if (xssfRow.getCell(9) != null) staffInfo.setLvAddrss(xssfRow.getCell(9).toString());
             if (xssfRow.getCell(10) != null) staffInfo.setBrnchCmpny(xssfRow.getCell(10).toString());
             if (xssfRow.getCell(11) != null) staffInfo.setDepartment(xssfRow.getCell(11).toString());
             if (xssfRow.getCell(12) != null) staffInfo.setSgnAddrss(xssfRow.getCell(12).toString());
-            if (xssfRow.getCell(13) != null) staffInfo.setSgnDt(xssfRow.getCell(13).toString());
+            if (xssfRow.getCell(13) != null) staffInfo.setSgnDt(String.valueOf((int)(xssfRow.getCell(13).getNumericCellValue())));
             if (xssfRow.getCell(14) != null) staffInfo.setCntrctType(xssfRow.getCell(14).toString());
-            if (xssfRow.getCell(15) != null) staffInfo.setCntrctBgn(xssfRow.getCell(15).toString());
-            if (xssfRow.getCell(16) != null) staffInfo.setCntrctEnd(xssfRow.getCell(16).toString());
-            if (xssfRow.getCell(17) != null) staffInfo.setSlryCrd(xssfRow.getCell(17).toString());
-            if (xssfRow.getCell(18) != null) staffInfo.setExpnsCrd(xssfRow.getCell(18).toString());
+            if (xssfRow.getCell(15) != null) staffInfo.setCntrctBgn(String.valueOf((int)(xssfRow.getCell(15).getNumericCellValue())));
+            if (xssfRow.getCell(16) != null) staffInfo.setCntrctEnd(String.valueOf((int)(xssfRow.getCell(16).getNumericCellValue())));
+            if (xssfRow.getCell(17) != null) staffInfo.setSlryCrd(String.valueOf((int)(xssfRow.getCell(17).getNumericCellValue())));
+            if (xssfRow.getCell(18) != null) staffInfo.setExpnsCrd(String.valueOf((int)(xssfRow.getCell(18).getNumericCellValue())));
             if (xssfRow.getCell(19) != null) staffInfo.setStffState(xssfRow.getCell(19).toString());
             if (xssfRow.getCell(20) != null) staffInfo.setGrdtSchl(xssfRow.getCell(20).toString());
             if (xssfRow.getCell(21) != null) staffInfo.setSchlRcrd(xssfRow.getCell(21).toString());
-            if (xssfRow.getCell(22) != null) staffInfo.setGrdtDt(xssfRow.getCell(22).toString());
+            if (xssfRow.getCell(22) != null) staffInfo.setGrdtDt(String.valueOf((int)(xssfRow.getCell(22).getNumericCellValue())));
             if (xssfRow.getCell(23) != null) staffInfo.setNtUnt(xssfRow.getCell(23).toString());
-            if (xssfRow.getCell(24) != null) staffInfo.setTchnldgLv(xssfRow.getCell(24).toString());
             if (xssfRow.getCell(25) != null) staffInfo.setIdntfyUnt(xssfRow.getCell(25).toString());
+            if (xssfRow.getCell(24) != null) staffInfo.setTchnldgLv(String.valueOf((int)(xssfRow.getCell(24).getNumericCellValue())));
             if (xssfRow.getCell(26) != null) staffInfo.setAccntType(xssfRow.getCell(26).toString());
             if (xssfRow.getCell(27) != null) staffInfo.setAccntState(xssfRow.getCell(27).toString());
             if (xssfRow.getCell(28) != null) staffInfo.setWtrItm(xssfRow.getCell(28).toString());
             if (xssfRow.getCell(29) != null) staffInfo.setWtrOrdr(xssfRow.getCell(29).toString());
+
+            // 判断身份证号，为空直接GG
+            if (xssfRow.getCell(6) != null) {
+                staffInfo.setIdCrd(xssfRow.getCell(6).toString());
+            } else {
+                listFail.add(staffInfo);
+                continue;
+            }
 
             // 如果身份证号相同，那么更新条目
             String idNo = xssfRow.getCell(6).toString();
