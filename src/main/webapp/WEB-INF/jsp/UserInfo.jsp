@@ -471,7 +471,7 @@
                             <div class="c_ding_form_group" >
                                 <label><i class="iconfont c_ding_from_icon" ></i><span >职位:</span></label>
                                 <div class="input_content" >
-                                    <input class="c_ding_input" data-bind="textinput:techLevel"/>
+                                    <input class="c_ding_input" data-bind="textinput:tchnldgLv"/>
                                 </div>
                             </div>
                             <div class="c_ding_form_group" >
@@ -483,7 +483,7 @@
                             <div class="c_ding_form_group" >
                                 <label><i class="iconfont c_ding_from_icon" ></i><span >用户状态:</span></label>
                                 <div class="input_content" >
-                                    <input class="c_ding_input" data-bind="textinput:userState"/>
+                                    <input class="c_ding_input" data-bind="textinput:stffState"/>
                                 </div>
                             </div>
                         </div>

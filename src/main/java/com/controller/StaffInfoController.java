@@ -49,7 +49,7 @@ public class StaffInfoController {
     public String getAllUser(HttpServletRequest request) throws IOException {
 
         // 添加文件到数据库
-        String path = "/home/baili/Documents/yindaTech/007.xlsx";
+/*        String path = "/home/baili/Documents/yindaTech/007.xlsx";
         Map<String, Object> map = userInfoService.insert(path);
         Object obj = map.get("listFail");
         List<StaffInfo> list = (List<StaffInfo>)obj;
@@ -58,7 +58,7 @@ public class StaffInfoController {
         for (int i=0; i<list.size(); i++) {
             String string = list.get(i).getStffId();
             System.out.println(string);
-        }
+        }*/
         return "/UserInfo";
     }
 
