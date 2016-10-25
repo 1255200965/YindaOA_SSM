@@ -13,6 +13,7 @@ import java.util.*;
 import com.model.StaffInfo;
 import com.service.IStaffInfoService;
 import com.util.DateUtil;
+import com.util.ExcelToMysql;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -120,11 +121,13 @@ public class StaffInfoController {
 
             //=========导入成功后处理excel
             for (String path:filelist){
-                boolean ck = checkFile(path);
-                if (ck) {
+                ExcelToMysql excelToMysql = new ExcelToMysql();
+                Map<String, String> errorMap = excelToMysql.checkFile(path);
+
+                if (errorMap.isEmpty()) {
                     map.put("validate","文件验证通过！");
                 } else {
-                    map.put("validate","文件验证失败！");
+                    map.putAll(errorMap);
                     break;
                 }
                 // 添加文件到数据库
@@ -173,6 +176,7 @@ public class StaffInfoController {
         }
         return map;
     }
+
     @RequestMapping(value = "/updateuser.do", method = RequestMethod.POST)
     public @ResponseBody Map<String,Object> updateuser(@RequestBody StaffInfo user, HttpServletRequest request, HttpServletResponse response) throws IOException {
         Map<String,Object> map = new HashMap<String,Object>();
@@ -184,53 +188,6 @@ public class StaffInfoController {
             map.put("msg", "失败");
         }
         return map;
-    }
-
-    /**
-     * 这个方法实现对表头的校验，返回false和抛出异常都表明失败
-     * @param fileDir
-     * @return
-     * @throws IOException
-     */
-    public boolean checkFile(String fileDir) throws IOException {
-        File file = new File(fileDir);
-        InputStream is = new FileInputStream(file);
-        XSSFWorkbook xssfWorkbook = new XSSFWorkbook(is);
-        XSSFSheet xssfSheet = xssfWorkbook.getSheetAt(0);
-        XSSFRow xssfRow = xssfSheet.getRow(0);
-
-        if (!xssfRow.getCell(0).toString().equals("员工号")) return false;
-        if (!xssfRow.getCell(1).toString().equals("姓名")) return false;
-        if (!xssfRow.getCell(2).toString().equals("年龄")) return false;
-        if (!xssfRow.getCell(0).toString().equals("员工号")) return false;
-        if (!xssfRow.getCell(3).toString().equals("性别")) return false;
-        if (!xssfRow.getCell(4).toString().equals("联系电话")) return false;
-        if (!xssfRow.getCell(5).toString().equals("邮箱")) return false;
-        if (!xssfRow.getCell(6).toString().equals("身份证号")) return false;
-        if (!xssfRow.getCell(7).toString().equals("户籍地址")) return false;
-        if (!xssfRow.getCell(8).toString().equals("民族")) return false;
-        if (!xssfRow.getCell(9).toString().equals("常住地址")) return false;
-        if (!xssfRow.getCell(10).toString().equals("分公司")) return false;
-        if (!xssfRow.getCell(11).toString().equals("部门")) return false;
-        if (!xssfRow.getCell(12).toString().equals("签到地点")) return false;
-        if (!xssfRow.getCell(13).toString().equals("入职日期")) return false;
-        if (!xssfRow.getCell(14).toString().equals("合同类型")) return false;
-        if (!xssfRow.getCell(15).toString().equals("最新合同起始日期")) return false;
-        if (!xssfRow.getCell(16).toString().equals("最新合同结束日期")) return false;
-        if (!xssfRow.getCell(17).toString().equals("工资卡")) return false;
-        if (!xssfRow.getCell(18).toString().equals("报销卡")) return false;
-        if (!xssfRow.getCell(19).toString().equals("员工状态")) return false;
-        if (!xssfRow.getCell(20).toString().equals("毕业院校")) return false;
-        if (!xssfRow.getCell(21).toString().equals("最高学历")) return false;
-        if (!xssfRow.getCell(22).toString().equals("毕业日期")) return false;
-        if (!xssfRow.getCell(23).toString().equals("网元")) return false;
-        if (!xssfRow.getCell(24).toString().equals("技术等级")) return false;
-        if (!xssfRow.getCell(25).toString().equals("认证单位")) return false;
-        if (!xssfRow.getCell(26).toString().equals("账号类型")) return false;
-        if (!xssfRow.getCell(27).toString().equals("账号状态")) return false;
-        if (!xssfRow.getCell(28).toString().equals("WTR项目")) return false;
-        if (!xssfRow.getCell(29).toString().equals("WTR订单")) return false;
-        return true;
     }
 
 }
