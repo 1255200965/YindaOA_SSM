@@ -383,14 +383,14 @@
                 </tr>
                 <tbody data-bind="foreach:ShowList">
                 <tr >
-                    <td data-bind="text:sequenceNum">编号</td>
+                    <td data-bind="text:sqncNmbr">编号</td>
                     <td data-bind="text:name">标题</td>
-                    <td data-bind="text:idcard">题型</td>
+                    <td data-bind="text:idCrd">题型</td>
                     <td data-bind="text:department">难度</td>
                     <td data-bind="text:cellphone">知识树编号</td>
-                    <td data-bind="text:mail">所属知识</td>
-                    <td data-bind="text:userId">修改者</td>
-                    <td data-bind="text:userState">审核状态</td>
+                    <td data-bind="text:email">所属知识</td>
+                    <td data-bind="text:stffId">修改者</td>
+                    <td data-bind="text:stffState">审核状态</td>
                     <td>
                         <input data-bind="click:$root.ClickUpdate" type="button" value="更新" class="gx-btn"/>
                         <input  data-bind="click:$root.ClickDelete" type="button" value="删除" class="gx-btn" style="background:#fd9162;"/>
