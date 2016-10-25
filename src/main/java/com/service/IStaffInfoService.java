@@ -29,4 +29,6 @@ public interface IStaffInfoService {
     /*插入从excel行得到的实体类*/
     Map<String, Object> insert(String fileDir) throws IOException;
 
+    /*插入并更新从excel行得到的实体类*/
+    Map<String, Object> insertAndUpdate(String fileDir) throws IOException;
 }

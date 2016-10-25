@@ -46,12 +46,22 @@ public class StaffInfoController {
     private IStaffInfoService userInfoService;
 
     @RequestMapping("/testMethod.do")
-    public String getAllUser(Map<String,Object> map,HttpServletRequest request){
-        List<StaffInfo> userDtoList = new ArrayList<StaffInfo>();
+    public String getAllUser(HttpServletRequest request) throws IOException {
 
-        map.put("listUser", userDtoList);
+        // 添加文件到数据库
+        String path = "/home/baili/Documents/yindaTech/007.xlsx";
+        Map<String, Object> map = userInfoService.insert(path);
+        Object obj = map.get("listFail");
+        List<StaffInfo> list = (List<StaffInfo>)obj;
+        System.out.println(map.get("successAmount"));
+        System.out.println(list.size());
+        for (int i=0; i<list.size(); i++) {
+            String string = list.get(i).getStffId();
+            System.out.println(string);
+        }
         return "/UserInfo";
     }
+
     @RequestMapping("/import.do")
     public String ImportUser(Map<String,Object> map,HttpServletRequest request){
         List<StaffInfo> userDtoList = new ArrayList<StaffInfo>();
@@ -117,7 +127,7 @@ public class StaffInfoController {
                     map.put("validate","文件验证失败！");
                     break;
                 }
-                //添加文件到数据库
+                // 添加文件到数据库
                 Map<String, Object> map2 = userInfoService.insert(path);
                 map.putAll(map2);
             }
