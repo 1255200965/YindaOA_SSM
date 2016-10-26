@@ -77,7 +77,14 @@
             if (validate_msg != "") {
                 $("#upfilename"+id).html(upfilename);
                 $("#checkmsg"+id).html(validate_msg);
-                $("#successmsg"+id).html(success_msg);
+                $("#successmsg"+id).html("成功导入数:"+success_msg);
+            } else{
+                var row_msg = "${row}";
+                var column_msg = "${column}";
+                var reason_msg = "${reason}";
+                $("#upfilename"+id).html(upfilename);
+                $("#checkmsg"+id).html("文件校验失败！");
+                $("#successmsg"+id).html("行:"+row_msg+" 列:"+column_msg+" 出错！<br/>原因:"+reason_msg);
             }
         }
     }
