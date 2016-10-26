@@ -2,37 +2,46 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.dao.StaffInfoMapper" >
   <resultMap id="BaseResultMap" type="com.model.StaffInfo" >
-    <id column="sqnc_nmbr" property="sqncNmbr" jdbcType="INTEGER" />
-    <result column="stff_id" property="stffId" jdbcType="CHAR" />
-    <result column="name" property="name" jdbcType="CHAR" />
-    <result column="age" property="age" jdbcType="INTEGER" />
-    <result column="sex" property="sex" jdbcType="CHAR" />
-    <result column="cellphone" property="cellphone" jdbcType="CHAR" />
-    <result column="email" property="email" jdbcType="CHAR" />
-    <result column="id_crd" property="idCrd" jdbcType="CHAR" />
-    <result column="hshld_addrss" property="hshldAddrss" jdbcType="VARCHAR" />
-    <result column="nation" property="nation" jdbcType="CHAR" />
-    <result column="lv_addrss" property="lvAddrss" jdbcType="VARCHAR" />
-    <result column="brnch_cmpny" property="brnchCmpny" jdbcType="CHAR" />
-    <result column="department" property="department" jdbcType="CHAR" />
-    <result column="sgn_addrss" property="sgnAddrss" jdbcType="VARCHAR" />
-    <result column="sgn_dt" property="sgnDt" jdbcType="CHAR" />
-    <result column="cntrct_type" property="cntrctType" jdbcType="CHAR" />
-    <result column="cntrct_bgn" property="cntrctBgn" jdbcType="CHAR" />
-    <result column="cntrct_end" property="cntrctEnd" jdbcType="CHAR" />
-    <result column="slry_crd" property="slryCrd" jdbcType="CHAR" />
-    <result column="expns_crd" property="expnsCrd" jdbcType="CHAR" />
-    <result column="stff_state" property="stffState" jdbcType="CHAR" />
-    <result column="grdt_schl" property="grdtSchl" jdbcType="VARCHAR" />
-    <result column="schl_rcrd" property="schlRcrd" jdbcType="CHAR" />
-    <result column="grdt_dt" property="grdtDt" jdbcType="CHAR" />
-    <result column="nt_unt" property="ntUnt" jdbcType="CHAR" />
-    <result column="tchnldg_lv" property="tchnldgLv" jdbcType="CHAR" />
-    <result column="idntfy_unt" property="idntfyUnt" jdbcType="VARCHAR" />
-    <result column="accnt_type" property="accntType" jdbcType="CHAR" />
-    <result column="accnt_state" property="accntState" jdbcType="CHAR" />
-    <result column="wtr_itm" property="wtrItm" jdbcType="CHAR" />
-    <result column="wtr_ordr" property="wtrOrdr" jdbcType="CHAR" />
+    <id column="staff_user_id" property="staffUserId" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="staff_id" property="staffId" jdbcType="VARCHAR" />
+    <result column="department" property="department" jdbcType="VARCHAR" />
+    <result column="whether_leader" property="whetherLeader" jdbcType="VARCHAR" />
+    <result column="position" property="position" jdbcType="VARCHAR" />
+    <result column="id_no" property="idNo" jdbcType="VARCHAR" />
+    <result column="cellphone" property="cellphone" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="branch_phone" property="branchPhone" jdbcType="VARCHAR" />
+    <result column="work_address" property="workAddress" jdbcType="VARCHAR" />
+    <result column="comment1" property="comment1" jdbcType="VARCHAR" />
+    <result column="contract_type" property="contractType" jdbcType="VARCHAR" />
+    <result column="Yinda_identify" property="yindaIdentify" jdbcType="VARCHAR" />
+    <result column="net_unit" property="netUnit" jdbcType="VARCHAR" />
+    <result column="comment2" property="comment2" jdbcType="VARCHAR" />
+    <result column="household_address" property="householdAddress" jdbcType="VARCHAR" />
+    <result column="branch_company" property="branchCompany" jdbcType="VARCHAR" />
+    <result column="social_security_address" property="socialSecurityAddress" jdbcType="VARCHAR" />
+    <result column="ordinary_address" property="ordinaryAddress" jdbcType="VARCHAR" />
+    <result column="RSO_identify" property="rsoIdentify" jdbcType="VARCHAR" />
+    <result column="base_salary" property="baseSalary" jdbcType="VARCHAR" />
+    <result column="item_salary" property="itemSalary" jdbcType="VARCHAR" />
+    <result column="nation" property="nation" jdbcType="VARCHAR" />
+    <result column="age" property="age" jdbcType="VARCHAR" />
+    <result column="last_contract" property="lastContract" jdbcType="VARCHAR" />
+    <result column="last_contract_begin" property="lastContractBegin" jdbcType="VARCHAR" />
+    <result column="last_contract_end" property="lastContractEnd" jdbcType="VARCHAR" />
+    <result column="enter_time" property="enterTime" jdbcType="VARCHAR" />
+    <result column="work_year" property="workYear" jdbcType="VARCHAR" />
+    <result column="salary_card" property="salaryCard" jdbcType="VARCHAR" />
+    <result column="graduate_school" property="graduateSchool" jdbcType="VARCHAR" />
+    <result column="school_record" property="schoolRecord" jdbcType="VARCHAR" />
+    <result column="graduate_date" property="graduateDate" jdbcType="VARCHAR" />
+    <result column="expense_card" property="expenseCard" jdbcType="VARCHAR" />
+    <result column="item" property="item" jdbcType="VARCHAR" />
+    <result column="order" property="order" jdbcType="VARCHAR" />
+    <result column="staff_state" property="staffState" jdbcType="VARCHAR" />
+    <result column="work_state" property="workState" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -64,10 +73,12 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    sqnc_nmbr, stff_id, name, age, sex, cellphone, email, id_crd, hshld_addrss, nation, 
-    lv_addrss, brnch_cmpny, department, sgn_addrss, sgn_dt, cntrct_type, cntrct_bgn, 
-    cntrct_end, slry_crd, expns_crd, stff_state, grdt_schl, schl_rcrd, grdt_dt, nt_unt, 
-    tchnldg_lv, idntfy_unt, accnt_type, accnt_state, wtr_itm, wtr_ordr
+    staff_user_id, name, sex, staff_id, department, whether_leader, position, id_no, 
+    cellphone, email, branch_phone, work_address, comment1, contract_type, Yinda_identify, 
+    net_unit, comment2, household_address, branch_company, social_security_address, ordinary_address, 
+    RSO_identify, base_salary, item_salary, nation, age, last_contract, last_contract_begin, 
+    last_contract_end, enter_time, work_year, salary_card, graduate_school, school_record, 
+    graduate_date, expense_card, item, order, staff_state, work_state
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.model.StaffInfoExample" >
     select
@@ -84,55 +95,72 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from staff_info
-    where sqnc_nmbr = #{sqncNmbr,jdbcType=INTEGER}
+    where staff_user_id = #{staffUserId,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from staff_info
-    where sqnc_nmbr = #{sqncNmbr,jdbcType=INTEGER}
+    where staff_user_id = #{staffUserId,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.model.StaffInfo" >
-    insert into staff_info (sqnc_nmbr, stff_id, name, 
-      age, sex, cellphone, email, 
-      id_crd, hshld_addrss, nation, 
-      lv_addrss, brnch_cmpny, department, 
-      sgn_addrss, sgn_dt, cntrct_type, 
-      cntrct_bgn, cntrct_end, slry_crd, 
-      expns_crd, stff_state, grdt_schl, 
-      schl_rcrd, grdt_dt, nt_unt, tchnldg_lv, 
-      idntfy_unt, accnt_type, accnt_state, 
-      wtr_itm, wtr_ordr)
-    values (#{sqncNmbr,jdbcType=INTEGER}, #{stffId,jdbcType=CHAR}, #{name,jdbcType=CHAR}, 
-      #{age,jdbcType=INTEGER}, #{sex,jdbcType=CHAR}, #{cellphone,jdbcType=CHAR}, #{email,jdbcType=CHAR}, 
-      #{idCrd,jdbcType=CHAR}, #{hshldAddrss,jdbcType=VARCHAR}, #{nation,jdbcType=CHAR}, 
-      #{lvAddrss,jdbcType=VARCHAR}, #{brnchCmpny,jdbcType=CHAR}, #{department,jdbcType=CHAR}, 
-      #{sgnAddrss,jdbcType=VARCHAR}, #{sgnDt,jdbcType=CHAR}, #{cntrctType,jdbcType=CHAR}, 
-      #{cntrctBgn,jdbcType=CHAR}, #{cntrctEnd,jdbcType=CHAR}, #{slryCrd,jdbcType=CHAR}, 
-      #{expnsCrd,jdbcType=CHAR}, #{stffState,jdbcType=CHAR}, #{grdtSchl,jdbcType=VARCHAR}, 
-      #{schlRcrd,jdbcType=CHAR}, #{grdtDt,jdbcType=CHAR}, #{ntUnt,jdbcType=CHAR}, #{tchnldgLv,jdbcType=CHAR}, 
-      #{idntfyUnt,jdbcType=VARCHAR}, #{accntType,jdbcType=CHAR}, #{accntState,jdbcType=CHAR}, 
-      #{wtrItm,jdbcType=CHAR}, #{wtrOrdr,jdbcType=CHAR})
+    insert into staff_info (staff_user_id, name, sex, 
+      staff_id, department, whether_leader, 
+      position, id_no, cellphone, 
+      email, branch_phone, work_address, 
+      comment1, contract_type, Yinda_identify, 
+      net_unit, comment2, household_address, 
+      branch_company, social_security_address, ordinary_address, 
+      RSO_identify, base_salary, item_salary, 
+      nation, age, last_contract, 
+      last_contract_begin, last_contract_end, enter_time, 
+      work_year, salary_card, graduate_school, 
+      school_record, graduate_date, expense_card, 
+      item, order, staff_state, 
+      work_state)
+    values (#{staffUserId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
+      #{staffId,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR}, #{whetherLeader,jdbcType=VARCHAR}, 
+      #{position,jdbcType=VARCHAR}, #{idNo,jdbcType=VARCHAR}, #{cellphone,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{branchPhone,jdbcType=VARCHAR}, #{workAddress,jdbcType=VARCHAR}, 
+      #{comment1,jdbcType=VARCHAR}, #{contractType,jdbcType=VARCHAR}, #{yindaIdentify,jdbcType=VARCHAR}, 
+      #{netUnit,jdbcType=VARCHAR}, #{comment2,jdbcType=VARCHAR}, #{householdAddress,jdbcType=VARCHAR}, 
+      #{branchCompany,jdbcType=VARCHAR}, #{socialSecurityAddress,jdbcType=VARCHAR}, #{ordinaryAddress,jdbcType=VARCHAR}, 
+      #{rsoIdentify,jdbcType=VARCHAR}, #{baseSalary,jdbcType=VARCHAR}, #{itemSalary,jdbcType=VARCHAR}, 
+      #{nation,jdbcType=VARCHAR}, #{age,jdbcType=VARCHAR}, #{lastContract,jdbcType=VARCHAR}, 
+      #{lastContractBegin,jdbcType=VARCHAR}, #{lastContractEnd,jdbcType=VARCHAR}, #{enterTime,jdbcType=VARCHAR}, 
+      #{workYear,jdbcType=VARCHAR}, #{salaryCard,jdbcType=VARCHAR}, #{graduateSchool,jdbcType=VARCHAR}, 
+      #{schoolRecord,jdbcType=VARCHAR}, #{graduateDate,jdbcType=VARCHAR}, #{expenseCard,jdbcType=VARCHAR}, 
+      #{item,jdbcType=VARCHAR}, #{order,jdbcType=VARCHAR}, #{staffState,jdbcType=VARCHAR}, 
+      #{workState,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.model.StaffInfo" >
     insert into staff_info
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="sqncNmbr != null" >
-        sqnc_nmbr,
-      </if>
-      <if test="stffId != null" >
-        stff_id,
+      <if test="staffUserId != null" >
+        staff_user_id,
       </if>
       <if test="name != null" >
         name,
       </if>
-      <if test="age != null" >
-        age,
-      </if>
       <if test="sex != null" >
         sex,
+      </if>
+      <if test="staffId != null" >
+        staff_id,
+      </if>
+      <if test="department != null" >
+        department,
+      </if>
+      <if test="whetherLeader != null" >
+        whether_leader,
+      </if>
+      <if test="position != null" >
+        position,
+      </if>
+      <if test="idNo != null" >
+        id_no,
       </if>
       <if test="cellphone != null" >
         cellphone,
@@ -140,303 +168,384 @@
       <if test="email != null" >
         email,
       </if>
-      <if test="idCrd != null" >
-        id_crd,
+      <if test="branchPhone != null" >
+        branch_phone,
       </if>
-      <if test="hshldAddrss != null" >
-        hshld_addrss,
+      <if test="workAddress != null" >
+        work_address,
+      </if>
+      <if test="comment1 != null" >
+        comment1,
+      </if>
+      <if test="contractType != null" >
+        contract_type,
+      </if>
+      <if test="yindaIdentify != null" >
+        Yinda_identify,
+      </if>
+      <if test="netUnit != null" >
+        net_unit,
+      </if>
+      <if test="comment2 != null" >
+        comment2,
+      </if>
+      <if test="householdAddress != null" >
+        household_address,
+      </if>
+      <if test="branchCompany != null" >
+        branch_company,
+      </if>
+      <if test="socialSecurityAddress != null" >
+        social_security_address,
+      </if>
+      <if test="ordinaryAddress != null" >
+        ordinary_address,
+      </if>
+      <if test="rsoIdentify != null" >
+        RSO_identify,
+      </if>
+      <if test="baseSalary != null" >
+        base_salary,
+      </if>
+      <if test="itemSalary != null" >
+        item_salary,
       </if>
       <if test="nation != null" >
         nation,
       </if>
-      <if test="lvAddrss != null" >
-        lv_addrss,
+      <if test="age != null" >
+        age,
       </if>
-      <if test="brnchCmpny != null" >
-        brnch_cmpny,
+      <if test="lastContract != null" >
+        last_contract,
       </if>
-      <if test="department != null" >
-        department,
+      <if test="lastContractBegin != null" >
+        last_contract_begin,
       </if>
-      <if test="sgnAddrss != null" >
-        sgn_addrss,
+      <if test="lastContractEnd != null" >
+        last_contract_end,
       </if>
-      <if test="sgnDt != null" >
-        sgn_dt,
+      <if test="enterTime != null" >
+        enter_time,
       </if>
-      <if test="cntrctType != null" >
-        cntrct_type,
+      <if test="workYear != null" >
+        work_year,
       </if>
-      <if test="cntrctBgn != null" >
-        cntrct_bgn,
+      <if test="salaryCard != null" >
+        salary_card,
       </if>
-      <if test="cntrctEnd != null" >
-        cntrct_end,
+      <if test="graduateSchool != null" >
+        graduate_school,
       </if>
-      <if test="slryCrd != null" >
-        slry_crd,
+      <if test="schoolRecord != null" >
+        school_record,
       </if>
-      <if test="expnsCrd != null" >
-        expns_crd,
+      <if test="graduateDate != null" >
+        graduate_date,
       </if>
-      <if test="stffState != null" >
-        stff_state,
+      <if test="expenseCard != null" >
+        expense_card,
       </if>
-      <if test="grdtSchl != null" >
-        grdt_schl,
+      <if test="item != null" >
+        item,
       </if>
-      <if test="schlRcrd != null" >
-        schl_rcrd,
+      <if test="order != null" >
+        order,
       </if>
-      <if test="grdtDt != null" >
-        grdt_dt,
+      <if test="staffState != null" >
+        staff_state,
       </if>
-      <if test="ntUnt != null" >
-        nt_unt,
-      </if>
-      <if test="tchnldgLv != null" >
-        tchnldg_lv,
-      </if>
-      <if test="idntfyUnt != null" >
-        idntfy_unt,
-      </if>
-      <if test="accntType != null" >
-        accnt_type,
-      </if>
-      <if test="accntState != null" >
-        accnt_state,
-      </if>
-      <if test="wtrItm != null" >
-        wtr_itm,
-      </if>
-      <if test="wtrOrdr != null" >
-        wtr_ordr,
+      <if test="workState != null" >
+        work_state,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="sqncNmbr != null" >
-        #{sqncNmbr,jdbcType=INTEGER},
-      </if>
-      <if test="stffId != null" >
-        #{stffId,jdbcType=CHAR},
+      <if test="staffUserId != null" >
+        #{staffUserId,jdbcType=VARCHAR},
       </if>
       <if test="name != null" >
-        #{name,jdbcType=CHAR},
-      </if>
-      <if test="age != null" >
-        #{age,jdbcType=INTEGER},
+        #{name,jdbcType=VARCHAR},
       </if>
       <if test="sex != null" >
-        #{sex,jdbcType=CHAR},
+        #{sex,jdbcType=VARCHAR},
       </if>
-      <if test="cellphone != null" >
-        #{cellphone,jdbcType=CHAR},
-      </if>
-      <if test="email != null" >
-        #{email,jdbcType=CHAR},
-      </if>
-      <if test="idCrd != null" >
-        #{idCrd,jdbcType=CHAR},
-      </if>
-      <if test="hshldAddrss != null" >
-        #{hshldAddrss,jdbcType=VARCHAR},
-      </if>
-      <if test="nation != null" >
-        #{nation,jdbcType=CHAR},
-      </if>
-      <if test="lvAddrss != null" >
-        #{lvAddrss,jdbcType=VARCHAR},
-      </if>
-      <if test="brnchCmpny != null" >
-        #{brnchCmpny,jdbcType=CHAR},
+      <if test="staffId != null" >
+        #{staffId,jdbcType=VARCHAR},
       </if>
       <if test="department != null" >
-        #{department,jdbcType=CHAR},
+        #{department,jdbcType=VARCHAR},
       </if>
-      <if test="sgnAddrss != null" >
-        #{sgnAddrss,jdbcType=VARCHAR},
+      <if test="whetherLeader != null" >
+        #{whetherLeader,jdbcType=VARCHAR},
       </if>
-      <if test="sgnDt != null" >
-        #{sgnDt,jdbcType=CHAR},
+      <if test="position != null" >
+        #{position,jdbcType=VARCHAR},
       </if>
-      <if test="cntrctType != null" >
-        #{cntrctType,jdbcType=CHAR},
+      <if test="idNo != null" >
+        #{idNo,jdbcType=VARCHAR},
       </if>
-      <if test="cntrctBgn != null" >
-        #{cntrctBgn,jdbcType=CHAR},
+      <if test="cellphone != null" >
+        #{cellphone,jdbcType=VARCHAR},
       </if>
-      <if test="cntrctEnd != null" >
-        #{cntrctEnd,jdbcType=CHAR},
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
       </if>
-      <if test="slryCrd != null" >
-        #{slryCrd,jdbcType=CHAR},
+      <if test="branchPhone != null" >
+        #{branchPhone,jdbcType=VARCHAR},
       </if>
-      <if test="expnsCrd != null" >
-        #{expnsCrd,jdbcType=CHAR},
+      <if test="workAddress != null" >
+        #{workAddress,jdbcType=VARCHAR},
       </if>
-      <if test="stffState != null" >
-        #{stffState,jdbcType=CHAR},
+      <if test="comment1 != null" >
+        #{comment1,jdbcType=VARCHAR},
       </if>
-      <if test="grdtSchl != null" >
-        #{grdtSchl,jdbcType=VARCHAR},
+      <if test="contractType != null" >
+        #{contractType,jdbcType=VARCHAR},
       </if>
-      <if test="schlRcrd != null" >
-        #{schlRcrd,jdbcType=CHAR},
+      <if test="yindaIdentify != null" >
+        #{yindaIdentify,jdbcType=VARCHAR},
       </if>
-      <if test="grdtDt != null" >
-        #{grdtDt,jdbcType=CHAR},
+      <if test="netUnit != null" >
+        #{netUnit,jdbcType=VARCHAR},
       </if>
-      <if test="ntUnt != null" >
-        #{ntUnt,jdbcType=CHAR},
+      <if test="comment2 != null" >
+        #{comment2,jdbcType=VARCHAR},
       </if>
-      <if test="tchnldgLv != null" >
-        #{tchnldgLv,jdbcType=CHAR},
+      <if test="householdAddress != null" >
+        #{householdAddress,jdbcType=VARCHAR},
       </if>
-      <if test="idntfyUnt != null" >
-        #{idntfyUnt,jdbcType=VARCHAR},
+      <if test="branchCompany != null" >
+        #{branchCompany,jdbcType=VARCHAR},
       </if>
-      <if test="accntType != null" >
-        #{accntType,jdbcType=CHAR},
+      <if test="socialSecurityAddress != null" >
+        #{socialSecurityAddress,jdbcType=VARCHAR},
       </if>
-      <if test="accntState != null" >
-        #{accntState,jdbcType=CHAR},
+      <if test="ordinaryAddress != null" >
+        #{ordinaryAddress,jdbcType=VARCHAR},
       </if>
-      <if test="wtrItm != null" >
-        #{wtrItm,jdbcType=CHAR},
+      <if test="rsoIdentify != null" >
+        #{rsoIdentify,jdbcType=VARCHAR},
       </if>
-      <if test="wtrOrdr != null" >
-        #{wtrOrdr,jdbcType=CHAR},
+      <if test="baseSalary != null" >
+        #{baseSalary,jdbcType=VARCHAR},
+      </if>
+      <if test="itemSalary != null" >
+        #{itemSalary,jdbcType=VARCHAR},
+      </if>
+      <if test="nation != null" >
+        #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        #{age,jdbcType=VARCHAR},
+      </if>
+      <if test="lastContract != null" >
+        #{lastContract,jdbcType=VARCHAR},
+      </if>
+      <if test="lastContractBegin != null" >
+        #{lastContractBegin,jdbcType=VARCHAR},
+      </if>
+      <if test="lastContractEnd != null" >
+        #{lastContractEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="enterTime != null" >
+        #{enterTime,jdbcType=VARCHAR},
+      </if>
+      <if test="workYear != null" >
+        #{workYear,jdbcType=VARCHAR},
+      </if>
+      <if test="salaryCard != null" >
+        #{salaryCard,jdbcType=VARCHAR},
+      </if>
+      <if test="graduateSchool != null" >
+        #{graduateSchool,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolRecord != null" >
+        #{schoolRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="graduateDate != null" >
+        #{graduateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="expenseCard != null" >
+        #{expenseCard,jdbcType=VARCHAR},
+      </if>
+      <if test="item != null" >
+        #{item,jdbcType=VARCHAR},
+      </if>
+      <if test="order != null" >
+        #{order,jdbcType=VARCHAR},
+      </if>
+      <if test="staffState != null" >
+        #{staffState,jdbcType=VARCHAR},
+      </if>
+      <if test="workState != null" >
+        #{workState,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.model.StaffInfo" >
     update staff_info
     <set >
-      <if test="stffId != null" >
-        stff_id = #{stffId,jdbcType=CHAR},
-      </if>
       <if test="name != null" >
-        name = #{name,jdbcType=CHAR},
-      </if>
-      <if test="age != null" >
-        age = #{age,jdbcType=INTEGER},
+        name = #{name,jdbcType=VARCHAR},
       </if>
       <if test="sex != null" >
-        sex = #{sex,jdbcType=CHAR},
+        sex = #{sex,jdbcType=VARCHAR},
       </if>
-      <if test="cellphone != null" >
-        cellphone = #{cellphone,jdbcType=CHAR},
-      </if>
-      <if test="email != null" >
-        email = #{email,jdbcType=CHAR},
-      </if>
-      <if test="idCrd != null" >
-        id_crd = #{idCrd,jdbcType=CHAR},
-      </if>
-      <if test="hshldAddrss != null" >
-        hshld_addrss = #{hshldAddrss,jdbcType=VARCHAR},
-      </if>
-      <if test="nation != null" >
-        nation = #{nation,jdbcType=CHAR},
-      </if>
-      <if test="lvAddrss != null" >
-        lv_addrss = #{lvAddrss,jdbcType=VARCHAR},
-      </if>
-      <if test="brnchCmpny != null" >
-        brnch_cmpny = #{brnchCmpny,jdbcType=CHAR},
+      <if test="staffId != null" >
+        staff_id = #{staffId,jdbcType=VARCHAR},
       </if>
       <if test="department != null" >
-        department = #{department,jdbcType=CHAR},
+        department = #{department,jdbcType=VARCHAR},
       </if>
-      <if test="sgnAddrss != null" >
-        sgn_addrss = #{sgnAddrss,jdbcType=VARCHAR},
+      <if test="whetherLeader != null" >
+        whether_leader = #{whetherLeader,jdbcType=VARCHAR},
       </if>
-      <if test="sgnDt != null" >
-        sgn_dt = #{sgnDt,jdbcType=CHAR},
+      <if test="position != null" >
+        position = #{position,jdbcType=VARCHAR},
       </if>
-      <if test="cntrctType != null" >
-        cntrct_type = #{cntrctType,jdbcType=CHAR},
+      <if test="idNo != null" >
+        id_no = #{idNo,jdbcType=VARCHAR},
       </if>
-      <if test="cntrctBgn != null" >
-        cntrct_bgn = #{cntrctBgn,jdbcType=CHAR},
+      <if test="cellphone != null" >
+        cellphone = #{cellphone,jdbcType=VARCHAR},
       </if>
-      <if test="cntrctEnd != null" >
-        cntrct_end = #{cntrctEnd,jdbcType=CHAR},
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
       </if>
-      <if test="slryCrd != null" >
-        slry_crd = #{slryCrd,jdbcType=CHAR},
+      <if test="branchPhone != null" >
+        branch_phone = #{branchPhone,jdbcType=VARCHAR},
       </if>
-      <if test="expnsCrd != null" >
-        expns_crd = #{expnsCrd,jdbcType=CHAR},
+      <if test="workAddress != null" >
+        work_address = #{workAddress,jdbcType=VARCHAR},
       </if>
-      <if test="stffState != null" >
-        stff_state = #{stffState,jdbcType=CHAR},
+      <if test="comment1 != null" >
+        comment1 = #{comment1,jdbcType=VARCHAR},
       </if>
-      <if test="grdtSchl != null" >
-        grdt_schl = #{grdtSchl,jdbcType=VARCHAR},
+      <if test="contractType != null" >
+        contract_type = #{contractType,jdbcType=VARCHAR},
       </if>
-      <if test="schlRcrd != null" >
-        schl_rcrd = #{schlRcrd,jdbcType=CHAR},
+      <if test="yindaIdentify != null" >
+        Yinda_identify = #{yindaIdentify,jdbcType=VARCHAR},
       </if>
-      <if test="grdtDt != null" >
-        grdt_dt = #{grdtDt,jdbcType=CHAR},
+      <if test="netUnit != null" >
+        net_unit = #{netUnit,jdbcType=VARCHAR},
       </if>
-      <if test="ntUnt != null" >
-        nt_unt = #{ntUnt,jdbcType=CHAR},
+      <if test="comment2 != null" >
+        comment2 = #{comment2,jdbcType=VARCHAR},
       </if>
-      <if test="tchnldgLv != null" >
-        tchnldg_lv = #{tchnldgLv,jdbcType=CHAR},
+      <if test="householdAddress != null" >
+        household_address = #{householdAddress,jdbcType=VARCHAR},
       </if>
-      <if test="idntfyUnt != null" >
-        idntfy_unt = #{idntfyUnt,jdbcType=VARCHAR},
+      <if test="branchCompany != null" >
+        branch_company = #{branchCompany,jdbcType=VARCHAR},
       </if>
-      <if test="accntType != null" >
-        accnt_type = #{accntType,jdbcType=CHAR},
+      <if test="socialSecurityAddress != null" >
+        social_security_address = #{socialSecurityAddress,jdbcType=VARCHAR},
       </if>
-      <if test="accntState != null" >
-        accnt_state = #{accntState,jdbcType=CHAR},
+      <if test="ordinaryAddress != null" >
+        ordinary_address = #{ordinaryAddress,jdbcType=VARCHAR},
       </if>
-      <if test="wtrItm != null" >
-        wtr_itm = #{wtrItm,jdbcType=CHAR},
+      <if test="rsoIdentify != null" >
+        RSO_identify = #{rsoIdentify,jdbcType=VARCHAR},
       </if>
-      <if test="wtrOrdr != null" >
-        wtr_ordr = #{wtrOrdr,jdbcType=CHAR},
+      <if test="baseSalary != null" >
+        base_salary = #{baseSalary,jdbcType=VARCHAR},
+      </if>
+      <if test="itemSalary != null" >
+        item_salary = #{itemSalary,jdbcType=VARCHAR},
+      </if>
+      <if test="nation != null" >
+        nation = #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        age = #{age,jdbcType=VARCHAR},
+      </if>
+      <if test="lastContract != null" >
+        last_contract = #{lastContract,jdbcType=VARCHAR},
+      </if>
+      <if test="lastContractBegin != null" >
+        last_contract_begin = #{lastContractBegin,jdbcType=VARCHAR},
+      </if>
+      <if test="lastContractEnd != null" >
+        last_contract_end = #{lastContractEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="enterTime != null" >
+        enter_time = #{enterTime,jdbcType=VARCHAR},
+      </if>
+      <if test="workYear != null" >
+        work_year = #{workYear,jdbcType=VARCHAR},
+      </if>
+      <if test="salaryCard != null" >
+        salary_card = #{salaryCard,jdbcType=VARCHAR},
+      </if>
+      <if test="graduateSchool != null" >
+        graduate_school = #{graduateSchool,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolRecord != null" >
+        school_record = #{schoolRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="graduateDate != null" >
+        graduate_date = #{graduateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="expenseCard != null" >
+        expense_card = #{expenseCard,jdbcType=VARCHAR},
+      </if>
+      <if test="item != null" >
+        item = #{item,jdbcType=VARCHAR},
+      </if>
+      <if test="order != null" >
+        order = #{order,jdbcType=VARCHAR},
+      </if>
+      <if test="staffState != null" >
+        staff_state = #{staffState,jdbcType=VARCHAR},
+      </if>
+      <if test="workState != null" >
+        work_state = #{workState,jdbcType=VARCHAR},
       </if>
     </set>
-    where sqnc_nmbr = #{sqncNmbr,jdbcType=INTEGER}
+    where staff_user_id = #{staffUserId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.model.StaffInfo" >
     update staff_info
-    set stff_id = #{stffId,jdbcType=CHAR},
-      name = #{name,jdbcType=CHAR},
-      age = #{age,jdbcType=INTEGER},
-      sex = #{sex,jdbcType=CHAR},
-      cellphone = #{cellphone,jdbcType=CHAR},
-      email = #{email,jdbcType=CHAR},
-      id_crd = #{idCrd,jdbcType=CHAR},
-      hshld_addrss = #{hshldAddrss,jdbcType=VARCHAR},
-      nation = #{nation,jdbcType=CHAR},
-      lv_addrss = #{lvAddrss,jdbcType=VARCHAR},
-      brnch_cmpny = #{brnchCmpny,jdbcType=CHAR},
-      department = #{department,jdbcType=CHAR},
-      sgn_addrss = #{sgnAddrss,jdbcType=VARCHAR},
-      sgn_dt = #{sgnDt,jdbcType=CHAR},
-      cntrct_type = #{cntrctType,jdbcType=CHAR},
-      cntrct_bgn = #{cntrctBgn,jdbcType=CHAR},
-      cntrct_end = #{cntrctEnd,jdbcType=CHAR},
-      slry_crd = #{slryCrd,jdbcType=CHAR},
-      expns_crd = #{expnsCrd,jdbcType=CHAR},
-      stff_state = #{stffState,jdbcType=CHAR},
-      grdt_schl = #{grdtSchl,jdbcType=VARCHAR},
-      schl_rcrd = #{schlRcrd,jdbcType=CHAR},
-      grdt_dt = #{grdtDt,jdbcType=CHAR},
-      nt_unt = #{ntUnt,jdbcType=CHAR},
-      tchnldg_lv = #{tchnldgLv,jdbcType=CHAR},
-      idntfy_unt = #{idntfyUnt,jdbcType=VARCHAR},
-      accnt_type = #{accntType,jdbcType=CHAR},
-      accnt_state = #{accntState,jdbcType=CHAR},
-      wtr_itm = #{wtrItm,jdbcType=CHAR},
-      wtr_ordr = #{wtrOrdr,jdbcType=CHAR}
-    where sqnc_nmbr = #{sqncNmbr,jdbcType=INTEGER}
+    set name = #{name,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      staff_id = #{staffId,jdbcType=VARCHAR},
+      department = #{department,jdbcType=VARCHAR},
+      whether_leader = #{whetherLeader,jdbcType=VARCHAR},
+      position = #{position,jdbcType=VARCHAR},
+      id_no = #{idNo,jdbcType=VARCHAR},
+      cellphone = #{cellphone,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      branch_phone = #{branchPhone,jdbcType=VARCHAR},
+      work_address = #{workAddress,jdbcType=VARCHAR},
+      comment1 = #{comment1,jdbcType=VARCHAR},
+      contract_type = #{contractType,jdbcType=VARCHAR},
+      Yinda_identify = #{yindaIdentify,jdbcType=VARCHAR},
+      net_unit = #{netUnit,jdbcType=VARCHAR},
+      comment2 = #{comment2,jdbcType=VARCHAR},
+      household_address = #{householdAddress,jdbcType=VARCHAR},
+      branch_company = #{branchCompany,jdbcType=VARCHAR},
+      social_security_address = #{socialSecurityAddress,jdbcType=VARCHAR},
+      ordinary_address = #{ordinaryAddress,jdbcType=VARCHAR},
+      RSO_identify = #{rsoIdentify,jdbcType=VARCHAR},
+      base_salary = #{baseSalary,jdbcType=VARCHAR},
+      item_salary = #{itemSalary,jdbcType=VARCHAR},
+      nation = #{nation,jdbcType=VARCHAR},
+      age = #{age,jdbcType=VARCHAR},
+      last_contract = #{lastContract,jdbcType=VARCHAR},
+      last_contract_begin = #{lastContractBegin,jdbcType=VARCHAR},
+      last_contract_end = #{lastContractEnd,jdbcType=VARCHAR},
+      enter_time = #{enterTime,jdbcType=VARCHAR},
+      work_year = #{workYear,jdbcType=VARCHAR},
+      salary_card = #{salaryCard,jdbcType=VARCHAR},
+      graduate_school = #{graduateSchool,jdbcType=VARCHAR},
+      school_record = #{schoolRecord,jdbcType=VARCHAR},
+      graduate_date = #{graduateDate,jdbcType=VARCHAR},
+      expense_card = #{expenseCard,jdbcType=VARCHAR},
+      item = #{item,jdbcType=VARCHAR},
+      order = #{order,jdbcType=VARCHAR},
+      staff_state = #{staffState,jdbcType=VARCHAR},
+      work_state = #{workState,jdbcType=VARCHAR}
+    where staff_user_id = #{staffUserId,jdbcType=VARCHAR}
   </update>
 </mapper>

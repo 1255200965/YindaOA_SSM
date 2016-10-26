@@ -1,82 +1,92 @@
 package com.model;
 
 public class StaffInfo {
-    private Integer sqncNmbr;
-
-    private String stffId;
+    private String staffUserId;
 
     private String name;
 
-    private Integer age;
-
     private String sex;
+
+    private String staffId;
+
+    private String department;
+
+    private String whetherLeader;
+
+    private String position;
+
+    private String idNo;
 
     private String cellphone;
 
     private String email;
 
-    private String idCrd;
+    private String branchPhone;
 
-    private String hshldAddrss;
+    private String workAddress;
+
+    private String comment1;
+
+    private String contractType;
+
+    private String yindaIdentify;
+
+    private String netUnit;
+
+    private String comment2;
+
+    private String householdAddress;
+
+    private String branchCompany;
+
+    private String socialSecurityAddress;
+
+    private String ordinaryAddress;
+
+    private String rsoIdentify;
+
+    private String baseSalary;
+
+    private String itemSalary;
 
     private String nation;
 
-    private String lvAddrss;
+    private String age;
 
-    private String brnchCmpny;
+    private String lastContract;
 
-    private String department;
+    private String lastContractBegin;
 
-    private String sgnAddrss;
+    private String lastContractEnd;
 
-    private String sgnDt;
+    private String enterTime;
 
-    private String cntrctType;
+    private String workYear;
 
-    private String cntrctBgn;
+    private String salaryCard;
 
-    private String cntrctEnd;
+    private String graduateSchool;
 
-    private String slryCrd;
+    private String schoolRecord;
 
-    private String expnsCrd;
+    private String graduateDate;
 
-    private String stffState;
+    private String expenseCard;
 
-    private String grdtSchl;
+    private String item;
 
-    private String schlRcrd;
+    private String order;
 
-    private String grdtDt;
+    private String staffState;
 
-    private String ntUnt;
+    private String workState;
 
-    private String tchnldgLv;
-
-    private String idntfyUnt;
-
-    private String accntType;
-
-    private String accntState;
-
-    private String wtrItm;
-
-    private String wtrOrdr;
-
-    public Integer getSqncNmbr() {
-        return sqncNmbr;
+    public String getStaffUserId() {
+        return staffUserId;
     }
 
-    public void setSqncNmbr(Integer sqncNmbr) {
-        this.sqncNmbr = sqncNmbr;
-    }
-
-    public String getStffId() {
-        return stffId;
-    }
-
-    public void setStffId(String stffId) {
-        this.stffId = stffId;
+    public void setStaffUserId(String staffUserId) {
+        this.staffUserId = staffUserId;
     }
 
     public String getName() {
@@ -87,20 +97,52 @@ public class StaffInfo {
         this.name = name;
     }
 
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
     public String getSex() {
         return sex;
     }
 
     public void setSex(String sex) {
         this.sex = sex;
+    }
+
+    public String getStaffId() {
+        return staffId;
+    }
+
+    public void setStaffId(String staffId) {
+        this.staffId = staffId;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public String getWhetherLeader() {
+        return whetherLeader;
+    }
+
+    public void setWhetherLeader(String whetherLeader) {
+        this.whetherLeader = whetherLeader;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public String getIdNo() {
+        return idNo;
+    }
+
+    public void setIdNo(String idNo) {
+        this.idNo = idNo;
     }
 
     public String getCellphone() {
@@ -119,20 +161,116 @@ public class StaffInfo {
         this.email = email;
     }
 
-    public String getIdCrd() {
-        return idCrd;
+    public String getBranchPhone() {
+        return branchPhone;
     }
 
-    public void setIdCrd(String idCrd) {
-        this.idCrd = idCrd;
+    public void setBranchPhone(String branchPhone) {
+        this.branchPhone = branchPhone;
     }
 
-    public String getHshldAddrss() {
-        return hshldAddrss;
+    public String getWorkAddress() {
+        return workAddress;
     }
 
-    public void setHshldAddrss(String hshldAddrss) {
-        this.hshldAddrss = hshldAddrss;
+    public void setWorkAddress(String workAddress) {
+        this.workAddress = workAddress;
+    }
+
+    public String getComment1() {
+        return comment1;
+    }
+
+    public void setComment1(String comment1) {
+        this.comment1 = comment1;
+    }
+
+    public String getContractType() {
+        return contractType;
+    }
+
+    public void setContractType(String contractType) {
+        this.contractType = contractType;
+    }
+
+    public String getYindaIdentify() {
+        return yindaIdentify;
+    }
+
+    public void setYindaIdentify(String yindaIdentify) {
+        this.yindaIdentify = yindaIdentify;
+    }
+
+    public String getNetUnit() {
+        return netUnit;
+    }
+
+    public void setNetUnit(String netUnit) {
+        this.netUnit = netUnit;
+    }
+
+    public String getComment2() {
+        return comment2;
+    }
+
+    public void setComment2(String comment2) {
+        this.comment2 = comment2;
+    }
+
+    public String getHouseholdAddress() {
+        return householdAddress;
+    }
+
+    public void setHouseholdAddress(String householdAddress) {
+        this.householdAddress = householdAddress;
+    }
+
+    public String getBranchCompany() {
+        return branchCompany;
+    }
+
+    public void setBranchCompany(String branchCompany) {
+        this.branchCompany = branchCompany;
+    }
+
+    public String getSocialSecurityAddress() {
+        return socialSecurityAddress;
+    }
+
+    public void setSocialSecurityAddress(String socialSecurityAddress) {
+        this.socialSecurityAddress = socialSecurityAddress;
+    }
+
+    public String getOrdinaryAddress() {
+        return ordinaryAddress;
+    }
+
+    public void setOrdinaryAddress(String ordinaryAddress) {
+        this.ordinaryAddress = ordinaryAddress;
+    }
+
+    public String getRsoIdentify() {
+        return rsoIdentify;
+    }
+
+    public void setRsoIdentify(String rsoIdentify) {
+        this.rsoIdentify = rsoIdentify;
+    }
+
+    public String getBaseSalary() {
+        return baseSalary;
+    }
+
+    public void setBaseSalary(String baseSalary) {
+        this.baseSalary = baseSalary;
+    }
+
+    public String getItemSalary() {
+        return itemSalary;
+    }
+
+    public void setItemSalary(String itemSalary) {
+        this.itemSalary = itemSalary;
     }
 
     public String getNation() {
@@ -143,171 +281,123 @@ public class StaffInfo {
         this.nation = nation;
     }
 
-    public String getLvAddrss() {
-        return lvAddrss;
+    public String getAge() {
+        return age;
     }
 
-    public void setLvAddrss(String lvAddrss) {
-        this.lvAddrss = lvAddrss;
+    public void setAge(String age) {
+        this.age = age;
     }
 
-    public String getBrnchCmpny() {
-        return brnchCmpny;
+    public String getLastContract() {
+        return lastContract;
     }
 
-    public void setBrnchCmpny(String brnchCmpny) {
-        this.brnchCmpny = brnchCmpny;
+    public void setLastContract(String lastContract) {
+        this.lastContract = lastContract;
     }
 
-    public String getDepartment() {
-        return department;
+    public String getLastContractBegin() {
+        return lastContractBegin;
     }
 
-    public void setDepartment(String department) {
-        this.department = department;
+    public void setLastContractBegin(String lastContractBegin) {
+        this.lastContractBegin = lastContractBegin;
     }
 
-    public String getSgnAddrss() {
-        return sgnAddrss;
+    public String getLastContractEnd() {
+        return lastContractEnd;
     }
 
-    public void setSgnAddrss(String sgnAddrss) {
-        this.sgnAddrss = sgnAddrss;
+    public void setLastContractEnd(String lastContractEnd) {
+        this.lastContractEnd = lastContractEnd;
     }
 
-    public String getSgnDt() {
-        return sgnDt;
+    public String getEnterTime() {
+        return enterTime;
     }
 
-    public void setSgnDt(String sgnDt) {
-        this.sgnDt = sgnDt;
+    public void setEnterTime(String enterTime) {
+        this.enterTime = enterTime;
     }
 
-    public String getCntrctType() {
-        return cntrctType;
+    public String getWorkYear() {
+        return workYear;
     }
 
-    public void setCntrctType(String cntrctType) {
-        this.cntrctType = cntrctType;
+    public void setWorkYear(String workYear) {
+        this.workYear = workYear;
     }
 
-    public String getCntrctBgn() {
-        return cntrctBgn;
+    public String getSalaryCard() {
+        return salaryCard;
     }
 
-    public void setCntrctBgn(String cntrctBgn) {
-        this.cntrctBgn = cntrctBgn;
+    public void setSalaryCard(String salaryCard) {
+        this.salaryCard = salaryCard;
     }
 
-    public String getCntrctEnd() {
-        return cntrctEnd;
+    public String getGraduateSchool() {
+        return graduateSchool;
     }
 
-    public void setCntrctEnd(String cntrctEnd) {
-        this.cntrctEnd = cntrctEnd;
+    public void setGraduateSchool(String graduateSchool) {
+        this.graduateSchool = graduateSchool;
     }
 
-    public String getSlryCrd() {
-        return slryCrd;
+    public String getSchoolRecord() {
+        return schoolRecord;
     }
 
-    public void setSlryCrd(String slryCrd) {
-        this.slryCrd = slryCrd;
+    public void setSchoolRecord(String schoolRecord) {
+        this.schoolRecord = schoolRecord;
     }
 
-    public String getExpnsCrd() {
-        return expnsCrd;
+    public String getGraduateDate() {
+        return graduateDate;
     }
 
-    public void setExpnsCrd(String expnsCrd) {
-        this.expnsCrd = expnsCrd;
+    public void setGraduateDate(String graduateDate) {
+        this.graduateDate = graduateDate;
     }
 
-    public String getStffState() {
-        return stffState;
+    public String getExpenseCard() {
+        return expenseCard;
     }
 
-    public void setStffState(String stffState) {
-        this.stffState = stffState;
+    public void setExpenseCard(String expenseCard) {
+        this.expenseCard = expenseCard;
     }
 
-    public String getGrdtSchl() {
-        return grdtSchl;
+    public String getItem() {
+        return item;
     }
 
-    public void setGrdtSchl(String grdtSchl) {
-        this.grdtSchl = grdtSchl;
+    public void setItem(String item) {
+        this.item = item;
     }
 
-    public String getSchlRcrd() {
-        return schlRcrd;
+    public String getOrder() {
+        return order;
     }
 
-    public void setSchlRcrd(String schlRcrd) {
-        this.schlRcrd = schlRcrd;
+    public void setOrder(String order) {
+        this.order = order;
     }
 
-    public String getGrdtDt() {
-        return grdtDt;
+    public String getStaffState() {
+        return staffState;
     }
 
-    public void setGrdtDt(String grdtDt) {
-        this.grdtDt = grdtDt;
+    public void setStaffState(String staffState) {
+        this.staffState = staffState;
     }
 
-    public String getNtUnt() {
-        return ntUnt;
+    public String getWorkState() {
+        return workState;
     }
 
-    public void setNtUnt(String ntUnt) {
-        this.ntUnt = ntUnt;
-    }
-
-    public String getTchnldgLv() {
-        return tchnldgLv;
-    }
-
-    public void setTchnldgLv(String tchnldgLv) {
-        this.tchnldgLv = tchnldgLv;
-    }
-
-    public String getIdntfyUnt() {
-        return idntfyUnt;
-    }
-
-    public void setIdntfyUnt(String idntfyUnt) {
-        this.idntfyUnt = idntfyUnt;
-    }
-
-    public String getAccntType() {
-        return accntType;
-    }
-
-    public void setAccntType(String accntType) {
-        this.accntType = accntType;
-    }
-
-    public String getAccntState() {
-        return accntState;
-    }
-
-    public void setAccntState(String accntState) {
-        this.accntState = accntState;
-    }
-
-    public String getWtrItm() {
-        return wtrItm;
-    }
-
-    public void setWtrItm(String wtrItm) {
-        this.wtrItm = wtrItm;
-    }
-
-    public String getWtrOrdr() {
-        return wtrOrdr;
-    }
-
-    public void setWtrOrdr(String wtrOrdr) {
-        this.wtrOrdr = wtrOrdr;
+    public void setWorkState(String workState) {
+        this.workState = workState;
     }
 }
