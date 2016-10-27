@@ -51,8 +51,10 @@
     }
 </style>
 <script>
-    $(".file").on("change","input[type='file']",function(){
-    });
+    function showFile(id){
+        var filepath = $("#filename"+id).val();
+        $("#upfilename"+id).html(filepath);
+    }
     function check_upload(theform,id)
     {
         var filename = document.getElementById("filename"+id).value;
@@ -154,7 +156,7 @@
                     第二步：
                     上传填写好的员工信息表</p>
                 <a href="javascript:;" class="file">选择文件
-                    <input  type="file" value="选择文件"   id="filename1" name="importExcel" >
+                    <input  type="file" value="选择文件"   id="filename1" name="importExcel"  onchange="showFile(1)">
                 </a>
                 <div>
                     <div id="upfilename1">未上传任何文件</div>
@@ -190,7 +192,7 @@
                     第二步：
                     上传修改好的员工信息表</p>
                 <a href="javascript:;" class="file">选择文件
-                    <input  type="file" value="选择文件"    id="filename2" name="importExcel" onclick="javascript:void(0)">
+                    <input  type="file" value="选择文件"    id="filename2" name="importExcel" onchange="showFile(2)">
                 </a>
                 <div>
                     <div id="upfilename2">未上传任何文件</div>
