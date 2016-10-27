@@ -3,19 +3,17 @@ package com.model;
 public class StaffInfo {
     private String staffUserId;
 
+    private String department;
+
+    private String position;
+
     private String name;
 
     private String sex;
 
     private String staffId;
 
-    private String department;
-
     private String whetherLeader;
-
-    private String position;
-
-    private String idNo;
 
     private String cellphone;
 
@@ -34,6 +32,8 @@ public class StaffInfo {
     private String netUnit;
 
     private String comment2;
+
+    private String idNo;
 
     private String householdAddress;
 
@@ -75,11 +75,13 @@ public class StaffInfo {
 
     private String item;
 
-    private String order;
+    private String yoOrder;
 
     private String staffState;
 
     private String workState;
+
+    private String leaveDate;
 
     public String getStaffUserId() {
         return staffUserId;
@@ -87,6 +89,22 @@ public class StaffInfo {
 
     public void setStaffUserId(String staffUserId) {
         this.staffUserId = staffUserId;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
     }
 
     public String getName() {
@@ -113,36 +131,12 @@ public class StaffInfo {
         this.staffId = staffId;
     }
 
-    public String getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(String department) {
-        this.department = department;
-    }
-
     public String getWhetherLeader() {
         return whetherLeader;
     }
 
     public void setWhetherLeader(String whetherLeader) {
         this.whetherLeader = whetherLeader;
-    }
-
-    public String getPosition() {
-        return position;
-    }
-
-    public void setPosition(String position) {
-        this.position = position;
-    }
-
-    public String getIdNo() {
-        return idNo;
-    }
-
-    public void setIdNo(String idNo) {
-        this.idNo = idNo;
     }
 
     public String getCellphone() {
@@ -215,6 +209,14 @@ public class StaffInfo {
 
     public void setComment2(String comment2) {
         this.comment2 = comment2;
+    }
+
+    public String getIdNo() {
+        return idNo;
+    }
+
+    public void setIdNo(String idNo) {
+        this.idNo = idNo;
     }
 
     public String getHouseholdAddress() {
@@ -377,12 +379,12 @@ public class StaffInfo {
         this.item = item;
     }
 
-    public String getOrder() {
-        return order;
+    public String getYoOrder() {
+        return yoOrder;
     }
 
-    public void setOrder(String order) {
-        this.order = order;
+    public void setYoOrder(String yoOrder) {
+        this.yoOrder = yoOrder;
     }
 
     public String getStaffState() {
@@ -399,5 +401,13 @@ public class StaffInfo {
 
     public void setWorkState(String workState) {
         this.workState = workState;
+    }
+
+    public String getLeaveDate() {
+        return leaveDate;
+    }
+
+    public void setLeaveDate(String leaveDate) {
+        this.leaveDate = leaveDate;
     }
 }
