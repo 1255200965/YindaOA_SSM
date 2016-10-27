@@ -56,7 +56,6 @@ public class DDUtil {
             JSONObject js = (JSONObject) JSONObject.parse(userDetail.getOrderInDepts());
             Map<Long, Long> orderInDepts = FileUtils.toHashMap(js);
 
-
             userid = corpUserService.updateCorpUser(accessToken, userDetail.getUserid(), userDetail.getName(), orderInDepts,
                     userDetail.getDepartment(), userDetail.getPosition(), userDetail.getMobile(), userDetail.getTel(), userDetail.getWorkPlace(),
                     userDetail.getRemark(), userDetail.getEmail(), userDetail.getJobnumber(),
