@@ -38,6 +38,13 @@ public class StaffInfoServiceImpl implements IStaffInfoService{
         int result = staffInfoMapper.deleteByPrimaryKey(sequenceNum);
         return result;
     }
+
+    @Override
+    public int deleteStaffByID(StaffInfo sequenceNum) {
+        int result = staffInfoMapper.deleteByPrimaryKey(sequenceNum.getStaffUserId());
+        return result;
+    }
+
     /*添加用户信息*/
     public int insertStaff(StaffInfo record) {
         int result = staffInfoMapper.insert(record);
@@ -46,7 +53,7 @@ public class StaffInfoServiceImpl implements IStaffInfoService{
     /*添加一组用户*/
     public int insertStaffList(List<StaffInfo> record) {
         for (StaffInfo temp:record
-             ) {
+                ) {
             int result = staffInfoMapper.insert(temp);
             if (result == 0){
                 //插入报错
@@ -77,6 +84,24 @@ public class StaffInfoServiceImpl implements IStaffInfoService{
      * like是精髓，字符串中包含部门的都会被搜索出来
      */
     public List<StaffInfo> searchStaffInfoByEntity(StaffInfo staffInfo) {
+        String staffId = staffInfo.getStaffId();
+        String name = staffInfo.getName();
+        String depart = staffInfo.getDepartment();
+        String depart2 = "%"+depart+"%";
+
+        StaffInfoExample staffInfoExample = new StaffInfoExample();
+        StaffInfoExample.Criteria criteria = staffInfoExample.createCriteria();
+        if (staffId!=null) criteria.andStaffIdEqualTo(staffId);
+        if (name!=null) criteria.andNameEqualTo(name);
+        if (depart2!=null) criteria.andDepartmentLike(depart2);
+        staffInfoExample.or(criteria);
+
+        List<StaffInfo> list = staffInfoMapper.selectByExample(staffInfoExample);
+        return list;
+    }
+
+    //查询所有
+    public List<StaffInfo> selectStaffInfo(StaffInfo staffInfo) {
         String staffId = staffInfo.getStaffId();
         String name = staffInfo.getName();
         String depart = staffInfo.getDepartment();

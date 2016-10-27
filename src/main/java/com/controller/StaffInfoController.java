@@ -163,8 +163,20 @@ public class StaffInfoController {
         }
         return map;
     }
-
-    @RequestMapping(value = "/adduser.do", method = RequestMethod.POST)
+    //根据条件查询所有员工信息
+    @RequestMapping(value = "/query.do", method = RequestMethod.POST)
+    public @ResponseBody Map<String,Object> query(@RequestBody StaffInfo stu, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        List<StaffInfo> list = userInfoService.selectStaffInfo(stu);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("userlist", list);
+        if (list.size() != 0) {
+            map.put("msg", "成功");
+        } else {
+            map.put("msg", "查询结果为空");
+        }
+        return map;
+    }
+    /*@RequestMapping(value = "/adduser.do", method = RequestMethod.POST)
     public @ResponseBody Map<String,Object> adduser(@RequestBody StaffInfo user, HttpServletRequest request, HttpServletResponse response) throws IOException {
         Map<String,Object> map = new HashMap<String,Object>();
 
@@ -186,6 +198,47 @@ public class StaffInfoController {
             map.put("msg", "成功");
         }else{
             map.put("msg", "失败");
+        }
+        return map;
+    }
+*/
+    //添加用户信息
+    @RequestMapping(value = "/insert.do", method = RequestMethod.POST)
+    public @ResponseBody Map<String,Object> adduser(@RequestBody StaffInfo user, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Map<String,Object> map = new HashMap<String,Object>();
+
+        int result = userInfoService.insertStaff(user);
+        if(result != 0){
+            map.put("msg", "成功");
+        }else{
+            map.put("msg", "失败");
+        }
+        return map;
+    }
+
+    //修改用户信息
+    @RequestMapping(value = "/updateuser.do", method = RequestMethod.POST)
+    public @ResponseBody Map<String,Object> updateuser(@RequestBody StaffInfo user, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Map<String,Object> map = new HashMap<String,Object>();
+
+        int result = userInfoService.updateStaffByID(user);
+        if(result != 0){
+            map.put("msg", "成功");
+        }else{
+            map.put("msg", "失败");
+        }
+        return map;
+    }
+
+    //删除用户信息
+    @RequestMapping(value = "/delete.do", method = RequestMethod.POST)
+    public @ResponseBody Map<String,Object> delete(@RequestBody StaffInfo sequenceNum, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Map<String,Object> map = new HashMap<String,Object>();
+        int result = userInfoService.deleteStaffByID(sequenceNum);
+        if(result != 0){
+            map.put("msg", "删除成功");
+        }else{
+            map.put("msg", "删除失败");
         }
         return map;
     }

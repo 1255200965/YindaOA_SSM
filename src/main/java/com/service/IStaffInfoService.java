@@ -11,7 +11,7 @@ import java.util.Map;
  */
 public interface IStaffInfoService {
     //删除一个用户
-    int deleteStaffByID(String sequenceNum);
+    int deleteStaffByID(StaffInfo sequenceNum);
     //新增一个用户
     int insertStaff(StaffInfo record);
     //批量添加用户
@@ -26,9 +26,13 @@ public interface IStaffInfoService {
     /*通过工号来查询员工信息*/
     List<StaffInfo> searchStaffInfoByEntity(StaffInfo staffInfo);
 
+    //查询所有用户信息
+    List<StaffInfo> selectStaffInfo(StaffInfo staffInfo);
+
     /*插入从excel行得到的实体类*/
     Map<String, Object> insert(String fileDir) throws IOException;
 
     /*插入并更新从excel行得到的实体类*/
     Map<String, Object> insertAndUpdate(String fileDir) throws IOException;
+
 }
