@@ -112,49 +112,52 @@ public class StaffInfoServiceImpl implements IStaffInfoService{
         for (int i=1; i<=hssfSheet.getLastRowNum(); i++) {
             // 得到当前行
             HSSFRow hssfRow = hssfSheet.getRow(i);
-            StaffInfo staffInfo = new StaffInfo();
 
-            if (hssfRow.getCell(0) != null) staffInfo.setStaffUserId((String.valueOf((int)(hssfRow.getCell(0).getNumericCellValue()))));
+            /*第一步，先把这一行里所有的cell都设为string型*/
+            for (int j=0; j<=40; j++) hssfRow.getCell(j).setCellType(1);
+
+            StaffInfo staffInfo = new StaffInfo();
+            if (hssfRow.getCell(0) != null) staffInfo.setStaffUserId((hssfRow.getCell(0).toString()));
             if (hssfRow.getCell(1) != null) staffInfo.setDepartment((hssfRow.getCell(1).toString()));
             if (hssfRow.getCell(2) != null) staffInfo.setPosition((hssfRow.getCell(2).toString()));
             if (hssfRow.getCell(3) != null) staffInfo.setName((hssfRow.getCell(3).toString()));
             if (hssfRow.getCell(4) != null) staffInfo.setSex((hssfRow.getCell(4).toString()));
-            if (hssfRow.getCell(5) != null) staffInfo.setStaffId((String.valueOf((int)(hssfRow.getCell(5).getNumericCellValue()))));
+            if (hssfRow.getCell(5) != null) staffInfo.setStaffId((hssfRow.getCell(5).toString()));
             if (hssfRow.getCell(6) != null) staffInfo.setWhetherLeader((hssfRow.getCell(6).toString()));
-            if (hssfRow.getCell(7) != null) staffInfo.setCellphone((String.valueOf((int)(hssfRow.getCell(7).getNumericCellValue()))));
+            if (hssfRow.getCell(7) != null) staffInfo.setCellphone((hssfRow.getCell(7).toString()));
             if (hssfRow.getCell(8) != null) staffInfo.setEmail((hssfRow.getCell(8).toString()));
-            if (hssfRow.getCell(9) != null) staffInfo.setBranchPhone((String.valueOf((int)(hssfRow.getCell(9).getNumericCellValue()))));
+            if (hssfRow.getCell(9) != null) staffInfo.setBranchPhone((hssfRow.getCell(9).toString()));
             if (hssfRow.getCell(10) != null) staffInfo.setWorkAddress((hssfRow.getCell(10).toString()));
             if (hssfRow.getCell(11) != null) staffInfo.setComment1((hssfRow.getCell(11).toString()));
             if (hssfRow.getCell(12) != null) staffInfo.setContractType((hssfRow.getCell(12).toString()));
             if (hssfRow.getCell(13) != null) staffInfo.setYindaIdentify((hssfRow.getCell(13).toString()));
-            if (hssfRow.getCell(14) != null) staffInfo.setNetUnit((hssfRow.getCell(14).toString()));
-            if (hssfRow.getCell(15) != null) staffInfo.setComment2((hssfRow.getCell(15).toString()));
-            if (hssfRow.getCell(16) != null) staffInfo.setIdNo((String.valueOf((int)(hssfRow.getCell(16).getNumericCellValue()))));
-            if (hssfRow.getCell(17) != null) staffInfo.setHouseholdAddress((hssfRow.getCell(17).toString()));
-            if (hssfRow.getCell(18) != null) staffInfo.setBranchCompany((hssfRow.getCell(18).toString()));
-            if (hssfRow.getCell(19) != null) staffInfo.setSocialSecurityAddress((hssfRow.getCell(19).toString()));
-            if (hssfRow.getCell(20) != null) staffInfo.setOrdinaryAddress((hssfRow.getCell(20).toString()));
+            if (hssfRow.getCell(14) != null) staffInfo.setComment2((hssfRow.getCell(14).toString()));
+            if (hssfRow.getCell(15) != null) staffInfo.setOrdinaryAddress((hssfRow.getCell(15).toString()));
+            if (hssfRow.getCell(16) != null) staffInfo.setSocialSecurityAddress((hssfRow.getCell(16).toString()));
+            if (hssfRow.getCell(17) != null) staffInfo.setBranchCompany((hssfRow.getCell(17).toString()));
+            if (hssfRow.getCell(18) != null) staffInfo.setHouseholdAddress((hssfRow.getCell(18).toString()));
+            if (hssfRow.getCell(19) != null) staffInfo.setIdNo((hssfRow.getCell(19).toString()));
+            if (hssfRow.getCell(20) != null) staffInfo.setNetUnit((hssfRow.getCell(20).toString()));
             if (hssfRow.getCell(21) != null) staffInfo.setRsoIdentify((hssfRow.getCell(21).toString()));
-            if (hssfRow.getCell(22) != null) staffInfo.setBaseSalary((String.valueOf((int)(hssfRow.getCell(22).getNumericCellValue()))));
-            if (hssfRow.getCell(23) != null) staffInfo.setItemSalary((String.valueOf((int)(hssfRow.getCell(23).getNumericCellValue()))));
+            if (hssfRow.getCell(22) != null) staffInfo.setBaseSalary((hssfRow.getCell(22).toString()));
+            if (hssfRow.getCell(23) != null) staffInfo.setItemSalary((hssfRow.getCell(23).toString()));
             if (hssfRow.getCell(24) != null) staffInfo.setNation((hssfRow.getCell(24).toString()));
-            if (hssfRow.getCell(25) != null) staffInfo.setAge((String.valueOf((int)(hssfRow.getCell(25).getNumericCellValue()))));
+            if (hssfRow.getCell(25) != null) staffInfo.setAge((hssfRow.getCell(25).toString()));
             if (hssfRow.getCell(26) != null) staffInfo.setLastContract((hssfRow.getCell(26).toString()));
             if (hssfRow.getCell(27) != null) staffInfo.setLastContractBegin((hssfRow.getCell(27).toString()));
             if (hssfRow.getCell(28) != null) staffInfo.setLastContractEnd((hssfRow.getCell(28).toString()));
             if (hssfRow.getCell(29) != null) staffInfo.setEnterTime((hssfRow.getCell(29).toString()));
-            if (hssfRow.getCell(30) != null) staffInfo.setWorkYear((String.valueOf((int)(hssfRow.getCell(30).getNumericCellValue()))));
-            if (hssfRow.getCell(31) != null) staffInfo.setSalaryCard((String.valueOf((int)(hssfRow.getCell(31).getNumericCellValue()))));
+            if (hssfRow.getCell(30) != null) staffInfo.setWorkYear((hssfRow.getCell(30).toString()));
+            if (hssfRow.getCell(31) != null) staffInfo.setSalaryCard((hssfRow.getCell(31).toString()));
             if (hssfRow.getCell(32) != null) staffInfo.setGraduateSchool((hssfRow.getCell(32).toString()));
             if (hssfRow.getCell(33) != null) staffInfo.setSchoolRecord((hssfRow.getCell(33).toString()));
             if (hssfRow.getCell(34) != null) staffInfo.setGraduateDate((hssfRow.getCell(34).toString()));
-            if (hssfRow.getCell(35) != null) staffInfo.setExpenseCard((String.valueOf((int)(hssfRow.getCell(35).getNumericCellValue()))));
+            if (hssfRow.getCell(35) != null) staffInfo.setExpenseCard((hssfRow.getCell(35).toString()));
             if (hssfRow.getCell(36) != null) staffInfo.setItem((hssfRow.getCell(36).toString()));
             if (hssfRow.getCell(37) != null) staffInfo.setYoOrder((hssfRow.getCell(37).toString()));
             if (hssfRow.getCell(38) != null) staffInfo.setStaffState((hssfRow.getCell(38).toString()));
             if (hssfRow.getCell(39) != null) staffInfo.setWorkState((hssfRow.getCell(39).toString()));
-            if (hssfRow.getCell(40) != null) staffInfo.setWorkState((hssfRow.getCell(40).toString()));
+            if (hssfRow.getCell(40) != null) staffInfo.setLeaveDate((hssfRow.getCell(40).toString()));
 
             // 判断员工UserId，为空直接GG
             if (hssfRow.getCell(0) == null) {
@@ -163,7 +166,7 @@ public class StaffInfoServiceImpl implements IStaffInfoService{
             }
 
             // 查找身份证号，如果相同就把该实体类返回到失败列表当中
-            String idNo = String.valueOf((int)(hssfRow.getCell(16).getNumericCellValue()));
+            String idNo = String.valueOf((int)(hssfRow.getCell(19).getNumericCellValue()));
             StaffInfoExample staffInfoExample = new StaffInfoExample();
             staffInfoExample.createCriteria().andIdNoEqualTo(idNo);
             List<StaffInfo> listExist = staffInfoMapper.selectByExample(staffInfoExample);
@@ -208,49 +211,52 @@ public class StaffInfoServiceImpl implements IStaffInfoService{
         for (int i=1; i<=hssfSheet.getLastRowNum(); i++) {
             // 得到当前行
             HSSFRow hssfRow = hssfSheet.getRow(i);
-            StaffInfo staffInfo = new StaffInfo();
 
-            if (hssfRow.getCell(0) != null) staffInfo.setStaffUserId((String.valueOf((int)(hssfRow.getCell(0).getNumericCellValue()))));
+            /*第一步，先把这一行里所有的cell都设为string型*/
+            for (int j=0; j<=40; j++) hssfRow.getCell(j).setCellType(1);
+
+            StaffInfo staffInfo = new StaffInfo();
+            if (hssfRow.getCell(0) != null) staffInfo.setStaffUserId((hssfRow.getCell(0).toString()));
             if (hssfRow.getCell(1) != null) staffInfo.setDepartment((hssfRow.getCell(1).toString()));
             if (hssfRow.getCell(2) != null) staffInfo.setPosition((hssfRow.getCell(2).toString()));
             if (hssfRow.getCell(3) != null) staffInfo.setName((hssfRow.getCell(3).toString()));
             if (hssfRow.getCell(4) != null) staffInfo.setSex((hssfRow.getCell(4).toString()));
-            if (hssfRow.getCell(5) != null) staffInfo.setStaffId((String.valueOf((int)(hssfRow.getCell(5).getNumericCellValue()))));
+            if (hssfRow.getCell(5) != null) staffInfo.setStaffId((hssfRow.getCell(5).toString()));
             if (hssfRow.getCell(6) != null) staffInfo.setWhetherLeader((hssfRow.getCell(6).toString()));
-            if (hssfRow.getCell(7) != null) staffInfo.setCellphone((String.valueOf((int)(hssfRow.getCell(7).getNumericCellValue()))));
+            if (hssfRow.getCell(7) != null) staffInfo.setCellphone((hssfRow.getCell(7).toString()));
             if (hssfRow.getCell(8) != null) staffInfo.setEmail((hssfRow.getCell(8).toString()));
-            if (hssfRow.getCell(9) != null) staffInfo.setBranchPhone((String.valueOf((int)(hssfRow.getCell(9).getNumericCellValue()))));
+            if (hssfRow.getCell(9) != null) staffInfo.setBranchPhone((hssfRow.getCell(9).toString()));
             if (hssfRow.getCell(10) != null) staffInfo.setWorkAddress((hssfRow.getCell(10).toString()));
             if (hssfRow.getCell(11) != null) staffInfo.setComment1((hssfRow.getCell(11).toString()));
             if (hssfRow.getCell(12) != null) staffInfo.setContractType((hssfRow.getCell(12).toString()));
             if (hssfRow.getCell(13) != null) staffInfo.setYindaIdentify((hssfRow.getCell(13).toString()));
-            if (hssfRow.getCell(14) != null) staffInfo.setNetUnit((hssfRow.getCell(14).toString()));
-            if (hssfRow.getCell(15) != null) staffInfo.setComment2((hssfRow.getCell(15).toString()));
-            if (hssfRow.getCell(16) != null) staffInfo.setIdNo((String.valueOf((int)(hssfRow.getCell(16).getNumericCellValue()))));
-            if (hssfRow.getCell(17) != null) staffInfo.setHouseholdAddress((hssfRow.getCell(17).toString()));
-            if (hssfRow.getCell(18) != null) staffInfo.setBranchCompany((hssfRow.getCell(18).toString()));
-            if (hssfRow.getCell(19) != null) staffInfo.setSocialSecurityAddress((hssfRow.getCell(19).toString()));
-            if (hssfRow.getCell(20) != null) staffInfo.setOrdinaryAddress((hssfRow.getCell(20).toString()));
+            if (hssfRow.getCell(14) != null) staffInfo.setComment2((hssfRow.getCell(14).toString()));
+            if (hssfRow.getCell(15) != null) staffInfo.setOrdinaryAddress((hssfRow.getCell(15).toString()));
+            if (hssfRow.getCell(16) != null) staffInfo.setSocialSecurityAddress((hssfRow.getCell(16).toString()));
+            if (hssfRow.getCell(17) != null) staffInfo.setBranchCompany((hssfRow.getCell(17).toString()));
+            if (hssfRow.getCell(18) != null) staffInfo.setHouseholdAddress((hssfRow.getCell(18).toString()));
+            if (hssfRow.getCell(19) != null) staffInfo.setIdNo((hssfRow.getCell(19).toString()));
+            if (hssfRow.getCell(20) != null) staffInfo.setNetUnit((hssfRow.getCell(20).toString()));
             if (hssfRow.getCell(21) != null) staffInfo.setRsoIdentify((hssfRow.getCell(21).toString()));
-            if (hssfRow.getCell(22) != null) staffInfo.setBaseSalary((String.valueOf((int)(hssfRow.getCell(22).getNumericCellValue()))));
-            if (hssfRow.getCell(23) != null) staffInfo.setItemSalary((String.valueOf((int)(hssfRow.getCell(23).getNumericCellValue()))));
+            if (hssfRow.getCell(22) != null) staffInfo.setBaseSalary((hssfRow.getCell(22).toString()));
+            if (hssfRow.getCell(23) != null) staffInfo.setItemSalary((hssfRow.getCell(23).toString()));
             if (hssfRow.getCell(24) != null) staffInfo.setNation((hssfRow.getCell(24).toString()));
-            if (hssfRow.getCell(25) != null) staffInfo.setAge((String.valueOf((int)(hssfRow.getCell(25).getNumericCellValue()))));
+            if (hssfRow.getCell(25) != null) staffInfo.setAge((hssfRow.getCell(25).toString()));
             if (hssfRow.getCell(26) != null) staffInfo.setLastContract((hssfRow.getCell(26).toString()));
             if (hssfRow.getCell(27) != null) staffInfo.setLastContractBegin((hssfRow.getCell(27).toString()));
             if (hssfRow.getCell(28) != null) staffInfo.setLastContractEnd((hssfRow.getCell(28).toString()));
             if (hssfRow.getCell(29) != null) staffInfo.setEnterTime((hssfRow.getCell(29).toString()));
-            if (hssfRow.getCell(30) != null) staffInfo.setWorkYear((String.valueOf((int)(hssfRow.getCell(30).getNumericCellValue()))));
-            if (hssfRow.getCell(31) != null) staffInfo.setSalaryCard((String.valueOf((int)(hssfRow.getCell(31).getNumericCellValue()))));
+            if (hssfRow.getCell(30) != null) staffInfo.setWorkYear((hssfRow.getCell(30).toString()));
+            if (hssfRow.getCell(31) != null) staffInfo.setSalaryCard((hssfRow.getCell(31).toString()));
             if (hssfRow.getCell(32) != null) staffInfo.setGraduateSchool((hssfRow.getCell(32).toString()));
             if (hssfRow.getCell(33) != null) staffInfo.setSchoolRecord((hssfRow.getCell(33).toString()));
             if (hssfRow.getCell(34) != null) staffInfo.setGraduateDate((hssfRow.getCell(34).toString()));
-            if (hssfRow.getCell(35) != null) staffInfo.setExpenseCard((String.valueOf((int)(hssfRow.getCell(35).getNumericCellValue()))));
+            if (hssfRow.getCell(35) != null) staffInfo.setExpenseCard((hssfRow.getCell(35).toString()));
             if (hssfRow.getCell(36) != null) staffInfo.setItem((hssfRow.getCell(36).toString()));
             if (hssfRow.getCell(37) != null) staffInfo.setYoOrder((hssfRow.getCell(37).toString()));
             if (hssfRow.getCell(38) != null) staffInfo.setStaffState((hssfRow.getCell(38).toString()));
             if (hssfRow.getCell(39) != null) staffInfo.setWorkState((hssfRow.getCell(39).toString()));
-            if (hssfRow.getCell(40) != null) staffInfo.setWorkState((hssfRow.getCell(40).toString()));
+            if (hssfRow.getCell(40) != null) staffInfo.setLeaveDate((hssfRow.getCell(40).toString()));
 
             // 判断员工UserId，为空直接GG
             if (hssfRow.getCell(0) == null) {
@@ -259,7 +265,7 @@ public class StaffInfoServiceImpl implements IStaffInfoService{
             }
 
             // 如果身份证号相同，那么更新条目
-            String idNo = hssfRow.getCell(16).toString();
+            String idNo = hssfRow.getCell(19).toString();
             StaffInfoExample staffInfoExample = new StaffInfoExample();
             staffInfoExample.createCriteria().andIdNoEqualTo(idNo);
             List<StaffInfo> listExist = staffInfoMapper.selectByExample(staffInfoExample);

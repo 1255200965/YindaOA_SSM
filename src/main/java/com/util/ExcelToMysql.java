@@ -16,6 +16,7 @@ public class ExcelToMysql {
     /**
      * 这个方法实现校验表格合法性，返回一个错误图
      * 简易校验，只判断单元格类型，不判断长度
+     * 161027，由于发明了新技术，无需再校验单元格type
      */
     public Map<String, String> checkFile(String fileDir) throws IOException {
         Map<String, String> errorMap = new HashMap<String, String>();
@@ -42,13 +43,13 @@ public class ExcelToMysql {
                     && (hssfRow.getCell(11).toString().equals("备注"))
                     && (hssfRow.getCell(12).toString().equals("合同类型"))
                     && (hssfRow.getCell(13).toString().equals("音达认证"))
-                    && (hssfRow.getCell(14).toString().equals("网元"))
-                    && (hssfRow.getCell(15).toString().equals("备注2"))
-                    && (hssfRow.getCell(16).toString().equals("身份证号"))
-                    && (hssfRow.getCell(17).toString().equals("户籍地"))
-                    && (hssfRow.getCell(18).toString().equals("分公司"))
-                    && (hssfRow.getCell(19).toString().equals("社保地"))
-                    && (hssfRow.getCell(20).toString().equals("常驻地"))
+                    && (hssfRow.getCell(14).toString().equals("备注2"))
+                    && (hssfRow.getCell(15).toString().equals("常驻地"))
+                    && (hssfRow.getCell(16).toString().equals("社保地"))
+                    && (hssfRow.getCell(17).toString().equals("分公司"))
+                    && (hssfRow.getCell(18).toString().equals("户籍地"))
+                    && (hssfRow.getCell(19).toString().equals("身份证号"))
+                    && (hssfRow.getCell(20).toString().equals("网元"))
                     && (hssfRow.getCell(21).toString().equals("RSO认证"))
                     && (hssfRow.getCell(22).toString().equals("基本工资"))
                     && (hssfRow.getCell(23).toString().equals("项目工资"))
@@ -106,14 +107,14 @@ public class ExcelToMysql {
                 return errorMap;
             }
 
-            if (hssfRow.getCell(16) == null) {
+            if (hssfRow.getCell(19) == null) {
                 errorMap.put("row", i + 1 + "");
-                errorMap.put("column", "9");
+                errorMap.put("column", "20");
                 errorMap.put("reason", "身份证号不能为空");
                 return errorMap;
             }
 
-            if (((hssfRow.getCell(0) != null) && (hssfRow.getCell(0).getCellType() != 0))
+            /*if (((hssfRow.getCell(0) != null) && (hssfRow.getCell(0).getCellType() != 0))
                     || ((hssfRow.getCell(5) != null) && (hssfRow.getCell(5).getCellType() != 0))
                     || ((hssfRow.getCell(7) != null) && (hssfRow.getCell(7).getCellType() != 0))
                     || ((hssfRow.getCell(9) != null) && (hssfRow.getCell(9).getCellType() != 0))
@@ -133,7 +134,7 @@ public class ExcelToMysql {
                 errorMap.put("column", "1,6,8,10,17,23,24,26,28,29,30,31,32,35,36,41中的一个或多个");
                 errorMap.put("reason", "该单元格必须为数值型或日期型");
                 return errorMap;
-            }
+            }*/
         }
         return errorMap;
     }
