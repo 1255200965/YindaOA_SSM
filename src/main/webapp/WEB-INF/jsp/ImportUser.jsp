@@ -212,15 +212,16 @@
     </div>
     </div>
     <div class="row-fluid center-block c_center_box" style="width:70%; ">
+        <H2>出错列表</H2>
         <table style="margin-top:15px;"  border="1" cellspacing="0" cellpadding="0" class="table-1">
             <tr class="table-1-tou">
                 <td width="5%">编号 </td>
-                <td width="38%">姓名</td>
+                <td width="10%">姓名</td>
                 <td width="5%">工号</td>
                 <td width="5%"> 部门 </td>
                 <td width="7%">手机号 </td>
                 <td width="7%"> 邮箱 </td>
-                <td width="7%"> 相关信息 </td>
+                <td width="15%"> 身份证号 </td>
                 <td width="7%"> 状态 </td>
             </tr>
             <tbody >
@@ -233,7 +234,7 @@
                         <td>${list.department }</td>
                         <td>${list.cellphone }</td>
                         <td>${list.email }</td>
-                        <td>${list.workState }</td>
+                        <td>${list.idNo }</td>
                         <td>${list.staffState }</td>
                     </tr>
                 </c:forEach>
