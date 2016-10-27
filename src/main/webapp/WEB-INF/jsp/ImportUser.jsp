@@ -56,14 +56,14 @@
     function check_upload(theform,id)
     {
         var filename = document.getElementById("filename"+id).value;
-        if(filename == "" ||filename == null || filename.indexOf(".xlsx")==-1){
+        if(filename == "" ||filename == null || filename.indexOf(".xls")==-1){
             //alert('只能上传.xlsx文件');
-            $("#upfilename"+id).html("只能上传.xlsx文件");
+            $("#upfilename"+id).html("只能上传.xls文件");
             return false;
         }
     }
     function downloadTemplate(){
-        window.open('../template/templateUserInfo.xlsx');
+        window.open('../template/templateUserInfo.xls');
     }
     function checkInit(id){
         $('#mytab a[href="#tab' + id +'"]').tab('show');
@@ -225,14 +225,14 @@
             <c:if test="${!empty listFail }">
                 <c:forEach items="${listFail}" var="list">
                     <tr>
-                        <td>${list.sqncNmbr }</td>
+                        <td>${list.staffUserId }</td>
                         <td>${list.name }</td>
-                        <td>${list.idCrd }</td>
+                        <td>${list.staffId }</td>
                         <td>${list.department }</td>
                         <td>${list.cellphone }</td>
                         <td>${list.email }</td>
-                        <td>${list.stffId }</td>
-                        <td>${list.stffState }</td>
+                        <td>${list.workState }</td>
+                        <td>${list.staffState }</td>
                     </tr>
                 </c:forEach>
             </c:if>
