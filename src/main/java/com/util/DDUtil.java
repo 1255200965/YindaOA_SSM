@@ -30,7 +30,7 @@ public class DDUtil {
         return accessToken;
     }
     public static String createUser(StaffInfo user){
-        String userid = null;
+        String result = null;
         try {
             CorpUserDetail userDetail = ChangeToDD(user);
             CorpUserService corpUserService = ServiceFactory.getInstance().getOpenService(CorpUserService.class);
@@ -38,17 +38,22 @@ public class DDUtil {
             Map<Long, Long> orderInDepts = new HashMap<Long, Long>();
             orderInDepts.put((long)orderInDepts.size(),Long.parseLong(user.getDepartment()));
             //获取userid
-            userid = corpUserService.createCorpUser(getAccessToken(), userDetail.getUserid(), userDetail.getName(), orderInDepts,
+            result = corpUserService.createCorpUser(getAccessToken(), userDetail.getUserid(), userDetail.getName(), orderInDepts,
                     userDetail.getDepartment(), userDetail.getPosition(), userDetail.getMobile(), userDetail.getTel(), userDetail.getWorkPlace(),
                     userDetail.getRemark(), userDetail.getEmail(), userDetail.getJobnumber(),
                     userDetail.getIsHide(), userDetail.getSenior(), userDetail.getExtattr());
         } catch (Exception e){
             e.printStackTrace();
         }
-        return userid;
+        return result;
+       /* {
+            "errcode": 0,
+                "errmsg": "created",
+                "userid": "dedwefewfwe1231"
+        }*/
     }
     public static String updateUser(StaffInfo user){
-        String userid = null;
+        String result = null;
         try {
             CorpUserDetail userDetail = ChangeToDD(user);
 
@@ -56,25 +61,32 @@ public class DDUtil {
             JSONObject js = (JSONObject) JSONObject.parse(userDetail.getOrderInDepts());
             Map<Long, Long> orderInDepts = FileUtils.toHashMap(js);
 
-
-            userid = corpUserService.updateCorpUser(accessToken, userDetail.getUserid(), userDetail.getName(), orderInDepts,
+            result = corpUserService.updateCorpUser(accessToken, userDetail.getUserid(), userDetail.getName(), orderInDepts,
                     userDetail.getDepartment(), userDetail.getPosition(), userDetail.getMobile(), userDetail.getTel(), userDetail.getWorkPlace(),
                     userDetail.getRemark(), userDetail.getEmail(), userDetail.getJobnumber(),
                     userDetail.getIsHide(), userDetail.getSenior(), userDetail.getExtattr());
         } catch (Exception e){
             e.printStackTrace();
         }
-        return userid;
+        return result;
+        /*{
+            "errcode": 0,
+            "errmsg": "updated"
+         }*/
     }
     public static CorpUserDetail deleteUser(StaffInfo user){
-        CorpUserDetail userid = null;
+        CorpUserDetail result = null;
         try {
             CorpUserService corpUserService = ServiceFactory.getInstance().getOpenService(CorpUserService.class);
-            userid = corpUserService.deleteCorpUser(accessToken, user.getStaffUserId());
+            result = corpUserService.deleteCorpUser(accessToken, user.getStaffUserId());
         } catch (Exception e){
             e.printStackTrace();
         }
-        return userid;
+        return result;
+        /*{
+            "errcode": 0,
+            "errmsg": "deleted"
+        }*/
     }
     public static StaffInfo getUserByID(String userid){
         StaffInfo user = null;
@@ -90,13 +102,23 @@ public class DDUtil {
     //转换成本地用户类
     public static StaffInfo ChangeToLocal(CorpUserDetail user){
         StaffInfo result = new StaffInfo();
-
-
+        result.setName(user.getName());
+        result.setCellphone(user.getMobile());
+        result.setEmail(user.getEmail());
+        result.setStaffUserId(user.getDingId());
+        result.setStaffId(user.getJobnumber());
+        //部门
+        result.setDepartment(user.getDepartment().get(0).toString());
         return result;
     }
     //转换成钉钉用户类
     public static CorpUserDetail ChangeToDD(StaffInfo user){
         CorpUserDetail result = new CorpUserDetail();
+        result.setName(user.getName());
+        result.setJobnumber(user.getStaffId());
+        result.setMobile(user.getCellphone());
+        //部门
+        //result.setDepartment(user.getDepartment());
         return result;
     }
 }
