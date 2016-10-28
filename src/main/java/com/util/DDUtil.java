@@ -28,12 +28,14 @@ import java.util.Map;
  */
 public class DDUtil {
 
-    @Resource
     private IStaffInfoService userInfoService;
 
     public static String jsapiTicket = null;
     public static String accessToken = null;
 
+    public DDUtil(IStaffInfoService service){
+        userInfoService = service;
+    }
     public String getAccessToken(){
         try {
             if (accessToken == null) {
@@ -155,8 +157,7 @@ public class DDUtil {
 
         // 目前只有一个部门，就不循环了
         List<Long> departmentList = new ArrayList<Long>();
-        DDUtil ddUtil = new DDUtil();
-        String departId = ddUtil.changeToDepartId(user.getDepartment());
+        String departId = this.changeToDepartId(user.getDepartment());
         Long longDepartId = Long.parseLong(departId);
         departmentList.add(longDepartId);
         corpUserDetail.setDepartment(departmentList);
