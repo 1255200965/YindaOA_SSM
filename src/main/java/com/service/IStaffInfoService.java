@@ -35,4 +35,15 @@ public interface IStaffInfoService {
     /*插入并更新从excel行得到的实体类*/
     Map<String, Object> insertAndUpdate(String fileDir) throws IOException;
 
+    /*根据根部门的名称，查根部门的id*/
+    String parentName2id(String name);
+
+    /*通过子部门的名称，和刚刚得到的父部门id，查子部门id*/
+    String myName2id(String myName, String parentId);
+
+    /*通过根部门的id，查根部门的名称*/
+    String parentId2name(String parentId);
+
+    /*通过子部门的id和根部门的id，查子部门的名称*/
+    String myId2name(String myId, String parentId);
 }

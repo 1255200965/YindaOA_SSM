@@ -1,6 +1,9 @@
 package com.service.impl;
 
+import com.dao.DepartmentMapper;
 import com.dao.StaffInfoMapper;
+import com.model.Department;
+import com.model.DepartmentExample;
 import com.model.StaffInfo;
 import com.model.StaffInfoExample;
 import com.service.IStaffInfoService;
@@ -32,6 +35,8 @@ public class StaffInfoServiceImpl implements IStaffInfoService{
 
     @Autowired
     public StaffInfoMapper staffInfoMapper;
+    @Autowired
+    public DepartmentMapper departmentMapper;
 
     /*删除用户信息*/
     public int deleteStaffByID(String sequenceNum) {
@@ -327,4 +332,57 @@ public class StaffInfoServiceImpl implements IStaffInfoService{
         map.put("listFail", listFail);
         return map;
     }
+
+    /**
+     * 根据根部门的名称，查根部门的id
+     */
+    public String parentName2id(String name) {
+        String id;
+        DepartmentExample example = new DepartmentExample();
+        example.createCriteria().andDepNameEqualTo(name).andDepParentidEqualTo("1");
+        List<Department> list = departmentMapper.selectByExample(example);
+        Department department = list.get(0);
+        id = department.getDepDdId();
+        return id;
+    }
+
+    /**
+     * 通过子部门的名称，和刚刚得到的父部门id，查子部门id
+     */
+    public String myName2id(String myName, String parentId) {
+        String id;
+        DepartmentExample example = new DepartmentExample();
+        example.createCriteria().andDepNameEqualTo(myName).andDepParentidEqualTo(parentId);
+        List<Department> list = departmentMapper.selectByExample(example);
+        Department department = list.get(0);
+        id = department.getDepDdId();
+        return id;
+    }
+
+    /**
+     * 通过根部门的id，查根部门的名称
+     */
+    public String parentId2name(String parentId) {
+        String name;
+        DepartmentExample example = new DepartmentExample();
+        example.createCriteria().andDepDdIdEqualTo(parentId).andDepParentidEqualTo("1");
+        List<Department> list = departmentMapper.selectByExample(example);
+        Department department = list.get(0);
+        name = department.getDepName();
+        return name;
+    }
+
+    /**
+     * 通过子部门的id和根部门的id，查子部门的名称
+     */
+    public String myId2name(String myId, String parentId) {
+        String name;
+        DepartmentExample example = new DepartmentExample();
+        example.createCriteria().andDepDdIdEqualTo(myId).andDepParentidEqualTo(parentId);
+        List<Department> list = departmentMapper.selectByExample(example);
+        Department department = list.get(0);
+        name = department.getDepName();
+        return name;
+    }
+
 }

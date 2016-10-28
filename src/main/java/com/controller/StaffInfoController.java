@@ -10,8 +10,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.*;
 
+import com.dingtalk.open.client.api.model.corp.CorpUser;
+import com.dingtalk.open.client.api.model.corp.CorpUserDetail;
+import com.dingtalk.open.client.api.model.corp.CorpUserDetailList;
+import com.dingtalk.open.client.api.model.corp.CorpUserList;
 import com.model.StaffInfo;
 import com.service.IStaffInfoService;
+import com.util.DDUtil;
 import com.util.DateUtil;
 import com.util.ExcelToMysql;
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -37,6 +42,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import static com.ddSdk.auth.AuthHelper.getAccessToken;
+
 /**
  * Created by ma on 2016/10/17.
  */
@@ -49,17 +56,16 @@ public class StaffInfoController {
     @RequestMapping("/testMethod.do")
     public String getAllUser(HttpServletRequest request) throws IOException {
 
-        // 添加文件到数据库
-/*        String path = "/home/baili/Documents/yindaTech/007.xlsx";
-        Map<String, Object> map = userInfoService.insert(path);
-        Object obj = map.get("listFail");
-        List<StaffInfo> list = (List<StaffInfo>)obj;
-        System.out.println(map.get("successAmount"));
-        System.out.println(list.size());
-        for (int i=0; i<list.size(); i++) {
-            String string = list.get(i).getStffId();
-            System.out.println(string);
-        }*/
+        DDUtil ddUtil = new DDUtil();
+        try {
+            List<CorpUserDetail> list = ddUtil.getAllDepartMem(11186697);
+            CorpUserDetail corpUserDetailLLR = list.get(3);
+            StaffInfo staffInfoLLR = ddUtil.ChangeToLocal(corpUserDetailLLR);
+            System.out.println("刘立人的电话号码是"+staffInfoLLR.getCellphone());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return "/UserInfo";
     }
 
