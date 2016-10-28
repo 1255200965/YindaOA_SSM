@@ -139,7 +139,7 @@
             }
             //查询成员列表（部门，姓名，电话，工号）
             self.GetUserByQuery = function(){
-                if (nowDep != null){var depid = nowDep.id;} else {depid = null;}
+                if (nowDep != null){var depid = nowDep.name;} else {depid = null;}
                 $.ajax({
                     data:JSON.stringify(new UserModel(depid,$("#search_name").val(),$("#search_workid").val(),$("#search_phone").val())),
                     type:"post",
@@ -280,14 +280,14 @@
                         alert("选择部门:"+data.name);
                     }
                 }
-                lastSelectedNodeId = data.id;
+                lastSelectedNodeId = data.name;
                 lastSelectTime = new Date().getTime();
             }
             //选择部门
             self.chooseDep = function () {
                 var id = "";
                 if (nowDep != null) {
-                    id = nowDep.id;
+                    id = nowDep.name;
                 }
 
                 //获取部门用户
@@ -456,7 +456,7 @@
                             <div class="c_ding_form_group" >
                                 <label><i class="iconfont c_ding_from_icon" ></i><span >合同类型:</span></label>
                                 <div class="input_content" >
-                                    <input class="c_ding_input" data-bind="textinput:cntrctType"/>
+                                    <input class="c_ding_input" data-bind="textinput:contractType"/>
                                 </div>
                             </div>
                         </div>
@@ -465,25 +465,25 @@
                             <div class="c_ding_form_group" >
                                 <label><i class="iconfont c_ding_from_icon" ></i><span >工号:</span></label>
                                 <div class="input_content" >
-                                    <input class="c_ding_input" data-bind="textinput:idCrd"/>
+                                    <input class="c_ding_input" data-bind="textinput:staffId"/>
                                 </div>
                             </div>
                             <div class="c_ding_form_group" >
                                 <label><i class="iconfont c_ding_from_icon" ></i><span >职位:</span></label>
                                 <div class="input_content" >
-                                    <input class="c_ding_input" data-bind="textinput:tchnldgLv"/>
+                                    <input class="c_ding_input" data-bind="textinput:position"/>
                                 </div>
                             </div>
                             <div class="c_ding_form_group" >
                                 <label><i class="iconfont c_ding_from_icon" ></i><span >钉钉id:</span></label>
                                 <div class="input_content" >
-                                    <input class="c_ding_input" data-bind="textinput:stffId"/>
+                                    <input class="c_ding_input" data-bind="textinput:staffUserId"/>
                                 </div>
                             </div>
                             <div class="c_ding_form_group" >
                                 <label><i class="iconfont c_ding_from_icon" ></i><span >用户状态:</span></label>
                                 <div class="input_content" >
-                                    <input class="c_ding_input" data-bind="textinput:stffState"/>
+                                    <input class="c_ding_input" data-bind="textinput:staffState"/>
                                 </div>
                             </div>
                         </div>

@@ -12,6 +12,7 @@ import java.util.*;
 
 import com.model.StaffInfo;
 import com.service.IStaffInfoService;
+import com.util.DDUtil;
 import com.util.DateUtil;
 import com.util.ExcelToMysql;
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -60,6 +61,7 @@ public class StaffInfoController {
             String string = list.get(i).getStffId();
             System.out.println(string);
         }*/
+        String acctoken = DDUtil.getAccessToken();
         return "/UserInfo";
     }
 
