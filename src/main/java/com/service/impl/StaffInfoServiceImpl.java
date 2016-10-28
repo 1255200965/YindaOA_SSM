@@ -7,6 +7,7 @@ import com.model.DepartmentExample;
 import com.model.StaffInfo;
 import com.model.StaffInfoExample;
 import com.service.IStaffInfoService;
+import com.util.DDUtil;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -183,10 +184,13 @@ public class StaffInfoServiceImpl implements IStaffInfoService {
             if (hssfRow.getCell(39) != null) staffInfo.setWorkState(hssfRow.getCell(39).toString());
             if (hssfRow.getCell(40) != null) staffInfo.setLeaveDate(hssfRow.getCell(40).toString());
 
-            // 判断员工UserId，为空直接GG
+            // 判断员工UserId，为空则先插入钉钉，获得userID
             if (hssfRow.getCell(0) == null) {
-                listFail.add(staffInfo);
-                continue;
+                /*listFail.add(staffInfo);
+                continue;*/
+                DDUtil ddUtil = new DDUtil(this);
+                String userid = ddUtil.createUser(staffInfo);
+                staffInfo.setStaffUserId(userid);
             }
 
             // 查找身份证号，如果相同就把该实体类返回到失败列表当中
@@ -284,10 +288,11 @@ public class StaffInfoServiceImpl implements IStaffInfoService {
             if (hssfRow.getCell(39) != null) staffInfo.setWorkState(hssfRow.getCell(39).toString());
             if (hssfRow.getCell(40) != null) staffInfo.setLeaveDate(hssfRow.getCell(40).toString());
 
-            // 判断员工UserId，为空直接GG
+            // 判断员工UserId，为空则先插入钉钉，获得userID
             if (hssfRow.getCell(0) == null) {
-                listFail.add(staffInfo);
-                continue;
+                //listFail.add(staffInfo);
+                //continue;
+
             }
 
             // 如果身份证号相同，那么更新条目
@@ -304,13 +309,16 @@ public class StaffInfoServiceImpl implements IStaffInfoService {
                     staffInfoMapper.updateByPrimaryKey(staffInfo);
                     // 更新成功，数目自加
                     successAmount++;
+                    //更新钉钉
+
                     continue;
                 } catch (Exception e) {
                     listFail.add(staffInfo);
                 }
             }
 
-            try {   // 尝试性地向数据库插入从excel行得到的实体类
+            try {
+                // 尝试性地向数据库插入从excel行得到的实体类
                 staffInfoMapper.insert(staffInfo);
                 // 添加成功，数目自加
                 successAmount++;
@@ -356,7 +364,7 @@ public class StaffInfoServiceImpl implements IStaffInfoService {
      */
     public Department id2name(String id) {
         DepartmentExample example = new DepartmentExample();
-        example.createCriteria().andDepDdIdEqualTo(id).andDepParentidEqualTo("1");
+        example.createCriteria().andDepDdIdEqualTo(id);
         List<Department> list = departmentMapper.selectByExample(example);
         Department department = list.get(0);
         return department;
