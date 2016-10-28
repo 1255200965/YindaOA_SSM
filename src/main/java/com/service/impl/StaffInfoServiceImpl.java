@@ -353,29 +353,14 @@ public class StaffInfoServiceImpl implements IStaffInfoService {
     }
 
     /**
-     * 通过根部门的id，查根部门的名称
+     * 通过部门id，查到实体类
      */
-    public String parentId2name(String parentId) {
-        String name;
+    public Department id2name(String id) {
         DepartmentExample example = new DepartmentExample();
-        example.createCriteria().andDepDdIdEqualTo(parentId).andDepParentidEqualTo("1");
+        example.createCriteria().andDepDdIdEqualTo(id).andDepParentidEqualTo("1");
         List<Department> list = departmentMapper.selectByExample(example);
         Department department = list.get(0);
-        name = department.getDepName();
-        return name;
-    }
-
-    /**
-     * 通过子部门的id和根部门的id，查子部门的名称
-     */
-    public String myId2name(String myId, String parentId) {
-        String name;
-        DepartmentExample example = new DepartmentExample();
-        example.createCriteria().andDepDdIdEqualTo(myId).andDepParentidEqualTo(parentId);
-        List<Department> list = departmentMapper.selectByExample(example);
-        Department department = list.get(0);
-        name = department.getDepName();
-        return name;
+        return department;
     }
 
 }

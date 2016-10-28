@@ -228,9 +228,7 @@ public class DDUtil {
             myName = strings[1];
             String parentId = userInfoService.parentName2id(parentName);
             String myId = userInfoService.myName2id(myName, parentId);
-            // 把父部门和子部门的id拼接起来
-            String id = parentId + "-" + myId;
-            return id;
+            return myId;
         }
         // 接下来看本身就是根部门的情况
         else {
@@ -241,24 +239,21 @@ public class DDUtil {
 
     /**
      * 把钉钉里的部门id，转换为数据库所需要的中文名
-     * @param strDepartId
-     * @return
      */
-    public String changeToChinese(String strDepartId) {
-        String parentId;
-        String myId;
-        if (strDepartId.contains("-")) {
-            String[] strList = strDepartId.split("-");
-            parentId = strList[0];
-            myId = strList[1];
-            String parentName = userInfoService.parentId2name(parentId);
-            String myselfName = userInfoService.myId2name(myId, parentId);
-            String name = parentName+"-"+myselfName;
-            return name;
+    public String changeToChinese(String id) {
+        Department department = userInfoService.id2name(id);
+        String parentId = department.getDepParentid();
+        String myName = department.getDepName();
+
+        if (parentId.equals("1")) {
+            return myName;
         }
         else {
-            String myselfName = userInfoService.parentId2name(strDepartId);
-            return myselfName;
+            department = userInfoService.id2name(parentId);
+            String parentName = department.getDepName();
+            String name = parentName+"-"+myName;
+            return name;
         }
+
     }
 }

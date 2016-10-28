@@ -1,5 +1,6 @@
 package com.service;
 
+import com.model.Department;
 import com.model.StaffInfo;
 
 import java.io.IOException;
@@ -41,9 +42,7 @@ public interface IStaffInfoService {
     /*通过子部门的名称，和刚刚得到的父部门id，查子部门id*/
     String myName2id(String myName, String parentId);
 
-    /*通过根部门的id，查根部门的名称*/
-    String parentId2name(String parentId);
+    /*通过部门id，查到实体类*/
+    Department id2name(String id);
 
-    /*通过子部门的id和根部门的id，查子部门的名称*/
-    String myId2name(String myId, String parentId);
 }
