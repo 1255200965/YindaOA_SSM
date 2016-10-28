@@ -35,12 +35,11 @@ public class StaffInfoController {
     @RequestMapping("/testMethod.do")
     public String getAllUser(HttpServletRequest request) throws IOException {
 
-        DDUtil ddUtil = new DDUtil();
+        DDUtil ddUtil = new DDUtil(userInfoService);
         try {
-            List<CorpUserDetail> list = ddUtil.getAllDepartMem(11186697);
-            CorpUserDetail corpUserDetailLLR = list.get(3);
-            StaffInfo staffInfoLLR = ddUtil.ChangeToLocal(corpUserDetailLLR);
-            System.out.println("刘立人的电话号码是"+staffInfoLLR.getCellphone());
+            //List<CorpUserDetail> list = ddUtil.getAllDepartMem(11186697);
+            StaffInfo staffInfoLLR = userInfoService.selectStaffByID("011363262839230971");
+            CorpUserDetail ddd = ddUtil.ChangeToDD(staffInfoLLR);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -150,7 +149,7 @@ public class StaffInfoController {
     }
     //根据条件查询所有员工信息
     @RequestMapping(value = "/query.do", method = RequestMethod.POST)
-    public @ResponseBody Map<String,Object> query(@RequestBody StaffInfo stu, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public @ResponseBody Map<String,Object> query1(@RequestBody StaffInfo stu, HttpServletRequest request, HttpServletResponse response) throws IOException {
         List<StaffInfo> list = userInfoService.selectStaffInfo(stu);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("userlist", list);
@@ -168,7 +167,6 @@ public class StaffInfoController {
     public @ResponseBody Map<String,Object> adduser(@RequestBody StaffInfo user, HttpServletRequest request, HttpServletResponse response) throws IOException {
         Map<String,Object> map = new HashMap<String,Object>();
 
-        //钉钉测添加
         int result = userInfoService.insertStaff(user);
         if(result != 0){
             map.put("msg", "成功");
@@ -198,7 +196,7 @@ public class StaffInfoController {
     public @ResponseBody Map<String,Object> delete(@RequestBody StaffInfo user, HttpServletRequest request, HttpServletResponse response) throws IOException {
         Map<String,Object> map = new HashMap<String,Object>();
         user.setStaffState("离职");
-        user.setLeaveDate(DateUtil.getCurrentTimeMillis().toString());
+        user.setLeaveDate(DateUtil.getCurrentTimeDate());
         //钉钉侧删除
         int result = userInfoService.updateStaffByID(user);
         if(result != 0){

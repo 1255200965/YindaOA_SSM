@@ -105,13 +105,12 @@ public class StaffInfoServiceImpl implements IStaffInfoService {
         return list;
     }
 
-    //查询所有
+    //根据名称，工号，电话好吗查询所有
     public List<StaffInfo> selectStaffInfo(StaffInfo staffInfo) {
-        String name = staffInfo.getName();
-        String cellphone = staffInfo.getCellphone();
-        String idNo = staffInfo.getIdNo();
-        List<StaffInfo> list = staffInfoMapper.selectAllUser(staffInfo);
-        return list;
+//        String name = staffInfo.getName();
+//        String cellphone = staffInfo.getCellphone();
+//        String idNo = staffInfo.getIdNo();
+        return staffInfoMapper.selectAllUser(staffInfo);
     }
 
 

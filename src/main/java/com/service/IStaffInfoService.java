@@ -23,7 +23,7 @@ public interface IStaffInfoService {
     StaffInfo selectStaffByID(String staffUserId);
 
     //更新用户
-    int updateStaffByID(StaffInfo record);
+    int updateStaffByID(StaffInfo staffUserId);
     /*通过工号来查询员工信息*/
     List<StaffInfo> searchStaffInfoByEntity(StaffInfo staffInfo);
 
