@@ -25,22 +25,6 @@
 
 <script type="text/javascript">
     var result = null;
-    function ajaxTest(){
-        $.ajax({
-            data:"name="+$("#nr1").val(),
-            type:"post",
-            dataType: 'json',
-            url:"../userinfo/login.do",
-            error:function(data){
-                alert("出错了！！:"+data.msg);
-            },
-            success:function(data){
-                alert("success:"+data.msg);
-                result = eval(data.usertest);
-                $("#result").html(data.usertest.name) ;
-            }
-        });
-    }
 
     //============================================
     //当前选择的部门
@@ -86,30 +70,6 @@
                 self.GetDepartment();
 
             });
-            //获取用户列表测试用
-            self.GetUserList = function(){
-                $.ajax({
-                    data:"name="+$("#search_name").val(),
-                    type:"get",
-                    dataType: 'json',
-                    url:"../userinfo/login.do",
-                    error:function(data){
-                        alert("出错了！！:"+data.msg);
-                    },
-                    success:function(data){
-                        result = eval(data.usertest);
-                        self.ShowList.removeAll();
-                        //清空viewmodel
-                        for (var i = 0; i < result.length; i++) {
-                            self.ShowList.push(result[i]);
-                            //加入每行题目信息
-
-                        }
-                    }
-                });
-            }
-
-
 
 
             //===============================
@@ -131,7 +91,6 @@
                         for (var i = 0; i < result.length; i++) {
                             self.ShowList.push(result[i]);
                             //加入每行题目信息
-
                         }
                     }
                 });
@@ -139,13 +98,13 @@
             }
             //查询成员列表（部门，姓名，电话，工号）
             self.GetUserByQuery = function(){
-                if (nowDep != null){var depid = nowDep.id;} else {depid = null;}
+                if (nowDep != null){var depid = nowDep.name;} else {depid = null;}
                 $.ajax({
                     data:JSON.stringify(new UserModel(depid,$("#search_name").val(),$("#search_workid").val(),$("#search_phone").val())),
                     type:"post",
                     headers: { 'Content-Type': 'application/json' },
                     dataType: 'json',
-                    url:"../userinfo/login.do",
+                    url:"../userinfo/query.do",
                     error:function(data){
                         alert("出错了！！:"+data.msg);
                     },
@@ -156,8 +115,8 @@
                         for (var i = 0; i < result.length; i++) {
                             self.ShowList.push(result[i]);
                             //加入每行题目信息
-
                         }
+                        //self.GetUserListByDep(nowDep.name);
                     }
                 });
 
@@ -174,7 +133,7 @@
                         alert("出错了！！:"+data.msg);
                     },
                     success:function(data){
-                        alert("success:"+data.msg);
+                        alert("添加结果:"+data.msg);
 
                     }
                 });
@@ -192,13 +151,40 @@
                         alert("出错了！！:"+data.msg);
                     },
                     success:function(data){
-                        alert("success:"+data.msg);
+                        alert("修改结果:"+data.msg);
+                        //静态刷新页面
+                        for (var i = 0; i < self.ShowList().length; i++) {
+                            if (self.ShowList()[i].staffUserId == self.changeItem().staffUserId){
+                                self.ShowList.splice(i,1);
+                                self.ShowList.splice(i,0,self.changeItem());
+                                break;
+                            }
 
+                        }
+                    }
+                });
+                //关闭模态框，更新前端
+                self.ClickModelNo();
+
+            }
+            //删除部门成员
+            self.DeleteUser = function(item){
+                $.ajax({
+                    type: "post",
+                    data:JSON.stringify(item),
+                    contentType: "text/json",
+                    url: "../userinfo/delete.do",
+                    headers: { 'Content-Type': 'application/json' },
+                    error:function(data){
+                        alert("出错了！！:"+data.msg);
+                    },
+                    success:function(data){
+                        alert("删除结果:"+data.msg);
+                        //静态刷新页面
+                        self.GetUserListByDep(nowDep.name);
                     }
                 });
             }
-            //删除部门成员
-            self.DeleteUser = function(){}
             //点击事件-点击添加用户按钮
             self.ClickAdd = function(){
                 self.changeItem(new UserModel());
@@ -212,7 +198,11 @@
                 $("#model1").click();
             };
             //点击事件-点击删除用户按钮
-            self.ClickDelete = function(){};
+            self.ClickDelete = function(item){
+                self.DeleteUser(item);
+            };
+
+
             //点击事件-点击搜索
             self.ClickSearch = function () {
                 self.GetUserByQuery();
@@ -274,20 +264,20 @@
                 if (lastSelectedNodeId && lastSelectTime) {
                     var time = new Date().getTime();
                     var t = time - lastSelectTime;
-                    if (lastSelectedNodeId == data.id && t < 300) {
+                    if (lastSelectedNodeId == data.name && t < 300) {
                         nowDep = data;
                         self.chooseDep();
                         alert("选择部门:"+data.name);
                     }
                 }
-                lastSelectedNodeId = data.id;
+                lastSelectedNodeId = data.name;
                 lastSelectTime = new Date().getTime();
             }
             //选择部门
             self.chooseDep = function () {
                 var id = "";
                 if (nowDep != null) {
-                    id = nowDep.id;
+                    id = nowDep.name;
                 }
 
                 //获取部门用户
@@ -309,6 +299,27 @@
         this.email = null;
         return this;
     }
+
+
+    //现实分页查询
+    var toolIip ='<div class ="toolIipBoty"><div class ="toolIipMessage"></div></div>'
+//    验证控件显示
+    function validateAlert(str,item){
+        removeIoolTips(item);
+
+        定位
+        var left=$(item).position().left;
+        var top=$(item).offset().top;
+        var height=$(item).height();
+        var $tooltip=$(toolIip);
+        $tooltip.css("left",left).css("top",top);
+        $tooltip.find(".toolIipMessage").text(str);
+
+        //插入
+        $(item).after($tooltip);
+
+    }
+
 </script>
 
 <head>
@@ -340,7 +351,7 @@
     <div class="row-fluid c_box" style="width:100%;">
         <div class="col-md-2 c_left_box" >
             <div style="margin-top:3%"></div>
-            <div id="tree"></div>
+            <div id="tree" style="overflow:auto;height:800px;"></div>
 
         </div>
         <div class="col-md-10 c_right_box" >
@@ -364,23 +375,28 @@
                 <div class="caidan-tiku-s"> <span>难度：</span>
                     <select id="nd1" class="riqi-xiala" style="width:70px;" data-bind="options: [1,2,3,4,5,6,7,8,9], optionsText: function (item) {  return item;},optionsCaption:''"></select>
                 </div>--%>
-                <div style="float:right">
+                <div style="float:right;margin-right:15px;padding-bottom:10px;" >
                     <input data-bind="click:$root.ClickSearch" type="button" value="查询"  class="chaxun">
                     <input  data-bind="click:$root.ClickClear" type="button" value="清空"  class="chaxun" style="background:#fd9162">
                 </div>
             </div>
+
+            <div style="width:100%; height:700px;padding-top: 5px;overflow:auto;border:0 solid #000000;">
+
             <table  width="95%" border="1" cellspacing="0" cellpadding="0" class="table-1">
                 <tr class="table-1-tou">
-                    <td width="7%">编号 </td>
-                    <td width="7%">姓名</td>
-                    <td width="7%">工号</td>
+                    <td width="10%">编号 </td>
+                    <td width="5%">姓名</td>
+                    <td width="15%">身份证号</td>
                     <td width="7%"> 部门 </td>
                     <td width="7%">手机号 </td>
-                    <td width="7%"> 邮箱 </td>
-                    <td width="7%"> 相关信息 </td>
-                    <td width="7%"> 状态 </td>
+                    <td width="15%"> 邮箱 </td>
+                    <td width="5%"> 工号 </td>
+                    <td width="5%"> 状态 </td>
                     <td width="7%"> 操作 </td>
                 </tr>
+
+
                 <tbody data-bind="foreach:ShowList">
                 <tr >
                     <td data-bind="text:staffUserId">编号</td>
@@ -398,7 +414,15 @@
 
                 </tr>
                 </tbody>
-            </table>
+            </table></div>
+
+            <%--<div align="center" style="font-size:12px">--%>
+                <%--<p>	                <span class="STYLE33">当前是[第  ${currPage}&nbsp;页 / 共有&nbsp;${totalPage}<span class="STYLE7">&nbsp;</span>页]</span>--%>
+                    <%--<span class="STYLE15"><span class="STYLE20"><a href="javascript:submitByPage(1)">首页</a>--%>
+                  <%--<a href="javascript:submitByPage(${currPage -1  < 1? 1: currPage-1})">上一页</a>--%>
+                  <%--<a href="javascript:submitByPage(${currPage+1> totalPage? totalPage: currPage+1 })">下一页</a>--%>
+                  <%--<a href="javascript:submitByPage(${totalPage})">末页 </a></span></span> </p>--%>
+            <%--</div>--%>
         </div>
     </div>
     <div class="row-fluid">
@@ -456,7 +480,7 @@
                             <div class="c_ding_form_group" >
                                 <label><i class="iconfont c_ding_from_icon" ></i><span >合同类型:</span></label>
                                 <div class="input_content" >
-                                    <input class="c_ding_input" data-bind="textinput:cntrctType"/>
+                                    <input class="c_ding_input" data-bind="textinput:contractType"/>
                                 </div>
                             </div>
                         </div>
@@ -465,25 +489,31 @@
                             <div class="c_ding_form_group" >
                                 <label><i class="iconfont c_ding_from_icon" ></i><span >工号:</span></label>
                                 <div class="input_content" >
-                                    <input class="c_ding_input" data-bind="textinput:idCrd"/>
+                                    <input class="c_ding_input" data-bind="textinput:staffId"/>
                                 </div>
                             </div>
                             <div class="c_ding_form_group" >
                                 <label><i class="iconfont c_ding_from_icon" ></i><span >职位:</span></label>
                                 <div class="input_content" >
-                                    <input class="c_ding_input" data-bind="textinput:tchnldgLv"/>
+                                    <input class="c_ding_input" data-bind="textinput:position"/>
                                 </div>
                             </div>
                             <div class="c_ding_form_group" >
                                 <label><i class="iconfont c_ding_from_icon" ></i><span >钉钉id:</span></label>
                                 <div class="input_content" >
-                                    <input class="c_ding_input" data-bind="textinput:stffId"/>
+                                    <input class="c_ding_input" data-bind="textinput:staffUserId"/>
+                                </div>
+                            </div>
+                            <div class="c_ding_form_group" >
+                                <label><i class="iconfont c_ding_from_icon" ></i><span >离职日期:</span></label>
+                                <div class="input_content" >
+                                    <input class="c_ding_input" data-bind="textinput:leaveDate"/>
                                 </div>
                             </div>
                             <div class="c_ding_form_group" >
                                 <label><i class="iconfont c_ding_from_icon" ></i><span >用户状态:</span></label>
                                 <div class="input_content" >
-                                    <input class="c_ding_input" data-bind="textinput:stffState"/>
+                                    <input class="c_ding_input" data-bind="textinput:staffState"/>
                                 </div>
                             </div>
                         </div>

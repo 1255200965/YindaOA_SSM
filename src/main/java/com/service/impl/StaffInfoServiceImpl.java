@@ -31,7 +31,7 @@ import java.util.Map;
 
 @Transactional
 @Service
-public class StaffInfoServiceImpl implements IStaffInfoService{
+public class StaffInfoServiceImpl implements IStaffInfoService {
 
     @Autowired
     public StaffInfoMapper staffInfoMapper;
@@ -107,21 +107,14 @@ public class StaffInfoServiceImpl implements IStaffInfoService{
 
     //查询所有
     public List<StaffInfo> selectStaffInfo(StaffInfo staffInfo) {
-        String staffId = staffInfo.getStaffId();
         String name = staffInfo.getName();
-        String depart = staffInfo.getDepartment();
-        String depart2 = "%"+depart+"%";
-
-        StaffInfoExample staffInfoExample = new StaffInfoExample();
-        StaffInfoExample.Criteria criteria = staffInfoExample.createCriteria();
-        if (staffId!=null) criteria.andStaffIdEqualTo(staffId);
-        if (name!=null) criteria.andNameEqualTo(name);
-        if (depart2!=null) criteria.andDepartmentLike(depart2);
-        staffInfoExample.or(criteria);
-
-        List<StaffInfo> list = staffInfoMapper.selectByExample(staffInfoExample);
+        String cellphone = staffInfo.getCellphone();
+        String idNo = staffInfo.getIdNo();
+        List<StaffInfo> list = staffInfoMapper.selectAllUser(staffInfo);
         return list;
     }
+
+
 
     /**
      * 循环地插入excel中的一行到数据库中

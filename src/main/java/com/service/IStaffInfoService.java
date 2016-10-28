@@ -11,15 +11,15 @@ import java.util.Map;
  */
 public interface IStaffInfoService {
     //删除一个用户
-    int deleteStaffByID(StaffInfo sequenceNum);
+    int deleteStaffByID(StaffInfo staffUserId);
     //新增一个用户
     int insertStaff(StaffInfo record);
     //批量添加用户
     int insertStaffList(List<StaffInfo> record);
     //查询用户
-    List<StaffInfo> selectStaffByQuery(List StaffInfo,int index,int pages);
+    List<StaffInfo> selectStaffByQuery(List StaffInfo, int index, int pages);
     //查询单个用户
-    StaffInfo selectStaffByID(String sequenceNum);
+    StaffInfo selectStaffByID(String staffUserId);
 
     //更新用户
     int updateStaffByID(StaffInfo record);

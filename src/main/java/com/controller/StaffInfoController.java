@@ -1,36 +1,14 @@
 package com.controller;
 
-import java.io.File;
-import java.io.InputStream;
-import java.io.FileInputStream;
-import java.io.IOException;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.*;
-
-import com.dingtalk.open.client.api.model.corp.CorpUser;
 import com.dingtalk.open.client.api.model.corp.CorpUserDetail;
-import com.dingtalk.open.client.api.model.corp.CorpUserDetailList;
-import com.dingtalk.open.client.api.model.corp.CorpUserList;
 import com.model.StaffInfo;
 import com.service.IStaffInfoService;
 import com.util.DDUtil;
 import com.util.DateUtil;
 import com.util.ExcelToMysql;
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.springframework.beans.factory.annotation.Autowired;   // allow Spring injection
-import org.springframework.stereotype.Controller;   // allow controller
-import org.springframework.web.bind.annotation.RequestMapping;   // allow map tag
-
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -41,8 +19,9 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import static com.ddSdk.auth.AuthHelper.getAccessToken;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
 
 /**
  * Created by ma on 2016/10/17.
@@ -182,37 +161,14 @@ public class StaffInfoController {
         }
         return map;
     }
-    /*@RequestMapping(value = "/adduser.do", method = RequestMethod.POST)
-    public @ResponseBody Map<String,Object> adduser(@RequestBody StaffInfo user, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Map<String,Object> map = new HashMap<String,Object>();
 
-        int result = userInfoService.insertStaff(user);
-        if(result != 0){
-            map.put("msg", "成功");
-        }else{
-            map.put("msg", "失败");
-        }
-        return map;
-    }
 
-    @RequestMapping(value = "/updateuser.do", method = RequestMethod.POST)
-    public @ResponseBody Map<String,Object> updateuser(@RequestBody StaffInfo user, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Map<String,Object> map = new HashMap<String,Object>();
-
-        int result = userInfoService.updateStaffByID(user);
-        if(result != 0){
-            map.put("msg", "成功");
-        }else{
-            map.put("msg", "失败");
-        }
-        return map;
-    }
-*/
     //添加用户信息
     @RequestMapping(value = "/insert.do", method = RequestMethod.POST)
     public @ResponseBody Map<String,Object> adduser(@RequestBody StaffInfo user, HttpServletRequest request, HttpServletResponse response) throws IOException {
         Map<String,Object> map = new HashMap<String,Object>();
 
+        //钉钉测添加
         int result = userInfoService.insertStaff(user);
         if(result != 0){
             map.put("msg", "成功");
@@ -227,6 +183,7 @@ public class StaffInfoController {
     public @ResponseBody Map<String,Object> updateuser(@RequestBody StaffInfo user, HttpServletRequest request, HttpServletResponse response) throws IOException {
         Map<String,Object> map = new HashMap<String,Object>();
 
+        //钉钉侧修改
         int result = userInfoService.updateStaffByID(user);
         if(result != 0){
             map.put("msg", "成功");
@@ -238,13 +195,16 @@ public class StaffInfoController {
 
     //删除用户信息
     @RequestMapping(value = "/delete.do", method = RequestMethod.POST)
-    public @ResponseBody Map<String,Object> delete(@RequestBody StaffInfo sequenceNum, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public @ResponseBody Map<String,Object> delete(@RequestBody StaffInfo user, HttpServletRequest request, HttpServletResponse response) throws IOException {
         Map<String,Object> map = new HashMap<String,Object>();
-        int result = userInfoService.deleteStaffByID(sequenceNum);
+        user.setStaffState("离职");
+        user.setLeaveDate(DateUtil.getCurrentTimeMillis().toString());
+        //钉钉侧删除
+        int result = userInfoService.updateStaffByID(user);
         if(result != 0){
-            map.put("msg", "删除成功");
+            map.put("msg", "成功");
         }else{
-            map.put("msg", "删除失败");
+            map.put("msg", "失败");
         }
         return map;
     }

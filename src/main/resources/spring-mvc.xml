@@ -53,7 +53,7 @@
 
     <!--配置钉钉sdk-->
 <!--    <bean id="defaultConfig" class="com.dingtalk.open.client.DefaultConfig">
-        <property name="apiBasePackage" value="com.dingtalk.open.client.api">&lt;!&ndash;存放API代码的包路径&ndash;&gt;
+        <property name="apiBasePackage" value="com.dingtalk.open.client.api"/>&lt;!&ndash;存放API代码的包路径&ndash;&gt;
         <property name="globalHttpConfig">&lt;!&ndash;全局配置&ndash;&gt;
             <bean class="com.dingtalk.open.client.DefaultConfig.HttpConfig">
                 <property name="readTimeout" value="30000" />&lt;!&ndash;发出http请求后,在收到响应前等待的最长时间,超过等待时间则抛出服务器没有返回数据的异常,单位毫秒&ndash;&gt;
