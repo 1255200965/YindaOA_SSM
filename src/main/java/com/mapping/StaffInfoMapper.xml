@@ -124,6 +124,45 @@
       order by ${orderByClause}
     </if>
   </select>
+
+    <!--根据条件查询用户信息-->
+    <select id="selectAllUser" resultMap="BaseResultMap" parameterType="com.model.StaffInfo">
+      select
+      <if test="distinct" >
+        distinct
+      </if>
+      <include refid="Base_Column_List" />
+      from staff_info
+      <where>
+          <if test="name!=null">
+            name like CONCAT('%','${name}','%' )
+          </if>
+          <if test="cellphone!=null">
+            and cellphone like CONCAT('%','${cellphone}','%' )
+          </if>
+          <if test="id_no!=null">
+            and id_no like CONCAT('%','${idNo}','%' )
+          </if>
+        <if test="start!=null and pagesize!=null">
+            limit #{start},#{pagesize}
+        </if>
+      </where>
+    </select>
+
+
+    <!--分页查询sql-->
+    <select id="selectPage" resultMap="BaseResultMap" parameterType="com.model.StaffInfo">
+      select * from staff_info
+      <where>
+        <if test="name != null and name != ''">
+          name = #{name}
+        </if>
+        and staffUserId = #{staffUserId}
+      </where>
+      limit #{pageMsg.begin},#{pageMsg.pageSize}
+    </select>
+
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
