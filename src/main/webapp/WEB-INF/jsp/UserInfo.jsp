@@ -131,7 +131,6 @@
                         for (var i = 0; i < result.length; i++) {
                             self.ShowList.push(result[i]);
                             //加入每行题目信息
-
                         }
                     }
                 });
@@ -139,13 +138,13 @@
             }
             //查询成员列表（部门，姓名，电话，工号）
             self.GetUserByQuery = function(){
-                if (nowDep != null){var depid = nowDep.id;} else {depid = null;}
+                if (nowDep != null){var depid = nowDep.name;} else {depid = null;}
                 $.ajax({
                     data:JSON.stringify(new UserModel(depid,$("#search_name").val(),$("#search_workid").val(),$("#search_phone").val())),
                     type:"post",
                     headers: { 'Content-Type': 'application/json' },
                     dataType: 'json',
-                    url:"../userinfo/login.do",
+                    url:"../userinfo/query.do",
                     error:function(data){
                         alert("出错了！！:"+data.msg);
                     },
@@ -212,7 +211,23 @@
                 $("#model1").click();
             };
             //点击事件-点击删除用户按钮
-            self.ClickDelete = function(){};
+            self.ClickDelete = function(){
+                $.ajax({
+                    type: "post",
+                    async: false,
+                    contentType: "text/json",
+                    url: "../userinfo/delete.do",
+                    headers: { 'Content-Type': 'application/json' },
+                    error:function(data){
+                        alert("出错了！！:"+data.msg);
+                    },
+                    success:function(data){
+                        alert("删除成功了:"+data.msg);
+                    }
+                });
+            };
+
+
             //点击事件-点击搜索
             self.ClickSearch = function () {
                 self.GetUserByQuery();
@@ -274,20 +289,20 @@
                 if (lastSelectedNodeId && lastSelectTime) {
                     var time = new Date().getTime();
                     var t = time - lastSelectTime;
-                    if (lastSelectedNodeId == data.id && t < 300) {
+                    if (lastSelectedNodeId == data.name && t < 300) {
                         nowDep = data;
                         self.chooseDep();
                         alert("选择部门:"+data.name);
                     }
                 }
-                lastSelectedNodeId = data.id;
+                lastSelectedNodeId = data.name;
                 lastSelectTime = new Date().getTime();
             }
             //选择部门
             self.chooseDep = function () {
                 var id = "";
                 if (nowDep != null) {
-                    id = nowDep.id;
+                    id = nowDep.name;
                 }
 
                 //获取部门用户
@@ -309,6 +324,27 @@
         this.email = null;
         return this;
     }
+
+
+    //现实分页查询
+    var toolIip ='<div class ="toolIipBoty"><div class ="toolIipMessage"></div></div>'
+//    验证控件显示
+    function validateAlert(str,item){
+        removeIoolTips(item);
+
+        定位
+        var left=$(item).position().left;
+        var top=$(item).offset().top;
+        var height=$(item).height();
+        var $tooltip=$(toolIip);
+        $tooltip.css("left",left).css("top",top);
+        $tooltip.find(".toolIipMessage").text(str);
+
+        //插入
+        $(item).after($tooltip);
+
+    }
+
 </script>
 
 <head>
@@ -364,11 +400,14 @@
                 <div class="caidan-tiku-s"> <span>难度：</span>
                     <select id="nd1" class="riqi-xiala" style="width:70px;" data-bind="options: [1,2,3,4,5,6,7,8,9], optionsText: function (item) {  return item;},optionsCaption:''"></select>
                 </div>--%>
-                <div style="float:right">
+                <div style="float:right;margin-right:15px;padding-bottom:10px;" >
                     <input data-bind="click:$root.ClickSearch" type="button" value="查询"  class="chaxun">
                     <input  data-bind="click:$root.ClickClear" type="button" value="清空"  class="chaxun" style="background:#fd9162">
                 </div>
             </div>
+
+            <div style="width:96%; height:500px;padding-top: 5px;overflow:auto;border:0 solid #000000;">
+
             <table  width="95%" border="1" cellspacing="0" cellpadding="0" class="table-1">
                 <tr class="table-1-tou">
                     <td width="7%">编号 </td>
@@ -381,6 +420,8 @@
                     <td width="7%"> 状态 </td>
                     <td width="7%"> 操作 </td>
                 </tr>
+
+
                 <tbody data-bind="foreach:ShowList">
                 <tr >
                     <td data-bind="text:staffUserId">编号</td>
@@ -398,7 +439,15 @@
 
                 </tr>
                 </tbody>
-            </table>
+            </table></div>
+
+            <%--<div align="center" style="font-size:12px">--%>
+                <%--<p>	                <span class="STYLE33">当前是[第  ${currPage}&nbsp;页 / 共有&nbsp;${totalPage}<span class="STYLE7">&nbsp;</span>页]</span>--%>
+                    <%--<span class="STYLE15"><span class="STYLE20"><a href="javascript:submitByPage(1)">首页</a>--%>
+                  <%--<a href="javascript:submitByPage(${currPage -1  < 1? 1: currPage-1})">上一页</a>--%>
+                  <%--<a href="javascript:submitByPage(${currPage+1> totalPage? totalPage: currPage+1 })">下一页</a>--%>
+                  <%--<a href="javascript:submitByPage(${totalPage})">末页 </a></span></span> </p>--%>
+            <%--</div>--%>
         </div>
     </div>
     <div class="row-fluid">

@@ -2,8 +2,9 @@ package com.dao;
 
 import com.model.StaffInfo;
 import com.model.StaffInfoExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface StaffInfoMapper {
     int countByExample(StaffInfoExample example);
@@ -17,6 +18,9 @@ public interface StaffInfoMapper {
     int insertSelective(StaffInfo record);
 
     List<StaffInfo> selectByExample(StaffInfoExample example);
+
+    List<StaffInfo> selectAllUser(StaffInfo staffInfo);
+
 
     StaffInfo selectByPrimaryKey(String staffUserId);
 
