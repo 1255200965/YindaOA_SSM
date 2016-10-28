@@ -25,22 +25,6 @@
 
 <script type="text/javascript">
     var result = null;
-    function ajaxTest(){
-        $.ajax({
-            data:"name="+$("#nr1").val(),
-            type:"post",
-            dataType: 'json',
-            url:"../userinfo/login.do",
-            error:function(data){
-                alert("出错了！！:"+data.msg);
-            },
-            success:function(data){
-                alert("success:"+data.msg);
-                result = eval(data.usertest);
-                $("#result").html(data.usertest.name) ;
-            }
-        });
-    }
 
     //============================================
     //当前选择的部门
@@ -86,30 +70,6 @@
                 self.GetDepartment();
 
             });
-            //获取用户列表测试用
-            self.GetUserList = function(){
-                $.ajax({
-                    data:"name="+$("#search_name").val(),
-                    type:"get",
-                    dataType: 'json',
-                    url:"../userinfo/login.do",
-                    error:function(data){
-                        alert("出错了！！:"+data.msg);
-                    },
-                    success:function(data){
-                        result = eval(data.usertest);
-                        self.ShowList.removeAll();
-                        //清空viewmodel
-                        for (var i = 0; i < result.length; i++) {
-                            self.ShowList.push(result[i]);
-                            //加入每行题目信息
-
-                        }
-                    }
-                });
-            }
-
-
 
 
             //===============================
@@ -155,8 +115,8 @@
                         for (var i = 0; i < result.length; i++) {
                             self.ShowList.push(result[i]);
                             //加入每行题目信息
-
                         }
+                        //self.GetUserListByDep(nowDep.name);
                     }
                 });
 
@@ -173,7 +133,7 @@
                         alert("出错了！！:"+data.msg);
                     },
                     success:function(data){
-                        alert("success:"+data.msg);
+                        alert("添加结果:"+data.msg);
 
                     }
                 });
@@ -191,13 +151,40 @@
                         alert("出错了！！:"+data.msg);
                     },
                     success:function(data){
-                        alert("success:"+data.msg);
+                        alert("修改结果:"+data.msg);
+                        //静态刷新页面
+                        for (var i = 0; i < self.ShowList().length; i++) {
+                            if (self.ShowList()[i].staffUserId == self.changeItem().staffUserId){
+                                self.ShowList.splice(i,1);
+                                self.ShowList.splice(i,0,self.changeItem());
+                                break;
+                            }
 
+                        }
+                    }
+                });
+                //关闭模态框，更新前端
+                self.ClickModelNo();
+
+            }
+            //删除部门成员
+            self.DeleteUser = function(item){
+                $.ajax({
+                    type: "post",
+                    data:JSON.stringify(item),
+                    contentType: "text/json",
+                    url: "../userinfo/delete.do",
+                    headers: { 'Content-Type': 'application/json' },
+                    error:function(data){
+                        alert("出错了！！:"+data.msg);
+                    },
+                    success:function(data){
+                        alert("删除结果:"+data.msg);
+                        //静态刷新页面
+                        self.GetUserListByDep(nowDep.name);
                     }
                 });
             }
-            //删除部门成员
-            self.DeleteUser = function(){}
             //点击事件-点击添加用户按钮
             self.ClickAdd = function(){
                 self.changeItem(new UserModel());
@@ -211,20 +198,8 @@
                 $("#model1").click();
             };
             //点击事件-点击删除用户按钮
-            self.ClickDelete = function(){
-                $.ajax({
-                    type: "post",
-                    async: false,
-                    contentType: "text/json",
-                    url: "../userinfo/delete.do",
-                    headers: { 'Content-Type': 'application/json' },
-                    error:function(data){
-                        alert("出错了！！:"+data.msg);
-                    },
-                    success:function(data){
-                        alert("删除成功了:"+data.msg);
-                    }
-                });
+            self.ClickDelete = function(item){
+                self.DeleteUser(item);
             };
 
 
@@ -376,7 +351,7 @@
     <div class="row-fluid c_box" style="width:100%;">
         <div class="col-md-2 c_left_box" >
             <div style="margin-top:3%"></div>
-            <div id="tree"></div>
+            <div id="tree" style="overflow:auto;height:800px;"></div>
 
         </div>
         <div class="col-md-10 c_right_box" >
@@ -406,18 +381,18 @@
                 </div>
             </div>
 
-            <div style="width:96%; height:500px;padding-top: 5px;overflow:auto;border:0 solid #000000;">
+            <div style="width:100%; height:700px;padding-top: 5px;overflow:auto;border:0 solid #000000;">
 
             <table  width="95%" border="1" cellspacing="0" cellpadding="0" class="table-1">
                 <tr class="table-1-tou">
-                    <td width="7%">编号 </td>
-                    <td width="7%">姓名</td>
-                    <td width="7%">工号</td>
+                    <td width="10%">编号 </td>
+                    <td width="5%">姓名</td>
+                    <td width="15%">身份证号</td>
                     <td width="7%"> 部门 </td>
                     <td width="7%">手机号 </td>
-                    <td width="7%"> 邮箱 </td>
-                    <td width="7%"> 相关信息 </td>
-                    <td width="7%"> 状态 </td>
+                    <td width="15%"> 邮箱 </td>
+                    <td width="5%"> 工号 </td>
+                    <td width="5%"> 状态 </td>
                     <td width="7%"> 操作 </td>
                 </tr>
 
@@ -527,6 +502,12 @@
                                 <label><i class="iconfont c_ding_from_icon" ></i><span >钉钉id:</span></label>
                                 <div class="input_content" >
                                     <input class="c_ding_input" data-bind="textinput:staffUserId"/>
+                                </div>
+                            </div>
+                            <div class="c_ding_form_group" >
+                                <label><i class="iconfont c_ding_from_icon" ></i><span >离职日期:</span></label>
+                                <div class="input_content" >
+                                    <input class="c_ding_input" data-bind="textinput:leaveDate"/>
                                 </div>
                             </div>
                             <div class="c_ding_form_group" >
