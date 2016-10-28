@@ -109,7 +109,7 @@
                         alert("出错了！！:"+data.msg);
                     },
                     success:function(data){
-                        result = eval(data.usertest);
+                        result = eval(data.userlist);
                         self.ShowList.removeAll();
                         //清空viewmodel
                         for (var i = 0; i < result.length; i++) {
@@ -197,6 +197,7 @@
                 self.rootid(0);
                 $("#model1").click();
             };
+
             //点击事件-点击删除用户按钮
             self.ClickDelete = function(item){
                 self.DeleteUser(item);
