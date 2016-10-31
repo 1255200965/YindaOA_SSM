@@ -32,19 +32,21 @@ public class StaffInfoController {
     @Resource
     private IStaffInfoService userInfoService;
 
+
     @RequestMapping("/testMethod.do")
     public String getAllUser(HttpServletRequest request) throws IOException {
-
-        DDUtil ddUtil = new DDUtil(userInfoService);
+        /*DDUtil ddUtil = new DDUtil(userInfoService);
         try {
-            //List<CorpUserDetail> list = ddUtil.getAllDepartMem(11186697);
+            List<CorpUserDetail> list = ddUtil.getAllDepartMem();
             StaffInfo staffInfoLLR = userInfoService.selectStaffByID("011363262839230971");
             String departChinese = staffInfoLLR.getDepartment();
             System.out.println("这就是我的部门 = "+departChinese);
 
+            StaffInfo ddd = ddUtil.getUserByID("011363262839230971");
+            int result = 0;
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
 
         return "/UserInfo";
     }
@@ -169,6 +171,7 @@ public class StaffInfoController {
     public @ResponseBody Map<String,Object> adduser(@RequestBody StaffInfo user, HttpServletRequest request, HttpServletResponse response) throws IOException {
         Map<String,Object> map = new HashMap<String,Object>();
 
+
         int result = userInfoService.insertStaff(user);
         if(result != 0){
             map.put("msg", "成功");
@@ -184,6 +187,8 @@ public class StaffInfoController {
         Map<String,Object> map = new HashMap<String,Object>();
 
         //钉钉侧修改
+        DDUtil ddUtil = new DDUtil(userInfoService);
+        String ddresult = ddUtil.updateUser(user);
         int result = userInfoService.updateStaffByID(user);
         if(result != 0){
             map.put("msg", "成功");
@@ -200,6 +205,9 @@ public class StaffInfoController {
         user.setStaffState("离职");
         user.setLeaveDate(DateUtil.getCurrentTimeDate());
         //钉钉侧删除
+        DDUtil ddUtil = new DDUtil(userInfoService);
+        String ddresult = ddUtil.updateUser(user);
+
         int result = userInfoService.updateStaffByID(user);
         if(result != 0){
             map.put("msg", "成功");

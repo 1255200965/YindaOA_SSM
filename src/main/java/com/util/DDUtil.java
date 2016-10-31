@@ -70,9 +70,9 @@ public class DDUtil {
             CorpUserService corpUserService = ServiceFactory.getInstance().getOpenService(CorpUserService.class);
             //获取部门id
             Map<Long, Long> orderInDepts = new HashMap<Long, Long>();
-            orderInDepts.put((long)orderInDepts.size(),Long.parseLong(user.getDepartment()));
+            orderInDepts.put((long)orderInDepts.size(),userDetail.getDepartment().get(0));
             //获取userid
-            result = corpUserService.createCorpUser(getAccessToken(), userDetail.getUserid(), userDetail.getName(), orderInDepts,
+            result = corpUserService.createCorpUser(getAccessToken(), userDetail.getUserid(), userDetail.getName(), null,
                     userDetail.getDepartment(), userDetail.getPosition(), userDetail.getMobile(), userDetail.getTel(), userDetail.getWorkPlace(),
                     userDetail.getRemark(), userDetail.getEmail(), userDetail.getJobnumber(),
                     userDetail.getIsHide(), userDetail.getSenior(), userDetail.getExtattr());
@@ -96,7 +96,7 @@ public class DDUtil {
             JSONObject js = (JSONObject) JSONObject.parse(userDetail.getOrderInDepts());
             Map<Long, Long> orderInDepts = FileUtils.toHashMap(js);
 
-            result = corpUserService.updateCorpUser(accessToken, userDetail.getUserid(), userDetail.getName(), orderInDepts,
+            result = corpUserService.updateCorpUser(getAccessToken(), userDetail.getDingId(), userDetail.getName(), null,
                     userDetail.getDepartment(), userDetail.getPosition(), userDetail.getMobile(), userDetail.getTel(), userDetail.getWorkPlace(),
                     userDetail.getRemark(), userDetail.getEmail(), userDetail.getJobnumber(),
                     userDetail.getIsHide(), userDetail.getSenior(), userDetail.getExtattr());
@@ -113,7 +113,7 @@ public class DDUtil {
         CorpUserDetail result = null;
         try {
             CorpUserService corpUserService = ServiceFactory.getInstance().getOpenService(CorpUserService.class);
-            result = corpUserService.deleteCorpUser(accessToken, user.getStaffUserId());
+            result = corpUserService.deleteCorpUser(getAccessToken(), user.getStaffUserId());
         } catch (Exception e){
             e.printStackTrace();
         }
