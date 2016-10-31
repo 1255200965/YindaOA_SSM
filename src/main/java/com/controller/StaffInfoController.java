@@ -189,11 +189,15 @@ public class StaffInfoController {
         //钉钉侧修改
         DDUtil ddUtil = new DDUtil(userInfoService);
         String ddresult = ddUtil.updateUser(user);
-        int result = userInfoService.updateStaffByID(user);
-        if(result != 0){
-            map.put("msg", "成功");
-        }else{
-            map.put("msg", "失败");
+        if (ddresult == null){
+            map.put("msg", "钉钉更新失败");
+        } else {
+            int result = userInfoService.updateStaffByID(user);
+            if (result != 0) {
+                map.put("msg", "成功");
+            } else {
+                map.put("msg", "失败");
+            }
         }
         return map;
     }
@@ -206,13 +210,16 @@ public class StaffInfoController {
         user.setLeaveDate(DateUtil.getCurrentTimeDate());
         //钉钉侧删除
         DDUtil ddUtil = new DDUtil(userInfoService);
-        String ddresult = ddUtil.updateUser(user);
-
-        int result = userInfoService.updateStaffByID(user);
-        if(result != 0){
-            map.put("msg", "成功");
-        }else{
-            map.put("msg", "失败");
+        String ddresult = ddUtil.deleteUser(user);
+        if (ddresult == null){
+            map.put("msg", "钉钉删除失败");
+        } else {
+            int result = userInfoService.updateStaffByID(user);
+            if (result != 0) {
+                map.put("msg", "成功");
+            } else {
+                map.put("msg", "失败");
+            }
         }
         return map;
     }

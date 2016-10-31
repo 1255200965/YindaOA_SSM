@@ -191,6 +191,12 @@ public class StaffInfoServiceImpl implements IStaffInfoService {
                 DDUtil ddUtil = new DDUtil(this);
                 String userid = ddUtil.createUser(staffInfo);
                 staffInfo.setStaffUserId(userid);
+                if (userid == null){
+                    //钉钉导入失败
+                    listFail.add(staffInfo);
+                    map.put("error", "钉钉导入失败！");
+                    continue;
+                }
             }
 
             // 查找身份证号，如果相同就把该实体类返回到失败列表当中
