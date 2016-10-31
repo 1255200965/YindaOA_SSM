@@ -39,6 +39,9 @@ public class StaffInfoController {
         try {
             List<CorpUserDetail> list = ddUtil.getAllDepartMem();
             StaffInfo staffInfoLLR = userInfoService.selectStaffByID("011363262839230971");
+            String departChinese = staffInfoLLR.getDepartment();
+            System.out.println("这就是我的部门 = "+departChinese);
+
             StaffInfo ddd = ddUtil.getUserByID("011363262839230971");
             int result = 0;
         } catch (Exception e) {
