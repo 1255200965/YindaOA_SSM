@@ -38,9 +38,7 @@ public class DDUtil {
     }
     public String getAccessToken(){
         try {
-            if (accessToken == null) {
-                accessToken = AuthHelper.getAccessToken();
-            }
+            accessToken = AuthHelper.getAccessToken();
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -109,7 +107,7 @@ public class DDUtil {
             "errmsg": "updated"
          }*/
     }
-    public CorpUserDetail deleteUser(StaffInfo user){
+    public String deleteUser(StaffInfo user){
         CorpUserDetail result = null;
         try {
             CorpUserService corpUserService = ServiceFactory.getInstance().getOpenService(CorpUserService.class);
@@ -117,7 +115,7 @@ public class DDUtil {
         } catch (Exception e){
             e.printStackTrace();
         }
-        return result;
+        return result.getName();
         /*{
             "errcode": 0,
             "errmsg": "deleted"
