@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.AskForLeaveMapper" >
+  <resultMap id="BaseResultMap" type="com.model.AskForLeave" >
+    <id column="sequence_no" property="sequenceNo" jdbcType="INTEGER" />
+    <result column="yo_approve_no" property="yoApproveNo" jdbcType="VARCHAR" />
+    <result column="yo_title" property="yoTitle" jdbcType="VARCHAR" />
+    <result column="yo_approve_state" property="yoApproveState" jdbcType="VARCHAR" />
+    <result column="yo_approve_result" property="yoApproveResult" jdbcType="VARCHAR" />
+    <result column="yo_approve_begin" property="yoApproveBegin" jdbcType="VARCHAR" />
+    <result column="yo_approve_end" property="yoApproveEnd" jdbcType="VARCHAR" />
+    <result column="yo_ask_staff_id" property="yoAskStaffId" jdbcType="VARCHAR" />
+    <result column="yo_ask_staff_name" property="yoAskStaffName" jdbcType="VARCHAR" />
+    <result column="yo_ask_staff_depart" property="yoAskStaffDepart" jdbcType="VARCHAR" />
+    <result column="yo_history_approve_name" property="yoHistoryApproveName" jdbcType="VARCHAR" />
+    <result column="yo_approve_record" property="yoApproveRecord" jdbcType="VARCHAR" />
+    <result column="yo_now_approve_name" property="yoNowApproveName" jdbcType="VARCHAR" />
+    <result column="yo_cost" property="yoCost" jdbcType="VARCHAR" />
+    <result column="yo_type" property="yoType" jdbcType="VARCHAR" />
+    <result column="yo_ask_begin_date" property="yoAskBeginDate" jdbcType="VARCHAR" />
+    <result column="yo_ask_begin_time" property="yoAskBeginTime" jdbcType="VARCHAR" />
+    <result column="yo_ask_end_date" property="yoAskEndDate" jdbcType="VARCHAR" />
+    <result column="yo_ask_end_time" property="yoAskEndTime" jdbcType="VARCHAR" />
+    <result column="yo_ask_sustain" property="yoAskSustain" jdbcType="VARCHAR" />
+    <result column="yo_ask_reason" property="yoAskReason" jdbcType="VARCHAR" />
+    <result column="yo_picture" property="yoPicture" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    sequence_no, yo_approve_no, yo_title, yo_approve_state, yo_approve_result, yo_approve_begin, 
+    yo_approve_end, yo_ask_staff_id, yo_ask_staff_name, yo_ask_staff_depart, yo_history_approve_name, 
+    yo_approve_record, yo_now_approve_name, yo_cost, yo_type, yo_ask_begin_date, yo_ask_begin_time, 
+    yo_ask_end_date, yo_ask_end_time, yo_ask_sustain, yo_ask_reason, yo_picture
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.model.AskForLeaveExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ask_for_leave
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ask_for_leave
+    where sequence_no = #{sequenceNo,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ask_for_leave
+    where sequence_no = #{sequenceNo,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.model.AskForLeaveExample" >
+    delete from ask_for_leave
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.model.AskForLeave" >
+    insert into ask_for_leave (sequence_no, yo_approve_no, yo_title, 
+      yo_approve_state, yo_approve_result, yo_approve_begin, 
+      yo_approve_end, yo_ask_staff_id, yo_ask_staff_name, 
+      yo_ask_staff_depart, yo_history_approve_name, 
+      yo_approve_record, yo_now_approve_name, yo_cost, 
+      yo_type, yo_ask_begin_date, yo_ask_begin_time, 
+      yo_ask_end_date, yo_ask_end_time, yo_ask_sustain, 
+      yo_ask_reason, yo_picture)
+    values (#{sequenceNo,jdbcType=INTEGER}, #{yoApproveNo,jdbcType=VARCHAR}, #{yoTitle,jdbcType=VARCHAR}, 
+      #{yoApproveState,jdbcType=VARCHAR}, #{yoApproveResult,jdbcType=VARCHAR}, #{yoApproveBegin,jdbcType=VARCHAR}, 
+      #{yoApproveEnd,jdbcType=VARCHAR}, #{yoAskStaffId,jdbcType=VARCHAR}, #{yoAskStaffName,jdbcType=VARCHAR}, 
+      #{yoAskStaffDepart,jdbcType=VARCHAR}, #{yoHistoryApproveName,jdbcType=VARCHAR}, 
+      #{yoApproveRecord,jdbcType=VARCHAR}, #{yoNowApproveName,jdbcType=VARCHAR}, #{yoCost,jdbcType=VARCHAR}, 
+      #{yoType,jdbcType=VARCHAR}, #{yoAskBeginDate,jdbcType=VARCHAR}, #{yoAskBeginTime,jdbcType=VARCHAR}, 
+      #{yoAskEndDate,jdbcType=VARCHAR}, #{yoAskEndTime,jdbcType=VARCHAR}, #{yoAskSustain,jdbcType=VARCHAR}, 
+      #{yoAskReason,jdbcType=VARCHAR}, #{yoPicture,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.AskForLeave" >
+    insert into ask_for_leave
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sequenceNo != null" >
+        sequence_no,
+      </if>
+      <if test="yoApproveNo != null" >
+        yo_approve_no,
+      </if>
+      <if test="yoTitle != null" >
+        yo_title,
+      </if>
+      <if test="yoApproveState != null" >
+        yo_approve_state,
+      </if>
+      <if test="yoApproveResult != null" >
+        yo_approve_result,
+      </if>
+      <if test="yoApproveBegin != null" >
+        yo_approve_begin,
+      </if>
+      <if test="yoApproveEnd != null" >
+        yo_approve_end,
+      </if>
+      <if test="yoAskStaffId != null" >
+        yo_ask_staff_id,
+      </if>
+      <if test="yoAskStaffName != null" >
+        yo_ask_staff_name,
+      </if>
+      <if test="yoAskStaffDepart != null" >
+        yo_ask_staff_depart,
+      </if>
+      <if test="yoHistoryApproveName != null" >
+        yo_history_approve_name,
+      </if>
+      <if test="yoApproveRecord != null" >
+        yo_approve_record,
+      </if>
+      <if test="yoNowApproveName != null" >
+        yo_now_approve_name,
+      </if>
+      <if test="yoCost != null" >
+        yo_cost,
+      </if>
+      <if test="yoType != null" >
+        yo_type,
+      </if>
+      <if test="yoAskBeginDate != null" >
+        yo_ask_begin_date,
+      </if>
+      <if test="yoAskBeginTime != null" >
+        yo_ask_begin_time,
+      </if>
+      <if test="yoAskEndDate != null" >
+        yo_ask_end_date,
+      </if>
+      <if test="yoAskEndTime != null" >
+        yo_ask_end_time,
+      </if>
+      <if test="yoAskSustain != null" >
+        yo_ask_sustain,
+      </if>
+      <if test="yoAskReason != null" >
+        yo_ask_reason,
+      </if>
+      <if test="yoPicture != null" >
+        yo_picture,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sequenceNo != null" >
+        #{sequenceNo,jdbcType=INTEGER},
+      </if>
+      <if test="yoApproveNo != null" >
+        #{yoApproveNo,jdbcType=VARCHAR},
+      </if>
+      <if test="yoTitle != null" >
+        #{yoTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="yoApproveState != null" >
+        #{yoApproveState,jdbcType=VARCHAR},
+      </if>
+      <if test="yoApproveResult != null" >
+        #{yoApproveResult,jdbcType=VARCHAR},
+      </if>
+      <if test="yoApproveBegin != null" >
+        #{yoApproveBegin,jdbcType=VARCHAR},
+      </if>
+      <if test="yoApproveEnd != null" >
+        #{yoApproveEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="yoAskStaffId != null" >
+        #{yoAskStaffId,jdbcType=VARCHAR},
+      </if>
+      <if test="yoAskStaffName != null" >
+        #{yoAskStaffName,jdbcType=VARCHAR},
+      </if>
+      <if test="yoAskStaffDepart != null" >
+        #{yoAskStaffDepart,jdbcType=VARCHAR},
+      </if>
+      <if test="yoHistoryApproveName != null" >
+        #{yoHistoryApproveName,jdbcType=VARCHAR},
+      </if>
+      <if test="yoApproveRecord != null" >
+        #{yoApproveRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="yoNowApproveName != null" >
+        #{yoNowApproveName,jdbcType=VARCHAR},
+      </if>
+      <if test="yoCost != null" >
+        #{yoCost,jdbcType=VARCHAR},
+      </if>
+      <if test="yoType != null" >
+        #{yoType,jdbcType=VARCHAR},
+      </if>
+      <if test="yoAskBeginDate != null" >
+        #{yoAskBeginDate,jdbcType=VARCHAR},
+      </if>
+      <if test="yoAskBeginTime != null" >
+        #{yoAskBeginTime,jdbcType=VARCHAR},
+      </if>
+      <if test="yoAskEndDate != null" >
+        #{yoAskEndDate,jdbcType=VARCHAR},
+      </if>
+      <if test="yoAskEndTime != null" >
+        #{yoAskEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="yoAskSustain != null" >
+        #{yoAskSustain,jdbcType=VARCHAR},
+      </if>
+      <if test="yoAskReason != null" >
+        #{yoAskReason,jdbcType=VARCHAR},
+      </if>
+      <if test="yoPicture != null" >
+        #{yoPicture,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.model.AskForLeaveExample" resultType="java.lang.Integer" >
+    select count(*) from ask_for_leave
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ask_for_leave
+    <set >
+      <if test="record.sequenceNo != null" >
+        sequence_no = #{record.sequenceNo,jdbcType=INTEGER},
+      </if>
+      <if test="record.yoApproveNo != null" >
+        yo_approve_no = #{record.yoApproveNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yoTitle != null" >
+        yo_title = #{record.yoTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yoApproveState != null" >
+        yo_approve_state = #{record.yoApproveState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yoApproveResult != null" >
+        yo_approve_result = #{record.yoApproveResult,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yoApproveBegin != null" >
+        yo_approve_begin = #{record.yoApproveBegin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yoApproveEnd != null" >
+        yo_approve_end = #{record.yoApproveEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yoAskStaffId != null" >
+        yo_ask_staff_id = #{record.yoAskStaffId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yoAskStaffName != null" >
+        yo_ask_staff_name = #{record.yoAskStaffName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yoAskStaffDepart != null" >
+        yo_ask_staff_depart = #{record.yoAskStaffDepart,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yoHistoryApproveName != null" >
+        yo_history_approve_name = #{record.yoHistoryApproveName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yoApproveRecord != null" >
+        yo_approve_record = #{record.yoApproveRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yoNowApproveName != null" >
+        yo_now_approve_name = #{record.yoNowApproveName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yoCost != null" >
+        yo_cost = #{record.yoCost,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yoType != null" >
+        yo_type = #{record.yoType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yoAskBeginDate != null" >
+        yo_ask_begin_date = #{record.yoAskBeginDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yoAskBeginTime != null" >
+        yo_ask_begin_time = #{record.yoAskBeginTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yoAskEndDate != null" >
+        yo_ask_end_date = #{record.yoAskEndDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yoAskEndTime != null" >
+        yo_ask_end_time = #{record.yoAskEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yoAskSustain != null" >
+        yo_ask_sustain = #{record.yoAskSustain,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yoAskReason != null" >
+        yo_ask_reason = #{record.yoAskReason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yoPicture != null" >
+        yo_picture = #{record.yoPicture,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ask_for_leave
+    set sequence_no = #{record.sequenceNo,jdbcType=INTEGER},
+      yo_approve_no = #{record.yoApproveNo,jdbcType=VARCHAR},
+      yo_title = #{record.yoTitle,jdbcType=VARCHAR},
+      yo_approve_state = #{record.yoApproveState,jdbcType=VARCHAR},
+      yo_approve_result = #{record.yoApproveResult,jdbcType=VARCHAR},
+      yo_approve_begin = #{record.yoApproveBegin,jdbcType=VARCHAR},
+      yo_approve_end = #{record.yoApproveEnd,jdbcType=VARCHAR},
+      yo_ask_staff_id = #{record.yoAskStaffId,jdbcType=VARCHAR},
+      yo_ask_staff_name = #{record.yoAskStaffName,jdbcType=VARCHAR},
+      yo_ask_staff_depart = #{record.yoAskStaffDepart,jdbcType=VARCHAR},
+      yo_history_approve_name = #{record.yoHistoryApproveName,jdbcType=VARCHAR},
+      yo_approve_record = #{record.yoApproveRecord,jdbcType=VARCHAR},
+      yo_now_approve_name = #{record.yoNowApproveName,jdbcType=VARCHAR},
+      yo_cost = #{record.yoCost,jdbcType=VARCHAR},
+      yo_type = #{record.yoType,jdbcType=VARCHAR},
+      yo_ask_begin_date = #{record.yoAskBeginDate,jdbcType=VARCHAR},
+      yo_ask_begin_time = #{record.yoAskBeginTime,jdbcType=VARCHAR},
+      yo_ask_end_date = #{record.yoAskEndDate,jdbcType=VARCHAR},
+      yo_ask_end_time = #{record.yoAskEndTime,jdbcType=VARCHAR},
+      yo_ask_sustain = #{record.yoAskSustain,jdbcType=VARCHAR},
+      yo_ask_reason = #{record.yoAskReason,jdbcType=VARCHAR},
+      yo_picture = #{record.yoPicture,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.AskForLeave" >
+    update ask_for_leave
+    <set >
+      <if test="yoApproveNo != null" >
+        yo_approve_no = #{yoApproveNo,jdbcType=VARCHAR},
+      </if>
+      <if test="yoTitle != null" >
+        yo_title = #{yoTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="yoApproveState != null" >
+        yo_approve_state = #{yoApproveState,jdbcType=VARCHAR},
+      </if>
+      <if test="yoApproveResult != null" >
+        yo_approve_result = #{yoApproveResult,jdbcType=VARCHAR},
+      </if>
+      <if test="yoApproveBegin != null" >
+        yo_approve_begin = #{yoApproveBegin,jdbcType=VARCHAR},
+      </if>
+      <if test="yoApproveEnd != null" >
+        yo_approve_end = #{yoApproveEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="yoAskStaffId != null" >
+        yo_ask_staff_id = #{yoAskStaffId,jdbcType=VARCHAR},
+      </if>
+      <if test="yoAskStaffName != null" >
+        yo_ask_staff_name = #{yoAskStaffName,jdbcType=VARCHAR},
+      </if>
+      <if test="yoAskStaffDepart != null" >
+        yo_ask_staff_depart = #{yoAskStaffDepart,jdbcType=VARCHAR},
+      </if>
+      <if test="yoHistoryApproveName != null" >
+        yo_history_approve_name = #{yoHistoryApproveName,jdbcType=VARCHAR},
+      </if>
+      <if test="yoApproveRecord != null" >
+        yo_approve_record = #{yoApproveRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="yoNowApproveName != null" >
+        yo_now_approve_name = #{yoNowApproveName,jdbcType=VARCHAR},
+      </if>
+      <if test="yoCost != null" >
+        yo_cost = #{yoCost,jdbcType=VARCHAR},
+      </if>
+      <if test="yoType != null" >
+        yo_type = #{yoType,jdbcType=VARCHAR},
+      </if>
+      <if test="yoAskBeginDate != null" >
+        yo_ask_begin_date = #{yoAskBeginDate,jdbcType=VARCHAR},
+      </if>
+      <if test="yoAskBeginTime != null" >
+        yo_ask_begin_time = #{yoAskBeginTime,jdbcType=VARCHAR},
+      </if>
+      <if test="yoAskEndDate != null" >
+        yo_ask_end_date = #{yoAskEndDate,jdbcType=VARCHAR},
+      </if>
+      <if test="yoAskEndTime != null" >
+        yo_ask_end_time = #{yoAskEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="yoAskSustain != null" >
+        yo_ask_sustain = #{yoAskSustain,jdbcType=VARCHAR},
+      </if>
+      <if test="yoAskReason != null" >
+        yo_ask_reason = #{yoAskReason,jdbcType=VARCHAR},
+      </if>
+      <if test="yoPicture != null" >
+        yo_picture = #{yoPicture,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sequence_no = #{sequenceNo,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.AskForLeave" >
+    update ask_for_leave
+    set yo_approve_no = #{yoApproveNo,jdbcType=VARCHAR},
+      yo_title = #{yoTitle,jdbcType=VARCHAR},
+      yo_approve_state = #{yoApproveState,jdbcType=VARCHAR},
+      yo_approve_result = #{yoApproveResult,jdbcType=VARCHAR},
+      yo_approve_begin = #{yoApproveBegin,jdbcType=VARCHAR},
+      yo_approve_end = #{yoApproveEnd,jdbcType=VARCHAR},
+      yo_ask_staff_id = #{yoAskStaffId,jdbcType=VARCHAR},
+      yo_ask_staff_name = #{yoAskStaffName,jdbcType=VARCHAR},
+      yo_ask_staff_depart = #{yoAskStaffDepart,jdbcType=VARCHAR},
+      yo_history_approve_name = #{yoHistoryApproveName,jdbcType=VARCHAR},
+      yo_approve_record = #{yoApproveRecord,jdbcType=VARCHAR},
+      yo_now_approve_name = #{yoNowApproveName,jdbcType=VARCHAR},
+      yo_cost = #{yoCost,jdbcType=VARCHAR},
+      yo_type = #{yoType,jdbcType=VARCHAR},
+      yo_ask_begin_date = #{yoAskBeginDate,jdbcType=VARCHAR},
+      yo_ask_begin_time = #{yoAskBeginTime,jdbcType=VARCHAR},
+      yo_ask_end_date = #{yoAskEndDate,jdbcType=VARCHAR},
+      yo_ask_end_time = #{yoAskEndTime,jdbcType=VARCHAR},
+      yo_ask_sustain = #{yoAskSustain,jdbcType=VARCHAR},
+      yo_ask_reason = #{yoAskReason,jdbcType=VARCHAR},
+      yo_picture = #{yoPicture,jdbcType=VARCHAR}
+    where sequence_no = #{sequenceNo,jdbcType=INTEGER}
+  </update>
+</mapper>
