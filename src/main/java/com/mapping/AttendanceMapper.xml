@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.AttendanceMapper" >
+  <resultMap id="BaseResultMap" type="com.model.Attendance" >
+    <id column="aid" property="aid" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="department" property="department" jdbcType="VARCHAR" />
+    <result column="groupId" property="groupid" jdbcType="VARCHAR" />
+    <result column="planId" property="planid" jdbcType="VARCHAR" />
+    <result column="recordId" property="recordid" jdbcType="VARCHAR" />
+    <result column="workDate" property="workdate" jdbcType="VARCHAR" />
+    <result column="checkType" property="checktype" jdbcType="VARCHAR" />
+    <result column="sourceType" property="sourcetype" jdbcType="VARCHAR" />
+    <result column="timeResult" property="timeresult" jdbcType="VARCHAR" />
+    <result column="locationResult" property="locationresult" jdbcType="VARCHAR" />
+    <result column="approveResult" property="approveresult" jdbcType="VARCHAR" />
+    <result column="approveId" property="approveid" jdbcType="VARCHAR" />
+    <result column="baseCheckTime" property="basechecktime" jdbcType="VARCHAR" />
+    <result column="userCheckTime" property="userchecktime" jdbcType="VARCHAR" />
+    <result column="errcode" property="errcode" jdbcType="VARCHAR" />
+    <result column="errmsg" property="errmsg" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    aid, name, department, groupId, planId, recordId, workDate, checkType, sourceType, 
+    timeResult, locationResult, approveResult, approveId, baseCheckTime, userCheckTime, 
+    errcode, errmsg
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.model.AttendanceExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from attendance
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from attendance
+    where aid = #{aid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from attendance
+    where aid = #{aid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.model.AttendanceExample" >
+    delete from attendance
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.model.Attendance" >
+    insert into attendance (aid, name, department, 
+      groupId, planId, recordId, 
+      workDate, checkType, sourceType, 
+      timeResult, locationResult, approveResult, 
+      approveId, baseCheckTime, userCheckTime, 
+      errcode, errmsg)
+    values (#{aid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR}, 
+      #{groupid,jdbcType=VARCHAR}, #{planid,jdbcType=VARCHAR}, #{recordid,jdbcType=VARCHAR}, 
+      #{workdate,jdbcType=VARCHAR}, #{checktype,jdbcType=VARCHAR}, #{sourcetype,jdbcType=VARCHAR}, 
+      #{timeresult,jdbcType=VARCHAR}, #{locationresult,jdbcType=VARCHAR}, #{approveresult,jdbcType=VARCHAR}, 
+      #{approveid,jdbcType=VARCHAR}, #{basechecktime,jdbcType=VARCHAR}, #{userchecktime,jdbcType=VARCHAR}, 
+      #{errcode,jdbcType=VARCHAR}, #{errmsg,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.Attendance" >
+    insert into attendance
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="aid != null" >
+        aid,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="department != null" >
+        department,
+      </if>
+      <if test="groupid != null" >
+        groupId,
+      </if>
+      <if test="planid != null" >
+        planId,
+      </if>
+      <if test="recordid != null" >
+        recordId,
+      </if>
+      <if test="workdate != null" >
+        workDate,
+      </if>
+      <if test="checktype != null" >
+        checkType,
+      </if>
+      <if test="sourcetype != null" >
+        sourceType,
+      </if>
+      <if test="timeresult != null" >
+        timeResult,
+      </if>
+      <if test="locationresult != null" >
+        locationResult,
+      </if>
+      <if test="approveresult != null" >
+        approveResult,
+      </if>
+      <if test="approveid != null" >
+        approveId,
+      </if>
+      <if test="basechecktime != null" >
+        baseCheckTime,
+      </if>
+      <if test="userchecktime != null" >
+        userCheckTime,
+      </if>
+      <if test="errcode != null" >
+        errcode,
+      </if>
+      <if test="errmsg != null" >
+        errmsg,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="aid != null" >
+        #{aid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="groupid != null" >
+        #{groupid,jdbcType=VARCHAR},
+      </if>
+      <if test="planid != null" >
+        #{planid,jdbcType=VARCHAR},
+      </if>
+      <if test="recordid != null" >
+        #{recordid,jdbcType=VARCHAR},
+      </if>
+      <if test="workdate != null" >
+        #{workdate,jdbcType=VARCHAR},
+      </if>
+      <if test="checktype != null" >
+        #{checktype,jdbcType=VARCHAR},
+      </if>
+      <if test="sourcetype != null" >
+        #{sourcetype,jdbcType=VARCHAR},
+      </if>
+      <if test="timeresult != null" >
+        #{timeresult,jdbcType=VARCHAR},
+      </if>
+      <if test="locationresult != null" >
+        #{locationresult,jdbcType=VARCHAR},
+      </if>
+      <if test="approveresult != null" >
+        #{approveresult,jdbcType=VARCHAR},
+      </if>
+      <if test="approveid != null" >
+        #{approveid,jdbcType=VARCHAR},
+      </if>
+      <if test="basechecktime != null" >
+        #{basechecktime,jdbcType=VARCHAR},
+      </if>
+      <if test="userchecktime != null" >
+        #{userchecktime,jdbcType=VARCHAR},
+      </if>
+      <if test="errcode != null" >
+        #{errcode,jdbcType=VARCHAR},
+      </if>
+      <if test="errmsg != null" >
+        #{errmsg,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.model.AttendanceExample" resultType="java.lang.Integer" >
+    select count(*) from attendance
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update attendance
+    <set >
+      <if test="record.aid != null" >
+        aid = #{record.aid,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.department != null" >
+        department = #{record.department,jdbcType=VARCHAR},
+      </if>
+      <if test="record.groupid != null" >
+        groupId = #{record.groupid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.planid != null" >
+        planId = #{record.planid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recordid != null" >
+        recordId = #{record.recordid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workdate != null" >
+        workDate = #{record.workdate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checktype != null" >
+        checkType = #{record.checktype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sourcetype != null" >
+        sourceType = #{record.sourcetype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.timeresult != null" >
+        timeResult = #{record.timeresult,jdbcType=VARCHAR},
+      </if>
+      <if test="record.locationresult != null" >
+        locationResult = #{record.locationresult,jdbcType=VARCHAR},
+      </if>
+      <if test="record.approveresult != null" >
+        approveResult = #{record.approveresult,jdbcType=VARCHAR},
+      </if>
+      <if test="record.approveid != null" >
+        approveId = #{record.approveid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.basechecktime != null" >
+        baseCheckTime = #{record.basechecktime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userchecktime != null" >
+        userCheckTime = #{record.userchecktime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.errcode != null" >
+        errcode = #{record.errcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.errmsg != null" >
+        errmsg = #{record.errmsg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update attendance
+    set aid = #{record.aid,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      department = #{record.department,jdbcType=VARCHAR},
+      groupId = #{record.groupid,jdbcType=VARCHAR},
+      planId = #{record.planid,jdbcType=VARCHAR},
+      recordId = #{record.recordid,jdbcType=VARCHAR},
+      workDate = #{record.workdate,jdbcType=VARCHAR},
+      checkType = #{record.checktype,jdbcType=VARCHAR},
+      sourceType = #{record.sourcetype,jdbcType=VARCHAR},
+      timeResult = #{record.timeresult,jdbcType=VARCHAR},
+      locationResult = #{record.locationresult,jdbcType=VARCHAR},
+      approveResult = #{record.approveresult,jdbcType=VARCHAR},
+      approveId = #{record.approveid,jdbcType=VARCHAR},
+      baseCheckTime = #{record.basechecktime,jdbcType=VARCHAR},
+      userCheckTime = #{record.userchecktime,jdbcType=VARCHAR},
+      errcode = #{record.errcode,jdbcType=VARCHAR},
+      errmsg = #{record.errmsg,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.Attendance" >
+    update attendance
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="groupid != null" >
+        groupId = #{groupid,jdbcType=VARCHAR},
+      </if>
+      <if test="planid != null" >
+        planId = #{planid,jdbcType=VARCHAR},
+      </if>
+      <if test="recordid != null" >
+        recordId = #{recordid,jdbcType=VARCHAR},
+      </if>
+      <if test="workdate != null" >
+        workDate = #{workdate,jdbcType=VARCHAR},
+      </if>
+      <if test="checktype != null" >
+        checkType = #{checktype,jdbcType=VARCHAR},
+      </if>
+      <if test="sourcetype != null" >
+        sourceType = #{sourcetype,jdbcType=VARCHAR},
+      </if>
+      <if test="timeresult != null" >
+        timeResult = #{timeresult,jdbcType=VARCHAR},
+      </if>
+      <if test="locationresult != null" >
+        locationResult = #{locationresult,jdbcType=VARCHAR},
+      </if>
+      <if test="approveresult != null" >
+        approveResult = #{approveresult,jdbcType=VARCHAR},
+      </if>
+      <if test="approveid != null" >
+        approveId = #{approveid,jdbcType=VARCHAR},
+      </if>
+      <if test="basechecktime != null" >
+        baseCheckTime = #{basechecktime,jdbcType=VARCHAR},
+      </if>
+      <if test="userchecktime != null" >
+        userCheckTime = #{userchecktime,jdbcType=VARCHAR},
+      </if>
+      <if test="errcode != null" >
+        errcode = #{errcode,jdbcType=VARCHAR},
+      </if>
+      <if test="errmsg != null" >
+        errmsg = #{errmsg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where aid = #{aid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.Attendance" >
+    update attendance
+    set name = #{name,jdbcType=VARCHAR},
+      department = #{department,jdbcType=VARCHAR},
+      groupId = #{groupid,jdbcType=VARCHAR},
+      planId = #{planid,jdbcType=VARCHAR},
+      recordId = #{recordid,jdbcType=VARCHAR},
+      workDate = #{workdate,jdbcType=VARCHAR},
+      checkType = #{checktype,jdbcType=VARCHAR},
+      sourceType = #{sourcetype,jdbcType=VARCHAR},
+      timeResult = #{timeresult,jdbcType=VARCHAR},
+      locationResult = #{locationresult,jdbcType=VARCHAR},
+      approveResult = #{approveresult,jdbcType=VARCHAR},
+      approveId = #{approveid,jdbcType=VARCHAR},
+      baseCheckTime = #{basechecktime,jdbcType=VARCHAR},
+      userCheckTime = #{userchecktime,jdbcType=VARCHAR},
+      errcode = #{errcode,jdbcType=VARCHAR},
+      errmsg = #{errmsg,jdbcType=VARCHAR}
+    where aid = #{aid,jdbcType=INTEGER}
+  </update>
+</mapper>
