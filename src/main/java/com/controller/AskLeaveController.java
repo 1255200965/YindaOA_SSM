@@ -63,7 +63,7 @@ public class AskLeaveController {
                         String myFileName = file.getOriginalFilename();
                         //如果名称不为“”,说明该文件存在，否则说明该文件不存在
                         if (myFileName.trim() != "") {
-                            System.out.println(myFileName);
+                            System.out.println("当前要上传文件的文件名 = "+myFileName);
                             String time = DateUtil.getCurrentTimeMillis();
                             //重命名上传后的文件名
                             String fileName = time + "_" + file.getOriginalFilename();
@@ -81,7 +81,8 @@ public class AskLeaveController {
                     }
                     //记录上传该文件后的时间
                     int finaltime = (int) System.currentTimeMillis();
-                    System.out.println(finaltime - pre);
+                    int timeCost = finaltime - pre;
+                    System.out.println("上传该文件到服务端所使用的秒数 = "+timeCost);
                 }
             }
 
