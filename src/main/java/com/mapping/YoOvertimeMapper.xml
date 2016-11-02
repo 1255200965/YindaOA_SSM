@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.YoOvertimeMapper" >
+  <resultMap id="BaseResultMap" type="com.model.YoOvertime" >
+    <id column="ot_sequence_no" property="otSequenceNo" jdbcType="INTEGER" />
+    <result column="ot_approve_no" property="otApproveNo" jdbcType="VARCHAR" />
+    <result column="ot_title" property="otTitle" jdbcType="VARCHAR" />
+    <result column="ot_approve_state" property="otApproveState" jdbcType="VARCHAR" />
+    <result column="ot_approve_result" property="otApproveResult" jdbcType="VARCHAR" />
+    <result column="ot_approve_begin" property="otApproveBegin" jdbcType="VARCHAR" />
+    <result column="ot_approve_end" property="otApproveEnd" jdbcType="VARCHAR" />
+    <result column="ot_ask_staff_id" property="otAskStaffId" jdbcType="VARCHAR" />
+    <result column="ot_ask_staff_name" property="otAskStaffName" jdbcType="VARCHAR" />
+    <result column="ot_ask_staff_depart" property="otAskStaffDepart" jdbcType="VARCHAR" />
+    <result column="ot_history_approve_name" property="otHistoryApproveName" jdbcType="VARCHAR" />
+    <result column="ot_approve_record" property="otApproveRecord" jdbcType="VARCHAR" />
+    <result column="ot_now_approve_name" property="otNowApproveName" jdbcType="VARCHAR" />
+    <result column="ot_cost" property="otCost" jdbcType="VARCHAR" />
+    <result column="ot_ask_begin_time" property="otAskBeginTime" jdbcType="VARCHAR" />
+    <result column="ot_ask_end_time" property="otAskEndTime" jdbcType="VARCHAR" />
+    <result column="ot_legal_holiday" property="otLegalHoliday" jdbcType="VARCHAR" />
+    <result column="ot_pay_method" property="otPayMethod" jdbcType="VARCHAR" />
+    <result column="ot_ask_sustain" property="otAskSustain" jdbcType="VARCHAR" />
+    <result column="ot_ask_reason" property="otAskReason" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ot_sequence_no, ot_approve_no, ot_title, ot_approve_state, ot_approve_result, ot_approve_begin, 
+    ot_approve_end, ot_ask_staff_id, ot_ask_staff_name, ot_ask_staff_depart, ot_history_approve_name, 
+    ot_approve_record, ot_now_approve_name, ot_cost, ot_ask_begin_time, ot_ask_end_time, 
+    ot_legal_holiday, ot_pay_method, ot_ask_sustain, ot_ask_reason
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.model.YoOvertimeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from yo_overtime
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yo_overtime
+    where ot_sequence_no = #{otSequenceNo,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yo_overtime
+    where ot_sequence_no = #{otSequenceNo,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.model.YoOvertimeExample" >
+    delete from yo_overtime
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.model.YoOvertime" >
+    insert into yo_overtime (ot_sequence_no, ot_approve_no, ot_title, 
+      ot_approve_state, ot_approve_result, ot_approve_begin, 
+      ot_approve_end, ot_ask_staff_id, ot_ask_staff_name, 
+      ot_ask_staff_depart, ot_history_approve_name, 
+      ot_approve_record, ot_now_approve_name, ot_cost, 
+      ot_ask_begin_time, ot_ask_end_time, ot_legal_holiday, 
+      ot_pay_method, ot_ask_sustain, ot_ask_reason
+      )
+    values (#{otSequenceNo,jdbcType=INTEGER}, #{otApproveNo,jdbcType=VARCHAR}, #{otTitle,jdbcType=VARCHAR}, 
+      #{otApproveState,jdbcType=VARCHAR}, #{otApproveResult,jdbcType=VARCHAR}, #{otApproveBegin,jdbcType=VARCHAR}, 
+      #{otApproveEnd,jdbcType=VARCHAR}, #{otAskStaffId,jdbcType=VARCHAR}, #{otAskStaffName,jdbcType=VARCHAR}, 
+      #{otAskStaffDepart,jdbcType=VARCHAR}, #{otHistoryApproveName,jdbcType=VARCHAR}, 
+      #{otApproveRecord,jdbcType=VARCHAR}, #{otNowApproveName,jdbcType=VARCHAR}, #{otCost,jdbcType=VARCHAR}, 
+      #{otAskBeginTime,jdbcType=VARCHAR}, #{otAskEndTime,jdbcType=VARCHAR}, #{otLegalHoliday,jdbcType=VARCHAR}, 
+      #{otPayMethod,jdbcType=VARCHAR}, #{otAskSustain,jdbcType=VARCHAR}, #{otAskReason,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.YoOvertime" >
+    insert into yo_overtime
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="otSequenceNo != null" >
+        ot_sequence_no,
+      </if>
+      <if test="otApproveNo != null" >
+        ot_approve_no,
+      </if>
+      <if test="otTitle != null" >
+        ot_title,
+      </if>
+      <if test="otApproveState != null" >
+        ot_approve_state,
+      </if>
+      <if test="otApproveResult != null" >
+        ot_approve_result,
+      </if>
+      <if test="otApproveBegin != null" >
+        ot_approve_begin,
+      </if>
+      <if test="otApproveEnd != null" >
+        ot_approve_end,
+      </if>
+      <if test="otAskStaffId != null" >
+        ot_ask_staff_id,
+      </if>
+      <if test="otAskStaffName != null" >
+        ot_ask_staff_name,
+      </if>
+      <if test="otAskStaffDepart != null" >
+        ot_ask_staff_depart,
+      </if>
+      <if test="otHistoryApproveName != null" >
+        ot_history_approve_name,
+      </if>
+      <if test="otApproveRecord != null" >
+        ot_approve_record,
+      </if>
+      <if test="otNowApproveName != null" >
+        ot_now_approve_name,
+      </if>
+      <if test="otCost != null" >
+        ot_cost,
+      </if>
+      <if test="otAskBeginTime != null" >
+        ot_ask_begin_time,
+      </if>
+      <if test="otAskEndTime != null" >
+        ot_ask_end_time,
+      </if>
+      <if test="otLegalHoliday != null" >
+        ot_legal_holiday,
+      </if>
+      <if test="otPayMethod != null" >
+        ot_pay_method,
+      </if>
+      <if test="otAskSustain != null" >
+        ot_ask_sustain,
+      </if>
+      <if test="otAskReason != null" >
+        ot_ask_reason,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="otSequenceNo != null" >
+        #{otSequenceNo,jdbcType=INTEGER},
+      </if>
+      <if test="otApproveNo != null" >
+        #{otApproveNo,jdbcType=VARCHAR},
+      </if>
+      <if test="otTitle != null" >
+        #{otTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="otApproveState != null" >
+        #{otApproveState,jdbcType=VARCHAR},
+      </if>
+      <if test="otApproveResult != null" >
+        #{otApproveResult,jdbcType=VARCHAR},
+      </if>
+      <if test="otApproveBegin != null" >
+        #{otApproveBegin,jdbcType=VARCHAR},
+      </if>
+      <if test="otApproveEnd != null" >
+        #{otApproveEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="otAskStaffId != null" >
+        #{otAskStaffId,jdbcType=VARCHAR},
+      </if>
+      <if test="otAskStaffName != null" >
+        #{otAskStaffName,jdbcType=VARCHAR},
+      </if>
+      <if test="otAskStaffDepart != null" >
+        #{otAskStaffDepart,jdbcType=VARCHAR},
+      </if>
+      <if test="otHistoryApproveName != null" >
+        #{otHistoryApproveName,jdbcType=VARCHAR},
+      </if>
+      <if test="otApproveRecord != null" >
+        #{otApproveRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="otNowApproveName != null" >
+        #{otNowApproveName,jdbcType=VARCHAR},
+      </if>
+      <if test="otCost != null" >
+        #{otCost,jdbcType=VARCHAR},
+      </if>
+      <if test="otAskBeginTime != null" >
+        #{otAskBeginTime,jdbcType=VARCHAR},
+      </if>
+      <if test="otAskEndTime != null" >
+        #{otAskEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="otLegalHoliday != null" >
+        #{otLegalHoliday,jdbcType=VARCHAR},
+      </if>
+      <if test="otPayMethod != null" >
+        #{otPayMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="otAskSustain != null" >
+        #{otAskSustain,jdbcType=VARCHAR},
+      </if>
+      <if test="otAskReason != null" >
+        #{otAskReason,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.model.YoOvertimeExample" resultType="java.lang.Integer" >
+    select count(*) from yo_overtime
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update yo_overtime
+    <set >
+      <if test="record.otSequenceNo != null" >
+        ot_sequence_no = #{record.otSequenceNo,jdbcType=INTEGER},
+      </if>
+      <if test="record.otApproveNo != null" >
+        ot_approve_no = #{record.otApproveNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.otTitle != null" >
+        ot_title = #{record.otTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.otApproveState != null" >
+        ot_approve_state = #{record.otApproveState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.otApproveResult != null" >
+        ot_approve_result = #{record.otApproveResult,jdbcType=VARCHAR},
+      </if>
+      <if test="record.otApproveBegin != null" >
+        ot_approve_begin = #{record.otApproveBegin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.otApproveEnd != null" >
+        ot_approve_end = #{record.otApproveEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.otAskStaffId != null" >
+        ot_ask_staff_id = #{record.otAskStaffId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.otAskStaffName != null" >
+        ot_ask_staff_name = #{record.otAskStaffName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.otAskStaffDepart != null" >
+        ot_ask_staff_depart = #{record.otAskStaffDepart,jdbcType=VARCHAR},
+      </if>
+      <if test="record.otHistoryApproveName != null" >
+        ot_history_approve_name = #{record.otHistoryApproveName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.otApproveRecord != null" >
+        ot_approve_record = #{record.otApproveRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="record.otNowApproveName != null" >
+        ot_now_approve_name = #{record.otNowApproveName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.otCost != null" >
+        ot_cost = #{record.otCost,jdbcType=VARCHAR},
+      </if>
+      <if test="record.otAskBeginTime != null" >
+        ot_ask_begin_time = #{record.otAskBeginTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.otAskEndTime != null" >
+        ot_ask_end_time = #{record.otAskEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.otLegalHoliday != null" >
+        ot_legal_holiday = #{record.otLegalHoliday,jdbcType=VARCHAR},
+      </if>
+      <if test="record.otPayMethod != null" >
+        ot_pay_method = #{record.otPayMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.otAskSustain != null" >
+        ot_ask_sustain = #{record.otAskSustain,jdbcType=VARCHAR},
+      </if>
+      <if test="record.otAskReason != null" >
+        ot_ask_reason = #{record.otAskReason,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update yo_overtime
+    set ot_sequence_no = #{record.otSequenceNo,jdbcType=INTEGER},
+      ot_approve_no = #{record.otApproveNo,jdbcType=VARCHAR},
+      ot_title = #{record.otTitle,jdbcType=VARCHAR},
+      ot_approve_state = #{record.otApproveState,jdbcType=VARCHAR},
+      ot_approve_result = #{record.otApproveResult,jdbcType=VARCHAR},
+      ot_approve_begin = #{record.otApproveBegin,jdbcType=VARCHAR},
+      ot_approve_end = #{record.otApproveEnd,jdbcType=VARCHAR},
+      ot_ask_staff_id = #{record.otAskStaffId,jdbcType=VARCHAR},
+      ot_ask_staff_name = #{record.otAskStaffName,jdbcType=VARCHAR},
+      ot_ask_staff_depart = #{record.otAskStaffDepart,jdbcType=VARCHAR},
+      ot_history_approve_name = #{record.otHistoryApproveName,jdbcType=VARCHAR},
+      ot_approve_record = #{record.otApproveRecord,jdbcType=VARCHAR},
+      ot_now_approve_name = #{record.otNowApproveName,jdbcType=VARCHAR},
+      ot_cost = #{record.otCost,jdbcType=VARCHAR},
+      ot_ask_begin_time = #{record.otAskBeginTime,jdbcType=VARCHAR},
+      ot_ask_end_time = #{record.otAskEndTime,jdbcType=VARCHAR},
+      ot_legal_holiday = #{record.otLegalHoliday,jdbcType=VARCHAR},
+      ot_pay_method = #{record.otPayMethod,jdbcType=VARCHAR},
+      ot_ask_sustain = #{record.otAskSustain,jdbcType=VARCHAR},
+      ot_ask_reason = #{record.otAskReason,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.YoOvertime" >
+    update yo_overtime
+    <set >
+      <if test="otApproveNo != null" >
+        ot_approve_no = #{otApproveNo,jdbcType=VARCHAR},
+      </if>
+      <if test="otTitle != null" >
+        ot_title = #{otTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="otApproveState != null" >
+        ot_approve_state = #{otApproveState,jdbcType=VARCHAR},
+      </if>
+      <if test="otApproveResult != null" >
+        ot_approve_result = #{otApproveResult,jdbcType=VARCHAR},
+      </if>
+      <if test="otApproveBegin != null" >
+        ot_approve_begin = #{otApproveBegin,jdbcType=VARCHAR},
+      </if>
+      <if test="otApproveEnd != null" >
+        ot_approve_end = #{otApproveEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="otAskStaffId != null" >
+        ot_ask_staff_id = #{otAskStaffId,jdbcType=VARCHAR},
+      </if>
+      <if test="otAskStaffName != null" >
+        ot_ask_staff_name = #{otAskStaffName,jdbcType=VARCHAR},
+      </if>
+      <if test="otAskStaffDepart != null" >
+        ot_ask_staff_depart = #{otAskStaffDepart,jdbcType=VARCHAR},
+      </if>
+      <if test="otHistoryApproveName != null" >
+        ot_history_approve_name = #{otHistoryApproveName,jdbcType=VARCHAR},
+      </if>
+      <if test="otApproveRecord != null" >
+        ot_approve_record = #{otApproveRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="otNowApproveName != null" >
+        ot_now_approve_name = #{otNowApproveName,jdbcType=VARCHAR},
+      </if>
+      <if test="otCost != null" >
+        ot_cost = #{otCost,jdbcType=VARCHAR},
+      </if>
+      <if test="otAskBeginTime != null" >
+        ot_ask_begin_time = #{otAskBeginTime,jdbcType=VARCHAR},
+      </if>
+      <if test="otAskEndTime != null" >
+        ot_ask_end_time = #{otAskEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="otLegalHoliday != null" >
+        ot_legal_holiday = #{otLegalHoliday,jdbcType=VARCHAR},
+      </if>
+      <if test="otPayMethod != null" >
+        ot_pay_method = #{otPayMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="otAskSustain != null" >
+        ot_ask_sustain = #{otAskSustain,jdbcType=VARCHAR},
+      </if>
+      <if test="otAskReason != null" >
+        ot_ask_reason = #{otAskReason,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ot_sequence_no = #{otSequenceNo,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.YoOvertime" >
+    update yo_overtime
+    set ot_approve_no = #{otApproveNo,jdbcType=VARCHAR},
+      ot_title = #{otTitle,jdbcType=VARCHAR},
+      ot_approve_state = #{otApproveState,jdbcType=VARCHAR},
+      ot_approve_result = #{otApproveResult,jdbcType=VARCHAR},
+      ot_approve_begin = #{otApproveBegin,jdbcType=VARCHAR},
+      ot_approve_end = #{otApproveEnd,jdbcType=VARCHAR},
+      ot_ask_staff_id = #{otAskStaffId,jdbcType=VARCHAR},
+      ot_ask_staff_name = #{otAskStaffName,jdbcType=VARCHAR},
+      ot_ask_staff_depart = #{otAskStaffDepart,jdbcType=VARCHAR},
+      ot_history_approve_name = #{otHistoryApproveName,jdbcType=VARCHAR},
+      ot_approve_record = #{otApproveRecord,jdbcType=VARCHAR},
+      ot_now_approve_name = #{otNowApproveName,jdbcType=VARCHAR},
+      ot_cost = #{otCost,jdbcType=VARCHAR},
+      ot_ask_begin_time = #{otAskBeginTime,jdbcType=VARCHAR},
+      ot_ask_end_time = #{otAskEndTime,jdbcType=VARCHAR},
+      ot_legal_holiday = #{otLegalHoliday,jdbcType=VARCHAR},
+      ot_pay_method = #{otPayMethod,jdbcType=VARCHAR},
+      ot_ask_sustain = #{otAskSustain,jdbcType=VARCHAR},
+      ot_ask_reason = #{otAskReason,jdbcType=VARCHAR}
+    where ot_sequence_no = #{otSequenceNo,jdbcType=INTEGER}
+  </update>
+</mapper>

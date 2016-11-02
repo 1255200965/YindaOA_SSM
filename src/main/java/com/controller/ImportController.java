@@ -1,6 +1,6 @@
 package com.controller;
 
-import com.service.IAskLeaveService;
+import com.service.IImportService;
 import com.util.DateUtil;
 import com.util.ExcelToMysql;
 import org.springframework.stereotype.Controller;
@@ -18,10 +18,10 @@ import java.io.IOException;
 import java.util.*;
 
 @Controller
-@RequestMapping("/AskLeave")
-public class AskLeaveController {
+@RequestMapping("/Import")
+public class ImportController {
     @Resource
-    private IAskLeaveService askLeaveService;
+    private IImportService importService;
 
     @RequestMapping("/testMethod.do")
     public String testMethod(HttpServletRequest request) throws IOException {
@@ -98,7 +98,7 @@ public class AskLeaveController {
                     break;
                 }
                 // 第二步，添加文件到数据库，会返回成功的数量和失败的列表
-                Map<String, Object> map2 = askLeaveService.insert(path);
+                Map<String, Object> map2 = importService.insertAskLeave(path);
                 map.putAll(map2);
             }
             map.put("filename",fileans);

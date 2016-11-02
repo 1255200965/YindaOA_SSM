@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.YoYindaIdentifyMapper" >
+  <resultMap id="BaseResultMap" type="com.model.YoYindaIdentify" >
+    <id column="yi_sequence_no" property="yiSequenceNo" jdbcType="INTEGER" />
+    <result column="yi_approve_no" property="yiApproveNo" jdbcType="VARCHAR" />
+    <result column="yi_title" property="yiTitle" jdbcType="VARCHAR" />
+    <result column="yi_approve_state" property="yiApproveState" jdbcType="VARCHAR" />
+    <result column="yi_approve_result" property="yiApproveResult" jdbcType="VARCHAR" />
+    <result column="yi_approve_begin" property="yiApproveBegin" jdbcType="VARCHAR" />
+    <result column="yi_approve_end" property="yiApproveEnd" jdbcType="VARCHAR" />
+    <result column="yi_ask_staff_id" property="yiAskStaffId" jdbcType="VARCHAR" />
+    <result column="yi_ask_staff_name" property="yiAskStaffName" jdbcType="VARCHAR" />
+    <result column="yi_ask_staff_depart" property="yiAskStaffDepart" jdbcType="VARCHAR" />
+    <result column="yi_history_approve_name" property="yiHistoryApproveName" jdbcType="VARCHAR" />
+    <result column="yi_approve_record" property="yiApproveRecord" jdbcType="VARCHAR" />
+    <result column="yi_now_approve_name" property="yiNowApproveName" jdbcType="VARCHAR" />
+    <result column="yi_cost" property="yiCost" jdbcType="VARCHAR" />
+    <result column="yi_yinda_level" property="yiYindaLevel" jdbcType="VARCHAR" />
+    <result column="yi_effect_date" property="yiEffectDate" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    yi_sequence_no, yi_approve_no, yi_title, yi_approve_state, yi_approve_result, yi_approve_begin, 
+    yi_approve_end, yi_ask_staff_id, yi_ask_staff_name, yi_ask_staff_depart, yi_history_approve_name, 
+    yi_approve_record, yi_now_approve_name, yi_cost, yi_yinda_level, yi_effect_date
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.model.YoYindaIdentifyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from yo_yinda_identify
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yo_yinda_identify
+    where yi_sequence_no = #{yiSequenceNo,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yo_yinda_identify
+    where yi_sequence_no = #{yiSequenceNo,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.model.YoYindaIdentifyExample" >
+    delete from yo_yinda_identify
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.model.YoYindaIdentify" >
+    insert into yo_yinda_identify (yi_sequence_no, yi_approve_no, yi_title, 
+      yi_approve_state, yi_approve_result, yi_approve_begin, 
+      yi_approve_end, yi_ask_staff_id, yi_ask_staff_name, 
+      yi_ask_staff_depart, yi_history_approve_name, 
+      yi_approve_record, yi_now_approve_name, yi_cost, 
+      yi_yinda_level, yi_effect_date)
+    values (#{yiSequenceNo,jdbcType=INTEGER}, #{yiApproveNo,jdbcType=VARCHAR}, #{yiTitle,jdbcType=VARCHAR}, 
+      #{yiApproveState,jdbcType=VARCHAR}, #{yiApproveResult,jdbcType=VARCHAR}, #{yiApproveBegin,jdbcType=VARCHAR}, 
+      #{yiApproveEnd,jdbcType=VARCHAR}, #{yiAskStaffId,jdbcType=VARCHAR}, #{yiAskStaffName,jdbcType=VARCHAR}, 
+      #{yiAskStaffDepart,jdbcType=VARCHAR}, #{yiHistoryApproveName,jdbcType=VARCHAR}, 
+      #{yiApproveRecord,jdbcType=VARCHAR}, #{yiNowApproveName,jdbcType=VARCHAR}, #{yiCost,jdbcType=VARCHAR}, 
+      #{yiYindaLevel,jdbcType=VARCHAR}, #{yiEffectDate,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.YoYindaIdentify" >
+    insert into yo_yinda_identify
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="yiSequenceNo != null" >
+        yi_sequence_no,
+      </if>
+      <if test="yiApproveNo != null" >
+        yi_approve_no,
+      </if>
+      <if test="yiTitle != null" >
+        yi_title,
+      </if>
+      <if test="yiApproveState != null" >
+        yi_approve_state,
+      </if>
+      <if test="yiApproveResult != null" >
+        yi_approve_result,
+      </if>
+      <if test="yiApproveBegin != null" >
+        yi_approve_begin,
+      </if>
+      <if test="yiApproveEnd != null" >
+        yi_approve_end,
+      </if>
+      <if test="yiAskStaffId != null" >
+        yi_ask_staff_id,
+      </if>
+      <if test="yiAskStaffName != null" >
+        yi_ask_staff_name,
+      </if>
+      <if test="yiAskStaffDepart != null" >
+        yi_ask_staff_depart,
+      </if>
+      <if test="yiHistoryApproveName != null" >
+        yi_history_approve_name,
+      </if>
+      <if test="yiApproveRecord != null" >
+        yi_approve_record,
+      </if>
+      <if test="yiNowApproveName != null" >
+        yi_now_approve_name,
+      </if>
+      <if test="yiCost != null" >
+        yi_cost,
+      </if>
+      <if test="yiYindaLevel != null" >
+        yi_yinda_level,
+      </if>
+      <if test="yiEffectDate != null" >
+        yi_effect_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="yiSequenceNo != null" >
+        #{yiSequenceNo,jdbcType=INTEGER},
+      </if>
+      <if test="yiApproveNo != null" >
+        #{yiApproveNo,jdbcType=VARCHAR},
+      </if>
+      <if test="yiTitle != null" >
+        #{yiTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="yiApproveState != null" >
+        #{yiApproveState,jdbcType=VARCHAR},
+      </if>
+      <if test="yiApproveResult != null" >
+        #{yiApproveResult,jdbcType=VARCHAR},
+      </if>
+      <if test="yiApproveBegin != null" >
+        #{yiApproveBegin,jdbcType=VARCHAR},
+      </if>
+      <if test="yiApproveEnd != null" >
+        #{yiApproveEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="yiAskStaffId != null" >
+        #{yiAskStaffId,jdbcType=VARCHAR},
+      </if>
+      <if test="yiAskStaffName != null" >
+        #{yiAskStaffName,jdbcType=VARCHAR},
+      </if>
+      <if test="yiAskStaffDepart != null" >
+        #{yiAskStaffDepart,jdbcType=VARCHAR},
+      </if>
+      <if test="yiHistoryApproveName != null" >
+        #{yiHistoryApproveName,jdbcType=VARCHAR},
+      </if>
+      <if test="yiApproveRecord != null" >
+        #{yiApproveRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="yiNowApproveName != null" >
+        #{yiNowApproveName,jdbcType=VARCHAR},
+      </if>
+      <if test="yiCost != null" >
+        #{yiCost,jdbcType=VARCHAR},
+      </if>
+      <if test="yiYindaLevel != null" >
+        #{yiYindaLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="yiEffectDate != null" >
+        #{yiEffectDate,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.model.YoYindaIdentifyExample" resultType="java.lang.Integer" >
+    select count(*) from yo_yinda_identify
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update yo_yinda_identify
+    <set >
+      <if test="record.yiSequenceNo != null" >
+        yi_sequence_no = #{record.yiSequenceNo,jdbcType=INTEGER},
+      </if>
+      <if test="record.yiApproveNo != null" >
+        yi_approve_no = #{record.yiApproveNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yiTitle != null" >
+        yi_title = #{record.yiTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yiApproveState != null" >
+        yi_approve_state = #{record.yiApproveState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yiApproveResult != null" >
+        yi_approve_result = #{record.yiApproveResult,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yiApproveBegin != null" >
+        yi_approve_begin = #{record.yiApproveBegin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yiApproveEnd != null" >
+        yi_approve_end = #{record.yiApproveEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yiAskStaffId != null" >
+        yi_ask_staff_id = #{record.yiAskStaffId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yiAskStaffName != null" >
+        yi_ask_staff_name = #{record.yiAskStaffName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yiAskStaffDepart != null" >
+        yi_ask_staff_depart = #{record.yiAskStaffDepart,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yiHistoryApproveName != null" >
+        yi_history_approve_name = #{record.yiHistoryApproveName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yiApproveRecord != null" >
+        yi_approve_record = #{record.yiApproveRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yiNowApproveName != null" >
+        yi_now_approve_name = #{record.yiNowApproveName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yiCost != null" >
+        yi_cost = #{record.yiCost,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yiYindaLevel != null" >
+        yi_yinda_level = #{record.yiYindaLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yiEffectDate != null" >
+        yi_effect_date = #{record.yiEffectDate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update yo_yinda_identify
+    set yi_sequence_no = #{record.yiSequenceNo,jdbcType=INTEGER},
+      yi_approve_no = #{record.yiApproveNo,jdbcType=VARCHAR},
+      yi_title = #{record.yiTitle,jdbcType=VARCHAR},
+      yi_approve_state = #{record.yiApproveState,jdbcType=VARCHAR},
+      yi_approve_result = #{record.yiApproveResult,jdbcType=VARCHAR},
+      yi_approve_begin = #{record.yiApproveBegin,jdbcType=VARCHAR},
+      yi_approve_end = #{record.yiApproveEnd,jdbcType=VARCHAR},
+      yi_ask_staff_id = #{record.yiAskStaffId,jdbcType=VARCHAR},
+      yi_ask_staff_name = #{record.yiAskStaffName,jdbcType=VARCHAR},
+      yi_ask_staff_depart = #{record.yiAskStaffDepart,jdbcType=VARCHAR},
+      yi_history_approve_name = #{record.yiHistoryApproveName,jdbcType=VARCHAR},
+      yi_approve_record = #{record.yiApproveRecord,jdbcType=VARCHAR},
+      yi_now_approve_name = #{record.yiNowApproveName,jdbcType=VARCHAR},
+      yi_cost = #{record.yiCost,jdbcType=VARCHAR},
+      yi_yinda_level = #{record.yiYindaLevel,jdbcType=VARCHAR},
+      yi_effect_date = #{record.yiEffectDate,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.YoYindaIdentify" >
+    update yo_yinda_identify
+    <set >
+      <if test="yiApproveNo != null" >
+        yi_approve_no = #{yiApproveNo,jdbcType=VARCHAR},
+      </if>
+      <if test="yiTitle != null" >
+        yi_title = #{yiTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="yiApproveState != null" >
+        yi_approve_state = #{yiApproveState,jdbcType=VARCHAR},
+      </if>
+      <if test="yiApproveResult != null" >
+        yi_approve_result = #{yiApproveResult,jdbcType=VARCHAR},
+      </if>
+      <if test="yiApproveBegin != null" >
+        yi_approve_begin = #{yiApproveBegin,jdbcType=VARCHAR},
+      </if>
+      <if test="yiApproveEnd != null" >
+        yi_approve_end = #{yiApproveEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="yiAskStaffId != null" >
+        yi_ask_staff_id = #{yiAskStaffId,jdbcType=VARCHAR},
+      </if>
+      <if test="yiAskStaffName != null" >
+        yi_ask_staff_name = #{yiAskStaffName,jdbcType=VARCHAR},
+      </if>
+      <if test="yiAskStaffDepart != null" >
+        yi_ask_staff_depart = #{yiAskStaffDepart,jdbcType=VARCHAR},
+      </if>
+      <if test="yiHistoryApproveName != null" >
+        yi_history_approve_name = #{yiHistoryApproveName,jdbcType=VARCHAR},
+      </if>
+      <if test="yiApproveRecord != null" >
+        yi_approve_record = #{yiApproveRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="yiNowApproveName != null" >
+        yi_now_approve_name = #{yiNowApproveName,jdbcType=VARCHAR},
+      </if>
+      <if test="yiCost != null" >
+        yi_cost = #{yiCost,jdbcType=VARCHAR},
+      </if>
+      <if test="yiYindaLevel != null" >
+        yi_yinda_level = #{yiYindaLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="yiEffectDate != null" >
+        yi_effect_date = #{yiEffectDate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where yi_sequence_no = #{yiSequenceNo,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.YoYindaIdentify" >
+    update yo_yinda_identify
+    set yi_approve_no = #{yiApproveNo,jdbcType=VARCHAR},
+      yi_title = #{yiTitle,jdbcType=VARCHAR},
+      yi_approve_state = #{yiApproveState,jdbcType=VARCHAR},
+      yi_approve_result = #{yiApproveResult,jdbcType=VARCHAR},
+      yi_approve_begin = #{yiApproveBegin,jdbcType=VARCHAR},
+      yi_approve_end = #{yiApproveEnd,jdbcType=VARCHAR},
+      yi_ask_staff_id = #{yiAskStaffId,jdbcType=VARCHAR},
+      yi_ask_staff_name = #{yiAskStaffName,jdbcType=VARCHAR},
+      yi_ask_staff_depart = #{yiAskStaffDepart,jdbcType=VARCHAR},
+      yi_history_approve_name = #{yiHistoryApproveName,jdbcType=VARCHAR},
+      yi_approve_record = #{yiApproveRecord,jdbcType=VARCHAR},
+      yi_now_approve_name = #{yiNowApproveName,jdbcType=VARCHAR},
+      yi_cost = #{yiCost,jdbcType=VARCHAR},
+      yi_yinda_level = #{yiYindaLevel,jdbcType=VARCHAR},
+      yi_effect_date = #{yiEffectDate,jdbcType=VARCHAR}
+    where yi_sequence_no = #{yiSequenceNo,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -6,8 +6,8 @@ import java.util.Map;
 /**
  * Created by ma on 2016/10/15.
  */
-public interface IAskLeaveService {
+public interface IImportService {
     /*插入从excel行得到的实体类*/
-    Map<String, Object> insert(String fileDir) throws IOException;
+    Map<String, Object> insertAskLeave(String fileDir) throws IOException;
 
 }

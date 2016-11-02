@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.YoSubwayMapper" >
+  <resultMap id="BaseResultMap" type="com.model.YoSubway" >
+    <id column="sub_sequence_no" property="subSequenceNo" jdbcType="INTEGER" />
+    <result column="sub_approve_no" property="subApproveNo" jdbcType="VARCHAR" />
+    <result column="sub_title" property="subTitle" jdbcType="VARCHAR" />
+    <result column="sub_approve_state" property="subApproveState" jdbcType="VARCHAR" />
+    <result column="sub_approve_result" property="subApproveResult" jdbcType="VARCHAR" />
+    <result column="sub_approve_begin" property="subApproveBegin" jdbcType="VARCHAR" />
+    <result column="sub_approve_end" property="subApproveEnd" jdbcType="VARCHAR" />
+    <result column="sub_ask_staff_id" property="subAskStaffId" jdbcType="VARCHAR" />
+    <result column="sub_ask_staff_name" property="subAskStaffName" jdbcType="VARCHAR" />
+    <result column="sub_ask_staff_depart" property="subAskStaffDepart" jdbcType="VARCHAR" />
+    <result column="sub_history_approve_name" property="subHistoryApproveName" jdbcType="VARCHAR" />
+    <result column="sub_approve_record" property="subApproveRecord" jdbcType="VARCHAR" />
+    <result column="sub_now_approve_name" property="subNowApproveName" jdbcType="VARCHAR" />
+    <result column="sub_cost" property="subCost" jdbcType="VARCHAR" />
+    <result column="sub_take_date" property="subTakeDate" jdbcType="VARCHAR" />
+    <result column="sub_amount" property="subAmount" jdbcType="VARCHAR" />
+    <result column="sub_ask_reason" property="subAskReason" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    sub_sequence_no, sub_approve_no, sub_title, sub_approve_state, sub_approve_result, 
+    sub_approve_begin, sub_approve_end, sub_ask_staff_id, sub_ask_staff_name, sub_ask_staff_depart, 
+    sub_history_approve_name, sub_approve_record, sub_now_approve_name, sub_cost, sub_take_date, 
+    sub_amount, sub_ask_reason
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.model.YoSubwayExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from yo_subway
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yo_subway
+    where sub_sequence_no = #{subSequenceNo,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yo_subway
+    where sub_sequence_no = #{subSequenceNo,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.model.YoSubwayExample" >
+    delete from yo_subway
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.model.YoSubway" >
+    insert into yo_subway (sub_sequence_no, sub_approve_no, sub_title, 
+      sub_approve_state, sub_approve_result, sub_approve_begin, 
+      sub_approve_end, sub_ask_staff_id, sub_ask_staff_name, 
+      sub_ask_staff_depart, sub_history_approve_name, 
+      sub_approve_record, sub_now_approve_name, sub_cost, 
+      sub_take_date, sub_amount, sub_ask_reason
+      )
+    values (#{subSequenceNo,jdbcType=INTEGER}, #{subApproveNo,jdbcType=VARCHAR}, #{subTitle,jdbcType=VARCHAR}, 
+      #{subApproveState,jdbcType=VARCHAR}, #{subApproveResult,jdbcType=VARCHAR}, #{subApproveBegin,jdbcType=VARCHAR}, 
+      #{subApproveEnd,jdbcType=VARCHAR}, #{subAskStaffId,jdbcType=VARCHAR}, #{subAskStaffName,jdbcType=VARCHAR}, 
+      #{subAskStaffDepart,jdbcType=VARCHAR}, #{subHistoryApproveName,jdbcType=VARCHAR}, 
+      #{subApproveRecord,jdbcType=VARCHAR}, #{subNowApproveName,jdbcType=VARCHAR}, #{subCost,jdbcType=VARCHAR}, 
+      #{subTakeDate,jdbcType=VARCHAR}, #{subAmount,jdbcType=VARCHAR}, #{subAskReason,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.YoSubway" >
+    insert into yo_subway
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="subSequenceNo != null" >
+        sub_sequence_no,
+      </if>
+      <if test="subApproveNo != null" >
+        sub_approve_no,
+      </if>
+      <if test="subTitle != null" >
+        sub_title,
+      </if>
+      <if test="subApproveState != null" >
+        sub_approve_state,
+      </if>
+      <if test="subApproveResult != null" >
+        sub_approve_result,
+      </if>
+      <if test="subApproveBegin != null" >
+        sub_approve_begin,
+      </if>
+      <if test="subApproveEnd != null" >
+        sub_approve_end,
+      </if>
+      <if test="subAskStaffId != null" >
+        sub_ask_staff_id,
+      </if>
+      <if test="subAskStaffName != null" >
+        sub_ask_staff_name,
+      </if>
+      <if test="subAskStaffDepart != null" >
+        sub_ask_staff_depart,
+      </if>
+      <if test="subHistoryApproveName != null" >
+        sub_history_approve_name,
+      </if>
+      <if test="subApproveRecord != null" >
+        sub_approve_record,
+      </if>
+      <if test="subNowApproveName != null" >
+        sub_now_approve_name,
+      </if>
+      <if test="subCost != null" >
+        sub_cost,
+      </if>
+      <if test="subTakeDate != null" >
+        sub_take_date,
+      </if>
+      <if test="subAmount != null" >
+        sub_amount,
+      </if>
+      <if test="subAskReason != null" >
+        sub_ask_reason,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="subSequenceNo != null" >
+        #{subSequenceNo,jdbcType=INTEGER},
+      </if>
+      <if test="subApproveNo != null" >
+        #{subApproveNo,jdbcType=VARCHAR},
+      </if>
+      <if test="subTitle != null" >
+        #{subTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="subApproveState != null" >
+        #{subApproveState,jdbcType=VARCHAR},
+      </if>
+      <if test="subApproveResult != null" >
+        #{subApproveResult,jdbcType=VARCHAR},
+      </if>
+      <if test="subApproveBegin != null" >
+        #{subApproveBegin,jdbcType=VARCHAR},
+      </if>
+      <if test="subApproveEnd != null" >
+        #{subApproveEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="subAskStaffId != null" >
+        #{subAskStaffId,jdbcType=VARCHAR},
+      </if>
+      <if test="subAskStaffName != null" >
+        #{subAskStaffName,jdbcType=VARCHAR},
+      </if>
+      <if test="subAskStaffDepart != null" >
+        #{subAskStaffDepart,jdbcType=VARCHAR},
+      </if>
+      <if test="subHistoryApproveName != null" >
+        #{subHistoryApproveName,jdbcType=VARCHAR},
+      </if>
+      <if test="subApproveRecord != null" >
+        #{subApproveRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="subNowApproveName != null" >
+        #{subNowApproveName,jdbcType=VARCHAR},
+      </if>
+      <if test="subCost != null" >
+        #{subCost,jdbcType=VARCHAR},
+      </if>
+      <if test="subTakeDate != null" >
+        #{subTakeDate,jdbcType=VARCHAR},
+      </if>
+      <if test="subAmount != null" >
+        #{subAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="subAskReason != null" >
+        #{subAskReason,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.model.YoSubwayExample" resultType="java.lang.Integer" >
+    select count(*) from yo_subway
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update yo_subway
+    <set >
+      <if test="record.subSequenceNo != null" >
+        sub_sequence_no = #{record.subSequenceNo,jdbcType=INTEGER},
+      </if>
+      <if test="record.subApproveNo != null" >
+        sub_approve_no = #{record.subApproveNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subTitle != null" >
+        sub_title = #{record.subTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subApproveState != null" >
+        sub_approve_state = #{record.subApproveState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subApproveResult != null" >
+        sub_approve_result = #{record.subApproveResult,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subApproveBegin != null" >
+        sub_approve_begin = #{record.subApproveBegin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subApproveEnd != null" >
+        sub_approve_end = #{record.subApproveEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subAskStaffId != null" >
+        sub_ask_staff_id = #{record.subAskStaffId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subAskStaffName != null" >
+        sub_ask_staff_name = #{record.subAskStaffName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subAskStaffDepart != null" >
+        sub_ask_staff_depart = #{record.subAskStaffDepart,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subHistoryApproveName != null" >
+        sub_history_approve_name = #{record.subHistoryApproveName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subApproveRecord != null" >
+        sub_approve_record = #{record.subApproveRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subNowApproveName != null" >
+        sub_now_approve_name = #{record.subNowApproveName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subCost != null" >
+        sub_cost = #{record.subCost,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subTakeDate != null" >
+        sub_take_date = #{record.subTakeDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subAmount != null" >
+        sub_amount = #{record.subAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subAskReason != null" >
+        sub_ask_reason = #{record.subAskReason,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update yo_subway
+    set sub_sequence_no = #{record.subSequenceNo,jdbcType=INTEGER},
+      sub_approve_no = #{record.subApproveNo,jdbcType=VARCHAR},
+      sub_title = #{record.subTitle,jdbcType=VARCHAR},
+      sub_approve_state = #{record.subApproveState,jdbcType=VARCHAR},
+      sub_approve_result = #{record.subApproveResult,jdbcType=VARCHAR},
+      sub_approve_begin = #{record.subApproveBegin,jdbcType=VARCHAR},
+      sub_approve_end = #{record.subApproveEnd,jdbcType=VARCHAR},
+      sub_ask_staff_id = #{record.subAskStaffId,jdbcType=VARCHAR},
+      sub_ask_staff_name = #{record.subAskStaffName,jdbcType=VARCHAR},
+      sub_ask_staff_depart = #{record.subAskStaffDepart,jdbcType=VARCHAR},
+      sub_history_approve_name = #{record.subHistoryApproveName,jdbcType=VARCHAR},
+      sub_approve_record = #{record.subApproveRecord,jdbcType=VARCHAR},
+      sub_now_approve_name = #{record.subNowApproveName,jdbcType=VARCHAR},
+      sub_cost = #{record.subCost,jdbcType=VARCHAR},
+      sub_take_date = #{record.subTakeDate,jdbcType=VARCHAR},
+      sub_amount = #{record.subAmount,jdbcType=VARCHAR},
+      sub_ask_reason = #{record.subAskReason,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.YoSubway" >
+    update yo_subway
+    <set >
+      <if test="subApproveNo != null" >
+        sub_approve_no = #{subApproveNo,jdbcType=VARCHAR},
+      </if>
+      <if test="subTitle != null" >
+        sub_title = #{subTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="subApproveState != null" >
+        sub_approve_state = #{subApproveState,jdbcType=VARCHAR},
+      </if>
+      <if test="subApproveResult != null" >
+        sub_approve_result = #{subApproveResult,jdbcType=VARCHAR},
+      </if>
+      <if test="subApproveBegin != null" >
+        sub_approve_begin = #{subApproveBegin,jdbcType=VARCHAR},
+      </if>
+      <if test="subApproveEnd != null" >
+        sub_approve_end = #{subApproveEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="subAskStaffId != null" >
+        sub_ask_staff_id = #{subAskStaffId,jdbcType=VARCHAR},
+      </if>
+      <if test="subAskStaffName != null" >
+        sub_ask_staff_name = #{subAskStaffName,jdbcType=VARCHAR},
+      </if>
+      <if test="subAskStaffDepart != null" >
+        sub_ask_staff_depart = #{subAskStaffDepart,jdbcType=VARCHAR},
+      </if>
+      <if test="subHistoryApproveName != null" >
+        sub_history_approve_name = #{subHistoryApproveName,jdbcType=VARCHAR},
+      </if>
+      <if test="subApproveRecord != null" >
+        sub_approve_record = #{subApproveRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="subNowApproveName != null" >
+        sub_now_approve_name = #{subNowApproveName,jdbcType=VARCHAR},
+      </if>
+      <if test="subCost != null" >
+        sub_cost = #{subCost,jdbcType=VARCHAR},
+      </if>
+      <if test="subTakeDate != null" >
+        sub_take_date = #{subTakeDate,jdbcType=VARCHAR},
+      </if>
+      <if test="subAmount != null" >
+        sub_amount = #{subAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="subAskReason != null" >
+        sub_ask_reason = #{subAskReason,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sub_sequence_no = #{subSequenceNo,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.YoSubway" >
+    update yo_subway
+    set sub_approve_no = #{subApproveNo,jdbcType=VARCHAR},
+      sub_title = #{subTitle,jdbcType=VARCHAR},
+      sub_approve_state = #{subApproveState,jdbcType=VARCHAR},
+      sub_approve_result = #{subApproveResult,jdbcType=VARCHAR},
+      sub_approve_begin = #{subApproveBegin,jdbcType=VARCHAR},
+      sub_approve_end = #{subApproveEnd,jdbcType=VARCHAR},
+      sub_ask_staff_id = #{subAskStaffId,jdbcType=VARCHAR},
+      sub_ask_staff_name = #{subAskStaffName,jdbcType=VARCHAR},
+      sub_ask_staff_depart = #{subAskStaffDepart,jdbcType=VARCHAR},
+      sub_history_approve_name = #{subHistoryApproveName,jdbcType=VARCHAR},
+      sub_approve_record = #{subApproveRecord,jdbcType=VARCHAR},
+      sub_now_approve_name = #{subNowApproveName,jdbcType=VARCHAR},
+      sub_cost = #{subCost,jdbcType=VARCHAR},
+      sub_take_date = #{subTakeDate,jdbcType=VARCHAR},
+      sub_amount = #{subAmount,jdbcType=VARCHAR},
+      sub_ask_reason = #{subAskReason,jdbcType=VARCHAR}
+    where sub_sequence_no = #{subSequenceNo,jdbcType=INTEGER}
+  </update>
+</mapper>

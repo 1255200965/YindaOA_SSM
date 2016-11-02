@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.YoSalaryMapper" >
+  <resultMap id="BaseResultMap" type="com.model.YoSalary" >
+    <id column="sid" property="sid" jdbcType="INTEGER" />
+    <result column="staff_user_id" property="staffUserId" jdbcType="VARCHAR" />
+    <result column="salaryid" property="salaryid" jdbcType="VARCHAR" />
+    <result column="date" property="date" jdbcType="DATE" />
+    <result column="datetype" property="datetype" jdbcType="VARCHAR" />
+    <result column="attendance" property="attendance" jdbcType="VARCHAR" />
+    <result column="attendance_salary" property="attendanceSalary" jdbcType="VARCHAR" />
+    <result column="leavetype" property="leavetype" jdbcType="VARCHAR" />
+    <result column="leavesalary" property="leavesalary" jdbcType="VARCHAR" />
+    <result column="workovertime" property="workovertime" jdbcType="VARCHAR" />
+    <result column="worksalary" property="worksalary" jdbcType="VARCHAR" />
+    <result column="evection" property="evection" jdbcType="VARCHAR" />
+    <result column="allowance" property="allowance" jdbcType="VARCHAR" />
+    <result column="timesalary" property="timesalary" jdbcType="VARCHAR" />
+    <result column="task" property="task" jdbcType="VARCHAR" />
+    <result column="tasksalary" property="tasksalary" jdbcType="VARCHAR" />
+    <result column="trafficsalary" property="trafficsalary" jdbcType="VARCHAR" />
+    <result column="additionalsalary" property="additionalsalary" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    sid, staff_user_id, salaryid, date, datetype, attendance, attendance_salary, leavetype, 
+    leavesalary, workovertime, worksalary, evection, allowance, timesalary, task, tasksalary, 
+    trafficsalary, additionalsalary
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.model.YoSalaryExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from yo_salary
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yo_salary
+    where sid = #{sid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yo_salary
+    where sid = #{sid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.model.YoSalaryExample" >
+    delete from yo_salary
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.model.YoSalary" >
+    insert into yo_salary (sid, staff_user_id, salaryid, 
+      date, datetype, attendance, 
+      attendance_salary, leavetype, leavesalary, 
+      workovertime, worksalary, evection, 
+      allowance, timesalary, task, 
+      tasksalary, trafficsalary, additionalsalary
+      )
+    values (#{sid,jdbcType=INTEGER}, #{staffUserId,jdbcType=VARCHAR}, #{salaryid,jdbcType=VARCHAR}, 
+      #{date,jdbcType=DATE}, #{datetype,jdbcType=VARCHAR}, #{attendance,jdbcType=VARCHAR}, 
+      #{attendanceSalary,jdbcType=VARCHAR}, #{leavetype,jdbcType=VARCHAR}, #{leavesalary,jdbcType=VARCHAR}, 
+      #{workovertime,jdbcType=VARCHAR}, #{worksalary,jdbcType=VARCHAR}, #{evection,jdbcType=VARCHAR}, 
+      #{allowance,jdbcType=VARCHAR}, #{timesalary,jdbcType=VARCHAR}, #{task,jdbcType=VARCHAR}, 
+      #{tasksalary,jdbcType=VARCHAR}, #{trafficsalary,jdbcType=VARCHAR}, #{additionalsalary,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.YoSalary" >
+    insert into yo_salary
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        sid,
+      </if>
+      <if test="staffUserId != null" >
+        staff_user_id,
+      </if>
+      <if test="salaryid != null" >
+        salaryid,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="datetype != null" >
+        datetype,
+      </if>
+      <if test="attendance != null" >
+        attendance,
+      </if>
+      <if test="attendanceSalary != null" >
+        attendance_salary,
+      </if>
+      <if test="leavetype != null" >
+        leavetype,
+      </if>
+      <if test="leavesalary != null" >
+        leavesalary,
+      </if>
+      <if test="workovertime != null" >
+        workovertime,
+      </if>
+      <if test="worksalary != null" >
+        worksalary,
+      </if>
+      <if test="evection != null" >
+        evection,
+      </if>
+      <if test="allowance != null" >
+        allowance,
+      </if>
+      <if test="timesalary != null" >
+        timesalary,
+      </if>
+      <if test="task != null" >
+        task,
+      </if>
+      <if test="tasksalary != null" >
+        tasksalary,
+      </if>
+      <if test="trafficsalary != null" >
+        trafficsalary,
+      </if>
+      <if test="additionalsalary != null" >
+        additionalsalary,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="staffUserId != null" >
+        #{staffUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="salaryid != null" >
+        #{salaryid,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=DATE},
+      </if>
+      <if test="datetype != null" >
+        #{datetype,jdbcType=VARCHAR},
+      </if>
+      <if test="attendance != null" >
+        #{attendance,jdbcType=VARCHAR},
+      </if>
+      <if test="attendanceSalary != null" >
+        #{attendanceSalary,jdbcType=VARCHAR},
+      </if>
+      <if test="leavetype != null" >
+        #{leavetype,jdbcType=VARCHAR},
+      </if>
+      <if test="leavesalary != null" >
+        #{leavesalary,jdbcType=VARCHAR},
+      </if>
+      <if test="workovertime != null" >
+        #{workovertime,jdbcType=VARCHAR},
+      </if>
+      <if test="worksalary != null" >
+        #{worksalary,jdbcType=VARCHAR},
+      </if>
+      <if test="evection != null" >
+        #{evection,jdbcType=VARCHAR},
+      </if>
+      <if test="allowance != null" >
+        #{allowance,jdbcType=VARCHAR},
+      </if>
+      <if test="timesalary != null" >
+        #{timesalary,jdbcType=VARCHAR},
+      </if>
+      <if test="task != null" >
+        #{task,jdbcType=VARCHAR},
+      </if>
+      <if test="tasksalary != null" >
+        #{tasksalary,jdbcType=VARCHAR},
+      </if>
+      <if test="trafficsalary != null" >
+        #{trafficsalary,jdbcType=VARCHAR},
+      </if>
+      <if test="additionalsalary != null" >
+        #{additionalsalary,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.model.YoSalaryExample" resultType="java.lang.Integer" >
+    select count(*) from yo_salary
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update yo_salary
+    <set >
+      <if test="record.sid != null" >
+        sid = #{record.sid,jdbcType=INTEGER},
+      </if>
+      <if test="record.staffUserId != null" >
+        staff_user_id = #{record.staffUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salaryid != null" >
+        salaryid = #{record.salaryid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.date != null" >
+        date = #{record.date,jdbcType=DATE},
+      </if>
+      <if test="record.datetype != null" >
+        datetype = #{record.datetype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attendance != null" >
+        attendance = #{record.attendance,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attendanceSalary != null" >
+        attendance_salary = #{record.attendanceSalary,jdbcType=VARCHAR},
+      </if>
+      <if test="record.leavetype != null" >
+        leavetype = #{record.leavetype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.leavesalary != null" >
+        leavesalary = #{record.leavesalary,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workovertime != null" >
+        workovertime = #{record.workovertime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.worksalary != null" >
+        worksalary = #{record.worksalary,jdbcType=VARCHAR},
+      </if>
+      <if test="record.evection != null" >
+        evection = #{record.evection,jdbcType=VARCHAR},
+      </if>
+      <if test="record.allowance != null" >
+        allowance = #{record.allowance,jdbcType=VARCHAR},
+      </if>
+      <if test="record.timesalary != null" >
+        timesalary = #{record.timesalary,jdbcType=VARCHAR},
+      </if>
+      <if test="record.task != null" >
+        task = #{record.task,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tasksalary != null" >
+        tasksalary = #{record.tasksalary,jdbcType=VARCHAR},
+      </if>
+      <if test="record.trafficsalary != null" >
+        trafficsalary = #{record.trafficsalary,jdbcType=VARCHAR},
+      </if>
+      <if test="record.additionalsalary != null" >
+        additionalsalary = #{record.additionalsalary,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update yo_salary
+    set sid = #{record.sid,jdbcType=INTEGER},
+      staff_user_id = #{record.staffUserId,jdbcType=VARCHAR},
+      salaryid = #{record.salaryid,jdbcType=VARCHAR},
+      date = #{record.date,jdbcType=DATE},
+      datetype = #{record.datetype,jdbcType=VARCHAR},
+      attendance = #{record.attendance,jdbcType=VARCHAR},
+      attendance_salary = #{record.attendanceSalary,jdbcType=VARCHAR},
+      leavetype = #{record.leavetype,jdbcType=VARCHAR},
+      leavesalary = #{record.leavesalary,jdbcType=VARCHAR},
+      workovertime = #{record.workovertime,jdbcType=VARCHAR},
+      worksalary = #{record.worksalary,jdbcType=VARCHAR},
+      evection = #{record.evection,jdbcType=VARCHAR},
+      allowance = #{record.allowance,jdbcType=VARCHAR},
+      timesalary = #{record.timesalary,jdbcType=VARCHAR},
+      task = #{record.task,jdbcType=VARCHAR},
+      tasksalary = #{record.tasksalary,jdbcType=VARCHAR},
+      trafficsalary = #{record.trafficsalary,jdbcType=VARCHAR},
+      additionalsalary = #{record.additionalsalary,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.YoSalary" >
+    update yo_salary
+    <set >
+      <if test="staffUserId != null" >
+        staff_user_id = #{staffUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="salaryid != null" >
+        salaryid = #{salaryid,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        date = #{date,jdbcType=DATE},
+      </if>
+      <if test="datetype != null" >
+        datetype = #{datetype,jdbcType=VARCHAR},
+      </if>
+      <if test="attendance != null" >
+        attendance = #{attendance,jdbcType=VARCHAR},
+      </if>
+      <if test="attendanceSalary != null" >
+        attendance_salary = #{attendanceSalary,jdbcType=VARCHAR},
+      </if>
+      <if test="leavetype != null" >
+        leavetype = #{leavetype,jdbcType=VARCHAR},
+      </if>
+      <if test="leavesalary != null" >
+        leavesalary = #{leavesalary,jdbcType=VARCHAR},
+      </if>
+      <if test="workovertime != null" >
+        workovertime = #{workovertime,jdbcType=VARCHAR},
+      </if>
+      <if test="worksalary != null" >
+        worksalary = #{worksalary,jdbcType=VARCHAR},
+      </if>
+      <if test="evection != null" >
+        evection = #{evection,jdbcType=VARCHAR},
+      </if>
+      <if test="allowance != null" >
+        allowance = #{allowance,jdbcType=VARCHAR},
+      </if>
+      <if test="timesalary != null" >
+        timesalary = #{timesalary,jdbcType=VARCHAR},
+      </if>
+      <if test="task != null" >
+        task = #{task,jdbcType=VARCHAR},
+      </if>
+      <if test="tasksalary != null" >
+        tasksalary = #{tasksalary,jdbcType=VARCHAR},
+      </if>
+      <if test="trafficsalary != null" >
+        trafficsalary = #{trafficsalary,jdbcType=VARCHAR},
+      </if>
+      <if test="additionalsalary != null" >
+        additionalsalary = #{additionalsalary,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sid = #{sid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.YoSalary" >
+    update yo_salary
+    set staff_user_id = #{staffUserId,jdbcType=VARCHAR},
+      salaryid = #{salaryid,jdbcType=VARCHAR},
+      date = #{date,jdbcType=DATE},
+      datetype = #{datetype,jdbcType=VARCHAR},
+      attendance = #{attendance,jdbcType=VARCHAR},
+      attendance_salary = #{attendanceSalary,jdbcType=VARCHAR},
+      leavetype = #{leavetype,jdbcType=VARCHAR},
+      leavesalary = #{leavesalary,jdbcType=VARCHAR},
+      workovertime = #{workovertime,jdbcType=VARCHAR},
+      worksalary = #{worksalary,jdbcType=VARCHAR},
+      evection = #{evection,jdbcType=VARCHAR},
+      allowance = #{allowance,jdbcType=VARCHAR},
+      timesalary = #{timesalary,jdbcType=VARCHAR},
+      task = #{task,jdbcType=VARCHAR},
+      tasksalary = #{tasksalary,jdbcType=VARCHAR},
+      trafficsalary = #{trafficsalary,jdbcType=VARCHAR},
+      additionalsalary = #{additionalsalary,jdbcType=VARCHAR}
+    where sid = #{sid,jdbcType=INTEGER}
+  </update>
+</mapper>
