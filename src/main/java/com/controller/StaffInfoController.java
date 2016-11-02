@@ -3,6 +3,7 @@ package com.controller;
 import com.dingtalk.open.client.api.model.corp.CorpUserDetail;
 import com.model.StaffInfo;
 import com.service.IStaffInfoService;
+import com.util.AttendanceWork;
 import com.util.DDUtil;
 import com.util.DateUtil;
 import com.util.ExcelToMysql;
@@ -32,21 +33,17 @@ public class StaffInfoController {
     @Resource
     private IStaffInfoService userInfoService;
 
-
     @RequestMapping("/testMethod.do")
     public String getAllUser(HttpServletRequest request) throws IOException {
-        /*DDUtil ddUtil = new DDUtil(userInfoService);
-        try {
-            List<CorpUserDetail> list = ddUtil.getAllDepartMem();
-            StaffInfo staffInfoLLR = userInfoService.selectStaffByID("011363262839230971");
-            String departChinese = staffInfoLLR.getDepartment();
-            System.out.println("这就是我的部门 = "+departChinese);
-
-            StaffInfo ddd = ddUtil.getUserByID("011363262839230971");
-            int result = 0;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
+//        DDUtil ddUtil = new DDUtil();
+//        try {
+//            List<CorpUserDetail> list = ddUtil.getAllDepartMem(15111);
+//            CorpUserDetail corpUserDetailLLR = list.get(3);
+//            StaffInfo staffInfoLLR = ddUtil.ChangeToLocal(corpUserDetailLLR);
+//            System.out.println("okc的电话号码是"+staffInfoLLR.getCellphone());
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
         return "/UserInfo";
     }
@@ -171,7 +168,6 @@ public class StaffInfoController {
     public @ResponseBody Map<String,Object> adduser(@RequestBody StaffInfo user, HttpServletRequest request, HttpServletResponse response) throws IOException {
         Map<String,Object> map = new HashMap<String,Object>();
 
-
         int result = userInfoService.insertStaff(user);
         if(result != 0){
             map.put("msg", "成功");
@@ -187,17 +183,11 @@ public class StaffInfoController {
         Map<String,Object> map = new HashMap<String,Object>();
 
         //钉钉侧修改
-        DDUtil ddUtil = new DDUtil(userInfoService);
-        String ddresult = ddUtil.updateUser(user);
-        if (ddresult == null){
-            map.put("msg", "钉钉更新失败");
-        } else {
-            int result = userInfoService.updateStaffByID(user);
-            if (result != 0) {
-                map.put("msg", "成功");
-            } else {
-                map.put("msg", "失败");
-            }
+        int result = userInfoService.updateStaffByID(user);
+        if(result != 0){
+            map.put("msg", "成功");
+        }else{
+            map.put("msg", "失败");
         }
         return map;
     }
@@ -207,21 +197,27 @@ public class StaffInfoController {
     public @ResponseBody Map<String,Object> delete(@RequestBody StaffInfo user, HttpServletRequest request, HttpServletResponse response) throws IOException {
         Map<String,Object> map = new HashMap<String,Object>();
         user.setStaffState("离职");
-        user.setLeaveDate(DateUtil.getCurrentTimeDate());
+        user.setLeaveDate(DateUtil.getCurrentTimeMillis().toString());
         //钉钉侧删除
-        DDUtil ddUtil = new DDUtil(userInfoService);
-        String ddresult = ddUtil.deleteUser(user);
-        if (ddresult == null){
-            map.put("msg", "钉钉删除失败");
-        } else {
-            int result = userInfoService.updateStaffByID(user);
-            if (result != 0) {
-                map.put("msg", "成功");
-            } else {
-                map.put("msg", "失败");
-            }
+        int result = userInfoService.updateStaffByID(user);
+        if(result != 0){
+            map.put("msg", "成功");
+        }else{
+            map.put("msg", "失败");
         }
         return map;
     }
+
+    @RequestMapping("/test.do")
+    public String test(HttpServletRequest request) throws IOException {
+        AttendanceWork ddUtil = new AttendanceWork();
+       try {
+           ddUtil.getSuiteToken("063815563024308470","2016-11-1","2016-11-2");
+       } catch (Exception e) {
+          e.printStackTrace();
+       }
+        return "/UserInfo";
+    }
+
 
 }

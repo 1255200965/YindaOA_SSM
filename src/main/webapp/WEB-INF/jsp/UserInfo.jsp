@@ -23,6 +23,7 @@
 <script type="text/javascript" src="../javascripts/bootstrap-treeview.min.js"></script>
 <script src="../javascripts//knockout-3.4.0rc.js"></script>
 
+
 <script type="text/javascript">
     var result = null;
 
@@ -200,7 +201,11 @@
 
             //点击事件-点击删除用户按钮
             self.ClickDelete = function(item){
-                self.DeleteUser(item);
+                if (!confirm("确认要删除？")) {
+                    window.event.returnValue = false;
+                }else{
+                    self.DeleteUser(item);
+                }
             };
 
 
@@ -341,7 +346,7 @@
                     <li><a  class="hover" id="mynav2" onclick="switchMenustyle(2)"data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}"> 通讯录 </a></li>
                     <li ><a  id="mynav3" onclick="switchMenustyle(3)" data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">人员统计 </a></li>
                     <li ><a  id="mynav4" onclick="switchMenustyle(4)" data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}"> 部门统计</a></li>
-                    <li ><a  id="mynav5" onclick="switchMenustyle(5)"data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}"> 趋势统计</a></li>
+                    <li ><a  id="mynav5" onclick="switchMenustyle(5)"data-bind="attr: { href: '<%=basePath%>userinfo/test.do'}"> 趋势统计</a></li>
                 </ul>
             </div>
         </div>
