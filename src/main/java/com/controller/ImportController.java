@@ -28,8 +28,8 @@ public class ImportController {
         return "/askLeaveHome";
     }
 
-    @RequestMapping("/homePage.do")
-    public String homePage(HttpServletRequest request){
+    @RequestMapping("/AskLeaveHome.do")
+    public String askLeaveHome(HttpServletRequest request){
         return "/askLeaveHome";
     }
 
@@ -37,8 +37,8 @@ public class ImportController {
      * 下载按钮和选择文件按钮都直接在前端完成了功能，不需要来这里调方法
      * 只有上传文件按钮需要调用。该功能分两步，校验和导入
      */
-    @RequestMapping("/importMethod.do")
-    public ModelAndView upload2(HttpServletRequest request, HttpServletResponse response) throws IllegalStateException, IOException {
+    @RequestMapping("/importAskLeave.do")
+    public ModelAndView importAskLeave(HttpServletRequest request, HttpServletResponse response) throws IllegalStateException, IOException {
         Map<String,Object> map = new HashMap<String,Object>();
         List<String> filelist = new ArrayList<String>();
         try {
