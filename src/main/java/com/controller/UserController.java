@@ -21,11 +21,15 @@ import com.service.IUserService;
         @Resource
         private IUserService userService;
 
-        @RequestMapping("/findAllUser.do")
+        @RequestMapping("/test.do")
         public String findAllUser(HttpServletRequest request){
-            List<User> listUser =  userService.findAllUser();
-            request.setAttribute("listUser", listUser);
-            return "/allUser";
+
+            return "/affairs-search";
+        }
+        @RequestMapping("/test1.do")
+        public String newpage(HttpServletRequest request){
+
+            return "/newpage";
         }
     }
 
