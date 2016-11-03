@@ -1,19 +1,39 @@
 <%--
   Created by IntelliJ IDEA.
-  User: Administrator
-  Date: 2016/11/3
-  Time: 11:13
+  User: ma
+  Date: 2016/10/17
+  Time: 14:12
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String path = request.getContextPath();
+    String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>音达后台管理系统</title>
     <link rel="shortcut icon" type="image/ico" href="../images/yd.ico" />
     <link rel="stylesheet" href="../stylesheets/reset.css">
     <link rel="stylesheet" href="../stylesheets/header.css">
+    <link href="../stylesheets/shujutongji.css" rel="stylesheet" />
+    <script type="text/javascript" src="../javascripts/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="../javascripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../javascripts/bootstrap-treeview.min.js"></script>
+    <script src="../javascripts//knockout-3.4.0rc.js"></script>
+    <script>
+        $(document).ready(function () {
+            var type = "${tab}";
+            if (type != "") checkInit(type);
+            var ViewModel = function (){};
+            ko.applyBindings(new ViewModel);
+        });
+    </script>
     <style>
         .content img{width:120px;}
         .content{width:930px;margin:0 auto;padding-bottom:30px;background:#fff;margin-top:30px;overflow: hidden;}
@@ -44,11 +64,11 @@
             </div>
             <div class="head-nav fl" id="h-nav">
                 <ul>
-                    <li ><a href="#">成员导入</a></li>
-                    <li ><a href="#">通讯录</a></li>
-                    <li ><a href="#">成员导入</a></li>
-                    <li class="active"><a href="upload.html">审批数据导入</a></li>
-                    <li><a href="affairs-search.html">工资查询</a></li>
+                    <li><a data-bind="attr: { href: '<%=basePath%>userinfo/import.do'}">人员导入</a></li>
+                    <li><a data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">通讯录</a></li>
+                    <li><a class="active" data-bind="attr: { href: '<%=basePath%>Import/navigator.do'}">审批数据导入</a></li>
+                    <li><a data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">工资查询</a></li>
+                    <li><a data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">关于我们</a></li>
                 </ul>
             </div>
             <div class="head-right fl">
@@ -68,12 +88,12 @@
                 <li><a href="">报告</a></li>
             </ul> -->
     <div class="mod">
-        <a href="upload-qingjia.jsp"><img src="../images/icon01.png" alt=""><p>请假申请</p></a>
-        <a href="upload-jiaban.jsp"><img src="../images/icon02.png" alt=""><p>加班申请</p></a>
-        <a href="upload-jiaotong.jsp"><img src="../images/icon01.png" alt=""><p>公交地铁</p></a>
-        <a href="upload-chuchai.jsp"><img src="../images/icon02.png" alt=""><p>出差申请</p></a>
-        <a href="upload-project.jsp"><img src="../images/icon01.png" alt=""><p>项目信息变动</p></a>
-        <a href="upload-renzheng.jsp"><img src="../images/icon02.png" alt=""><p>音达认证</p></a>
+        <a data-bind="attr: { href: '<%=basePath%>Import/AskLeaveHome.do'}"><img src="../images/icon01.png" alt=""><p>请假申请</p></a>
+        <a data-bind="attr: { href: '<%=basePath%>Import/importOvertimeHome.do'}"><img src="../images/icon02.png" alt=""><p>加班申请</p></a>
+        <a data-bind="attr: { href: '<%=basePath%>Import/importSubwayHome.do'}"><img src="../images/icon01.png" alt=""><p>公交地铁</p></a>
+        <a data-bind="attr: { href: '<%=basePath%>Import/importBusinessTripHome.do'}"><img src="../images/icon02.png" alt=""><p>出差申请</p></a>
+        <a data-bind="attr: { href: '<%=basePath%>Import/importItemChangeHome.do'}"><img src="../images/icon01.png" alt=""><p>项目信息变动</p></a>
+        <a data-bind="attr: { href: '<%=basePath%>Import/importYindaIdentifyHome.do'}"><img src="../images/icon02.png" alt=""><p>音达认证</p></a>
     </div>
 
 
