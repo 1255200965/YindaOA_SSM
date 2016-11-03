@@ -1,20 +1,17 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%--
+  Created by IntelliJ IDEA.
+  User: ma
+  Date: 2016/10/20
+  Time: 14:19
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
-
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-
 <html>
-
-<head>
-    <title>导入通讯录</title>
-    
-    <tags:holy_patterns />
-</head>
-
 <link type="text/css" rel="stylesheet" href="../stylesheets/style.css" />
 <link href="../stylesheets/bootstrap.min.css" rel="stylesheet" />
 <link href="../stylesheets/bootstrap-theme.min.css" rel="stylesheet" />
@@ -102,7 +99,9 @@
     });
 </script>
 
-
+<head>
+    <title>导入通讯录</title>
+</head>
 <body>
 
 <div class="container-fluid">

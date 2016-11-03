@@ -23,9 +23,34 @@ public class ImportController {
     @Resource
     private IImportService importService;
 
-    @RequestMapping("/testMethod.do")
-    public String testMethod(HttpServletRequest request) throws IOException {
-        return "/askLeaveHome";
+    @RequestMapping("/navigator.do")
+    public String navigator(HttpServletRequest request) throws IOException {
+        return "/upload";
+    }
+
+    @RequestMapping("/importOvertimeHome.do")
+    public String importOvertimeHome(HttpServletRequest request) throws IOException {
+        return "/upload-jiaban";
+    }
+
+    @RequestMapping("/importBusinessTripHome.do")
+    public String importBusinessTripHome(HttpServletRequest request) throws IOException {
+        return "/upload-chuchai";
+    }
+
+    @RequestMapping("/importSubwayHome.do")
+    public String importSubwayHome(HttpServletRequest request) throws IOException {
+        return "/upload-jiaotong";
+    }
+
+    @RequestMapping("/importItemChangeHome.do")
+    public String importItemChangeHome(HttpServletRequest request) throws IOException {
+        return "/upload-project";
+    }
+
+    @RequestMapping("/importYindaIdentifyHome.do")
+    public String importYindaIdentifyHome(HttpServletRequest request) throws IOException {
+        return "/upload-renzheng";
     }
 
     @RequestMapping("/AskLeaveHome.do")
