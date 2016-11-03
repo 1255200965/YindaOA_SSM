@@ -211,13 +211,12 @@ public class StaffInfoController {
     @RequestMapping("/test.do")
     public String test(HttpServletRequest request) throws IOException {
         AttendanceWork ddUtil = new AttendanceWork();
-       try {
-           ddUtil.getSuiteToken("063815563024308470","2016-11-1","2016-11-2");
-       } catch (Exception e) {
-          e.printStackTrace();
-       }
+        try {
+            ddUtil.getSuiteToken("063815563024308470","2016-11-1","2016-11-2");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return "/UserInfo";
     }
-
 
 }

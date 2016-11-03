@@ -12,6 +12,9 @@
     <title>工资查询</title>
     <%--<link rel="stylesheet" href="../stylesheets/style.css">--%>
 
+
+
+
     <link rel="stylesheet" href="../stylesheets/buttons.css">
     <link rel="stylesheet" href="../stylesheets/bootstrap-theme.min.css">
     <link rel="stylesheet" href="../stylesheets/bootstrap.min.css">
