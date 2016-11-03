@@ -27,7 +27,9 @@
         </div>
         <div class="head-nav fl" id="h-nav">
             <ul>
-                <li ><a href="">通讯录</a></li>
+                <li ><a href="#">成员导入</a></li>
+                <li ><a href="#">通讯录</a></li>
+                <li ><a href="#">成员导入</a></li>
                 <li class="active"><a href="upload.html">审批数据导入</a></li>
                 <li><a href="affairs-search.html">工资查询</a></li>
             </ul>
