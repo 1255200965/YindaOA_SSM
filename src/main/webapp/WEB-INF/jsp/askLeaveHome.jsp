@@ -1,17 +1,20 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ma
-  Date: 2016/10/20
-  Time: 14:19
-  To change this template use File | Settings | File Templates.
---%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
+
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
+
 <html>
+
+<head>
+    <title>导入通讯录</title>
+    
+    <tags:holy_patterns />
+</head>
+
 <link type="text/css" rel="stylesheet" href="../stylesheets/style.css" />
 <link href="../stylesheets/bootstrap.min.css" rel="stylesheet" />
 <link href="../stylesheets/bootstrap-theme.min.css" rel="stylesheet" />
@@ -99,10 +102,7 @@
     });
 </script>
 
-<head>
 
-    <title>导入通讯录</title>
-</head>
 <body>
 
 <div class="container-fluid">
@@ -114,11 +114,11 @@
             <script language="javascript">          function switchMenustyle(num) { for (var id = 1; id <= 5; id++) { if (id == num) { document.getElementById("mynav" + id).className = "hover"; } else { document.getElementById("mynav" + id).className = ""; } } }          </script>
             <div id="menu">
                 <ul>
-                    <li ><a  class="hover"id="mynav1" onclick="switchMenustyle(1)"data-bind="attr: { href: '<%=basePath%>userinfo/import.do'}">人员导入 </a></li>
-                    <li ><a  id="mynav2" onclick="switchMenustyle(2)"data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}"> 通讯录 </a></li>
-                    <li ><a  id="mynav3" onclick="switchMenustyle(3)" data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">人员统计 </a></li>
-                    <li ><a  id="mynav4" onclick="switchMenustyle(4)" data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}"> 部门统计</a></li>
-                    <li ><a  id="mynav5" onclick="switchMenustyle(5)"data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}"> 趋势统计</a></li>
+                    <li ><a  class="hover"id="mynav1" onclick="switchMenustyle(1)"data-bind="attr: { href: '<%=basePath%>userinfo/import.do'}">人员导入</a></li>
+                    <li ><a  id="mynav2" onclick="switchMenustyle(2)" data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">通讯录</a></li>
+                    <li ><a  id="mynav3" onclick="switchMenustyle(3)" data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">人员统计</a></li>
+                    <li ><a  id="mynav4" onclick="switchMenustyle(4)" data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">部门统计</a></li>
+                    <li ><a  id="mynav5" onclick="switchMenustyle(5)" data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">趋势统计</a></li>
                 </ul>
             </div>
         </div>
@@ -137,41 +137,42 @@
     <!-- Tab panes -->
     <div class="tab-content"  style="border:1px solid #dedede; border-radius: 4px;">
         <div role="tabpanel" class="tab-pane active" id="tab1">
-            <form name="userForm1" action="../AskLeave/importMethod.do" enctype="multipart/form-data" method="post" onsubmit="return check_upload(this,1)">
+            <form name="userForm1" action="ImportAskLeave.do" enctype="multipart/form-data" method="post" onsubmit="return check_upload(this,1)">
                 <input style="display: none;" name="tab" value="1"/>
-            <div>
-                <H2>导入用户</H2>
-                <br/>
-                <p>我们会自动给未使用的成员发送激活短信</p>
-                <br/>
-                <p>
-                    第一步：
-                    下载员工通讯录模版，批量填写员工信息</p>
-                <a href="javascript:;" class="file">下载
-                        <input  type="button" value="下载"  class="" onclick="downloadTemplate()">
-                </a>
-                <br/>
-                <br/>
-                <p>
-                    第二步：
-                    上传填写好的员工信息表</p>
-                <a href="javascript:;" class="file">选择文件
-                    <input  type="file" value="选择文件"   id="filename1" name="importExcel"  onchange="showFile(1)">
-                </a>
                 <div>
-                    <div id="upfilename1">未上传任何文件</div>
-                    <div id="checkmsg1"></div>
-                    <div id="successmsg1"></div>
+                    <H2>导入请假表</H2>
+                    <br/>
+                    <p>我们会自动给未使用的成员发送激活短信</p>
+                    <br/>
+                    <p>
+                        第一步：
+                        下载员工通讯录模版，批量填写员工信息</p>
+                    <a href="javascript:;" class="file">下载
+                            <input  type="button" value="下载"  class="" onclick="downloadTemplate()">
+                    </a>
+                    <br/>
+                    <br/>
+                    <p>
+                        第二步：
+                        上传填写好的员工信息表</p>
+                    <a href="javascript:;" class="file">选择文件
+                        <input  type="file" value="选择文件"   id="filename1" name="importExcel"  onchange="showFile(1)">
+                    </a>
+                    <div>
+                        <div id="upfilename1">未上传任何文件</div>
+                        <div id="checkmsg1"></div>
+                        <div id="successmsg1"></div>
+                    </div>
+                    <br/>
+                    <br/>
                 </div>
-                <br/>
-                <br/>
 
-            </div>
                 <div style="text-align: center" >
                         <input   type="submit" value="上传"  class="c_ding_btn " >
                 </div>
             </form>
         </div>
+
         <div role="tabpanel" class="tab-pane" id="tab2">
             <form name="userForm2" action="../userinfo/importMethod.do" enctype="multipart/form-data" method="post" onsubmit="return check_upload(this,2)">
                 <input style="display: none;" name="tab" value="2"/>
@@ -211,7 +212,7 @@
         </div>
     </div>
     </div>
-    <!--div class="row-fluid center-block c_center_box" style="width:70%; ">
+    <!-- <div class="row-fluid center-block c_center_box" style="width:70%; ">
         <H2>出错列表</H2>
         <table style="margin-top:15px;"  border="1" cellspacing="0" cellpadding="0" class="table-1">
             <tr class="table-1-tou">
@@ -242,7 +243,7 @@
 
             </tbody>
         </table>
-    </div-->
+    </div> -->
     </div>
     <div class="row-fluid">
         <div class="footer" data-reactid=".0.a">
@@ -250,9 +251,8 @@
             <span data-reactid=".0.a.0.0">
                 <img width="11px" src="https://gw.alicdn.com/tps/TB14UngLXXXXXXQapXXXXXXXXXX-22-26.png" data-reactid=".0.a.0.0.0"></span>
                 <span data-reactid=".0.a.0.1">上海音达科技实业有限公司</span></div>
-
         </div>
-        </div>
+    </div>
 </div>
 </body>
 </html>

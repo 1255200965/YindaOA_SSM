@@ -30,14 +30,14 @@ public class ImportController {
 
     @RequestMapping("/AskLeaveHome.do")
     public String askLeaveHome(HttpServletRequest request){
-        return "/askLeaveHome";
+        return "askLeaveHome";
     }
 
     /**
      * 下载按钮和选择文件按钮都直接在前端完成了功能，不需要来这里调方法
      * 只有上传文件按钮需要调用。该功能分两步，校验和导入
      */
-    @RequestMapping("/importAskLeave.do")
+    @RequestMapping("/ImportAskLeave.do")
     public ModelAndView importAskLeave(HttpServletRequest request, HttpServletResponse response) throws IllegalStateException, IOException {
         Map<String,Object> map = new HashMap<String,Object>();
         List<String> filelist = new ArrayList<String>();
@@ -70,7 +70,7 @@ public class ImportController {
                             //定义上传路径
                             String path = request.getSession().getServletContext().getRealPath("upload/") + "/" +fileName;
                             File localFile = new File(path);
-                            //创建失败
+                            // 如果创建失败
                             if (!localFile.exists()&&!localFile.isDirectory()){
                                 localFile.mkdir();
                             }
@@ -85,6 +85,8 @@ public class ImportController {
                     System.out.println("上传该文件到服务端所使用的秒数 = "+timeCost);
                 }
             }
+            // 把你放到上面去！
+            map.put("filename",fileans);
 
             //=========文件上传成功后处理excel
             for (String path:filelist){
@@ -100,14 +102,16 @@ public class ImportController {
                 // 第二步，添加文件到数据库，会返回成功的数量和失败的列表
                 Map<String, Object> map2 = importService.insertAskLeave(path);
                 map.putAll(map2);
+                // 第三步，把刚才创建的excel文件删除掉
+                File fileDelete = new File(path);
+                fileDelete.delete();
             }
-            map.put("filename",fileans);
 
         } catch (Exception e) {
             e.printStackTrace();
             map.put("error",e.toString());
         }
-        return new ModelAndView("/ImportUser",map);
+        return new ModelAndView("/askLeaveHome",map);
     }
 
 }

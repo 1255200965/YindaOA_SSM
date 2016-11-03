@@ -5,7 +5,7 @@ import java.util.Date;
 public class YoSalary {
     private Integer sid;
 
-    private String staffUserId;
+    private String userid;
 
     private String salaryid;
 
@@ -15,29 +15,31 @@ public class YoSalary {
 
     private String attendance;
 
-    private String attendanceSalary;
+    private Double attendanceSalary;
 
     private String leavetype;
 
-    private String leavesalary;
+    private Double leavesalary;
 
     private String workovertime;
 
-    private String worksalary;
+    private Double worksalary;
 
     private String evection;
 
     private String allowance;
 
-    private String timesalary;
+    private Double timesalary;
 
     private String task;
 
-    private String tasksalary;
+    private Double tasksalary;
 
-    private String trafficsalary;
+    private Double busalary;
 
-    private String additionalsalary;
+    private Double trafficsalary;
+
+    private Double additionalsalary;
 
     public Integer getSid() {
         return sid;
@@ -47,12 +49,12 @@ public class YoSalary {
         this.sid = sid;
     }
 
-    public String getStaffUserId() {
-        return staffUserId;
+    public String getUserid() {
+        return userid;
     }
 
-    public void setStaffUserId(String staffUserId) {
-        this.staffUserId = staffUserId;
+    public void setUserid(String userid) {
+        this.userid = userid;
     }
 
     public String getSalaryid() {
@@ -87,11 +89,11 @@ public class YoSalary {
         this.attendance = attendance;
     }
 
-    public String getAttendanceSalary() {
+    public Double getAttendanceSalary() {
         return attendanceSalary;
     }
 
-    public void setAttendanceSalary(String attendanceSalary) {
+    public void setAttendanceSalary(Double attendanceSalary) {
         this.attendanceSalary = attendanceSalary;
     }
 
@@ -103,11 +105,11 @@ public class YoSalary {
         this.leavetype = leavetype;
     }
 
-    public String getLeavesalary() {
+    public Double getLeavesalary() {
         return leavesalary;
     }
 
-    public void setLeavesalary(String leavesalary) {
+    public void setLeavesalary(Double leavesalary) {
         this.leavesalary = leavesalary;
     }
 
@@ -119,11 +121,11 @@ public class YoSalary {
         this.workovertime = workovertime;
     }
 
-    public String getWorksalary() {
+    public Double getWorksalary() {
         return worksalary;
     }
 
-    public void setWorksalary(String worksalary) {
+    public void setWorksalary(Double worksalary) {
         this.worksalary = worksalary;
     }
 
@@ -143,11 +145,11 @@ public class YoSalary {
         this.allowance = allowance;
     }
 
-    public String getTimesalary() {
+    public Double getTimesalary() {
         return timesalary;
     }
 
-    public void setTimesalary(String timesalary) {
+    public void setTimesalary(Double timesalary) {
         this.timesalary = timesalary;
     }
 
@@ -159,27 +161,35 @@ public class YoSalary {
         this.task = task;
     }
 
-    public String getTasksalary() {
+    public Double getTasksalary() {
         return tasksalary;
     }
 
-    public void setTasksalary(String tasksalary) {
+    public void setTasksalary(Double tasksalary) {
         this.tasksalary = tasksalary;
     }
 
-    public String getTrafficsalary() {
+    public Double getBusalary() {
+        return busalary;
+    }
+
+    public void setBusalary(Double busalary) {
+        this.busalary = busalary;
+    }
+
+    public Double getTrafficsalary() {
         return trafficsalary;
     }
 
-    public void setTrafficsalary(String trafficsalary) {
+    public void setTrafficsalary(Double trafficsalary) {
         this.trafficsalary = trafficsalary;
     }
 
-    public String getAdditionalsalary() {
+    public Double getAdditionalsalary() {
         return additionalsalary;
     }
 
-    public void setAdditionalsalary(String additionalsalary) {
+    public void setAdditionalsalary(Double additionalsalary) {
         this.additionalsalary = additionalsalary;
     }
 }
