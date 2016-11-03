@@ -21,11 +21,46 @@ import com.service.IUserService;
         @Resource
         private IUserService userService;
 
-        @RequestMapping("/findAllUser.do")
+        @RequestMapping("/test.do")
         public String findAllUser(HttpServletRequest request){
-            List<User> listUser =  userService.findAllUser();
-            request.setAttribute("listUser", listUser);
-            return "/allUser";
+
+            return "/affairs-search";
+        }
+        @RequestMapping("/upload.do")
+        public String Upload(HttpServletRequest request){
+
+            return "/upload";
+        }
+        @RequestMapping("/upload-chuchai.do")
+        public String UploadChuChai(HttpServletRequest request){
+
+            return "/upload-chuchai";
+        }
+
+        @RequestMapping("/upload-jiaban.do")
+        public String UploadJaBan(HttpServletRequest request){
+
+            return "/upload-jiaban";
+        }
+        @RequestMapping("/upload-jiaotong.do")
+        public String UploadJiaoTong(HttpServletRequest request){
+
+            return "/upload-jiaotong";
+        }
+        @RequestMapping("/upload-project.do")
+        public String UploadProject(HttpServletRequest request){
+
+            return "/upload-project";
+        }
+        @RequestMapping("/upload-qingjia.do")
+        public String UploadQingJia(HttpServletRequest request){
+
+            return "/upload-qingjia";
+        }
+        @RequestMapping("/upload-renzheng.do")
+        public String UploadRenZheng(HttpServletRequest request){
+
+            return "/upload-renzheng";
         }
     }
 

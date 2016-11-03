@@ -1,0 +1,38 @@
+.content{width:930px;margin:0 auto;padding-bottom:30px;background:#fff;margin-top:30px;}
+.content .cont-tit{background:#f5f5f5;padding:10px 0 10px  10px;font-size: 18px;}
+/*------------input框样式*/
+.file {
+    position: relative;
+    display: inline-block;
+    background: #D0EEFF;
+    border: 1px solid #99D3F5;
+    border-radius: 4px;
+    padding: 4px 12px;
+    overflow: hidden;
+    color: #1E88C7;
+    text-decoration: none;
+    text-indent: 0;
+    line-height: 20px;
+}
+.file input {
+    position: absolute;
+    font-size: 100px;
+    right: 0;
+    top: 0;
+    opacity: 0;
+}
+.file:hover {
+    background: #AADFFD;
+    border-color: #78C3F3;
+    color: #004974;
+    text-decoration: none;
+}
+/*------------input框样式*/
+.content .cont-msg{margin:50px 0 50px 30px;}
+.content .cont-msg p{margin:20px;}
+.content .select-file .select-details{margin-left:50px;}
+.content .select-file .file-sub{text-align:center;margin-top:50px;}
+.content .select-file .select-details #upfilename1{color:#888;}
+
+footer{background:#e7e8eb;padding:50px 0;}
+footer p{text-align: center;color:#888;font-size: 12px;}
