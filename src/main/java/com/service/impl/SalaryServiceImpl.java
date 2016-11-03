@@ -23,7 +23,7 @@ public class SalaryServiceImpl implements ISalaryService {
 
     @Override
     public List<YoSalary> searchYoSalaryByEntity(YoSalary yoSalary) {
-        return yoSalaryMapper.selectByExample(yoSalary);
+        return yoSalaryMapper.selectAllUser(yoSalary);
     }
 
 

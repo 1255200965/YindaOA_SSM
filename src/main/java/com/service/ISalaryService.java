@@ -15,8 +15,7 @@ public interface ISalaryService {
     //更新用户
 //    int updateStaffByID(YoSalary sid);
 
-
-    /*通过工号来查询员工信息*/
+    //通过姓名来查询员工信息*/
        List<YoSalary> searchYoSalaryByEntity(YoSalary yoSalary);
 
     //查询所有用户信息

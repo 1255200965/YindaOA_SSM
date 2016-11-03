@@ -99,6 +99,27 @@
       order by ${orderByClause}
     </if>
   </select>
+
+
+
+  <!--模糊查询与关联查询-->
+  <select id="selectAllUser" resultMap="BaseResultMap" parameterType="com.model.YoSalary">
+    SELECT sid, userid, salaryid, DATE, datetype, attendance, attendance_salary, leavetype,
+    leavesalary, workovertime, worksalary, evection, allowance, timesalary, task, tasksalary,
+    busalary, trafficsalary, additionalsalary,NAME
+    FROM yo_salary yo_salary LEFT JOIN staff_info ON userid=staff_user_id
+    <where>
+      <if test="name!=null">
+        name like CONCAT('%','${name}','%' )
+      </if>
+    </where>
+  </select>
+
+
+
+
+
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

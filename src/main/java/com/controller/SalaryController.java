@@ -31,7 +31,7 @@ public class SalaryController {
     //查询员工工资信息
     @RequestMapping(value = "/query.do", method = RequestMethod.POST)
     public @ResponseBody
-    Map<String,Object> query2(@RequestBody YoSalary user, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    Map<String,Object> query(@RequestBody YoSalary user, HttpServletRequest request, HttpServletResponse response) throws IOException {
         //查询指定id，填充进map
         List<YoSalary> list = userSalaryService.searchYoSalaryByEntity(user);
         Map<String,Object> map = new HashMap<String,Object>();

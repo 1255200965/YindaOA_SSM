@@ -16,7 +16,9 @@ public interface YoSalaryMapper {
 
     int insertSelective(YoSalary record);
 
-    List<YoSalary> selectByExample(YoSalaryExample example);
+    List<YoSalary> selectByExample(YoSalary example);
+
+    List<YoSalary> selectAllUser(YoSalary yoSalary);
 
     YoSalary selectByPrimaryKey(Integer sid);
 
