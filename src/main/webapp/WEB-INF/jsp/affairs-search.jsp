@@ -13,9 +13,10 @@
     <%--<link rel="stylesheet" href="../stylesheets/style.css">--%>
 
 
-
-
+    <link rel="shortcut icon" type="image/ico" href="../images/yd.ico" />
+    <link rel="stylesheet" href="../stylesheets/reset.css">
     <link rel="stylesheet" href="../stylesheets/buttons.css">
+    <link rel="stylesheet" href="../stylesheets/header.css">
     <link rel="stylesheet" href="../stylesheets/bootstrap-theme.min.css">
     <link rel="stylesheet" href="../stylesheets/bootstrap.min.css">
     <link rel="stylesheet" href="../datePlug/jquery.monthpicker.css">
@@ -34,27 +35,27 @@
     </script>
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="row-fluid top-tiku">
-            <div class="top-left"> <img src="../images/logo.png" />
-                <p>人事管理系统</p>
+    <header>
+        <div class="head-cont">
+            <div class="head-left fl">
+                <img src="../images/logo.png" height="35" width="50" alt="">
+                人事管理系统
             </div>
-
-            <ul>
-                <li ><a  class="hover"id="mynav1" onclick="switchMenustyle(1)">人员导入 </a></li>
-                <li><a   id="mynav2" onclick="switchMenustyle(2)"> 通讯录 </a></li>
-                <li ><a  id="mynav3" onclick="switchMenustyle(3)" >工资查询 </a></li>
-                <li ><a  id="mynav4" onclick="switchMenustyle(4)" > 部门统计</a></li>
-                <li ><a  id="mynav5" onclick="switchMenustyle(5)" > 趋势统计</a></li>
-            </ul>
-            <div class="top-right">
-                <p>欢迎您！<span >管理员</span></p>
-                <a href=""><img src="../images/guanbi.png" /></a>
+            <div class="head-nav fl" id="h-nav">
+                <ul>
+                    <li ><a href="#">成员导入</a></li>
+                    <li ><a href="#">通讯录</a></li>
+                    <li ><a href="#">成员导入</a></li>
+                    <li class="active"><a href="upload.html">审批数据导入</a></li>
+                    <li><a href="affairs-search.html">工资查询</a></li>
+                </ul>
             </div>
-
-
+            <div class="head-right fl">
+                欢迎您！管理员&nbsp;&nbsp;&nbsp;
+                <a href=""><img src="../images/guanbi.png" height="22" width="22" alt=""></a>
+            </div>
         </div>
-    </div>
+    </header>
     <div class="contain">
         <div class="content">
             <div class="cont-tit">
