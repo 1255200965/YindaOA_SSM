@@ -100,6 +100,7 @@
 
 
     self.GetUserByQuery = function () {
+        alert("解决解答")
        if (nowDep != null){var depid = nowDep.name;} else {depid = null;}
         $.ajax({
             data:JSON.stringify(new UserModel(depid,$("#search_name").val())),
@@ -121,9 +122,29 @@
         });
     }
 
+
+
+
+    // 日期插件开始
+    $('#monthpicker').monthpicker({
+        years: [2017,2016,2015, 2014, 2013, 2012, 2011,2010,2009],
+        topOffset: 6,
+        onMonthSelect: function(m, y) {
+            console.log('Month: ' + m + ', year: ' + y);
+        }
+    });
+    $('#monthly').monthpicker({
+        years: [2017,2016,2015, 2014, 2013, 2012, 2011,2010,2009],
+        topOffset: 6
+    })
+    //日期插件结束
+
     self.ClickSearch = function () {
-        self.GetUserByQuery();
+//        self.GetUserByQuery();
+        alert("大的大臣");
     }
+
+
 
     function UserModel(depid,name) {
         this.staffUserId = null;
@@ -148,7 +169,7 @@
         <link rel="stylesheet" href="../stylesheets/reset.css">
         <link rel="stylesheet" href="../stylesheets/buttons.css">
         <link rel="stylesheet" href="../stylesheets/affairsSearch.css">
-        <link rel="stylesheet" href="../datePlug/jquery.monthpicker.css">
+        <link rel="stylesheet" href="../stylesheets/jquery.monthpicker.css">
         <script src="../javascripts/jquery.min.js"></script>
         <script type="text/javascript" src="../datePlug/jquery.monthpicker.js"></script>
 </head>
@@ -188,12 +209,15 @@
                     日期：<input type="text" placeholder="输入查询日期" class="input" id="monthly">
 
                 </div>
-                <div class="ser-btn fr">
-
-                    <button  class="button button-glow button-border button-rounded button-primary button-small ">查询</button>
-                    <button  class="button button-glow button-border button-rounded button-highlight button-small ">清空</button>
-
-                </div>
+                <%--<div class="ser-btn fr">--%>
+                    <div style="float:right;margin-right:15px;padding-bottom:10px;" >
+                        <input data-bind="click:$root.ClickSearch" type="button" value="查询"  class="chaxun">
+                        <input  data-bind="click:$root.ClickClear" type="button" value="清空"  class="chaxun" style="background:#fd9162">
+                    </div>
+                        <%--<input data-bind="click:$root.ClickSearch" type="button" value="查询"  class="chaxun">--%>
+                        <%--<input  data-bind="click:$root.ClickClear" type="button" value="清空"  class="chaxun" style="background:#fd9162">--%>
+                    <%--<input data-bind="click:$root.ClickSearch" class="button button-glow button-border button-rounded button-primary button-small " type="button">查询</input>--%>
+                    <%--<input data-bind="click:$root.ClearSearch" class="button button-glow button-border button-rounded button-highlight button-small " type="button">清空</input>--%>
             </div>
             <div class="ser-resault">
                 <table border="1">
@@ -219,55 +243,34 @@
                         <th>time</th>
                         <th>奖金</th>
                         <th>发放</th>
-
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr>
-                        <td>xxx</td>
-                        <td>2016-10</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                    </tr>
-                    <tr>
-                        <td>xxx</td>
-                        <td>2016-10</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
+                    <tbody data-bind="foreach:ShowList">
+                    <tr >
+                        <td data-bind="text:staffUserId">编号</td>
+                        <td data-bind="text:name">标题</td>
+                        <td data-bind="text:date">题型</td>
+                        <td data-bind="text:datetype">难度</td>
+                        <td data-bind="text:attendance">知识树编号</td>
+                        <td data-bind="text:attendanceSalary">所属知识</td>
+                        <td data-bind="text:leavetype">修改者</td>
+                        <td data-bind="text:leavesalary">审核状态</td>
+                        <td data-bind="text:workovertime">ok的</td>
+                        <td data-bind="text:worksalary">所属知识</td>
+                        <td data-bind="text:evection">修改者</td>
+                        <td data-bind="text:allowance">审核状态</td>
+                        <td data-bind="text:timesalary">到大</td>
+                        <td data-bind="text:task">所属知识</td>
+                        <td data-bind="text:tasksalary">修改者</td>
+                        <td data-bind="text:trafficsalary">审核状态</td>
+                        <td data-bind="text:additionalsalary">卫视</td>
+                        <td data-bind="text:additionalsalary">卫视</td>
+                        <td data-bind="text:additionalsalary">卫视</td>
+                        <td data-bind="text:additionalsalary">卫视</td>
                     </tr>
                     </tbody>
+
+
                     <tfoot>
                     <tr>
                         <td>合计</td>

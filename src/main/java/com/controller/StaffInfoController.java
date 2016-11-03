@@ -208,15 +208,24 @@ public class StaffInfoController {
         return map;
     }
 
+//    @RequestMapping("/test.do")
+//    public String test(HttpServletRequest request) throws IOException {
+//        AttendanceWork ddUtil = new AttendanceWork();
+//        try {
+//            ddUtil.getSuiteToken("063815563024308470","2016-11-1","2016-11-2");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return "/UserInfo";
+//    }
     @RequestMapping("/test.do")
-    public String test(HttpServletRequest request) throws IOException {
-        AttendanceWork ddUtil = new AttendanceWork();
-        try {
-            ddUtil.getSuiteToken("063815563024308470","2016-11-1","2016-11-2");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "/UserInfo";
+    public String test(Map<String,Object> map,HttpServletRequest request){
+        List<StaffInfo> userDtoList = new ArrayList<StaffInfo>();
+        map.put("listUser", userDtoList);
+        return "/UserSalary";
     }
+
+
+
 
 }
