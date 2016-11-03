@@ -3,23 +3,24 @@
 <mapper namespace="com.dao.YoSalaryMapper" >
   <resultMap id="BaseResultMap" type="com.model.YoSalary" >
     <id column="sid" property="sid" jdbcType="INTEGER" />
-    <result column="staff_user_id" property="staffUserId" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
     <result column="salaryid" property="salaryid" jdbcType="VARCHAR" />
     <result column="date" property="date" jdbcType="DATE" />
     <result column="datetype" property="datetype" jdbcType="VARCHAR" />
     <result column="attendance" property="attendance" jdbcType="VARCHAR" />
-    <result column="attendance_salary" property="attendanceSalary" jdbcType="VARCHAR" />
+    <result column="attendance_salary" property="attendanceSalary" jdbcType="DOUBLE" />
     <result column="leavetype" property="leavetype" jdbcType="VARCHAR" />
-    <result column="leavesalary" property="leavesalary" jdbcType="VARCHAR" />
+    <result column="leavesalary" property="leavesalary" jdbcType="DOUBLE" />
     <result column="workovertime" property="workovertime" jdbcType="VARCHAR" />
-    <result column="worksalary" property="worksalary" jdbcType="VARCHAR" />
+    <result column="worksalary" property="worksalary" jdbcType="DOUBLE" />
     <result column="evection" property="evection" jdbcType="VARCHAR" />
     <result column="allowance" property="allowance" jdbcType="VARCHAR" />
-    <result column="timesalary" property="timesalary" jdbcType="VARCHAR" />
+    <result column="timesalary" property="timesalary" jdbcType="DOUBLE" />
     <result column="task" property="task" jdbcType="VARCHAR" />
-    <result column="tasksalary" property="tasksalary" jdbcType="VARCHAR" />
-    <result column="trafficsalary" property="trafficsalary" jdbcType="VARCHAR" />
-    <result column="additionalsalary" property="additionalsalary" jdbcType="VARCHAR" />
+    <result column="tasksalary" property="tasksalary" jdbcType="DOUBLE" />
+    <result column="busalary" property="busalary" jdbcType="DOUBLE" />
+    <result column="trafficsalary" property="trafficsalary" jdbcType="DOUBLE" />
+    <result column="additionalsalary" property="additionalsalary" jdbcType="DOUBLE" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -80,9 +81,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    sid, staff_user_id, salaryid, date, datetype, attendance, attendance_salary, leavetype, 
+    sid, userid, salaryid, date, datetype, attendance, attendance_salary, leavetype, 
     leavesalary, workovertime, worksalary, evection, allowance, timesalary, task, tasksalary, 
-    trafficsalary, additionalsalary
+    busalary, trafficsalary, additionalsalary
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.model.YoSalaryExample" >
     select
@@ -115,20 +116,20 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.model.YoSalary" >
-    insert into yo_salary (sid, staff_user_id, salaryid, 
+    insert into yo_salary (sid, userid, salaryid, 
       date, datetype, attendance, 
       attendance_salary, leavetype, leavesalary, 
       workovertime, worksalary, evection, 
       allowance, timesalary, task, 
-      tasksalary, trafficsalary, additionalsalary
-      )
-    values (#{sid,jdbcType=INTEGER}, #{staffUserId,jdbcType=VARCHAR}, #{salaryid,jdbcType=VARCHAR}, 
+      tasksalary, busalary, trafficsalary, 
+      additionalsalary)
+    values (#{sid,jdbcType=INTEGER}, #{userid,jdbcType=VARCHAR}, #{salaryid,jdbcType=VARCHAR}, 
       #{date,jdbcType=DATE}, #{datetype,jdbcType=VARCHAR}, #{attendance,jdbcType=VARCHAR}, 
-      #{attendanceSalary,jdbcType=VARCHAR}, #{leavetype,jdbcType=VARCHAR}, #{leavesalary,jdbcType=VARCHAR}, 
-      #{workovertime,jdbcType=VARCHAR}, #{worksalary,jdbcType=VARCHAR}, #{evection,jdbcType=VARCHAR}, 
-      #{allowance,jdbcType=VARCHAR}, #{timesalary,jdbcType=VARCHAR}, #{task,jdbcType=VARCHAR}, 
-      #{tasksalary,jdbcType=VARCHAR}, #{trafficsalary,jdbcType=VARCHAR}, #{additionalsalary,jdbcType=VARCHAR}
-      )
+      #{attendanceSalary,jdbcType=DOUBLE}, #{leavetype,jdbcType=VARCHAR}, #{leavesalary,jdbcType=DOUBLE}, 
+      #{workovertime,jdbcType=VARCHAR}, #{worksalary,jdbcType=DOUBLE}, #{evection,jdbcType=VARCHAR}, 
+      #{allowance,jdbcType=VARCHAR}, #{timesalary,jdbcType=DOUBLE}, #{task,jdbcType=VARCHAR}, 
+      #{tasksalary,jdbcType=DOUBLE}, #{busalary,jdbcType=DOUBLE}, #{trafficsalary,jdbcType=DOUBLE}, 
+      #{additionalsalary,jdbcType=DOUBLE})
   </insert>
   <insert id="insertSelective" parameterType="com.model.YoSalary" >
     insert into yo_salary
@@ -136,8 +137,8 @@
       <if test="sid != null" >
         sid,
       </if>
-      <if test="staffUserId != null" >
-        staff_user_id,
+      <if test="userid != null" >
+        userid,
       </if>
       <if test="salaryid != null" >
         salaryid,
@@ -181,6 +182,9 @@
       <if test="tasksalary != null" >
         tasksalary,
       </if>
+      <if test="busalary != null" >
+        busalary,
+      </if>
       <if test="trafficsalary != null" >
         trafficsalary,
       </if>
@@ -192,8 +196,8 @@
       <if test="sid != null" >
         #{sid,jdbcType=INTEGER},
       </if>
-      <if test="staffUserId != null" >
-        #{staffUserId,jdbcType=VARCHAR},
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
       </if>
       <if test="salaryid != null" >
         #{salaryid,jdbcType=VARCHAR},
@@ -208,19 +212,19 @@
         #{attendance,jdbcType=VARCHAR},
       </if>
       <if test="attendanceSalary != null" >
-        #{attendanceSalary,jdbcType=VARCHAR},
+        #{attendanceSalary,jdbcType=DOUBLE},
       </if>
       <if test="leavetype != null" >
         #{leavetype,jdbcType=VARCHAR},
       </if>
       <if test="leavesalary != null" >
-        #{leavesalary,jdbcType=VARCHAR},
+        #{leavesalary,jdbcType=DOUBLE},
       </if>
       <if test="workovertime != null" >
         #{workovertime,jdbcType=VARCHAR},
       </if>
       <if test="worksalary != null" >
-        #{worksalary,jdbcType=VARCHAR},
+        #{worksalary,jdbcType=DOUBLE},
       </if>
       <if test="evection != null" >
         #{evection,jdbcType=VARCHAR},
@@ -229,19 +233,22 @@
         #{allowance,jdbcType=VARCHAR},
       </if>
       <if test="timesalary != null" >
-        #{timesalary,jdbcType=VARCHAR},
+        #{timesalary,jdbcType=DOUBLE},
       </if>
       <if test="task != null" >
         #{task,jdbcType=VARCHAR},
       </if>
       <if test="tasksalary != null" >
-        #{tasksalary,jdbcType=VARCHAR},
+        #{tasksalary,jdbcType=DOUBLE},
+      </if>
+      <if test="busalary != null" >
+        #{busalary,jdbcType=DOUBLE},
       </if>
       <if test="trafficsalary != null" >
-        #{trafficsalary,jdbcType=VARCHAR},
+        #{trafficsalary,jdbcType=DOUBLE},
       </if>
       <if test="additionalsalary != null" >
-        #{additionalsalary,jdbcType=VARCHAR},
+        #{additionalsalary,jdbcType=DOUBLE},
       </if>
     </trim>
   </insert>
@@ -257,8 +264,8 @@
       <if test="record.sid != null" >
         sid = #{record.sid,jdbcType=INTEGER},
       </if>
-      <if test="record.staffUserId != null" >
-        staff_user_id = #{record.staffUserId,jdbcType=VARCHAR},
+      <if test="record.userid != null" >
+        userid = #{record.userid,jdbcType=VARCHAR},
       </if>
       <if test="record.salaryid != null" >
         salaryid = #{record.salaryid,jdbcType=VARCHAR},
@@ -273,19 +280,19 @@
         attendance = #{record.attendance,jdbcType=VARCHAR},
       </if>
       <if test="record.attendanceSalary != null" >
-        attendance_salary = #{record.attendanceSalary,jdbcType=VARCHAR},
+        attendance_salary = #{record.attendanceSalary,jdbcType=DOUBLE},
       </if>
       <if test="record.leavetype != null" >
         leavetype = #{record.leavetype,jdbcType=VARCHAR},
       </if>
       <if test="record.leavesalary != null" >
-        leavesalary = #{record.leavesalary,jdbcType=VARCHAR},
+        leavesalary = #{record.leavesalary,jdbcType=DOUBLE},
       </if>
       <if test="record.workovertime != null" >
         workovertime = #{record.workovertime,jdbcType=VARCHAR},
       </if>
       <if test="record.worksalary != null" >
-        worksalary = #{record.worksalary,jdbcType=VARCHAR},
+        worksalary = #{record.worksalary,jdbcType=DOUBLE},
       </if>
       <if test="record.evection != null" >
         evection = #{record.evection,jdbcType=VARCHAR},
@@ -294,19 +301,22 @@
         allowance = #{record.allowance,jdbcType=VARCHAR},
       </if>
       <if test="record.timesalary != null" >
-        timesalary = #{record.timesalary,jdbcType=VARCHAR},
+        timesalary = #{record.timesalary,jdbcType=DOUBLE},
       </if>
       <if test="record.task != null" >
         task = #{record.task,jdbcType=VARCHAR},
       </if>
       <if test="record.tasksalary != null" >
-        tasksalary = #{record.tasksalary,jdbcType=VARCHAR},
+        tasksalary = #{record.tasksalary,jdbcType=DOUBLE},
+      </if>
+      <if test="record.busalary != null" >
+        busalary = #{record.busalary,jdbcType=DOUBLE},
       </if>
       <if test="record.trafficsalary != null" >
-        trafficsalary = #{record.trafficsalary,jdbcType=VARCHAR},
+        trafficsalary = #{record.trafficsalary,jdbcType=DOUBLE},
       </if>
       <if test="record.additionalsalary != null" >
-        additionalsalary = #{record.additionalsalary,jdbcType=VARCHAR},
+        additionalsalary = #{record.additionalsalary,jdbcType=DOUBLE},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -316,23 +326,24 @@
   <update id="updateByExample" parameterType="map" >
     update yo_salary
     set sid = #{record.sid,jdbcType=INTEGER},
-      staff_user_id = #{record.staffUserId,jdbcType=VARCHAR},
+      userid = #{record.userid,jdbcType=VARCHAR},
       salaryid = #{record.salaryid,jdbcType=VARCHAR},
       date = #{record.date,jdbcType=DATE},
       datetype = #{record.datetype,jdbcType=VARCHAR},
       attendance = #{record.attendance,jdbcType=VARCHAR},
-      attendance_salary = #{record.attendanceSalary,jdbcType=VARCHAR},
+      attendance_salary = #{record.attendanceSalary,jdbcType=DOUBLE},
       leavetype = #{record.leavetype,jdbcType=VARCHAR},
-      leavesalary = #{record.leavesalary,jdbcType=VARCHAR},
+      leavesalary = #{record.leavesalary,jdbcType=DOUBLE},
       workovertime = #{record.workovertime,jdbcType=VARCHAR},
-      worksalary = #{record.worksalary,jdbcType=VARCHAR},
+      worksalary = #{record.worksalary,jdbcType=DOUBLE},
       evection = #{record.evection,jdbcType=VARCHAR},
       allowance = #{record.allowance,jdbcType=VARCHAR},
-      timesalary = #{record.timesalary,jdbcType=VARCHAR},
+      timesalary = #{record.timesalary,jdbcType=DOUBLE},
       task = #{record.task,jdbcType=VARCHAR},
-      tasksalary = #{record.tasksalary,jdbcType=VARCHAR},
-      trafficsalary = #{record.trafficsalary,jdbcType=VARCHAR},
-      additionalsalary = #{record.additionalsalary,jdbcType=VARCHAR}
+      tasksalary = #{record.tasksalary,jdbcType=DOUBLE},
+      busalary = #{record.busalary,jdbcType=DOUBLE},
+      trafficsalary = #{record.trafficsalary,jdbcType=DOUBLE},
+      additionalsalary = #{record.additionalsalary,jdbcType=DOUBLE}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -340,8 +351,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.model.YoSalary" >
     update yo_salary
     <set >
-      <if test="staffUserId != null" >
-        staff_user_id = #{staffUserId,jdbcType=VARCHAR},
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=VARCHAR},
       </if>
       <if test="salaryid != null" >
         salaryid = #{salaryid,jdbcType=VARCHAR},
@@ -356,19 +367,19 @@
         attendance = #{attendance,jdbcType=VARCHAR},
       </if>
       <if test="attendanceSalary != null" >
-        attendance_salary = #{attendanceSalary,jdbcType=VARCHAR},
+        attendance_salary = #{attendanceSalary,jdbcType=DOUBLE},
       </if>
       <if test="leavetype != null" >
         leavetype = #{leavetype,jdbcType=VARCHAR},
       </if>
       <if test="leavesalary != null" >
-        leavesalary = #{leavesalary,jdbcType=VARCHAR},
+        leavesalary = #{leavesalary,jdbcType=DOUBLE},
       </if>
       <if test="workovertime != null" >
         workovertime = #{workovertime,jdbcType=VARCHAR},
       </if>
       <if test="worksalary != null" >
-        worksalary = #{worksalary,jdbcType=VARCHAR},
+        worksalary = #{worksalary,jdbcType=DOUBLE},
       </if>
       <if test="evection != null" >
         evection = #{evection,jdbcType=VARCHAR},
@@ -377,42 +388,46 @@
         allowance = #{allowance,jdbcType=VARCHAR},
       </if>
       <if test="timesalary != null" >
-        timesalary = #{timesalary,jdbcType=VARCHAR},
+        timesalary = #{timesalary,jdbcType=DOUBLE},
       </if>
       <if test="task != null" >
         task = #{task,jdbcType=VARCHAR},
       </if>
       <if test="tasksalary != null" >
-        tasksalary = #{tasksalary,jdbcType=VARCHAR},
+        tasksalary = #{tasksalary,jdbcType=DOUBLE},
+      </if>
+      <if test="busalary != null" >
+        busalary = #{busalary,jdbcType=DOUBLE},
       </if>
       <if test="trafficsalary != null" >
-        trafficsalary = #{trafficsalary,jdbcType=VARCHAR},
+        trafficsalary = #{trafficsalary,jdbcType=DOUBLE},
       </if>
       <if test="additionalsalary != null" >
-        additionalsalary = #{additionalsalary,jdbcType=VARCHAR},
+        additionalsalary = #{additionalsalary,jdbcType=DOUBLE},
       </if>
     </set>
     where sid = #{sid,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.model.YoSalary" >
     update yo_salary
-    set staff_user_id = #{staffUserId,jdbcType=VARCHAR},
+    set userid = #{userid,jdbcType=VARCHAR},
       salaryid = #{salaryid,jdbcType=VARCHAR},
       date = #{date,jdbcType=DATE},
       datetype = #{datetype,jdbcType=VARCHAR},
       attendance = #{attendance,jdbcType=VARCHAR},
-      attendance_salary = #{attendanceSalary,jdbcType=VARCHAR},
+      attendance_salary = #{attendanceSalary,jdbcType=DOUBLE},
       leavetype = #{leavetype,jdbcType=VARCHAR},
-      leavesalary = #{leavesalary,jdbcType=VARCHAR},
+      leavesalary = #{leavesalary,jdbcType=DOUBLE},
       workovertime = #{workovertime,jdbcType=VARCHAR},
-      worksalary = #{worksalary,jdbcType=VARCHAR},
+      worksalary = #{worksalary,jdbcType=DOUBLE},
       evection = #{evection,jdbcType=VARCHAR},
       allowance = #{allowance,jdbcType=VARCHAR},
-      timesalary = #{timesalary,jdbcType=VARCHAR},
+      timesalary = #{timesalary,jdbcType=DOUBLE},
       task = #{task,jdbcType=VARCHAR},
-      tasksalary = #{tasksalary,jdbcType=VARCHAR},
-      trafficsalary = #{trafficsalary,jdbcType=VARCHAR},
-      additionalsalary = #{additionalsalary,jdbcType=VARCHAR}
+      tasksalary = #{tasksalary,jdbcType=DOUBLE},
+      busalary = #{busalary,jdbcType=DOUBLE},
+      trafficsalary = #{trafficsalary,jdbcType=DOUBLE},
+      additionalsalary = #{additionalsalary,jdbcType=DOUBLE}
     where sid = #{sid,jdbcType=INTEGER}
   </update>
 </mapper>
