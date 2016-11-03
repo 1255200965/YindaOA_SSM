@@ -19,21 +19,12 @@
     <meta charset="UTF-8">
     <title>音达后台管理系统</title>
     <link rel="shortcut icon" type="image/ico" href="../images/yd.ico" />
-    <link rel="stylesheet" href="../stylesheets/reset.css">
     <link rel="stylesheet" href="../stylesheets/header.css">
-    <link href="../stylesheets/shujutongji.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../stylesheets/reset.css">
+
     <script type="text/javascript" src="../javascripts/jquery-1.10.2.js"></script>
-    <script type="text/javascript" src="../javascripts/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../javascripts/bootstrap-treeview.min.js"></script>
     <script src="../javascripts//knockout-3.4.0rc.js"></script>
-    <script>
-        $(document).ready(function () {
-            var type = "${tab}";
-            if (type != "") checkInit(type);
-            var ViewModel = function (){};
-            ko.applyBindings(new ViewModel);
-        });
-    </script>
+
     <style>
         .content img{width:120px;}
         .content{width:930px;margin:0 auto;padding-bottom:30px;background:#fff;margin-top:30px;overflow: hidden;}
@@ -54,6 +45,14 @@
         footer{background:#e7e8eb;padding:50px 0;}
         footer p{text-align: center;color:#888;font-size:12px;}
     </style>
+    <script>
+        $(document).ready(function () {
+            var type = "${tab}";
+            if (type != "") checkInit(type);
+            var ViewModel = function (){};
+            ko.applyBindings(new ViewModel);
+        });
+    </script>
 </head>
 <body>
     <header>

@@ -173,7 +173,7 @@
         </div>
 
         <div role="tabpanel" class="tab-pane" id="tab2">
-            <form name="userForm2" action="../userinfo/importMethod.do" enctype="multipart/form-data" method="post" onsubmit="return check_upload(this,2)">
+            <form name="userForm2" action="../Import/importAskLeave.do" enctype="multipart/form-data" method="post" onsubmit="return check_upload(this,2)">
                 <input style="display: none;" name="tab" value="2"/>
             <div>
                 <H2>导出用户</H2>
