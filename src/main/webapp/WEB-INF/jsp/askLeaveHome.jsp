@@ -116,11 +116,11 @@
             <script language="javascript">          function switchMenustyle(num) { for (var id = 1; id <= 5; id++) { if (id == num) { document.getElementById("mynav" + id).className = "hover"; } else { document.getElementById("mynav" + id).className = ""; } } }          </script>
             <div id="menu">
                 <ul>
-                    <li ><a  class="hover"id="mynav1" onclick="switchMenustyle(1)"data-bind="attr: { href: '<%=basePath%>userinfo/import.do'}">人员导入</a></li>
-                    <li ><a  id="mynav2" onclick="switchMenustyle(2)" data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">通讯录</a></li>
-                    <li ><a  id="mynav3" onclick="switchMenustyle(3)" data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">人员统计</a></li>
-                    <li ><a  id="mynav4" onclick="switchMenustyle(4)" data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">部门统计</a></li>
-                    <li ><a  id="mynav5" onclick="switchMenustyle(5)" data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">趋势统计</a></li>
+                    <li><a data-bind="attr: { href: '<%=basePath%>userinfo/import.do'}">人员导入</a></li>
+                    <li><a data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">通讯录</a></li>
+                    <li><a class="hover" data-bind="attr: { href: '<%=basePath%>Import/navigator.do'}">审批数据导入</a></li>
+                    <li><a data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">工资查询</a></li>
+                    <li><a data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">关于我们</a></li>
                 </ul>
             </div>
         </div>
@@ -129,34 +129,6 @@
             <a href=""><img src="../images/guanbi.png" /></a>
         </div>
     </div>
-
-    <script type="text/javascript">
-        $(document).ready(
-            function(){
-                $("#69").append("$.support.ajax = "+$.support.ajax+"<br>");
-                $("#69").append("$.support.boxModel = "+$.support.boxModel+"<br>");
-                $("#69").append("$.support.changeBubbles = "+$.support.changeBubbles+"<br>");
-                $("#69").append("$.support.checkClone = "+$.support.checkClone+"<br>");
-                $("#69").append("$.support.checkOn = "+$.support.checkOn+"<br>");
-                $("#69").append("$.support.cors = "+$.support.cors+"<br>");
-                $("#69").append("$.support.cssFloat = "+$.support.cssFloat+"<br>");
-                $("#69").append("$.support.hrefNormalized = "+$.support.hrefNormalized+"<br>");
-                $("#69").append("$.support.htmlSerialize = "+$.support.htmlSerialize+"<br>");
-                $("#69").append("$.support.leadingWhitespace = "+$.support.leadingWhitespace+"<br>");
-                $("#69").append("$.support.noCloneChecked = "+$.support.noCloneChecked+"<br>");
-                $("#69").append("$.support.noCloneEvent = "+$.support.noCloneEvent+"<br>");
-                $("#69").append("$.support.opacity = "+$.support.opacity+"<br>");
-                $("#69").append("$.support.optDisabled = "+$.support.optDisabled+"<br>");
-                $("#69").append("$.support.optSelected = "+$.support.optSelected+"<br>");
-                $("#69").append("$.support.style = "+$.support.style+"<br>");
-                $("#69").append("$.support.submitBubbles = "+$.support.submitBubbles+"<br>");
-                $("#69").append("$.support.tbody = "+$.support.tbody+"<br>");
-            }
-        );
-        // document.write("Hello World!");
-    </script>
-    <!-- Hello World! -->
-    <h3 id="69"></h3>
 
     <div class="c_box">
         <div class="row-fluid center-block c_center_box" style="width:70%; background-color: #FFFFFF;">
