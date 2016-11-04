@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     String path = request.getContextPath();
@@ -17,150 +18,153 @@
 <link href="../stylesheets/bootstrap-theme.min.css" rel="stylesheet" />
 <link href="../stylesheets/bootstrap-treeview.min.css" rel="stylesheet" />
 <link href="../stylesheets/shujutongji.css" rel="stylesheet" />
-<link type="text/css" rel="stylesheet" href="../stylesheets/ddcss.css" />
+<link href="../stylesheets/ddcss.css" rel="stylesheet" />
 <script type="text/javascript" src="../javascripts/jquery-1.10.2.js"></script>
 <script type="text/javascript" src="../javascripts/bootstrap.min.js"></script>
 <script type="text/javascript" src="../javascripts/bootstrap-treeview.min.js"></script>
-<script src="../javascripts//knockout-3.4.0rc.js"></script>
-<style>
-    .file {
-        position: relative;
-        display: inline-block;
-        background: #D0EEFF;
-        border: 1px solid #99D3F5;
-        border-radius: 4px;
-        padding: 4px 12px;
-        overflow: hidden;
-        color: #1E88C7;
-        text-decoration: none;
-        text-indent: 0;
-        line-height: 20px;
-    }
-    .file input {
-        position: absolute;
-        font-size: 100px;
-        right: 0;
-        top: 0;
-        opacity: 0;
-    }
-    .file:hover {
-        background: #AADFFD;
-        border-color: #78C3F3;
-        color: #004974;
-        text-decoration: none;
-    }
-</style>
-<script>
-    function showFile(id){
-        var filepath = $("#filename"+id).val();
-        $("#upfilename"+id).html(filepath);
-    }
-    function check_upload(theform,id)
-    {
-        var filename = document.getElementById("filename"+id).value;
-        if(filename == "" ||filename == null || filename.indexOf(".xls")==-1){
-            //alert('只能上传.xlsx文件');
-            $("#upfilename"+id).html("只能上传.xls文件");
-            return false;
-        }
-    }
-    function downloadTemplate(){
-        window.open('../template/templateUserInfo.xls');
-    }
-    $(document).ready(function () {
-        var type = "${tab}";
-        if (type != "") checkInit(type);
+<script src="../javascripts/knockout-3.4.0rc.js"></script>
 
-        var ViewModel = function (){};
+
+<script type="text/javascript">
+    var result = null;
+
+    //============================================
+    //当前选择的部门
+    var nowDep = null;
+    //最后一次触发节点Id
+    var lastSelectedNodeId = null;
+    //最后一次触发时间
+    var lastSelectTime = null;
+    //部门树
+    var tree = [];
+    //当前显示的页码
+    var showindex = 0;
+    //当前显示的分页条目
+    var showpage = 20;
+
+    function  dateTransform(date){
+        var y=date.getFullYear();
+        var m=date.getMonth()+1;
+        var d=date.getDate();
+        console.log(y+"-"+m+"-"+d)
+    }
+
+
+    $(document).ready(function () {
+
+        var ViewModel = function () {
+            var self = this;
+            //变量区
+
+            self.showTree = ko.observableArray();
+            //当前显示的树列表
+            self.rootid = ko.observable();
+            //搜索的知识树编号
+            self.classid = ko.observable();
+
+            //待修改题目
+            self.overItem = ko.observable(0);
+            self.allItem = ko.observable(0);
+            self.allCount = ko.observable(0);
+            //==============================
+            self.AllList = ko.observableArray();
+            //绑定题目列表对象
+
+            //当前被修改的用户信息
+            self.changeItem = ko.observable();
+            //当前显示的人员列表
+            self.ShowList = ko.observableArray();
+
+            //ko初始化数据加载
+            $(function () {
+                self.GetDepartment();
+
+            });
+            //查询成员列表（部门，姓名，电话，工号）
+            self.GetUserByQuery = function(){
+//                if (nowDep != null){var depid = nowDep.name;} else {depid = null;}
+                $.ajax({
+                    data:JSON.stringify(new UserModel($("#search_name").val())),
+                    type:"post",
+                    headers: { 'Content-Type': 'application/json' },
+                    dataType: 'json',
+                    url:"../usersalary/query.do",
+                    error:function(data){
+                        alert("出错了！！:"+data.msg);
+                    },
+                    success:function(data){
+                        result = eval(data.userlist);
+                        self.ShowList.removeAll();
+                        for (var i = 0; i < result.length; i++) {
+                            self.ShowList.push(result[i]);
+                        }
+                        //self.GetUserListByDep(nowDep.name);
+                    }
+                });
+            }
+
+            //日期转换器
+
+
+
+
+            self.ClickSearch = function () {
+                self.GetUserByQuery();
+            }
+
+            //点击事件-点击清空搜索项
+            self.ClickClear = function() {
+                $("#search_name").val("");
+                $("#search_workid").val("");
+                $("#search_phone").val("");
+            }
+
+        }
         ko.applyBindings(new ViewModel);
     });
 
-    //查询所有员工工资
-    self.GetUserListByDep = function(depddid){
-        $.ajax({
-            data:JSON.stringify(new UserModel(depddid,null,null,null)),
-            type:"post",
-            headers: { 'Content-Type': 'application/json' },
-            dataType: 'json',
-            url:"../usersalary/query.do",
-            error:function(data){
-                alert("出错了！！:"+data.msg);
-            },
-            success:function(data){
-                result = eval(data.usertest);
-                self.ShowList.removeAll();
-                //清空viewmodel
-                for (var i = 0; i < result.length; i++) {
-                    self.ShowList.push(result[i]);
-                    //加入每行题目信息
-                }
-            }
-        });
-    }
-
-
-    self.GetUserByQuery = function () {
-        alert("解决解答")
-       if (nowDep != null){var depid = nowDep.name;} else {depid = null;}
-        $.ajax({
-            data:JSON.stringify(new UserModel(depid,$("#search_name").val())),
-            type:"post",
-            headers: { 'Content-Type': 'application/json' },
-            dataType: 'json',
-            url:"../usersalary/query.do",
-            error:function(data){
-                alert("出错了！！:"+data.msg);
-            },
-            success:function(data){
-                result = eval(data.userlist);
-                self.ShowList.removeAll();
-                //清空viewmodel
-                for (var i = 0; i < result.length; i++) {
-                    self.ShowList.push(result[i]);
-                }
-            }
-        });
-    }
 
 
 
-
-    // 日期插件开始
-    $('#monthpicker').monthpicker({
-        years: [2017,2016,2015, 2014, 2013, 2012, 2011,2010,2009],
-        topOffset: 6,
-        onMonthSelect: function(m, y) {
-            console.log('Month: ' + m + ', year: ' + y);
-        }
-    });
-    $('#monthly').monthpicker({
-        years: [2017,2016,2015, 2014, 2013, 2012, 2011,2010,2009],
-        topOffset: 6
-    })
-    //日期插件结束
-
-    self.ClickSearch = function () {
-//        self.GetUserByQuery();
-        alert("大的大臣");
-    }
+//    function getMoth(str){
+//        var oDate = new Date(str),
+//                oMonth = oDate.getMonth()+1,
+//                oDay = oDate.getDate(),
+//                oTime = getzf(oMonth) +'-'+ getzf(oDay);//最后拼接时间
+//        return oTime;
+//    };
 
 
-
-    function UserModel(depid,name) {
-        this.staffUserId = null;
+    function UserModel(name) {
+        this.sid = null;
         this.name = name;
-        this.age = null;
-        this.sex = null;
-        this.department = depid;
-        this.idNo = null;
-        this.cellphone = null;
-        this.staffId = null;
-        this.staffState = null;
-        this.email = null;
+        this.userid = null;
+        this.salaryid = null;
+        this.date = null;
+        this.datetype = null;
+        this.attendance = null;
+        this.attendanceSalary = null;
+        this.leavetype = null;
+        this.workovertime = null;
+        this.worksalary = null;
+        this.evection = null;
+        this.allowance = null;
+        this.timesalary = null;
+        this.task = null;
+        this.tasksalary = null;
+        this.busalary = null;
+        this.trafficsalary = null;
+        this.additionalsalary = null;
         return this;
     }
-
-
+//    var formatDate = function (date) {
+//        var y = date.getFullYear();
+//        var m = date.getMonth() + 1;
+//        m = m < 10 ? '0' + m : m;
+//        var d = date.getDate();
+//        d = d < 10 ? ('0' + d) : d;
+//        return y + '-' + m + '-' + d;
+//    };
 </script>
 
 <head>
@@ -170,7 +174,7 @@
         <link rel="stylesheet" href="../stylesheets/buttons.css">
         <link rel="stylesheet" href="../stylesheets/affairsSearch.css">
         <link rel="stylesheet" href="../stylesheets/jquery.monthpicker.css">
-        <script src="../javascripts/jquery.min.js"></script>
+        <script src="../javascripts/jquery-1.10.2.js"></script>
         <script type="text/javascript" src="../datePlug/jquery.monthpicker.js"></script>
 </head>
 <body>
@@ -186,10 +190,9 @@
                 <ul>
                     <li ><a  id="mynav1" onclick="switchMenustyle(1)"data-bind="attr: { href: '<%=basePath%>userinfo/import.do'}">人员导入 </a></li>
                     <li><a   id="mynav2" onclick="switchMenustyle(2)"data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}"> 通讯录 </a></li>
-                    <li ><a  id="mynav3" onclick="switchMenustyle(3)" data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">人员统计 </a></li>
-                    <li ><a  id="mynav4" onclick="switchMenustyle(4)" data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}"> 部门统计</a></li>
-                    <li ><a  id="mynav5" onclick="switchMenustyle(5)"data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}"> 趋势统计</a></li>
+                    <li ><a  id="mynav3" onclick="switchMenustyle(3)" data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">审批数据导入 </a></li>
                     <li ><a class="hover" id="mynav6" onclick="switchMenustyle(6)"data-bind="attr: { href: '<%=basePath%>userinfo/test.do'}">工资查询</a></li>
+                    <li><a data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">关于我们</a></li>
                 </ul>
             </div>
         </div>
@@ -204,53 +207,57 @@
             </div>
             <div class="search">
                 <div class="ser-input fl">
-
-                    姓名：<input type="text" placeholder="输入姓名">
+                    姓名：<input type="text" id="search_name" placeholder="输入姓名">
                     日期：<input type="text" placeholder="输入查询日期" class="input" id="monthly">
-
                 </div>
                 <%--<div class="ser-btn fr">--%>
+                <%--<form action="${pageContext.request.contextPath}/usersalary/query.do" method="post">--%>
+                    <%--<table style="float:right;margin-right:15px;padding-bottom:10px;">--%>
+                        <%--<tr>--%>
+                            <%--<input  type="submit" value="查询"  class="chaxun">--%>
+                            <%--<input  type="button" value="清空"  class="chaxun" style="background:#fd9162">--%>
+                        <%--</tr>--%>
+                    <%--</table>--%>
+                <%--</form>--%>
                     <div style="float:right;margin-right:15px;padding-bottom:10px;" >
                         <input data-bind="click:$root.ClickSearch" type="button" value="查询"  class="chaxun">
                         <input  data-bind="click:$root.ClickClear" type="button" value="清空"  class="chaxun" style="background:#fd9162">
                     </div>
-                        <%--<input data-bind="click:$root.ClickSearch" type="button" value="查询"  class="chaxun">--%>
-                        <%--<input  data-bind="click:$root.ClickClear" type="button" value="清空"  class="chaxun" style="background:#fd9162">--%>
-                    <%--<input data-bind="click:$root.ClickSearch" class="button button-glow button-border button-rounded button-primary button-small " type="button">查询</input>--%>
-                    <%--<input data-bind="click:$root.ClearSearch" class="button button-glow button-border button-rounded button-highlight button-small " type="button">清空</input>--%>
             </div>
-            <div class="ser-resault">
-                <table border="1">
+            <div class="ser-resault" >
+                <table border="1" style="width:96%;">
                     <thead>
-                    <tr>
+                    <tr >
+                        <th>姓名</th>
+                        <th>用户id</th>
+                        <th>工资序列id</th>
                         <th>日期</th>
-                        <th>工作日</th>
-                        <th>周末</th>
-                        <th>缺勤</th>
+                        <th>日期类型</th>
+                        <th>考勤情况</th>
                         <th>缺勤工资</th>
-                        <th>事假</th>
-                        <th>事假工资</th>
-                        <th>长病假</th>
-                        <th>长病假工资</th>
-                        <th>调休</th>
-                        <th>调休工资</th>
-                        <th>请假</th>
+                        <th>请假类型</th>
                         <th>请假工资</th>
                         <th>加班</th>
                         <th>加班工资</th>
-                        <th>出差天数</th>
-                        <th>出差补贴</th>
-                        <th>time</th>
-                        <th>奖金</th>
-                        <th>发放</th>
+                        <th>出差</th>
+                        <th>津贴</th>
+                        <th>time认证奖金</th>
+                        <th>task报告数</th>
+                        <th>task报告奖金</th>
+                        <th>公交地铁票</th>
+                        <th>交通费</th>
+                        <th>额外奖金</th>
                     </tr>
                     </thead>
                     <tbody data-bind="foreach:ShowList">
                     <tr >
-                        <td data-bind="text:staffUserId">编号</td>
-                        <td data-bind="text:name">标题</td>
-                        <td data-bind="text:date">题型</td>
-                        <td data-bind="text:datetype">难度</td>
+                        <td data-bind="text:name">用户编号</td>
+                        <td data-bind="text:userid">用户编号</td>
+                        <td data-bind="text:salaryid">工资id</td>
+                        <%--<td data-bind="text:date" > 日期</td>--%>
+                        <td data-bind="text:date"></td>
+
+                        <td data-bind="text:datetype">日期类型</td>
                         <td data-bind="text:attendance">知识树编号</td>
                         <td data-bind="text:attendanceSalary">所属知识</td>
                         <td data-bind="text:leavetype">修改者</td>
@@ -262,39 +269,35 @@
                         <td data-bind="text:timesalary">到大</td>
                         <td data-bind="text:task">所属知识</td>
                         <td data-bind="text:tasksalary">修改者</td>
-                        <td data-bind="text:trafficsalary">审核状态</td>
-                        <td data-bind="text:additionalsalary">卫视</td>
-                        <td data-bind="text:additionalsalary">卫视</td>
-                        <td data-bind="text:additionalsalary">卫视</td>
+                        <td data-bind="text:busalary">审核状态</td>
+                        <td data-bind="text:trafficsalary">卫视</td>
                         <td data-bind="text:additionalsalary">卫视</td>
                     </tr>
+
+                    <%--<c:forEach items="${usertest }" var="list">--%>
+                    <%--<tr >--%>
+                        <%--<td>${list.name }</td>--%>
+                        <%--<td>${list.userid }</td>--%>
+                        <%--<td>${list.salaryid }</td>--%>
+                        <%--<td> <fmt:formatDate value="${list.date }" pattern="yyyy-MM-dd" /></td>--%>
+                        <%--<td>${list.datetype }</td>--%>
+                        <%--<td>${list.attendance }</td>--%>
+                        <%--<td>${list.attendanceSalary }</td>--%>
+                        <%--<td>${list.leavetype }</td>--%>
+                        <%--<td>${list.leavesalary }</td>--%>
+                        <%--<td>${list.workovertime }</td>--%>
+                        <%--<td>${list.worksalary }</td>--%>
+                        <%--<td>${list.evection }</td>--%>
+                        <%--<td>${list.allowance }</td>--%>
+                        <%--<td>${list.timesalary }</td>--%>
+                        <%--<td>${list.task }</td>--%>
+                        <%--<td>${list.tasksalary }</td>--%>
+                        <%--<td>${list.busalary }</td>--%>
+                        <%--<td>${list.trafficsalary }</td>--%>
+                        <%--<td>${list.additionalsalary }</td>--%>
+                    <%--</tr>--%>
+                    <%--</c:forEach>--%>
                     </tbody>
-
-
-                    <tfoot>
-                    <tr>
-                        <td>合计</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                        <td>0.00</td>
-                    </tr>
-                    </tfoot>
                 </table>
             </div>
 
