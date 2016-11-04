@@ -3,11 +3,11 @@
 .contain{width:100%;background:#E7E8EB;padding-top:2%;}
 .contain .content{width:1216px;margin:0 auto;border:1px solid #ddd;background:#fff;padding-bottom:10%;}
 .contain .content .cont-tit{background:#f5f5f5;padding:1% 0 1% 1%;}
-.contain .content .search{overflow:hidden;width:1100px;margin:1% auto;}
+.contain .content .search{overflow:hidden;width:96%;margin:1% auto;}
 .contain .content .search .ser-input input{display:inline-block;width:15%;height:25px;}
-.contain .content .ser-resault table{border-collapse:collapse;width:90%;margin:0 auto;margin-top:2%;}
-.contain .content .ser-resault table th{background:#F5F5F5;padding:10px 0;font-weight:normal;font-size:12px;border:1px solid #E9EAF0;}
-.contain .content .ser-resault table td{text-align:center;padding:10px 0;border:1px solid #E9EAF0;font-size:14px;}
+.contain .content .ser-resault table{border-collapse:collapse;width:96%;margin:0 auto;margin-top:2%;}
+.contain .content .ser-resault table th{background:#F5F5F5;padding:10px 5px;font-weight:normal;font-size:12px;border:1px solid #E9EAF0;text-align:center;}
+.contain .content .ser-resault table td{text-align:left;padding:10px 5px;border:1px solid #E9EAF0;font-size:14px;}
 
 footer{background:#e7e8eb;padding:50px 0;}
 footer p{text-align: center;color:#888;font-size:12px;}

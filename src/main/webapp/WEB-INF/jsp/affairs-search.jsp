@@ -17,7 +17,10 @@
     <link rel="stylesheet" href="../stylesheets/reset.css">
     <link rel="stylesheet" href="../stylesheets/buttons.css">
     <link rel="stylesheet" href="../stylesheets/header.css">
+    <link rel="stylesheet" href="../stylesheets/bootstarp.min.css">
     <link rel="stylesheet" href="../stylesheets/affairs-search.css">
+    <link rel="stylesheet" href="../stylesheets/ddcss.css">
+    <link rel="stylesheet" href="../stylesheets/shujutongji.css">
     <%--<link rel="stylesheet" href="../stylesheets/bootstrap-theme.min.css">--%>
     <%--<link rel="stylesheet" href="../stylesheets/bootstrap.min.css">--%>
     <link rel="stylesheet" href="../datePlug/jquery.monthpicker.css">
@@ -36,27 +39,48 @@
     </script>
 </head>
 <body>
-    <header>
-        <div class="head-cont">
-            <div class="head-left fl">
-                <img src="../images/logo.png" height="35" width="50" alt="">
-                人事管理系统
-            </div>
-            <div class="head-nav fl" id="h-nav">
+    <%--<header>--%>
+        <%--<div class="head-cont">--%>
+            <%--<div class="head-left fl">--%>
+                <%--<img src="../images/logo.png" height="35" width="50" alt="">--%>
+                <%--人事管理系统--%>
+            <%--</div>--%>
+            <%--<div class="head-nav fl" id="h-nav">--%>
+                <%--<ul>--%>
+                    <%--<li ><a href="#">成员导入</a></li>--%>
+                    <%--<li ><a href="#">通讯录</a></li>--%>
+                    <%--<li ><a href="#">成员导入</a></li>--%>
+                    <%--<li class="active"><a href="upload.html">审批数据导入</a></li>--%>
+                    <%--<li><a href="affairs-search.html">工资查询</a></li>--%>
+                <%--</ul>--%>
+            <%--</div>--%>
+            <%--<div class="head-right fl">--%>
+                <%--欢迎您！管理员&nbsp;&nbsp;&nbsp;--%>
+                <%--<a href=""><img src="../images/guanbi.png" height="22" width="22" alt=""></a>--%>
+            <%--</div>--%>
+        <%--</div>--%>
+    <%--</header>--%>
+    <div class="row-fluid top-tiku">
+        <div class="top-left"> <img src="../images/logo.png" />
+            <p>人事管理系统</p>
+        </div>
+        <div id="box">
+            <script language="javascript">          function switchMenustyle(num) { for (var id = 1; id <= 5; id++) { if (id == num) { document.getElementById("mynav" + id).className = "hover"; } else { document.getElementById("mynav" + id).className = ""; } } }          </script>
+            <div id="menu">
                 <ul>
-                    <li ><a href="#">成员导入</a></li>
-                    <li ><a href="#">通讯录</a></li>
-                    <li ><a href="#">成员导入</a></li>
-                    <li class="active"><a href="upload.html">审批数据导入</a></li>
-                    <li><a href="affairs-search.html">工资查询</a></li>
+                    <li ><a  id="mynav1" onclick="switchMenustyle(1)"data-bind="attr: { href: '<%=basePath%>userinfo/import.do'}">人员导入 </a></li>
+                    <li><a   id="mynav2" onclick="switchMenustyle(2)"data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}"> 通讯录 </a></li>
+                    <li ><a  id="mynav3" onclick="switchMenustyle(3)" data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">人员统计 </a></li>
+                    <li ><a  id="mynav4" onclick="switchMenustyle(4)" data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}"> 部门统计</a></li>
+                    <li ><a  id="mynav5" onclick="switchMenustyle(5)"data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}"> 趋势统计</a></li>
+                    <li ><a class="hover" id="mynav6" onclick="switchMenustyle(6)"data-bind="attr: { href: '<%=basePath%>userinfo/test.do'}">工资查询</a></li>
                 </ul>
             </div>
-            <div class="head-right fl">
-                欢迎您！管理员&nbsp;&nbsp;&nbsp;
-                <a href=""><img src="../images/guanbi.png" height="22" width="22" alt=""></a>
+            <div class="top-right">
             </div>
-        </div>
-    </header>
+            <p>欢迎您！<span >管理员</span></p>
+            <a href=""><img src="../images/guanbi.png" /></a> </div>
+    </div>
     <div class="contain">
         <div class="content">
             <div class="cont-tit">
