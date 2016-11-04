@@ -6,6 +6,8 @@ import java.sql.Date;
 public class YoSalary {
     private Integer sid;
 
+    private String salarydate;
+
     private String userid;
 
     private String name;
@@ -50,6 +52,14 @@ public class YoSalary {
 
     public void setSid(Integer sid) {
         this.sid = sid;
+    }
+
+    public String getSalarydate() {
+        return salarydate;
+    }
+
+    public void setSalarydate(String salarydate) {
+        this.salarydate = salarydate;
     }
 
     public String getUserid() {
