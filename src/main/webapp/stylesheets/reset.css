@@ -1,256 +1,166 @@
-/* reset */
-<<<<<<< HEAD
-html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video {
-  margin: 0;
-  padding: 0;
-  outline: 0;
-  border: 0;
-  background: transparent;
-  vertical-align: baseline;
-  font-style: inherit;
-  font-size: 100%; }
-
-html {
-  font-family: sans-serif;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%; }
-
-body {
-  line-height: 1; }
-
-li {
-  list-style: none; }
-
-a:active {
-  outline: 0; }
-
-button[disabled], html input[disabled] {
-  cursor: default; }
-
-img {
-  vertical-align: middle; }
-
-button, input, select, textarea {
-  margin: 0;
-  padding: 0;
-  font-size: 100%;
-  font-family: inherit; }
-
-button, input {
-  line-height: normal; }
-
-button, select {
-  text-transform: none; }
-
-button, html input[type="button"], input[type="reset"], input[type="submit"] {
-  cursor: pointer;
-  -webkit-appearance: button; }
-
-input[type="search"] {
-  -webkit-box-sizing: content-box;
-  -moz-box-sizing: content-box;
-  box-sizing: content-box;
-  -webkit-appearance: textfield; }
-
-input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webkit-search-decoration {
-  -webkit-appearance: none; }
-
-audio:not([controls]) {
-  display: none;
-  height: 0; }
-
-[hidden], template {
-  display: none; }
-
-dfn {
-  font-style: italic; }
-
-code, kbd, pre, samp {
-  font-size: 1em;
-  font-family: monospace, serif; }
-
-blockquote, q {
-  quotes: none; }
-
-blockquote:before, blockquote:after, q:before, q:after {
-  content: '';
-  content: none; }
-
-table {
-  border-spacing: 0;
-  border-collapse: collapse; }
-
-/* base */
-html {
-  height: 100%;
-  -webkit-tap-highlight-color: transparent; }
-
-body {
-  color: #000;
-  font-size: 1rem;
-  font-family: "Open Sans",Arial,"Hiragino Sans GB","Microsoft YaHei","微软雅黑",STHeiti,"WenQuanYi Micro Hei",SimSun,sans-serif;
-=======
-html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, menu, nav, section, summary, time, mark, audio, video {
-    margin: 0;
+/*!* reset *!*/
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,
+form,fieldset,input,textarea,p,blockquote,th,td {
     padding: 0;
-    outline: 0;
-    border: 0;
-    background: transparent;
-    vertical-align: baseline;
-    font-style: inherit;
-    font-size: 100%; }
-
-html {
-    font-family: sans-serif;
-    -ms-text-size-adjust: 100%;
-    -webkit-text-size-adjust: 100%; }
-
-body {
-    line-height: 1; }
-
-li {
-    list-style: none; }
-
-a:active {
-    outline: 0; }
-
-button[disabled], html input[disabled] {
-    cursor: default; }
-
-img {
-    vertical-align: middle; }
-
-button, input, select, textarea {
     margin: 0;
-    padding: 0;
-    font-size: 100%;
-    font-family: inherit; }
-
-button, input {
-    line-height: normal; }
-
-button, select {
-    text-transform: none; }
-
-button, html input[type="button"], input[type="reset"], input[type="submit"] {
-    cursor: pointer;
-    -webkit-appearance: button; }
-
-input[type="search"] {
-    -webkit-box-sizing: content-box;
-    -moz-box-sizing: content-box;
-    box-sizing: content-box;
-    -webkit-appearance: textfield; }
-
-input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webkit-search-decoration {
-    -webkit-appearance: none; }
-
-audio:not([controls]) {
-    display: none;
-    height: 0; }
-
-[hidden], template {
-    display: none; }
-
-dfn {
-    font-style: italic; }
-
-code, kbd, pre, samp {
-    font-size: 1em;
-    font-family: monospace, serif; }
-
-blockquote, q {
-    quotes: none; }
-
-blockquote:before, blockquote:after, q:before, q:after {
-    content: '';
-    content: none; }
-
-table {
-    border-spacing: 0;
-    border-collapse: collapse; }
-
-/* base */
-html {
-    height: 100%;
-    -webkit-tap-highlight-color: transparent; }
-
-body {
-    color: #000;
-    font-size: 1rem;
-    font-family: "Open Sans",Arial,"Hiragino Sans GB","Microsoft YaHei","微软雅黑",STHeiti,"WenQuanYi Micro Hei",SimSun,sans-serif;
->>>>>>> origin/master
 }
-a{text-decoration: none; color:#000;}
+body{
+    font-family: "Open Sans",Arial,"Hiragino Sans GB","Microsoft YaHei","微软雅黑",STHeiti,"WenQuanYi Micro Hei",SimSun,sans-serif;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+fieldset,img {
+    border: 0;
+}
+address,caption,cite,code,dfn,em,strong,th,var {
+    font-weight: normal;
+    font-style: normal;
+}
+ol,ul {
+    list-style: none;
+}
+caption,th {
+    text-align: left;
+}
+h1,h2,h3,h4,h5,h6 {
+    font-weight: normal;
+    font-size: 100%;
+}
+q:before,q:after {
+    content:”;
+}
+abbr,acronym {
+    border: 0;
+}
+a{text-decoration:none;}
+a:hover{text-decoration:none;}
+/*html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, menu, nav, section, summary, time, mark, audio, video {*/
+  /*margin: 0;*/
+  /*padding: 0;*/
+  /*outline: 0;*/
+  /*border: 0;*/
+  /*background: transparent;*/
+  /*vertical-align: baseline;*/
+  /*font-style: inherit;*/
+  /*font-size: 100%; }*/
 
-.clearfix:before, .clearfix:after {
-<<<<<<< HEAD
-  display: table;
-  content: ""; }
+/*html {*/
+  /*font-family: sans-serif;*/
+  /*-ms-text-size-adjust: 100%;*/
+  /*-webkit-text-size-adjust: 100%; }*/
 
-.clearfix:after {
-  clear: both; }
+/*body {*/
+  /*line-height: 1; }*/
 
-.center-block {
-  display: block;
-  margin-right: auto;
-  margin-left: auto; }
+/*li {*/
+  /*list-style: none; }*/
 
-.fr {
-  float: right !important; }
+/*a:active {*/
+  /*outline: 0; }*/
 
-.fl {
-  float: left !important; }
+/*button[disabled], html input[disabled] {*/
+  /*cursor: default; }*/
 
-.hide, .hidden {
-  display: none !important; }
+/*img {*/
+  /*vertical-align: middle; }*/
 
-.show {
-  display: block !important; }
+/*button, input, select, textarea {*/
+  /*margin: 0;*/
+  /*padding: 0;*/
+  /*font-size: 100%;*/
+  /*font-family: inherit; }*/
 
-.visible {
-  visibility: visible; }
+/*button, input {*/
+  /*line-height: normal; }*/
 
-.invisible {
-  visibility: hidden; }
+/*button, select {*/
+  /*text-transform: none; }*/
 
-.ellipsis {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap; }
-=======
-    display: table;
-    content: ""; }
+/*button, html input[type="button"], input[type="reset"], input[type="submit"] {*/
+  /*cursor: pointer;*/
+  /*-webkit-appearance: button; }*/
 
-.clearfix:after {
-    clear: both; }
+/*input[type="search"] {*/
+  /*-webkit-box-sizing: content-box;*/
+  /*-moz-box-sizing: content-box;*/
+  /*box-sizing: content-box;*/
+  /*-webkit-appearance: textfield; }*/
 
-.center-block {
-    display: block;
-    margin-right: auto;
-    margin-left: auto; }
+/*input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webkit-search-decoration {*/
+  /*-webkit-appearance: none; }*/
 
-.fr {
-    float: right !important; }
 
-.fl {
-    float: left !important; }
+/*table {*/
+  /*border-spacing: 0;*/
+  /*border-collapse: collapse; }*/
 
-.hide, .hidden {
-    display: none !important; }
+/*!* base *!*/
+/*html {*/
+  /*height: 100%;*/
+  /*-webkit-tap-highlight-color: transparent; }*/
 
-.show {
-    display: block !important; }
+/*body {*/
+  /*color: #000;*/
+  /*font-size: 1rem;*/
+  /*font-family: "Open Sans",Arial,"Hiragino Sans GB","Microsoft YaHei","微软雅黑",STHeiti,"WenQuanYi Micro Hei",SimSun,sans-serif;*/
+/*html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, menu, nav, section, summary, time, mark, audio, video {*/
+    /*margin: 0;*/
+    /*padding: 0;*/
+    /*outline: 0;*/
+    /*border: 0;*/
+    /*background: transparent;*/
+    /*vertical-align: baseline;*/
+    /*font-style: inherit;*/
+    /*font-size: 100%; }*/
 
-.visible {
-    visibility: visible; }
+/*html {*/
+    /*font-family: sans-serif;*/
+    /*-ms-text-size-adjust: 100%;*/
+    /*-webkit-text-size-adjust: 100%; }*/
 
-.invisible {
-    visibility: hidden; }
+/*body {*/
+    /*line-height: 1; }*/
 
-.ellipsis {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap; }
->>>>>>> origin/master
-/*# sourceMappingURL=reset.css.map */
+/*li {*/
+    /*list-style: none; }*/
+
+/*a:active {*/
+    /*outline: 0; }*/
+
+/*button[disabled], html input[disabled] {*/
+    /*cursor: default; }*/
+
+/*img {*/
+    /*vertical-align: middle; }*/
+
+/*button, input, select, textarea {*/
+    /*margin: 0;*/
+    /*padding: 0;*/
+    /*font-size: 100%;*/
+    /*font-family: inherit; }*/
+
+/*button, input {*/
+    /*line-height: normal; }*/
+
+/*button, select {*/
+    /*text-transform: none; }*/
+
+
+/*table {*/
+    /*border-spacing: 0;*/
+    /*border-collapse: collapse; }*/
+
+/*!* base *!*/
+/*html {*/
+    /*height: 100%;*/
+    /*-webkit-tap-highlight-color: transparent; }*/
+
+/*body {*/
+    /*color: #000;*/
+    /*font-size: 1rem;*/
+    /*font-family: "Open Sans",Arial,"Hiragino Sans GB","Microsoft YaHei","微软雅黑",STHeiti,"WenQuanYi Micro Hei",SimSun,sans-serif;*/
+/*}*/
+/*a{text-decoration: none; color:#000;}*/
+

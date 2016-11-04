@@ -19,8 +19,9 @@
     <meta charset="UTF-8">
     <title>音达后台管理系统</title>
     <link rel="shortcut icon" type="image/ico" href="../images/yd.ico" />
-    <link rel="stylesheet" href="../stylesheets/header.css">
     <link rel="stylesheet" href="../stylesheets/reset.css">
+    <link rel="stylesheet" href="../stylesheets/header.css">
+
 
     <script type="text/javascript" src="../javascripts/jquery-1.10.2.js"></script>
     <script src="../javascripts//knockout-3.4.0rc.js"></script>
@@ -43,7 +44,8 @@
                 .content ul li a{color:#fff;}*/
 
         footer{background:#e7e8eb;padding:50px 0;}
-        footer p{text-align: center;color:#888;font-size:12px;}
+        footer img{width:14px;display:inline-block;vertical-align: middle;}
+        footer p{text-align: center;color:#888;font-size:14px;}
     </style>
     <script>
         $(document).ready(function () {

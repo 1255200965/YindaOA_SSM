@@ -35,4 +35,5 @@
 .content .select-file .select-details #upfilename1{color:#888;}
 
 footer{background:#e7e8eb;padding:50px 0;}
-footer p{text-align: center;color:#888;font-size: 12px;}
+footer img{width:14px;display:inline-block;vertical-align: middle;}
+footer p{text-align: center;color:#888;font-size:14px;}

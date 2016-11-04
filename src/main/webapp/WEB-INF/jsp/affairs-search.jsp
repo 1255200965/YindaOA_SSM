@@ -17,10 +17,11 @@
     <link rel="stylesheet" href="../stylesheets/reset.css">
     <link rel="stylesheet" href="../stylesheets/buttons.css">
     <link rel="stylesheet" href="../stylesheets/header.css">
-    <link rel="stylesheet" href="../stylesheets/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="../stylesheets/bootstrap.min.css">
-    <link rel="stylesheet" href="../datePlug/jquery.monthpicker.css">
     <link rel="stylesheet" href="../stylesheets/affairs-search.css">
+    <%--<link rel="stylesheet" href="../stylesheets/bootstrap-theme.min.css">--%>
+    <%--<link rel="stylesheet" href="../stylesheets/bootstrap.min.css">--%>
+    <link rel="stylesheet" href="../datePlug/jquery.monthpicker.css">
+
 
     <script src="../javascripts/jquery-1.10.2.js"></script>
     <script src="../javascripts/bootstrap.min.js"></script>
@@ -185,21 +186,18 @@
 </footer>
     <script>
     // 日期插件开始
-    $('#monthpicker').monthpicker({
-        years: [2017,2016,2015, 2014, 2013, 2012, 2011,2010,2009],
-        topOffset: 6,
-        onMonthSelect: function(m, y) {
-            console.log('Month: ' + m + ', year: ' + y);
-        }
-    });
-    $('#monthly').monthpicker({
-        years: [2017,2016,2015, 2014, 2013, 2012, 2011,2010,2009],
-        topOffset: 6
-    })
-    //日期插件结束
-
-</script>
-    <script>
+        $('#monthpicker').monthpicker({
+            years: [2017,2016,2015, 2014, 2013, 2012, 2011,2010,2009],
+            topOffset: 6,
+            onMonthSelect: function(m, y) {
+                console.log('Month: ' + m + ', year: ' + y);
+            }
+        });
+        $('#monthly').monthpicker({
+            years: [2017,2016,2015, 2014, 2013, 2012, 2011,2010,2009],
+            topOffset: 6
+        })
+        //日期插件结束
 
     </script>
 </body>

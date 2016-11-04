@@ -13,53 +13,7 @@
 <!doctype html>
 <html lang="en">
 
-<script>
-    function showFile(id){
-        var filepath = $("#filename"+id).val();
-        $("#upfilename"+id).html(filepath);
-    }
-    function check_upload(theform,id)
-    {
-        var filename = document.getElementById("filename"+id).value;
-        if(filename == "" ||filename == null || filename.indexOf(".xls")==-1){
-            //alert('只能上传.xlsx文件');
-            $("#upfilename"+id).html("只能上传.xls文件");
-            return false;
-        }
-    }
-    function downloadTemplate(){
-        window.open('../template/templateUserInfo.xls');
-    }
-    function checkInit(id){
-        $('#mytab a[href="#tab' + id +'"]').tab('show');
-        var msgTip = "${error}";
-        if (msgTip != "") {
-            $("#upfilename" + id).html(msgTip);
-        } else{
-            var validate_msg = "${validate}";
-            var upfilename = "${filename}";
-            var success_msg = "${successAmount}";
-            if (validate_msg != "") {
-                $("#upfilename"+id).html(upfilename);
-                $("#checkmsg"+id).html(validate_msg);
-                $("#successmsg"+id).html("成功导入数:"+success_msg);
-            } else{
-                var row_msg = "${row}";
-                var column_msg = "${column}";
-                var reason_msg = "${reason}";
-                $("#upfilename"+id).html(upfilename);
-                $("#checkmsg"+id).html("文件校验失败！");
-                $("#successmsg"+id).html("行:"+row_msg+" 列:"+column_msg+" 出错！<br/>原因:"+reason_msg);
-            }
-        }
-    }
-    $(document).ready(function () {
-        var type = "${tab}";
-        if (type != "") checkInit(type);
-        var ViewModel = function (){};
-        ko.applyBindings(new ViewModel);
-    });
-</script>
+
 
 <head>
     <meta charset="UTF-8">
@@ -69,11 +23,58 @@
     <link rel="stylesheet" href="../stylesheets/buttons.css">
     <link rel="stylesheet" href="../stylesheets/header.css">
     <link rel="stylesheet" href="../stylesheets/upload-details.css">
-    <link href="../stylesheets/shujutongji.css" rel="stylesheet" />
+    <%--<link href="../stylesheets/shujutongji.css" rel="stylesheet" />--%>
     <script type="text/javascript" src="../javascripts/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="../javascripts/bootstrap.min.js"></script>
     <script type="text/javascript" src="../javascripts/bootstrap-treeview.min.js"></script>
     <script src="../javascripts//knockout-3.4.0rc.js"></script>
+    <script>
+        function showFile(id){
+            var filepath = $("#filename"+id).val();
+            $("#upfilename"+id).html(filepath);
+        }
+        function check_upload(theform,id)
+        {
+            var filename = document.getElementById("filename"+id).value;
+            if(filename == "" ||filename == null || filename.indexOf(".xls")==-1){
+                //alert('只能上传.xlsx文件');
+                $("#upfilename"+id).html("只能上传.xls文件");
+                return false;
+            }
+        }
+        function downloadTemplate(){
+            window.open('../template/templateUserInfo.xls');
+        }
+        function checkInit(id){
+            $('#mytab a[href="#tab' + id +'"]').tab('show');
+            var msgTip = "${error}";
+            if (msgTip != "") {
+                $("#upfilename" + id).html(msgTip);
+            } else{
+                var validate_msg = "${validate}";
+                var upfilename = "${filename}";
+                var success_msg = "${successAmount}";
+                if (validate_msg != "") {
+                    $("#upfilename"+id).html(upfilename);
+                    $("#checkmsg"+id).html(validate_msg);
+                    $("#successmsg"+id).html("成功导入数:"+success_msg);
+                } else{
+                    var row_msg = "${row}";
+                    var column_msg = "${column}";
+                    var reason_msg = "${reason}";
+                    $("#upfilename"+id).html(upfilename);
+                    $("#checkmsg"+id).html("文件校验失败！");
+                    $("#successmsg"+id).html("行:"+row_msg+" 列:"+column_msg+" 出错！<br/>原因:"+reason_msg);
+                }
+            }
+        }
+        $(document).ready(function () {
+            var type = "${tab}";
+            if (type != "") checkInit(type);
+            var ViewModel = function (){};
+            ko.applyBindings(new ViewModel);
+        });
+    </script>
 </head>
 <body>
 <header>
@@ -106,7 +107,7 @@
         <p>第二步：上传填写好的数据表</p>
     </div>
     <div class="select-file">
-        <form action="../Import/importSubway.do" enctype="multipart/form-data" method="post" onsubmit="return check_upload(this,1)>
+        <form action="../Import/importSubway.do" enctype="multipart/form-data" method="post" onsubmit="return check_upload(this,1)">
             <div class="select-details">
                 <a href="javascript:;" class="file">选择文件
                     <input  type="file" value="选择文件"   id="filename1" name="importExcel"  onchange="showFile(1)">
