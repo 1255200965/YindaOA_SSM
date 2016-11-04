@@ -113,10 +113,10 @@ public class StaffInfoController {
                     map.put("validate","文件验证通过！");
                 } else {
                     map.putAll(errorMap);
-                    break;
+                    continue;
                 }
                 // 添加文件到数据库
-                Map<String, Object> map2 = userInfoService.insert(path);
+                Map<String, Object> map2 = userInfoService.insertAndUpdate(path);
                 map.putAll(map2);
             }
 
@@ -164,7 +164,7 @@ public class StaffInfoController {
 
 
     //添加用户信息
-    @RequestMapping(value = "/insert.do", method = RequestMethod.POST)
+/*    @RequestMapping(value = "/insert.do", method = RequestMethod.POST)
     public @ResponseBody Map<String,Object> adduser(@RequestBody StaffInfo user, HttpServletRequest request, HttpServletResponse response) throws IOException {
         Map<String,Object> map = new HashMap<String,Object>();
 
@@ -175,7 +175,7 @@ public class StaffInfoController {
             map.put("msg", "失败");
         }
         return map;
-    }
+    }*/
 
     //修改用户信息
     @RequestMapping(value = "/updateuser.do", method = RequestMethod.POST)
@@ -183,11 +183,18 @@ public class StaffInfoController {
         Map<String,Object> map = new HashMap<String,Object>();
 
         //钉钉侧修改
+        DDUtil ddutil = new DDUtil(userInfoService);
+        String DDresult = ddutil.updateUser(user);
+        if (DDresult != null){
+            map.put("msg", DDresult);
+            return map;
+        }
         int result = userInfoService.updateStaffByID(user);
         if(result != 0){
-            map.put("msg", "成功");
+            map.put("msg", "更新成功");
+            map.put("ok", "ok");
         }else{
-            map.put("msg", "失败");
+            map.put("msg", "更新失败");
         }
         return map;
     }
@@ -196,28 +203,26 @@ public class StaffInfoController {
     @RequestMapping(value = "/delete.do", method = RequestMethod.POST)
     public @ResponseBody Map<String,Object> delete(@RequestBody StaffInfo user, HttpServletRequest request, HttpServletResponse response) throws IOException {
         Map<String,Object> map = new HashMap<String,Object>();
-        user.setStaffState("离职");
-        user.setLeaveDate(DateUtil.getCurrentTimeMillis().toString());
+        user.setWorkState("离职");
+        user.setLeaveDate(DateUtil.getCurrentTimeDate().toString());
         //钉钉侧删除
+        DDUtil ddutil = new DDUtil(userInfoService);
+        String DDresult = ddutil.deleteUser(user);
+        if (DDresult != null){
+            map.put("msg", DDresult);
+            return map;
+        }
         int result = userInfoService.updateStaffByID(user);
         if(result != 0){
-            map.put("msg", "成功");
+            map.put("msg", "离职成功");
+            map.put("ok", "ok");
         }else{
-            map.put("msg", "失败");
+            map.put("msg", "离职失败");
         }
         return map;
     }
 
-//    @RequestMapping("/test.do")
-//    public String test(HttpServletRequest request) throws IOException {
-//        AttendanceWork ddUtil = new AttendanceWork();
-//        try {
-//            ddUtil.getSuiteToken("063815563024308470","2016-11-1","2016-11-2");
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return "/UserInfo";
-//    }
+
     @RequestMapping("/test.do")
     public String test(Map<String,Object> map,HttpServletRequest request){
         List<StaffInfo> userDtoList = new ArrayList<StaffInfo>();

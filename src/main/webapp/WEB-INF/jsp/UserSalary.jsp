@@ -166,8 +166,8 @@
             <ul>
                 <li><a data-bind="attr: { href: '<%=basePath%>userinfo/import.do'}">人员导入</a></li>
                 <li><a data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">通讯录</a></li>
-                <li><a class="active" data-bind="attr: { href: '<%=basePath%>Import/navigator.do'}">审批数据导入</a></li>
-                <li><a data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">工资查询</a></li>
+                <li><a  data-bind="attr: { href: '<%=basePath%>Import/navigator.do'}">审批数据导入</a></li>
+                <li><a class="active" data-bind="attr: { href: '<%=basePath%>userinfo/test.do'}">工资查询</a></li>
                 <li><a data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">关于我们</a></li>
             </ul>
         </div>
@@ -177,29 +177,6 @@
         </div>
     </div>
 </header>
-    <div class="contain">
-
-    <header>
-        <div class="head-cont">
-            <div class="head-left fl">
-                <img src="../images/logo.png" height="35" width="50" alt="">
-                人事管理系统
-            </div>
-            <div class="head-nav fl" id="h-nav">
-                <ul>
-                    <li><a data-bind="attr: { href: '<%=basePath%>userinfo/import.do'}">人员导入</a></li>
-                    <li><a data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">通讯录</a></li>
-                    <li><a class="active" data-bind="attr: { href: '<%=basePath%>Import/navigator.do'}">审批数据导入</a></li>
-                    <li><a data-bind="attr: { href: '<%=basePath%>userinfo/test.do'}">工资查询</a></li>
-                    <li><a data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">关于我们</a></li>
-                </ul>
-            </div>
-            <div class="head-right fl">
-                欢迎您！管理员&nbsp;&nbsp;&nbsp;
-                <a href=""><img src="../images/guanbi.png" height="22" width="22" alt=""></a>
-            </div>
-        </div>
-    </header>
     <div class="contain">
         <div class="content">
             <div class="cont-tit">
@@ -223,16 +200,6 @@
                 <%--<input data-bind="click:$root.ClickSearch" type="button" value="查询"  class="chaxun">--%>
                 <%--<input  data-bind="click:$root.ClickClear" type="button" value="清空"  class="chaxun" style="background:#fd9162">--%>
                 <%--</div>--%>
-                <div class="ser-btn fr">
-
-                    <button class="button button-glow button-rounded button-primary button-small " data-bind="click:$root.ClickSearch">查询</button>
-                    <button class="button button-glow button-rounded button-highlight button-small " data-bind="click:$root.ClickClear" >清空</button>
-
-                </div>
-                    <%--<div style="float:right;margin-right:15px;padding-bottom:10px;" >--%>
-                        <%--<input data-bind="click:$root.ClickSearch" type="button" value="查询"  class="chaxun">--%>
-                        <%--<input  data-bind="click:$root.ClickClear" type="button" value="清空"  class="chaxun" style="background:#fd9162">--%>
-                    <%--</div>--%>
                 <div class="ser-btn fr">
 
                     <button class="button button-glow button-rounded button-primary button-small " data-bind="click:$root.ClickSearch">查询</button>
@@ -326,36 +293,6 @@
     <%--<img width="11px" src="https://gw.alicdn.com/tps/TB14UngLXXXXXXQapXXXXXXXXXX-22-26.png" data-reactid=".0.a.0.0.0"></span>--%>
     <%--<span data-reactid=".0.a.0.1">上海音达科技实业有限公司</span></div>--%>
     <%--</div>--%>
-    <%--</div>--%>
-    <footer>
-        <p><img src="../images/tubiao.png" alt="">上海音达科技实业有限公司</p>
-    </footer>
-</div>
-</div>
-
-<script>
-    // 日期插件开始
-    $('#monthpicker').monthpicker({
-        years: [2017,2016,2015, 2014, 2013, 2012, 2011,2010,2009],
-        topOffset: 6,
-        onMonthSelect: function(m, y) {
-            console.log('Month: ' + m + ', year: ' + y);
-        }
-    });
-    $('#monthly').monthpicker({
-        years: [2017,2016,2015, 2014, 2013, 2012, 2011,2010,2009],
-        topOffset: 6
-    })
-    //日期插件结束
-
-</script>
-    <%--<div class="row-fluid">--%>
-        <%--<div class="footer" data-reactid=".0.a">--%>
-            <%--<div style="margin-bottom:5px;" data-reactid=".0.a.0">--%>
-            <%--<span data-reactid=".0.a.0.0">--%>
-                <%--<img width="11px" src="https://gw.alicdn.com/tps/TB14UngLXXXXXXQapXXXXXXXXXX-22-26.png" data-reactid=".0.a.0.0.0"></span>--%>
-                <%--<span data-reactid=".0.a.0.1">上海音达科技实业有限公司</span></div>--%>
-        <%--</div>--%>
     <%--</div>--%>
     <footer>
         <p><img src="../images/tubiao.png" alt="">上海音达科技实业有限公司</p>

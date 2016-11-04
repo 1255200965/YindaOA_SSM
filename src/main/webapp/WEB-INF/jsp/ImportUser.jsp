@@ -64,49 +64,51 @@
             text-decoration: none;
         }
     </style>
-    <script>
-        function showFile(id){
-            var filepath = $("#filename"+id).val();
-            $("#upfilename"+id).html(filepath);
+
+<script>
+    function showFile(id){
+        var filepath = $("#filename"+id).val();
+        $("#upfilename"+id).html(filepath);
+    }
+    function check_upload(theform,id)
+    {
+        var filename = document.getElementById("filename"+id).value;
+        if(filename == "" ||filename == null || filename.indexOf(".xls")==-1){
+            //alert('只能上传.xlsx文件');
+            $("#upfilename"+id).html("只能上传.xls文件");
+            return false;
         }
-        function check_upload(theform,id)
-        {
-            var filename = document.getElementById("filename"+id).value;
-            if(filename == "" ||filename == null || filename.indexOf(".xls")==-1){
-                //alert('只能上传.xlsx文件');
-                $("#upfilename"+id).html("只能上传.xls文件");
-                return false;
-            }
-        }
-        function downloadTemplate(){
-            window.open('../template/templateUserInfo.xls');
-        }
-        function checkInit(id){
-            $('#mytab a[href="#tab' + id +'"]').tab('show');
-            var msgTip = "${error}";
-            if (msgTip != "") {
-                $("#upfilename" + id).html(msgTip);
+    }
+    function downloadTemplate(){
+        //window.open('../template/templateUserInfo.xls');
+        window.location.href="../template/templateUserInfo.xls";
+    }
+    function checkInit(id){
+        $('#mytab a[href="#tab' + id +'"]').tab('show');
+        var msgTip = "${error}";
+        if (msgTip != "") {
+            $("#upfilename" + id).html(msgTip);
+        } else{
+            var validate_msg = "${validate}";
+            var upfilename = "${filename}";
+            var success_msg = "${successAmount}";
+            if (validate_msg != "") {
+                $("#upfilename"+id).html(upfilename);
+                $("#checkmsg"+id).html(validate_msg);
+                $("#successmsg"+id).html("成功导入数:"+success_msg);
             } else{
-                var validate_msg = "${validate}";
-                var upfilename = "${filename}";
-                var success_msg = "${successAmount}";
-                if (validate_msg != "") {
-                    $("#upfilename"+id).html(upfilename);
-                    $("#checkmsg"+id).html(validate_msg);
-                    $("#successmsg"+id).html("成功导入数:"+success_msg);
-                } else{
-                    var row_msg = "${row}";
-                    var column_msg = "${column}";
-                    var reason_msg = "${reason}";
-                    $("#upfilename"+id).html(upfilename);
-                    $("#checkmsg"+id).html("文件校验失败！");
-                    $("#successmsg"+id).html("行:"+row_msg+" 列:"+column_msg+" 出错！<br/>原因:"+reason_msg);
-                }
+                var row_msg = "${row}";
+                var column_msg = "${column}";
+                var reason_msg = "${reason}";
+                $("#upfilename"+id).html(upfilename);
+                $("#checkmsg"+id).html("文件校验失败！");
+                $("#successmsg"+id).html("行:"+row_msg+" 列:"+column_msg+" 出错！<br/>原因:"+reason_msg);
             }
         }
-        $(document).ready(function () {
-            var type = "${tab}";
-            if (type != "") checkInit(type);
+    }
+    $(document).ready(function () {
+        var type = "${tab}";
+        if (type != "") checkInit(type);
 
             var ViewModel = function (){};
             ko.applyBindings(new ViewModel);
@@ -124,9 +126,9 @@
             </div>
             <div class="head-nav fl" id="h-nav">
                 <ul>
-                    <li><a data-bind="attr: { href: '<%=basePath%>userinfo/import.do'}">人员导入</a></li>
+                    <li><a class="active" data-bind="attr: { href: '<%=basePath%>userinfo/import.do'}">人员导入</a></li>
                     <li><a data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">通讯录</a></li>
-                    <li><a class="active" data-bind="attr: { href: '<%=basePath%>Import/navigator.do'}">审批数据导入</a></li>
+                    <li><a data-bind="attr: { href: '<%=basePath%>Import/navigator.do'}">审批数据导入</a></li>
                     <li><a data-bind="attr: { href: '<%=basePath%>userinfo/test.do'}">工资查询</a></li>
                     <li><a data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">关于我们</a></li>
                 </ul>
@@ -254,7 +256,7 @@
                 <td width="10%">手机号 </td>
                 <td width="10%"> 邮箱 </td>
                 <td width="15%"> 身份证号 </td>
-                <td width="7%"> 状态 </td>
+                <td width="10%"> 出错原因 </td>
             </tr>
             <tbody >
             <c:if test="${!empty listFail }">

@@ -75,6 +75,7 @@ public class DDUtil {
                     userDetail.getRemark(), userDetail.getEmail(), userDetail.getJobnumber(),
                     userDetail.getIsHide(), userDetail.getSenior(), userDetail.getExtattr());
         } catch (Exception e){
+            //return e.getMessage();
             e.printStackTrace();
         }
         return result;
@@ -99,9 +100,10 @@ public class DDUtil {
                     userDetail.getRemark(), userDetail.getEmail(), userDetail.getJobnumber(),
                     userDetail.getIsHide(), userDetail.getSenior(), userDetail.getExtattr());
         } catch (Exception e){
-            e.printStackTrace();
+            return e.getMessage();
+            //e.printStackTrace();
         }
-        return result;
+        return null;
         /*{
             "errcode": 0,
             "errmsg": "updated"
@@ -113,9 +115,10 @@ public class DDUtil {
             CorpUserService corpUserService = ServiceFactory.getInstance().getOpenService(CorpUserService.class);
             result = corpUserService.deleteCorpUser(getAccessToken(), user.getStaffUserId());
         } catch (Exception e){
-            e.printStackTrace();
+            return e.getMessage();
+            //e.printStackTrace();
         }
-        return result.getName();
+        return null;
         /*{
             "errcode": 0,
             "errmsg": "deleted"

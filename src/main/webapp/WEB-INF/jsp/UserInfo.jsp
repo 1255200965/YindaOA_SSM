@@ -151,34 +151,38 @@
                     });
 
                 }
-                //修改部门成员
-                self.UpdateUser = function(){
-                    $.ajax({
-                        data:JSON.stringify(self.changeItem()),
-                        type:"post",
-                        headers: { 'Content-Type': 'application/json' },
-                        dataType: 'json',
-                        url:"../userinfo/updateuser.do",
-                        error:function(data){
-                            alert("出错了！！:"+data.msg);
-                        },
-                        success:function(data){
-                            alert("修改结果:"+data.msg);
+
+
+            //修改部门成员
+            self.UpdateUser = function(){
+                $.ajax({
+                    data:JSON.stringify(self.changeItem()),
+                    type:"post",
+                    headers: { 'Content-Type': 'application/json' },
+                    dataType: 'json',
+                    url:"../userinfo/updateuser.do",
+                    error:function(data){
+                        alert("出错了！！:"+data.msg);
+                    },
+                    success:function(data){
+                        alert("修改结果:"+data.msg);
+                        if (data.ok == "ok") {
                             //静态刷新页面
                             for (var i = 0; i < self.ShowList().length; i++) {
-                                if (self.ShowList()[i].staffUserId == self.changeItem().staffUserId){
-                                    self.ShowList.splice(i,1);
-                                    self.ShowList.splice(i,0,self.changeItem());
+                                if (self.ShowList()[i].staffUserId == self.changeItem().staffUserId) {
+                                    self.ShowList.splice(i, 1);
+                                    self.ShowList.splice(i, 0, self.changeItem());
                                     break;
                                 }
 
                             }
                         }
-                    });
-                    //关闭模态框，更新前端
-                    self.ClickModelNo();
+                    }
+                });
+                //关闭模态框，更新前端
+                self.ClickModelNo();
+            }
 
-                }
                 //删除部门成员
                 self.DeleteUser = function(item){
                     $.ajax({
@@ -316,12 +320,7 @@
             this.email = null;
             return this;
         }
-                //获取部门用户
-                self.GetUserListByDep(id);
-            }
-        }
-        ko.applyBindings(new ViewModel);
-    });
+
 
     function UserModel(depid,name,workid,cellphone) {
         this.staffUserId = null;
@@ -338,24 +337,19 @@
     }
 
 
-        //现实分页查询
-        var toolIip ='<div class ="toolIipBoty"><div class ="toolIipMessage"></div></div>'
-        //    验证控件显示
-        function validateAlert(str,item){
-            removeIoolTips(item);
     //现实分页查询
     var toolIip ='<div class ="toolIipBoty"><div class ="toolIipMessage"></div></div>'
 //    验证控件显示
     function validateAlert(str,item){
         removeIoolTips(item);
 
-            定位
-            var left=$(item).position().left;
-            var top=$(item).offset().top;
-            var height=$(item).height();
-            var $tooltip=$(toolIip);
-            $tooltip.css("left",left).css("top",top);
-            $tooltip.find(".toolIipMessage").text(str);
+        //定位
+        var left=$(item).position().left;
+        var top=$(item).offset().top;
+        var height=$(item).height();
+        var $tooltip=$(toolIip);
+        $tooltip.css("left",left).css("top",top);
+        $tooltip.find(".toolIipMessage").text(str);
 
             //插入
             $(item).after($tooltip);
@@ -397,8 +391,8 @@
                 <div class="head-nav fl" id="h-nav">
                     <ul>
                         <li><a data-bind="attr: { href: '<%=basePath%>userinfo/import.do'}">人员导入</a></li>
-                        <li><a data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">通讯录</a></li>
-                        <li><a class="active" data-bind="attr: { href: '<%=basePath%>Import/navigator.do'}">审批数据导入</a></li>
+                        <li><a class="active" data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">通讯录</a></li>
+                        <li><a  data-bind="attr: { href: '<%=basePath%>Import/navigator.do'}">审批数据导入</a></li>
                         <li><a data-bind="attr: { href: '<%=basePath%>userinfo/test.do'}">工资查询</a></li>
                         <li><a data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">关于我们</a></li>
                     </ul>
@@ -427,7 +421,7 @@
                     <input id="search_phone" type="text" name="cellphone" class="shuruk-a2" placeholder="">
                 </div>
 
-                <div class="caidan-tiku-s" style="margin-right:5%"> <span>工号：</span>
+                <div class="caidan-tiku-s" style="margin-right:5%"> <span>身份证：</span>
                     <input id="search_workid" type="text" name="workid" class="shuruk-a2" placeholder="">
                 </div>
 <%--                <div class="caidan-tiku-s"> <span>是否审核：</span>
@@ -466,7 +460,7 @@
                     <td data-bind="text:cellphone">知识树编号</td>
                     <td data-bind="text:email">所属知识</td>
                     <td data-bind="text:staffId">修改者</td>
-                    <td data-bind="text:staffState">审核状态</td>
+                    <td data-bind="text:workState">审核状态</td>
                     <td>
                         <input data-bind="click:$root.ClickUpdate" type="button" value="更新" class="gx-btn"/>
                         <input  data-bind="click:$root.ClickDelete" type="button" value="删除" class="gx-btn" style="background:#fd9162;"/>
@@ -573,7 +567,7 @@
                             <div class="c_ding_form_group" >
                                 <label><i class="iconfont c_ding_from_icon" ></i><span >用户状态:</span></label>
                                 <div class="input_content" >
-                                    <input class="c_ding_input" data-bind="textinput:staffState"/>
+                                    <input class="c_ding_input" readonly data-bind="textinput:workState"/>
                                 </div>
                             </div>
                         </div>

@@ -233,6 +233,7 @@ public class StaffInfoServiceImpl implements IStaffInfoService {
     public Map<String, Object> insertAndUpdate(String fileDir) throws IOException {
         Map<String, Object> map = new HashMap<String, Object>();
         List<StaffInfo> listFail = new ArrayList<StaffInfo>();
+        DDUtil ddUtil = new DDUtil(this);
         int successAmount = 0;
 
         File file = new File(fileDir);
@@ -293,13 +294,26 @@ public class StaffInfoServiceImpl implements IStaffInfoService {
             if (hssfRow.getCell(40) != null) staffInfo.setLeaveDate(hssfRow.getCell(40).toString());
 
             // 判断员工UserId，为空则先插入钉钉，获得userID
-            if (hssfRow.getCell(0) == null) {
-                //listFail.add(staffInfo);
-                //continue;
 
+            if (hssfRow.getCell(0) == null || hssfRow.getCell(0).toString().equals("")) {
+                try {
+                    String userid = ddUtil.createUser(staffInfo);
+                    staffInfo.setStaffUserId(userid);
+                    if (userid == null) {
+                        staffInfo.setStaffState("钉钉添加失败");
+                        //钉钉导入失败
+                        listFail.add(staffInfo);
+
+                        continue;
+                    }
+                } catch(Exception e) {
+                    staffInfo.setStaffState(e.toString());
+                    listFail.add(staffInfo);
+                    continue;
+                }
             }
 
-            // 如果身份证号相同，那么更新条目
+            // 如果身份证号相同，那么更新条目,同时更新钉钉
             String idNo = hssfRow.getCell(19).toString();
             StaffInfoExample staffInfoExample = new StaffInfoExample();
             staffInfoExample.createCriteria().andIdNoEqualTo(idNo);
@@ -314,21 +328,26 @@ public class StaffInfoServiceImpl implements IStaffInfoService {
                     // 更新成功，数目自加
                     successAmount++;
                     //更新钉钉
+                    //String result = ddUtil.updateUser(staffInfo);
 
                     continue;
                 } catch (Exception e) {
+                    staffInfo.setStaffState("数据库更新失败");
                     listFail.add(staffInfo);
                 }
-            }
-
-            try {
-                // 尝试性地向数据库插入从excel行得到的实体类
-                staffInfoMapper.insert(staffInfo);
-                // 添加成功，数目自加
-                successAmount++;
-            } catch (Exception e) {
-                listFail.add(staffInfo);
-                continue;
+            } else {
+                try {
+                    // 尝试性地向数据库插入从excel行得到的实体类
+                    staffInfoMapper.insert(staffInfo);
+                    // 添加成功，数目自加
+                    successAmount++;
+                } catch (Exception e) {
+                    //失败，从钉钉侧删除userid
+                    String result = ddUtil.deleteUser(staffInfo);
+                    staffInfo.setStaffState("数据库插入失败");
+                    listFail.add(staffInfo);
+                    continue;
+                }
             }
         }
         // 循环结束后，把成功数目和失败列表返回到map
