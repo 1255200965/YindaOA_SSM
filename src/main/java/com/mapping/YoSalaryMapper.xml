@@ -3,6 +3,7 @@
 <mapper namespace="com.dao.YoSalaryMapper" >
   <resultMap id="BaseResultMap" type="com.model.YoSalary" >
     <id column="sid" property="sid" jdbcType="INTEGER" />
+    <result column="salarydate" property="salarydate" jdbcType="VARCHAR" />
     <result column="userid" property="userid" jdbcType="VARCHAR" />
     <result column="salaryid" property="salaryid" jdbcType="VARCHAR" />
     <result column="date" property="date" jdbcType="DATE" />
@@ -81,7 +82,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    sid, userid, salaryid, date, datetype, attendance, attendance_salary, leavetype, 
+    sid,salarydate, userid, salaryid, date, datetype, attendance, attendance_salary, leavetype,
     leavesalary, workovertime, worksalary, evection, allowance, timesalary, task, tasksalary, 
     busalary, trafficsalary, additionalsalary
   </sql>
@@ -104,20 +105,18 @@
 
   <!--模糊查询与关联查询-->
   <select id="selectAllUser" resultMap="BaseResultMap" parameterType="com.model.YoSalary">
-    SELECT sid, userid,name, salaryid, DATE, datetype, attendance, attendance_salary, leavetype,
+    SELECT sid,salarydate, userid,name, salaryid, DATE, datetype, attendance, attendance_salary, leavetype,
     leavesalary, workovertime, worksalary, evection, allowance, timesalary, task, tasksalary,
     busalary, trafficsalary, additionalsalary FROM yo_salary LEFT JOIN staff_info ON userid=staff_user_id
     <where>
       <if test="name!=null">
         name like CONCAT('%','${name}','%' )
       </if>
-      <if test="date!=null">
-        and DATE = #{date,jdbcType=DATE}
+      <if test="salarydate!=null">
+        and salarydate like CONCAT('%','${salarydate}','%' )
       </if>
     </where>
   </select>
-
-
 
 
 
@@ -139,14 +138,14 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.model.YoSalary" >
-    insert into yo_salary (sid, userid, salaryid, 
+    insert into yo_salary (sid,salarydate, userid, salaryid,
       date, datetype, attendance, 
       attendance_salary, leavetype, leavesalary, 
       workovertime, worksalary, evection, 
       allowance, timesalary, task, 
       tasksalary, busalary, trafficsalary, 
       additionalsalary)
-    values (#{sid,jdbcType=INTEGER}, #{userid,jdbcType=VARCHAR}, #{salaryid,jdbcType=VARCHAR}, 
+    values (#{sid,jdbcType=INTEGER},#{salarydate,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{salaryid,jdbcType=VARCHAR},
       #{date,jdbcType=DATE}, #{datetype,jdbcType=VARCHAR}, #{attendance,jdbcType=VARCHAR}, 
       #{attendanceSalary,jdbcType=DOUBLE}, #{leavetype,jdbcType=VARCHAR}, #{leavesalary,jdbcType=DOUBLE}, 
       #{workovertime,jdbcType=VARCHAR}, #{worksalary,jdbcType=DOUBLE}, #{evection,jdbcType=VARCHAR}, 
@@ -159,6 +158,9 @@
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="sid != null" >
         sid,
+      </if>
+      <if test="salarydate != null" >
+        salarydate,
       </if>
       <if test="userid != null" >
         userid,
@@ -218,6 +220,9 @@
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="sid != null" >
         #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="salarydate != null" >
+        #{salarydate,jdbcType=VARCHAR},
       </if>
       <if test="userid != null" >
         #{userid,jdbcType=VARCHAR},
@@ -287,6 +292,9 @@
       <if test="record.sid != null" >
         sid = #{record.sid,jdbcType=INTEGER},
       </if>
+      <if test="record.salarydate != null" >
+        sid = #{record.salarydate,jdbcType=VARCHAR},
+      </if>
       <if test="record.userid != null" >
         userid = #{record.userid,jdbcType=VARCHAR},
       </if>
@@ -349,6 +357,7 @@
   <update id="updateByExample" parameterType="map" >
     update yo_salary
     set sid = #{record.sid,jdbcType=INTEGER},
+        salarydate = #{record.salarydate,jdbcType=VARCHAR},
       userid = #{record.userid,jdbcType=VARCHAR},
       salaryid = #{record.salaryid,jdbcType=VARCHAR},
       date = #{record.date,jdbcType=DATE},
@@ -374,6 +383,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.model.YoSalary" >
     update yo_salary
     <set >
+      <if test="salarydate != null" >
+        salarydate = #{salarydate,jdbcType=VARCHAR},
+      </if>
       <if test="userid != null" >
         userid = #{userid,jdbcType=VARCHAR},
       </if>
@@ -433,7 +445,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.model.YoSalary" >
     update yo_salary
-    set userid = #{userid,jdbcType=VARCHAR},
+    set salarydate = #{salarydate,jdbcType=VARCHAR},
+    userid = #{userid,jdbcType=VARCHAR},
       salaryid = #{salaryid,jdbcType=VARCHAR},
       date = #{date,jdbcType=DATE},
       datetype = #{datetype,jdbcType=VARCHAR},
