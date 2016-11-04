@@ -1,11 +1,11 @@
 package com.model;
 
-public class Attendance {
-    private Integer aid;
+public class YoAttendance {
+    private String id;
 
-    private String name;
+    private String userid;
 
-    private String department;
+    private String corpid;
 
     private String groupid;
 
@@ -17,46 +17,36 @@ public class Attendance {
 
     private String checktype;
 
-    private String sourcetype;
-
     private String timeresult;
 
     private String locationresult;
-
-    private String approveresult;
-
-    private String approveid;
 
     private String basechecktime;
 
     private String userchecktime;
 
-    private String errcode;
-
-    private String errmsg;
-
-    public Integer getAid() {
-        return aid;
+    public String getId() {
+        return id;
     }
 
-    public void setAid(Integer aid) {
-        this.aid = aid;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUserid() {
+        return userid;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserid(String userid) {
+        this.userid = userid;
     }
 
-    public String getDepartment() {
-        return department;
+    public String getCorpid() {
+        return corpid;
     }
 
-    public void setDepartment(String department) {
-        this.department = department;
+    public void setCorpid(String corpid) {
+        this.corpid = corpid;
     }
 
     public String getGroupid() {
@@ -99,14 +89,6 @@ public class Attendance {
         this.checktype = checktype;
     }
 
-    public String getSourcetype() {
-        return sourcetype;
-    }
-
-    public void setSourcetype(String sourcetype) {
-        this.sourcetype = sourcetype;
-    }
-
     public String getTimeresult() {
         return timeresult;
     }
@@ -123,22 +105,6 @@ public class Attendance {
         this.locationresult = locationresult;
     }
 
-    public String getApproveresult() {
-        return approveresult;
-    }
-
-    public void setApproveresult(String approveresult) {
-        this.approveresult = approveresult;
-    }
-
-    public String getApproveid() {
-        return approveid;
-    }
-
-    public void setApproveid(String approveid) {
-        this.approveid = approveid;
-    }
-
     public String getBasechecktime() {
         return basechecktime;
     }
@@ -153,21 +119,5 @@ public class Attendance {
 
     public void setUserchecktime(String userchecktime) {
         this.userchecktime = userchecktime;
-    }
-
-    public String getErrcode() {
-        return errcode;
-    }
-
-    public void setErrcode(String errcode) {
-        this.errcode = errcode;
-    }
-
-    public String getErrmsg() {
-        return errmsg;
-    }
-
-    public void setErrmsg(String errmsg) {
-        this.errmsg = errmsg;
     }
 }

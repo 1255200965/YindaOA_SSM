@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.YoAttendanceMapper" >
+  <resultMap id="BaseResultMap" type="com.model.YoAttendance" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="corpId" property="corpid" jdbcType="VARCHAR" />
+    <result column="groupId" property="groupid" jdbcType="VARCHAR" />
+    <result column="planId" property="planid" jdbcType="VARCHAR" />
+    <result column="recordId" property="recordid" jdbcType="VARCHAR" />
+    <result column="workDate" property="workdate" jdbcType="VARCHAR" />
+    <result column="checkType" property="checktype" jdbcType="VARCHAR" />
+    <result column="timeResult" property="timeresult" jdbcType="VARCHAR" />
+    <result column="locationResult" property="locationresult" jdbcType="VARCHAR" />
+    <result column="baseCheckTime" property="basechecktime" jdbcType="VARCHAR" />
+    <result column="userCheckTime" property="userchecktime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, userid, corpId, groupId, planId, recordId, workDate, checkType, timeResult, locationResult, 
+    baseCheckTime, userCheckTime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.model.YoAttendanceExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from yo_attendance
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from yo_attendance
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from yo_attendance
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.model.YoAttendance" >
+    insert into yo_attendance (id, userid, corpId, 
+      groupId, planId, recordId, 
+      workDate, checkType, timeResult, 
+      locationResult, baseCheckTime, userCheckTime
+      )
+    values (#{id,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{corpid,jdbcType=VARCHAR}, 
+      #{groupid,jdbcType=VARCHAR}, #{planid,jdbcType=VARCHAR}, #{recordid,jdbcType=VARCHAR}, 
+      #{workdate,jdbcType=VARCHAR}, #{checktype,jdbcType=VARCHAR}, #{timeresult,jdbcType=VARCHAR}, 
+      #{locationresult,jdbcType=VARCHAR}, #{basechecktime,jdbcType=VARCHAR}, #{userchecktime,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.YoAttendance" >
+    insert into yo_attendance
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="corpid != null" >
+        corpId,
+      </if>
+      <if test="groupid != null" >
+        groupId,
+      </if>
+      <if test="planid != null" >
+        planId,
+      </if>
+      <if test="recordid != null" >
+        recordId,
+      </if>
+      <if test="workdate != null" >
+        workDate,
+      </if>
+      <if test="checktype != null" >
+        checkType,
+      </if>
+      <if test="timeresult != null" >
+        timeResult,
+      </if>
+      <if test="locationresult != null" >
+        locationResult,
+      </if>
+      <if test="basechecktime != null" >
+        baseCheckTime,
+      </if>
+      <if test="userchecktime != null" >
+        userCheckTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="corpid != null" >
+        #{corpid,jdbcType=VARCHAR},
+      </if>
+      <if test="groupid != null" >
+        #{groupid,jdbcType=VARCHAR},
+      </if>
+      <if test="planid != null" >
+        #{planid,jdbcType=VARCHAR},
+      </if>
+      <if test="recordid != null" >
+        #{recordid,jdbcType=VARCHAR},
+      </if>
+      <if test="workdate != null" >
+        #{workdate,jdbcType=VARCHAR},
+      </if>
+      <if test="checktype != null" >
+        #{checktype,jdbcType=VARCHAR},
+      </if>
+      <if test="timeresult != null" >
+        #{timeresult,jdbcType=VARCHAR},
+      </if>
+      <if test="locationresult != null" >
+        #{locationresult,jdbcType=VARCHAR},
+      </if>
+      <if test="basechecktime != null" >
+        #{basechecktime,jdbcType=VARCHAR},
+      </if>
+      <if test="userchecktime != null" >
+        #{userchecktime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.YoAttendance" >
+    update yo_attendance
+    <set >
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="corpid != null" >
+        corpId = #{corpid,jdbcType=VARCHAR},
+      </if>
+      <if test="groupid != null" >
+        groupId = #{groupid,jdbcType=VARCHAR},
+      </if>
+      <if test="planid != null" >
+        planId = #{planid,jdbcType=VARCHAR},
+      </if>
+      <if test="recordid != null" >
+        recordId = #{recordid,jdbcType=VARCHAR},
+      </if>
+      <if test="workdate != null" >
+        workDate = #{workdate,jdbcType=VARCHAR},
+      </if>
+      <if test="checktype != null" >
+        checkType = #{checktype,jdbcType=VARCHAR},
+      </if>
+      <if test="timeresult != null" >
+        timeResult = #{timeresult,jdbcType=VARCHAR},
+      </if>
+      <if test="locationresult != null" >
+        locationResult = #{locationresult,jdbcType=VARCHAR},
+      </if>
+      <if test="basechecktime != null" >
+        baseCheckTime = #{basechecktime,jdbcType=VARCHAR},
+      </if>
+      <if test="userchecktime != null" >
+        userCheckTime = #{userchecktime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.YoAttendance" >
+    update yo_attendance
+    set userid = #{userid,jdbcType=VARCHAR},
+      corpId = #{corpid,jdbcType=VARCHAR},
+      groupId = #{groupid,jdbcType=VARCHAR},
+      planId = #{planid,jdbcType=VARCHAR},
+      recordId = #{recordid,jdbcType=VARCHAR},
+      workDate = #{workdate,jdbcType=VARCHAR},
+      checkType = #{checktype,jdbcType=VARCHAR},
+      timeResult = #{timeresult,jdbcType=VARCHAR},
+      locationResult = #{locationresult,jdbcType=VARCHAR},
+      baseCheckTime = #{basechecktime,jdbcType=VARCHAR},
+      userCheckTime = #{userchecktime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
