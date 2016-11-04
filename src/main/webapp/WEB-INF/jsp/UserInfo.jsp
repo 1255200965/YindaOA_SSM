@@ -341,11 +341,13 @@
         <div id="box">
             <div id="menu">
                 <ul>
-                    <li><a data-bind="attr: { href: '<%=basePath%>userinfo/import.do'}">人员导入</a></li>
-                    <li><a class="hover" data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">通讯录</a></li>
-                    <li><a data-bind="attr: { href: '<%=basePath%>Import/navigator.do'}">审批数据导入</a></li>
-                    <li><a data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">工资查询</a></li>
-                    <li><a data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">关于我们</a></li>
+<<<<<<< HEAD
+                    <li><a id="mynav1" data-bind="attr: { href: '<%=basePath%>userinfo/import.do'}">人员导入</a></li>
+                    <li><a id="mynav2" class="hover" data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">通讯录</a></li>
+                    <li><a id="mynav3" data-bind="attr: { href: '<%=basePath%>Import/navigator.do'}">审批数据导入</a></li>
+                    <li><a id="mynav4" data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">工资查询</a></li>
+                    <li><a id="mynav5" data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">关于我们</a></li>
+
                 </ul>
             </div>
         </div>
@@ -390,14 +392,14 @@
 
             <table  width="95%" border="1" cellspacing="0" cellpadding="0" class="table-1">
                 <tr class="table-1-tou">
-                    <td width="10%">编号 </td>
+                    <td width="5%">编号 </td>
                     <td width="5%">姓名</td>
                     <td width="15%">身份证号</td>
                     <td width="7%"> 部门 </td>
                     <td width="7%">手机号 </td>
                     <td width="15%"> 邮箱 </td>
                     <td width="5%"> 工号 </td>
-                    <td width="5%"> 状态 </td>
+                    <td width="4%"> 状态 </td>
                     <td width="7%"> 操作 </td>
                 </tr>
 

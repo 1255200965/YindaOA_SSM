@@ -102,9 +102,12 @@
 <head>
     <title>导入通讯录</title>
 </head>
+
 <body>
 
 <div class="container-fluid">
+
+    <!-- Navi Bar -->
     <div class="row-fluid top-tiku">
         <div class="top-left"> <img src="../images/logo.png" />
             <p>人事管理系统</p>
@@ -123,127 +126,159 @@
         </div>
         <div class="top-right">
             <p>欢迎您！<span >管理员</span></p>
-            <a href=""><img src="../images/guanbi.png" /></a> </div>
+            <a href=""><img src="../images/guanbi.png" /></a>
+        </div>
     </div>
+
+    <script type="text/javascript">
+        $(document).ready(
+            function(){
+                $("#69").append("$.support.ajax = "+$.support.ajax+"<br>");
+                $("#69").append("$.support.boxModel = "+$.support.boxModel+"<br>");
+                $("#69").append("$.support.changeBubbles = "+$.support.changeBubbles+"<br>");
+                $("#69").append("$.support.checkClone = "+$.support.checkClone+"<br>");
+                $("#69").append("$.support.checkOn = "+$.support.checkOn+"<br>");
+                $("#69").append("$.support.cors = "+$.support.cors+"<br>");
+                $("#69").append("$.support.cssFloat = "+$.support.cssFloat+"<br>");
+                $("#69").append("$.support.hrefNormalized = "+$.support.hrefNormalized+"<br>");
+                $("#69").append("$.support.htmlSerialize = "+$.support.htmlSerialize+"<br>");
+                $("#69").append("$.support.leadingWhitespace = "+$.support.leadingWhitespace+"<br>");
+                $("#69").append("$.support.noCloneChecked = "+$.support.noCloneChecked+"<br>");
+                $("#69").append("$.support.noCloneEvent = "+$.support.noCloneEvent+"<br>");
+                $("#69").append("$.support.opacity = "+$.support.opacity+"<br>");
+                $("#69").append("$.support.optDisabled = "+$.support.optDisabled+"<br>");
+                $("#69").append("$.support.optSelected = "+$.support.optSelected+"<br>");
+                $("#69").append("$.support.style = "+$.support.style+"<br>");
+                $("#69").append("$.support.submitBubbles = "+$.support.submitBubbles+"<br>");
+                $("#69").append("$.support.tbody = "+$.support.tbody+"<br>");
+            }
+        );
+        // document.write("Hello World!");
+    </script>
+    <!-- Hello World! -->
+    <h3 id="69"></h3>
+
     <div class="c_box">
-    <div class="row-fluid center-block c_center_box" style="width:70%; background-color: #FFFFFF;">
-    <!-- Nav tabs -->
-    <ul class="nav nav-tabs" role="tablist" id="mytab">
-        <li role="presentation" class="active"><a href="#tab1" role="tab" data-toggle="tab">添加新用户</a></li>
-        <li role="presentation"><a href="#tab2" role="tab" data-toggle="tab">导出/修改用户信息</a></li>
-    </ul>
+        <div class="row-fluid center-block c_center_box" style="width:70%; background-color: #FFFFFF;">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist" id="mytab">
+                <li role="presentation" class="active"><a href="#tab1" role="tab" data-toggle="tab">添加新用户</a></li>
+                <li role="presentation"><a href="#tab2" role="tab" data-toggle="tab">导出/修改用户信息</a></li>
+            </ul>
 
-    <!-- Tab panes -->
-    <div class="tab-content"  style="border:1px solid #dedede; border-radius: 4px;">
-        <div role="tabpanel" class="tab-pane active" id="tab1">
-            <form name="userForm1" action="ImportAskLeave.do" enctype="multipart/form-data" method="post" onsubmit="return check_upload(this,1)">
-                <input style="display: none;" name="tab" value="1"/>
-                <div>
-                    <H2>导入请假表</H2>
-                    <br/>
-                    <p>我们会自动给未使用的成员发送激活短信</p>
-                    <br/>
-                    <p>
-                        第一步：
-                        下载员工通讯录模版，批量填写员工信息</p>
-                    <a href="javascript:;" class="file">下载
-                            <input  type="button" value="下载"  class="" onclick="downloadTemplate()">
-                    </a>
-                    <br/>
-                    <br/>
-                    <p>
-                        第二步：
-                        上传填写好的员工信息表</p>
-                    <a href="javascript:;" class="file">选择文件
-                        <input  type="file" value="选择文件"   id="filename1" name="importExcel"  onchange="showFile(1)">
-                    </a>
+            <!-- Tab panes -->
+            <div class="tab-content"  style="border:1px solid #dedede; border-radius: 4px;">
+                <div role="tabpanel" class="tab-pane active" id="tab1">
+                    <form name="userForm1" action="ImportAskLeave.do" enctype="multipart/form-data" method="post" onsubmit="return check_upload(this,1)">
+                        <input style="display: none;" name="tab" value="1"/>
+                        <div>
+                            <H2>导入请假表</H2>
+                            <br/>
+                            <p>我们会自动给未使用的成员发送激活短信</p>
+                            <br/>
+                            <p>
+                                第一步：
+                                下载员工通讯录模版，批量填写员工信息</p>
+                            <a href="javascript:;" class="file">下载
+                                    <input  type="button" value="下载"  class="" onclick="downloadTemplate()">
+                            </a>
+                            <br/>
+                            <br/>
+                            <p>
+                                第二步：
+                                上传填写好的员工信息表</p>
+                            <a href="javascript:;" class="file">选择文件
+                                <input  type="file" value="选择文件"   id="filename1" name="importExcel"  onchange="showFile(1)">
+                            </a>
+                            <div>
+                                <div id="upfilename1">未上传任何文件</div>
+                                <div id="checkmsg1"></div>
+                                <div id="successmsg1"></div>
+                            </div>
+                            <br/>
+                            <br/>
+                        </div>
+
+                        <div style="text-align: center" >
+                                <input   type="submit" value="上传"  class="c_ding_btn " >
+                        </div>
+                    </form>
+                </div>
+
+                <div role="tabpanel" class="tab-pane" id="tab2">
+                    <form name="userForm2" action="../Import/importAskLeave.do" enctype="multipart/form-data" method="post" onsubmit="return check_upload(this,2)">
+                        <input style="display: none;" name="tab" value="2"/>
                     <div>
-                        <div id="upfilename1">未上传任何文件</div>
-                        <div id="checkmsg1"></div>
-                        <div id="successmsg1"></div>
+                        <H2>导出用户</H2>
+                        <br/>
+                        <p>我们会自动给未使用的成员发送激活短信</p>
+                        <br/>
+                        <p>
+                            第一步：
+                            导出员工信息</p>
+                        <a href="javascript:;" class="file">下载
+                            <input  type="button" value="下载"  class="" onclick="downloadTemplate()">
+                        </a>
+                        <br/>
+                        <br/>
+                        <p>
+                            第二步：
+                            上传修改好的员工信息表</p>
+                        <a href="javascript:;" class="file">选择文件
+                            <input  type="file" value="选择文件"    id="filename2" name="importExcel" onchange="showFile(2)">
+                        </a>
+                        <div>
+                            <div id="upfilename2">未上传任何文件</div>
+                            <div id="checkmsg2"></div>
+                            <div id="successmsg2"></div>
+                        </div>
+                        <br/>
+                        <br/>
+
                     </div>
-                    <br/>
-                    <br/>
-                </div>
 
-                <div style="text-align: center" >
-                        <input   type="submit" value="上传"  class="c_ding_btn " >
+                    <div style="text-align: center" >
+                            <input   type="submit" value="上传"  class="c_ding_btn " >
+                    </div>
+                    </form>
                 </div>
-            </form>
+            </div>
         </div>
 
-        <div role="tabpanel" class="tab-pane" id="tab2">
-            <form name="userForm2" action="../Import/importAskLeave.do" enctype="multipart/form-data" method="post" onsubmit="return check_upload(this,2)">
-                <input style="display: none;" name="tab" value="2"/>
-            <div>
-                <H2>导出用户</H2>
-                <br/>
-                <p>我们会自动给未使用的成员发送激活短信</p>
-                <br/>
-                <p>
-                    第一步：
-                    导出员工信息</p>
-                <a href="javascript:;" class="file">下载
-                    <input  type="button" value="下载"  class="" onclick="downloadTemplate()">
-                </a>
-                <br/>
-                <br/>
-                <p>
-                    第二步：
-                    上传修改好的员工信息表</p>
-                <a href="javascript:;" class="file">选择文件
-                    <input  type="file" value="选择文件"    id="filename2" name="importExcel" onchange="showFile(2)">
-                </a>
-                <div>
-                    <div id="upfilename2">未上传任何文件</div>
-                    <div id="checkmsg2"></div>
-                    <div id="successmsg2"></div>
-                </div>
-                <br/>
-                <br/>
+        <div class="row-fluid center-block c_center_box" style="width:70%; ">
+            <H2>出错列表</H2>
+            <table style="margin-top:15px;"  border="1" cellspacing="0" cellpadding="0" class="table-1">
+                <tr class="table-1-tou">
+                    <td width="10%">编号 </td>
+                    <td width="5%">姓名</td>
+                    <td width="5%">工号</td>
+                    <td width="7%"> 部门 </td>
+                    <td width="10%">手机号 </td>
+                    <td width="10%"> 邮箱 </td>
+                    <td width="15%"> 身份证号 </td>
+                    <td width="7%"> 状态 </td>
+                </tr>
+                <tbody >
+                <c:if test="${!empty listFail }">
+                    <c:forEach items="${listFail}" var="list">
+                        <tr>
+                            <td>${list.staffUserId }</td>
+                            <td>${list.name }</td>
+                            <td>${list.staffId }</td>
+                            <td>${list.department }</td>
+                            <td>${list.cellphone }</td>
+                            <td>${list.email }</td>
+                            <td>${list.idNo }</td>
+                            <td>${list.staffState }</td>
+                        </tr>
+                    </c:forEach>
+                </c:if>
 
-            </div>
-
-            <div style="text-align: center" >
-                    <input   type="submit" value="上传"  class="c_ding_btn " >
-            </div>
-            </form>
+                </tbody>
+            </table>
         </div>
     </div>
-    </div>
-    <!-- <div class="row-fluid center-block c_center_box" style="width:70%; ">
-        <H2>出错列表</H2>
-        <table style="margin-top:15px;"  border="1" cellspacing="0" cellpadding="0" class="table-1">
-            <tr class="table-1-tou">
-                <td width="10%">编号 </td>
-                <td width="5%">姓名</td>
-                <td width="5%">工号</td>
-                <td width="7%"> 部门 </td>
-                <td width="10%">手机号 </td>
-                <td width="10%"> 邮箱 </td>
-                <td width="15%"> 身份证号 </td>
-                <td width="7%"> 状态 </td>
-            </tr>
-            <tbody >
-            <c:if test="${!empty listFail }">
-                <c:forEach items="${listFail}" var="list">
-                    <tr>
-                        <td>${list.staffUserId }</td>
-                        <td>${list.name }</td>
-                        <td>${list.staffId }</td>
-                        <td>${list.department }</td>
-                        <td>${list.cellphone }</td>
-                        <td>${list.email }</td>
-                        <td>${list.idNo }</td>
-                        <td>${list.staffState }</td>
-                    </tr>
-                </c:forEach>
-            </c:if>
 
-            </tbody>
-        </table>
-    </div> -->
-    </div>
     <div class="row-fluid">
         <div class="footer" data-reactid=".0.a">
             <div style="margin-bottom:5px;" data-reactid=".0.a.0">
@@ -253,5 +288,18 @@
         </div>
     </div>
 </div>
+
 </body>
 </html>
+
+
+
+编号
+姓名
+身份证号
+部门 
+手机号 
+邮箱 
+工号 
+在职状态 
+操作 

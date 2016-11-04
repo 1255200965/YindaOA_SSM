@@ -120,9 +120,7 @@ public class ImportServiceImpl implements IImportService {
                 // 到了这里都没有出问题，说明成功！
                 successAmount++;
             }
-
         }
-
 
         // 循环结束后，把成功数目和失败列表返回到map
         map.put("successAmount", successAmount);
