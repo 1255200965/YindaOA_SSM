@@ -104,13 +104,15 @@
 
   <!--模糊查询与关联查询-->
   <select id="selectAllUser" resultMap="BaseResultMap" parameterType="com.model.YoSalary">
-    SELECT sid, userid, salaryid, DATE, datetype, attendance, attendance_salary, leavetype,
+    SELECT sid, userid,name, salaryid, DATE, datetype, attendance, attendance_salary, leavetype,
     leavesalary, workovertime, worksalary, evection, allowance, timesalary, task, tasksalary,
-    busalary, trafficsalary, additionalsalary,NAME
-    FROM yo_salary yo_salary LEFT JOIN staff_info ON userid=staff_user_id
+    busalary, trafficsalary, additionalsalary FROM yo_salary LEFT JOIN staff_info ON userid=staff_user_id
     <where>
       <if test="name!=null">
         name like CONCAT('%','${name}','%' )
+      </if>
+      <if test="date!=null">
+        and DATE = #{date,jdbcType=DATE}
       </if>
     </where>
   </select>

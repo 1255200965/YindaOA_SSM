@@ -1,11 +1,14 @@
 package com.model;
 
-import java.util.Date;
+
+import java.sql.Date;
 
 public class YoSalary {
     private Integer sid;
 
     private String userid;
+
+    private String name;
 
     private String salaryid;
 
@@ -55,6 +58,15 @@ public class YoSalary {
 
     public void setUserid(String userid) {
         this.userid = userid;
+    }
+
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getSalaryid() {
