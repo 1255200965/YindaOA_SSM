@@ -292,6 +292,7 @@
         }
         ko.applyBindings(new ViewModel);
     });
+
     function UserModel(depid,name,workid,cellphone) {
         this.staffUserId = null;
         this.name = name;
@@ -301,11 +302,10 @@
         this.idNo = workid;
         this.cellphone = cellphone;
         this.staffId = null;
-        this.staffState = null;
+        this.workState = null;
         this.email = null;
         return this;
     }
-
 
     //现实分页查询
     var toolIip ='<div class ="toolIipBoty"><div class ="toolIipMessage"></div></div>'
@@ -390,17 +390,16 @@
 
             <table  width="95%" border="1" cellspacing="0" cellpadding="0" class="table-1">
                 <tr class="table-1-tou">
-                    <td width="5%">编号</td>
-                    <td width="5%">姓名</td>
-                    <td width="15%">身份证号</td>
-                    <td width="7%">部门</td>
-                    <td width="7%">手机号</td>
-                    <td width="15%">邮箱</td>
-                    <td width="5%">工号</td>
-                    <td width="4%">状态</td>
-                    <td width="7%">操作</td>
+                    <td class="text_center" width="6%">编号</td>
+                    <td class="text_center" width="6%">姓名</td>
+                    <td class="text_center" width="15%">身份证号</td>
+                    <td class="text_center" width="6%">部门</td>
+                    <td class="text_center" width="12%">手机号</td>
+                    <td class="text_center" width="18%">邮箱</td>
+                    <td class="text_center" width="6%">工号</td>
+                    <td class="text_center" width="8%">在职状态</td>
+                    <td class="text_center" width="16%">操作</td>
                 </tr>
-
 
                 <tbody data-bind="foreach:ShowList">
                 <tr >
