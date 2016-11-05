@@ -8,7 +8,6 @@ import com.ddSdk.utils.FileUtils;
 import com.dingtalk.open.client.ServiceFactory;
 import com.dingtalk.open.client.api.model.corp.CorpUserDetail;
 import com.dingtalk.open.client.api.model.corp.CorpUserDetailList;
-import com.dingtalk.open.client.api.model.corp.CorpUserList;
 import com.dingtalk.open.client.api.service.corp.CorpUserService;
 import com.model.Department;
 import com.model.DepartmentExample;
