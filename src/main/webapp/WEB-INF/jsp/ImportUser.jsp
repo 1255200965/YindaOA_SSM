@@ -15,6 +15,7 @@
 <head>
 
     <title>导入通讯录</title>
+    <link rel="shortcut icon" type="image/ico" href="../images/yd.ico" />
     <link rel="stylesheet" href="../stylesheets/reset.css">
     <link rel="stylesheet" href="../stylesheets/buttons.css">
     <link href="../stylesheets/bootstrap.min.css" rel="stylesheet" />
@@ -23,13 +24,14 @@
     <link href="../stylesheets/shujutongji.css" rel="stylesheet" />
     <link href="../stylesheets/ddcss.css" rel="stylesheet" />
     <link rel="stylesheet" href="../stylesheets/header.css">
-
+    <link rel="stylesheet" href="../stylesheets/footer.css">
     <script type="text/javascript" src="../javascripts/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="../javascripts/bootstrap.min.js"></script>
     <script type="text/javascript" src="../javascripts/bootstrap-treeview.min.js"></script>
     <script src="../javascripts//knockout-3.4.0rc.js"></script>
     <style>
         .clear-margin{margin:0;padding:0;}
+        .table-1 td{border:1px solid #E9EAF0;}
         *{box-sizing: content-box;-webkit-box-sizing: content-box;}
         .c_box{width:1350px;margin-top:20px;border:none;}
         .c_box .col-md-2{width:189px;}
@@ -278,15 +280,18 @@
         </table>
     </div>
     </div>
-    <div class="row-fluid">
-        <div class="footer" data-reactid=".0.a">
-            <div style="margin-bottom:5px;" data-reactid=".0.a.0">
-            <span data-reactid=".0.a.0.0">
-                <img width="11px" src="https://gw.alicdn.com/tps/TB14UngLXXXXXXQapXXXXXXXXXX-22-26.png" data-reactid=".0.a.0.0.0"></span>
-                <span data-reactid=".0.a.0.1">上海音达科技实业有限公司</span></div>
+    <%--<div class="row-fluid">--%>
+        <%--<div class="footer" data-reactid=".0.a">--%>
+            <%--<div style="margin-bottom:5px;" data-reactid=".0.a.0">--%>
+            <%--<span data-reactid=".0.a.0.0">--%>
+                <%--<img width="11px" src="https://gw.alicdn.com/tps/TB14UngLXXXXXXQapXXXXXXXXXX-22-26.png" data-reactid=".0.a.0.0.0"></span>--%>
+                <%--<span data-reactid=".0.a.0.1">上海音达科技实业有限公司</span></div>--%>
 
-        </div>
-        </div>
+        <%--</div>--%>
+        <%--</div>--%>
+    <footer>
+        <p><img src="../images/tubiao.png" alt="">上海音达科技实业有限公司</p>
+    </footer>
 </div>
 </body>
 </html>

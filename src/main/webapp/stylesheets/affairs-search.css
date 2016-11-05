@@ -10,4 +10,5 @@
 .contain .content .ser-resault table td{text-align:left;padding:10px 5px;border:1px solid #E9EAF0;font-size:14px;}
 
 footer{background:#e7e8eb;padding:50px 0;}
-footer p{text-align: center;color:#888;font-size:12px;}
+footer img{width:14px;display:inline-block;vertical-align: middle;}
+footer p{text-align: center;color:#888;font-size:14px;}

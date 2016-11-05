@@ -14,6 +14,7 @@
 <html>
 <head>
     <title>通讯录查看</title>
+    <link rel="shortcut icon" type="image/ico" href="../images/yd.ico" />
     <%--<link type="text/css" rel="stylesheet" href="../stylesheets/style.css" />--%>
     <link rel="stylesheet" href="../stylesheets/reset.css">
 
@@ -23,13 +24,14 @@
     <link href="../stylesheets/shujutongji.css" rel="stylesheet" />
     <link href="../stylesheets/ddcss.css" rel="stylesheet" />
     <link rel="stylesheet" href="../stylesheets/header.css">
-
+    <link rel="stylesheet" href="../stylesheets/footer.css">
     <script type="text/javascript" src="../javascripts/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="../javascripts/bootstrap.min.js"></script>
     <script type="text/javascript" src="../javascripts/bootstrap-treeview.min.js"></script>
     <script src="../javascripts//knockout-3.4.0rc.js"></script>
     <style>
         *{box-sizing: content-box;-webkit-box-sizing: content-box;}
+        .table-1 td{border:1px solid #E9EAF0;}
         .c_box{min-width:1350px;width:100%;}
         .c_box .col-md-2{min-width:189px;width:12.4%;}
         .c_box .c_left_box{height:850px;}
@@ -382,8 +384,8 @@
         <div class="head-nav fl" id="h-nav">
             <ul>
                 <li><a data-bind="attr: { href: '<%=basePath%>userinfo/import.do'}">人员导入</a></li>
-                <li><a data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">通讯录</a></li>
-                <li><a class="active" data-bind="attr: { href: '<%=basePath%>Import/navigator.do'}">审批数据导入</a></li>
+                <li><a class="active" data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">通讯录</a></li>
+                <li><a  data-bind="attr: { href: '<%=basePath%>Import/navigator.do'}">审批数据导入</a></li>
                 <li><a data-bind="attr: { href: '<%=basePath%>userinfo/test.do'}">工资查询</a></li>
                 <li><a data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">关于我们</a></li>
             </ul>
@@ -470,15 +472,9 @@
         <%--</div>--%>
     </div>
 </div>
-<div class="row-fluid">
-    <div class="footer" data-reactid=".0.a">
-        <div style="margin-bottom:5px;" data-reactid=".0.a.0">
-            <span data-reactid=".0.a.0.0">
-                <img width="11px" src="https://gw.alicdn.com/tps/TB14UngLXXXXXXQapXXXXXXXXXX-22-26.png" data-reactid=".0.a.0.0.0"></span>
-            <span data-reactid=".0.a.0.1">上海音达科技实业有限公司</span></div>
-
-    </div>
-</div>
+<footer>
+    <p><img src="../images/tubiao.png" alt="">上海音达科技实业有限公司</p>
+</footer>
 <%--</div>--%>
 <!-- Button trigger modal -->
 <button type="button" id="model1" style="display: none" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
