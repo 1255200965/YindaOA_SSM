@@ -37,7 +37,7 @@
         .content a:nth-child(4){background:#7575B8;}
         .content a:nth-child(5){background:#F5684A;}
         .content a:nth-child(6){background:#7CD33A;}
-        .content .mod{margin:0 auto;width:750px;}
+        .content .mod{margin:0 auto;width:750px;overflow:hidden;}
         /*        .content ul{overflow: hidden;margin-left:80px;margin-bottom:30px;}
                 .content ul li{float:left;width:190px;height: 150px;background: purple;margin:30px;text-align: center;border-radius:20px;color:#fff;line-height: 150px;}
                 .content ul li:hover{cursor: pointer;}
@@ -72,7 +72,7 @@
                     <li><a data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">关于我们</a></li>
                 </ul>
             </div>
-            <div class="head-right fl">
+            <div class="head-right fr">
                 欢迎您！管理员&nbsp;&nbsp;&nbsp;
                 <a href=""><img src="../images/guanbi.png" height="22" width="22" alt=""></a>
             </div>

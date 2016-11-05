@@ -30,9 +30,10 @@
     <script src="../javascripts//knockout-3.4.0rc.js"></script>
     <style>
         *{box-sizing: content-box;-webkit-box-sizing: content-box;}
-        .c_box{width:1350px;}
-        .c_box .col-md-2{width:189px;}
-        .c_box .c_right_box {width:1056.7px;}
+        .c_box{min-width:1350px;width:100%;}
+        .c_box .col-md-2{min-width:189px;width:12.4%;}
+        .c_box .c_left_box{height:850px;}
+        .c_box .c_right_box {min-width:1056.7px;width:79%;}
     </style>
 
     <script type="text/javascript">
@@ -86,17 +87,17 @@
 
                 //===============================
                 //获取部门成员
-                self.GetUserListByDep = function(depddid){
+                self.GetUserListByDep = function (depddid) {
                     $.ajax({
-                        data:JSON.stringify(new UserModel(depddid,null,null,null)),
-                        type:"post",
-                        headers: { 'Content-Type': 'application/json' },
+                        data: JSON.stringify(new UserModel(depddid, null, null, null)),
+                        type: "post",
+                        headers: {'Content-Type': 'application/json'},
                         dataType: 'json',
-                        url:"../userinfo/login.do",
-                        error:function(data){
-                            alert("出错了！！:"+data.msg);
+                        url: "../userinfo/login.do",
+                        error: function (data) {
+                            alert("出错了！！:" + data.msg);
                         },
-                        success:function(data){
+                        success: function (data) {
                             result = eval(data.usertest);
                             self.ShowList.removeAll();
                             //清空viewmodel
@@ -109,18 +110,22 @@
 
                 }
                 //查询成员列表（部门，姓名，电话，工号）
-                self.GetUserByQuery = function(){
-                    if (nowDep != null){var depid = nowDep.name;} else {depid = null;}
+                self.GetUserByQuery = function () {
+                    if (nowDep != null) {
+                        var depid = nowDep.name;
+                    } else {
+                        depid = null;
+                    }
                     $.ajax({
-                        data:JSON.stringify(new UserModel(depid,$("#search_name").val(),$("#search_workid").val(),$("#search_phone").val())),
-                        type:"post",
-                        headers: { 'Content-Type': 'application/json' },
+                        data: JSON.stringify(new UserModel(depid, $("#search_name").val(), $("#search_workid").val(), $("#search_phone").val())),
+                        type: "post",
+                        headers: {'Content-Type': 'application/json'},
                         dataType: 'json',
-                        url:"../userinfo/query.do",
-                        error:function(data){
-                            alert("出错了！！:"+data.msg);
+                        url: "../userinfo/query.do",
+                        error: function (data) {
+                            alert("出错了！！:" + data.msg);
                         },
-                        success:function(data){
+                        success: function (data) {
                             result = eval(data.userlist);
                             self.ShowList.removeAll();
                             //清空viewmodel
@@ -134,39 +139,36 @@
 
                 }
                 //新增部门成员
-                self.AddNewUser = function(){
+                self.AddNewUser = function () {
                     $.ajax({
-                        data:JSON.stringify(self.changeItem()),
-                        type:"post",
-                        headers: { 'Content-Type': 'application/json' },
+                        data: JSON.stringify(self.changeItem()),
+                        type: "post",
+                        headers: {'Content-Type': 'application/json'},
                         dataType: 'json',
-                        url:"../userinfo/adduser.do",
-                        error:function(data){
-                            alert("出错了！！:"+data.msg);
+                        url: "../userinfo/adduser.do",
+                        error: function (data) {
+                            alert("出错了！！:" + data.msg);
                         },
-                        success:function(data){
-                            alert("添加结果:"+data.msg);
+                        success: function (data) {
+                            alert("添加结果:" + data.msg);
 
                         }
                     });
 
                 }
-
-
-            //修改部门成员
-            self.UpdateUser = function(){
-                $.ajax({
-                    data:JSON.stringify(self.changeItem()),
-                    type:"post",
-                    headers: { 'Content-Type': 'application/json' },
-                    dataType: 'json',
-                    url:"../userinfo/updateuser.do",
-                    error:function(data){
-                        alert("出错了！！:"+data.msg);
-                    },
-                    success:function(data){
-                        alert("修改结果:"+data.msg);
-                        if (data.ok == "ok") {
+                //修改部门成员
+                self.UpdateUser = function () {
+                    $.ajax({
+                        data: JSON.stringify(self.changeItem()),
+                        type: "post",
+                        headers: {'Content-Type': 'application/json'},
+                        dataType: 'json',
+                        url: "../userinfo/updateuser.do",
+                        error: function (data) {
+                            alert("出错了！！:" + data.msg);
+                        },
+                        success: function (data) {
+                            alert("修改结果:" + data.msg);
                             //静态刷新页面
                             for (var i = 0; i < self.ShowList().length; i++) {
                                 if (self.ShowList()[i].staffUserId == self.changeItem().staffUserId) {
@@ -177,48 +179,47 @@
 
                             }
                         }
-                    }
-                });
-                //关闭模态框，更新前端
-                self.ClickModelNo();
-            }
+                    });
+                    //关闭模态框，更新前端
+                    self.ClickModelNo();
 
+                }
                 //删除部门成员
-                self.DeleteUser = function(item){
+                self.DeleteUser = function (item) {
                     $.ajax({
                         type: "post",
-                        data:JSON.stringify(item),
+                        data: JSON.stringify(item),
                         contentType: "text/json",
                         url: "../userinfo/delete.do",
-                        headers: { 'Content-Type': 'application/json' },
-                        error:function(data){
-                            alert("出错了！！:"+data.msg);
+                        headers: {'Content-Type': 'application/json'},
+                        error: function (data) {
+                            alert("出错了！！:" + data.msg);
                         },
-                        success:function(data){
-                            alert("删除结果:"+data.msg);
+                        success: function (data) {
+                            alert("删除结果:" + data.msg);
                             //静态刷新页面
                             self.GetUserListByDep(nowDep.name);
                         }
                     });
                 }
                 //点击事件-点击添加用户按钮
-                self.ClickAdd = function(){
+                self.ClickAdd = function () {
                     self.changeItem(new UserModel());
                     self.rootid(1);
                     $("#model1").click();
                 };
                 //点击事件-点击更新用户按钮
-                self.ClickUpdate = function(item){
+                self.ClickUpdate = function (item) {
                     self.changeItem(item);
                     self.rootid(0);
                     $("#model1").click();
                 };
 
                 //点击事件-点击删除用户按钮
-                self.ClickDelete = function(item){
+                self.ClickDelete = function (item) {
                     if (!confirm("确认要删除？")) {
                         window.event.returnValue = false;
-                    }else{
+                    } else {
                         self.DeleteUser(item);
                     }
                 };
@@ -229,7 +230,7 @@
                     self.GetUserByQuery();
                 }
                 //点击事件-点击清空搜索项
-                self.ClickClear = function() {
+                self.ClickClear = function () {
 
                     $("#search_name").val("");
                     $("#search_workid").val("");
@@ -237,7 +238,7 @@
 
                 }
                 //点击事件-模态框确定
-                self.ClickModelYes = function() {
+                self.ClickModelYes = function () {
                     if (self.rootid() == 0) {
                         self.UpdateUser();
                     } else {
@@ -245,7 +246,7 @@
                     }
                 };
                 //点击事件-模态框关闭
-                self.ClickModelNo = function(){
+                self.ClickModelNo = function () {
                     $("#close1").click();
                 };
                 //==========部门列表方法==============
@@ -256,11 +257,11 @@
                         async: false,
                         contentType: "text/json",
                         url: "../department/GetDepList.do",
-                        headers: { 'Content-Type': 'application/json' },
-                        error:function(data){
-                            alert("出错了！！:"+data.msg);
+                        headers: {'Content-Type': 'application/json'},
+                        error: function (data) {
+                            alert("出错了！！:" + data.msg);
                         },
-                        success:function(data){
+                        success: function (data) {
                             //alert("success:"+data.msg);
                             tree = eval(data.dep);
                         }
@@ -288,7 +289,7 @@
                         if (lastSelectedNodeId == data.name && t < 300) {
                             nowDep = data;
                             self.chooseDep();
-                            alert("选择部门:"+data.name);
+                            alert("选择部门:" + data.name);
                         }
                     }
                     lastSelectedNodeId = data.name;
@@ -303,10 +304,14 @@
 
                     //获取部门用户
                     self.GetUserListByDep(id);
-                }
+                };
             }
-            ko.applyBindings(new ViewModel);
+
+
+
+        ko.applyBindings(new ViewModel);
         });
+
         function UserModel(depid,name,workid,cellphone) {
             this.staffUserId = null;
             this.name = name;
@@ -316,127 +321,113 @@
             this.idNo = workid;
             this.cellphone = cellphone;
             this.staffId = null;
-            this.staffState = null;
+            this.workState = null;
             this.email = null;
             return this;
         }
 
 
-    function UserModel(depid,name,workid,cellphone) {
-        this.staffUserId = null;
-        this.name = name;
-        this.age = null;
-        this.sex = null;
-        this.department = depid;
-        this.idNo = workid;
-        this.cellphone = cellphone;
-        this.staffId = null;
-        this.workState = null;
-        this.email = null;
-        return this;
-    }
+        //现实分页查询
+        var toolIip ='<div class ="toolIipBoty"><div class ="toolIipMessage"></div></div>';
+        //    验证控件显示
+        function validateAlert(str,item){
+            removeIoolTips(item);
+            //现实分页查询
 
+                //定位
+                var left=$(item).position().left;
+                var top=$(item).offset().top;
+                var height=$(item).height();
+                var $tooltip=$(toolIip);
+                $tooltip.css("left",left).css("top",top);
+                $tooltip.find(".toolIipMessage").text(str);
 
-    //现实分页查询
-    var toolIip ='<div class ="toolIipBoty"><div class ="toolIipMessage"></div></div>'
-//    验证控件显示
-    function validateAlert(str,item){
-        removeIoolTips(item);
+                //插入
+                $(item).after($tooltip);
 
-        //定位
-        var left=$(item).position().left;
-        var top=$(item).offset().top;
-        var height=$(item).height();
-        var $tooltip=$(toolIip);
-        $tooltip.css("left",left).css("top",top);
-        $tooltip.find(".toolIipMessage").text(str);
-
-            //插入
-            $(item).after($tooltip);
-
-        }
+            }
 
     </script>
 </head>
 <body>
 
 <%--<div class="container-fluid">--%>
-    <%--<div class="row-fluid top-tiku">--%>
-        <%--<div class="top-left"> <img src="../images/logo.png" />--%>
-            <%--<p>人事管理系统</p>--%>
-        <%--</div>--%>
-        <%--<div id="box">--%>
-            <%--<div id="menu">--%>
-                <%--<ul>--%>
-                    <%--<li><a data-bind="attr: { href: '<%=basePath%>userinfo/import.do'}">人员导入</a></li>--%>
-                    <%--<li><a class="hover" data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">通讯录</a></li>--%>
-                    <%--<li><a data-bind="attr: { href: '<%=basePath%>Import/navigator.do'}">审批数据导入</a></li>--%>
-                    <%--<li><a data-bind="attr: { href: '<%=basePath%>usersalary/test.do'}">工资查询</a></li>--%>
-                    <%--<li><a data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">关于我们</a></li>--%>
+<%--<div class="row-fluid top-tiku">--%>
+<%--<div class="top-left"> <img src="../images/logo.png" />--%>
+<%--<p>人事管理系统</p>--%>
+<%--</div>--%>
+<%--<div id="box">--%>
+<%--<div id="menu">--%>
+<%--<ul>--%>
+<%--<li><a data-bind="attr: { href: '<%=basePath%>userinfo/import.do'}">人员导入</a></li>--%>
+<%--<li><a class="hover" data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">通讯录</a></li>--%>
+<%--<li><a data-bind="attr: { href: '<%=basePath%>Import/navigator.do'}">审批数据导入</a></li>--%>
+<%--<li><a data-bind="attr: { href: '<%=basePath%>usersalary/test.do'}">工资查询</a></li>--%>
+<%--<li><a data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">关于我们</a></li>--%>
 
-                <%--</ul>--%>
-            <%--</div>--%>
-        <%--</div>--%>
-        <%--<div class="top-right">--%>
-            <%--<p>欢迎您！<span >管理员</span></p>--%>
-            <%--<a href=""><img src="../images/guanbi.png" /></a> </div>--%>
-    <%--</div>--%>
+<%--</ul>--%>
+<%--</div>--%>
+<%--</div>--%>
+<%--<div class="top-right">--%>
+<%--<p>欢迎您！<span >管理员</span></p>--%>
+<%--<a href=""><img src="../images/guanbi.png" /></a> </div>--%>
+<%--</div>--%>
 
-        <header>
-            <div class="head-cont">
-                <div class="head-left fl">
-                    <img src="../images/logo.png" height="35" width="50" alt="">
-                    人事管理系统
-                </div>
-                <div class="head-nav fl" id="h-nav">
-                    <ul>
-                        <li><a data-bind="attr: { href: '<%=basePath%>userinfo/import.do'}">人员导入</a></li>
-                        <li><a class="active" data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">通讯录</a></li>
-                        <li><a  data-bind="attr: { href: '<%=basePath%>Import/navigator.do'}">审批数据导入</a></li>
-                        <li><a data-bind="attr: { href: '<%=basePath%>userinfo/test.do'}">工资查询</a></li>
-                        <li><a data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">关于我们</a></li>
-                    </ul>
-                </div>
-                <div class="head-right fl">
-                    欢迎您！管理员&nbsp;&nbsp;&nbsp;
-                    <a href=""><img src="../images/guanbi.png" height="22" width="22" alt=""></a>
-                </div>
-            </div>
-        </header>
-    <div class="row-fluid c_box" style="">
-        <div class="col-md-2 c_left_box" >
-            <div style="margin-top:3%"></div>
-            <div id="tree" style="overflow:auto;height:800px;"></div>
-
+<header>
+    <div class="head-cont">
+        <div class="head-left fl">
+            <img src="../images/logo.png" height="35" width="50" alt="">
+            人事管理系统
         </div>
-        <div class="col-md-10 c_right_box" >
-            <div class="caidan-tiku" style="margin-bottom:3%">
-<%--                <div style="float:left">
-                    <input data-bind="click:$root.ClickAdd" type="button" value="新增"  class="chaxun">
-                </div>--%>
-                <div class="caidan-tiku-s" style="margin-right:5%"> <span>姓名：</span>
-                    <input id="search_name" type="text" name="name" class="shuruk-a2" placeholder="">
-                </div>
-                <div class="caidan-tiku-s" style="margin-right:5%"> <span>电话：</span>
-                    <input id="search_phone" type="text" name="cellphone" class="shuruk-a2" placeholder="">
-                </div>
+        <div class="head-nav fl" id="h-nav">
+            <ul>
+                <li><a data-bind="attr: { href: '<%=basePath%>userinfo/import.do'}">人员导入</a></li>
+                <li><a data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">通讯录</a></li>
+                <li><a class="active" data-bind="attr: { href: '<%=basePath%>Import/navigator.do'}">审批数据导入</a></li>
+                <li><a data-bind="attr: { href: '<%=basePath%>userinfo/test.do'}">工资查询</a></li>
+                <li><a data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">关于我们</a></li>
+            </ul>
+        </div>
+        <div class="head-right fr">
+            欢迎您！管理员&nbsp;&nbsp;&nbsp;
+            <a href=""><img src="../images/guanbi.png" height="22" width="22" alt=""></a>
+        </div>
+    </div>
+</header>
+<div class="row-fluid c_box" style="">
+    <div class="col-md-2 c_left_box" >
+        <div style="margin-top:3%"></div>
+        <div id="tree" style="overflow:auto;height:800px;"></div>
 
-                <div class="caidan-tiku-s" style="margin-right:5%"> <span>身份证：</span>
-                    <input id="search_workid" type="text" name="workid" class="shuruk-a2" placeholder="">
-                </div>
-<%--                <div class="caidan-tiku-s"> <span>是否审核：</span>
-                    <select id="sh1" class="riqi-xiala" style="width:70px;" data-bind="options: [0,1], optionsText: function (item) {  if (item == 0) return '否'; else return '是';},optionsCaption:''"></select>
-                </div>
-                <div class="caidan-tiku-s"> <span>难度：</span>
-                    <select id="nd1" class="riqi-xiala" style="width:70px;" data-bind="options: [1,2,3,4,5,6,7,8,9], optionsText: function (item) {  return item;},optionsCaption:''"></select>
-                </div>--%>
-                <div style="float:right;margin-right:15px;padding-bottom:10px;" >
-                    <input data-bind="click:$root.ClickSearch" type="button" value="查询"  class="chaxun">
-                    <input  data-bind="click:$root.ClickClear" type="button" value="清空"  class="chaxun" style="background:#fd9162">
-                </div>
+    </div>
+    <div class="col-md-10 c_right_box" >
+        <div class="caidan-tiku" style="margin-bottom:3%">
+            <%--                <div style="float:left">
+                                <input data-bind="click:$root.ClickAdd" type="button" value="新增"  class="chaxun">
+                            </div>--%>
+            <div class="caidan-tiku-s" style="margin-right:5%"> <span>姓名：</span>
+                <input id="search_name" type="text" name="name" class="shuruk-a2" placeholder="">
+            </div>
+            <div class="caidan-tiku-s" style="margin-right:5%"> <span>电话：</span>
+                <input id="search_phone" type="text" name="cellphone" class="shuruk-a2" placeholder="">
             </div>
 
-            <div style="width:100%; height:700px;padding-top: 5px;overflow:auto;border:0 solid #000000;">
+            <div class="caidan-tiku-s" style="margin-right:5%"> <span>工号：</span>
+                <input id="search_workid" type="text" name="workid" class="shuruk-a2" placeholder="">
+            </div>
+            <%--                <div class="caidan-tiku-s"> <span>是否审核：</span>
+                                <select id="sh1" class="riqi-xiala" style="width:70px;" data-bind="options: [0,1], optionsText: function (item) {  if (item == 0) return '否'; else return '是';},optionsCaption:''"></select>
+                            </div>
+                            <div class="caidan-tiku-s"> <span>难度：</span>
+                                <select id="nd1" class="riqi-xiala" style="width:70px;" data-bind="options: [1,2,3,4,5,6,7,8,9], optionsText: function (item) {  return item;},optionsCaption:''"></select>
+                            </div>--%>
+            <div style="float:right;margin-right:15px;padding-bottom:10px;" >
+                <input data-bind="click:$root.ClickSearch" type="button" value="查询"  class="chaxun">
+                <input  data-bind="click:$root.ClickClear" type="button" value="清空"  class="chaxun" style="background:#fd9162">
+            </div>
+        </div>
+
+        <div style="width:100%; height:700px;padding-top: 5px;overflow:auto;border:0 solid #000000;">
 
             <table  width="95%" border="1" cellspacing="0" cellpadding="0" class="table-1">
                 <tr class="table-1-tou">
@@ -470,24 +461,24 @@
                 </tbody>
             </table></div>
 
-            <%--<div align="center" style="font-size:12px">--%>
-                <%--<p>	                <span class="STYLE33">当前是[第  ${currPage}&nbsp;页 / 共有&nbsp;${totalPage}<span class="STYLE7">&nbsp;</span>页]</span>--%>
-                    <%--<span class="STYLE15"><span class="STYLE20"><a href="javascript:submitByPage(1)">首页</a>--%>
-                  <%--<a href="javascript:submitByPage(${currPage -1  < 1? 1: currPage-1})">上一页</a>--%>
-                  <%--<a href="javascript:submitByPage(${currPage+1> totalPage? totalPage: currPage+1 })">下一页</a>--%>
-                  <%--<a href="javascript:submitByPage(${totalPage})">末页 </a></span></span> </p>--%>
-            <%--</div>--%>
-        </div>
+        <%--<div align="center" style="font-size:12px">--%>
+        <%--<p>	                <span class="STYLE33">当前是[第  ${currPage}&nbsp;页 / 共有&nbsp;${totalPage}<span class="STYLE7">&nbsp;</span>页]</span>--%>
+        <%--<span class="STYLE15"><span class="STYLE20"><a href="javascript:submitByPage(1)">首页</a>--%>
+        <%--<a href="javascript:submitByPage(${currPage -1  < 1? 1: currPage-1})">上一页</a>--%>
+        <%--<a href="javascript:submitByPage(${currPage+1> totalPage? totalPage: currPage+1 })">下一页</a>--%>
+        <%--<a href="javascript:submitByPage(${totalPage})">末页 </a></span></span> </p>--%>
+        <%--</div>--%>
     </div>
-    <div class="row-fluid">
-        <div class="footer" data-reactid=".0.a">
-            <div style="margin-bottom:5px;" data-reactid=".0.a.0">
+</div>
+<div class="row-fluid">
+    <div class="footer" data-reactid=".0.a">
+        <div style="margin-bottom:5px;" data-reactid=".0.a.0">
             <span data-reactid=".0.a.0.0">
                 <img width="11px" src="https://gw.alicdn.com/tps/TB14UngLXXXXXXQapXXXXXXXXXX-22-26.png" data-reactid=".0.a.0.0.0"></span>
-                <span data-reactid=".0.a.0.1">上海音达科技实业有限公司</span></div>
+            <span data-reactid=".0.a.0.1">上海音达科技实业有限公司</span></div>
 
     </div>
-    </div>
+</div>
 <%--</div>--%>
 <!-- Button trigger modal -->
 <button type="button" id="model1" style="display: none" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">

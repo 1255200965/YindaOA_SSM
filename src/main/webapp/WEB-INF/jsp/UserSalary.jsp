@@ -33,7 +33,7 @@
         <link rel="stylesheet" href="../stylesheets/affairs-search.css">
         <link rel="stylesheet" href="../datePlug/jquery.monthpicker.css">
         <script src="../javascripts/jquery-1.10.2.js"></script>
-        <script type="text/javascript" src="../datePlug/jquery.monthpicker.js"></script>
+        <script src="../datePlug/jquery.monthpicker.js"></script>
     <%--<script type="text/javascript" src="../javascripts/bootstrap.min.js"></script>--%>
     <%--<script type="text/javascript" src="../javascripts/bootstrap-treeview.min.js"></script>--%>
     <script src="../javascripts/knockout-3.4.0rc.js"></script>
@@ -171,7 +171,7 @@
                 <li><a data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">关于我们</a></li>
             </ul>
         </div>
-        <div class="head-right fl">
+        <div class="head-right fr">
             欢迎您！管理员&nbsp;&nbsp;&nbsp;
             <a href=""><img src="../images/guanbi.png" height="22" width="22" alt=""></a>
         </div>
@@ -185,7 +185,7 @@
             <div class="search">
                 <div class="ser-input fl">
                     姓名：<input type="text" id="search_name" placeholder="输入姓名">
-                    日期：<input type="text" id="search_date" placeholder="输入查询日期" class="input" id="monthly">
+                    日期：<input type="text" id="monthly" id="search_date" placeholder="输入查询日期" class="input" >
                 </div>
                 <%--<div class="ser-btn fr">--%>
                 <%--<form action="${pageContext.request.contextPath}/usersalary/query.do" method="post">--%>
@@ -298,21 +298,21 @@
         <p><img src="../images/tubiao.png" alt="">上海音达科技实业有限公司</p>
     </footer>
 
-<script>
-    // 日期插件开始
-    $('#monthpicker').monthpicker({
-        years: [2017,2016,2015, 2014, 2013, 2012, 2011,2010,2009],
-        topOffset: 6,
-        onMonthSelect: function(m, y) {
-            console.log('Month: ' + m + ', year: ' + y);
-        }
-    });
-    $('#monthly').monthpicker({
-        years: [2017,2016,2015, 2014, 2013, 2012, 2011,2010,2009],
-        topOffset: 6
-    })
-    //日期插件结束
+    <script>
+        // 日期插件开始
+        $('#monthpicker').monthpicker({
+            years: [2017,2016,2015, 2014, 2013, 2012, 2011,2010,2009],
+            topOffset: 6,
+            onMonthSelect: function(m, y) {
+                console.log('Month: ' + m + ', year: ' + y);
+            }
+        });
+        $('#monthly').monthpicker({
+            years: [2017,2016,2015, 2014, 2013, 2012, 2011,2010,2009],
+            topOffset: 6
+        });
+        //日期插件结束
 
-</script>
+    </script>
 </body>
 </html>
