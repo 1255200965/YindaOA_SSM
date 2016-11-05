@@ -1,6 +1,7 @@
 package com.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class YoAttendanceExample {
@@ -814,62 +815,52 @@ public class YoAttendanceExample {
             return (Criteria) this;
         }
 
-        public Criteria andBasechecktimeEqualTo(String value) {
+        public Criteria andBasechecktimeEqualTo(Date value) {
             addCriterion("baseCheckTime =", value, "basechecktime");
             return (Criteria) this;
         }
 
-        public Criteria andBasechecktimeNotEqualTo(String value) {
+        public Criteria andBasechecktimeNotEqualTo(Date value) {
             addCriterion("baseCheckTime <>", value, "basechecktime");
             return (Criteria) this;
         }
 
-        public Criteria andBasechecktimeGreaterThan(String value) {
+        public Criteria andBasechecktimeGreaterThan(Date value) {
             addCriterion("baseCheckTime >", value, "basechecktime");
             return (Criteria) this;
         }
 
-        public Criteria andBasechecktimeGreaterThanOrEqualTo(String value) {
+        public Criteria andBasechecktimeGreaterThanOrEqualTo(Date value) {
             addCriterion("baseCheckTime >=", value, "basechecktime");
             return (Criteria) this;
         }
 
-        public Criteria andBasechecktimeLessThan(String value) {
+        public Criteria andBasechecktimeLessThan(Date value) {
             addCriterion("baseCheckTime <", value, "basechecktime");
             return (Criteria) this;
         }
 
-        public Criteria andBasechecktimeLessThanOrEqualTo(String value) {
+        public Criteria andBasechecktimeLessThanOrEqualTo(Date value) {
             addCriterion("baseCheckTime <=", value, "basechecktime");
             return (Criteria) this;
         }
 
-        public Criteria andBasechecktimeLike(String value) {
-            addCriterion("baseCheckTime like", value, "basechecktime");
-            return (Criteria) this;
-        }
-
-        public Criteria andBasechecktimeNotLike(String value) {
-            addCriterion("baseCheckTime not like", value, "basechecktime");
-            return (Criteria) this;
-        }
-
-        public Criteria andBasechecktimeIn(List<String> values) {
+        public Criteria andBasechecktimeIn(List<Date> values) {
             addCriterion("baseCheckTime in", values, "basechecktime");
             return (Criteria) this;
         }
 
-        public Criteria andBasechecktimeNotIn(List<String> values) {
+        public Criteria andBasechecktimeNotIn(List<Date> values) {
             addCriterion("baseCheckTime not in", values, "basechecktime");
             return (Criteria) this;
         }
 
-        public Criteria andBasechecktimeBetween(String value1, String value2) {
+        public Criteria andBasechecktimeBetween(Date value1, Date value2) {
             addCriterion("baseCheckTime between", value1, value2, "basechecktime");
             return (Criteria) this;
         }
 
-        public Criteria andBasechecktimeNotBetween(String value1, String value2) {
+        public Criteria andBasechecktimeNotBetween(Date value1, Date value2) {
             addCriterion("baseCheckTime not between", value1, value2, "basechecktime");
             return (Criteria) this;
         }
@@ -884,62 +875,52 @@ public class YoAttendanceExample {
             return (Criteria) this;
         }
 
-        public Criteria andUserchecktimeEqualTo(String value) {
+        public Criteria andUserchecktimeEqualTo(Date value) {
             addCriterion("userCheckTime =", value, "userchecktime");
             return (Criteria) this;
         }
 
-        public Criteria andUserchecktimeNotEqualTo(String value) {
+        public Criteria andUserchecktimeNotEqualTo(Date value) {
             addCriterion("userCheckTime <>", value, "userchecktime");
             return (Criteria) this;
         }
 
-        public Criteria andUserchecktimeGreaterThan(String value) {
+        public Criteria andUserchecktimeGreaterThan(Date value) {
             addCriterion("userCheckTime >", value, "userchecktime");
             return (Criteria) this;
         }
 
-        public Criteria andUserchecktimeGreaterThanOrEqualTo(String value) {
+        public Criteria andUserchecktimeGreaterThanOrEqualTo(Date value) {
             addCriterion("userCheckTime >=", value, "userchecktime");
             return (Criteria) this;
         }
 
-        public Criteria andUserchecktimeLessThan(String value) {
+        public Criteria andUserchecktimeLessThan(Date value) {
             addCriterion("userCheckTime <", value, "userchecktime");
             return (Criteria) this;
         }
 
-        public Criteria andUserchecktimeLessThanOrEqualTo(String value) {
+        public Criteria andUserchecktimeLessThanOrEqualTo(Date value) {
             addCriterion("userCheckTime <=", value, "userchecktime");
             return (Criteria) this;
         }
 
-        public Criteria andUserchecktimeLike(String value) {
-            addCriterion("userCheckTime like", value, "userchecktime");
-            return (Criteria) this;
-        }
-
-        public Criteria andUserchecktimeNotLike(String value) {
-            addCriterion("userCheckTime not like", value, "userchecktime");
-            return (Criteria) this;
-        }
-
-        public Criteria andUserchecktimeIn(List<String> values) {
+        public Criteria andUserchecktimeIn(List<Date> values) {
             addCriterion("userCheckTime in", values, "userchecktime");
             return (Criteria) this;
         }
 
-        public Criteria andUserchecktimeNotIn(List<String> values) {
+        public Criteria andUserchecktimeNotIn(List<Date> values) {
             addCriterion("userCheckTime not in", values, "userchecktime");
             return (Criteria) this;
         }
 
-        public Criteria andUserchecktimeBetween(String value1, String value2) {
+        public Criteria andUserchecktimeBetween(Date value1, Date value2) {
             addCriterion("userCheckTime between", value1, value2, "userchecktime");
             return (Criteria) this;
         }
 
-        public Criteria andUserchecktimeNotBetween(String value1, String value2) {
+        public Criteria andUserchecktimeNotBetween(Date value1, Date value2) {
             addCriterion("userCheckTime not between", value1, value2, "userchecktime");
             return (Criteria) this;
         }

@@ -1,5 +1,7 @@
 package com.model;
 
+import java.util.Date;
+
 public class YoAttendance {
     private String id;
 
@@ -21,9 +23,9 @@ public class YoAttendance {
 
     private String locationresult;
 
-    private String basechecktime;
+    private Date basechecktime;
 
-    private String userchecktime;
+    private Date userchecktime;
 
     public String getId() {
         return id;
@@ -105,19 +107,19 @@ public class YoAttendance {
         this.locationresult = locationresult;
     }
 
-    public String getBasechecktime() {
+    public Date getBasechecktime() {
         return basechecktime;
     }
 
-    public void setBasechecktime(String basechecktime) {
+    public void setBasechecktime(Date basechecktime) {
         this.basechecktime = basechecktime;
     }
 
-    public String getUserchecktime() {
+    public Date getUserchecktime() {
         return userchecktime;
     }
 
-    public void setUserchecktime(String userchecktime) {
+    public void setUserchecktime(Date userchecktime) {
         this.userchecktime = userchecktime;
     }
 }
