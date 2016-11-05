@@ -27,6 +27,7 @@
 <head>
         <meta charset="UTF-8">
         <title>工资查询</title>
+        <link rel="shortcut icon" type="image/ico" href="../images/yd.ico" />
         <link rel="stylesheet" href="../stylesheets/reset.css">
         <link rel="stylesheet" href="../stylesheets/buttons.css">
         <link rel="stylesheet" href="../stylesheets/header.css">
@@ -185,7 +186,7 @@
             <div class="search">
                 <div class="ser-input fl">
                     姓名：<input type="text" id="search_name" placeholder="输入姓名">
-                    日期：<input type="text" id="monthly" id="search_date" placeholder="输入查询日期" class="input" >
+                    日期：<input type="text"  id="search_date" placeholder="输入查询日期" class="input" >
                 </div>
                 <%--<div class="ser-btn fr">--%>
                 <%--<form action="${pageContext.request.contextPath}/usersalary/query.do" method="post">--%>
@@ -307,7 +308,7 @@
                 console.log('Month: ' + m + ', year: ' + y);
             }
         });
-        $('#monthly').monthpicker({
+        $('#search_date').monthpicker({
             years: [2017,2016,2015, 2014, 2013, 2012, 2011,2010,2009],
             topOffset: 6
         });
