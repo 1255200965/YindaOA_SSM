@@ -97,7 +97,7 @@
                 <li><a data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">关于我们</a></li>
             </ul>
         </div>
-        <div class="head-right fl">
+        <div class="head-right fr">
             欢迎您！管理员&nbsp;&nbsp;&nbsp;
             <a href=""><img src="../images/guanbi.png" height="22" width="22" alt=""></a>
         </div>

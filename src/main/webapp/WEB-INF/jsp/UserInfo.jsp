@@ -30,9 +30,10 @@
     <script src="../javascripts//knockout-3.4.0rc.js"></script>
     <style>
         *{box-sizing: content-box;-webkit-box-sizing: content-box;}
-        .c_box{width:1350px;}
-        .c_box .col-md-2{width:189px;}
-        .c_box .c_right_box {width:1056.7px;}
+        .c_box{min-width:1350px;width:100%;}
+        .c_box .col-md-2{min-width:189px;width:12.4%;}
+        .c_box .c_left_box{height:850px;}
+        .c_box .c_right_box {min-width:1056.7px;width:79%;}
     </style>
 
     <script type="text/javascript">
@@ -86,17 +87,17 @@
 
                 //===============================
                 //获取部门成员
-                self.GetUserListByDep = function(depddid){
+                self.GetUserListByDep = function (depddid) {
                     $.ajax({
-                        data:JSON.stringify(new UserModel(depddid,null,null,null)),
-                        type:"post",
-                        headers: { 'Content-Type': 'application/json' },
+                        data: JSON.stringify(new UserModel(depddid, null, null, null)),
+                        type: "post",
+                        headers: {'Content-Type': 'application/json'},
                         dataType: 'json',
-                        url:"../userinfo/login.do",
-                        error:function(data){
-                            alert("出错了！！:"+data.msg);
+                        url: "../userinfo/login.do",
+                        error: function (data) {
+                            alert("出错了！！:" + data.msg);
                         },
-                        success:function(data){
+                        success: function (data) {
                             result = eval(data.usertest);
                             self.ShowList.removeAll();
                             //清空viewmodel
@@ -109,18 +110,22 @@
 
                 }
                 //查询成员列表（部门，姓名，电话，工号）
-                self.GetUserByQuery = function(){
-                    if (nowDep != null){var depid = nowDep.name;} else {depid = null;}
+                self.GetUserByQuery = function () {
+                    if (nowDep != null) {
+                        var depid = nowDep.name;
+                    } else {
+                        depid = null;
+                    }
                     $.ajax({
-                        data:JSON.stringify(new UserModel(depid,$("#search_name").val(),$("#search_workid").val(),$("#search_phone").val())),
-                        type:"post",
-                        headers: { 'Content-Type': 'application/json' },
+                        data: JSON.stringify(new UserModel(depid, $("#search_name").val(), $("#search_workid").val(), $("#search_phone").val())),
+                        type: "post",
+                        headers: {'Content-Type': 'application/json'},
                         dataType: 'json',
-                        url:"../userinfo/query.do",
-                        error:function(data){
-                            alert("出错了！！:"+data.msg);
+                        url: "../userinfo/query.do",
+                        error: function (data) {
+                            alert("出错了！！:" + data.msg);
                         },
-                        success:function(data){
+                        success: function (data) {
                             result = eval(data.userlist);
                             self.ShowList.removeAll();
                             //清空viewmodel
@@ -134,41 +139,41 @@
 
                 }
                 //新增部门成员
-                self.AddNewUser = function(){
+                self.AddNewUser = function () {
                     $.ajax({
-                        data:JSON.stringify(self.changeItem()),
-                        type:"post",
-                        headers: { 'Content-Type': 'application/json' },
+                        data: JSON.stringify(self.changeItem()),
+                        type: "post",
+                        headers: {'Content-Type': 'application/json'},
                         dataType: 'json',
-                        url:"../userinfo/adduser.do",
-                        error:function(data){
-                            alert("出错了！！:"+data.msg);
+                        url: "../userinfo/adduser.do",
+                        error: function (data) {
+                            alert("出错了！！:" + data.msg);
                         },
-                        success:function(data){
-                            alert("添加结果:"+data.msg);
+                        success: function (data) {
+                            alert("添加结果:" + data.msg);
 
                         }
                     });
 
                 }
                 //修改部门成员
-                self.UpdateUser = function(){
+                self.UpdateUser = function () {
                     $.ajax({
-                        data:JSON.stringify(self.changeItem()),
-                        type:"post",
-                        headers: { 'Content-Type': 'application/json' },
+                        data: JSON.stringify(self.changeItem()),
+                        type: "post",
+                        headers: {'Content-Type': 'application/json'},
                         dataType: 'json',
-                        url:"../userinfo/updateuser.do",
-                        error:function(data){
-                            alert("出错了！！:"+data.msg);
+                        url: "../userinfo/updateuser.do",
+                        error: function (data) {
+                            alert("出错了！！:" + data.msg);
                         },
-                        success:function(data){
-                            alert("修改结果:"+data.msg);
+                        success: function (data) {
+                            alert("修改结果:" + data.msg);
                             //静态刷新页面
                             for (var i = 0; i < self.ShowList().length; i++) {
-                                if (self.ShowList()[i].staffUserId == self.changeItem().staffUserId){
-                                    self.ShowList.splice(i,1);
-                                    self.ShowList.splice(i,0,self.changeItem());
+                                if (self.ShowList()[i].staffUserId == self.changeItem().staffUserId) {
+                                    self.ShowList.splice(i, 1);
+                                    self.ShowList.splice(i, 0, self.changeItem());
                                     break;
                                 }
 
@@ -180,41 +185,41 @@
 
                 }
                 //删除部门成员
-                self.DeleteUser = function(item){
+                self.DeleteUser = function (item) {
                     $.ajax({
                         type: "post",
-                        data:JSON.stringify(item),
+                        data: JSON.stringify(item),
                         contentType: "text/json",
                         url: "../userinfo/delete.do",
-                        headers: { 'Content-Type': 'application/json' },
-                        error:function(data){
-                            alert("出错了！！:"+data.msg);
+                        headers: {'Content-Type': 'application/json'},
+                        error: function (data) {
+                            alert("出错了！！:" + data.msg);
                         },
-                        success:function(data){
-                            alert("删除结果:"+data.msg);
+                        success: function (data) {
+                            alert("删除结果:" + data.msg);
                             //静态刷新页面
                             self.GetUserListByDep(nowDep.name);
                         }
                     });
                 }
                 //点击事件-点击添加用户按钮
-                self.ClickAdd = function(){
+                self.ClickAdd = function () {
                     self.changeItem(new UserModel());
                     self.rootid(1);
                     $("#model1").click();
                 };
                 //点击事件-点击更新用户按钮
-                self.ClickUpdate = function(item){
+                self.ClickUpdate = function (item) {
                     self.changeItem(item);
                     self.rootid(0);
                     $("#model1").click();
                 };
 
                 //点击事件-点击删除用户按钮
-                self.ClickDelete = function(item){
+                self.ClickDelete = function (item) {
                     if (!confirm("确认要删除？")) {
                         window.event.returnValue = false;
-                    }else{
+                    } else {
                         self.DeleteUser(item);
                     }
                 };
@@ -225,7 +230,7 @@
                     self.GetUserByQuery();
                 }
                 //点击事件-点击清空搜索项
-                self.ClickClear = function() {
+                self.ClickClear = function () {
 
                     $("#search_name").val("");
                     $("#search_workid").val("");
@@ -233,7 +238,7 @@
 
                 }
                 //点击事件-模态框确定
-                self.ClickModelYes = function() {
+                self.ClickModelYes = function () {
                     if (self.rootid() == 0) {
                         self.UpdateUser();
                     } else {
@@ -241,7 +246,7 @@
                     }
                 };
                 //点击事件-模态框关闭
-                self.ClickModelNo = function(){
+                self.ClickModelNo = function () {
                     $("#close1").click();
                 };
                 //==========部门列表方法==============
@@ -252,11 +257,11 @@
                         async: false,
                         contentType: "text/json",
                         url: "../department/GetDepList.do",
-                        headers: { 'Content-Type': 'application/json' },
-                        error:function(data){
-                            alert("出错了！！:"+data.msg);
+                        headers: {'Content-Type': 'application/json'},
+                        error: function (data) {
+                            alert("出错了！！:" + data.msg);
                         },
-                        success:function(data){
+                        success: function (data) {
                             //alert("success:"+data.msg);
                             tree = eval(data.dep);
                         }
@@ -284,7 +289,7 @@
                         if (lastSelectedNodeId == data.name && t < 300) {
                             nowDep = data;
                             self.chooseDep();
-                            alert("选择部门:"+data.name);
+                            alert("选择部门:" + data.name);
                         }
                     }
                     lastSelectedNodeId = data.name;
@@ -299,29 +304,13 @@
 
                     //获取部门用户
                     self.GetUserListByDep(id);
-                });
-        }
-        ko.applyBindings(new ViewModel);
-        };
-        function UserModel(depid,name,workid,cellphone) {
-            this.staffUserId = null;
-            this.name = name;
-            this.age = null;
-            this.sex = null;
-            this.department = depid;
-            this.idNo = workid;
-            this.cellphone = cellphone;
-            this.staffId = null;
-            this.staffState = null;
-            this.email = null;
-            return this;
-        }
-        //获取部门用户
-        self.GetUserListByDep(id);
-        }
+                };
+            }
+
+
 
         ko.applyBindings(new ViewModel);
-        };
+        });
 
         function UserModel(depid,name,workid,cellphone) {
             this.staffUserId = null;
@@ -339,17 +328,13 @@
 
 
         //现实分页查询
-        var toolIip ='<div class ="toolIipBoty"><div class ="toolIipMessage"></div></div>'
+        var toolIip ='<div class ="toolIipBoty"><div class ="toolIipMessage"></div></div>';
         //    验证控件显示
         function validateAlert(str,item){
             removeIoolTips(item);
             //现实分页查询
-            var toolIip ='<div class ="toolIipBoty"><div class ="toolIipMessage"></div></div>'
-//    验证控件显示
-            function validateAlert(str,item){
-                removeIoolTips(item);
 
-                定位
+                //定位
                 var left=$(item).position().left;
                 var top=$(item).offset().top;
                 var height=$(item).height();
@@ -403,7 +388,7 @@
                 <li><a data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">关于我们</a></li>
             </ul>
         </div>
-        <div class="head-right fl">
+        <div class="head-right fr">
             欢迎您！管理员&nbsp;&nbsp;&nbsp;
             <a href=""><img src="../images/guanbi.png" height="22" width="22" alt=""></a>
         </div>
