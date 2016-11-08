@@ -1,19 +1,16 @@
 package com.controller;
 
 import com.service.IAskLeaveExcelService;
-import com.service.IImportService;
 import com.util.DateUtil;
-import com.util.ExcelToMysql;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -26,12 +23,23 @@ public class AskLeaveExcelController {
     private IAskLeaveExcelService iAskLeaveExcelService;
 
     @RequestMapping("/navigator.do")
-    public String navigator(HttpServletRequest request) throws IOException {
+    public String navigator() {
         return "/upload";
     }
 
+    /**
+     * RequestParam中必须有值传进来，不然会报400错误。所以defaultValue是必须的！
+     * @param validate
+     * @param amountPrint
+     * @param m
+     * @return
+     */
     @RequestMapping("/homePage.do")
-    public String homePage(HttpServletRequest request) {
+    public String homePage( @RequestParam(value = "validate", defaultValue = "") String validate,
+                            @RequestParam(value = "amountPrint", defaultValue = "") String amountPrint,
+                            Model m) {
+        m.addAttribute("validate", validate);
+        m.addAttribute("amountPrint", amountPrint);
         return "/upload-qingjia";
     }
 
@@ -40,80 +48,49 @@ public class AskLeaveExcelController {
      * 只有上传文件按钮需要调用。该功能分两步，校验和导入
      */
     @RequestMapping("/importExcel.do")
-    public ModelAndView importExcel(HttpServletRequest request, HttpServletResponse response) throws IllegalStateException, IOException {
-        Map<String,Object> map = new HashMap<String,Object>();
-        List<String> filelist = new ArrayList<String>();
+    public String importExcel( @RequestParam("fileUpload") MultipartFile fileUpload,
+                               HttpServletRequest request, RedirectAttributes ra) {
+        // 得到上传文件的原文件名
+        String myFileName = fileUpload.getOriginalFilename();
+        // 创建一个时间戳，用于给文件名添加一个唯一存在的后缀
+        String time = DateUtil.getCurrentTimeMillis();
+        // 用于保存的文件名
+        String saveName = time + "_" + myFileName;
+        // 保存路径，为根目录的路径加文件名。这里保存在根目录是因为存完就删
+        // 注：通过ServletContext可以得到Webroot下任意文件夹的绝对路径
+        String savePath = request.getSession().getServletContext().getRealPath("/") + saveName;
+
+        // 开始将传进来的文件按照新路径转存
         try {
-            String tab = request.getParameter("tab");
-            String fileans = "";
-            map.put("tab",tab);
-            //创建一个通用的多部分解析器
-            CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
-            //判断 request 是否有文件上传,即多部分请求
-            if (multipartResolver.isMultipart(request)) {
-                //转换成多部分request
-                MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
-                //取得request中的所有文件名
-                Iterator<String> iter = multiRequest.getFileNames();
-                while (iter.hasNext()) {
-                    //记录上传过程起始时的时间，用来计算上传时间
-                    int pre = (int) System.currentTimeMillis();
-                    //取得上传文件
-                    MultipartFile file = multiRequest.getFile(iter.next());
-                    if (file != null) {
-                        //取得当前上传文件的文件名称
-                        String myFileName = file.getOriginalFilename();
-                        //如果名称不为“”,说明该文件存在，否则说明该文件不存在
-                        if (myFileName.trim() != "") {
-                            System.out.println("当前要上传文件的文件名 = "+myFileName);
-                            String time = DateUtil.getCurrentTimeMillis();
-                            //重命名上传后的文件名
-                            String fileName = time + "_" + file.getOriginalFilename();
-                            //定义上传路径
-                            String path = request.getSession().getServletContext().getRealPath("upload/") + "/" +fileName;
-                            File localFile = new File(path);
-                            // 如果创建失败
-                            if (!localFile.exists()&&!localFile.isDirectory()){
-                                localFile.mkdir();
-                            }
-                            file.transferTo(localFile);
-                            filelist.add(path);
-                            fileans += file.getOriginalFilename() + "<br/>";
-                        }
-                    }
-                    //记录上传该文件后的时间
-                    int finaltime = (int) System.currentTimeMillis();
-                    int timeCost = finaltime - pre;
-                    System.out.println("上传该文件到服务端所使用的秒数 = "+timeCost);
-                }
-            }
-            // 把你放到上面去！
-            map.put("filename",fileans);
-
-            //=========文件上传成功后处理excel
-            for (String path:filelist){
-                ExcelToMysql excelToMysql = new ExcelToMysql();
-                // 第一步，校验文件，不合格会直接在页面抛出错误
-                Map<String, Object> errorMap = iAskLeaveExcelService.checkExcelTitle(path);
-                if (errorMap.isEmpty()) {
-                    map.put("validate","文件验证通过！");
-                } else {
-                    map.putAll(errorMap);
-                    break;
-                }
-                // 第二步，添加文件到数据库，会返回成功的数量和失败的列表
-                Map<String, Object> reportMap = iAskLeaveExcelService.insertAndUpdate(path);
-                map.putAll(reportMap);
-                // 第三步，把刚才创建的excel文件删除掉
-                File fileDelete = new File(path);
-                fileDelete.delete();
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            map.put("error",e.toString());
+            fileUpload.transferTo(new File(savePath));
+            ra.addFlashAttribute("validate", "文件上传成功！");
+        } catch (IOException e) {
+            // 异常要在这一步处理，不要再在方法中向上抛出了，因为到顶了。。
+            ra.addFlashAttribute("validate", "文件上传失败，请检查联网状态");
+            return "redirect:homePage.do";
         }
-        return new ModelAndView("/upload-qingjia",map);
-    }
 
+        //=========文件上传成功后处理excel
+        try {
+            // 第一步，校验文件，不合格会直接在页面抛出错误
+            String validate = iAskLeaveExcelService.validateExcelTitle(savePath);
+            ra.addFlashAttribute("validate", validate);
+            if (validate.contains("表头名称错误")) return "redirect:homePage.do";
+            // 第二步，添加文件到数据库，会返回成功的数量和失败的列表
+            Map<String, Object> mapInsert = iAskLeaveExcelService.insertAndUpdate(savePath);
+            String successAmount = mapInsert.get("successAmount").toString();
+            String amountPrint = "成功上传的条目数目为：" + successAmount;
+            ra.addFlashAttribute("amountPrint", amountPrint);
+        } catch (Exception e) {
+            String amountPrint = e.toString();
+            ra.addFlashAttribute("amountPrint", amountPrint);
+        } finally {
+            // 第三步，无论异常不异常，我都要把这个文件删除掉，因为已经创建成功了^_^
+            // 161108人生第一次用finally，表示很激动！
+            File fileDelete = new File(savePath);
+            fileDelete.delete();
+        }
+
+        return "redirect:homePage.do";
+    }
 }

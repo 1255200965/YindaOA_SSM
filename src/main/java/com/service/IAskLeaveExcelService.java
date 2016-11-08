@@ -8,7 +8,7 @@ import java.util.Map;
  */
 public interface IAskLeaveExcelService {
 
-    Map<String, Object> checkExcelTitle(String fileDir) throws IOException;
+    String validateExcelTitle(String fileDir) throws IOException;
 
     Map<String, Object> insertAndUpdate(String fileDir) throws IOException;
 }
