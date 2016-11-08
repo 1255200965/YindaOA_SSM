@@ -30,10 +30,9 @@ public class AskLeaveExcelServiceImpl implements IAskLeaveExcelService {
     /**
      * 该方法实现对表头的校验，至于剩余内容的校验，在插入方法中完成
      * 表头不符合规范或者发生了空指针异常，皆视为校验失败
-     * 为了方便，暂时将Map的格式统一为String+Object
      */
-    public Map<String, Object> checkExcelTitle(String fileDir) throws IOException {
-        Map<String, Object> errorMap = new HashMap<String, Object>();
+    public String validateExcelTitle(String fileDir) throws IOException {
+        Map<String, Object> mapCheck = new HashMap<String, Object>();
         File file = new File(fileDir);
         InputStream inputStream = new FileInputStream(file);
         // Java的规定，有了输入流才能按照格式读取excel文件
@@ -73,31 +72,27 @@ public class AskLeaveExcelServiceImpl implements IAskLeaveExcelService {
                         && hssfRow.getCell(cellNo++).toString().equals("图片")
                         ) {
                     // 如果验证通过了，就打印成功信息（额，要不然什么都不做的话显得不太好= =）
-                    System.out.println("表头审核成功！通过审核的表格页数 = "+sheetNo+1);
+                    // sheetNo+1必须用括号括起来，否则+1会被认为是字符串拼接，在此再次感叹Java语法的强大！
+                    System.out.println("表头校验成功！通过校验的表格页数 = "+(sheetNo+1));
                 }
                 else {
-                    errorMap.put("row", "表头");
-                    errorMap.put("column", "表头");
-                    errorMap.put("reason", "表头名称错误，与模板不相符");
-                    return errorMap;
+                    return "表头名称错误，与模板不相符";
                 }
             } catch (NullPointerException e) {
-                errorMap.put("row", "表头");
-                errorMap.put("column", "表头");
-                errorMap.put("reason", "表头名称错误，与模板不相符");
-                return errorMap;
+                return "表头名称错误，与模板不相符";
             }
         }
 
-        return errorMap;
+        return "表头校验成功！";
     }
 
     /**
      * 循环地操作excel中的每一行数据
      * 如果审批编号相同，就更新数据，如果为新数据则插入
+     * 为了方便，暂时将Map的格式统一为String+Object
      */
     public Map<String, Object> insertAndUpdate(String fileDir) throws IOException {
-        Map<String, Object> reportMap = new HashMap<String, Object>();
+        Map<String, Object> mapInsert = new HashMap<String, Object>();
         List<AskForLeave> listFail = new ArrayList<AskForLeave>();
 
         File file = new File(fileDir);
@@ -190,12 +185,12 @@ public class AskLeaveExcelServiceImpl implements IAskLeaveExcelService {
                         listFail.add(askForLeave);
                         continue;
                     }
+                }
                 /*
                 第五步，如果有相同的编号，说明数据库中有元数据
-                那么，就覆盖这一条数据
+                那么，就覆盖查询到的第一条数据
                 同样，也有失败的可能性
                  */
-                }
                 else {
                     int sequenceNo = listExist.get(0).getSequenceNo();
                     askForLeave.setSequenceNo(sequenceNo);
@@ -213,9 +208,11 @@ public class AskLeaveExcelServiceImpl implements IAskLeaveExcelService {
         }
 
         // for循环之后，把成功数目和失败列表返回到map
-        reportMap.put("successAmount", successAmount);
-        reportMap.put("listFail", listFail);
-        return reportMap;
+        mapInsert.put("successAmount", successAmount);
+        mapInsert.put("listFail", listFail);
+        System.out.println("successAmount = "+successAmount);
+        System.out.println("listFail.size() = "+listFail.size());
+        return mapInsert;
     }
 
 }
