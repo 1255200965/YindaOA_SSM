@@ -89,7 +89,7 @@
                 <li><a href="">报告</a></li>
             </ul> -->
     <div class="mod">
-        <a data-bind="attr: { href: '<%=basePath%>Import/AskLeaveHome.do'}"><img src="../images/icon01.png" alt=""><p>请假申请</p></a>
+        <a data-bind="attr: { href: '<%=basePath%>AskLeaveExcel/homePage.do'}"><img src="../images/icon01.png" alt=""><p>请假申请</p></a>
         <a data-bind="attr: { href: '<%=basePath%>Import/importOvertimeHome.do'}"><img src="../images/icon02.png" alt=""><p>加班申请</p></a>
         <a data-bind="attr: { href: '<%=basePath%>Import/importSubwayHome.do'}"><img src="../images/icon01.png" alt=""><p>公交地铁</p></a>
         <a data-bind="attr: { href: '<%=basePath%>Import/importBusinessTripHome.do'}"><img src="../images/icon02.png" alt=""><p>出差申请</p></a>

@@ -49,15 +49,15 @@
         <p>第二步：上传填写好的数据表</p>
     </div>
     <div class="select-file">
-        <form action="../ImportController/homePage.do" enctype="multipart/form-data" method="post" onsubmit="return check_upload(this,1)">
+        <form action="../AskLeaveExcel/importExcel.do" enctype="multipart/form-data" method="post" onsubmit="return check_upload(this,1)">
             <div class="select-details">
                 <a href="javascript:;" class="file">选择文件
-                    <input  type="file" value="选择文件"   id="filename1" name="importExcel"  onchange="showFile(1)">
+                    <input type="file" value="选择文件" id="fileInput" name="fileUpload" onchange="showFile()">
                 </a>
                 <div>
-                    <div id="upfilename1">未上传任何文件</div>
-                    <div id="checkmsg1"></div>
-                    <div id="successmsg1"></div>
+                    <div id="fileState">${validate}</div>
+                    <div>${validate}</div>
+                    <div>${amountPrint}</div>
                 </div>
             </div>
 
@@ -71,11 +71,19 @@
 <footer>
     <p><img src="../images/tubiao.png" alt="">上海音达科技实业有限公司</p>
 </footer>
+
 <script>
-    function showFile(id){
-        var filepath = $("#filename"+id).val();
-        $("#upfilename"+id).html(filepath);
+$(document).ready(function(){
+    if ($("#fileState").innerHtml() == "") {
+        $("#fileState").html("未选择任何文件");
     }
+});
+
+function showFile(){
+    var filepath = $("#fileInput").val();
+    $("#fileState").html(filepath);
+}
 </script>
+
 </body>
 </html>
