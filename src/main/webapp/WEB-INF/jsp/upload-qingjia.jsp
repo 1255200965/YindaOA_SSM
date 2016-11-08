@@ -49,7 +49,7 @@
         <p>第二步：上传填写好的数据表</p>
     </div>
     <div class="select-file">
-        <form action="">
+        <form action="../ImportController/homePage.do" enctype="multipart/form-data" method="post" onsubmit="return check_upload(this,1)">
             <div class="select-details">
                 <a href="javascript:;" class="file">选择文件
                     <input  type="file" value="选择文件"   id="filename1" name="importExcel"  onchange="showFile(1)">
