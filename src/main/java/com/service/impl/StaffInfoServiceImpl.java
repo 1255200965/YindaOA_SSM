@@ -45,7 +45,7 @@ public class StaffInfoServiceImpl implements IStaffInfoService {
         return result;
     }
 
-    @Override
+
     public int deleteStaffByID(StaffInfo sequenceNum) {
         int result = staffInfoMapper.deleteByPrimaryKey(sequenceNum.getStaffUserId());
         return result;

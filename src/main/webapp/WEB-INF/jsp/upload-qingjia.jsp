@@ -6,6 +6,10 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String path = request.getContextPath();
+    String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -17,6 +21,7 @@
     <link rel="stylesheet" href="../stylesheets/header.css">
     <link rel="stylesheet" href="../stylesheets/upload-details.css">
     <script src="../javascripts/jquery.min.js"></script>
+    <script src="../javascripts//knockout-3.4.0rc.js"></script>
 </head>
 <body>
 <header>
@@ -27,11 +32,11 @@
         </div>
         <div class="head-nav fl" id="h-nav">
             <ul>
-                <li ><a href="#">成员导入</a></li>
-                <li ><a href="#">通讯录</a></li>
-                <li ><a href="#">成员导入</a></li>
-                <li class="active"><a href="upload.html">审批数据导入</a></li>
-                <li><a href="affairs-search.html">工资查询</a></li>
+                <li><a  data-bind="attr: { href: '<%=basePath%>userinfo/import.do'}">人员导入</a></li>
+                <li><a data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">通讯录</a></li>
+                <li><a class="active" data-bind="attr: { href: '<%=basePath%>Import/navigator.do'}">审批数据导入</a></li>
+                <li><a data-bind="attr: { href: '<%=basePath%>userinfo/test.do'}">工资查询</a></li>
+                <li><a data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">关于我们</a></li>
             </ul>
         </div>
         <div class="head-right fr">
@@ -73,8 +78,14 @@
 </footer>
 
 <script>
+    $(document).ready(function () {
+        var type = "${tab}";
+        if (type != "") checkInit(type);
+        var ViewModel = function (){};
+        ko.applyBindings(new ViewModel);
+    });
 $(document).ready(function(){
-    if ($("#fileState").innerHtml() == "") {
+    if ($("#fileState").text() == "") {
         $("#fileState").html("未选择任何文件");
     }
 });
