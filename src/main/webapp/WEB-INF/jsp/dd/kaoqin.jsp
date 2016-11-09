@@ -41,11 +41,14 @@
         .fr{float:right;}
         /*样式*/
         html{background:#F2F2F2;color:#585A5D;}
-        header{background:#2FA1F3;overflow: hidden;position: fixed;top:0;width:100%;padding:4% 0;color:#fff;}
-        header .head-ico{border-right:1px solid #E5E5E5;padding:0 2%;margin:0.3% 3% 0.3% 0;}
+        header{background:#2FA1F3;overflow: hidden;position: fixed;top:0;width:100%;padding:3% 0;color:#fff;font-size:18px;}
+        header .head-ico{border-right:1px solid #E5E5E5;padding:0 2%;margin-right:3%;}
         header .head-msg,header .head-ser{line-height:1.5;}
         header .head-ser{margin-right:2%;}
+        /*日历插件*/
+        #calendar{margin-top:17%;}
     </style>
+    <link rel="stylesheet" href="../stylesheets/calendar.css">
 </head>
 <body>
 <div class="box">
@@ -54,6 +57,18 @@
         <div class="head-msg fl">工时明细</div>
         <div class="head-ser fr">帮助</div>
     </header>
+    <div id="calendar">
+
+    </div>
 </div>
+<script src="../javascripts/jquery-1.10.2.js"></script>
+<script src="../javascripts/calendar.js"></script>
+<script>
+    // 日历插件
+    $(function(){
+        $('.item-buydate').mdater();
+    });
+    // 日历插件结束
+</script>
 </body>
 </html>

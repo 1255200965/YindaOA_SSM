@@ -18,17 +18,13 @@
     <title>个人财务</title>
 
     <!-- 日期插件引入文件 -->
-    <script src="<%=basePath%>/datePlug/js/jquery.1.7.2.min.js"></script>
-    <script src="<%=basePath%>/datePlug/js/mobiscroll_002.js" type="text/javascript"></script>
-    <script src="<%=basePath%>/datePlug/js/mobiscroll_004.js" type="text/javascript"></script>
-    <link href="<%=basePath%>/datePlug/css/mobiscroll_002.css" rel="stylesheet" type="text/css">
-    <link href="<%=basePath%>/datePlug/css/mobiscroll.css" rel="stylesheet" type="text/css">
-    <script src="<%=basePath%>/datePlug/js/mobiscroll.js" type="text/javascript"></script>
-    <script src="<%=basePath%>/datePlug/js/mobiscroll_003.js" type="text/javascript"></script>
-    <script src="<%=basePath%>/datePlug/js/mobiscroll_005.js" type="text/javascript"></script>
-    <link href="<%=basePath%>/datePlug/css/mobiscroll_003.css" rel="stylesheet" type="text/css">
+    <meta name="format-detection" content="telephone=no"/>
+
+    <script src="<%=basePath%>/javascripts/jquery-1.10.2.js"></script>
+    <link href="<%=basePath%>/datePlug/mobiscroll.custom-2.5.0.min.css" rel="stylesheet" type="text/css" />
+    <script src="<%=basePath%>/datePlug/mobiscroll.custom-2.5.0.min.js" type="text/javascript"></script>
     <!--日期插件引入文件结束  -->
-    <link rel="stylesheet" href="../stylesheets/buttons.css">
+    <link rel="stylesheet" href="<%=basePath%>/stylesheets/buttons.css">
     <style>
         /*引入字体图标*/
         @font-face {
@@ -69,8 +65,10 @@
         .content .content-top .affair-msg p{text-align: center;font-size: 16px;color:#fff;}
         .content .content-top .affair-msg p:nth-child(2){font-size:45px;margin:2% 0;}
         .content .content-top .other{overflow:hidden;}
-        .content .content-top .other a{display:block;width:33%;padding:4% 0;float:left;border-right:1px solid #fff;text-align: center;color:#fff;}
-        .content .content-top .other a:nth-child(3){border:transparent;}
+        .content .content-top .other a{display:block;width:33%;padding:4% 0;float:left;border-right:1px solid #fff;border-bottom:1px solid #fff;text-align: center;color:#fff;}
+        .content .content-top .other a:nth-child(3){border-right:transparent;}
+        .content .content-top .other a:nth-child(6){border-right:transparent;}
+
         .content .content-ser .tit-1{padding:3% 0;background:#fff;border-top:1px solid #E4E4E4;border-bottom:1px solid #E4E4E4;margin-top:2%;}
         .content .content-ser  .tit-1 p{font-size: 14px;margin-left:2%;}
         .content .content-ser .ser-details{margin-top:1%;overflow: hidden;}
@@ -104,9 +102,12 @@
                 <p><a href="">点击查看详情</a></p>
             </div>
             <div class="other">
-                <a href="#">工资</a>
+                <a href="#">考勤</a>
                 <a href="#">工作日历</a>
-                <a href="#">其他</a>
+                <a href="#">请假天数</a>
+                <a href="#">请假天数</a>
+                <a href="#">工作日历</a>
+                <a href="#">考勤</a>
             </div>
         </div>
 
@@ -117,7 +118,7 @@
             <div class="ser-details">
                 <!--                         <div class="person-pho"><img src="img/I.JPG" alt=""></div>
                                         <div class="person-msg">上海音达，Rose</div> -->
-                <div class="ser-date fl">请选择日期：<input value="" class="" readonly="readonly" name="appDate" id="appDate" type="text" ></div>
+                <div class="ser-date fl">请选择日期：<input id="scroller" name="scroller"></div>
                 <button class="button button-raised button-rounded button-royal">查询</button>
             </div>
         </div>
@@ -125,32 +126,35 @@
 </div>
 <script src="http://g.alicdn.com/dingding/open-develop/0.8.4/dingtalk.js"></script>
 <script>
-    // ----------------日期插件代码开始
-    $(function () {
-        var currYear = (new Date()).getFullYear();
-        var opt={};
-        opt.date = {preset : 'date'};
-        opt.datetime = {preset : 'datetime'};
-        opt.time = {preset : 'time'};
-        opt.default = {
-            theme: 'android-ics light', //皮肤样式
-            display: 'modal', //显示方式
-            mode: 'scroller', //日期选择模式
-            dateFormat: 'yyyy-mm',
-            lang: 'zh',
-            showNow: true,
-            nowText: "今天",
-            startYear: currYear - 10, //开始年份
-            endYear: currYear + 10 //结束年份
-        };
+//  日期插件代码开始
+$(function(){
+    $("#scroller").mobiscroll().date();
 
-        $("#appDate").mobiscroll($.extend(opt['date'], opt['default']));
-        var optDateTime = $.extend(opt['datetime'], opt['default']);
-        var optTime = $.extend(opt['time'], opt['default']);
-        $("#appDateTime").mobiscroll(optDateTime).datetime(optDateTime);
-        $("#appTime").mobiscroll(optTime).time(optTime);
-    });
-    // -----------------------日期插件代码结束
+    var currYear = (new Date()).getFullYear();
+
+    //初始化日期控件
+    var opt = {
+        preset: 'date', //日期，可选：date\datetime\time\tree_list\image_text\select
+        theme: 'android-ics light', //皮肤样式，可选：default\android\android-ics light\android-ics\ios\jqm\sense-ui\wp light\wp
+        display: 'modal', //显示方式 ，可选：modal\inline\bubble\top\bottom
+        mode: 'scroller', //日期选择模式，可选：scroller\clickpick\mixed
+        lang:'zh',
+        dateFormat: 'yyyy-mm', // 日期格式
+        setText: '确定', //确认按钮名称
+        cancelText: '取消',//取消按钮名籍我
+        dateOrder: 'yyyymm', //面板中日期排列格式
+        monthText: '月', yearText: '年', //面板中年月日文字
+        showNow: false,
+        nowText: "今",
+        startYear:currYear, //开始年份
+        endYear:currYear + 100 //结束年份
+        //endYear:2099 //结束年份
+    };
+
+    $("#scroller").mobiscroll(opt);
+});
+//  日期插件代码结束
+
 </script>
 
 </body>

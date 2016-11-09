@@ -73,5 +73,11 @@ import com.service.IUserService;
 
             return "/dd/kaoqin";
         }
+
+        @RequestMapping("/phone-details.do")
+        public String PhoneDetails(HttpServletRequest request){
+
+            return "/dd/details";
+        }
     }
 
