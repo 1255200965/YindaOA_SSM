@@ -13,6 +13,9 @@ public interface YoOvertimeMapper {
 
     List<YoOvertime> selectByExample(YoOvertimeExample example);
 
+    //彭文杰改加班表，不带参数
+    List<YoOvertime> selectByExample();
+
     YoOvertime selectByPrimaryKey(Integer otSequenceNo);
 
     int updateByPrimaryKeySelective(YoOvertime record);

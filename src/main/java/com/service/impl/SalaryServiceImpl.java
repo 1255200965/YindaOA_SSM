@@ -21,6 +21,12 @@ public class SalaryServiceImpl implements ISalaryService {
     @Autowired
     private YoSalaryMapper yoSalaryMapper;
 
+    //添加工资生成表
+    @Override
+    public int insert(YoSalary record) {
+        return insert(record);
+    }
+
     @Override
     public List<YoSalary> searchYoSalaryByEntity(YoSalary yoSalary) {
         return yoSalaryMapper.selectAllUser(yoSalary);

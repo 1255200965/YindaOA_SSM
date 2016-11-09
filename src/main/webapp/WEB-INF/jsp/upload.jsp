@@ -27,6 +27,7 @@
     <script src="../javascripts//knockout-3.4.0rc.js"></script>
 
     <style>
+        body{min-width:1350px;}
         .content img{width:120px;}
         .content{width:930px;margin:0 auto;padding-bottom:30px;background:#fff;margin-top:30px;overflow: hidden;}
         .content a{display:block;width:190px;height:150px;float:left;width:190px;height: 150px;background: purple;margin:30px;text-align: center;border-radius:20px;color:#fff;}

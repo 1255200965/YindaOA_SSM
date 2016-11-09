@@ -20,10 +20,10 @@
         </div>
         <div class="head-nav fl" id="h-nav">
             <ul>
-                <li><a href="${controller}/userinfo/testMethod.do">人员导入</a></li>
+                <li><a href="${controller}/userinfo/import.do">人员导入</a></li>
                 <li><a href="${controller}/userinfo/testMethod.do">通讯录</a></li>
                 <li><a class="active" href="${controller}/Import/navigator.do">审批数据导入</a></li>
-                <li><a href="javascript:void(0);">工资查询</a></li>
+                <li><a href="${controller}/userinfo/test.do">工资查询</a></li>
                 <li><a href="javascript:void(0);">关于我们</a></li>
             </ul>
         </div>

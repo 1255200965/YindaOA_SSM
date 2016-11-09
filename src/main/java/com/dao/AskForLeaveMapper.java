@@ -18,6 +18,9 @@ public interface AskForLeaveMapper {
 
     List<AskForLeave> selectByExample(AskForLeaveExample example);
 
+    /*彭文杰改，方法不带参数*/
+    List<AskForLeave> selectByExample();
+
     AskForLeave selectByPrimaryKey(Integer sequenceNo);
 
     int updateByExampleSelective(@Param("record") AskForLeave record, @Param("example") AskForLeaveExample example);
