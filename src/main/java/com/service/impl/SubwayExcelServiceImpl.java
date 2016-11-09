@@ -1,8 +1,9 @@
 package com.service.impl;
 
-import com.dao.*;
-import com.model.*;
-import com.service.IAskLeaveExcelService;
+import com.dao.YoSubwayMapper;
+import com.model.YoSubway;
+import com.model.YoSubwayExample;
+import com.service.ISubwayExcelService;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -22,10 +23,10 @@ import java.util.Map;
  * 队标：一篇代码，最好不要超过200行，尽量不要超过300行，一定不能超过500行
  */
 @Service
-public class AskLeaveExcelServiceImpl implements IAskLeaveExcelService {
+public class SubwayExcelServiceImpl implements ISubwayExcelService {
 
     @Autowired
-    public AskForLeaveMapper askForLeaveMapper;
+    public YoSubwayMapper yoSubwayMapper;
 
     /**
      * 该方法实现对表头的校验，至于剩余内容的校验，在插入方法中完成
@@ -61,14 +62,9 @@ public class AskLeaveExcelServiceImpl implements IAskLeaveExcelService {
                         && hssfRow.getCell(cellNo++).toString().equals("审批记录")
                         && hssfRow.getCell(cellNo++).toString().equals("当前处理人姓名")
                         && hssfRow.getCell(cellNo++).toString().equals("审批耗时")
-                        && hssfRow.getCell(cellNo++).toString().equals("请假类型")
-                        && hssfRow.getCell(cellNo++).toString().equals("开始日期")
-                        && hssfRow.getCell(cellNo++).toString().equals("开始时间")
-                        && hssfRow.getCell(cellNo++).toString().equals("结束日期")
-                        && hssfRow.getCell(cellNo++).toString().equals("结束时间")
-                        && hssfRow.getCell(cellNo++).toString().equals("请假天数")
-                        && hssfRow.getCell(cellNo++).toString().equals("请假事由")
-                        && hssfRow.getCell(cellNo++).toString().equals("图片")
+                        && hssfRow.getCell(cellNo++).toString().equals("乘车日期")
+                        && hssfRow.getCell(cellNo++).toString().equals("金额")
+                        && hssfRow.getCell(cellNo++).toString().equals("说明")
                         ) {
                     // 如果验证通过了，就打印成功信息（额，要不然什么都不做的话显得不太好= =）
                     // sheetNo+1必须用括号括起来，否则+1会被认为是字符串拼接，在此再次感叹Java语法的强大！
@@ -92,7 +88,7 @@ public class AskLeaveExcelServiceImpl implements IAskLeaveExcelService {
      */
     public Map<String, Object> insertAndUpdate(String fileDir) throws IOException {
         Map<String, Object> mapInsert = new HashMap<String, Object>();
-        List<AskForLeave> listFail = new ArrayList<AskForLeave>();
+        List<YoSubway> listFail = new ArrayList<YoSubway>();
 
         File file = new File(fileDir);
         InputStream inputStream = new FileInputStream(file);
@@ -145,43 +141,38 @@ public class AskLeaveExcelServiceImpl implements IAskLeaveExcelService {
                 在完成后面的函数之后，再对变量自加，方便下一行的判断。再玩一把火！
                  */
                 int cellNo = 0;
-                AskForLeave askForLeave = new AskForLeave();
-                if (hssfRow.getCell(cellNo) != null) askForLeave.setYoApproveNo(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) askForLeave.setYoTitle(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) askForLeave.setYoApproveState(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) askForLeave.setYoApproveResult(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) askForLeave.setYoApproveBegin(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) askForLeave.setYoApproveEnd(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) askForLeave.setYoAskStaffId(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) askForLeave.setYoAskStaffName(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) askForLeave.setYoAskStaffDepart(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) askForLeave.setYoHistoryApproveName(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) askForLeave.setYoApproveRecord(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) askForLeave.setYoNowApproveName(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) askForLeave.setYoCost(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) askForLeave.setYoType(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) askForLeave.setYoAskBeginDate(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) askForLeave.setYoAskBeginTime(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) askForLeave.setYoAskEndDate(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) askForLeave.setYoAskEndTime(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) askForLeave.setYoAskSustain(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) askForLeave.setYoAskReason(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) askForLeave.setYoPicture(hssfRow.getCell(cellNo++).toString());
+                YoSubway yoSubway = new YoSubway();
+                if (hssfRow.getCell(cellNo) != null) yoSubway.setSubApproveNo(hssfRow.getCell(cellNo++).toString());
+                if (hssfRow.getCell(cellNo) != null) yoSubway.setSubTitle(hssfRow.getCell(cellNo++).toString());
+                if (hssfRow.getCell(cellNo) != null) yoSubway.setSubApproveState(hssfRow.getCell(cellNo++).toString());
+                if (hssfRow.getCell(cellNo) != null) yoSubway.setSubApproveResult(hssfRow.getCell(cellNo++).toString());
+                if (hssfRow.getCell(cellNo) != null) yoSubway.setSubApproveBegin(hssfRow.getCell(cellNo++).toString());
+                if (hssfRow.getCell(cellNo) != null) yoSubway.setSubApproveEnd(hssfRow.getCell(cellNo++).toString());
+                if (hssfRow.getCell(cellNo) != null) yoSubway.setSubAskStaffId(hssfRow.getCell(cellNo++).toString());
+                if (hssfRow.getCell(cellNo) != null) yoSubway.setSubAskStaffName(hssfRow.getCell(cellNo++).toString());
+                if (hssfRow.getCell(cellNo) != null) yoSubway.setSubAskStaffDepart(hssfRow.getCell(cellNo++).toString());
+                if (hssfRow.getCell(cellNo) != null) yoSubway.setSubHistoryApproveName(hssfRow.getCell(cellNo++).toString());
+                if (hssfRow.getCell(cellNo) != null) yoSubway.setSubApproveRecord(hssfRow.getCell(cellNo++).toString());
+                if (hssfRow.getCell(cellNo) != null) yoSubway.setSubNowApproveName(hssfRow.getCell(cellNo++).toString());
+                if (hssfRow.getCell(cellNo) != null) yoSubway.setSubCost(hssfRow.getCell(cellNo++).toString());
+                if (hssfRow.getCell(cellNo) != null) yoSubway.setSubTakeDate(hssfRow.getCell(cellNo++).toString());
+                if (hssfRow.getCell(cellNo) != null) yoSubway.setSubAmount(hssfRow.getCell(cellNo++).toString());
+                if (hssfRow.getCell(cellNo) != null) yoSubway.setSubAskReason(hssfRow.getCell(cellNo++).toString());
 
                 /*
                 第四步，检查数据库中是否有相同的审批编号，如果没有，说明是一个新的条目，执行插入操作
                 之所以有失败的可能性，是因为单元格内容有可能超过数据库长度
                  */
                 String approveNo = hssfRow.getCell(0).toString();
-                AskForLeaveExample askForLeaveExample = new AskForLeaveExample();
-                askForLeaveExample.createCriteria().andYoApproveNoEqualTo(approveNo);
-                List<AskForLeave> listExist = askForLeaveMapper.selectByExample(askForLeaveExample);
+                YoSubwayExample yoSubwayExample = new YoSubwayExample();
+                yoSubwayExample.createCriteria().andSubApproveNoEqualTo(approveNo);
+                List<YoSubway> listExist = yoSubwayMapper.selectByExample(yoSubwayExample);
 
                 if (listExist.size() == 0) {
                     try {
-                        askForLeaveMapper.insert(askForLeave);
+                        yoSubwayMapper.insert(yoSubway);
                     } catch (Exception e) {
-                        listFail.add(askForLeave);
+                        listFail.add(yoSubway);
                         continue;
                     }
                 }
@@ -191,12 +182,12 @@ public class AskLeaveExcelServiceImpl implements IAskLeaveExcelService {
                 同样，也有失败的可能性
                  */
                 else {
-                    int sequenceNo = listExist.get(0).getSequenceNo();
-                    askForLeave.setSequenceNo(sequenceNo);
+                    int sequenceNo = listExist.get(0).getSubSequenceNo();
+                    yoSubway.setSubSequenceNo(sequenceNo);
                     try {
-                        askForLeaveMapper.updateByPrimaryKey(askForLeave);
+                        yoSubwayMapper.updateByPrimaryKey(yoSubway);
                     } catch (Exception e) {
-                        listFail.add(askForLeave);
+                        listFail.add(yoSubway);
                         continue;
                     }
                 }

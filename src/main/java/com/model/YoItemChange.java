@@ -31,11 +31,15 @@ public class YoItemChange {
 
     private String icChangeItem;
 
+    private String icChangeOrder;
+
     private String icChangeProvince;
 
     private String icWorkCity;
 
     private String icTimebase;
+
+    private String icOutroomWork;
 
     private String icEffectDate;
 
@@ -159,6 +163,14 @@ public class YoItemChange {
         this.icChangeItem = icChangeItem;
     }
 
+    public String getIcChangeOrder() {
+        return icChangeOrder;
+    }
+
+    public void setIcChangeOrder(String icChangeOrder) {
+        this.icChangeOrder = icChangeOrder;
+    }
+
     public String getIcChangeProvince() {
         return icChangeProvince;
     }
@@ -181,6 +193,14 @@ public class YoItemChange {
 
     public void setIcTimebase(String icTimebase) {
         this.icTimebase = icTimebase;
+    }
+
+    public String getIcOutroomWork() {
+        return icOutroomWork;
+    }
+
+    public void setIcOutroomWork(String icOutroomWork) {
+        this.icOutroomWork = icOutroomWork;
     }
 
     public String getIcEffectDate() {

@@ -17,9 +17,11 @@
     <result column="ic_now_approve_name" property="icNowApproveName" jdbcType="VARCHAR" />
     <result column="ic_cost" property="icCost" jdbcType="VARCHAR" />
     <result column="ic_change_item" property="icChangeItem" jdbcType="VARCHAR" />
+    <result column="ic_change_order" property="icChangeOrder" jdbcType="VARCHAR" />
     <result column="ic_change_province" property="icChangeProvince" jdbcType="VARCHAR" />
     <result column="ic_work_city" property="icWorkCity" jdbcType="VARCHAR" />
     <result column="ic_timebase" property="icTimebase" jdbcType="VARCHAR" />
+    <result column="ic_outroom_work" property="icOutroomWork" jdbcType="VARCHAR" />
     <result column="ic_effect_date" property="icEffectDate" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -51,40 +53,11 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
   <sql id="Base_Column_List" >
     ic_sequence_no, ic_approve_no, ic_title, ic_approve_state, ic_approve_result, ic_approve_begin, 
     ic_approve_end, ic_ask_staff_id, ic_ask_staff_name, ic_ask_staff_depart, ic_history_approve_name, 
-    ic_approve_record, ic_now_approve_name, ic_cost, ic_change_item, ic_change_province, 
-    ic_work_city, ic_timebase, ic_effect_date
+    ic_approve_record, ic_now_approve_name, ic_cost, ic_change_item, ic_change_order, 
+    ic_change_province, ic_work_city, ic_timebase, ic_outroom_work, ic_effect_date
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.model.YoItemChangeExample" >
     select
@@ -110,27 +83,23 @@
     delete from yo_item_change
     where ic_sequence_no = #{icSequenceNo,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.model.YoItemChangeExample" >
-    delete from yo_item_change
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
   <insert id="insert" parameterType="com.model.YoItemChange" >
     insert into yo_item_change (ic_sequence_no, ic_approve_no, ic_title, 
       ic_approve_state, ic_approve_result, ic_approve_begin, 
       ic_approve_end, ic_ask_staff_id, ic_ask_staff_name, 
       ic_ask_staff_depart, ic_history_approve_name, 
       ic_approve_record, ic_now_approve_name, ic_cost, 
-      ic_change_item, ic_change_province, ic_work_city, 
-      ic_timebase, ic_effect_date)
+      ic_change_item, ic_change_order, ic_change_province, 
+      ic_work_city, ic_timebase, ic_outroom_work, 
+      ic_effect_date)
     values (#{icSequenceNo,jdbcType=INTEGER}, #{icApproveNo,jdbcType=VARCHAR}, #{icTitle,jdbcType=VARCHAR}, 
       #{icApproveState,jdbcType=VARCHAR}, #{icApproveResult,jdbcType=VARCHAR}, #{icApproveBegin,jdbcType=VARCHAR}, 
       #{icApproveEnd,jdbcType=VARCHAR}, #{icAskStaffId,jdbcType=VARCHAR}, #{icAskStaffName,jdbcType=VARCHAR}, 
       #{icAskStaffDepart,jdbcType=VARCHAR}, #{icHistoryApproveName,jdbcType=VARCHAR}, 
       #{icApproveRecord,jdbcType=VARCHAR}, #{icNowApproveName,jdbcType=VARCHAR}, #{icCost,jdbcType=VARCHAR}, 
-      #{icChangeItem,jdbcType=VARCHAR}, #{icChangeProvince,jdbcType=VARCHAR}, #{icWorkCity,jdbcType=VARCHAR}, 
-      #{icTimebase,jdbcType=VARCHAR}, #{icEffectDate,jdbcType=VARCHAR})
+      #{icChangeItem,jdbcType=VARCHAR}, #{icChangeOrder,jdbcType=VARCHAR}, #{icChangeProvince,jdbcType=VARCHAR}, 
+      #{icWorkCity,jdbcType=VARCHAR}, #{icTimebase,jdbcType=VARCHAR}, #{icOutroomWork,jdbcType=VARCHAR}, 
+      #{icEffectDate,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.model.YoItemChange" >
     insert into yo_item_change
@@ -180,6 +149,9 @@
       <if test="icChangeItem != null" >
         ic_change_item,
       </if>
+      <if test="icChangeOrder != null" >
+        ic_change_order,
+      </if>
       <if test="icChangeProvince != null" >
         ic_change_province,
       </if>
@@ -188,6 +160,9 @@
       </if>
       <if test="icTimebase != null" >
         ic_timebase,
+      </if>
+      <if test="icOutroomWork != null" >
+        ic_outroom_work,
       </if>
       <if test="icEffectDate != null" >
         ic_effect_date,
@@ -239,6 +214,9 @@
       <if test="icChangeItem != null" >
         #{icChangeItem,jdbcType=VARCHAR},
       </if>
+      <if test="icChangeOrder != null" >
+        #{icChangeOrder,jdbcType=VARCHAR},
+      </if>
       <if test="icChangeProvince != null" >
         #{icChangeProvince,jdbcType=VARCHAR},
       </if>
@@ -248,107 +226,14 @@
       <if test="icTimebase != null" >
         #{icTimebase,jdbcType=VARCHAR},
       </if>
+      <if test="icOutroomWork != null" >
+        #{icOutroomWork,jdbcType=VARCHAR},
+      </if>
       <if test="icEffectDate != null" >
         #{icEffectDate,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.model.YoItemChangeExample" resultType="java.lang.Integer" >
-    select count(*) from yo_item_change
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map" >
-    update yo_item_change
-    <set >
-      <if test="record.icSequenceNo != null" >
-        ic_sequence_no = #{record.icSequenceNo,jdbcType=INTEGER},
-      </if>
-      <if test="record.icApproveNo != null" >
-        ic_approve_no = #{record.icApproveNo,jdbcType=VARCHAR},
-      </if>
-      <if test="record.icTitle != null" >
-        ic_title = #{record.icTitle,jdbcType=VARCHAR},
-      </if>
-      <if test="record.icApproveState != null" >
-        ic_approve_state = #{record.icApproveState,jdbcType=VARCHAR},
-      </if>
-      <if test="record.icApproveResult != null" >
-        ic_approve_result = #{record.icApproveResult,jdbcType=VARCHAR},
-      </if>
-      <if test="record.icApproveBegin != null" >
-        ic_approve_begin = #{record.icApproveBegin,jdbcType=VARCHAR},
-      </if>
-      <if test="record.icApproveEnd != null" >
-        ic_approve_end = #{record.icApproveEnd,jdbcType=VARCHAR},
-      </if>
-      <if test="record.icAskStaffId != null" >
-        ic_ask_staff_id = #{record.icAskStaffId,jdbcType=VARCHAR},
-      </if>
-      <if test="record.icAskStaffName != null" >
-        ic_ask_staff_name = #{record.icAskStaffName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.icAskStaffDepart != null" >
-        ic_ask_staff_depart = #{record.icAskStaffDepart,jdbcType=VARCHAR},
-      </if>
-      <if test="record.icHistoryApproveName != null" >
-        ic_history_approve_name = #{record.icHistoryApproveName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.icApproveRecord != null" >
-        ic_approve_record = #{record.icApproveRecord,jdbcType=VARCHAR},
-      </if>
-      <if test="record.icNowApproveName != null" >
-        ic_now_approve_name = #{record.icNowApproveName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.icCost != null" >
-        ic_cost = #{record.icCost,jdbcType=VARCHAR},
-      </if>
-      <if test="record.icChangeItem != null" >
-        ic_change_item = #{record.icChangeItem,jdbcType=VARCHAR},
-      </if>
-      <if test="record.icChangeProvince != null" >
-        ic_change_province = #{record.icChangeProvince,jdbcType=VARCHAR},
-      </if>
-      <if test="record.icWorkCity != null" >
-        ic_work_city = #{record.icWorkCity,jdbcType=VARCHAR},
-      </if>
-      <if test="record.icTimebase != null" >
-        ic_timebase = #{record.icTimebase,jdbcType=VARCHAR},
-      </if>
-      <if test="record.icEffectDate != null" >
-        ic_effect_date = #{record.icEffectDate,jdbcType=VARCHAR},
-      </if>
-    </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map" >
-    update yo_item_change
-    set ic_sequence_no = #{record.icSequenceNo,jdbcType=INTEGER},
-      ic_approve_no = #{record.icApproveNo,jdbcType=VARCHAR},
-      ic_title = #{record.icTitle,jdbcType=VARCHAR},
-      ic_approve_state = #{record.icApproveState,jdbcType=VARCHAR},
-      ic_approve_result = #{record.icApproveResult,jdbcType=VARCHAR},
-      ic_approve_begin = #{record.icApproveBegin,jdbcType=VARCHAR},
-      ic_approve_end = #{record.icApproveEnd,jdbcType=VARCHAR},
-      ic_ask_staff_id = #{record.icAskStaffId,jdbcType=VARCHAR},
-      ic_ask_staff_name = #{record.icAskStaffName,jdbcType=VARCHAR},
-      ic_ask_staff_depart = #{record.icAskStaffDepart,jdbcType=VARCHAR},
-      ic_history_approve_name = #{record.icHistoryApproveName,jdbcType=VARCHAR},
-      ic_approve_record = #{record.icApproveRecord,jdbcType=VARCHAR},
-      ic_now_approve_name = #{record.icNowApproveName,jdbcType=VARCHAR},
-      ic_cost = #{record.icCost,jdbcType=VARCHAR},
-      ic_change_item = #{record.icChangeItem,jdbcType=VARCHAR},
-      ic_change_province = #{record.icChangeProvince,jdbcType=VARCHAR},
-      ic_work_city = #{record.icWorkCity,jdbcType=VARCHAR},
-      ic_timebase = #{record.icTimebase,jdbcType=VARCHAR},
-      ic_effect_date = #{record.icEffectDate,jdbcType=VARCHAR}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.model.YoItemChange" >
     update yo_item_change
     <set >
@@ -394,6 +279,9 @@
       <if test="icChangeItem != null" >
         ic_change_item = #{icChangeItem,jdbcType=VARCHAR},
       </if>
+      <if test="icChangeOrder != null" >
+        ic_change_order = #{icChangeOrder,jdbcType=VARCHAR},
+      </if>
       <if test="icChangeProvince != null" >
         ic_change_province = #{icChangeProvince,jdbcType=VARCHAR},
       </if>
@@ -402,6 +290,9 @@
       </if>
       <if test="icTimebase != null" >
         ic_timebase = #{icTimebase,jdbcType=VARCHAR},
+      </if>
+      <if test="icOutroomWork != null" >
+        ic_outroom_work = #{icOutroomWork,jdbcType=VARCHAR},
       </if>
       <if test="icEffectDate != null" >
         ic_effect_date = #{icEffectDate,jdbcType=VARCHAR},
@@ -425,9 +316,11 @@
       ic_now_approve_name = #{icNowApproveName,jdbcType=VARCHAR},
       ic_cost = #{icCost,jdbcType=VARCHAR},
       ic_change_item = #{icChangeItem,jdbcType=VARCHAR},
+      ic_change_order = #{icChangeOrder,jdbcType=VARCHAR},
       ic_change_province = #{icChangeProvince,jdbcType=VARCHAR},
       ic_work_city = #{icWorkCity,jdbcType=VARCHAR},
       ic_timebase = #{icTimebase,jdbcType=VARCHAR},
+      ic_outroom_work = #{icOutroomWork,jdbcType=VARCHAR},
       ic_effect_date = #{icEffectDate,jdbcType=VARCHAR}
     where ic_sequence_no = #{icSequenceNo,jdbcType=INTEGER}
   </update>

@@ -31,7 +31,13 @@ public class BusinessTrip {
 
     private String btDetail;
 
+    private String btAim;
+
+    private String btStartCity;
+
     private String btAddress;
+
+    private String btVehicle;
 
     private String btAskBeginTime;
 
@@ -40,8 +46,6 @@ public class BusinessTrip {
     private String btAskSustain;
 
     private String btAskReason;
-
-    private String btPicture;
 
     public Integer getBtSequenceNo() {
         return btSequenceNo;
@@ -163,12 +167,36 @@ public class BusinessTrip {
         this.btDetail = btDetail;
     }
 
+    public String getBtAim() {
+        return btAim;
+    }
+
+    public void setBtAim(String btAim) {
+        this.btAim = btAim;
+    }
+
+    public String getBtStartCity() {
+        return btStartCity;
+    }
+
+    public void setBtStartCity(String btStartCity) {
+        this.btStartCity = btStartCity;
+    }
+
     public String getBtAddress() {
         return btAddress;
     }
 
     public void setBtAddress(String btAddress) {
         this.btAddress = btAddress;
+    }
+
+    public String getBtVehicle() {
+        return btVehicle;
+    }
+
+    public void setBtVehicle(String btVehicle) {
+        this.btVehicle = btVehicle;
     }
 
     public String getBtAskBeginTime() {
@@ -201,13 +229,5 @@ public class BusinessTrip {
 
     public void setBtAskReason(String btAskReason) {
         this.btAskReason = btAskReason;
-    }
-
-    public String getBtPicture() {
-        return btPicture;
-    }
-
-    public void setBtPicture(String btPicture) {
-        this.btPicture = btPicture;
     }
 }

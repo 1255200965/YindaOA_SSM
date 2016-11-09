@@ -1144,6 +1144,76 @@ public class YoItemChangeExample {
             return (Criteria) this;
         }
 
+        public Criteria andIcChangeOrderIsNull() {
+            addCriterion("ic_change_order is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIcChangeOrderIsNotNull() {
+            addCriterion("ic_change_order is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIcChangeOrderEqualTo(String value) {
+            addCriterion("ic_change_order =", value, "icChangeOrder");
+            return (Criteria) this;
+        }
+
+        public Criteria andIcChangeOrderNotEqualTo(String value) {
+            addCriterion("ic_change_order <>", value, "icChangeOrder");
+            return (Criteria) this;
+        }
+
+        public Criteria andIcChangeOrderGreaterThan(String value) {
+            addCriterion("ic_change_order >", value, "icChangeOrder");
+            return (Criteria) this;
+        }
+
+        public Criteria andIcChangeOrderGreaterThanOrEqualTo(String value) {
+            addCriterion("ic_change_order >=", value, "icChangeOrder");
+            return (Criteria) this;
+        }
+
+        public Criteria andIcChangeOrderLessThan(String value) {
+            addCriterion("ic_change_order <", value, "icChangeOrder");
+            return (Criteria) this;
+        }
+
+        public Criteria andIcChangeOrderLessThanOrEqualTo(String value) {
+            addCriterion("ic_change_order <=", value, "icChangeOrder");
+            return (Criteria) this;
+        }
+
+        public Criteria andIcChangeOrderLike(String value) {
+            addCriterion("ic_change_order like", value, "icChangeOrder");
+            return (Criteria) this;
+        }
+
+        public Criteria andIcChangeOrderNotLike(String value) {
+            addCriterion("ic_change_order not like", value, "icChangeOrder");
+            return (Criteria) this;
+        }
+
+        public Criteria andIcChangeOrderIn(List<String> values) {
+            addCriterion("ic_change_order in", values, "icChangeOrder");
+            return (Criteria) this;
+        }
+
+        public Criteria andIcChangeOrderNotIn(List<String> values) {
+            addCriterion("ic_change_order not in", values, "icChangeOrder");
+            return (Criteria) this;
+        }
+
+        public Criteria andIcChangeOrderBetween(String value1, String value2) {
+            addCriterion("ic_change_order between", value1, value2, "icChangeOrder");
+            return (Criteria) this;
+        }
+
+        public Criteria andIcChangeOrderNotBetween(String value1, String value2) {
+            addCriterion("ic_change_order not between", value1, value2, "icChangeOrder");
+            return (Criteria) this;
+        }
+
         public Criteria andIcChangeProvinceIsNull() {
             addCriterion("ic_change_province is null");
             return (Criteria) this;
@@ -1351,6 +1421,76 @@ public class YoItemChangeExample {
 
         public Criteria andIcTimebaseNotBetween(String value1, String value2) {
             addCriterion("ic_timebase not between", value1, value2, "icTimebase");
+            return (Criteria) this;
+        }
+
+        public Criteria andIcOutroomWorkIsNull() {
+            addCriterion("ic_outroom_work is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIcOutroomWorkIsNotNull() {
+            addCriterion("ic_outroom_work is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIcOutroomWorkEqualTo(String value) {
+            addCriterion("ic_outroom_work =", value, "icOutroomWork");
+            return (Criteria) this;
+        }
+
+        public Criteria andIcOutroomWorkNotEqualTo(String value) {
+            addCriterion("ic_outroom_work <>", value, "icOutroomWork");
+            return (Criteria) this;
+        }
+
+        public Criteria andIcOutroomWorkGreaterThan(String value) {
+            addCriterion("ic_outroom_work >", value, "icOutroomWork");
+            return (Criteria) this;
+        }
+
+        public Criteria andIcOutroomWorkGreaterThanOrEqualTo(String value) {
+            addCriterion("ic_outroom_work >=", value, "icOutroomWork");
+            return (Criteria) this;
+        }
+
+        public Criteria andIcOutroomWorkLessThan(String value) {
+            addCriterion("ic_outroom_work <", value, "icOutroomWork");
+            return (Criteria) this;
+        }
+
+        public Criteria andIcOutroomWorkLessThanOrEqualTo(String value) {
+            addCriterion("ic_outroom_work <=", value, "icOutroomWork");
+            return (Criteria) this;
+        }
+
+        public Criteria andIcOutroomWorkLike(String value) {
+            addCriterion("ic_outroom_work like", value, "icOutroomWork");
+            return (Criteria) this;
+        }
+
+        public Criteria andIcOutroomWorkNotLike(String value) {
+            addCriterion("ic_outroom_work not like", value, "icOutroomWork");
+            return (Criteria) this;
+        }
+
+        public Criteria andIcOutroomWorkIn(List<String> values) {
+            addCriterion("ic_outroom_work in", values, "icOutroomWork");
+            return (Criteria) this;
+        }
+
+        public Criteria andIcOutroomWorkNotIn(List<String> values) {
+            addCriterion("ic_outroom_work not in", values, "icOutroomWork");
+            return (Criteria) this;
+        }
+
+        public Criteria andIcOutroomWorkBetween(String value1, String value2) {
+            addCriterion("ic_outroom_work between", value1, value2, "icOutroomWork");
+            return (Criteria) this;
+        }
+
+        public Criteria andIcOutroomWorkNotBetween(String value1, String value2) {
+            addCriterion("ic_outroom_work not between", value1, value2, "icOutroomWork");
             return (Criteria) this;
         }
 

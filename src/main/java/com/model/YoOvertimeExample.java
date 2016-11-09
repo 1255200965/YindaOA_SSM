@@ -1493,6 +1493,76 @@ public class YoOvertimeExample {
             addCriterion("ot_ask_reason not between", value1, value2, "otAskReason");
             return (Criteria) this;
         }
+
+        public Criteria andOtCommentIsNull() {
+            addCriterion("ot_comment is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOtCommentIsNotNull() {
+            addCriterion("ot_comment is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOtCommentEqualTo(String value) {
+            addCriterion("ot_comment =", value, "otComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andOtCommentNotEqualTo(String value) {
+            addCriterion("ot_comment <>", value, "otComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andOtCommentGreaterThan(String value) {
+            addCriterion("ot_comment >", value, "otComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andOtCommentGreaterThanOrEqualTo(String value) {
+            addCriterion("ot_comment >=", value, "otComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andOtCommentLessThan(String value) {
+            addCriterion("ot_comment <", value, "otComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andOtCommentLessThanOrEqualTo(String value) {
+            addCriterion("ot_comment <=", value, "otComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andOtCommentLike(String value) {
+            addCriterion("ot_comment like", value, "otComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andOtCommentNotLike(String value) {
+            addCriterion("ot_comment not like", value, "otComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andOtCommentIn(List<String> values) {
+            addCriterion("ot_comment in", values, "otComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andOtCommentNotIn(List<String> values) {
+            addCriterion("ot_comment not in", values, "otComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andOtCommentBetween(String value1, String value2) {
+            addCriterion("ot_comment between", value1, value2, "otComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andOtCommentNotBetween(String value1, String value2) {
+            addCriterion("ot_comment not between", value1, value2, "otComment");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

@@ -1144,6 +1144,146 @@ public class BusinessTripExample {
             return (Criteria) this;
         }
 
+        public Criteria andBtAimIsNull() {
+            addCriterion("bt_aim is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAimIsNotNull() {
+            addCriterion("bt_aim is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAimEqualTo(String value) {
+            addCriterion("bt_aim =", value, "btAim");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAimNotEqualTo(String value) {
+            addCriterion("bt_aim <>", value, "btAim");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAimGreaterThan(String value) {
+            addCriterion("bt_aim >", value, "btAim");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAimGreaterThanOrEqualTo(String value) {
+            addCriterion("bt_aim >=", value, "btAim");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAimLessThan(String value) {
+            addCriterion("bt_aim <", value, "btAim");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAimLessThanOrEqualTo(String value) {
+            addCriterion("bt_aim <=", value, "btAim");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAimLike(String value) {
+            addCriterion("bt_aim like", value, "btAim");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAimNotLike(String value) {
+            addCriterion("bt_aim not like", value, "btAim");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAimIn(List<String> values) {
+            addCriterion("bt_aim in", values, "btAim");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAimNotIn(List<String> values) {
+            addCriterion("bt_aim not in", values, "btAim");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAimBetween(String value1, String value2) {
+            addCriterion("bt_aim between", value1, value2, "btAim");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAimNotBetween(String value1, String value2) {
+            addCriterion("bt_aim not between", value1, value2, "btAim");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtStartCityIsNull() {
+            addCriterion("bt_start_city is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtStartCityIsNotNull() {
+            addCriterion("bt_start_city is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtStartCityEqualTo(String value) {
+            addCriterion("bt_start_city =", value, "btStartCity");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtStartCityNotEqualTo(String value) {
+            addCriterion("bt_start_city <>", value, "btStartCity");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtStartCityGreaterThan(String value) {
+            addCriterion("bt_start_city >", value, "btStartCity");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtStartCityGreaterThanOrEqualTo(String value) {
+            addCriterion("bt_start_city >=", value, "btStartCity");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtStartCityLessThan(String value) {
+            addCriterion("bt_start_city <", value, "btStartCity");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtStartCityLessThanOrEqualTo(String value) {
+            addCriterion("bt_start_city <=", value, "btStartCity");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtStartCityLike(String value) {
+            addCriterion("bt_start_city like", value, "btStartCity");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtStartCityNotLike(String value) {
+            addCriterion("bt_start_city not like", value, "btStartCity");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtStartCityIn(List<String> values) {
+            addCriterion("bt_start_city in", values, "btStartCity");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtStartCityNotIn(List<String> values) {
+            addCriterion("bt_start_city not in", values, "btStartCity");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtStartCityBetween(String value1, String value2) {
+            addCriterion("bt_start_city between", value1, value2, "btStartCity");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtStartCityNotBetween(String value1, String value2) {
+            addCriterion("bt_start_city not between", value1, value2, "btStartCity");
+            return (Criteria) this;
+        }
+
         public Criteria andBtAddressIsNull() {
             addCriterion("bt_address is null");
             return (Criteria) this;
@@ -1211,6 +1351,76 @@ public class BusinessTripExample {
 
         public Criteria andBtAddressNotBetween(String value1, String value2) {
             addCriterion("bt_address not between", value1, value2, "btAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtVehicleIsNull() {
+            addCriterion("bt_vehicle is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtVehicleIsNotNull() {
+            addCriterion("bt_vehicle is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtVehicleEqualTo(String value) {
+            addCriterion("bt_vehicle =", value, "btVehicle");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtVehicleNotEqualTo(String value) {
+            addCriterion("bt_vehicle <>", value, "btVehicle");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtVehicleGreaterThan(String value) {
+            addCriterion("bt_vehicle >", value, "btVehicle");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtVehicleGreaterThanOrEqualTo(String value) {
+            addCriterion("bt_vehicle >=", value, "btVehicle");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtVehicleLessThan(String value) {
+            addCriterion("bt_vehicle <", value, "btVehicle");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtVehicleLessThanOrEqualTo(String value) {
+            addCriterion("bt_vehicle <=", value, "btVehicle");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtVehicleLike(String value) {
+            addCriterion("bt_vehicle like", value, "btVehicle");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtVehicleNotLike(String value) {
+            addCriterion("bt_vehicle not like", value, "btVehicle");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtVehicleIn(List<String> values) {
+            addCriterion("bt_vehicle in", values, "btVehicle");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtVehicleNotIn(List<String> values) {
+            addCriterion("bt_vehicle not in", values, "btVehicle");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtVehicleBetween(String value1, String value2) {
+            addCriterion("bt_vehicle between", value1, value2, "btVehicle");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtVehicleNotBetween(String value1, String value2) {
+            addCriterion("bt_vehicle not between", value1, value2, "btVehicle");
             return (Criteria) this;
         }
 
@@ -1491,76 +1701,6 @@ public class BusinessTripExample {
 
         public Criteria andBtAskReasonNotBetween(String value1, String value2) {
             addCriterion("bt_ask_reason not between", value1, value2, "btAskReason");
-            return (Criteria) this;
-        }
-
-        public Criteria andBtPictureIsNull() {
-            addCriterion("bt_picture is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andBtPictureIsNotNull() {
-            addCriterion("bt_picture is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andBtPictureEqualTo(String value) {
-            addCriterion("bt_picture =", value, "btPicture");
-            return (Criteria) this;
-        }
-
-        public Criteria andBtPictureNotEqualTo(String value) {
-            addCriterion("bt_picture <>", value, "btPicture");
-            return (Criteria) this;
-        }
-
-        public Criteria andBtPictureGreaterThan(String value) {
-            addCriterion("bt_picture >", value, "btPicture");
-            return (Criteria) this;
-        }
-
-        public Criteria andBtPictureGreaterThanOrEqualTo(String value) {
-            addCriterion("bt_picture >=", value, "btPicture");
-            return (Criteria) this;
-        }
-
-        public Criteria andBtPictureLessThan(String value) {
-            addCriterion("bt_picture <", value, "btPicture");
-            return (Criteria) this;
-        }
-
-        public Criteria andBtPictureLessThanOrEqualTo(String value) {
-            addCriterion("bt_picture <=", value, "btPicture");
-            return (Criteria) this;
-        }
-
-        public Criteria andBtPictureLike(String value) {
-            addCriterion("bt_picture like", value, "btPicture");
-            return (Criteria) this;
-        }
-
-        public Criteria andBtPictureNotLike(String value) {
-            addCriterion("bt_picture not like", value, "btPicture");
-            return (Criteria) this;
-        }
-
-        public Criteria andBtPictureIn(List<String> values) {
-            addCriterion("bt_picture in", values, "btPicture");
-            return (Criteria) this;
-        }
-
-        public Criteria andBtPictureNotIn(List<String> values) {
-            addCriterion("bt_picture not in", values, "btPicture");
-            return (Criteria) this;
-        }
-
-        public Criteria andBtPictureBetween(String value1, String value2) {
-            addCriterion("bt_picture between", value1, value2, "btPicture");
-            return (Criteria) this;
-        }
-
-        public Criteria andBtPictureNotBetween(String value1, String value2) {
-            addCriterion("bt_picture not between", value1, value2, "btPicture");
             return (Criteria) this;
         }
     }

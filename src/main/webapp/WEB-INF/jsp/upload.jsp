@@ -68,7 +68,7 @@
                     <li><a data-bind="attr: { href: '<%=basePath%>userinfo/import.do'}">人员导入</a></li>
                     <li><a data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">通讯录</a></li>
                     <li><a class="active" data-bind="attr: { href: '<%=basePath%>Import/navigator.do'}">审批数据导入</a></li>
-                    <li><a data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">工资查询</a></li>
+                    <li><a data-bind="attr: { href: '<%=basePath%>userinfo/test.do'}">工资查询</a></li>
                     <li><a data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">关于我们</a></li>
                 </ul>
             </div>
@@ -90,11 +90,11 @@
             </ul> -->
     <div class="mod">
         <a data-bind="attr: { href: '<%=basePath%>AskLeaveExcel/homePage.do'}"><img src="../images/icon01.png" alt=""><p>请假申请</p></a>
-        <a data-bind="attr: { href: '<%=basePath%>Import/importOvertimeHome.do'}"><img src="../images/icon02.png" alt=""><p>加班申请</p></a>
-        <a data-bind="attr: { href: '<%=basePath%>Import/importSubwayHome.do'}"><img src="../images/icon01.png" alt=""><p>公交地铁</p></a>
-        <a data-bind="attr: { href: '<%=basePath%>Import/importBusinessTripHome.do'}"><img src="../images/icon02.png" alt=""><p>出差申请</p></a>
-        <a data-bind="attr: { href: '<%=basePath%>Import/importItemChangeHome.do'}"><img src="../images/icon01.png" alt=""><p>项目信息变动</p></a>
-        <a data-bind="attr: { href: '<%=basePath%>Import/importYindaIdentifyHome.do'}"><img src="../images/icon02.png" alt=""><p>音达认证</p></a>
+        <a data-bind="attr: { href: '<%=basePath%>OvertimeExcel/homePage.do'}"><img src="../images/icon02.png" alt=""><p>加班申请</p></a>
+        <a data-bind="attr: { href: '<%=basePath%>SubwayExcel/homePage.do'}"><img src="../images/icon01.png" alt=""><p>公交地铁</p></a>
+        <a data-bind="attr: { href: '<%=basePath%>BusinessTripExcel/homePage.do'}"><img src="../images/icon02.png" alt=""><p>出差申请</p></a>
+        <a data-bind="attr: { href: '<%=basePath%>ItemChangeExcel/homePage.do'}"><img src="../images/icon01.png" alt=""><p>项目信息变动</p></a>
+        <a data-bind="attr: { href: '<%=basePath%>YindaIdentifyExcel/homePage.do'}"><img src="../images/icon02.png" alt=""><p>音达认证</p></a>
     </div>
 
 

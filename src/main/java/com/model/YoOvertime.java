@@ -41,6 +41,8 @@ public class YoOvertime {
 
     private String otAskReason;
 
+    private String otComment;
+
     public Integer getOtSequenceNo() {
         return otSequenceNo;
     }
@@ -199,5 +201,13 @@ public class YoOvertime {
 
     public void setOtAskReason(String otAskReason) {
         this.otAskReason = otAskReason;
+    }
+
+    public String getOtComment() {
+        return otComment;
+    }
+
+    public void setOtComment(String otComment) {
+        this.otComment = otComment;
     }
 }

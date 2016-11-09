@@ -1,7 +1,8 @@
 package com.controller;
 
 import com.model.AskForLeave;
-import com.service.IAskLeaveExcelService;
+import com.model.YoSubway;
+import com.service.ISubwayExcelService;
 import com.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,14 +16,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Controller
-@RequestMapping("/AskLeaveExcel")
-public class AskLeaveExcelController {
+@RequestMapping("/SubwayExcel")
+public class SubwayExcelController {
 
     @Autowired
-    private IAskLeaveExcelService iAskLeaveExcelService;
+    private ISubwayExcelService iSubwayExcelService;
 
     @RequestMapping("/navigator.do")
     public String navigator() {
@@ -42,7 +45,7 @@ public class AskLeaveExcelController {
         m.addAttribute("validateTitle", validateTitle);
         m.addAttribute("successAmount", successAmount);
         m.addAttribute("failAmount", failAmount);
-        return "/upload-qingjia";
+        return "/upload-jiaotong";
     }
 
     /**
@@ -75,15 +78,15 @@ public class AskLeaveExcelController {
         //=========文件上传成功后处理excel
         try {
             // 第一步，校验文件，不合格会直接在页面抛出错误
-            String validateTitle = iAskLeaveExcelService.validateExcelTitle(savePath);
+            String validateTitle = iSubwayExcelService.validateExcelTitle(savePath);
             ra.addAttribute("validateTitle", validateTitle);
             if (validateTitle.contains("表头名称错误")) return "redirect:homePage.do";
             // 第二步，添加文件到数据库，会返回成功的数量和失败的列表
-            Map<String, Object> mapInsert = iAskLeaveExcelService.insertAndUpdate(savePath);
+            Map<String, Object> mapInsert = iSubwayExcelService.insertAndUpdate(savePath);
             String successAmount = mapInsert.get("successAmount").toString();
             String successAmountPrint = "上传成功的条目数目为：" + successAmount;
             ra.addAttribute("successAmount", successAmountPrint);
-            List<AskForLeave> listFail = (ArrayList<AskForLeave>)mapInsert.get("listFail");
+            List<YoSubway> listFail = (ArrayList<YoSubway>)mapInsert.get("listFail");
             int failAmonutInt = listFail.size();
             String failAmountStr = String.valueOf(failAmonutInt);
             String failAmountPrint = "上传失败的条目数目为：" + failAmountStr;
