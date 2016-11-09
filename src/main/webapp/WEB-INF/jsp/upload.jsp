@@ -27,6 +27,7 @@
     <script src="../javascripts//knockout-3.4.0rc.js"></script>
 
     <style>
+        body{min-width:1350px;}
         .content img{width:120px;}
         .content{width:930px;margin:0 auto;padding-bottom:30px;background:#fff;margin-top:30px;overflow: hidden;}
         .content a{display:block;width:190px;height:150px;float:left;width:190px;height: 150px;background: purple;margin:30px;text-align: center;border-radius:20px;color:#fff;}
@@ -68,7 +69,7 @@
                     <li><a data-bind="attr: { href: '<%=basePath%>userinfo/import.do'}">人员导入</a></li>
                     <li><a data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">通讯录</a></li>
                     <li><a class="active" data-bind="attr: { href: '<%=basePath%>Import/navigator.do'}">审批数据导入</a></li>
-                    <li><a data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">工资查询</a></li>
+                    <li><a data-bind="attr: { href: '<%=basePath%>userinfo/test.do'}">工资查询</a></li>
                     <li><a data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">关于我们</a></li>
                 </ul>
             </div>
@@ -89,7 +90,7 @@
                 <li><a href="">报告</a></li>
             </ul> -->
     <div class="mod">
-        <a data-bind="attr: { href: '<%=basePath%>Import/AskLeaveHome.do'}"><img src="../images/icon01.png" alt=""><p>请假申请</p></a>
+        <a data-bind="attr: { href: '<%=basePath%>AskLeaveExcel/homePage.do'}"><img src="../images/icon01.png" alt=""><p>请假申请</p></a>
         <a data-bind="attr: { href: '<%=basePath%>Import/importOvertimeHome.do'}"><img src="../images/icon02.png" alt=""><p>加班申请</p></a>
         <a data-bind="attr: { href: '<%=basePath%>Import/importSubwayHome.do'}"><img src="../images/icon01.png" alt=""><p>公交地铁</p></a>
         <a data-bind="attr: { href: '<%=basePath%>Import/importBusinessTripHome.do'}"><img src="../images/icon02.png" alt=""><p>出差申请</p></a>

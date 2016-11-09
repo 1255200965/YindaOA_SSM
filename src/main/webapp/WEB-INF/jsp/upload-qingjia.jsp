@@ -6,6 +6,10 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String path = request.getContextPath();
+    String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -17,6 +21,7 @@
     <link rel="stylesheet" href="../stylesheets/header.css">
     <link rel="stylesheet" href="../stylesheets/upload-details.css">
     <script src="../javascripts/jquery.min.js"></script>
+    <script src="../javascripts//knockout-3.4.0rc.js"></script>
 </head>
 <body>
 <header>
@@ -27,11 +32,11 @@
         </div>
         <div class="head-nav fl" id="h-nav">
             <ul>
-                <li ><a href="#">成员导入</a></li>
-                <li ><a href="#">通讯录</a></li>
-                <li ><a href="#">成员导入</a></li>
-                <li class="active"><a href="upload.html">审批数据导入</a></li>
-                <li><a href="affairs-search.html">工资查询</a></li>
+                <li><a  data-bind="attr: { href: '<%=basePath%>userinfo/import.do'}">人员导入</a></li>
+                <li><a data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">通讯录</a></li>
+                <li><a class="active" data-bind="attr: { href: '<%=basePath%>Import/navigator.do'}">审批数据导入</a></li>
+                <li><a data-bind="attr: { href: '<%=basePath%>userinfo/test.do'}">工资查询</a></li>
+                <li><a data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">关于我们</a></li>
             </ul>
         </div>
         <div class="head-right fr">
@@ -49,15 +54,15 @@
         <p>第二步：上传填写好的数据表</p>
     </div>
     <div class="select-file">
-        <form action="">
+        <form action="../AskLeaveExcel/importExcel.do" enctype="multipart/form-data" method="post" onsubmit="return check_upload(this,1)">
             <div class="select-details">
                 <a href="javascript:;" class="file">选择文件
-                    <input  type="file" value="选择文件"   id="filename1" name="importExcel"  onchange="showFile(1)">
+                    <input type="file" value="选择文件" id="fileInput" name="fileUpload" onchange="showFile()">
                 </a>
                 <div>
-                    <div id="upfilename1">未上传任何文件</div>
-                    <div id="checkmsg1"></div>
-                    <div id="successmsg1"></div>
+                    <div id="fileState">${validate}</div>
+                    <div>${validate}</div>
+                    <div>${amountPrint}</div>
                 </div>
             </div>
 
@@ -71,11 +76,25 @@
 <footer>
     <p><img src="../images/tubiao.png" alt="">上海音达科技实业有限公司</p>
 </footer>
+
 <script>
-    function showFile(id){
-        var filepath = $("#filename"+id).val();
-        $("#upfilename"+id).html(filepath);
+    $(document).ready(function () {
+        var type = "${tab}";
+        if (type != "") checkInit(type);
+        var ViewModel = function (){};
+        ko.applyBindings(new ViewModel);
+    });
+$(document).ready(function(){
+    if ($("#fileState").text() == "") {
+        $("#fileState").html("未选择任何文件");
     }
+});
+
+function showFile(){
+    var filepath = $("#fileInput").val();
+    $("#fileState").html(filepath);
+}
 </script>
+
 </body>
 </html>

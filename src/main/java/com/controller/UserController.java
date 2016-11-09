@@ -62,5 +62,22 @@ import com.service.IUserService;
 
             return "/upload-renzheng";
         }
+
+        @RequestMapping("/phone-salary.do")
+        public String PhoneSalary(HttpServletRequest request){
+
+            return "/dd/salary";
+        }
+        @RequestMapping("/phone-kaoqin.do")
+        public String PhoneKaoQin(HttpServletRequest request){
+
+            return "/dd/kaoqin";
+        }
+
+        @RequestMapping("/phone-details.do")
+        public String PhoneDetails(HttpServletRequest request){
+
+            return "/dd/details";
+        }
     }
 
