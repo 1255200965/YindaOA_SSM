@@ -12,8 +12,8 @@ public interface ISalaryService {
     //查询单个用户
 //    YoSalary countByExample(Integer sid);
 
-    //更新用户
-//    int updateStaffByID(YoSalary sid);
+    //添加工资
+    int insert(YoSalary record);;
 
     //通过姓名来查询员工信息*/
        List<YoSalary> searchYoSalaryByEntity(YoSalary yoSalary);

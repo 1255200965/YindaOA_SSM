@@ -13,6 +13,9 @@ public interface YoAttendanceMapper {
 
     List<YoAttendance> selectByExample(YoAttendanceExample example);
 
+    /*彭文杰改，方法不带参数*/
+    List<YoAttendance> selectByExample();
+
     YoAttendance selectByPrimaryKey(String id);
 
     int updateByPrimaryKeySelective(YoAttendance record);

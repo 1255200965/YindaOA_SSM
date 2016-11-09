@@ -12,8 +12,8 @@
     <result column="checkType" property="checktype" jdbcType="VARCHAR" />
     <result column="timeResult" property="timeresult" jdbcType="VARCHAR" />
     <result column="locationResult" property="locationresult" jdbcType="VARCHAR" />
-    <result column="baseCheckTime" property="basechecktime" jdbcType="TIMESTAMP" />
-    <result column="userCheckTime" property="userchecktime" jdbcType="TIMESTAMP" />
+    <result column="baseCheckTime" property="basechecktime" jdbcType="VARCHAR" />
+    <result column="userCheckTime" property="userchecktime" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -80,8 +80,8 @@
       )
     values (#{id,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{corpid,jdbcType=VARCHAR}, 
       #{groupid,jdbcType=VARCHAR}, #{planid,jdbcType=VARCHAR}, #{recordid,jdbcType=VARCHAR}, 
-      #{workdate,jdbcType=VARCHAR}, #{checktype,jdbcType=VARCHAR}, #{timeresult,jdbcType=VARCHAR}, 
-      #{locationresult,jdbcType=VARCHAR}, #{basechecktime,jdbcType=TIMESTAMP}, #{userchecktime,jdbcType=TIMESTAMP}
+      #{workdate,jdbcType=VARCHAR}, #{checktype,jdbcType=VARCHAR}, #{timeresult,jdbcType=VARCHAR},
+      #{locationresult,jdbcType=VARCHAR}, #{basechecktime,jdbcType=VARCHAR}, #{userchecktime,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.model.YoAttendance" >
@@ -156,10 +156,10 @@
         #{locationresult,jdbcType=VARCHAR},
       </if>
       <if test="basechecktime != null" >
-        #{basechecktime,jdbcType=TIMESTAMP},
+        #{basechecktime,jdbcType=VARCHAR},
       </if>
       <if test="userchecktime != null" >
-        #{userchecktime,jdbcType=TIMESTAMP},
+        #{userchecktime,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -194,10 +194,10 @@
         locationResult = #{locationresult,jdbcType=VARCHAR},
       </if>
       <if test="basechecktime != null" >
-        baseCheckTime = #{basechecktime,jdbcType=TIMESTAMP},
+        baseCheckTime = #{basechecktime,jdbcType=VARCHAR},
       </if>
       <if test="userchecktime != null" >
-        userCheckTime = #{userchecktime,jdbcType=TIMESTAMP},
+        userCheckTime = #{userchecktime,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
@@ -213,8 +213,8 @@
       checkType = #{checktype,jdbcType=VARCHAR},
       timeResult = #{timeresult,jdbcType=VARCHAR},
       locationResult = #{locationresult,jdbcType=VARCHAR},
-      baseCheckTime = #{basechecktime,jdbcType=TIMESTAMP},
-      userCheckTime = #{userchecktime,jdbcType=TIMESTAMP}
+      baseCheckTime = #{basechecktime,jdbcType=VARCHAR},
+      userCheckTime = #{userchecktime,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

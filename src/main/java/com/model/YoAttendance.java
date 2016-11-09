@@ -1,6 +1,6 @@
 package com.model;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class YoAttendance {
     private String id;
@@ -15,7 +15,7 @@ public class YoAttendance {
 
     private String recordid;
 
-    private String workdate;
+    private Timestamp workdate;
 
     private String checktype;
 
@@ -23,9 +23,9 @@ public class YoAttendance {
 
     private String locationresult;
 
-    private Date basechecktime;
+    private Timestamp basechecktime;
 
-    private Date userchecktime;
+    private Timestamp userchecktime;
 
     public String getId() {
         return id;
@@ -75,11 +75,11 @@ public class YoAttendance {
         this.recordid = recordid;
     }
 
-    public String getWorkdate() {
+    public Timestamp getWorkdate() {
         return workdate;
     }
 
-    public void setWorkdate(String workdate) {
+    public void setWorkdate(Timestamp workdate) {
         this.workdate = workdate;
     }
 
@@ -107,19 +107,19 @@ public class YoAttendance {
         this.locationresult = locationresult;
     }
 
-    public Date getBasechecktime() {
+    public Timestamp getBasechecktime() {
         return basechecktime;
     }
 
-    public void setBasechecktime(Date basechecktime) {
+    public void setBasechecktime(Timestamp basechecktime) {
         this.basechecktime = basechecktime;
     }
 
-    public Date getUserchecktime() {
+    public Timestamp getUserchecktime() {
         return userchecktime;
     }
 
-    public void setUserchecktime(Date userchecktime) {
+    public void setUserchecktime(Timestamp userchecktime) {
         this.userchecktime = userchecktime;
     }
 }
