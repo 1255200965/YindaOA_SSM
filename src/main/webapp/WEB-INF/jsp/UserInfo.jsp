@@ -34,6 +34,7 @@
         .c_box .col-md-2{min-width:189px;width:12.4%;}
         .c_box .c_left_box{height:850px;}
         .c_box .c_right_box {min-width:1056.7px;width:79%;}
+        .table-1 tbody td{font-size:12px;}
     </style>
 
     <script type="text/javascript">
@@ -404,18 +405,18 @@
 
         <div style="width:100%; height:700px;padding-top: 5px;overflow:auto;border:0 solid #000000;">
 
-            <table  width="95%" border="1" cellspacing="0" cellpadding="0" class="table-1">
-                <tr class="table-1-tou">
-                    <td class="text_center" width="6%">编号</td>
+            <table  width="100%" border="1" cellspacing="0" cellpadding="0" class="table-1">
+                <thead class="table-1-tou">
+                    <td class="text_center" width="13%">编号</td>
                     <td class="text_center" width="6%">姓名</td>
                     <td class="text_center" width="15%">身份证号</td>
-                    <td class="text_center" width="6%">部门</td>
-                    <td class="text_center" width="12%">手机号</td>
+                    <td class="text_center" width="14%">部门</td>
+                    <td class="text_center" width="10%">手机号</td>
                     <td class="text_center" width="18%">邮箱</td>
                     <td class="text_center" width="6%">工号</td>
                     <td class="text_center" width="8%">在职状态</td>
-                    <td class="text_center" width="16%">操作</td>
-                </tr>
+                    <td class="text_center" width="9%">操作</td>
+                </thead>
 
                 <tbody data-bind="foreach:ShowList">
                 <tr >
