@@ -1,5 +1,6 @@
 package com.model;
 
+
 import java.util.Date;
 
 public class YoSalary {
@@ -9,19 +10,19 @@ public class YoSalary {
 
     private String userid;
 
+    private String name;
+
     private String salaryid;
 
-    private Date workdate;
+    private Date date;
 
     private String datetype;
 
-    private String yoAskStaffId;
-
-    private String recordid;
+    private String attendance;
 
     private Double attendanceSalary;
 
-    private String yoType;
+    private String leavetype;
 
     private Double leavesalary;
 
@@ -44,10 +45,6 @@ public class YoSalary {
     private Double trafficsalary;
 
     private Double additionalsalary;
-
-    private String realityattendance;
-
-    private String effectiveAttendance;
 
     public Integer getSid() {
         return sid;
@@ -73,6 +70,15 @@ public class YoSalary {
         this.userid = userid;
     }
 
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getSalaryid() {
         return salaryid;
     }
@@ -81,12 +87,12 @@ public class YoSalary {
         this.salaryid = salaryid;
     }
 
-    public Date getWorkdate() {
-        return workdate;
+    public Date getDate() {
+        return date;
     }
 
-    public void setWorkdate(Date workdate) {
-        this.workdate = workdate;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public String getDatetype() {
@@ -97,20 +103,12 @@ public class YoSalary {
         this.datetype = datetype;
     }
 
-    public String getYoAskStaffId() {
-        return yoAskStaffId;
+    public String getAttendance() {
+        return attendance;
     }
 
-    public void setYoAskStaffId(String yoAskStaffId) {
-        this.yoAskStaffId = yoAskStaffId;
-    }
-
-    public String getRecordid() {
-        return recordid;
-    }
-
-    public void setRecordid(String recordid) {
-        this.recordid = recordid;
+    public void setAttendance(String attendance) {
+        this.attendance = attendance;
     }
 
     public Double getAttendanceSalary() {
@@ -121,12 +119,12 @@ public class YoSalary {
         this.attendanceSalary = attendanceSalary;
     }
 
-    public String getYoType() {
-        return yoType;
+    public String getLeavetype() {
+        return leavetype;
     }
 
-    public void setYoType(String yoType) {
-        this.yoType = yoType;
+    public void setLeavetype(String leavetype) {
+        this.leavetype = leavetype;
     }
 
     public Double getLeavesalary() {
@@ -217,19 +215,5 @@ public class YoSalary {
         this.additionalsalary = additionalsalary;
     }
 
-    public String getRealityattendance() {
-        return realityattendance;
-    }
 
-    public void setRealityattendance(String realityattendance) {
-        this.realityattendance = realityattendance;
-    }
-
-    public String getEffectiveAttendance() {
-        return effectiveAttendance;
-    }
-
-    public void setEffectiveAttendance(String effectiveAttendance) {
-        this.effectiveAttendance = effectiveAttendance;
-    }
 }

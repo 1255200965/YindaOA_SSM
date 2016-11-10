@@ -1,6 +1,7 @@
 package com.service;
 
 import com.model.AskForLeave;
+import com.model.AskForLeaveExample;
 
 import java.io.IOException;
 import java.util.List;
@@ -12,5 +13,6 @@ import java.util.Map;
 public interface IAskLeaveService {
    //获取请假表的信息
    List<AskForLeave> selectByExample();
-    
+
+   List<AskForLeave> selectByExample(AskForLeaveExample example);
 }

@@ -48,7 +48,7 @@ public class StaffInfoController {
         return "/UserInfo";
     }
 
-    @RequestMapping("/import.do")
+/*    @RequestMapping("/import.do")
     public String ImportUser(Map<String,Object> map,HttpServletRequest request){
         List<StaffInfo> userDtoList = new ArrayList<StaffInfo>();
 
@@ -127,7 +127,7 @@ public class StaffInfoController {
             map.put("error",e.toString());
         }
         return new ModelAndView("/ImportUser",map);
-    }
+    }*/
 
     /**
      * 点击查询按钮后，根据输入框产生的实体类进行查询，页面不跳转

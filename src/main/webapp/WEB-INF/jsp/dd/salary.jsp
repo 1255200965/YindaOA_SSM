@@ -99,15 +99,15 @@
             <div class="affair-msg">
                 <p>10月总收入（元）</p>
                 <p>0.00</p>
-                <p><a href="">点击查看详情</a></p>
+                <p><a href="<%=basePath%>user/phone-details.do">点击查看详情</a></p>
             </div>
             <div class="other">
-                <a href="#">考勤</a>
-                <a href="#">工作日历</a>
-                <a href="#">请假天数</a>
-                <a href="#">请假天数</a>
-                <a href="#">工作日历</a>
-                <a href="#">考勤</a>
+                <a href="<%=basePath%>user/phone-kaoqin.do">考勤</a>
+                <a href="<%=basePath%>user/phone-kaoqin.do">加班日历</a>
+                <a href="<%=basePath%>user/phone-kaoqin.do?date=201611&type=1">请假天数</a>
+                <a href="<%=basePath%>user/phone-kaoqin.do)">出差</a>
+                <a href="javascript:void(0)" onclick="openLink('<%=basePath%>user/phone-kaoqin.do')">项目</a>
+                <a href="javascript:void(0)" onclick="openLink('<%=basePath%>user/phone-details.do')">其他</a>
             </div>
         </div>
 
@@ -119,9 +119,12 @@
                 <!--                         <div class="person-pho"><img src="img/I.JPG" alt=""></div>
                                         <div class="person-msg">上海音达，Rose</div> -->
                 <div class="ser-date fl">请选择日期：<input id="scroller" name="scroller"></div>
-                <button class="button button-raised button-rounded button-royal">查询</button>
+                <button class="button button-raised button-rounded button-royal" onclick="initSalary()">查询</button>
             </div>
         </div>
+
+        <input id="userid" style="display: none;">
+        <input id="code" style="display: none;">
     </div>
 </div>
 <script src="http://g.alicdn.com/dingding/open-develop/0.8.4/dingtalk.js"></script>
@@ -157,6 +160,144 @@ $(function(){
 
 </script>
 
+<script type="text/javascript">
+    //在此拿到权限验证配置所需要的信息
+    var _config = <%= com.ddSdk.auth.AuthHelper.getConfig(request) %>;
+    //当前用户，当前时间
+    var nowUser = null;
+    var nowTime = null;
+
+    var qs = <%= request.getAttribute("msg") %>;
+    if (qs == null || qs == "NO!") {
+        //alert("没有邮箱！");
+        $("#email").text("");
+        $("#password").text("");
+    }
+    //配置钉钉jsapi
+    dd.config({
+        agentId: _config.agentid,
+        corpId: _config.corpId,
+        timeStamp: _config.timeStamp,
+        nonceStr: _config.nonceStr,
+        signature: _config.signature,
+        jsApiList: ['runtime.info', 'biz.contact.choose',
+            'device.notification.confirm', 'device.notification.alert',
+            'device.notification.prompt', 'biz.ding.post',
+            'biz.util.openLink', 'device.geolocation.get', 'biz.map.view', 'biz.map.locate']
+    });
+
+    dd.ready(function () {
+        //获取免登授权码
+        dd.runtime.permission.requestAuthCode({
+            corpId: _config.corpId,
+            onSuccess: function (result) {
+                /*{
+                 code: 'hYLK98jkf0m' //string authCode
+                 }*/
+                $("#code").val(result.code);
+            },
+            onFail: function (err) {
+            }
+
+        });
+        //获取容器信息
+        dd.runtime.info({
+            onSuccess: function (info) {
+                logger.e('runtime info: ' + JSON.stringify(info));
+            },
+            onFail: function (err) {
+                logger.e('fail: ' + JSON.stringify(err));
+            }
+        });
+        //允许下拉刷新
+        dd.ui.pullToRefresh.enable({
+            onSuccess: function () {
+            },
+            onFail: function () {
+            }
+        })
+        //设置菜单栏
+        dd.biz.navigation.setMenu({
+            backgroundColor: "#ADD8E6",
+            items: [
+                {
+                    id: "此处可以设置帮助",//字符串
+                    // "iconId":"file",//字符串，图标命名
+                    text: "帮助"
+                }
+                ,
+                {
+                    "id": "2",
+                    "iconId": "photo",
+                    "text": "我们"
+                }
+                ,
+                {
+                    "id": "3",
+                    "iconId": "file",
+                    "text": "你们"
+                }
+                ,
+                {
+                    "id": "4",
+                    "iconId": "time",
+                    "text": "他们"
+                }
+            ],
+            onSuccess: function (data) {
+                alert(JSON.stringify(data));
+
+            },
+            onFail: function (err) {
+                alert(JSON.stringify(err));
+            }
+        });
+        //获取个人信息
+        dd.biz.user.get({
+            onSuccess: function (info) {
+                logger.e('userGet success: ' + JSON.stringify(info));
+                //{id:staff_user_id,nickName:name}
+                $("#userid").val(info.id);
+                nowUser = info.id;
+            },
+            onFail: function (err) {
+                logger.e('userGet fail: ' + JSON.stringify(err));
+            }
+        });
+        initSalary();
+    });
+    //打开链接
+    function openLink(url) {
+        dd.biz.util.openLink({
+            name:url,//页面名称
+            params:{"date":nowTime},//传参
+            onSuccess: function (result) {
+            },
+            onFail: function (err) {
+                alert(JSON.stringify(err));
+            }
+        });
+    }
+    //显示信息
+    function showMsg(Msg) {
+        dd.device.notification.alert({
+            message: Msg,
+            title: "message",//可传空
+            buttonName: "收到",
+            onSuccess: function () {
+                //onSuccess将在点击button之后回调
+                /*回调*/
+            },
+            onFail: function (err) {
+            }
+        });
+    }
+    function initSalary(){
+        //输入用户id，日期,返回工资对象
+        nowTime = $("#scroller").val();
+        alert("当前用户是:"+nowUser + "\n当前日期是:" + nowTime);
+    }
+</script>
 </body>
 </html>
 

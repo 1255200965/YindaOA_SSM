@@ -49,7 +49,7 @@
 </head>
 <body>
 <header>
-    <a href="#"><i class="iconfont">&#xe82f;</i></a>
+    <a href="<%=basePath%>user/phone-salary.do"><i class="iconfont">&#xe82f;</i></a>
     工资详情（2016年10月）
 </header>
 <div class="content">

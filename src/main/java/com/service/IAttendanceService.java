@@ -1,6 +1,7 @@
 package com.service;
 
 import com.model.YoAttendance;
+import com.model.YoAttendanceExample;
 
 import java.util.List;
 
@@ -12,4 +13,6 @@ public interface IAttendanceService {
     int insertAttend(YoAttendance record);
 
     List<YoAttendance> selectByExample();
+
+    List<YoAttendance> selectByExample(YoAttendanceExample example);
 }

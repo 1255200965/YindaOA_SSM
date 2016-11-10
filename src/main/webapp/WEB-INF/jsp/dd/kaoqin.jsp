@@ -36,7 +36,8 @@
         /*样式重置*/
         *{margin:0;padding:0;}
         ul li{list-style:none;}
-        a{text-decoration: none;}
+        a{text-decoration: none;
+            color: #ffffff;}
         .fl{float:left;}
         .fr{float:right;}
         /*样式*/
@@ -53,7 +54,7 @@
 <body>
 <div class="box">
     <header>
-        <div class="head-ico fl"><i class="iconfont">&#xe82f;</i></div>
+        <div class="head-ico fl"><a href="<%=basePath%>user/phone-salary.do"><i class="iconfont">&#xe82f;</i></a></div>
         <div class="head-msg fl">工时明细</div>
         <div class="head-ser fr">帮助</div>
     </header>

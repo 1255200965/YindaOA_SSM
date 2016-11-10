@@ -1,6 +1,7 @@
 package com.service.impl;
 
 import com.model.AskForLeave;
+import com.model.AskForLeaveExample;
 import com.service.IAskLeaveService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,9 +13,12 @@ import java.util.List;
  */
 @Transactional
 @Service
-public class IAskLeaveServiceImpI implements IAskLeaveService {
+public class AskLeaveServiceImpl implements IAskLeaveService {
    @Override
    public List<AskForLeave> selectByExample() {
       return selectByExample();
+   }
+   public List<AskForLeave> selectByExample(AskForLeaveExample example) {
+      return selectByExample(example);
    }
 }
