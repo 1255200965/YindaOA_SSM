@@ -70,10 +70,10 @@ public class SalaryController {
             //当前工资序列
             String workMonth = "" + nowyear + '-' + nowMonth;
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            YoSalary today1 = new YoSalary();
+/*            YoSalary today1 = new YoSalary();
             today1.setSalarydate(workMonth);
-
-            userSalaryService.insert(today1);
+            today1.setSid(0);
+            userSalaryService.insert(today1);*/
 
             //查询用户列表
             StaffInfo staff = new StaffInfo();

@@ -24,7 +24,7 @@ public class SalaryServiceImpl implements ISalaryService {
     //添加工资生成表
 
     public int insert(YoSalary record) {
-        return insert(record);
+        return yoSalaryMapper.insertSelective(record);
     }
 
 

@@ -78,7 +78,7 @@
 
                 //ko初始化数据加载
                 $(function () {
-                    self.GetDepartment();
+
 
                 });
                 //查询成员列表（部门，姓名，电话，工号）
@@ -140,6 +140,9 @@
             this.trafficsalary = null;
             this.additionalsalary = null;
             return this;
+        }
+        function getLocalTime(nS) {
+            return new Date(parseInt(nS)).toLocaleString().replace(/:\d{1,2}$/,' ');
         }
     </script>
 </head>
@@ -227,7 +230,7 @@
                         <%--<td data-bind="text:userid">用户编号</td>--%>
                         <td data-bind="text:salaryid">工资id</td>
                         <%--<td data-bind="text:date" > 日期</td>--%>
-                        <td data-bind="text:date"></td>
+                        <td data-bind="text:getLocalTime(date)"></td>
 
                         <td data-bind="text:datetype">日期类型</td>
                         <td data-bind="text:attendance">知识树编号</td>
