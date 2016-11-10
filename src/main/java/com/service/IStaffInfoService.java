@@ -30,12 +30,6 @@ public interface IStaffInfoService {
     //查询所有用户信息
     List<StaffInfo> selectStaffInfo(StaffInfo staffInfo);
 
-    /*插入从excel行得到的实体类*/
-    Map<String, Object> insert(String fileDir) throws IOException;
-
-    /*插入并更新从excel行得到的实体类*/
-    Map<String, Object> insertAndUpdate(String fileDir) throws IOException;
-
     /*根据根部门的名称，查根部门的id*/
     String parentName2id(String name);
 
