@@ -1,14 +1,19 @@
 package com.controller;
 
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.model.*;
 import com.service.*;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.jsp.tagext.PageData;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -250,14 +255,14 @@ public class SalaryController {
         for (int i = 0; i < userIds.size(); i++) {//有多少个员工的考勤记录
             for (int j = 0; j < list.size(); j++) {//对每条考勤记录进行扣除工资计算
                 if (userIds.get(i).equals(list.get(j).getUserid())) {
-                    System.out.println("请教总次数");
+                    System.out.println("请教总次数"+userIds.size());
                 }
             }
         }
     }
 
 
-
+    @RequestMapping()
 
 
     /***
@@ -358,8 +363,60 @@ public class SalaryController {
         //
     }
 
+//    @RequestMapping("/getAllUser.do")
+//    @ResponseBody
+//    public ModelAndView querySalaryList(@RequestBody YoSalary usersalary){
+//        List<YoSalary> list=userSalaryService.searchYoSalaryByEntity(usersalary);
+//        ModelAndView modelView=new ModelAndView();
+//        Map<String,Object> modelMap=new HashMap<String,Object>();
+//        modelMap.put("userid", list);
+//        modelMap.put("date", list);
+//        modelView.addAllObjects(modelMap);
+//        System.out.println("返回JSON数据"+modelView);
+//        return modelView;
+//    }
 
 
+    //根据类型日期的查询
+    @RequestMapping("/QueryType")
+    @ResponseBody
+    public Object handleQuerySchemaEnName(@RequestParam(value = "userid", defaultValue = "") String userid,
+                                          @RequestParam(value = "date", defaultValue = "") String date,
+                                          @RequestParam(value = "leavetype", defaultValue = "") String leavetype,YoSalary yoSalary) {
+        try {
+            List<YoSalary> schemaEnNameList = userSalaryService.searchYoSalaryByEntity(yoSalary);
+            Map<String,Object> map = new HashMap();
+            map.put("userid",userid);
+            map.put("date",date);
+            map.put("leavetype",leavetype);
+            map.put("root", schemaEnNameList);
+            map.put("success", true);
+            System.out.print("返回map数据"+map.toString());
+            return map;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "/AllSalary";
+    }
 
+
+    //不知道根据用户id，日期,
+    @RequestMapping("/QuerySalary")
+    @ResponseBody
+    public Object QuerySalary(@RequestParam(value = "userid", defaultValue = "") String userid,
+                              @RequestParam(value = "date", defaultValue = "") String date,YoSalary yoSalary) {
+        try {
+            List<YoSalary> schemaEnNameList = userSalaryService.searchYoSalaryByEntity(yoSalary);
+            Map<String,Object> map = new HashMap();
+            map.put("userid",userid);
+            map.put("date",date);
+            map.put("root", schemaEnNameList);
+            map.put("success", true);
+            return map;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 }

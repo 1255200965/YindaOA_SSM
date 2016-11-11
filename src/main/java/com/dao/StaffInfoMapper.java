@@ -21,6 +21,8 @@ public interface StaffInfoMapper {
 
     List<StaffInfo> selectAllUser(StaffInfo staffInfo);
 
+    List<StaffInfo> selectAllUser();
+
 
     StaffInfo selectByPrimaryKey(String staffUserId);
 

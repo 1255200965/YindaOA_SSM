@@ -20,6 +20,8 @@ public interface YoSalaryMapper {
 
     List<YoSalary> selectAllUser(YoSalary yoSalary);
 
+    List<YoSalary> selectAllUser();
+
     YoSalary selectByPrimaryKey(Integer sid);
 
     int updateByExampleSelective(@Param("record") YoSalary record, @Param("example") YoSalaryExample example);
