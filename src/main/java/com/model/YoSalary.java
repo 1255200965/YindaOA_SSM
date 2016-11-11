@@ -1,16 +1,15 @@
 package com.model;
 
-
 import java.util.Date;
 
 public class YoSalary {
     private Integer sid;
 
+    private String name;
+
     private String salarydate;
 
     private String userid;
-
-    private String name;
 
     private String salaryid;
 
@@ -46,12 +45,26 @@ public class YoSalary {
 
     private Double additionalsalary;
 
+    private String realityattendance;
+
+    private String effectiveAttendance;
+
+    private String yoAskStaffId;
+
     public Integer getSid() {
         return sid;
     }
 
     public void setSid(Integer sid) {
         this.sid = sid;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getSalarydate() {
@@ -68,15 +81,6 @@ public class YoSalary {
 
     public void setUserid(String userid) {
         this.userid = userid;
-    }
-
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getSalaryid() {
@@ -215,5 +219,27 @@ public class YoSalary {
         this.additionalsalary = additionalsalary;
     }
 
+    public String getRealityattendance() {
+        return realityattendance;
+    }
 
+    public void setRealityattendance(String realityattendance) {
+        this.realityattendance = realityattendance;
+    }
+
+    public String getEffectiveAttendance() {
+        return effectiveAttendance;
+    }
+
+    public void setEffectiveAttendance(String effectiveAttendance) {
+        this.effectiveAttendance = effectiveAttendance;
+    }
+
+    public String getYoAskStaffId() {
+        return yoAskStaffId;
+    }
+
+    public void setYoAskStaffId(String yoAskStaffId) {
+        this.yoAskStaffId = yoAskStaffId;
+    }
 }
