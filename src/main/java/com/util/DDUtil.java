@@ -78,11 +78,6 @@ public class DDUtil {
             e.printStackTrace();
         }
         return result;
-       /* {
-            "errcode": 0,
-                "errmsg": "created",
-                "userid": "dedwefewfwe1231"
-        }*/
     }
 
     public String updateUser(StaffInfo user){

@@ -1,0 +1,8 @@
+@media screen and (min-device-aspect-ratio:9/16) {
+	p { color:blue; }
+}
+/*
+@media screen and (max-device-aspect-ratio:10/10) {
+	p { color:red; }
+}
+*/

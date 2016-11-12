@@ -9,9 +9,44 @@
     <title>上传详情页</title>
     <!-- this "tags" contains all the patterns we need in this page -->
     <tags:holy_patterns/>
+    <!-- <link rel="stylesheet" type="text/css" href="../stylesheets/hello_blue.css" /> -->
 </head>
 
 <body>
+<!-- <p>Blue is PC screen.</p>
+<p>And red is mobile screen.</p>
+
+<script type="text/javascript">
+document.write('<table border="1" width="800" align="center">');
+var i=0;
+while(i<1000){
+        if(i%10==0){
+                if(i%20==0)
+                bg="#cccccc";
+                else
+                bg="#ffffff";
+        document.write('<tr onmouseover="show(this)" onmouseout="noshow(this)" bgcolor="'+bg+'">')
+        }
+        document.write('<td>'+i+'</td>');
+        i++;
+        //document.write('</tr>');
+        }
+        if(i%10==0){
+                document.write('</tr>');
+                }
+document.write('</table>');
+        
+        var ys=null;
+        function show(obj){
+                ys=obj.bgColor;
+                obj.bgColor="red";
+                }
+                function noshow(obj){
+                        obj.bgColor=ys;
+                        }
+</script> -->
+
+
 <header>
     <div class="head-cont">
         <div class="head-left fl">
