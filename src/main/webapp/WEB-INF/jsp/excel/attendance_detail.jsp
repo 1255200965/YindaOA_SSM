@@ -12,7 +12,56 @@
     <link rel="stylesheet" type="text/css" href="../stylesheets/hello_blue.css" />
 </head>
 
-<body>
+<!-- <body>
+<p>Let's begin with a small target.</p>
+
+<table>
+    <tr>
+        <th>Monday</th>
+        <th>Tuesday</th>
+        <th>Wednesday</th>
+        <th>Thrusday</th>
+        <th>Friday</th>
+        <th>Saturday</th>
+        <th>Sunday</th>
+    </tr>
+
+    <tr>
+        <td></td>
+    </tr>
+</table> -->
+
+
+<!-- <script type="text/javascript">
+document.write('<table border="1" width="800" align="center">');
+var i=0;
+while(i<1000){
+        if(i%10==0){
+                if(i%20==0)
+                bg="#cccccc";
+                else
+                bg="#ffffff";
+        document.write('<tr onmouseover="show(this)" onmouseout="noshow(this)" bgcolor="'+bg+'">')
+        }
+        document.write('<td>'+i+'</td>');
+        i++;
+        //document.write('</tr>');
+        }
+        if(i%10==0){
+                document.write('</tr>');
+                }
+document.write('</table>');
+        
+        var ys=null;
+        function show(obj){
+                ys=obj.bgColor;
+                obj.bgColor="red";
+                }
+                function noshow(obj){
+                        obj.bgColor=ys;
+                        }
+</script> -->
+
 
 <header>
     <div class="head-cont">
@@ -45,7 +94,7 @@
         <p>第二步：上传填写好的数据表</p>
     </div>
     <div class="select-file">
-        <form action="${controller}/ExcelStaffInfo/importExcel.do" enctype="multipart/form-data" method="post" onsubmit="return check()">
+        <form action="${controller}/ExcelAttendanceDetail/importExcel.do" enctype="multipart/form-data" method="post" onsubmit="return check()">
             <div class="select-details">
                 <a href="javascript:;" class="file">选择文件
                     <input type="file" value="选择文件" id="fileInput" name="fileUpload" onchange="showFile()">

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="ASCII"?>
+<!DOCTYPE PRJ SYSTEM "haveATry.baili-pc.baili.dtd">
+<PRJ>
+  <Folder Name="">
+    <Expand>0</Expand>
+  </Folder>
+  <Folder Name="/home/baili/workspace/YindaOA_SSM/ - /home/baili/workspace/YindaOA_SSM/src/">
+    <Folder Name="/home/baili/workspace/YindaOA_SSM/src/">
+      <Expand>1</Expand>
+    </Folder>
+  </Folder>
+  <Folder Name="/home/baili/workspace/YindaOA_SSM/ - /home/baili/workspace/YindaOA_SSM/src/ - /home/baili/workspace/YindaOA_SSM/src/main/ - /home/baili/workspace/YindaOA_SSM/src/main/webapp/ - /home/baili/workspace/YindaOA_SSM/src/main/webapp/WEB-INF/ - /home/baili/workspace/YindaOA_SSM/src/main/webapp/WEB-INF/jsp/">
+    <Folder Name="/home/baili/workspace/YindaOA_SSM/src/ - /home/baili/workspace/YindaOA_SSM/src/main/ - /home/baili/workspace/YindaOA_SSM/src/main/webapp/ - /home/baili/workspace/YindaOA_SSM/src/main/webapp/WEB-INF/ - /home/baili/workspace/YindaOA_SSM/src/main/webapp/WEB-INF/jsp/">
+      <Folder Name="/home/baili/workspace/YindaOA_SSM/src/main/ - /home/baili/workspace/YindaOA_SSM/src/main/webapp/ - /home/baili/workspace/YindaOA_SSM/src/main/webapp/WEB-INF/ - /home/baili/workspace/YindaOA_SSM/src/main/webapp/WEB-INF/jsp/">
+        <Folder Name="/home/baili/workspace/YindaOA_SSM/src/main/webapp/ - /home/baili/workspace/YindaOA_SSM/src/main/webapp/WEB-INF/ - /home/baili/workspace/YindaOA_SSM/src/main/webapp/WEB-INF/jsp/"/>
+      </Folder>
+    </Folder>
+  </Folder>
+  <Project_Information>
+    <Project_Start>2600000022000000160000000E0000000A00000074000000010000003E0100000000000080700000A89DA80B12</Project_Start>
+    <MDIPerspective/>
+    <Working_Time>635179</Working_Time>
+  </Project_Information>
+  <Folder Name="/home/baili/workspace/YindaOA_SSM/ - /home/baili/workspace/YindaOA_SSM/src/ - /home/baili/workspace/YindaOA_SSM/src/main/ - /home/baili/workspace/YindaOA_SSM/src/main/java/">
+    <Folder Name="/home/baili/workspace/YindaOA_SSM/src/ - /home/baili/workspace/YindaOA_SSM/src/main/ - /home/baili/workspace/YindaOA_SSM/src/main/java/">
+      <Folder Name="/home/baili/workspace/YindaOA_SSM/src/main/ - /home/baili/workspace/YindaOA_SSM/src/main/java/">
+        <Folder Name="/home/baili/workspace/YindaOA_SSM/src/main/java/"/>
+      </Folder>
+    </Folder>
+  </Folder>
+  <Folder Name="/home/baili/workspace/YindaOA_SSM/">
+    <Expand>1</Expand>
+  </Folder>
+  <Folder Name="/home/baili/workspace/YindaOA_SSM/ - /home/baili/workspace/YindaOA_SSM/src/ - /home/baili/workspace/YindaOA_SSM/src/main/ - /home/baili/workspace/YindaOA_SSM/src/main/resources/">
+    <Folder Name="/home/baili/workspace/YindaOA_SSM/src/ - /home/baili/workspace/YindaOA_SSM/src/main/ - /home/baili/workspace/YindaOA_SSM/src/main/resources/">
+      <Folder Name="/home/baili/workspace/YindaOA_SSM/src/main/ - /home/baili/workspace/YindaOA_SSM/src/main/resources/"/>
+    </Folder>
+  </Folder>
+  <Active_Settings>
+    <Active_File_Display_Mode>-1</Active_File_Display_Mode>
+  </Active_Settings>
+  <Folder Name="/home/baili/workspace/YindaOA_SSM/ - /home/baili/workspace/YindaOA_SSM/src/ - /home/baili/workspace/YindaOA_SSM/src/main/ - /home/baili/workspace/YindaOA_SSM/src/main/webapp/ - /home/baili/workspace/YindaOA_SSM/src/main/webapp/WEB-INF/">
+    <Folder Name="/home/baili/workspace/YindaOA_SSM/src/ - /home/baili/workspace/YindaOA_SSM/src/main/ - /home/baili/workspace/YindaOA_SSM/src/main/webapp/ - /home/baili/workspace/YindaOA_SSM/src/main/webapp/WEB-INF/">
+      <Folder Name="/home/baili/workspace/YindaOA_SSM/src/main/ - /home/baili/workspace/YindaOA_SSM/src/main/webapp/ - /home/baili/workspace/YindaOA_SSM/src/main/webapp/WEB-INF/">
+        <Folder Name="/home/baili/workspace/YindaOA_SSM/src/main/webapp/ - /home/baili/workspace/YindaOA_SSM/src/main/webapp/WEB-INF/"/>
+      </Folder>
+    </Folder>
+  </Folder>
+  <Folder Name="/home/baili/workspace/YindaOA_SSM/ - /home/baili/workspace/YindaOA_SSM/src/ - /home/baili/workspace/YindaOA_SSM/src/main/">
+    <Folder Name="/home/baili/workspace/YindaOA_SSM/src/ - /home/baili/workspace/YindaOA_SSM/src/main/">
+      <Folder Name="/home/baili/workspace/YindaOA_SSM/src/main/"/>
+    </Folder>
+  </Folder>
+  <Folder Name="/home/baili/workspace/YindaOA_SSM/ - /home/baili/workspace/YindaOA_SSM/src/ - /home/baili/workspace/YindaOA_SSM/src/main/ - /home/baili/workspace/YindaOA_SSM/src/main/webapp/">
+    <Folder Name="/home/baili/workspace/YindaOA_SSM/src/ - /home/baili/workspace/YindaOA_SSM/src/main/ - /home/baili/workspace/YindaOA_SSM/src/main/webapp/">
+      <Folder Name="/home/baili/workspace/YindaOA_SSM/src/main/ - /home/baili/workspace/YindaOA_SSM/src/main/webapp/">
+        <Folder Name="/home/baili/workspace/YindaOA_SSM/src/main/webapp/"/>
+      </Folder>
+    </Folder>
+  </Folder>
+</PRJ>
