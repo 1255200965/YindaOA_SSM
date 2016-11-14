@@ -46,29 +46,28 @@ public class SalaryController {
         //查询指定id，填充进map
         List<YoSalary> list = userSalaryService.searchYoSalaryByEntity(user);
 
-//        Map<String,Integer> datetype= DatetypeCount(list);
-//        Map<Integer,Integer> attendance=AttendanceCount(list);
-//        Map<Integer,Integer> effective=EffectiveAttendanceCount(list);
-//        double attendancesalary=AttendanceSalaryCount(list);
-//        Map<Integer,Integer> leavetype=LeavetypeCount(list);
-//        Map<String,Integer> worktime= WorkovertimeCount(list);
-//        double worksalary=WorkSalaryCount(list);
-//        int evection=EvectionCount(list);
-//        int allowance=AllowanceCount(list);
-
-
+        Map<String,Integer> datetype= DatetypeCount(list);
+        int attendance=AttendanceCount(list);
+        int effective=EvectionCount(list);
+        double attendancesalary=AttendanceSalaryCount(list);
+        Map<String,Integer> leavetype= LeavetypeCount(list);
+        int worktime= WorkovertimeCount(list);
+        double worksalary=WorkSalaryCount(list);
+        int evection=EvectionCount(list);
+        int allowance=AllowanceCount(list);
 
         Map<String,Object> map = new HashMap<String,Object>();
         map.put("userlist",list);
-//        map.put("datetype",datetype);
-//        map.put("attendance",attendance);
-//        map.put("effective",effective);
-//        map.put("attendancesalary",attendancesalary);
-//        map.put("leavetype",leavetype);
-//        map.put("worktime",worktime);
-//        map.put("worksalary",worksalary);
-//        map.put("evection",evection);
-//        map.put("allowance",allowance);
+        map.put("userlist",list);
+        map.put("datetype",datetype);
+        map.put("attendance",attendance);
+        map.put("effective",effective);
+        map.put("attendancesalary",attendancesalary);
+        map.put("leavetype",leavetype);
+        map.put("worktime",worktime);
+        map.put("worksalary",worksalary);
+        map.put("evection",evection);
+        map.put("allowance",allowance);
 
 
         if(list.size() != 0){
@@ -270,37 +269,37 @@ public class SalaryController {
 //        System.out.print("OK!");
         //查询指定id，填充进map
 
-        YoSalary yo=new YoSalary();
-        yo.setName("刘立人");
-        List<YoSalary> list =userSalaryService.searchYoSalaryByEntity(yo);
-
-        Map<String,Integer> datetype= DatetypeCount(list);
-        int attendance=AttendanceCount(list);
-        int effective=EvectionCount(list);
-        double attendancesalary=AttendanceSalaryCount(list);
-        int leavetype=LeavetypeCount(list);
-        int worktime= WorkovertimeCount(list);
-        double worksalary=WorkSalaryCount(list);
-        int evection=EvectionCount(list);
-        int allowance=AllowanceCount(list);
-
-
-        Map<String,Object> map = new HashMap<String,Object>();
-        map.put("userlist",list);
-        map.put("datetype",datetype);
-        map.put("attendance",attendance);
-        map.put("effective",effective);
-        map.put("attendancesalary",attendancesalary);
-
-        System.out.println("工作日有多少天"+datetype.toString());
-        System.out.println("打卡情况"+attendance);
-        System.out.println("有效打卡情况"+effective);
-        System.out.println("出勤工资"+attendancesalary);
-        System.out.println("请教类型"+leavetype);
-        System.out.println("加班"+worktime);
-        System.out.println("加班工资"+worksalary);
-        System.out.println("出差"+evection);
-        System.out.println("出差补贴"+allowance);
+//        YoSalary yo=new YoSalary();
+//        yo.setName("章其波");
+//        List<YoSalary> list =userSalaryService.searchYoSalaryByEntity(yo);
+//
+//        Map<String,Integer> datetype= DatetypeCount(list);
+//        int attendance=AttendanceCount(list);
+//        int effective=EvectionCount(list);
+//        double attendancesalary=AttendanceSalaryCount(list);
+//        Map<String,Integer> leavetype= LeavetypeCount(list);
+//        int worktime= WorkovertimeCount(list);
+//        double worksalary=WorkSalaryCount(list);
+//        int evection=EvectionCount(list);
+//        int allowance=AllowanceCount(list);
+//
+//
+//        Map<String,Object> map = new HashMap<String,Object>();
+//        map.put("userlist",list);
+//        map.put("datetype",datetype);
+//        map.put("attendance",attendance);
+//        map.put("effective",effective);
+//        map.put("attendancesalary",attendancesalary);
+//
+//        System.out.println("工作日有多少天"+datetype.toString());
+//        System.out.println("打卡情况"+attendance);
+//        System.out.println("有效打卡情况"+effective);
+//        System.out.println("出勤工资"+attendancesalary);
+//        System.out.println("请教类型"+leavetype.toString());
+//        System.out.println("加班"+worktime);
+//        System.out.println("加班工资"+worksalary);
+//        System.out.println("出差"+evection);
+//        System.out.println("出差补贴"+allowance);
 
         return "/UserSalary" ;
     }
@@ -372,7 +371,7 @@ public class SalaryController {
             count=caclKong(salariesLists,kaoqianDateType.get(j));
             mapCount.put(kaoqianDateType.get(j),count);
             //将count清零
-            count=0;
+           count=0;
         }
         return mapCount;
     }
@@ -451,18 +450,64 @@ public class SalaryController {
         return useridSalary;
     }
 
-    //请假次数
-    public int LeavetypeCount(List<YoSalary> salariesLists){
-        int useridSalary=0;
+
+    /**
+     * 请假的次数
+     * @param salariesLists 考勤信息（同一个人）
+    //     * @param all 每项考勤的类型，暂时只有0和1
+     * @return Map<String,Integer>  表示的是考勤的类型和数量
+     */
+    public Map<String,Integer> LeavetypeCount(List<YoSalary> salariesLists){
+        Map<String,Integer> mapCount=new HashMap<String,Integer>();
+        List<String> kaoqianDateType=new ArrayList<String>();
+        //统计考勤的类型
         for(int i=0;i<salariesLists.size();i++){
-            if(null==salariesLists.get(i).getLeavetype() || (Integer.parseInt(salariesLists.get(i).getLeavetype()))==0){
+            if(null==salariesLists.get(i).getLeavetype()||kaoqianDateType.contains(salariesLists.get(i).getLeavetype()) ){
                 continue;
             }
-            useridSalary +=Integer.parseInt(salariesLists.get(i).getLeavetype());
+            kaoqianDateType.add(salariesLists.get(i).getLeavetype());
         }
-
-        return useridSalary;
+        //kaoqianDateType
+        int count=0;//定义一个保存次数的变量
+        for(int j=0;j<kaoqianDateType.size();j++){
+            count=leave(salariesLists,kaoqianDateType.get(j));
+            mapCount.put(kaoqianDateType.get(j),count);
+            //将count清零
+            count=0;
+        }
+        return mapCount;
     }
+
+    /**
+     * 这里计算的是对一个list<int>类型的累计
+     * @param
+     * @return
+     */
+    public int leave(List<YoSalary> salariesLists,String leavetype){
+        int allCount=0;
+        for(int i=0;i<salariesLists.size();i++){
+            //排除不符合的统计类型
+            if(salariesLists.get(i).getLeavetype().equals(leavetype)){
+                continue;
+            }
+            allCount++;
+        }
+        return allCount;
+    }
+
+
+//    //请假次数
+//    public int LeavetypeCount(List<YoSalary> salariesLists){
+//        int useridSalary=0;
+//        for(int i=0;i<salariesLists.size();i++){
+//            if(null==salariesLists.get(i).getLeavetype() || (Integer.parseInt(salariesLists.get(i).getLeavetype()))==0){
+//                continue;
+//            }
+//            useridSalary +=Integer.parseInt(salariesLists.get(i).getLeavetype());
+//        }
+//
+//        return useridSalary;
+//    }
 
     //加班次数
     public int WorkovertimeCount(List<YoSalary> salariesLists){
