@@ -11,11 +11,14 @@ import com.ddSdk.utils.HttpHelper;
  */
 public class AttendanceWork {
     public static String getSuiteToken(String userId, String workDateFrom,String workDateTo,String Access_token) {
+        //这是请求接口的地址
+        //public static final String OAPI_HOST = "https://oapi.dingtalk.com";
         String url = Env.OAPI_HOST + "/attendance/list?access_token=" + Access_token;
         JSONObject json = new JSONObject();
         json.put("userId", userId);
         json.put("workDateFrom", workDateFrom);
         json.put("workDateTo", workDateTo);
+        json.put("outtime", 10000);
         JSONObject reponseJson = null;
         String suiteAccessToken = null;
         try {
@@ -26,8 +29,5 @@ public class AttendanceWork {
         }
         return reponseJson.toJSONString();
     }
-
-
-
 
 }

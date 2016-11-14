@@ -19,8 +19,12 @@ public interface IStaffInfoService {
     int insertStaffList(List<StaffInfo> record);
     //查询用户
     List<StaffInfo> selectStaffByQuery(List StaffInfo, int index, int pages);
-    //查询单个用户
+    //查询单个用户 List<StaffInfo>
     StaffInfo selectStaffByID(String staffUserId);
+
+    //查询所有用户id
+    //StaffInfo selectAll();
+    List<StaffInfo> selectAllUser();
 
     //更新用户
     int updateStaffByID(StaffInfo staffUserId);

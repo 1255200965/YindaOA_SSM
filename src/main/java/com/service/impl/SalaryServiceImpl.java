@@ -33,6 +33,8 @@ public class SalaryServiceImpl implements ISalaryService {
     }
 
 
+
+
 //    @Override
 //    public int updateStaffByID(YoSalary yoSalaryid) {
 //        return usermapper.updateByPrimaryKey(yoSalaryid);
