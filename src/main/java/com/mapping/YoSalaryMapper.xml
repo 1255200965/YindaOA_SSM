@@ -81,26 +81,6 @@
     from yo_salary
     where sid = #{sid,jdbcType=INTEGER}
   </select>
-
-  <!--模糊查询与关联查询-->
-  <select id="selectAllUser" resultMap="BaseResultMap" parameterType="com.model.YoSalary">
-    SELECT sid,salarydate, userid,name, salaryid, DATE, datetype, attendance, attendance_salary, leavetype,
-    leavesalary, workovertime, worksalary, evection, allowance, timesalary, task, tasksalary,
-    busalary, trafficsalary, additionalsalary, realityattendance, effective_attendance,
-    yo_ask_staff_id FROM yo_salary LEFT JOIN staff_info ON userid=staff_user_id
-    <where>
-      <if test="name!=null">
-        name like CONCAT('%','${name}','%' )
-      </if>
-      <if test="salarydate!=null">
-        and salarydate like CONCAT('%','${salarydate}','%' )
-      </if>
-      <if test="datetype!=null">
-        and datetype like CONCAT('%','${datetype}','%' )
-      </if>
-    </where>
-  </select>
-
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from yo_salary
     where sid = #{sid,jdbcType=INTEGER}

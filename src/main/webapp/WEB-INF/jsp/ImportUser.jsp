@@ -13,10 +13,9 @@
 </head>
 
 <body>
-<!-- <p>Blue is PC screen.</p>
-<p>And red is mobile screen.</p>
+<p>Let's begin with a small target.</p>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 document.write('<table border="1" width="800" align="center">');
 var i=0;
 while(i<1000){
@@ -47,7 +46,7 @@ document.write('</table>');
 </script> -->
 
 
-<header>
+<!-- <header>
     <div class="head-cont">
         <div class="head-left fl">
             <img src="../images/logo.png" height="35" width="50" alt="">
@@ -121,7 +120,7 @@ function check() {
         return false;
     }
 }
-</script>
+</script> -->
 
 </body>
 </html>

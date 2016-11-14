@@ -2,6 +2,7 @@ package com.model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 public class YoAttendanceExample {
@@ -103,6 +104,32 @@ public class YoAttendanceExample {
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
             criteria.add(new Criterion(condition, value1, value2));
+        }
+
+        protected void addCriterionForJDBCDate(String condition, Date value, String property) {
+            if (value == null) {
+                throw new RuntimeException("Value for " + property + " cannot be null");
+            }
+            addCriterion(condition, new java.sql.Date(value.getTime()), property);
+        }
+
+        protected void addCriterionForJDBCDate(String condition, List<Date> values, String property) {
+            if (values == null || values.size() == 0) {
+                throw new RuntimeException("Value list for " + property + " cannot be null or empty");
+            }
+            List<java.sql.Date> dateList = new ArrayList<java.sql.Date>();
+            Iterator<Date> iter = values.iterator();
+            while (iter.hasNext()) {
+                dateList.add(new java.sql.Date(iter.next().getTime()));
+            }
+            addCriterion(condition, dateList, property);
+        }
+
+        protected void addCriterionForJDBCDate(String condition, Date value1, Date value2, String property) {
+            if (value1 == null || value2 == null) {
+                throw new RuntimeException("Between values for " + property + " cannot be null");
+            }
+            addCriterion(condition, new java.sql.Date(value1.getTime()), new java.sql.Date(value2.getTime()), property);
         }
 
         public Criteria andIdIsNull() {
@@ -525,6 +552,76 @@ public class YoAttendanceExample {
             return (Criteria) this;
         }
 
+        public Criteria andAttaddressIsNull() {
+            addCriterion("attaddress is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttaddressIsNotNull() {
+            addCriterion("attaddress is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttaddressEqualTo(String value) {
+            addCriterion("attaddress =", value, "attaddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttaddressNotEqualTo(String value) {
+            addCriterion("attaddress <>", value, "attaddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttaddressGreaterThan(String value) {
+            addCriterion("attaddress >", value, "attaddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttaddressGreaterThanOrEqualTo(String value) {
+            addCriterion("attaddress >=", value, "attaddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttaddressLessThan(String value) {
+            addCriterion("attaddress <", value, "attaddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttaddressLessThanOrEqualTo(String value) {
+            addCriterion("attaddress <=", value, "attaddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttaddressLike(String value) {
+            addCriterion("attaddress like", value, "attaddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttaddressNotLike(String value) {
+            addCriterion("attaddress not like", value, "attaddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttaddressIn(List<String> values) {
+            addCriterion("attaddress in", values, "attaddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttaddressNotIn(List<String> values) {
+            addCriterion("attaddress not in", values, "attaddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttaddressBetween(String value1, String value2) {
+            addCriterion("attaddress between", value1, value2, "attaddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttaddressNotBetween(String value1, String value2) {
+            addCriterion("attaddress not between", value1, value2, "attaddress");
+            return (Criteria) this;
+        }
+
         public Criteria andWorkdateIsNull() {
             addCriterion("workDate is null");
             return (Criteria) this;
@@ -535,63 +632,53 @@ public class YoAttendanceExample {
             return (Criteria) this;
         }
 
-        public Criteria andWorkdateEqualTo(String value) {
-            addCriterion("workDate =", value, "workdate");
+        public Criteria andWorkdateEqualTo(Date value) {
+            addCriterionForJDBCDate("workDate =", value, "workdate");
             return (Criteria) this;
         }
 
-        public Criteria andWorkdateNotEqualTo(String value) {
-            addCriterion("workDate <>", value, "workdate");
+        public Criteria andWorkdateNotEqualTo(Date value) {
+            addCriterionForJDBCDate("workDate <>", value, "workdate");
             return (Criteria) this;
         }
 
-        public Criteria andWorkdateGreaterThan(String value) {
-            addCriterion("workDate >", value, "workdate");
+        public Criteria andWorkdateGreaterThan(Date value) {
+            addCriterionForJDBCDate("workDate >", value, "workdate");
             return (Criteria) this;
         }
 
-        public Criteria andWorkdateGreaterThanOrEqualTo(String value) {
-            addCriterion("workDate >=", value, "workdate");
+        public Criteria andWorkdateGreaterThanOrEqualTo(Date value) {
+            addCriterionForJDBCDate("workDate >=", value, "workdate");
             return (Criteria) this;
         }
 
-        public Criteria andWorkdateLessThan(String value) {
-            addCriterion("workDate <", value, "workdate");
+        public Criteria andWorkdateLessThan(Date value) {
+            addCriterionForJDBCDate("workDate <", value, "workdate");
             return (Criteria) this;
         }
 
-        public Criteria andWorkdateLessThanOrEqualTo(String value) {
-            addCriterion("workDate <=", value, "workdate");
+        public Criteria andWorkdateLessThanOrEqualTo(Date value) {
+            addCriterionForJDBCDate("workDate <=", value, "workdate");
             return (Criteria) this;
         }
 
-        public Criteria andWorkdateLike(String value) {
-            addCriterion("workDate like", value, "workdate");
+        public Criteria andWorkdateIn(List<Date> values) {
+            addCriterionForJDBCDate("workDate in", values, "workdate");
             return (Criteria) this;
         }
 
-        public Criteria andWorkdateNotLike(String value) {
-            addCriterion("workDate not like", value, "workdate");
+        public Criteria andWorkdateNotIn(List<Date> values) {
+            addCriterionForJDBCDate("workDate not in", values, "workdate");
             return (Criteria) this;
         }
 
-        public Criteria andWorkdateIn(List<String> values) {
-            addCriterion("workDate in", values, "workdate");
+        public Criteria andWorkdateBetween(Date value1, Date value2) {
+            addCriterionForJDBCDate("workDate between", value1, value2, "workdate");
             return (Criteria) this;
         }
 
-        public Criteria andWorkdateNotIn(List<String> values) {
-            addCriterion("workDate not in", values, "workdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andWorkdateBetween(String value1, String value2) {
-            addCriterion("workDate between", value1, value2, "workdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andWorkdateNotBetween(String value1, String value2) {
-            addCriterion("workDate not between", value1, value2, "workdate");
+        public Criteria andWorkdateNotBetween(Date value1, Date value2) {
+            addCriterionForJDBCDate("workDate not between", value1, value2, "workdate");
             return (Criteria) this;
         }
 

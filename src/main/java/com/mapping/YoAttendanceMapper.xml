@@ -8,12 +8,13 @@
     <result column="groupId" property="groupid" jdbcType="VARCHAR" />
     <result column="planId" property="planid" jdbcType="VARCHAR" />
     <result column="recordId" property="recordid" jdbcType="VARCHAR" />
-    <result column="workDate" property="workdate" jdbcType="VARCHAR" />
+    <result column="attaddress" property="attaddress" jdbcType="VARCHAR" />
+    <result column="workDate" property="workdate" jdbcType="DATE" />
     <result column="checkType" property="checktype" jdbcType="VARCHAR" />
     <result column="timeResult" property="timeresult" jdbcType="VARCHAR" />
     <result column="locationResult" property="locationresult" jdbcType="VARCHAR" />
-    <result column="baseCheckTime" property="basechecktime" jdbcType="VARCHAR" />
-    <result column="userCheckTime" property="userchecktime" jdbcType="VARCHAR" />
+    <result column="baseCheckTime" property="basechecktime" jdbcType="TIMESTAMP" />
+    <result column="userCheckTime" property="userchecktime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -45,8 +46,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, userid, corpId, groupId, planId, recordId, workDate, checkType, timeResult, locationResult, 
-    baseCheckTime, userCheckTime
+    id, userid, corpId, groupId, planId, recordId, attaddress, workDate, checkType, timeResult, 
+    locationResult, baseCheckTime, userCheckTime
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.model.YoAttendanceExample" >
     select
@@ -75,14 +76,14 @@
   <insert id="insert" parameterType="com.model.YoAttendance" >
     insert into yo_attendance (id, userid, corpId, 
       groupId, planId, recordId, 
-      workDate, checkType, timeResult, 
-      locationResult, baseCheckTime, userCheckTime
-      )
+      attaddress, workDate, checkType, 
+      timeResult, locationResult, baseCheckTime, 
+      userCheckTime)
     values (#{id,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{corpid,jdbcType=VARCHAR}, 
       #{groupid,jdbcType=VARCHAR}, #{planid,jdbcType=VARCHAR}, #{recordid,jdbcType=VARCHAR}, 
-      #{workdate,jdbcType=VARCHAR}, #{checktype,jdbcType=VARCHAR}, #{timeresult,jdbcType=VARCHAR},
-      #{locationresult,jdbcType=VARCHAR}, #{basechecktime,jdbcType=VARCHAR}, #{userchecktime,jdbcType=VARCHAR}
-      )
+      #{attaddress,jdbcType=VARCHAR}, #{workdate,jdbcType=DATE}, #{checktype,jdbcType=VARCHAR}, 
+      #{timeresult,jdbcType=VARCHAR}, #{locationresult,jdbcType=VARCHAR}, #{basechecktime,jdbcType=TIMESTAMP}, 
+      #{userchecktime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.model.YoAttendance" >
     insert into yo_attendance
@@ -104,6 +105,9 @@
       </if>
       <if test="recordid != null" >
         recordId,
+      </if>
+      <if test="attaddress != null" >
+        attaddress,
       </if>
       <if test="workdate != null" >
         workDate,
@@ -143,8 +147,11 @@
       <if test="recordid != null" >
         #{recordid,jdbcType=VARCHAR},
       </if>
+      <if test="attaddress != null" >
+        #{attaddress,jdbcType=VARCHAR},
+      </if>
       <if test="workdate != null" >
-        #{workdate,jdbcType=VARCHAR},
+        #{workdate,jdbcType=DATE},
       </if>
       <if test="checktype != null" >
         #{checktype,jdbcType=VARCHAR},
@@ -156,10 +163,10 @@
         #{locationresult,jdbcType=VARCHAR},
       </if>
       <if test="basechecktime != null" >
-        #{basechecktime,jdbcType=VARCHAR},
+        #{basechecktime,jdbcType=TIMESTAMP},
       </if>
       <if test="userchecktime != null" >
-        #{userchecktime,jdbcType=VARCHAR},
+        #{userchecktime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -181,8 +188,11 @@
       <if test="recordid != null" >
         recordId = #{recordid,jdbcType=VARCHAR},
       </if>
+      <if test="attaddress != null" >
+        attaddress = #{attaddress,jdbcType=VARCHAR},
+      </if>
       <if test="workdate != null" >
-        workDate = #{workdate,jdbcType=VARCHAR},
+        workDate = #{workdate,jdbcType=DATE},
       </if>
       <if test="checktype != null" >
         checkType = #{checktype,jdbcType=VARCHAR},
@@ -194,10 +204,10 @@
         locationResult = #{locationresult,jdbcType=VARCHAR},
       </if>
       <if test="basechecktime != null" >
-        baseCheckTime = #{basechecktime,jdbcType=VARCHAR},
+        baseCheckTime = #{basechecktime,jdbcType=TIMESTAMP},
       </if>
       <if test="userchecktime != null" >
-        userCheckTime = #{userchecktime,jdbcType=VARCHAR},
+        userCheckTime = #{userchecktime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
@@ -209,12 +219,13 @@
       groupId = #{groupid,jdbcType=VARCHAR},
       planId = #{planid,jdbcType=VARCHAR},
       recordId = #{recordid,jdbcType=VARCHAR},
-      workDate = #{workdate,jdbcType=VARCHAR},
+      attaddress = #{attaddress,jdbcType=VARCHAR},
+      workDate = #{workdate,jdbcType=DATE},
       checkType = #{checktype,jdbcType=VARCHAR},
       timeResult = #{timeresult,jdbcType=VARCHAR},
       locationResult = #{locationresult,jdbcType=VARCHAR},
-      baseCheckTime = #{basechecktime,jdbcType=VARCHAR},
-      userCheckTime = #{userchecktime,jdbcType=VARCHAR}
+      baseCheckTime = #{basechecktime,jdbcType=TIMESTAMP},
+      userCheckTime = #{userchecktime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>
