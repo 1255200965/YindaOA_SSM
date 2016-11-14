@@ -5,7 +5,7 @@
   Time: 16:30
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" import="java.util.*" contentType="text/html;charset=utf-8" %>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -25,6 +25,8 @@
     <script src="<%=basePath%>/datePlug/mobiscroll.custom-2.5.0.min.js" type="text/javascript"></script>
     <!--日期插件引入文件结束  -->
     <link rel="stylesheet" href="<%=basePath%>/stylesheets/buttons.css">
+    <script type="text/javascript" src="<%=basePath%>javascripts/zepto.min.js"></script>
+    <script type="text/javascript" src="http://g.alicdn.com/ilw/ding/0.7.3/scripts/dingtalk.js"></script>
     <style>
         /*引入字体图标*/
         @font-face {
@@ -127,7 +129,7 @@
         <input id="code" style="display: none;">
     </div>
 </div>
-<script src="http://g.alicdn.com/dingding/open-develop/0.8.4/dingtalk.js"></script>
+
 <script>
 //  日期插件代码开始
 $(function(){
@@ -166,106 +168,143 @@ $(function(){
     //当前用户，当前时间
     var nowUser = null;
     var nowTime = null;
+    var code = null;//用户授权码
 
-    var qs = <%= request.getAttribute("msg") %>;
-    if (qs == null || qs == "NO!") {
-        //alert("没有邮箱！");
-        $("#email").text("");
-        $("#password").text("");
-    }
     //配置钉钉jsapi
     dd.config({
-        agentId: _config.agentid,
-        corpId: _config.corpId,
-        timeStamp: _config.timeStamp,
-        nonceStr: _config.nonceStr,
-        signature: _config.signature,
-        jsApiList: ['runtime.info', 'biz.contact.choose',
+        agentId : _config.agentid,
+        corpId : _config.corpId,
+        timeStamp : _config.timeStamp,
+        nonceStr : _config.nonceStr,
+        signature : _config.signature,
+        jsApiList : [ 'runtime.info', 'biz.contact.choose',
             'device.notification.confirm', 'device.notification.alert',
             'device.notification.prompt', 'biz.ding.post',
-            'biz.util.openLink', 'device.geolocation.get', 'biz.map.view', 'biz.map.locate']
+            'biz.util.openLink' ]
     });
 
-    dd.ready(function () {
-        //获取免登授权码
-        dd.runtime.permission.requestAuthCode({
-            corpId: _config.corpId,
-            onSuccess: function (result) {
-                /*{
-                 code: 'hYLK98jkf0m' //string authCode
-                 }*/
-                $("#code").val(result.code);
-            },
-            onFail: function (err) {
-            }
 
+    dd.ready(function() {
+        dd.biz.navigation.setTitle({
+            title: '钉钉demo',
+            onSuccess: function(data) {
+            },
+            onFail: function(err) {
+                log.e(JSON.stringify(err));
+            }
         });
-        //获取容器信息
+	 alert('dd.ready rocks!');
+
         dd.runtime.info({
-            onSuccess: function (info) {
+            onSuccess : function(info) {
                 logger.e('runtime info: ' + JSON.stringify(info));
             },
-            onFail: function (err) {
+            onFail : function(err) {
                 logger.e('fail: ' + JSON.stringify(err));
             }
         });
-        //允许下拉刷新
         dd.ui.pullToRefresh.enable({
-            onSuccess: function () {
+            onSuccess: function() {
             },
-            onFail: function () {
+            onFail: function() {
             }
         })
-        //设置菜单栏
+
         dd.biz.navigation.setMenu({
-            backgroundColor: "#ADD8E6",
-            items: [
+            backgroundColor : "#ADD8E6",
+            items : [
                 {
-                    id: "此处可以设置帮助",//字符串
+                    id:"此处可以设置帮助",//字符串
                     // "iconId":"file",//字符串，图标命名
-                    text: "帮助"
+                    text:"帮助"
                 }
                 ,
                 {
-                    "id": "2",
-                    "iconId": "photo",
-                    "text": "我们"
+                    "id":"2",
+                    "iconId":"photo",
+                    "text":"我们"
                 }
                 ,
                 {
-                    "id": "3",
-                    "iconId": "file",
-                    "text": "你们"
+                    "id":"3",
+                    "iconId":"file",
+                    "text":"你们"
                 }
                 ,
                 {
-                    "id": "4",
-                    "iconId": "time",
-                    "text": "他们"
+                    "id":"4",
+                    "iconId":"time",
+                    "text":"他们"
                 }
             ],
-            onSuccess: function (data) {
+            onSuccess: function(data) {
                 alert(JSON.stringify(data));
 
             },
-            onFail: function (err) {
+            onFail: function(err) {
                 alert(JSON.stringify(err));
             }
         });
-        //获取个人信息
+
+
+        dd.runtime.permission.requestAuthCode({
+            corpId : _config.corpId,
+            onSuccess : function(info) {
+			alert('authcode: ' + info.code);
+                $("#code").val(info.code);
+                $.ajax({
+                    url : 'userinfo?code=' + info.code + '&corpid='
+                    + _config.corpId,
+                    type : 'GET',
+                    success : function(data, status, xhr) {
+                        var info = JSON.parse(data);
+
+                        //document.getElementById("userName").innerHTML = info.name;
+                       //document.getElementById("userid").innerHTML = info.userid;
+                        $("#userid").val(info.userid);
+                        // 图片
+//					if(info.avatar.length != 0){
+//			            var img = document.getElementById("userImg");
+//			            img.src = info.avatar;
+//			                      img.height = '100';
+//			                      img.width = '100';
+//			          }
+
+                    },
+                    error : function(xhr, errorType, error) {
+                        logger.e("yinyien:" + _config.corpId);
+                        alert(errorType + ', ' + error);
+                    }
+                });
+
+            },
+            onFail : function(err) {
+                alert('fail: ' + JSON.stringify(err));
+            }
+        });
+    });
+
+    dd.error(function(err) {
+        alert('dd error: ' + JSON.stringify(err));
+    });
+    //getUserInfo();
+    //获取个人信息
+    function getUserInfo(){
         dd.biz.user.get({
             onSuccess: function (info) {
                 logger.e('userGet success: ' + JSON.stringify(info));
                 //{id:staff_user_id,nickName:name}
                 $("#userid").val(info.id);
                 nowUser = info.id;
+                alert(JSON.stringify(info));
             },
             onFail: function (err) {
                 logger.e('userGet fail: ' + JSON.stringify(err));
+                alert(JSON.stringify(err));
             }
         });
         initSalary();
-    });
+    }
     //打开链接
     function openLink(url) {
         dd.biz.util.openLink({
@@ -295,6 +334,7 @@ $(function(){
     function initSalary(){
         //输入用户id，日期,返回工资对象
         nowTime = $("#scroller").val();
+        nowUser =  $("#userid").val();
         alert("当前用户是:"+nowUser + "\n当前日期是:" + nowTime);
     }
 </script>

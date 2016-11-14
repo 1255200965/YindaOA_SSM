@@ -252,4 +252,17 @@ public class DDUtil {
         }
 
     }
+
+    //获取当前用户id
+    public static String getStaffUserId(String code){
+        try {
+            String accessToken = AuthHelper.getAccessToken();
+            //获取用户code
+
+            return UserHelper.getUserInfo(accessToken, code).getUserid();
+        } catch (Exception e){
+
+        }
+        return null;
+    }
 }

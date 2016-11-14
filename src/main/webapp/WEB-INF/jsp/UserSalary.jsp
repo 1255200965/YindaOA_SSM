@@ -25,9 +25,7 @@
         <link rel="stylesheet" href="../datePlug/jquery.monthpicker.css">
         <script src="../javascripts/jquery-1.10.2.js"></script>
         <script src="../datePlug/jquery.monthpicker.js"></script>
-    <%--<script type="text/javascript" src="../javascripts/bootstrap.min.js"></script>--%>
-    <%--<script type="text/javascript" src="../javascripts/bootstrap-treeview.min.js"></script>--%>
-    <script src="../javascripts/knockout-3.4.0rc.js"></script>
+     <script src="../javascripts/knockout-3.4.0rc.js"></script>
     <script type="text/javascript">
         var result = null;
 
@@ -205,15 +203,16 @@
                         <%--<th>用户id</th>--%>
                         <%--<th>工资序列id</th>--%>
                         <th>日期</th>
-                        <th>有效考勤</th>
+                        <th>日期类型</th>
                         <th>打卡情况</th>
-                        <%--<th>缺勤工资</th>--%>
+                        <th>有效考勤</th>
+                        <th>出勤工资</th>
                         <th>请假类型</th>
-                        <%--<th>请假工资</th>--%>
+                        <th>请假补款</th>
                         <th>加班</th>
                         <th>加班工资</th>
                         <th>出差</th>
-                        <th>津贴</th>
+                        <th>出差补贴</th>
                         <th>time认证奖金</th>
                         <th>task报告数</th>
                         <th>task报告奖金</th>
@@ -225,16 +224,14 @@
                     <tbody data-bind="foreach:ShowList">
                     <tr >
                         <td data-bind="text:name">用户编号</td>
-                        <%--<td data-bind="text:userid">用户编号</td>--%>
-                       <%--<td data-bind="text:salaryid">工资id</td>--%>
-                        <%--<td data-bind="text:date" > 日期</td>--%>
-                        <td data-bind="text:getLocalTime(date)"></td>
 
+                        <td data-bind="text:getLocalTime(date)"></td>
                         <td data-bind="text:datetype">日期类型</td>
                         <td data-bind="text:attendance">知识树编号</td>
-                       <%-- <td data-bind="text:attendanceSalary">所属知识</td>--%>
+                        <td data-bind="text:effectiveAttendance">知识树编号</td>
+                        <td data-bind="text:attendanceSalary">所属知识</td>
                         <td data-bind="text:leavetype">修改者</td>
-                        <%--<td data-bind="text:leavesalary">审核状态</td>--%>
+                        <td data-bind="text:leavesalary">审核状态</td>
                         <td data-bind="text:workovertime">ok的</td>
                         <td data-bind="text:worksalary">所属知识</td>
                         <td data-bind="text:evection">修改者</td>
@@ -248,22 +245,26 @@
                     </tr>
                     </tbody>
                     <thead>
-                    <tr >
+                    <tr data-bind="with:changeItem">
                         <th >合计</th>
                         <td data-bind="text:name"></td>
-                        <td data-bind="text:date"></td>
-                        <td data-bind="text:datetype"></td>
-                        <td data-bind="text:attendance"></td>
-                        <td data-bind="text:leavetype"></td>
-                        <td data-bind="text:workovertime"></td>
-                        <td data-bind="text:worksalary"></td>
-                        <td data-bind="text:evection"></td>
-                        <td data-bind="text:allowance"></td>
-                        <td data-bind="text:timesalary"></td>
-                        <td data-bind="text:task"></td>
-                        <td data-bind="text:tasksalary"></td>
-                        <td data-bind="text:busalary"></td>
-                        <td data-bind="text:trafficsalary"></td>
+                        <td data-bind="text:getLocalTime(date)"></td>
+                        <td data-bind="text:datetype">日期类型</td>
+                        <td data-bind="text:attendance">知识树编号</td>
+                        <td data-bind="text:effectiveAttendance">知识树编号</td>
+                        <td data-bind="text:attendanceSalary">所属知识</td>
+                        <td data-bind="text:leavetype">修改者</td>
+                        <td data-bind="text:leavesalary">审核状态</td>
+                        <td data-bind="text:workovertime">ok的</td>
+                        <td data-bind="text:worksalary">所属知识</td>
+                        <td data-bind="text:evection">修改者</td>
+                        <td data-bind="text:allowance">审核状态</td>
+                        <td data-bind="text:timesalary">到大</td>
+                        <td data-bind="text:task">所属知识</td>
+                        <td data-bind="text:tasksalary">修改者</td>
+                        <td data-bind="text:busalary">审核状态</td>
+                        <td data-bind="text:trafficsalary">卫视</td>
+                        <td data-bind="text:additionalsalary">卫视</td>
                     </tr>
                     </thead>
                 </table>

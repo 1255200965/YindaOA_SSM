@@ -79,36 +79,49 @@ public class SalaryController {
         if (day<10) return "0"+day;
         else return ""+day;
     }
+    //判断是否周末
+    public boolean checkHoliday(Calendar calendar) throws Exception{
+
+        //判断日期是否是周六周日
+        if(calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY ||
+                calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY){
+            return true;
+        }
+        //判断日期是否是节假日
+
+        return false;
+    }
     //请假类型，所扣工资
     double DateSalary(String type,double baseSalary){
         double salary=0;
         if (type.equals("事假")) {
-            salary =  -baseSalary;
+            salary =  0;
         } else if (type.equals("病假")) {
-            salary = - baseSalary/2;
+            salary =  baseSalary/2;
         } else if (type.equals("年假")) {
-            salary = 0;
+            salary = baseSalary;
         } else if (type.equals("调休")) {
-            salary = 0;
+            salary = baseSalary;
         } else if (type.equals("婚假")) {
-            salary =  -0;
+            salary =  baseSalary;
         } else if (type.equals("调休")) {
-            salary =  -0;
+            salary = baseSalary;
         } else if (type.equals("产假")) {
-            salary =  -0;
+            salary =  baseSalary;
         } else if (type.equals("陪产假")) {
-            salary =  -0;
+            salary =  baseSalary;
         } else if (type.equals("路途假")) {
-            salary =  -0;
+            salary = baseSalary;
         } else if (type.equals("其他")) {
-            salary =  -0;
+            salary =  0;
         } else {
-            salary =  -0;
+            salary =  0;
         }
         return salary;
     }
-    double getBaseSalary(String base,int day){
-        return 100;
+    double getBaseSalary(String base,double day){
+        if (base.isEmpty()) return 0.0;
+        return Double.parseDouble(base)/day;
     }
     String getNext(int year ,int month,int num){
         //如果是上个月的,计算的也是上个月的日期
@@ -127,8 +140,10 @@ public class SalaryController {
             // nowyear = 2016;
             // nowMonth = 11;
             //当前工资序列
+            double manDay = 21.75;//满勤天数
             String workMonth = "" + nowyear + '-' + nowMonth;
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Calendar ca = Calendar.getInstance();
 
             //查询用户列表
             StaffInfo staff = new StaffInfo();
@@ -141,13 +156,21 @@ public class SalaryController {
                 //当前日期
                 String workDate = getNext(nowyear, nowMonth, l++);
                 while (workDate != null) {
+                    //当前日期转换
+                    Date d = sdf.parse(workDate);
+                    ca.setTime(d);
                     //处理一天的工资
                     YoSalary today = new YoSalary();
+                    String workaddress = null;//当天出勤地
                     today.setSalarydate(workMonth);
                     today.setDate(sdf.parse(workDate));
                     today.setUserid(user.getStaffUserId());
                     today.setSalaryid(user.getStaffId());
-
+                    //当天是否周末/节假日
+                    if (checkHoliday(ca)){
+                        //是
+                        today.setDatetype("休");
+                    } else today.setDatetype("工");
                     //处理出勤,查询一个人当天的打卡情况
                     YoAttendanceExample attExample = new YoAttendanceExample();
                     YoAttendanceExample.Criteria criteria = attExample.createCriteria();
@@ -157,12 +180,13 @@ public class SalaryController {
                     if (0 == cqlist.size()){
                         //当天没有出勤
                         today.setAttendance("0");
-                        today.setAdditionalsalary(0.0);
+                        //today.setAttendanceSalary(0.0);
                         //today.setworkaddress("");
                     } else{
                         today.setAttendance("1");
-                        today.setAttendanceSalary(getBaseSalary(user.getBaseSalary(),getMaxDate(nowyear,nowMonth)));
-                        //today.setworkaddress(cqlist.get(0).getLocationresult());
+                        //today.setAttendanceSalary(getBaseSalary(user.getBaseSalary(),getMaxDate(nowyear,nowMonth)));
+                        //当天打卡地
+                         workaddress = cqlist.get(0).getLocationresult();
                     }
                     //处理请假
                     AskForLeaveExample qjExample = new AskForLeaveExample();
@@ -179,24 +203,31 @@ public class SalaryController {
                         //today.setLeavetype("1");
                         //根据请假类型扣款
                         today.setLeavetype(qjlist.get(0).getYoType());
-                        today.setLeavesalary(DateSalary(today.getLeavetype(),getBaseSalary(user.getBaseSalary(),getMaxDate(nowyear,nowMonth))));
+                        today.setLeavesalary(DateSalary(today.getLeavetype(),getBaseSalary(user.getBaseSalary(),manDay)));
                     }
-                    //判断真实出勤
-                    today.setDatetype(today.getAttendance());
-                    if (!today.getLeavetype().equals("0"))
+                    //判断真实出勤,有效出勤
+                    today.setEffectiveAttendance(today.getAttendance());
+                    if (!today.getLeavetype().equals("0") || today.getDatetype().equals("休"))
                     {
-                        //如果有请假，实际算出勤，然后扣除对应的工资
-                        today.setDatetype("1");
+                        //如果有请假，实际算缺勤出勤，然后补助对应的工资，或者今天是休息日
+                        today.setEffectiveAttendance("0");
                     }
+                    //有效工资
+                    if (!today.getEffectiveAttendance().equals("0") ){
+                        today.setAttendanceSalary(getBaseSalary(user.getBaseSalary(),manDay));
+                    } else today.setAttendanceSalary(0.0);
                     //处理加班
                     today.setWorkovertime("0");
                     today.setWorksalary(0.0);
-                    //处理出差,签到地点与base地是否匹配
-                    String address = user.getWorkAddress();
-                    if (today.getDatetype().equals("1") && address.equals(today.getEvection())){
+                    //处理出差,签到地点与base地是否匹配,是否有打卡，是否要算加班费，是否是指定合同
+                    String address = user.getOrdinaryAddress();
+                    //if (!today.getAttendance().equals("0") && !address.isEmpty() && !workaddress.contains(address)){
+                    if (!today.getAttendance().equals("0") && !address.isEmpty() && workaddress.equals("Outside")){
                         today.setEvection("1");
+                        today.setAllowance("16");
                     } else {
                         today.setEvection("0");
+                        today.setAllowance("0");
                     }
                     //timebase奖金
                     //公交地铁票
@@ -207,13 +238,13 @@ public class SalaryController {
                 }
             }
         } catch (Exception e){
-
+            System.out.print(e.toString());
         }
     }
     @RequestMapping("/test.do")
     public String testc(HttpServletRequest request) throws IOException {
         //generateSalary(2016,11);
-
+        System.out.print("OK!");
         return "/UserSalary" ;
     }
 
@@ -261,8 +292,6 @@ public class SalaryController {
         }
     }
 
-
-    @RequestMapping()
 
 
     /***
