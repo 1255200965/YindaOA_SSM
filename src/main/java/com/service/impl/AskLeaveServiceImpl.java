@@ -18,11 +18,15 @@ import java.util.List;
 public class AskLeaveServiceImpl implements IAskLeaveService {
    @Autowired
    public AskForLeaveMapper askForLeaveMapper;
+
+//   @Autowired
+//   public AskForLeaveMapper askForLeaveMapper;
+
    @Override
    public List<AskForLeave> selectByExample() {
-      return askForLeaveMapper.selectByExample();
+      return selectByExample();
    }
    public List<AskForLeave> selectByExample(AskForLeaveExample example) {
-      return askForLeaveMapper.selectByExample(example);
+      return selectByExample(example);
    }
 }

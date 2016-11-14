@@ -1,7 +1,11 @@
 package com.controller;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.dingtalk.open.client.api.model.corp.CorpUserDetail;
 import com.model.StaffInfo;
+import com.model.YoAttendance;
+import com.service.IAttendanceService;
 import com.service.IStaffInfoService;
 import com.util.AttendanceWork;
 import com.util.DDUtil;
@@ -32,6 +36,9 @@ import java.util.*;
 public class StaffInfoController {
     @Resource
     private IStaffInfoService userInfoService;
+
+    @Resource
+    private IAttendanceService iAttendanceService;
 
     @RequestMapping("/testMethod.do")
     public String getAllUser(HttpServletRequest request) throws IOException {
@@ -103,7 +110,6 @@ public class StaffInfoController {
                     System.out.println(finaltime - pre);
                 }
             }
-
             //=========导入成功后处理excel
             for (String path:filelist){
                 ExcelToMysql excelToMysql = new ExcelToMysql();
@@ -163,20 +169,6 @@ public class StaffInfoController {
     }
 
 
-    //添加用户信息
-/*    @RequestMapping(value = "/insert.do", method = RequestMethod.POST)
-    public @ResponseBody Map<String,Object> adduser(@RequestBody StaffInfo user, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Map<String,Object> map = new HashMap<String,Object>();
-
-        int result = userInfoService.insertStaff(user);
-        if(result != 0){
-            map.put("msg", "成功");
-        }else{
-            map.put("msg", "失败");
-        }
-        return map;
-    }*/
-
     //修改用户信息
     @RequestMapping(value = "/updateuser.do", method = RequestMethod.POST)
     public @ResponseBody Map<String,Object> updateuser(@RequestBody StaffInfo user, HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -230,6 +222,96 @@ public class StaffInfoController {
         return "/UserSalary";
     }
 
+    @RequestMapping("/test22.do")
+    public String testd(Map<String,Object> map,HttpServletRequest request){
+
+        return "/UserSalary";
+    }
+
+
+
+
+//    剪切下来的一部分在test.do后面，从服务器获取数据，并且做好记录
+/*测试的数据，从钉钉里面取出json数据，然后将它保存到数据库中*/
+    //测试一条数据
+    @RequestMapping("/test55.do")
+    public String test(HttpServletRequest request) throws IOException {
+        DDUtil ddUtil=new DDUtil(userInfoService);
+        AttendanceWork ddUtil2 = new AttendanceWork();
+        //我要先查出StaffInfo里面的所有id
+        List<StaffInfo> listAll = userInfoService.selectAllUser();
+        List<String> userlistIds=new ArrayList<String>();
+        for (StaffInfo staffInfos:listAll){
+            if(null!=staffInfos.getStaffUserId() &&  !staffInfos.getStaffUserId().isEmpty()){
+                userlistIds.add(staffInfos.getStaffUserId());
+            }
+        }
+        try {
+//            StaffInfo staffInfo=new StaffInfo();
+//            staffInfo.getStaffUserId();
+//            List<StaffInfo> ids=new  ArrayList<StaffInfo>();
+//            List<StaffInfo> list = userInfoService.seletecId();
+            ///我想将这个01002626191049(数据库的id),变成一个集合，就是一张表里面的全部id,怎么弄
+//            "2016-10-15 01：00：00","2016-10-21 00：00：00"
+//            "2016-10-22 01：00：00","2016-10-28 00：00：00"
+//            "2016-10-29 01：00：00","2016-11-04 00：00：00"
+//            "2016-11-05 01：00：00","2016-11-11 00：00：00"
+//            "2016-11-12 01：00：00","2016-11-19 00：00：00"
+
+            //"2016-10-15 00:00:00", "2016-10-21 00:00:00",
+            //"2016-10-21 01:00:00", "2016-10-28 00:00:00",
+            //"2016-10-28 01:00:00", "2016-11-03 00:00:00",
+            for(int i=0;i<userlistIds.size();i++) {
+                String result = ddUtil2.getSuiteToken(userlistIds.get(i), "2016-11-10 01:00:00", "2016-11-12 00:00:00", ddUtil.getAccessToken());
+                if (null == result || result.isEmpty()) {
+                    continue;
+                }
+                System.out.println("开始存放数据============================");
+                saveAttendance(result);
+                Thread.sleep(5000);
+                System.out.println("暂停存放数据============================");
+            }
+            System.out.println(">>>>>>>>>>>>>SUCCESS>>>>>存放批量数据结束=========================");
+        } catch (Exception e) {
+
+        }
+        return "/UserInfo";
+    }
+
+
+    //从服务解析出来的json
+    public  void saveAttendance(String result) {
+        //我要将0100变成一个集合，就是一张表里的所有id
+        JSONObject ob = JSONObject.parseObject(result);
+        JSONObject thwb = null;
+        List<YoAttendance> record = null;
+        YoAttendance yoAttendance = null;
+        JSONArray lists = ob.getJSONArray("recordresult");
+        System.out.println(">>>刷数据，刷数据>>>>>>>> >>>>>>>" + lists.size());
+        if (null != lists || lists.size() > 0)
+            for (int j = 0; j < lists.size(); j++) {
+                yoAttendance = new YoAttendance();
+                thwb = (JSONObject) lists.get(j);
+                yoAttendance.setCorpid(thwb.getString("corpId"));
+                yoAttendance.setId(thwb.getInteger("id") + "");
+                yoAttendance.setBasechecktime(thwb.getTimestamp("baseCheckTime"));
+                yoAttendance.setChecktype(thwb.getString("checkType"));
+                yoAttendance.setGroupid(thwb.getInteger("groupId") + "");
+                yoAttendance.setLocationresult(thwb.getString("locationResult"));
+                yoAttendance.setPlanid(thwb.getInteger("planId") + "");
+                yoAttendance.setRecordid(thwb.getInteger("recordId") + "");
+                yoAttendance.setTimeresult(thwb.getString("timeResult"));
+                yoAttendance.setUserchecktime(thwb.getTimestamp("userCheckTime"));
+                yoAttendance.setUserid(thwb.getString("userId") + "");
+                yoAttendance.setWorkdate(thwb.getTimestamp("workDate"));
+                System.out.println(">>>>>>>>>>哦咯> >>>>>>>" + yoAttendance.toString());
+                try {
+                    iAttendanceService.insertAttend(yoAttendance);
+                } catch (Exception e) {
+                    System.out.print("主键唯一约束");
+                }
+            }
+        }
 
 
 

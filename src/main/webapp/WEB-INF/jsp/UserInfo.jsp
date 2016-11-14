@@ -362,6 +362,7 @@
                         <li><a  data-bind="attr: { href: '<%=basePath%>Import/navigator.do'}">审批数据导入</a></li>
                         <li><a data-bind="attr: { href: '<%=basePath%>userinfo/test.do'}">工资查询</a></li>
                         <li><a data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">关于我们</a></li>
+                        <li><a data-bind="attr: { href: '<%=basePath%>userinfo/test55.do'}">刷数据</a></li>
                     </ul>
                 </div>
                 <div class="head-right fl">

@@ -8,6 +8,7 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -21,6 +22,7 @@ import java.util.Map;
 /**
  * 队标：一篇代码，最好不要超过200行，尽量不要超过300行，一定不能超过500行
  */
+@Transactional
 @Service
 public class AskLeaveExcelServiceImpl implements IAskLeaveExcelService {
 

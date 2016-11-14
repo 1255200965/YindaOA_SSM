@@ -77,6 +77,12 @@ public class StaffInfoServiceImpl implements IStaffInfoService {
         return selectStaff;
     }
 
+    @Override
+    public List<StaffInfo> selectAllUser() {
+        return staffInfoMapper.selectAllUser();
+    }
+
+
     //更新用户信息
     public int updateStaffByID(StaffInfo record) {
         int result = staffInfoMapper.updateByPrimaryKey(record);

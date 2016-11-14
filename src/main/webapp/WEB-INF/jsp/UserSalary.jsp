@@ -25,7 +25,9 @@
         <link rel="stylesheet" href="../datePlug/jquery.monthpicker.css">
         <script src="../javascripts/jquery-1.10.2.js"></script>
         <script src="../datePlug/jquery.monthpicker.js"></script>
-     <script src="../javascripts/knockout-3.4.0rc.js"></script>
+    <%--<script type="text/javascript" src="../javascripts/bootstrap.min.js"></script>--%>
+    <%--<script type="text/javascript" src="../javascripts/bootstrap-treeview.min.js"></script>--%>
+    <script src="../javascripts/knockout-3.4.0rc.js"></script>
     <script type="text/javascript">
         var result = null;
 

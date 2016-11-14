@@ -95,33 +95,32 @@ public class SalaryController {
     double DateSalary(String type,double baseSalary){
         double salary=0;
         if (type.equals("事假")) {
-            salary =  0;
+            salary =  -baseSalary;
         } else if (type.equals("病假")) {
-            salary =  baseSalary/2;
+            salary = - baseSalary/2;
         } else if (type.equals("年假")) {
-            salary = baseSalary;
+            salary = 0;
         } else if (type.equals("调休")) {
-            salary = baseSalary;
+            salary = 0;
         } else if (type.equals("婚假")) {
-            salary =  baseSalary;
+            salary =  -0;
         } else if (type.equals("调休")) {
-            salary = baseSalary;
+            salary =  -0;
         } else if (type.equals("产假")) {
-            salary =  baseSalary;
+            salary =  -0;
         } else if (type.equals("陪产假")) {
-            salary =  baseSalary;
+            salary =  -0;
         } else if (type.equals("路途假")) {
-            salary = baseSalary;
+            salary =  -0;
         } else if (type.equals("其他")) {
-            salary =  0;
+            salary =  -0;
         } else {
-            salary =  0;
+            salary =  -0;
         }
         return salary;
     }
-    double getBaseSalary(String base,double day){
-        if (base.isEmpty()) return 0.0;
-        return Double.parseDouble(base)/day;
+    double getBaseSalary(String base,int day){
+        return 100;
     }
     String getNext(int year ,int month,int num){
         //如果是上个月的,计算的也是上个月的日期
@@ -140,10 +139,8 @@ public class SalaryController {
             // nowyear = 2016;
             // nowMonth = 11;
             //当前工资序列
-            double manDay = 21.75;//满勤天数
             String workMonth = "" + nowyear + '-' + nowMonth;
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            Calendar ca = Calendar.getInstance();
 
             //查询用户列表
             StaffInfo staff = new StaffInfo();
@@ -156,21 +153,13 @@ public class SalaryController {
                 //当前日期
                 String workDate = getNext(nowyear, nowMonth, l++);
                 while (workDate != null) {
-                    //当前日期转换
-                    Date d = sdf.parse(workDate);
-                    ca.setTime(d);
                     //处理一天的工资
                     YoSalary today = new YoSalary();
-                    String workaddress = null;//当天出勤地
                     today.setSalarydate(workMonth);
                     today.setDate(sdf.parse(workDate));
                     today.setUserid(user.getStaffUserId());
                     today.setSalaryid(user.getStaffId());
-                    //当天是否周末/节假日
-                    if (checkHoliday(ca)){
-                        //是
-                        today.setDatetype("休");
-                    } else today.setDatetype("工");
+
                     //处理出勤,查询一个人当天的打卡情况
                     YoAttendanceExample attExample = new YoAttendanceExample();
                     YoAttendanceExample.Criteria criteria = attExample.createCriteria();
@@ -180,13 +169,12 @@ public class SalaryController {
                     if (0 == cqlist.size()){
                         //当天没有出勤
                         today.setAttendance("0");
-                        //today.setAttendanceSalary(0.0);
+                        today.setAdditionalsalary(0.0);
                         //today.setworkaddress("");
                     } else{
                         today.setAttendance("1");
-                        //today.setAttendanceSalary(getBaseSalary(user.getBaseSalary(),getMaxDate(nowyear,nowMonth)));
-                        //当天打卡地
-                         workaddress = cqlist.get(0).getLocationresult();
+                        today.setAttendanceSalary(getBaseSalary(user.getBaseSalary(),getMaxDate(nowyear,nowMonth)));
+                        //today.setworkaddress(cqlist.get(0).getLocationresult());
                     }
                     //处理请假
                     AskForLeaveExample qjExample = new AskForLeaveExample();
