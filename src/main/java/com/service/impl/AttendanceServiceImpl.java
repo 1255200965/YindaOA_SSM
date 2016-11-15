@@ -26,9 +26,6 @@ public class AttendanceServiceImpl implements IAttendanceService{
     }
 
 
-    public List<YoAttendance> selectByExample() {
-        return attendanceMapper.selectByExample();
-    }
 
     public List<YoAttendance> selectByExample(YoAttendanceExample example) {
         return attendanceMapper.selectByExample(example);
