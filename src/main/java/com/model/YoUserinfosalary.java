@@ -25,7 +25,7 @@ public class YoUserinfosalary {
 
     private String effectiveattendance;
 
-    private Double totalsalary;
+    private Double attendancesalary;
 
     private String leavetype;
 
@@ -49,7 +49,7 @@ public class YoUserinfosalary {
 
     private Double trafficsalary;
 
-    private Double additionalsalary;
+    private Double totalsalary;
 
     private String total;
 
@@ -141,12 +141,12 @@ public class YoUserinfosalary {
         this.effectiveattendance = effectiveattendance;
     }
 
-    public Double getTotalsalary() {
-        return totalsalary;
+    public Double getAttendancesalary() {
+        return attendancesalary;
     }
 
-    public void setTotalsalary(Double totalsalary) {
-        this.totalsalary = totalsalary;
+    public void setAttendancesalary(Double attendancesalary) {
+        this.attendancesalary = attendancesalary;
     }
 
     public String getLeavetype() {
@@ -237,12 +237,12 @@ public class YoUserinfosalary {
         this.trafficsalary = trafficsalary;
     }
 
-    public Double getAdditionalsalary() {
-        return additionalsalary;
+    public Double getTotalsalary() {
+        return totalsalary;
     }
 
-    public void setAdditionalsalary(Double additionalsalary) {
-        this.additionalsalary = additionalsalary;
+    public void setTotalsalary(Double totalsalary) {
+        this.totalsalary = totalsalary;
     }
 
     public String getTotal() {
