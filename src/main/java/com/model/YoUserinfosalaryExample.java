@@ -882,63 +882,63 @@ public class YoUserinfosalaryExample {
             return (Criteria) this;
         }
 
-        public Criteria andTotalsalaryIsNull() {
-            addCriterion("totalsalary is null");
+        public Criteria andAttendancesalaryIsNull() {
+            addCriterion("attendancesalary is null");
             return (Criteria) this;
         }
 
-        public Criteria andTotalsalaryIsNotNull() {
-            addCriterion("totalsalary is not null");
+        public Criteria andAttendancesalaryIsNotNull() {
+            addCriterion("attendancesalary is not null");
             return (Criteria) this;
         }
 
-        public Criteria andTotalsalaryEqualTo(Double value) {
-            addCriterion("totalsalary =", value, "totalsalary");
+        public Criteria andAttendancesalaryEqualTo(Double value) {
+            addCriterion("attendancesalary =", value, "attendancesalary");
             return (Criteria) this;
         }
 
-        public Criteria andTotalsalaryNotEqualTo(Double value) {
-            addCriterion("totalsalary <>", value, "totalsalary");
+        public Criteria andAttendancesalaryNotEqualTo(Double value) {
+            addCriterion("attendancesalary <>", value, "attendancesalary");
             return (Criteria) this;
         }
 
-        public Criteria andTotalsalaryGreaterThan(Double value) {
-            addCriterion("totalsalary >", value, "totalsalary");
+        public Criteria andAttendancesalaryGreaterThan(Double value) {
+            addCriterion("attendancesalary >", value, "attendancesalary");
             return (Criteria) this;
         }
 
-        public Criteria andTotalsalaryGreaterThanOrEqualTo(Double value) {
-            addCriterion("totalsalary >=", value, "totalsalary");
+        public Criteria andAttendancesalaryGreaterThanOrEqualTo(Double value) {
+            addCriterion("attendancesalary >=", value, "attendancesalary");
             return (Criteria) this;
         }
 
-        public Criteria andTotalsalaryLessThan(Double value) {
-            addCriterion("totalsalary <", value, "totalsalary");
+        public Criteria andAttendancesalaryLessThan(Double value) {
+            addCriterion("attendancesalary <", value, "attendancesalary");
             return (Criteria) this;
         }
 
-        public Criteria andTotalsalaryLessThanOrEqualTo(Double value) {
-            addCriterion("totalsalary <=", value, "totalsalary");
+        public Criteria andAttendancesalaryLessThanOrEqualTo(Double value) {
+            addCriterion("attendancesalary <=", value, "attendancesalary");
             return (Criteria) this;
         }
 
-        public Criteria andTotalsalaryIn(List<Double> values) {
-            addCriterion("totalsalary in", values, "totalsalary");
+        public Criteria andAttendancesalaryIn(List<Double> values) {
+            addCriterion("attendancesalary in", values, "attendancesalary");
             return (Criteria) this;
         }
 
-        public Criteria andTotalsalaryNotIn(List<Double> values) {
-            addCriterion("totalsalary not in", values, "totalsalary");
+        public Criteria andAttendancesalaryNotIn(List<Double> values) {
+            addCriterion("attendancesalary not in", values, "attendancesalary");
             return (Criteria) this;
         }
 
-        public Criteria andTotalsalaryBetween(Double value1, Double value2) {
-            addCriterion("totalsalary between", value1, value2, "totalsalary");
+        public Criteria andAttendancesalaryBetween(Double value1, Double value2) {
+            addCriterion("attendancesalary between", value1, value2, "attendancesalary");
             return (Criteria) this;
         }
 
-        public Criteria andTotalsalaryNotBetween(Double value1, Double value2) {
-            addCriterion("totalsalary not between", value1, value2, "totalsalary");
+        public Criteria andAttendancesalaryNotBetween(Double value1, Double value2) {
+            addCriterion("attendancesalary not between", value1, value2, "attendancesalary");
             return (Criteria) this;
         }
 
@@ -1652,63 +1652,63 @@ public class YoUserinfosalaryExample {
             return (Criteria) this;
         }
 
-        public Criteria andAdditionalsalaryIsNull() {
-            addCriterion("additionalsalary is null");
+        public Criteria andTotalsalaryIsNull() {
+            addCriterion("totalsalary is null");
             return (Criteria) this;
         }
 
-        public Criteria andAdditionalsalaryIsNotNull() {
-            addCriterion("additionalsalary is not null");
+        public Criteria andTotalsalaryIsNotNull() {
+            addCriterion("totalsalary is not null");
             return (Criteria) this;
         }
 
-        public Criteria andAdditionalsalaryEqualTo(Double value) {
-            addCriterion("additionalsalary =", value, "additionalsalary");
+        public Criteria andTotalsalaryEqualTo(Double value) {
+            addCriterion("totalsalary =", value, "totalsalary");
             return (Criteria) this;
         }
 
-        public Criteria andAdditionalsalaryNotEqualTo(Double value) {
-            addCriterion("additionalsalary <>", value, "additionalsalary");
+        public Criteria andTotalsalaryNotEqualTo(Double value) {
+            addCriterion("totalsalary <>", value, "totalsalary");
             return (Criteria) this;
         }
 
-        public Criteria andAdditionalsalaryGreaterThan(Double value) {
-            addCriterion("additionalsalary >", value, "additionalsalary");
+        public Criteria andTotalsalaryGreaterThan(Double value) {
+            addCriterion("totalsalary >", value, "totalsalary");
             return (Criteria) this;
         }
 
-        public Criteria andAdditionalsalaryGreaterThanOrEqualTo(Double value) {
-            addCriterion("additionalsalary >=", value, "additionalsalary");
+        public Criteria andTotalsalaryGreaterThanOrEqualTo(Double value) {
+            addCriterion("totalsalary >=", value, "totalsalary");
             return (Criteria) this;
         }
 
-        public Criteria andAdditionalsalaryLessThan(Double value) {
-            addCriterion("additionalsalary <", value, "additionalsalary");
+        public Criteria andTotalsalaryLessThan(Double value) {
+            addCriterion("totalsalary <", value, "totalsalary");
             return (Criteria) this;
         }
 
-        public Criteria andAdditionalsalaryLessThanOrEqualTo(Double value) {
-            addCriterion("additionalsalary <=", value, "additionalsalary");
+        public Criteria andTotalsalaryLessThanOrEqualTo(Double value) {
+            addCriterion("totalsalary <=", value, "totalsalary");
             return (Criteria) this;
         }
 
-        public Criteria andAdditionalsalaryIn(List<Double> values) {
-            addCriterion("additionalsalary in", values, "additionalsalary");
+        public Criteria andTotalsalaryIn(List<Double> values) {
+            addCriterion("totalsalary in", values, "totalsalary");
             return (Criteria) this;
         }
 
-        public Criteria andAdditionalsalaryNotIn(List<Double> values) {
-            addCriterion("additionalsalary not in", values, "additionalsalary");
+        public Criteria andTotalsalaryNotIn(List<Double> values) {
+            addCriterion("totalsalary not in", values, "totalsalary");
             return (Criteria) this;
         }
 
-        public Criteria andAdditionalsalaryBetween(Double value1, Double value2) {
-            addCriterion("additionalsalary between", value1, value2, "additionalsalary");
+        public Criteria andTotalsalaryBetween(Double value1, Double value2) {
+            addCriterion("totalsalary between", value1, value2, "totalsalary");
             return (Criteria) this;
         }
 
-        public Criteria andAdditionalsalaryNotBetween(Double value1, Double value2) {
-            addCriterion("additionalsalary not between", value1, value2, "additionalsalary");
+        public Criteria andTotalsalaryNotBetween(Double value1, Double value2) {
+            addCriterion("totalsalary not between", value1, value2, "totalsalary");
             return (Criteria) this;
         }
 

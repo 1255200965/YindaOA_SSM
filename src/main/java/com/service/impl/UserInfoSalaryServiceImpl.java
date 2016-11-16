@@ -24,6 +24,11 @@ public class UserInfoSalaryServiceImpl implements IUserInfoSalaryService {
     }
 
     @Override
+    public List<YoUserinfosalary> selectSalary(YoUserinfosalary record) {
+        return userMapper.selectSalary(record);
+    }
+
+    @Override
     public List<YoUserinfosalary> selectByExample(YoUserinfosalaryExample example) {
         return null;
     }

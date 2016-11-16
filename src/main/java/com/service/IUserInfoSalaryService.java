@@ -11,6 +11,8 @@ import java.util.List;
 public interface IUserInfoSalaryService {
     List<YoUserinfosalary> selectByExample();
 
+    List<YoUserinfosalary> selectSalary(YoUserinfosalary record);
+
     List<YoUserinfosalary> selectByExample(YoUserinfosalaryExample example);
 
     //添加工资
