@@ -146,29 +146,29 @@ public class AskLeaveExcelServiceImpl implements IAskLeaveExcelService {
                 第三步，对于不为空的行，将数据注入引用过来的实体对象
                 在完成后面的函数之后，再对变量自加，方便下一行的判断。再玩一把火！
                  */
-                int cellNo = 0;
+                int cellNo = -1;
                 AskForLeave askForLeave = new AskForLeave();
-                if (hssfRow.getCell(cellNo) != null) askForLeave.setYoApproveNo(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) askForLeave.setYoTitle(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) askForLeave.setYoApproveState(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) askForLeave.setYoApproveResult(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) askForLeave.setYoApproveBegin(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) askForLeave.setYoApproveEnd(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) askForLeave.setYoAskStaffId(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) askForLeave.setYoAskStaffName(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) askForLeave.setYoAskStaffDepart(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) askForLeave.setYoHistoryApproveName(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) askForLeave.setYoApproveRecord(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) askForLeave.setYoNowApproveName(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) askForLeave.setYoCost(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) askForLeave.setYoType(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) askForLeave.setYoAskBeginDate(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) askForLeave.setYoAskBeginTime(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) askForLeave.setYoAskEndDate(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) askForLeave.setYoAskEndTime(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) askForLeave.setYoAskSustain(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) askForLeave.setYoAskReason(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) askForLeave.setYoPicture(hssfRow.getCell(cellNo++).toString());
+                if (hssfRow.getCell(++cellNo) != null) askForLeave.setYoApproveNo(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) askForLeave.setYoTitle(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) askForLeave.setYoApproveState(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) askForLeave.setYoApproveResult(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) askForLeave.setYoApproveBegin(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) askForLeave.setYoApproveEnd(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) askForLeave.setYoAskStaffId(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) askForLeave.setYoAskStaffName(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) askForLeave.setYoAskStaffDepart(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) askForLeave.setYoHistoryApproveName(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) askForLeave.setYoApproveRecord(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) askForLeave.setYoNowApproveName(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) askForLeave.setYoCost(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) askForLeave.setYoType(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) askForLeave.setYoAskBeginDate(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) askForLeave.setYoAskBeginTime(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) askForLeave.setYoAskEndDate(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) askForLeave.setYoAskEndTime(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) askForLeave.setYoAskSustain(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) askForLeave.setYoAskReason(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) askForLeave.setYoPicture(hssfRow.getCell(cellNo).toString());
 
                 /*
                 第四步，检查数据库中是否有相同的审批编号，如果没有，说明是一个新的条目，执行插入操作

@@ -139,23 +139,23 @@ public class YindaIdentifyServiceImpl implements IYindaIdentifyExcelService {
                 第三步，对于不为空的行，将数据注入引用过来的实体对象
                 在完成后面的函数之后，再对变量自加，方便下一行的判断。再玩一把火！
                  */
-                int cellNo = 0;
+                int cellNo = -1;
                 YoYindaIdentify yoYindaIdentify = new YoYindaIdentify();
-                if (hssfRow.getCell(cellNo) != null) yoYindaIdentify.setYiApproveNo(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoYindaIdentify.setYiTitle(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoYindaIdentify.setYiApproveState(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoYindaIdentify.setYiApproveResult(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoYindaIdentify.setYiApproveBegin(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoYindaIdentify.setYiApproveEnd(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoYindaIdentify.setYiAskStaffId(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoYindaIdentify.setYiAskStaffName(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoYindaIdentify.setYiAskStaffDepart(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoYindaIdentify.setYiHistoryApproveName(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoYindaIdentify.setYiApproveRecord(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoYindaIdentify.setYiNowApproveName(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoYindaIdentify.setYiCost(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoYindaIdentify.setYiYindaLevel(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoYindaIdentify.setYiYindaLevel(hssfRow.getCell(cellNo++).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoYindaIdentify.setYiApproveNo(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoYindaIdentify.setYiTitle(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoYindaIdentify.setYiApproveState(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoYindaIdentify.setYiApproveResult(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoYindaIdentify.setYiApproveBegin(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoYindaIdentify.setYiApproveEnd(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoYindaIdentify.setYiAskStaffId(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoYindaIdentify.setYiAskStaffName(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoYindaIdentify.setYiAskStaffDepart(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoYindaIdentify.setYiHistoryApproveName(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoYindaIdentify.setYiApproveRecord(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoYindaIdentify.setYiNowApproveName(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoYindaIdentify.setYiCost(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoYindaIdentify.setYiYindaLevel(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoYindaIdentify.setYiYindaLevel(hssfRow.getCell(cellNo).toString());
 
                 /*
                 第四步，检查数据库中是否有相同的审批编号，如果没有，说明是一个新的条目，执行插入操作

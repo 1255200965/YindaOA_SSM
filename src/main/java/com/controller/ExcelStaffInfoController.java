@@ -102,4 +102,10 @@ public class ExcelStaffInfoController {
 
         return "redirect:homePage.do";
     }
+
+    @RequestMapping("export.do")
+    public String export() {
+        return "excel/staff_info_result_export";
+    }
+
 }

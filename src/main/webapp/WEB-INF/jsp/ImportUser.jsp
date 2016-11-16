@@ -49,12 +49,12 @@
     </div>
 
     <div class="float50">
-        <form action="${controller}/ExcelStaffInfo/exportExcel.do">
+        <!-- <form action="${controller}/ExcelStaffInfo/exportExcel.do"> -->
             <div class="p-box">
                 <p>第三步：把数据库的信息导出到Excel</p>
-                <p><button>导出到Excel</button></p>
+                <p><button>导出到Excel（此功能暂时不能使用）</button></p>
             </div>
-        </form>
+        <!-- </form> -->
     </div>
 
     <div class="select-file">

@@ -146,30 +146,30 @@ public class BusinessTripExcelServiceImpl implements IBusinessTripExcelService {
                 第三步，对于不为空的行，将数据注入引用过来的实体对象
                 在完成后面的函数之后，再对变量自加，方便下一行的判断。再玩一把火！
                  */
-                int cellNo = 0;
+                int cellNo = -1;
                 BusinessTrip businessTrip = new BusinessTrip();
-                if (hssfRow.getCell(cellNo) != null) businessTrip.setBtApproveNo(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) businessTrip.setBtTitle(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) businessTrip.setBtApproveState(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) businessTrip.setBtApproveResult(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) businessTrip.setBtApproveBegin(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) businessTrip.setBtApproveEnd(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) businessTrip.setBtAskStaffId(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) businessTrip.setBtAskStaffName(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) businessTrip.setBtAskStaffDepart(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) businessTrip.setBtHistoryApproveName(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) businessTrip.setBtApproveRecord(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) businessTrip.setBtNowApproveName(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) businessTrip.setBtCost(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) businessTrip.setBtDetail(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) businessTrip.setBtAim(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) businessTrip.setBtStartCity(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) businessTrip.setBtAddress(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) businessTrip.setBtVehicle(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) businessTrip.setBtAskBeginTime(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) businessTrip.setBtAskEndTime(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) businessTrip.setBtAskSustain(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) businessTrip.setBtAskReason(hssfRow.getCell(cellNo++).toString());
+                if (hssfRow.getCell(++cellNo) != null) businessTrip.setBtApproveNo(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) businessTrip.setBtTitle(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) businessTrip.setBtApproveState(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) businessTrip.setBtApproveResult(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) businessTrip.setBtApproveBegin(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) businessTrip.setBtApproveEnd(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) businessTrip.setBtAskStaffId(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) businessTrip.setBtAskStaffName(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) businessTrip.setBtAskStaffDepart(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) businessTrip.setBtHistoryApproveName(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) businessTrip.setBtApproveRecord(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) businessTrip.setBtNowApproveName(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) businessTrip.setBtCost(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) businessTrip.setBtDetail(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) businessTrip.setBtAim(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) businessTrip.setBtStartCity(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) businessTrip.setBtAddress(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) businessTrip.setBtVehicle(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) businessTrip.setBtAskBeginTime(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) businessTrip.setBtAskEndTime(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) businessTrip.setBtAskSustain(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) businessTrip.setBtAskReason(hssfRow.getCell(cellNo).toString());
 
                 /*
                 第四步，检查数据库中是否有相同的审批编号，如果没有，说明是一个新的条目，执行插入操作
