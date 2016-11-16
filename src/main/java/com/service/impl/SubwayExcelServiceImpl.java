@@ -140,24 +140,24 @@ public class SubwayExcelServiceImpl implements ISubwayExcelService {
                 第三步，对于不为空的行，将数据注入引用过来的实体对象
                 在完成后面的函数之后，再对变量自加，方便下一行的判断。再玩一把火！
                  */
-                int cellNo = 0;
+                int cellNo = -1;
                 YoSubway yoSubway = new YoSubway();
-                if (hssfRow.getCell(cellNo) != null) yoSubway.setSubApproveNo(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoSubway.setSubTitle(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoSubway.setSubApproveState(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoSubway.setSubApproveResult(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoSubway.setSubApproveBegin(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoSubway.setSubApproveEnd(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoSubway.setSubAskStaffId(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoSubway.setSubAskStaffName(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoSubway.setSubAskStaffDepart(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoSubway.setSubHistoryApproveName(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoSubway.setSubApproveRecord(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoSubway.setSubNowApproveName(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoSubway.setSubCost(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoSubway.setSubTakeDate(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoSubway.setSubAmount(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoSubway.setSubAskReason(hssfRow.getCell(cellNo++).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoSubway.setSubApproveNo(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoSubway.setSubTitle(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoSubway.setSubApproveState(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoSubway.setSubApproveResult(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoSubway.setSubApproveBegin(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoSubway.setSubApproveEnd(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoSubway.setSubAskStaffId(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoSubway.setSubAskStaffName(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoSubway.setSubAskStaffDepart(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoSubway.setSubHistoryApproveName(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoSubway.setSubApproveRecord(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoSubway.setSubNowApproveName(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoSubway.setSubCost(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoSubway.setSubTakeDate(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoSubway.setSubAmount(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoSubway.setSubAskReason(hssfRow.getCell(cellNo).toString());
 
                 /*
                 第四步，检查数据库中是否有相同的审批编号，如果没有，说明是一个新的条目，执行插入操作

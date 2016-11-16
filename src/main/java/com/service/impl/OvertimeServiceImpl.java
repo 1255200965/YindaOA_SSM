@@ -143,27 +143,27 @@ public class OvertimeServiceImpl implements IOvertimeExcelService {
                 第三步，对于不为空的行，将数据注入引用过来的实体对象
                 在完成后面的函数之后，再对变量自加，方便下一行的判断。再玩一把火！
                  */
-                int cellNo = 0;
+                int cellNo = -1;
                 YoOvertime yoOvertime = new YoOvertime();
-                if (hssfRow.getCell(cellNo) != null) yoOvertime.setOtApproveNo(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoOvertime.setOtTitle(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoOvertime.setOtApproveState(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoOvertime.setOtApproveResult(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoOvertime.setOtApproveBegin(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoOvertime.setOtApproveEnd(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoOvertime.setOtAskStaffId(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoOvertime.setOtAskStaffName(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoOvertime.setOtAskStaffDepart(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoOvertime.setOtHistoryApproveName(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoOvertime.setOtApproveRecord(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoOvertime.setOtNowApproveName(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoOvertime.setOtCost(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoOvertime.setOtPayMethod(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoOvertime.setOtAskBeginTime(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoOvertime.setOtAskEndTime(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoOvertime.setOtAskSustain(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoOvertime.setOtAskReason(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoOvertime.setOtComment(hssfRow.getCell(cellNo++).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoOvertime.setOtApproveNo(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoOvertime.setOtTitle(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoOvertime.setOtApproveState(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoOvertime.setOtApproveResult(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoOvertime.setOtApproveBegin(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoOvertime.setOtApproveEnd(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoOvertime.setOtAskStaffId(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoOvertime.setOtAskStaffName(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoOvertime.setOtAskStaffDepart(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoOvertime.setOtHistoryApproveName(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoOvertime.setOtApproveRecord(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoOvertime.setOtNowApproveName(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoOvertime.setOtCost(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoOvertime.setOtPayMethod(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoOvertime.setOtAskBeginTime(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoOvertime.setOtAskEndTime(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoOvertime.setOtAskSustain(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoOvertime.setOtAskReason(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoOvertime.setOtComment(hssfRow.getCell(cellNo).toString());
 
                 /*
                 第四步，检查数据库中是否有相同的审批编号，如果没有，说明是一个新的条目，执行插入操作

@@ -144,28 +144,28 @@ public class ItemChangeServiceImpl implements IItemChangeExcelService {
                 第三步，对于不为空的行，将数据注入引用过来的实体对象
                 在完成后面的函数之后，再对变量自加，方便下一行的判断。再玩一把火！
                  */
-                int cellNo = 0;
+                int cellNo = -1;
                 YoItemChange yoItemChange = new YoItemChange();
-                if (hssfRow.getCell(cellNo) != null) yoItemChange.setIcApproveNo(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoItemChange.setIcTitle(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoItemChange.setIcApproveState(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoItemChange.setIcApproveResult(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoItemChange.setIcApproveBegin(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoItemChange.setIcApproveEnd(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoItemChange.setIcAskStaffId(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoItemChange.setIcAskStaffName(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoItemChange.setIcAskStaffDepart(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoItemChange.setIcHistoryApproveName(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoItemChange.setIcApproveRecord(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoItemChange.setIcNowApproveName(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoItemChange.setIcCost(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoItemChange.setIcChangeItem(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoItemChange.setIcChangeOrder(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoItemChange.setIcChangeProvince(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoItemChange.setIcWorkCity(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoItemChange.setIcTimebase(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoItemChange.setIcOutroomWork(hssfRow.getCell(cellNo++).toString());
-                if (hssfRow.getCell(cellNo) != null) yoItemChange.setIcEffectDate(hssfRow.getCell(cellNo++).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoItemChange.setIcApproveNo(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoItemChange.setIcTitle(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoItemChange.setIcApproveState(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoItemChange.setIcApproveResult(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoItemChange.setIcApproveBegin(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoItemChange.setIcApproveEnd(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoItemChange.setIcAskStaffId(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoItemChange.setIcAskStaffName(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoItemChange.setIcAskStaffDepart(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoItemChange.setIcHistoryApproveName(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoItemChange.setIcApproveRecord(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoItemChange.setIcNowApproveName(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoItemChange.setIcCost(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoItemChange.setIcChangeItem(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoItemChange.setIcChangeOrder(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoItemChange.setIcChangeProvince(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoItemChange.setIcWorkCity(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoItemChange.setIcTimebase(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoItemChange.setIcOutroomWork(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoItemChange.setIcEffectDate(hssfRow.getCell(cellNo).toString());
 
                 /*
                 第四步，检查数据库中是否有相同的审批编号，如果没有，说明是一个新的条目，执行插入操作
