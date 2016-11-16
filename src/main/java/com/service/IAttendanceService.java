@@ -12,7 +12,6 @@ public interface IAttendanceService {
 
     int insertAttend(YoAttendance record);
 
-    List<YoAttendance> selectByExample();
 
     List<YoAttendance> selectByExample(YoAttendanceExample example);
 }

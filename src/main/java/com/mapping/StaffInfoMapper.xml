@@ -144,7 +144,6 @@
             and id_no like CONCAT('%','${idNo}','%' )
           </if>
       </where>
-      limit 0,200
     </select>
 
     <!--分页查询sql-->

@@ -28,12 +28,13 @@ public class SalaryController {
     @Resource
     private ISalaryService userSalaryService;
     @Resource
-    private IAttendanceService userAttendanceService;
+    private IAttendanceInfoService userAttendanceService;
     @Resource
     private IStaffInfoService userStaffInfoService;
     @Resource
     private IAskLeaveService userAskLeaveService;
-
+    @Resource
+    private IUserInfoSalaryService userinfoSalaryService;
 
     public static AskForLeave askForLeave;
     public static YoAttendance yoAttendance;
@@ -58,7 +59,7 @@ public class SalaryController {
 
         Map<String,Object> map = new HashMap<String,Object>();
         map.put("userlist",list);
-        map.put("userlist",list);
+
         map.put("datetype",datetype);
         map.put("attendance",attendance);
         map.put("effective",effective);
@@ -70,6 +71,18 @@ public class SalaryController {
         map.put("allowance",allowance);
 
 
+        //添加实体类
+        YoSalary total = new YoSalary();
+        total.setDatetype(datetype.get("工").toString());
+        total.setAttendance(attendance+"");
+        total.setEffectiveAttendance(effective+"");
+        total.setAttendanceSalary(attendancesalary);
+        total.setLeavetype(leavetype.get("0").toString());
+        total.setWorkovertime(worktime+"");
+        total.setWorksalary(worksalary);
+        total.setEvection(evection+"");
+        total.setAllowance(allowance+"");
+        map.put("total",total);
         if(list.size() != 0){
             map.put("msg", "成功");
         }else{
@@ -141,9 +154,47 @@ public class SalaryController {
         }
         return salary;
     }
+    //获取日基础工资
     double getBaseSalary(String base,double day){
         if (base.isEmpty()) return 0.0;
         return Double.parseDouble(base)/day;
+    }
+    //判断合同类型是否发加班费
+    boolean checkContract(String type){
+        if (type.equals("F") || type.equals("D") || type.equals("S") ) return false;
+        return  true;
+    }
+    //按技术等级获取timebase奖金
+    double callYI(String type){
+        double salary=0;
+        if (type.equals("OJT")) {
+            salary =  0;
+        } else if (type.equals("初级1")) {
+            salary =  20;
+        } else if (type.equals("初级2")) {
+            salary = 40;
+        } else if (type.equals("中级1")) {
+            salary = 40;
+        } else if (type.equals("中级2")) {
+            salary =  60;
+        } else if (type.equals("中级3")) {
+            salary = 80;
+        } else if (type.equals("中级4")) {
+            salary =  100;
+        } else if (type.equals("高级1")) {
+            salary = 100;
+        } else if (type.equals("高级2")) {
+            salary = 120;
+        } else if (type.equals("高级3")) {
+            salary =  150;
+        } else if (type.equals("高级4")) {
+            salary = 200;
+        } else if (type.equals("高级5")) {
+            salary = 300;
+        } else if (type.equals("专家1")) {
+            salary =  400;
+        }
+        return salary;
     }
     String getNext(int year ,int month,int num){
         //如果是上个月的,计算的也是上个月的日期
@@ -154,6 +205,60 @@ public class SalaryController {
             return "" + year + '-' + month + '-' + formartDate(num + 21 - maxDate);
         }
         return null;
+    }
+    void generateSalary1(int nowyear,int nowMonth) {
+        try {
+            //查询用户列表
+            StaffInfo staff = new StaffInfo();
+            List<StaffInfo> userlist = userStaffInfoService.selectStaffInfo(staff);
+
+            for(StaffInfo user: userlist) {
+                YoUserinfosalary totalSum = new YoUserinfosalary();
+                totalSum.setUserid(user.getStaffUserId());
+                totalSum.setSalaryid(user.getStaffId());
+                totalSum.setDatetype("0");
+                totalSum.setAttendance("0");
+                totalSum.setAttendancesalary(0.0);
+                totalSum.setLeavetype("0");
+                totalSum.setLeavesalary(0.0);
+                totalSum.setWorkovertime("0");
+                totalSum.setWorksalary(0.0);
+                totalSum.setEvection("0");
+                totalSum.setAllowance("0");
+                totalSum.setTimesalary(0.0);
+                totalSum.setEffectiveattendance("0");
+                totalSum.setRealityattendance("0");
+
+                YoSalary search = new YoSalary();
+                search.setName(user.getName());
+                search.setSalarydate("2016-11");
+                List<YoSalary> salaryList = userSalaryService.searchYoSalaryByEntity(search);
+                for(YoSalary today:salaryList){
+                    //累加总工资
+                    if (today.getDatetype().equals("工")) {
+                        totalSum.setDatetype(Integer.parseInt(totalSum.getDatetype())+1+"");
+                    }
+                    totalSum.setAttendance(Integer.parseInt(totalSum.getAttendance())+Integer.parseInt(today.getAttendance())+"");
+                    totalSum.setAttendancesalary(totalSum.getAttendancesalary() + today.getAttendanceSalary());
+                    if (!today.getLeavetype().equals("0")) {
+                        totalSum.setLeavetype(Integer.parseInt(totalSum.getLeavetype())+1+"");
+                    }
+                    totalSum.setLeavesalary(totalSum.getLeavesalary() + today.getLeavesalary());
+                    totalSum.setWorkovertime(Integer.parseInt(totalSum.getWorkovertime())+Integer.parseInt(today.getWorkovertime())+"");
+                    totalSum.setWorksalary(totalSum.getWorksalary() + today.getWorksalary());
+                    totalSum.setEvection(Integer.parseInt(totalSum.getEvection())+Integer.parseInt(today.getEvection())+"");
+                    totalSum.setAllowance(Integer.parseInt(totalSum.getAllowance())+Integer.parseInt(today.getAllowance())+"");
+                    totalSum.setTimesalary(totalSum.getTimesalary()+today.getTimesalary());
+                    totalSum.setEffectiveattendance(Integer.parseInt(totalSum.getEffectiveattendance())+Integer.parseInt(today.getEffectiveAttendance())+"");
+                    totalSum.setRealityattendance(Integer.parseInt(totalSum.getRealityattendance())+Integer.parseInt(today.getRealityattendance())+"");
+                }
+                //把总工资插入到工资表中
+                totalSum.setAdditionalsalary(totalSum.getAttendancesalary() + totalSum.getLeavesalary() + totalSum.getTimesalary() + Double.parseDouble(totalSum.getAllowance()));
+                userinfoSalaryService.insert(totalSum);
+            }
+        } catch (Exception e){
+            System.out.print(e.toString());
+        }
     }
     //工资生成逻辑
     void generateSalary(int nowyear,int nowMonth){
@@ -172,18 +277,38 @@ public class SalaryController {
             List<StaffInfo> userlist = userStaffInfoService.selectStaffInfo(staff);
             //开始循环每个人
             for(StaffInfo user: userlist) {
+                YoUserinfosalary totalSum = new YoUserinfosalary();
+                totalSum.setUserid(user.getStaffUserId());
+                totalSum.setSalaryid(user.getStaffId());
+                totalSum.setDatetype("0");
+                totalSum.setAttendance("0");
+                totalSum.setAttendancesalary(0.0);
+                totalSum.setLeavetype("0");
+                totalSum.setLeavesalary(0.0);
+                totalSum.setWorkovertime("0");
+                totalSum.setWorksalary(0.0);
+                totalSum.setEvection("0");
+                totalSum.setAllowance("0");
+                totalSum.setTimesalary(0.0);
+                totalSum.setEffectiveattendance("0");
+                totalSum.setRealityattendance("0");
+
                 //当前序列
-                //if (!user.getName().equals("马天立")) continue;
+                /*if (user.getStaffUserId().equals("115868443423")) {
+                    continue;
+                 }*/
+                //if (!user.getStaffUserId().equals("115868443423")) continue;
                 int l = 0;
                 //当前日期
                 String workDate = getNext(nowyear, nowMonth, l++);
-                while (workDate != null) {
+                 while (workDate != null) {
                     //当前日期转换
                     Date d = sdf.parse(workDate);
                     ca.setTime(d);
                     //处理一天的工资
                     YoSalary today = new YoSalary();
                     String workaddress = null;//当天出勤地
+                    String isOnLoc = null;//当天考勤范围
                     today.setSalarydate(workMonth);
                     today.setDate(sdf.parse(workDate));
                     today.setUserid(user.getStaffUserId());
@@ -194,21 +319,22 @@ public class SalaryController {
                         today.setDatetype("休");
                     } else today.setDatetype("工");
                     //处理出勤,查询一个人当天的打卡情况
-                    YoAttendanceExample attExample = new YoAttendanceExample();
-                    YoAttendanceExample.Criteria criteria = attExample.createCriteria();
+                    YoAtteninfoExample attExample = new YoAtteninfoExample();
+                    YoAtteninfoExample.Criteria criteria = attExample.createCriteria();
                     criteria.andUseridEqualTo(today.getUserid());
-                    criteria.andWorkdateEqualTo(d);
-                    List<YoAttendance> cqlist = userAttendanceService.selectByExample(attExample);
+                    criteria.andAttdateEqualTo(d);
+                    List<YoAtteninfo> cqlist = userAttendanceService.selectByExample(attExample);
                     if (0 == cqlist.size()){
                         //当天没有出勤
                         today.setAttendance("0");
-                        //today.setAttendanceSalary(0.0);
-                        //today.setworkaddress("");
+
                     } else{
                         today.setAttendance("1");
-                        //today.setAttendanceSalary(getBaseSalary(user.getBaseSalary(),getMaxDate(nowyear,nowMonth)));
+
                         //当天打卡地
-                        workaddress = cqlist.get(0).getLocationresult();
+                         workaddress = cqlist.get(0).getAttaddress();
+                        //当天打卡状态
+                        isOnLoc = cqlist.get(0).getAttendresult();
                     }
                     //处理请假
                     AskForLeaveExample qjExample = new AskForLeaveExample();
@@ -221,86 +347,85 @@ public class SalaryController {
                     if (0 == qjlist.size()){
                         //当天没有请假
                         today.setLeavetype("0");
+                        today.setLeavesalary(0.0);
                     } else{
                         //today.setLeavetype("1");
                         //根据请假类型扣款
                         today.setLeavetype(qjlist.get(0).getYoType());
                         today.setLeavesalary(DateSalary(today.getLeavetype(),getBaseSalary(user.getBaseSalary(),manDay)));
                     }
-                    //判断真实出勤,有效出勤
+                    //判断真实出勤-发奖金,有效出勤-算工资
                     today.setEffectiveAttendance(today.getAttendance());
                     if (!today.getLeavetype().equals("0") || today.getDatetype().equals("休"))
                     {
                         //如果有请假，实际算缺勤出勤，然后补助对应的工资，或者今天是休息日
                         today.setEffectiveAttendance("0");
                     }
-                    //有效工资
+                    today.setRealityattendance(today.getAttendance());
+                    if (!today.getLeavetype().equals("0"))
+                    {
+                        //如果有请假，实际算缺勤出勤，今天是休息日，看签到
+                        today.setEffectiveAttendance("0");
+                    }
+                    //有效工资-通过有效出勤计算
                     if (!today.getEffectiveAttendance().equals("0") ){
                         today.setAttendanceSalary(getBaseSalary(user.getBaseSalary(),manDay));
                     } else today.setAttendanceSalary(0.0);
                     //处理加班
                     today.setWorkovertime("0");
                     today.setWorksalary(0.0);
-                    //处理出差,签到地点与base地是否匹配,是否有打卡，是否要算加班费，是否是指定合同
+                    //处理出差,签到地点与base地是否匹配,是否有打卡，是否要算加班费，是否是指定合同FDS
                     String address = user.getOrdinaryAddress();
-                    //if (!today.getAttendance().equals("0") && !address.isEmpty() && !workaddress.contains(address)){
-                    if (!today.getAttendance().equals("0") && !address.isEmpty() && workaddress.equals("Outside")){
+                    if (!today.getRealityattendance().equals("0") && !user.getComment2().equals("否") && checkContract(user.getContractType()) && !address.isEmpty() && !workaddress.isEmpty() && !workaddress.substring(0,2).contains(address)){
+                    //if (!today.getAttendance().equals("0") && !address.isEmpty() && workaddress.equals("Outside")){
                         today.setEvection("1");
                         today.setAllowance("16");
                     } else {
                         today.setEvection("0");
                         today.setAllowance("0");
                     }
-                    //timebase奖金
+                    //timebase奖金,今天是真实出勤日，人在对应项目中
+                    if (!user.getYoOrder().isEmpty() && user.getYoOrder().equals("Timebase") && !today.getRealityattendance().equals("0")){
+                        //按技术等级发奖金
+                        today.setTimesalary(callYI(user.getYindaIdentify()));
+                    } else today.setTimesalary(0.0);
                     //公交地铁票
 
                     //插入到数据库
                     userSalaryService.insert(today);
+
+                    //累加总工资
+                    if (today.getDatetype().equals("工")) {
+                        totalSum.setDatetype(Integer.parseInt(totalSum.getDatetype())+1+"");
+                    }
+                    totalSum.setAttendance(Integer.parseInt(totalSum.getAttendance())+Integer.parseInt(today.getAttendance())+"");
+                    totalSum.setAttendancesalary(totalSum.getAttendancesalary() + today.getAttendanceSalary());
+                    if (!today.getLeavetype().equals("0")) {
+                        totalSum.setLeavetype(Integer.parseInt(totalSum.getLeavetype())+1+"");
+                    }
+                    totalSum.setLeavesalary(totalSum.getLeavesalary() + today.getLeavesalary());
+                    totalSum.setWorkovertime(Integer.parseInt(totalSum.getWorkovertime())+Integer.parseInt(today.getWorkovertime())+"");
+                    totalSum.setWorksalary(totalSum.getWorksalary() + today.getWorksalary());
+                    totalSum.setEvection(Integer.parseInt(totalSum.getEvection())+Integer.parseInt(today.getEvection())+"");
+                    totalSum.setAllowance(Integer.parseInt(totalSum.getAllowance())+Integer.parseInt(today.getAllowance())+"");
+                    totalSum.setTimesalary(totalSum.getTimesalary()+today.getTimesalary());
+                    totalSum.setEffectiveattendance(Integer.parseInt(totalSum.getEffectiveattendance())+Integer.parseInt(today.getEffectiveAttendance())+"");
+                    totalSum.setRealityattendance(Integer.parseInt(totalSum.getRealityattendance())+Integer.parseInt(today.getRealityattendance())+"");
+
                     workDate = getNext(nowyear, nowMonth, l++);
                 }
+                //把总工资插入到工资表中
+                totalSum.setAdditionalsalary(totalSum.getAttendancesalary() + totalSum.getLeavesalary() + totalSum.getTimesalary() + Double.parseDouble(totalSum.getAllowance()));
+                userinfoSalaryService.insert(totalSum);
             }
         } catch (Exception e){
             System.out.print(e.toString());
         }
     }
     @RequestMapping("/test.do")
-    public String testc(HttpServletRequest request,YoSalary user) throws IOException {
+    public String testc(HttpServletRequest request) throws IOException {
         //generateSalary(2016,11);
-//        System.out.print("OK!");
-        //查询指定id，填充进map
-
-//        YoSalary yo=new YoSalary();
-//        yo.setName("章其波");
-//        List<YoSalary> list =userSalaryService.searchYoSalaryByEntity(yo);
-//
-//        Map<String,Integer> datetype= DatetypeCount(list);
-//        int attendance=AttendanceCount(list);
-//        int effective=EvectionCount(list);
-//        double attendancesalary=AttendanceSalaryCount(list);
-//        Map<String,Integer> leavetype= LeavetypeCount(list);
-//        int worktime= WorkovertimeCount(list);
-//        double worksalary=WorkSalaryCount(list);
-//        int evection=EvectionCount(list);
-//        int allowance=AllowanceCount(list);
-//
-//
-//        Map<String,Object> map = new HashMap<String,Object>();
-//        map.put("userlist",list);
-//        map.put("datetype",datetype);
-//        map.put("attendance",attendance);
-//        map.put("effective",effective);
-//        map.put("attendancesalary",attendancesalary);
-//
-//        System.out.println("工作日有多少天"+datetype.toString());
-//        System.out.println("打卡情况"+attendance);
-//        System.out.println("有效打卡情况"+effective);
-//        System.out.println("出勤工资"+attendancesalary);
-//        System.out.println("请教类型"+leavetype.toString());
-//        System.out.println("加班"+worktime);
-//        System.out.println("加班工资"+worksalary);
-//        System.out.println("出差"+evection);
-//        System.out.println("出差补贴"+allowance);
-
+        System.out.print("OK!");
         return "/UserSalary" ;
     }
 

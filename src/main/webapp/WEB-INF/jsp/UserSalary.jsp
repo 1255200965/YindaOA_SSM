@@ -97,6 +97,8 @@
                         },
                         success:function(data){
                             result = eval(data.userlist);
+                            total = eval(data.total);
+                            self.changeItem(total);
                             self.ShowList.removeAll();
                             for (var i = 0; i < result.length; i++) {
                                 self.ShowList.push(result[i]);
@@ -249,8 +251,7 @@
                     <thead>
                     <tr data-bind="with:changeItem">
                         <th >合计</th>
-                        <td data-bind="text:name"></td>
-                        <td data-bind="text:getLocalTime(date)"></td>
+                        <td data-bind="text:name">用户编号</td>
                         <td data-bind="text:datetype">日期类型</td>
                         <td data-bind="text:attendance">知识树编号</td>
                         <td data-bind="text:effectiveAttendance">知识树编号</td>

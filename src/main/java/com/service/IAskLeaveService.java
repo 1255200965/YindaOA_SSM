@@ -15,4 +15,6 @@ public interface IAskLeaveService {
    List<AskForLeave> selectByExample();
 
    List<AskForLeave> selectByExample(AskForLeaveExample example);
+
+
 }

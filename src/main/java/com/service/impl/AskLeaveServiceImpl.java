@@ -24,9 +24,9 @@ public class AskLeaveServiceImpl implements IAskLeaveService {
 
    @Override
    public List<AskForLeave> selectByExample() {
-      return selectByExample();
+      return askForLeaveMapper.selectByExample();
    }
    public List<AskForLeave> selectByExample(AskForLeaveExample example) {
-      return selectByExample(example);
+      return askForLeaveMapper.selectByExample(example);
    }
 }
