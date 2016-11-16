@@ -7,6 +7,10 @@ public class YoUserinfosalary {
 
     private String salarydate;
 
+    private String name;
+
+    private String department;
+
     private String userid;
 
     private String salaryid;
@@ -17,7 +21,11 @@ public class YoUserinfosalary {
 
     private String attendance;
 
-    private Double attendancesalary;
+    private String realityattendance;
+
+    private String effectiveattendance;
+
+    private Double totalsalary;
 
     private String leavetype;
 
@@ -43,11 +51,7 @@ public class YoUserinfosalary {
 
     private Double additionalsalary;
 
-    private String realityattendance;
-
-    private String effectiveattendance;
-
-    private String yoaskstaffid;
+    private String total;
 
     public Integer getSid() {
         return sid;
@@ -63,6 +67,22 @@ public class YoUserinfosalary {
 
     public void setSalarydate(String salarydate) {
         this.salarydate = salarydate;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
     }
 
     public String getUserid() {
@@ -105,12 +125,28 @@ public class YoUserinfosalary {
         this.attendance = attendance;
     }
 
-    public Double getAttendancesalary() {
-        return attendancesalary;
+    public String getRealityattendance() {
+        return realityattendance;
     }
 
-    public void setAttendancesalary(Double attendancesalary) {
-        this.attendancesalary = attendancesalary;
+    public void setRealityattendance(String realityattendance) {
+        this.realityattendance = realityattendance;
+    }
+
+    public String getEffectiveattendance() {
+        return effectiveattendance;
+    }
+
+    public void setEffectiveattendance(String effectiveattendance) {
+        this.effectiveattendance = effectiveattendance;
+    }
+
+    public Double getTotalsalary() {
+        return totalsalary;
+    }
+
+    public void setTotalsalary(Double totalsalary) {
+        this.totalsalary = totalsalary;
     }
 
     public String getLeavetype() {
@@ -209,27 +245,11 @@ public class YoUserinfosalary {
         this.additionalsalary = additionalsalary;
     }
 
-    public String getRealityattendance() {
-        return realityattendance;
+    public String getTotal() {
+        return total;
     }
 
-    public void setRealityattendance(String realityattendance) {
-        this.realityattendance = realityattendance;
-    }
-
-    public String getEffectiveattendance() {
-        return effectiveattendance;
-    }
-
-    public void setEffectiveattendance(String effectiveattendance) {
-        this.effectiveattendance = effectiveattendance;
-    }
-
-    public String getYoaskstaffid() {
-        return yoaskstaffid;
-    }
-
-    public void setYoaskstaffid(String yoaskstaffid) {
-        this.yoaskstaffid = yoaskstaffid;
+    public void setTotal(String total) {
+        this.total = total;
     }
 }

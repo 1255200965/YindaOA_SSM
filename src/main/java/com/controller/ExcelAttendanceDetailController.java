@@ -28,6 +28,7 @@ public class ExcelAttendanceDetailController {
 
     @RequestMapping("/navigator.do")
     public String navigator() {
+
         return "/upload";
     }
 

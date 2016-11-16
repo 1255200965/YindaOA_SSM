@@ -40,10 +40,23 @@
     <div class="cont-tit">
         <img src="../images/icon02.png"  width="100" alt="">花名册模块导入
     </div>
-    <div class="cont-msg">
-        <p>第一步：下载花名册模板</p>
-        <p>第二步：上传填写好的数据表</p>
+
+    <div class="float50">
+        <div class="p-box">
+            <p>第一步：下载花名册模板</p>
+            <p>第二步：上传填写好的数据表</p>
+        </div>
     </div>
+
+    <div class="float50">
+        <form action="${controller}/ExcelStaffInfo/exportExcel.do">
+            <div class="p-box">
+                <p>第三步：把数据库的信息导出到Excel</p>
+                <p><button>导出到Excel</button></p>
+            </div>
+        </form>
+    </div>
+
     <div class="select-file">
         <form action="${controller}/ExcelStaffInfo/importExcel.do" enctype="multipart/form-data" method="post" onsubmit="return check()">
             <div class="select-details">
@@ -64,6 +77,7 @@
             </div>
         </form>
     </div>
+
 </div>
 
 <footer>
