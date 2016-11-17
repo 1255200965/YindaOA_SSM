@@ -30,7 +30,7 @@ public class UserInfoSalaryServiceImpl implements IUserInfoSalaryService {
 
     @Override
     public List<YoUserinfosalary> selectByExample(YoUserinfosalaryExample example) {
-        return null;
+        return userMapper.selectByExample(example);
     }
 
 

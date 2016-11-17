@@ -3,8 +3,11 @@ package com.util;
 import com.alibaba.fastjson.JSONObject;
 import com.dao.DepartmentMapper;
 import com.ddSdk.auth.AuthHelper;
+import com.ddSdk.base.Env;
+import com.ddSdk.base.OApiException;
 import com.ddSdk.user.UserHelper;
 import com.ddSdk.utils.FileUtils;
+import com.ddSdk.utils.HttpHelper;
 import com.dingtalk.open.client.ServiceFactory;
 import com.dingtalk.open.client.api.model.corp.CorpUserDetail;
 import com.dingtalk.open.client.api.model.corp.CorpUserDetailList;
@@ -264,5 +267,23 @@ public class DDUtil {
 
         }
         return null;
+    }
+    public static String testShow() {
+        //这是请求接口的地址
+        List<String> useridList = new ArrayList<String>();
+        useridList.add("031618475738729262");
+        useridList.add("022418113430903564");
+        JSONObject json = new JSONObject();
+        json.put("agentId", 38433641);
+        //json.put("deptVisibleScopes", []);
+        json.put("userVisibleScopes", useridList);
+        JSONObject reponseJson = null;
+        try {
+            String url = "https://oapi.dingtalk.com/microapp/set_visible_scopes?access_token=" +  AuthHelper.getAccessToken();
+            reponseJson = HttpHelper.httpPost(url, json);
+        } catch (OApiException e) {
+            e.printStackTrace();
+        }
+        return reponseJson.toJSONString();
     }
 }

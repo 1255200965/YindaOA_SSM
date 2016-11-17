@@ -124,12 +124,12 @@
             }
             ko.applyBindings(new ViewModel);
         });
-        function UserModel(name,salarydate) {
+        function UserModel(name,salarydate,salaryid) {
             this.sid = null;
             this.name = name;
             this.salarydate=salarydate;
             this.userid = null;
-            this.salaryid = null;
+            this.salaryid = salaryid;
             this.date = null;
             this.datetype = null;
             this.attendance = null;
@@ -254,8 +254,8 @@
                         <td data-bind="text:name">用户编号</td>
                         <td data-bind="text:datetype">日期类型</td>
                         <td data-bind="text:attendance">知识树编号</td>
-                        <td data-bind="text:effectiveAttendance">知识树编号</td>
-                        <td data-bind="text:attendanceSalary">所属知识</td>
+                        <td data-bind="text:effectiveattendance">知识树编号</td>
+                        <td data-bind="text:attendancesalary">所属知识</td>
                         <td data-bind="text:leavetype">修改者</td>
                         <td data-bind="text:leavesalary">审核状态</td>
                         <td data-bind="text:workovertime">ok的</td>
@@ -267,7 +267,7 @@
                         <td data-bind="text:tasksalary">修改者</td>
                         <td data-bind="text:busalary">审核状态</td>
                         <td data-bind="text:trafficsalary">卫视</td>
-                        <td data-bind="text:additionalsalary">卫视</td>
+                        <td data-bind="text:totalsalary">卫视</td>
                     </tr>
                     </thead>
                 </table>
