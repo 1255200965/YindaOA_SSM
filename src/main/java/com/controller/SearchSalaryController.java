@@ -59,7 +59,10 @@ public class SearchSalaryController {
     @RequestMapping(value = "/updateuser.do", method = RequestMethod.POST)
     public @ResponseBody Map<String,Object> updateuser(@RequestBody YoUserinfosalary user, HttpServletRequest request, HttpServletResponse response) throws IOException {
         Map<String,Object> map = new HashMap<String,Object>();
+        double caclTotalSalary=user.getTotalsalary()+ user.getUserbonus();
+        user.setTotalsalary(caclTotalSalary);//ok,
         int result = userInfoService.updateByUserSalary(user);
+
         if(result != 0){
             map.put("msg", "更新成功");
             map.put("ok", "ok");
