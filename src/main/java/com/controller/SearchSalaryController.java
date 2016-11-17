@@ -41,8 +41,8 @@ public class SearchSalaryController {
      * @return
      * @throws IOException
      */
-    @RequestMapping(value = "/query.do", method = RequestMethod.POST)
-    public @ResponseBody Map<String,Object> query(@RequestBody YoUserinfosalary user, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    @RequestMapping(value = "/select.do", method = RequestMethod.POST)
+    public @ResponseBody Map<String,Object> select(@RequestBody YoUserinfosalary user, HttpServletRequest request, HttpServletResponse response) throws IOException {
         List<YoUserinfosalary> list = userInfoService.selectSalary(user);
         Map<String,Object> map = new HashMap<String,Object>();
         map.put("usertest",list);
@@ -55,26 +55,31 @@ public class SearchSalaryController {
     }
 
 
-    //修改用户信息
-//    @RequestMapping(value = "/updateuser.do", method = RequestMethod.POST)
-//    public @ResponseBody Map<String,Object> updateuser(@RequestBody StaffInfo user, HttpServletRequest request, HttpServletResponse response) throws IOException {
-//        Map<String,Object> map = new HashMap<String,Object>();
-//
-//        //钉钉侧修改
-////        DDUtil ddutil = new DDUtil(userInfoService);
-//        String DDresult = ddutil.updateUser(user);
-//        if (DDresult != null){
-//            map.put("msg", DDresult);
-//            return map;
-//        }
-////        int result = userInfoService.updateStaffByID(user);
-//        if(result != 0){
-//            map.put("msg", "更新成功");
-//            map.put("ok", "ok");
-//        }else{
-//            map.put("msg", "更新失败");
-//        }
-//        return map;
-//    }
+//    修改用户工资信息
+    @RequestMapping(value = "/updateuser.do", method = RequestMethod.POST)
+    public @ResponseBody Map<String,Object> updateuser(@RequestBody YoUserinfosalary user, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Map<String,Object> map = new HashMap<String,Object>();
+        int result = userInfoService.updateByUserSalary(user);
+        if(result != 0){
+            map.put("msg", "更新成功");
+            map.put("ok", "ok");
+        }else{
+            map.put("msg", "更新失败");
+        }
+        return map;
+    }
 
+
+    @RequestMapping(value = "/querys.do", method = RequestMethod.POST)
+    public @ResponseBody Map<String,Object> querys(@RequestBody YoUserinfosalary user, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        List<YoUserinfosalary> list = userInfoService.searchUserInfoByEntity(user);
+        Map<String,Object> map = new HashMap<String,Object>();
+        map.put("usertest",list);
+        if(list.size() != 0){
+            map.put("msg", "成功");
+        }else{
+            map.put("msg", "查询结果为空");
+        }
+        return map;
+    }
 }

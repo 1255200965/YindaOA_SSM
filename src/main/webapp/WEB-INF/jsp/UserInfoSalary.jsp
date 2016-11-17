@@ -24,6 +24,15 @@
     <link href="../stylesheets/ddcss.css" rel="stylesheet" />
     <link rel="stylesheet" href="../stylesheets/header.css">
 
+    <link rel="shortcut icon" type="image/ico" href="../images/yd.ico" />
+    <link rel="stylesheet" href="../stylesheets/reset.css">
+    <link rel="stylesheet" href="../stylesheets/buttons.css">
+    <link rel="stylesheet" href="../stylesheets/header.css">
+    <link rel="stylesheet" href="../stylesheets/affairs-search.css">
+    <link rel="stylesheet" href="../datePlug/jquery.monthpicker.css">
+    <script src="../javascripts/jquery-1.10.2.js"></script>
+    <script src="../datePlug/jquery.monthpicker.js"></script>
+
     <script type="text/javascript" src="../javascripts/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="../javascripts/bootstrap.min.js"></script>
     <script type="text/javascript" src="../javascripts/bootstrap-treeview.min.js"></script>
@@ -84,6 +93,8 @@
                     self.GetDepartment();
 
                 });
+
+
                 //===============================
                 //获取部门成员
                 self.GetUserListByDep = function(depddid){
@@ -92,7 +103,7 @@
                         type:"post",
                         headers: { 'Content-Type': 'application/json' },
                         dataType: 'json',
-                        url:"../userinfo/login.do",
+                        url:"../userinfosalary/querys.do",
                         error:function(data){
                             alert("出错了！！:"+data.msg);
                         },
@@ -110,12 +121,13 @@
                 }
                 //查询成员列表（部门，姓名，电话，工号）
                 self.GetUserByQuery = function(){
+                    if (nowDep != null){var depid = nowDep.name;} else {depid = null;}
                     $.ajax({
-                        data:JSON.stringify(new UserModel($("#search_name").val(),$("#search_userid").val(),$("#search_date").val())),
+                        data:JSON.stringify(new UserModel(depid,$("#search_name").val(),$("#search_salaryid").val(),$("#search_salarydate").val())),
                         type:"post",
                         headers: { 'Content-Type': 'application/json' },
                         dataType: 'json',
-                        url:"../userinfosalary/query.do",
+                        url:"../userinfosalary/select.do",
                         error:function(data){
                             alert("出错了！！:"+data.msg);
                         },
@@ -138,16 +150,15 @@
                         type:"post",
                         headers: { 'Content-Type': 'application/json' },
                         dataType: 'json',
-                        url:"../userinfo/updateuser.do",
+                        url:"../userinfosalary/updateuser.do",
                         error:function(data){
                             alert("出错了！！:"+data.msg);
                         },
                         success:function(data){
                             alert("修改结果:"+data.msg);
                             if (data.ok == "ok") {
-                                //静态刷新页面
                                 for (var i = 0; i < self.ShowList().length; i++) {
-                                    if (self.ShowList()[i].staffUserId == self.changeItem().staffUserId) {
+                                    if (self.ShowList()[i].sid == self.changeItem().sid) {
                                         self.ShowList.splice(i, 1);
                                         self.ShowList.splice(i, 0, self.changeItem());
                                         break;
@@ -160,13 +171,6 @@
                     self.ClickModelNo();
                 }
 
-
-                //点击事件-点击添加用户按钮
-                self.ClickAdd = function(){
-                    self.changeItem(new UserModel());
-                    self.rootid(1);
-                    $("#model1").click();
-                };
                 //点击事件-点击更新用户按钮
                 self.ClickUpdate = function(item){
                     self.changeItem(item);
@@ -180,14 +184,18 @@
                 //点击事件-点击清空搜索项
                 self.ClickClear = function() {
                     $("#search_name").val("");
-                    $("#search_userid").val("");
-                    $("#search_date").val("");
+                    $("#search_salaryid").val("");
+                    $("#search_salarydate").val("");
 
                 }
                 //点击事件-模态框确定
                 self.ClickModelYes = function() {
                     if (self.rootid() == 0) {
-                        self.UpdateUser();
+                        if (!confirm("确认要修改？")) {
+                            window.event.returnValue = false;
+                        }else{
+                            self.UpdateUser();
+                        }
                     } else {
                         self.AddNewUser();
                     }
@@ -219,11 +227,9 @@
                         onNodeSelected: function (event, data) {
                             nowDep = data;
                             self.chooseDep();
-                            //self.clickNode1(event, data);
                         },
                         onNodeUnselected: function (event, data) {
                             nowDep = null;
-                            //self.clickNode1(event, data);
                         }
                     });
                     $('#tree').treeview('collapseAll');
@@ -248,7 +254,6 @@
                     if (nowDep != null) {
                         id = nowDep.name;
                     }
-
                     //获取部门用户
                     self.GetUserListByDep(id);
                 }
@@ -257,22 +262,19 @@
         });
 
 
-        function UserModel(name,userid,date) {
+        function UserModel(depid,name,salaryid,salarydate) {
             this.sid = null;
-            this.salarydate=null;
+            this.salarydate=salarydate;
             this.name = name;
-
-            this.department=null;
-            this.userid = userid;
-            this.salaryid = null;
-            this.date = date;
+            this.department=depid;
+            this.userid = null;
+            this.salaryid = salaryid;
+            this.date = null;
             this.datetype = null;
             this.attendance = null;
             this.realityattendance=null;
             this.effectiveattendance=null;
             this.attendancesalary = null;
-
-
             this.leavetype = null;
             this.leavesalary=null;
             this.workovertime = null;
@@ -284,10 +286,9 @@
             this.tasksalary = null;
             this.busalary = null;
             this.trafficsalary = null;
+            this.userbonus= null;
             this.totalsalary = null;
-            this.total = null;
             return this;
-
         }
 
     </script>
@@ -329,10 +330,10 @@
                 <input id="search_name" type="text" name="name" class="shuruk-a2" placeholder="">
             </div>
             <div class="caidan-tiku-s" style="margin-right:5%"> <span>工号：</span>
-                <input id="search_userid" type="text" name="userid" class="shuruk-a2" placeholder="">
+                <input id="search_salaryid" type="text" name="salaryid" class="shuruk-a2" placeholder="">
             </div>
             <div class="caidan-tiku-s" style="margin-right:5%"> <span>日期：</span>
-                <input id="search_date" type="text" name="date" class="shuruk-a2" placeholder="">
+                <input id="search_salarydate" type="text" name="salarydate" class="shuruk-a2" placeholder="">
             </div>
             <div style="float:right;margin-right:15px;padding-bottom:10px;" >
                 <input data-bind="click:$root.ClickSearch" type="button" value="查询"  class="chaxun">
@@ -345,21 +346,25 @@
             <table  width="100%" border="1" cellspacing="0" cellpadding="0" class="table-1">
                 <thead class="table-1-tou">
                 <td class="text_center" width="6%">姓名</td>
-                <td class="text_center" width="13%">部门</td>
-                <td class="text_center" width="6%">工号</td>
+                <td class="text_center" width="9%">部门</td>
+                <td class="text_center" width="10%">工号</td>
                 <td class="text_center" width="6%">日期</td>
-                <td class="text_center" width="6%">考勤总数</td>
-                <td class="text_center" width="6%">工资</td>
-                <td class="text_center" width="9%">操作</td>
+                <td class="text_center" width="6%">有效考勤</td>
+                <td class="text_center" width="6%">实际考勤</td>
+                <td class="text_center" width="6%">奖金</td>
+                <td class="text_center" width="6%">合计工资</td>
+                <td class="text_center" width="5%">操作</td>
                 </thead>
 
                 <tbody data-bind="foreach:ShowList">
                 <tr >
                     <td data-bind="text:name">编号</td>
                     <td data-bind="text:department">编号</td>
-                    <td data-bind="text:userid">编号</td>
-                    <td data-bind="text:date">编号</td>
+                    <td data-bind="text:salaryid">编号</td>
+                    <td data-bind="text:salarydate">编号</td>
                     <td data-bind="text:attendance">编号</td>
+                    <td data-bind="text:realityattendance">编号</td>
+                    <td data-bind="text:userbonus">编号</td>
                     <td data-bind="text:totalsalary">编号</td>
                     <td>
                         <input data-bind="click:$root.ClickUpdate" type="button" value="修改" class="gx-btn"/>
@@ -378,8 +383,29 @@
 
     </div>
 </div>
+
+
+
+<script>
+    // 日期插件开始
+    $('#monthpicker').monthpicker({
+        years: [2017,2016,2015, 2014, 2013, 2012, 2011,2010,2009],
+        topOffset: 6,
+        onMonthSelect: function(m, y) {
+            console.log('Month: ' + m + ', year: ' + y);
+        }
+    });
+    $('#search_salarydate').monthpicker({
+        years: [2017,2016,2015, 2014, 2013, 2012, 2011,2010,2009],
+        topOffset: 6
+    });
+    //日期插件结束
+</script>
 <%--</div>--%>
 <!-- Button trigger modal -->
+<button type="button" id="model1" style="display: none" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+    modal
+</button>
 <button type="button" id="model1" style="display: none" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
     modal
 </button>
@@ -394,74 +420,22 @@
                 </div>
                 <div class="modal-body c_modal_body">
                     <div data-bind="with:changeItem">
-                        <div class="c_action_content" >手机端展示信息</div>
+                        <div class="c_action_content" >修改奖金</div>
                         <div class="c_ding_form" >
                             <div class="c_ding_form_group" >
                                 <label><i class="iconfont c_ding_from_icon" >*</i><span >姓名:</span></label>
                                 <div class="input_content" >
-                                    <input class="c_ding_input" data-bind="textinput:name"/>
+                                    <input class="c_ding_input" data-bind="textinput:name" readonly="readonly" />
                                 </div>
                             </div>
 
                             <div class="c_ding_form_group" >
-                                <label><i class="iconfont c_ding_from_icon" >*</i><span >电话:</span></label>
+                                <label><i class="iconfont c_ding_from_icon" >**</i><span >奖金:</span></label>
                                 <div class="input_content" >
-                                    <input class="c_ding_input" data-bind="textinput:cellphone"/>
-                                </div>
-                            </div>
-                            <div class="c_ding_form_group" >
-                                <label><i class="iconfont c_ding_from_icon" ></i><span >部门:</span></label>
-                                <div class="input_content" >
-                                    <input class="c_ding_input" data-bind="textinput:department"/>
-                                </div>
-                            </div>
-                            <div class="c_ding_form_group" >
-                                <label><i class="iconfont c_ding_from_icon" ></i><span >邮箱:</span></label>
-                                <div class="input_content" >
-                                    <input class="c_ding_input" data-bind="textinput:email"/>
-                                </div>
-                            </div>
-                            <div class="c_ding_form_group" >
-                                <label><i class="iconfont c_ding_from_icon" ></i><span >合同类型:</span></label>
-                                <div class="input_content" >
-                                    <input class="c_ding_input" data-bind="textinput:contractType"/>
+                                    <input class="c_ding_input" data-bind="textinput:userbonus"/>
                                 </div>
                             </div>
                         </div>
-                        <div class="c_action_content" >手机端不展示信息</div>
-                        <div class="c_ding_form" >
-                            <div class="c_ding_form_group" >
-                                <label><i class="iconfont c_ding_from_icon" ></i><span >工号:</span></label>
-                                <div class="input_content" >
-                                    <input class="c_ding_input" data-bind="textinput:staffId"/>
-                                </div>
-                            </div>
-                            <div class="c_ding_form_group" >
-                                <label><i class="iconfont c_ding_from_icon" ></i><span >职位:</span></label>
-                                <div class="input_content" >
-                                    <input class="c_ding_input" data-bind="textinput:position"/>
-                                </div>
-                            </div>
-                            <div class="c_ding_form_group" >
-                                <label><i class="iconfont c_ding_from_icon" ></i><span >钉钉id:</span></label>
-                                <div class="input_content" >
-                                    <input class="c_ding_input" data-bind="textinput:staffUserId"/>
-                                </div>
-                            </div>
-                            <div class="c_ding_form_group" >
-                                <label><i class="iconfont c_ding_from_icon" ></i><span >离职日期:</span></label>
-                                <div class="input_content" >
-                                    <input class="c_ding_input" data-bind="textinput:leaveDate"/>
-                                </div>
-                            </div>
-                            <div class="c_ding_form_group" >
-                                <label><i class="iconfont c_ding_from_icon" ></i><span >用户状态:</span></label>
-                                <div class="input_content" >
-                                    <input class="c_ding_input" readonly data-bind="textinput:workState"/>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
                 <div class="modal-footer c_modal_foot">

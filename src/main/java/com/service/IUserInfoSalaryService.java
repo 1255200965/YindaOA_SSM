@@ -15,6 +15,14 @@ public interface IUserInfoSalaryService {
 
     List<YoUserinfosalary> selectByExample(YoUserinfosalaryExample example);
 
+    List<YoUserinfosalary> searchUserInfoByEntity(YoUserinfosalary yoUserinfosalary);
+
+
     //添加工资
     int insert(YoUserinfosalary record);
+
+//    YoUserinfosalary selectByPrimaryKey(Integer sid);
+
+    int updateByUserSalary(YoUserinfosalary record);
+
 }

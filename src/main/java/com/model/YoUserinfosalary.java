@@ -49,9 +49,10 @@ public class YoUserinfosalary {
 
     private Double trafficsalary;
 
+    private Double userbonus;
+
     private Double totalsalary;
 
-    private String total;
 
     public Integer getSid() {
         return sid;
@@ -237,6 +238,14 @@ public class YoUserinfosalary {
         this.trafficsalary = trafficsalary;
     }
 
+    public Double getUserbonus() {
+        return userbonus;
+    }
+
+    public void setUserbonus(Double userbonus) {
+        this.userbonus = userbonus;
+    }
+
     public Double getTotalsalary() {
         return totalsalary;
     }
@@ -245,11 +254,5 @@ public class YoUserinfosalary {
         this.totalsalary = totalsalary;
     }
 
-    public String getTotal() {
-        return total;
-    }
 
-    public void setTotal(String total) {
-        this.total = total;
-    }
 }
