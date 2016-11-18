@@ -142,7 +142,6 @@
 
                 }
 
-
                 //修改部门成员
                 self.UpdateUser = function(){
                     $.ajax({
@@ -179,7 +178,13 @@
                 };
                 //点击事件-点击搜索
                 self.ClickSearch = function () {
+                    if ( document.getElementById("search_name").value=="")
+                    {
+                        alert('请输入要查询的内容!');
+                        return false;
+                    }
                     self.GetUserByQuery();
+                    return true;
                 }
                 //点击事件-点击清空搜索项
                 self.ClickClear = function() {
@@ -386,21 +391,7 @@
 
 
 
-<script>
-    // 日期插件开始
-    $('#monthpicker').monthpicker({
-        years: [2017,2016,2015, 2014, 2013, 2012, 2011,2010,2009],
-        topOffset: 6,
-        onMonthSelect: function(m, y) {
-            console.log('Month: ' + m + ', year: ' + y);
-        }
-    });
-    $('#search_salarydate').monthpicker({
-        years: [2017,2016,2015, 2014, 2013, 2012, 2011,2010,2009],
-        topOffset: 6
-    });
-    //日期插件结束
-</script>
+
 <%--</div>--%>
 <!-- Button trigger modal -->
 <button type="button" id="model1" style="display: none" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
@@ -446,5 +437,21 @@
         </div>
     </div>
 </div>
+<script>
+    // 日期插件开始
+    $('#monthpicker').monthpicker({
+        years: [2017,2016,2015, 2014, 2013, 2012, 2011,2010,2009],
+        topOffset: 6,
+        onMonthSelect: function(m, y) {
+            console.log('Month: ' + m + ', year: ' + y);
+        }
+    });
+    $('#search_salarydate').monthpicker({
+        years: [2017,2016,2015, 2014, 2013, 2012, 2011,2010,2009],
+        topOffset: 6
+    });
+    //日期插件结束
+
+</script>
 </body>
 </html>

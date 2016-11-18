@@ -228,7 +228,13 @@
 
                 //点击事件-点击搜索
                 self.ClickSearch = function () {
+                    if ( document.getElementById("search_name").value=="" )
+                    {
+                        alert('请输入查询姓名或者电话!');
+                        return false;
+                    }
                     self.GetUserByQuery();
+                    return true;
                 }
                 //点击事件-点击清空搜索项
                 self.ClickClear = function() {
@@ -361,8 +367,9 @@
                         <li><a class="active" data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">通讯录</a></li>
                         <li><a  data-bind="attr: { href: '<%=basePath%>Import/navigator.do'}">审批数据导入</a></li>
                         <li><a data-bind="attr: { href: '<%=basePath%>userinfo/test.do'}">工资查询</a></li>
+                        <li><a data-bind="attr: { href: '<%=basePath%>userinfo/querys.do'}">个人工资明细</a></li>
                         <li><a data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">关于我们</a></li>
-                        <li><a data-bind="attr: { href: '<%=basePath%>userinfo/test55.do'}">刷数据</a></li>
+
                     </ul>
                 </div>
                 <div class="head-right fl">
