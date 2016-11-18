@@ -1,15 +1,18 @@
 package com.controller;
-import java.util.List;
+
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import com.ddSdk.auth.AuthHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.model.User;
 import com.service.IUserService;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Created by ma on 2016/10/13.
@@ -65,7 +68,8 @@ import com.service.IUserService;
 
         @RequestMapping("/phone-salary.do")
         public String PhoneSalary(HttpServletRequest request){
-
+            String config = AuthHelper.getConfig(request);
+            request.setAttribute("config",config);
             return "/dd/salary";
         }
         @RequestMapping("/phone-kaoqin.do")
@@ -79,5 +83,8 @@ import com.service.IUserService;
 
             return "/dd/details";
         }
+
+
+
     }
 

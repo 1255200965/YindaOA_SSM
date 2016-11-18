@@ -286,4 +286,13 @@ public class DDUtil {
         }
         return reponseJson.toJSONString();
     }
+    public static String getUserID(String authcode){
+        String userid = null;
+        try{
+            userid = UserHelper.getUserInfo(AuthHelper.getAccessToken(), authcode).getUserid();
+        } catch (Exception e){
+            System.out.print(e.toString());
+        }
+        return userid;
+    }
 }
