@@ -52,7 +52,6 @@ public class SalaryController {
         map.put("userlist",list);
 
 
-
         //工资单
         YoUserinfosalaryExample example = new YoUserinfosalaryExample();
         YoUserinfosalaryExample.Criteria criteria1 = example.createCriteria();
@@ -71,6 +70,44 @@ public class SalaryController {
         }
         return map;
     }
+    //查询员工工资信息(页面)
+    @RequestMapping(value = "/querySalary", method = RequestMethod.POST)
+    public @ResponseBody Map<String,Object> query2(@RequestBody YoUserinfosalary user, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        //查询指定id，填充进map
+
+        Map<String,Object> map = new HashMap<String,Object>();
+
+
+        //工资单
+        YoUserinfosalaryExample example = new YoUserinfosalaryExample();
+        YoUserinfosalaryExample.Criteria criteria1 = example.createCriteria();
+        criteria1.andSalarydateEqualTo(user.getSalarydate());
+        criteria1.andUseridEqualTo(user.getUserid());
+        List<YoUserinfosalary> query = userinfoSalaryService.selectByExample(example);
+        if (query.size()>0){
+            map.put("total",query.get(0));
+            map.put("msg", "成功");
+        } else {
+            map.put("total",user);
+            map.put("msg", "查询结果为空");
+        }
+
+        return map;
+    }
+    @RequestMapping("/queryUserid")
+    @ResponseBody
+    public Object queryUserid(@RequestBody() String code) {
+        try {
+            String userid = DDUtil.getUserID(code);
+            Map<String,Object> map = new HashMap<String,Object>();
+            map.put("userid",userid);
+            return map;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     int getMaxDate(int year,int month){
             if (month == 1) {
                 month = 12;
@@ -242,7 +279,7 @@ public class SalaryController {
                     totalSum.setAttendancesalary(bt - (t1-e1)*b1);
                 } else totalSum.setAttendancesalary(e1*b1);
                 //把总工资插入到工资表中
-                totalSum.setTotal(totalSum.getAttendancesalary() + totalSum.getLeavesalary() + totalSum.getTimesalary() + Double.parseDouble(totalSum.getAllowance())+"");
+                totalSum.setTotalsalary(totalSum.getAttendancesalary() + totalSum.getLeavesalary() + totalSum.getTimesalary() + Double.parseDouble(totalSum.getAllowance()));
                 userinfoSalaryService.insert(totalSum);
             }
         } catch (Exception e){
@@ -412,7 +449,7 @@ public class SalaryController {
                     totalSum.setAttendancesalary(bt - (t1-e1)*b1);
                 } else totalSum.setAttendancesalary(e1*b1);
                 //把总工资插入到工资表中
-                totalSum.setTotal(totalSum.getAttendancesalary() + totalSum.getLeavesalary() + totalSum.getTimesalary() + Double.parseDouble(totalSum.getAllowance())+"");
+                totalSum.setTotalsalary(totalSum.getAttendancesalary() + totalSum.getLeavesalary() + totalSum.getTimesalary() + Double.parseDouble(totalSum.getAllowance()));
                 userinfoSalaryService.insert(totalSum);
             }
         } catch (Exception e){
