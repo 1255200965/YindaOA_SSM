@@ -125,12 +125,13 @@
     </if>
   </select>
 
+
     <!--根据条件查询用户信息-->
     <select id="selectAllUser" resultMap="BaseResultMap" parameterType="com.model.StaffInfo">
       select
-      <!--<if test="distinct" >-->
-        <!--distinct-->
-      <!--</if>-->
+      <if test="distinct" >
+        distinct
+      </if>
       <include refid="Base_Column_List" />
       from staff_info
       <where>
@@ -140,8 +141,8 @@
           <if test="cellphone!=null">
             and cellphone like CONCAT('%','${cellphone}','%' )
           </if>
-          <if test="idNo!=null">
-            and id_no like CONCAT('%','${idNo}','%' )
+          <if test="staffId!=null">
+            and staff_id like CONCAT('%','${staffId}','%' )
           </if>
       </where>
     </select>

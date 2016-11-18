@@ -125,6 +125,7 @@
                     $.ajax({
                         data:JSON.stringify(new UserModel(depid,$("#search_name").val(),$("#search_salaryid").val(),$("#search_salarydate").val())),
                         type:"post",
+                        async: false,
                         headers: { 'Content-Type': 'application/json' },
                         dataType: 'json',
                         url:"../userinfosalary/select.do",
@@ -313,7 +314,6 @@
                 <li><a  data-bind="attr: { href: '<%=basePath%>Import/navigator.do'}">审批数据导入</a></li>
                 <li><a data-bind="attr: { href: '<%=basePath%>userinfo/test.do'}">工资查询</a></li>
                 <li><a class="active" data-bind="attr: { href: '<%=basePath%>userinfo/querys.do'}">个人工资明细</a></li>
-                <li><a data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">关于我们</a></li>
 
             </ul>
         </div>
