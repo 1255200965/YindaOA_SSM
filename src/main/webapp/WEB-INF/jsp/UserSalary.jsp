@@ -109,8 +109,13 @@
                 }
                 //日期转换器
                 self.ClickSearch = function () {
-                            self.GetUserByQuery();
-                            return true;
+                    if ( document.getElementById("search_name").value=="")
+                    {
+                        alert('请输入查询姓名!');
+                        return false;
+                    }
+                    self.GetUserByQuery();
+                    return true;
                 }
 
                 //点击事件-点击清空搜索项
@@ -124,12 +129,12 @@
             }
             ko.applyBindings(new ViewModel);
         });
-        function UserModel(name,salarydate,salaryid) {
+        function UserModel(name,salarydate) {
             this.sid = null;
             this.name = name;
             this.salarydate=salarydate;
             this.userid = null;
-            this.salaryid = salaryid;
+            this.salaryid = null;
             this.date = null;
             this.datetype = null;
             this.attendance = null;
@@ -169,10 +174,7 @@
                 <li><a data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">通讯录</a></li>
                 <li><a  data-bind="attr: { href: '<%=basePath%>Import/navigator.do'}">审批数据导入</a></li>
                 <li><a class="active" data-bind="attr: { href: '<%=basePath%>userinfo/test.do'}">工资查询</a></li>
-                <li><a data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">关于我们</a></li>
-                <li><a data-bind="attr: { href: '<%=basePath%>usersalary/test.do'}">生成工资</a></li>
-                <%--<li><a data-bind="attr: { href: '<%=basePath%>usersalary/QueryType.do'}"></a>显示JSON数据</li>--%>
-                <%--<li><a data-bind="attr: { href: '<%=basePath%>usersalary/AllSalary.do'}">现实解析</a></li>--%>
+                <li><a data-bind="attr: { href: '<%=basePath%>userinfo/querys.do'}">个人工资明细</a></li>
             </ul>
         </div>
         <div class="head-right fr">
@@ -204,8 +206,6 @@
                     <thead>
                     <tr >
                         <th>姓名</th>
-                        <%--<th>用户id</th>--%>
-                        <%--<th>工资序列id</th>--%>
                         <th>日期</th>
                         <th>日期类型</th>
                         <th>打卡情况</th>
@@ -254,8 +254,8 @@
                         <td data-bind="text:name">用户编号</td>
                         <td data-bind="text:datetype">日期类型</td>
                         <td data-bind="text:attendance">知识树编号</td>
-                        <td data-bind="text:effectiveattendance">知识树编号</td>
-                        <td data-bind="text:attendancesalary">所属知识</td>
+                        <td data-bind="text:effectiveAttendance">知识树编号</td>
+                        <td data-bind="text:attendanceSalary">所属知识</td>
                         <td data-bind="text:leavetype">修改者</td>
                         <td data-bind="text:leavesalary">审核状态</td>
                         <td data-bind="text:workovertime">ok的</td>
@@ -267,7 +267,7 @@
                         <td data-bind="text:tasksalary">修改者</td>
                         <td data-bind="text:busalary">审核状态</td>
                         <td data-bind="text:trafficsalary">卫视</td>
-                        <td data-bind="text:totalsalary">卫视</td>
+                        <td data-bind="text:additionalsalary">卫视</td>
                     </tr>
                     </thead>
                 </table>
@@ -275,14 +275,6 @@
         </div>
         </div>
     </div>
-    <%--<div class="row-fluid">--%>
-    <%--<div class="footer" data-reactid=".0.a">--%>
-    <%--<div style="margin-bottom:5px;" data-reactid=".0.a.0">--%>
-    <%--<span data-reactid=".0.a.0.0">--%>
-    <%--<img width="11px" src="https://gw.alicdn.com/tps/TB14UngLXXXXXXQapXXXXXXXXXX-22-26.png" data-reactid=".0.a.0.0.0"></span>--%>
-    <%--<span data-reactid=".0.a.0.1">上海音达科技实业有限公司</span></div>--%>
-    <%--</div>--%>
-    <%--</div>--%>
     <footer>
         <p><img src="../images/tubiao.png" alt="">上海音达科技实业有限公司</p>
     </footer>
