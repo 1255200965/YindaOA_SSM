@@ -70,6 +70,7 @@
                     <li><a data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">通讯录</a></li>
                     <li><a class="active" data-bind="attr: { href: '<%=basePath%>Import/navigator.do'}">审批数据导入</a></li>
                     <li><a data-bind="attr: { href: '<%=basePath%>userinfo/test.do'}">工资查询</a></li>
+                    <li><a data-bind="attr: { href: '<%=basePath%>userinfo/querys.do'}">个人工资明细</a></li>
                     <li><a data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">关于我们</a></li>
                 </ul>
             </div>

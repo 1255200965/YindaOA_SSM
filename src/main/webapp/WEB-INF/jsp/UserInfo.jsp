@@ -228,13 +228,7 @@
 
                 //点击事件-点击搜索
                 self.ClickSearch = function () {
-                    if ( document.getElementById("search_name").value=="" )
-                    {
-                        alert('请输入查询姓名或者电话!');
-                        return false;
-                    }
                     self.GetUserByQuery();
-                    return true;
                 }
                 //点击事件-点击清空搜索项
                 self.ClickClear = function() {
@@ -323,9 +317,9 @@
         this.age = null;
         this.sex = null;
         this.department = depid;
-        this.idNo = workid;
+        this.idNo = null;
         this.cellphone = cellphone;
-        this.staffId = null;
+        this.staffId = workid;
         this.workState = null;
         this.email = null;
         return this;
@@ -368,7 +362,6 @@
                         <li><a  data-bind="attr: { href: '<%=basePath%>Import/navigator.do'}">审批数据导入</a></li>
                         <li><a data-bind="attr: { href: '<%=basePath%>userinfo/test.do'}">工资查询</a></li>
                         <li><a data-bind="attr: { href: '<%=basePath%>userinfo/querys.do'}">个人工资明细</a></li>
-                        <li><a data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">关于我们</a></li>
 
                     </ul>
                 </div>
@@ -396,7 +389,7 @@
                     <input id="search_phone" type="text" name="cellphone" class="shuruk-a2" placeholder="">
                 </div>
 
-                <div class="caidan-tiku-s" style="margin-right:5%"> <span>身份证：</span>
+                <div class="caidan-tiku-s" style="margin-right:5%"> <span>工号：</span>
                     <input id="search_workid" type="text" name="workid" class="shuruk-a2" placeholder="">
                 </div>
 <%--                <div class="caidan-tiku-s"> <span>是否审核：</span>

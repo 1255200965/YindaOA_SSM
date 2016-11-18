@@ -125,6 +125,7 @@
                     $.ajax({
                         data:JSON.stringify(new UserModel(depid,$("#search_name").val(),$("#search_salaryid").val(),$("#search_salarydate").val())),
                         type:"post",
+                        async: false,
                         headers: { 'Content-Type': 'application/json' },
                         dataType: 'json',
                         url:"../userinfosalary/select.do",
