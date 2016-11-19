@@ -7,7 +7,7 @@
 
 <head>
     <title>花名册导出结果</title>
-    <link rel="stylesheet" type="text/css" href="../stylesheets/excel.css" />
+    <link rel="stylesheet" type="text/css" href="${controller}/stylesheets/excel123.css" />
 </head>
 
 <body>

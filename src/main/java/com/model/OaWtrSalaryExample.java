@@ -1,4 +1,4 @@
-package com.model;
+package src.main.java.com.model;
 
 import java.util.ArrayList;
 import java.util.Date;
