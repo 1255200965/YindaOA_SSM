@@ -251,7 +251,7 @@
                     <thead>
                     <tr data-bind="with:changeItem">
                         <th >合计</th>
-                        <td data-bind="text:name">用户编号</td>
+                        <td data-bind="text:salarydate">用户编号</td>
                         <td data-bind="text:datetype">日期类型</td>
                         <td data-bind="text:attendance">知识树编号</td>
                         <td data-bind="text:effectiveAttendance">知识树编号</td>

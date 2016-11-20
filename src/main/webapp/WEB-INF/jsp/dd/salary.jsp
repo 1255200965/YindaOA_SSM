@@ -156,8 +156,7 @@ $(function(){
         endYear:currYear + 100 //结束年份
         //endYear:2099 //结束年份
     };
-
-    $("#scroller").mobiscroll(opt);
+    $("#scroller").mobiscroll(opt).scroller('setDate', new Date(), true);
 });
 //  日期插件代码结束
 
@@ -188,7 +187,7 @@ $(function(){
 
     dd.ready(function() {
         dd.biz.navigation.setTitle({
-            title: '钉钉demo',
+            title: '工资单',
             onSuccess: function(data) {
             },
             onFail: function(err) {
@@ -212,7 +211,7 @@ $(function(){
             }
         })
 
-        dd.biz.navigation.setMenu({
+        /*dd.biz.navigation.setMenu({
             backgroundColor : "#ADD8E6",
             items : [
                 {
@@ -246,16 +245,16 @@ $(function(){
             onFail: function(err) {
                 alert(JSON.stringify(err));
             }
-        });
+        });*/
 
 
         dd.runtime.permission.requestAuthCode({
             corpId : _config.corpId,
             onSuccess : function(info) {
-			    alert('authcode: ' + info.code);
+			    //alert('authcode: ' + info.code);
                 $("#code").val(info.code);
-                /*$.ajax({
-                    data:JSON.stringify({"code":$("#code").val()}),
+                $.ajax({
+                    data:$("#code").val(),
                     type:"post",
                     headers: { 'Content-Type': 'application/json' },
                     dataType: 'json',
@@ -264,12 +263,11 @@ $(function(){
                         alert("出错了！！:"+data.msg);
                     },
                     success:function(data){
-                        result = eval(data.userid);
+                        result = data.userid;
                         $("#userid").val(result);
-                        alert(result);
+                        //alert(result);
                     }
-                });*/
-
+                });
 
             },
             onFail : function(err) {
@@ -371,7 +369,7 @@ $(function(){
 
             //ko初始化数据加载
             $(function () {
-                //self.GetSalaryByQuery();
+                self.GetSalaryByQuery();
             });
 
 
@@ -381,7 +379,7 @@ $(function(){
 
                 nowTime = $("#scroller").val();
                 nowUser = $("#userid").val();
-                alert("当前用户是:"+nowUser + "\n当前日期是:" + nowTime);
+                //alert("当前用户是:"+nowUser + "\n当前日期是:" + nowTime);
                 $.ajax({
                     data:JSON.stringify(new UserModel(nowUser,nowTime)),
                     type:"post",
@@ -400,7 +398,7 @@ $(function(){
             }
             self.GetUserid = function(){
                 $.ajax({
-                    data:JSON.stringify({"code":$("#code").val()}),
+                    data:$("#code").val(),
                     type:"post",
                     headers: { 'Content-Type': 'application/json' },
                     dataType: 'json',
@@ -409,7 +407,7 @@ $(function(){
                         alert("出错了！！:"+data.msg);
                     },
                     success:function(data){
-                        result = eval(data.userid);
+                        result = data.userid;
                         $("#userid").val(result);
                         alert(result);
                     }
@@ -418,7 +416,7 @@ $(function(){
 
             //点击事件-点击添加用户按钮
             self.ClickQuery = function(){
-                self.GetUserid();
+                //self.GetUserid();
                 self.GetSalaryByQuery();
             };
 

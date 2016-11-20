@@ -129,9 +129,7 @@
     <!--根据条件查询用户信息-->
     <select id="selectAllUser" resultMap="BaseResultMap" parameterType="com.model.StaffInfo">
       select
-      <if test="distinct" >
-        distinct
-      </if>
+
       <include refid="Base_Column_List" />
       from staff_info
       <where>

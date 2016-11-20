@@ -222,6 +222,13 @@ public class StaffInfoController {
         return "/UserSalary";
     }
 
+    @RequestMapping("/querys.do")
+    public String querys(Map<String,Object> map,HttpServletRequest request){
+        List<StaffInfo> userDtoList = new ArrayList<StaffInfo>();
+        map.put("listUser", userDtoList);
+        return "/UserInfoSalary";
+    }
+
     @RequestMapping("/test22.do")
     public String testd(Map<String,Object> map,HttpServletRequest request){
 

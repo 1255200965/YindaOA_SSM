@@ -37,6 +37,12 @@ public class SalaryController {
     @Resource
     private IUserInfoSalaryService userinfoSalaryService;
 
+
+    @Resource
+    private IWtrService wtrService;
+    @Resource
+    private IWtrSalaryService wtrSalaryService;
+
     public static AskForLeave askForLeave;
     public static YoAttendance yoAttendance;
     public static YoOvertime yoOvertime;
@@ -96,7 +102,7 @@ public class SalaryController {
     }
     @RequestMapping("/queryUserid")
     @ResponseBody
-    public Object queryUserid(@RequestBody() String code) {
+    public Object queryUserid(@RequestBody String code) {
         try {
             String userid = DDUtil.getUserID(code);
             Map<String,Object> map = new HashMap<String,Object>();
@@ -179,12 +185,13 @@ public class SalaryController {
     }
     //判断合同类型是否发加班费
     boolean checkContract(String type){
-        if (type.equals("F") || type.equals("D") || type.equals("S") ) return false;
+        if (!type.isEmpty() && (type.equals("F") || type.equals("D") || type.equals("S")) ) return false;
         return  true;
     }
     //按技术等级获取timebase奖金
     double callYI(String type){
         double salary=0;
+        if (type.isEmpty()) return salary;
         if (type.equals("OJT")) {
             salary =  0;
         } else if (type.equals("初级1")) {
@@ -286,6 +293,68 @@ public class SalaryController {
             System.out.print(e.toString());
         }
     }
+
+    void generateSalary2(int nowyear,int nowMonth) {
+        try {
+            double manDay = 21.75;//满勤天数
+            String workMonth = "" + nowyear + '-' + nowMonth;
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Calendar ca = Calendar.getInstance();
+            //查询用户列表
+            OaWtrExample wtrExample = new OaWtrExample();
+            List<OaWtr> userlist = wtrService.selectByExample(wtrExample);
+
+            for(OaWtr user: userlist) {
+                //if (!user.getName().equals("马天立")) continue;
+
+                OaWtrSalary totalSum = new OaWtrSalary();
+                totalSum.setName(user.getName());
+                //查询用户列表
+                StaffInfo staff = new StaffInfo();
+                staff.setName(user.getName());
+                List<StaffInfo> ulist = userStaffInfoService.selectStaffInfo(staff);
+                if (ulist.size() == 0) continue;
+                totalSum.setStaffId(ulist.get(0).getStaffId());
+                totalSum.setDepartment(ulist.get(0).getDepartment());
+                totalSum.setProject(user.getProject());
+                totalSum.setHour(user.getHour());
+                totalSum.setOrderId(user.getOrderId());
+                totalSum.setOrderName(user.getOrderName());
+                totalSum.setStatement(user.getStatement());
+                totalSum.setWorkHouse(user.getWorkHouse());
+                totalSum.setWorkInfo(user.getWorkInfo());
+                int l = 0;
+                //当前日期
+                String workDate = getNext(nowyear, nowMonth, l++);
+                while (workDate != null) {
+                    //当前日期转换
+                    Date d = sdf.parse(workDate);
+                    ca.setTime(d);
+                    totalSum.setWorkdate(d);
+                    //处理出勤,查询一个人当天的打卡情况
+                    YoAtteninfoExample attExample = new YoAtteninfoExample();
+                    YoAtteninfoExample.Criteria criteria = attExample.createCriteria();
+                    criteria.andStaffIdEqualTo(totalSum.getStaffId());
+                    criteria.andAttdateEqualTo(d);
+                    List<YoAtteninfo> cqlist = userAttendanceService.selectByExample(attExample);
+                    if (0 == cqlist.size()) {
+                        //当天没有出勤
+                        totalSum.setAddress("");
+
+                    } else {
+                        //
+                        totalSum.setAddress(cqlist.get(0).getAttaddress());
+                        wtrSalaryService.insert(totalSum);
+                    }
+                    //insert date
+
+                    workDate = getNext(nowyear, nowMonth, l++);
+                }
+            }
+        } catch (Exception e){
+            System.out.print(e.toString());
+        }
+    }
     //工资生成逻辑
     void generateSalary(int nowyear,int nowMonth){
         try {
@@ -320,7 +389,7 @@ public class SalaryController {
                 totalSum.setRealityattendance("0");
 
                 //当前序列
-                /*if (user.getStaffUserId().equals("115868443423")) {
+/*                if (user.getStaffUserId().equals("01321822217871")) {
                     continue;
                  }*/
                 //if (!user.getStaffUserId().equals("115868443423")) continue;
@@ -402,7 +471,7 @@ public class SalaryController {
                     today.setWorksalary(0.0);
                     //处理出差,签到地点与base地是否匹配,是否有打卡，是否要算加班费，是否是指定合同FDS
                     String address = user.getOrdinaryAddress().trim();
-                    if (!today.getRealityattendance().equals("0") && !user.getComment2().equals("否") && checkContract(user.getContractType()) && !address.isEmpty() && !workaddress.isEmpty() && !workaddress.substring(0,2).contains(address)){
+                    if (!today.getRealityattendance().equals("0") && !user.getComment2().isEmpty() && !user.getComment2().equals("否") && checkContract(user.getContractType()) && !address.isEmpty() && !workaddress.isEmpty() && !workaddress.substring(0,2).contains(address)){
                     //if (!today.getAttendance().equals("0") && !address.isEmpty() && workaddress.equals("Outside")){
                         today.setEvection("1");
                         today.setAllowance("16");
@@ -458,7 +527,8 @@ public class SalaryController {
     }
     @RequestMapping("/test.do")
     public String testc(HttpServletRequest request) throws IOException {
-        //generateSalary(2016,11);
+        generateSalary(2016,11);
+        generateSalary2(2016,11);
         //System.out.print(DDUtil.testShow());
         System.out.print("OK!");
         return "/UserSalary" ;
