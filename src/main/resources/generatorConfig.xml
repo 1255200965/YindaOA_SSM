@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+	<!-- 数据库驱动jar包位置，最好是绝对路径 -->
+	<classPathEntry location="src/main/resources/mysql.jar" />
+	<context id="Baili">
+		<!-- 注意：context中的标签顺序不可改变 -->
+		<commentGenerator>
+			<!-- 是否去除自动生成的注释，true：是，false:否，注释较为繁琐，建议去除 -->
+			<property name="suppressAllComments" value="true"/>
+		</commentGenerator>
+		<!-- 数据库链接URL、用户名、密码 -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+				connectionURL="jdbc:mysql://121.40.29.241:3306/test"
+				userId="root" password="123456@.com" />
+		<!-- 生成实体类的包名和位置 -->
+		<javaModelGenerator targetPackage="com.model" targetProject="src/main/java" />
+		<!-- 生成映射文件的包名和位置 -->
+		<sqlMapGenerator targetPackage="com.mapping" targetProject="src/main/java" />
+		<!-- 生成DAO层的包名和位置 -->
+		<javaClientGenerator targetPackage="com.dao" targetProject="src/main/java" type="XMLMAPPER" />
+		<!-- 要生成的那些表(更改tableName就可以了，注意大小写不能错)，example方法设为只有select需要 -->
+		<table tableName="OA_wtr_salary" enableDeleteByExample="false" enableUpdateByExample="false"
+				enableCountByExample="false "/>
+	</context>
+</generatorConfiguration>

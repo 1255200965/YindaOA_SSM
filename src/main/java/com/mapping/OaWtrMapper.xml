@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.OaWtrMapper" >
+  <resultMap id="BaseResultMap" type="com.model.OaWtr" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="workdate" property="workdate" jdbcType="TIMESTAMP" />
+    <result column="hour" property="hour" jdbcType="VARCHAR" />
+    <result column="project" property="project" jdbcType="VARCHAR" />
+    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="order_name" property="orderName" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="work_info" property="workInfo" jdbcType="VARCHAR" />
+    <result column="work_house" property="workHouse" jdbcType="VARCHAR" />
+    <result column="statement" property="statement" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, name, workdate, hour, project, order_id, order_name, address, work_info, work_house, 
+    statement
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.model.OaWtrExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from OA_wtr
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from OA_wtr
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from OA_wtr
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.model.OaWtr" >
+    insert into OA_wtr (id, name, workdate, 
+      hour, project, order_id, 
+      order_name, address, work_info, 
+      work_house, statement)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{workdate,jdbcType=TIMESTAMP}, 
+      #{hour,jdbcType=VARCHAR}, #{project,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR}, 
+      #{orderName,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{workInfo,jdbcType=VARCHAR}, 
+      #{workHouse,jdbcType=VARCHAR}, #{statement,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.OaWtr" >
+    insert into OA_wtr
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="workdate != null" >
+        workdate,
+      </if>
+      <if test="hour != null" >
+        hour,
+      </if>
+      <if test="project != null" >
+        project,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="orderName != null" >
+        order_name,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="workInfo != null" >
+        work_info,
+      </if>
+      <if test="workHouse != null" >
+        work_house,
+      </if>
+      <if test="statement != null" >
+        statement,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="workdate != null" >
+        #{workdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hour != null" >
+        #{hour,jdbcType=VARCHAR},
+      </if>
+      <if test="project != null" >
+        #{project,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderName != null" >
+        #{orderName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="workInfo != null" >
+        #{workInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="workHouse != null" >
+        #{workHouse,jdbcType=VARCHAR},
+      </if>
+      <if test="statement != null" >
+        #{statement,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.OaWtr" >
+    update OA_wtr
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="workdate != null" >
+        workdate = #{workdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hour != null" >
+        hour = #{hour,jdbcType=VARCHAR},
+      </if>
+      <if test="project != null" >
+        project = #{project,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderName != null" >
+        order_name = #{orderName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="workInfo != null" >
+        work_info = #{workInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="workHouse != null" >
+        work_house = #{workHouse,jdbcType=VARCHAR},
+      </if>
+      <if test="statement != null" >
+        statement = #{statement,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.OaWtr" >
+    update OA_wtr
+    set name = #{name,jdbcType=VARCHAR},
+      workdate = #{workdate,jdbcType=TIMESTAMP},
+      hour = #{hour,jdbcType=VARCHAR},
+      project = #{project,jdbcType=VARCHAR},
+      order_id = #{orderId,jdbcType=VARCHAR},
+      order_name = #{orderName,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      work_info = #{workInfo,jdbcType=VARCHAR},
+      work_house = #{workHouse,jdbcType=VARCHAR},
+      statement = #{statement,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
