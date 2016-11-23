@@ -96,9 +96,6 @@
       <if test="salarydate!=null">
         and salarydate like CONCAT('%','${salarydate}','%' )
       </if>
-      <if test="datetype!=null">
-        and datetype like CONCAT('%','${datetype}','%' )
-      </if>
     </where>
   </select>
 
