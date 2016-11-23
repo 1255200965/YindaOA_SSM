@@ -1,4 +1,9 @@
 <%--
+  Created by IntelliJ IDEA.
+  User: ma
+  Date: 2016/10/20
+  Time: 14:19
+  To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -193,8 +198,6 @@
                     <thead>
                     <tr >
                         <th>姓名</th>
-                        <%--<th>用户id</th>--%>
-                        <%--<th>工资序列id</th>--%>
                         <th>日期</th>
                         <th>日期类型</th>
                         <th>打卡情况</th>
@@ -217,6 +220,7 @@
                     <tbody data-bind="foreach:ShowList">
                     <tr >
                         <td data-bind="text:name">用户编号</td>
+
                         <td data-bind="text:getLocalTime(date)"></td>
                         <td data-bind="text:datetype">日期类型</td>
                         <td data-bind="text:attendance">知识树编号</td>
@@ -233,31 +237,31 @@
                         <td data-bind="text:tasksalary">修改者</td>
                         <td data-bind="text:busalary">审核状态</td>
                         <td data-bind="text:trafficsalary">卫视</td>
-                        <td data-bind="text:yoAskStaffId">卫视</td>
+                        <td data-bind="text:additionalsalary">卫视</td>
                     </tr>
                     </tbody>
-                    <%--<thead>--%>
-                    <%--<tr data-bind="with:changeItem">--%>
-                        <%--<th >合计</th>--%>
-                        <%--<td data-bind="text:name">用户编号</td>--%>
-                        <%--<td data-bind="text:datetype">日期类型</td>--%>
-                        <%--<td data-bind="text:attendance">知识树编号</td>--%>
-                        <%--<td data-bind="text:effectiveAttendance">知识树编号</td>--%>
-                        <%--<td data-bind="text:attendanceSalary">所属知识</td>--%>
-                        <%--<td data-bind="text:leavetype">修改者</td>--%>
-                        <%--<td data-bind="text:leavesalary">审核状态</td>--%>
-                        <%--<td data-bind="text:workovertime">ok的</td>--%>
-                        <%--<td data-bind="text:worksalary">所属知识</td>--%>
-                        <%--<td data-bind="text:evection">修改者</td>--%>
-                        <%--<td data-bind="text:allowance">审核状态</td>--%>
-                        <%--<td data-bind="text:timesalary">到大</td>--%>
-                        <%--<td data-bind="text:task">所属知识</td>--%>
-                        <%--<td data-bind="text:tasksalary">修改者</td>--%>
-                        <%--<td data-bind="text:busalary">审核状态</td>--%>
-                        <%--<td data-bind="text:trafficsalary">卫视</td>--%>
-                        <%--<td data-bind="text:yoAskStaffId">卫视</td>--%>
-                    <%--</tr>--%>
-                    <%--</thead>--%>
+                    <thead>
+                    <tr data-bind="with:changeItem">
+                        <th >合计</th>
+                        <td data-bind="text:salarydate">用户编号</td>
+                        <td data-bind="text:datetype">日期类型</td>
+                        <td data-bind="text:attendance">知识树编号</td>
+                        <td data-bind="text:effectiveattendance">知识树编号</td>
+                        <td data-bind="text:attendancesalary">所属知识</td>
+                        <td data-bind="text:leavetype">修改者</td>
+                        <td data-bind="text:leavesalary">审核状态</td>
+                        <td data-bind="text:workovertime">ok的</td>
+                        <td data-bind="text:worksalary">所属知识</td>
+                        <td data-bind="text:evection">修改者</td>
+                        <td data-bind="text:allowance">审核状态</td>
+                        <td data-bind="text:timesalary">到大</td>
+                        <td data-bind="text:task">所属知识</td>
+                        <td data-bind="text:tasksalary">修改者</td>
+                        <td data-bind="text:busalary">审核状态</td>
+                        <td data-bind="text:trafficsalary">卫视</td>
+                        <td data-bind="text:totalsalary">卫视</td>
+                    </tr>
+                    </thead>
                 </table>
             </div>
         </div>

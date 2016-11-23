@@ -5,6 +5,8 @@ import java.util.Date;
 public class OaWtr {
     private Integer id;
 
+    private String staffId;
+
     private String name;
 
     private Date workdate;
@@ -31,6 +33,14 @@ public class OaWtr {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getStaffId() {
+        return staffId;
+    }
+
+    public void setStaffId(String staffId) {
+        this.staffId = staffId;
     }
 
     public String getName() {

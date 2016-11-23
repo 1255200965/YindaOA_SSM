@@ -301,28 +301,33 @@ public class SalaryController {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             Calendar ca = Calendar.getInstance();
             //查询用户列表
-            OaWtrExample wtrExample = new OaWtrExample();
-            List<OaWtr> userlist = wtrService.selectByExample(wtrExample);
+            StaffInfo staff = new StaffInfo();
+            List<StaffInfo> userlist = userStaffInfoService.selectStaffInfo(staff);
 
-            for(OaWtr user: userlist) {
+
+            for(StaffInfo user: userlist) {
                 //if (!user.getName().equals("马天立")) continue;
+                OaWtrExample wtrExample = new OaWtrExample();
+                OaWtrExample.Criteria criteria1 = wtrExample.createCriteria();
+                criteria1.andStaffIdEqualTo(user.getStaffId());
+                List<OaWtr> wtrList = wtrService.selectByExample(wtrExample);
+                OaWtr wtrObject = new OaWtr();
+                if (wtrList.size()>0){
+                    wtrObject = wtrList.get(0);
+                }
 
                 OaWtrSalary totalSum = new OaWtrSalary();
                 totalSum.setName(user.getName());
-                //查询用户列表
-                StaffInfo staff = new StaffInfo();
-                staff.setName(user.getName());
-                List<StaffInfo> ulist = userStaffInfoService.selectStaffInfo(staff);
-                if (ulist.size() == 0) continue;
-                totalSum.setStaffId(ulist.get(0).getStaffId());
-                totalSum.setDepartment(ulist.get(0).getDepartment());
-                totalSum.setProject(user.getProject());
-                totalSum.setHour(user.getHour());
-                totalSum.setOrderId(user.getOrderId());
-                totalSum.setOrderName(user.getOrderName());
-                totalSum.setStatement(user.getStatement());
-                totalSum.setWorkHouse(user.getWorkHouse());
-                totalSum.setWorkInfo(user.getWorkInfo());
+
+                totalSum.setStaffId(user.getStaffId());
+                totalSum.setDepartment(user.getDepartment());
+                totalSum.setProject(wtrObject.getProject());
+                totalSum.setHour(wtrObject.getHour());
+                totalSum.setOrderId(wtrObject.getOrderId());
+                totalSum.setOrderName(wtrObject.getOrderName());
+                totalSum.setStatement(wtrObject.getStatement());
+                totalSum.setWorkHouse(wtrObject.getWorkHouse());
+                totalSum.setWorkInfo(wtrObject.getWorkInfo());
                 int l = 0;
                 //当前日期
                 String workDate = getNext(nowyear, nowMonth, l++);
@@ -339,8 +344,10 @@ public class SalaryController {
                     List<YoAtteninfo> cqlist = userAttendanceService.selectByExample(attExample);
                     if (0 == cqlist.size()) {
                         //当天没有出勤
-                        totalSum.setAddress("");
-
+                        totalSum.setAddress(wtrObject.getAddress());
+                        if (!user.getDepartment().equals("人力资源部-实习生返校") && !user.getDepartment().equals("人力资源部-新人")) {
+                            wtrSalaryService.insert(totalSum);
+                        }
                     } else {
                         //
                         totalSum.setAddress(cqlist.get(0).getAttaddress());
@@ -527,8 +534,8 @@ public class SalaryController {
     }
     @RequestMapping("/test.do")
     public String testc(HttpServletRequest request) throws IOException {
-        generateSalary(2016,11);
-        generateSalary2(2016,11);
+        //generateSalary(2016,11);
+        //generateSalary2(2016,11);
         //System.out.print(DDUtil.testShow());
         System.out.print("OK!");
         return "/UserSalary" ;
