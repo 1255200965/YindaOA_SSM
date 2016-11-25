@@ -1,1 +1,35 @@
-p { color:orange; }
+/*export类下的通用属性，一般把body设为export*/
+.export {
+    text-align: center;
+    /*逻辑要清晰，body中的所有元素都写在padding之下*/
+    padding-top: 200px;
+}
+
+.export h1 {
+    font-family: 微软雅黑;
+    color: deepskyblue;
+}
+
+.export h2 {
+    color: blue;
+}
+
+/*为了不破坏h1内置的margin，这里改用padding设定边距*/
+.export .warm {
+    padding-top: 20px;
+    color: forestgreen;
+}
+
+/*导出结果文件按钮的样式*/
+.export button {
+    /*根据调试，长宽比2.5比较靠谱*/
+    width: 150px;
+    height: 60px;
+    /*这里如果使用padding会挂掉，再者里面的元素就算出界了也属于元素之内*/
+    /*margin的结果为上下margin之和*/
+    margin-top: 30px;
+    text-align: center;
+    font-size: x-large;
+    font-weight: bold;
+    color: orangered;
+}

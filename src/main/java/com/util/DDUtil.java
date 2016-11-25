@@ -38,6 +38,7 @@ public class DDUtil {
     public DDUtil(IStaffInfoService service){
         userInfoService = service;
     }
+
     public String getAccessToken(){
         try {
             accessToken = AuthHelper.getAccessToken();
@@ -101,11 +102,8 @@ public class DDUtil {
             //e.printStackTrace();
         }
         return null;
-        /*{
-            "errcode": 0,
-            "errmsg": "updated"
-         }*/
     }
+
     public String deleteUser(StaffInfo user){
         CorpUserDetail result = null;
         try {

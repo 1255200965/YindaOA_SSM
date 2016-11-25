@@ -49,6 +49,6 @@ footer p{text-align: center;color:#888;font-size:14px;}
     margin: 50px 30px;
 }
 
-.content p {
-    margin: 20px;
-}
+.p-box p, .p-box a {
+     margin: 20px;
+ }

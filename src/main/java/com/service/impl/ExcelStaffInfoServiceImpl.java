@@ -1,14 +1,15 @@
 package com.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.dao.DepartmentMapper;
+import com.dao.OaWtrSalaryMapper;
 import com.dao.StaffInfoMapper;
 import com.ddSdk.auth.AuthHelper;
+import com.ddSdk.utils.FileUtils;
 import com.dingtalk.open.client.ServiceFactory;
 import com.dingtalk.open.client.api.model.corp.CorpUserDetail;
 import com.dingtalk.open.client.api.service.corp.CorpUserService;
-import com.model.Department;
-import com.model.DepartmentExample;
-import com.model.StaffInfo;
+import com.model.*;
 import com.service.IExcelStaffInfoService;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -35,6 +36,8 @@ public class ExcelStaffInfoServiceImpl implements IExcelStaffInfoService {
     public StaffInfoMapper staffInfoMapper;
     @Autowired
     public DepartmentMapper departmentMapper;
+    @Autowired
+    public OaWtrSalaryMapper oaWtrSalaryMapper;
 
     /**
      * 该方法实现对表头的校验，至于剩余内容的校验，在插入方法中完成
@@ -235,7 +238,7 @@ public class ExcelStaffInfoServiceImpl implements IExcelStaffInfoService {
                 从钉钉里面返回一个员工UserId再进行后续操作
                  */
                 String staffUserId = null;
-                if (hssfRow.getCell(0) == null) {
+                if (hssfRow.getCell(0) == null || hssfRow.getCell(0).toString().equals("")) {
                     try {
                         staffUserId = createUser(staffInfo);
                     } catch (Exception e) {
@@ -286,6 +289,17 @@ public class ExcelStaffInfoServiceImpl implements IExcelStaffInfoService {
         System.out.println("successAmount = "+successAmount);
         System.out.println("listFail.size() = "+listFail.size());
         return mapInsert;
+    }
+
+    /**
+     * 把手机号不为空的员工列表返回
+     * @return
+     */
+    public List<StaffInfo> getAllStaff() {
+        StaffInfoExample staffInfoExample = new StaffInfoExample();
+        staffInfoExample.createCriteria().andCellphoneIsNotNull();
+        List<StaffInfo> list = staffInfoMapper.selectByExample(staffInfoExample);
+        return list;
     }
 
     private String accessToken = null;
@@ -417,6 +431,39 @@ public class ExcelStaffInfoServiceImpl implements IExcelStaffInfoService {
         List<Department> list = departmentMapper.selectByExample(example);
         Department department = list.get(0);
         return department;
+    }
+
+    public void address() {
+        int aa = 0;
+        int bb = 0;
+        OaWtrSalaryExample example = new OaWtrSalaryExample();
+        example.createCriteria().andAddressIsNotNull();
+        List<OaWtrSalary> list = oaWtrSalaryMapper.selectByExample(example);
+        for (int i=0; i<list.size(); i++) {
+            OaWtrSalary oaWtrSalary = list.get(i);
+            String address = oaWtrSalary.getAddress();
+            if (address.contains("上海市")) address = "上海市";
+            else if (address.contains("北京市")) address = "北京市";
+            else if (address.contains("天津市")) address = "天津市";
+            else if (address.contains("重庆市")) address = "重庆市";
+            else {
+                if (address.contains("市")) {
+                    int endNo = address.indexOf("市");
+                    address = address.substring(0, endNo);
+                }
+            }
+            oaWtrSalary.setAddress(address);
+            try {
+                oaWtrSalaryMapper.updateByPrimaryKey(oaWtrSalary);
+                aa++;
+            } catch (Exception e) {
+                System.out.println(oaWtrSalary.getId());
+                bb++;
+            }
+            if (aa % 1000 == 0) System.out.println(aa);
+        }
+        System.out.println(aa);
+        System.out.println(bb);
     }
 
 }
