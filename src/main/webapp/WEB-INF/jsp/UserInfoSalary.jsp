@@ -33,7 +33,6 @@
     <script src="../javascripts/jquery-1.10.2.js"></script>
     <script src="../datePlug/jquery.monthpicker.js"></script>
 
-    <script type="text/javascript" src="../javascripts/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="../javascripts/bootstrap.min.js"></script>
     <script type="text/javascript" src="../javascripts/bootstrap-treeview.min.js"></script>
     <script src="../javascripts//knockout-3.4.0rc.js"></script>
@@ -179,29 +178,30 @@
                 };
                 //点击事件-点击搜索
                 self.ClickSearch = function () {
-                    if ( document.getElementById("search_name").value=="")
-                    {
-                        alert('请输入要查询的内容!');
-                        return false;
-                    }
                     self.GetUserByQuery();
-                    return true;
                 }
                 //点击事件-点击清空搜索项
                 self.ClickClear = function() {
                     $("#search_name").val("");
                     $("#search_salaryid").val("");
-                    $("#search_salarydate").val("");
 
                 }
                 //点击事件-模态框确定
                 self.ClickModelYes = function() {
                     if (self.rootid() == 0) {
-                        if (!confirm("确认要修改？")) {
-                            window.event.returnValue = false;
+                        if ( document.getElementById("userbonus").value=="")
+                        {
+                            alert('请输入要修改奖金!');
+                            return false;
                         }else{
-                            self.UpdateUser();
+                            if (!confirm("确认要修改？")) {
+                                window.event.returnValue = false;
+                            }else{
+                                self.UpdateUser();
+                                return true;
+                            }
                         }
+
                     } else {
                         self.AddNewUser();
                     }
@@ -423,7 +423,7 @@
                             <div class="c_ding_form_group" >
                                 <label><i class="iconfont c_ding_from_icon" >**</i><span >奖金:</span></label>
                                 <div class="input_content" >
-                                    <input class="c_ding_input" data-bind="textinput:userbonus"/>
+                                    <input id="userbonus" class="c_ding_input" data-bind="textinput:userbonus"/>
                                 </div>
                             </div>
                         </div>

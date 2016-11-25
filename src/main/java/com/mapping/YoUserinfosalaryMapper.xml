@@ -95,8 +95,8 @@
       <if test="name!=null">
         name like CONCAT('%','${name}','%' )
       </if>
-      <if test="userid!=null">
-       and userid like CONCAT('%','${userid}','%' )
+      <if test="salaryid!=null">
+       and salaryid like CONCAT('%','${salaryid}','%' )
       </if>
       <if test="salarydate!=null">
         and salarydate like CONCAT('%','${salarydate}','%' )

@@ -15,16 +15,16 @@
 <html>
 
 <head>
-        <meta charset="UTF-8">
-        <title>工资查询</title>
-        <link rel="shortcut icon" type="image/ico" href="../images/yd.ico" />
-        <link rel="stylesheet" href="../stylesheets/reset.css">
-        <link rel="stylesheet" href="../stylesheets/buttons.css">
-        <link rel="stylesheet" href="../stylesheets/header.css">
-        <link rel="stylesheet" href="../stylesheets/affairs-search.css">
-        <link rel="stylesheet" href="../datePlug/jquery.monthpicker.css">
-        <script src="../javascripts/jquery-1.10.2.js"></script>
-        <script src="../datePlug/jquery.monthpicker.js"></script>
+    <meta charset="UTF-8">
+    <title>工资查询</title>
+    <link rel="shortcut icon" type="image/ico" href="../images/yd.ico" />
+    <link rel="stylesheet" href="../stylesheets/reset.css">
+    <link rel="stylesheet" href="../stylesheets/buttons.css">
+    <link rel="stylesheet" href="../stylesheets/header.css">
+    <link rel="stylesheet" href="../stylesheets/affairs-search.css">
+    <link rel="stylesheet" href="../datePlug/jquery.monthpicker.css">
+    <script src="../javascripts/jquery-1.10.2.js"></script>
+    <script src="../datePlug/jquery.monthpicker.js"></script>
     <%--<script type="text/javascript" src="../javascripts/bootstrap.min.js"></script>--%>
     <%--<script type="text/javascript" src="../javascripts/bootstrap-treeview.min.js"></script>--%>
     <script src="../javascripts/knockout-3.4.0rc.js"></script>
@@ -109,11 +109,6 @@
                 }
                 //日期转换器
                 self.ClickSearch = function () {
-                    if ( document.getElementById("search_name").value=="")
-                    {
-                        alert('请输入查询姓名!');
-                        return false;
-                    }
                     self.GetUserByQuery();
                     return true;
                 }
@@ -121,8 +116,6 @@
                 //点击事件-点击清空搜索项
                 self.ClickClear = function() {
                     $("#search_name").val("");
-                    $("#search_workid").val("");
-                    $("#search_phone").val("");
 
                 }
 
@@ -149,10 +142,9 @@
             this.tasksalary = null;
             this.busalary = null;
             this.trafficsalary = null;
-            this.additionalsalary = null;
             this.realityattendance = null;
-            this.effectiveAttendance = null;
-            this.yoAskStaffId = null;
+            this.effectiveAttendance=null;
+            this.yoAskStaffId=null;
             return this;
         }
         function getLocalTime(nS) {
@@ -183,24 +175,24 @@
         </div>
     </div>
 </header>
-    <div class="contain">
-        <div class="content">
-            <div class="cont-tit">
-                工资查询
+<div class="contain">
+    <div class="content">
+        <div class="cont-tit">
+            工资查询
+        </div>
+        <div class="search">
+            <div class="ser-input fl">
+                姓名：<input type="text" id="search_name" placeholder="输入姓名">
+                日期：<input type="text"  id="search_date" placeholder="输入查询日期" class="input" >
             </div>
-            <div class="search">
-                <div class="ser-input fl">
-                    姓名：<input type="text" id="search_name" placeholder="输入姓名">
-                    日期：<input type="text"  id="search_date" placeholder="输入查询日期" class="input" >
-                </div>
-                <div class="ser-btn fr">
+            <div class="ser-btn fr">
 
-                    <button class="button button-glow button-rounded button-primary button-small " data-bind="click:$root.ClickSearch">查询</button>
-                    <button class="button button-glow button-rounded button-highlight button-small " data-bind="click:$root.ClickClear" >清空</button>
+                <button class="button button-glow button-rounded button-primary button-small " data-bind="click:$root.ClickSearch">查询</button>
+                <button class="button button-glow button-rounded button-highlight button-small " data-bind="click:$root.ClickClear" >清空</button>
 
-                </div>
             </div>
-            <div style="width:100%; height:700px;padding-top: 5px;overflow:auto;border:0 solid #000000;">
+        </div>
+        <div style="width:100%; height:700px;padding-top: 5px;overflow:auto;border:0 solid #000000;">
             <div class="ser-resault" >
                 <table border="1">
                     <thead>
@@ -254,8 +246,8 @@
                         <td data-bind="text:salarydate">用户编号</td>
                         <td data-bind="text:datetype">日期类型</td>
                         <td data-bind="text:attendance">知识树编号</td>
-                        <td data-bind="text:effectiveAttendance">知识树编号</td>
-                        <td data-bind="text:attendanceSalary">所属知识</td>
+                        <td data-bind="text:effectiveattendance">知识树编号</td>
+                        <td data-bind="text:attendancesalary">所属知识</td>
                         <td data-bind="text:leavetype">修改者</td>
                         <td data-bind="text:leavesalary">审核状态</td>
                         <td data-bind="text:workovertime">ok的</td>
@@ -267,33 +259,32 @@
                         <td data-bind="text:tasksalary">修改者</td>
                         <td data-bind="text:busalary">审核状态</td>
                         <td data-bind="text:trafficsalary">卫视</td>
-                        <td data-bind="text:additionalsalary">卫视</td>
+                        <td data-bind="text:totalsalary">卫视</td>
                     </tr>
                     </thead>
                 </table>
             </div>
         </div>
-        </div>
     </div>
-    <footer>
-        <p><img src="../images/tubiao.png" alt="">上海音达科技实业有限公司</p>
-    </footer>
+</div>
+<footer>
+    <p><img src="../images/tubiao.png" alt="">上海音达科技实业有限公司</p>
+</footer>
 
-    <script>
-        // 日期插件开始
-        $('#monthpicker').monthpicker({
-            years: [2017,2016,2015, 2014, 2013, 2012, 2011,2010,2009],
-            topOffset: 6,
-            onMonthSelect: function(m, y) {
-                console.log('Month: ' + m + ', year: ' + y);
-            }
-        });
-        $('#search_date').monthpicker({
-            years: [2017,2016,2015, 2014, 2013, 2012, 2011,2010,2009],
-            topOffset: 6
-        });
-        //日期插件结束
-
-    </script>
+<script>
+    // 日期插件开始
+    $('#monthpicker').monthpicker({
+        years: [2017,2016,2015, 2014, 2013, 2012, 2011,2010,2009],
+        topOffset: 6,
+        onMonthSelect: function(m, y) {
+            console.log('Month: ' + m + ', year: ' + y);
+        }
+    });
+    $('#search_date').monthpicker({
+        years: [2017,2016,2015, 2014, 2013, 2012, 2011,2010,2009],
+        topOffset: 6
+    });
+    //日期插件结束
+</script>
 </body>
 </html>
