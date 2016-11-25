@@ -38,7 +38,7 @@ public class QuartzController {
     }
 
     //星期六签到打开，
-    @Scheduled(cron = "0 35 21 ? * FRI")
+    @Scheduled(cron = "0 35 23 ? * FRI")
     public void two() {
         System.out.println("考勤任务正在执行中。。。。星期六早上01:10打开签到");
         System.out.println("签到星期六到星期天可见");
