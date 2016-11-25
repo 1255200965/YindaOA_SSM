@@ -22,32 +22,35 @@ import java.util.List;
  */
 @Component
 public class QuartzController {
-    //星期一早上0：00---星期六 0:00 --------------考勤打开，签到关闭
-    @Scheduled(cron = "0 00 0 ? * MON-SAT")
-    public void one() {
-        System.out.println("考勤任务正在执行中。。。星期一的0：00-到星期六的0:00");
+    //星期一早上打开
+    @Scheduled(cron = "0 30 01 ? * MON")
+    public  void start(){
+        System.out.println("考勤任务正在执行中。。。。星期一早上01:30打开考勤");
         System.out.println("考勤星期一到星期五可见");
         AttendanceShow();
-        SignStop();
+    }
+    //星期五晚上关闭
+    @Scheduled(cron = "0 30 23 ? * FRI")
+    public void one() {
+        System.out.println("考勤任务正在执行中。。。。星期五晚上23:50关闭考勤");
+        System.out.println("考勤星期一到星期五可见");
+        AttendanceStop();
     }
 
-    //星期五晚上23：59-星期六晚上23：59--------------签到打开，考勤关闭
-    @Scheduled(cron = "0 59 23 ? * FRI-SAT")
+    //星期六签到打开，
+    @Scheduled(cron = "0 35 21 ? * FRI")
     public void two() {
-        System.out.println("考勤任务正在执行中。。。星期五晚上的23：59-到星期六的23：59");
+        System.out.println("考勤任务正在执行中。。。。星期六早上01:10打开签到");
         System.out.println("签到星期六到星期天可见");
         SignShow();
-        AttendanceStop();
     }
 
-
-//    星期天早上0：00---星期一 0:00--------------签到打开，考勤关闭
-    @Scheduled(cron = "0 00 0 ? * SUN-MON")
+    //    星期天晚上23：50---签到关闭
+    @Scheduled(cron = "0 50 23 ? * SUN")
     public void job2() {
-        System.out.println("签到任务正在执行中。。。星期天的早上的0：00到星期一的0:00");
+        System.out.println("签到任务正在执行中。。。。星期天的晚上23：50关闭签到");
         System.out.println("签到星期六到星期天可见");
-        SignShow();
-        AttendanceStop();
+        SignStop();
     }
 
 
@@ -88,7 +91,6 @@ public class QuartzController {
         List<String> userid=new ArrayList<String>();
         json.put("agentId", 22414566);
         json.put("isHidden",true);
-//        json.put("userVisibleScopes",userid);
         JSONObject reponseJson = null;
         try {
             String url = "https://oapi.dingtalk.com/microapp/set_visible_scopes?access_token=" +  AuthHelper.getAccessToken();
@@ -114,6 +116,5 @@ public class QuartzController {
         }
         return reponseJson.toJSONString();
     }
-
 
 }
