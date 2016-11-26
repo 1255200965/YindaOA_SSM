@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.YoAnnualVacationMapper" >
+  <resultMap id="BaseResultMap" type="com.model.YoAnnualVacation" >
+    <id column="av_sequence_no" property="avSequenceNo" jdbcType="INTEGER" />
+    <result column="av_dingding_user_id" property="avDingdingUserId" jdbcType="VARCHAR" />
+    <result column="av_name" property="avName" jdbcType="VARCHAR" />
+    <result column="av_staff_id" property="avStaffId" jdbcType="VARCHAR" />
+    <result column="av_department" property="avDepartment" jdbcType="VARCHAR" />
+    <result column="av_year" property="avYear" jdbcType="INTEGER" />
+    <result column="av_left_vecation_days" property="avLeftVecationDays" jdbcType="REAL" />
+    <result column="av_left_daysoff_days" property="avLeftDaysoffDays" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    av_sequence_no, av_dingding_user_id, av_name, av_staff_id, av_department, av_year, 
+    av_left_vecation_days, av_left_daysoff_days
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.model.YoAnnualVacationExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from yo_annual_vacation
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yo_annual_vacation
+    where av_sequence_no = #{avSequenceNo,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yo_annual_vacation
+    where av_sequence_no = #{avSequenceNo,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.model.YoAnnualVacation" >
+    insert into yo_annual_vacation (av_sequence_no, av_dingding_user_id, av_name, 
+      av_staff_id, av_department, av_year, 
+      av_left_vecation_days, av_left_daysoff_days)
+    values (#{avSequenceNo,jdbcType=INTEGER}, #{avDingdingUserId,jdbcType=VARCHAR}, #{avName,jdbcType=VARCHAR}, 
+      #{avStaffId,jdbcType=VARCHAR}, #{avDepartment,jdbcType=VARCHAR}, #{avYear,jdbcType=INTEGER}, 
+      #{avLeftVecationDays,jdbcType=REAL}, #{avLeftDaysoffDays,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.YoAnnualVacation" >
+    insert into yo_annual_vacation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="avSequenceNo != null" >
+        av_sequence_no,
+      </if>
+      <if test="avDingdingUserId != null" >
+        av_dingding_user_id,
+      </if>
+      <if test="avName != null" >
+        av_name,
+      </if>
+      <if test="avStaffId != null" >
+        av_staff_id,
+      </if>
+      <if test="avDepartment != null" >
+        av_department,
+      </if>
+      <if test="avYear != null" >
+        av_year,
+      </if>
+      <if test="avLeftVecationDays != null" >
+        av_left_vecation_days,
+      </if>
+      <if test="avLeftDaysoffDays != null" >
+        av_left_daysoff_days,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="avSequenceNo != null" >
+        #{avSequenceNo,jdbcType=INTEGER},
+      </if>
+      <if test="avDingdingUserId != null" >
+        #{avDingdingUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="avName != null" >
+        #{avName,jdbcType=VARCHAR},
+      </if>
+      <if test="avStaffId != null" >
+        #{avStaffId,jdbcType=VARCHAR},
+      </if>
+      <if test="avDepartment != null" >
+        #{avDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="avYear != null" >
+        #{avYear,jdbcType=INTEGER},
+      </if>
+      <if test="avLeftVecationDays != null" >
+        #{avLeftVecationDays,jdbcType=REAL},
+      </if>
+      <if test="avLeftDaysoffDays != null" >
+        #{avLeftDaysoffDays,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.YoAnnualVacation" >
+    update yo_annual_vacation
+    <set >
+      <if test="avDingdingUserId != null" >
+        av_dingding_user_id = #{avDingdingUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="avName != null" >
+        av_name = #{avName,jdbcType=VARCHAR},
+      </if>
+      <if test="avStaffId != null" >
+        av_staff_id = #{avStaffId,jdbcType=VARCHAR},
+      </if>
+      <if test="avDepartment != null" >
+        av_department = #{avDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="avYear != null" >
+        av_year = #{avYear,jdbcType=INTEGER},
+      </if>
+      <if test="avLeftVecationDays != null" >
+        av_left_vecation_days = #{avLeftVecationDays,jdbcType=REAL},
+      </if>
+      <if test="avLeftDaysoffDays != null" >
+        av_left_daysoff_days = #{avLeftDaysoffDays,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where av_sequence_no = #{avSequenceNo,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.YoAnnualVacation" >
+    update yo_annual_vacation
+    set av_dingding_user_id = #{avDingdingUserId,jdbcType=VARCHAR},
+      av_name = #{avName,jdbcType=VARCHAR},
+      av_staff_id = #{avStaffId,jdbcType=VARCHAR},
+      av_department = #{avDepartment,jdbcType=VARCHAR},
+      av_year = #{avYear,jdbcType=INTEGER},
+      av_left_vecation_days = #{avLeftVecationDays,jdbcType=REAL},
+      av_left_daysoff_days = #{avLeftDaysoffDays,jdbcType=VARCHAR}
+    where av_sequence_no = #{avSequenceNo,jdbcType=INTEGER}
+  </update>
+</mapper>
