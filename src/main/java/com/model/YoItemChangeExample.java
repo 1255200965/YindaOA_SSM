@@ -1354,73 +1354,73 @@ public class YoItemChangeExample {
             return (Criteria) this;
         }
 
-        public Criteria andIcTimebaseIsNull() {
-            addCriterion("ic_timebase is null");
+        public Criteria andIcDepartmentIsNull() {
+            addCriterion("ic_department is null");
             return (Criteria) this;
         }
 
-        public Criteria andIcTimebaseIsNotNull() {
-            addCriterion("ic_timebase is not null");
+        public Criteria andIcDepartmentIsNotNull() {
+            addCriterion("ic_department is not null");
             return (Criteria) this;
         }
 
-        public Criteria andIcTimebaseEqualTo(String value) {
-            addCriterion("ic_timebase =", value, "icTimebase");
+        public Criteria andIcDepartmentEqualTo(String value) {
+            addCriterion("ic_department =", value, "icDepartment");
             return (Criteria) this;
         }
 
-        public Criteria andIcTimebaseNotEqualTo(String value) {
-            addCriterion("ic_timebase <>", value, "icTimebase");
+        public Criteria andIcDepartmentNotEqualTo(String value) {
+            addCriterion("ic_department <>", value, "icDepartment");
             return (Criteria) this;
         }
 
-        public Criteria andIcTimebaseGreaterThan(String value) {
-            addCriterion("ic_timebase >", value, "icTimebase");
+        public Criteria andIcDepartmentGreaterThan(String value) {
+            addCriterion("ic_department >", value, "icDepartment");
             return (Criteria) this;
         }
 
-        public Criteria andIcTimebaseGreaterThanOrEqualTo(String value) {
-            addCriterion("ic_timebase >=", value, "icTimebase");
+        public Criteria andIcDepartmentGreaterThanOrEqualTo(String value) {
+            addCriterion("ic_department >=", value, "icDepartment");
             return (Criteria) this;
         }
 
-        public Criteria andIcTimebaseLessThan(String value) {
-            addCriterion("ic_timebase <", value, "icTimebase");
+        public Criteria andIcDepartmentLessThan(String value) {
+            addCriterion("ic_department <", value, "icDepartment");
             return (Criteria) this;
         }
 
-        public Criteria andIcTimebaseLessThanOrEqualTo(String value) {
-            addCriterion("ic_timebase <=", value, "icTimebase");
+        public Criteria andIcDepartmentLessThanOrEqualTo(String value) {
+            addCriterion("ic_department <=", value, "icDepartment");
             return (Criteria) this;
         }
 
-        public Criteria andIcTimebaseLike(String value) {
-            addCriterion("ic_timebase like", value, "icTimebase");
+        public Criteria andIcDepartmentLike(String value) {
+            addCriterion("ic_department like", value, "icDepartment");
             return (Criteria) this;
         }
 
-        public Criteria andIcTimebaseNotLike(String value) {
-            addCriterion("ic_timebase not like", value, "icTimebase");
+        public Criteria andIcDepartmentNotLike(String value) {
+            addCriterion("ic_department not like", value, "icDepartment");
             return (Criteria) this;
         }
 
-        public Criteria andIcTimebaseIn(List<String> values) {
-            addCriterion("ic_timebase in", values, "icTimebase");
+        public Criteria andIcDepartmentIn(List<String> values) {
+            addCriterion("ic_department in", values, "icDepartment");
             return (Criteria) this;
         }
 
-        public Criteria andIcTimebaseNotIn(List<String> values) {
-            addCriterion("ic_timebase not in", values, "icTimebase");
+        public Criteria andIcDepartmentNotIn(List<String> values) {
+            addCriterion("ic_department not in", values, "icDepartment");
             return (Criteria) this;
         }
 
-        public Criteria andIcTimebaseBetween(String value1, String value2) {
-            addCriterion("ic_timebase between", value1, value2, "icTimebase");
+        public Criteria andIcDepartmentBetween(String value1, String value2) {
+            addCriterion("ic_department between", value1, value2, "icDepartment");
             return (Criteria) this;
         }
 
-        public Criteria andIcTimebaseNotBetween(String value1, String value2) {
-            addCriterion("ic_timebase not between", value1, value2, "icTimebase");
+        public Criteria andIcDepartmentNotBetween(String value1, String value2) {
+            addCriterion("ic_department not between", value1, value2, "icDepartment");
             return (Criteria) this;
         }
 

@@ -62,11 +62,11 @@ public class ItemChangeServiceImpl implements IItemChangeExcelService {
                         && hssfRow.getCell(cellNo++).toString().equals("审批记录")
                         && hssfRow.getCell(cellNo++).toString().equals("当前处理人姓名")
                         && hssfRow.getCell(cellNo++).toString().equals("审批耗时")
+                        && hssfRow.getCell(cellNo++).toString().equals("变动部门")
                         && hssfRow.getCell(cellNo++).toString().equals("变动项目")
                         && hssfRow.getCell(cellNo++).toString().equals("变动订单")
                         && hssfRow.getCell(cellNo++).toString().equals("变动省份")
-                        && hssfRow.getCell(cellNo++).toString().equals("工作城市")
-                        && hssfRow.getCell(cellNo++).toString().equals("发放timebase奖金")
+                        && hssfRow.getCell(cellNo++).toString().equals("变动城市")
                         && hssfRow.getCell(cellNo++).toString().equals("室外工作")
                         && hssfRow.getCell(cellNo++).toString().equals("生效日期")
                         ) {
@@ -159,13 +159,18 @@ public class ItemChangeServiceImpl implements IItemChangeExcelService {
                 if (hssfRow.getCell(++cellNo) != null) yoItemChange.setIcApproveRecord(hssfRow.getCell(cellNo).toString());
                 if (hssfRow.getCell(++cellNo) != null) yoItemChange.setIcNowApproveName(hssfRow.getCell(cellNo).toString());
                 if (hssfRow.getCell(++cellNo) != null) yoItemChange.setIcCost(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoItemChange.setIcDepartment(hssfRow.getCell(cellNo).toString());
                 if (hssfRow.getCell(++cellNo) != null) yoItemChange.setIcChangeItem(hssfRow.getCell(cellNo).toString());
                 if (hssfRow.getCell(++cellNo) != null) yoItemChange.setIcChangeOrder(hssfRow.getCell(cellNo).toString());
                 if (hssfRow.getCell(++cellNo) != null) yoItemChange.setIcChangeProvince(hssfRow.getCell(cellNo).toString());
                 if (hssfRow.getCell(++cellNo) != null) yoItemChange.setIcWorkCity(hssfRow.getCell(cellNo).toString());
-                if (hssfRow.getCell(++cellNo) != null) yoItemChange.setIcTimebase(hssfRow.getCell(cellNo).toString());
                 if (hssfRow.getCell(++cellNo) != null) yoItemChange.setIcOutroomWork(hssfRow.getCell(cellNo).toString());
                 if (hssfRow.getCell(++cellNo) != null) yoItemChange.setIcEffectDate(hssfRow.getCell(cellNo).toString());
+
+                if (hssfRow.getCell(0) == null) {
+                    listFail.add(yoItemChange);
+                    continue;
+                }
 
                 /*
                 第四步，检查数据库中是否有相同的审批编号，如果没有，说明是一个新的条目，执行插入操作

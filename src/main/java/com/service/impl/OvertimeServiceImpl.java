@@ -63,8 +63,8 @@ public class OvertimeServiceImpl implements IOvertimeExcelService {
                         && hssfRow.getCell(cellNo++).toString().equals("当前处理人姓名")
                         && hssfRow.getCell(cellNo++).toString().equals("审批耗时")
                         && hssfRow.getCell(cellNo++).toString().equals("加班类型")
-                        && hssfRow.getCell(cellNo++).toString().equals("开始日期")
-                        && hssfRow.getCell(cellNo++).toString().equals("结束日期")
+                        && hssfRow.getCell(cellNo++).toString().equals("开始时间")
+                        && hssfRow.getCell(cellNo++).toString().equals("结束时间")
                         && hssfRow.getCell(cellNo++).toString().equals("加班时长（小时）")
                         && hssfRow.getCell(cellNo++).toString().equals("加班原因")
                         && hssfRow.getCell(cellNo++).toString().equals("备注")
@@ -164,6 +164,11 @@ public class OvertimeServiceImpl implements IOvertimeExcelService {
                 if (hssfRow.getCell(++cellNo) != null) yoOvertime.setOtAskSustain(hssfRow.getCell(cellNo).toString());
                 if (hssfRow.getCell(++cellNo) != null) yoOvertime.setOtAskReason(hssfRow.getCell(cellNo).toString());
                 if (hssfRow.getCell(++cellNo) != null) yoOvertime.setOtComment(hssfRow.getCell(cellNo).toString());
+
+                if (hssfRow.getCell(0) == null) {
+                    listFail.add(yoOvertime);
+                    continue;
+                }
 
                 /*
                 第四步，检查数据库中是否有相同的审批编号，如果没有，说明是一个新的条目，执行插入操作

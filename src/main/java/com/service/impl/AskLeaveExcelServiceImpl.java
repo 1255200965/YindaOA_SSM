@@ -170,6 +170,11 @@ public class AskLeaveExcelServiceImpl implements IAskLeaveExcelService {
                 if (hssfRow.getCell(++cellNo) != null) askForLeave.setYoAskReason(hssfRow.getCell(cellNo).toString());
                 if (hssfRow.getCell(++cellNo) != null) askForLeave.setYoPicture(hssfRow.getCell(cellNo).toString());
 
+                if (hssfRow.getCell(0) == null) {
+                    listFail.add(askForLeave);
+                    continue;
+                }
+
                 /*
                 第四步，检查数据库中是否有相同的审批编号，如果没有，说明是一个新的条目，执行插入操作
                 之所以有失败的可能性，是因为单元格内容有可能超过数据库长度
@@ -187,6 +192,7 @@ public class AskLeaveExcelServiceImpl implements IAskLeaveExcelService {
                         continue;
                     }
                 }
+
                 /*
                 第五步，如果有相同的编号，说明数据库中有元数据
                 那么，就覆盖查询到的第一条数据

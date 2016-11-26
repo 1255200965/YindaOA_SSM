@@ -4,6 +4,7 @@ import com.model.StaffInfo;
 import com.service.IExcelStaffInfoService;
 import com.util.DateUtil;
 import org.apache.poi.hssf.usermodel.*;
+import org.apache.poi.hssf.util.HSSFColor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,8 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.swing.filechooser.FileSystemView;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -113,78 +114,99 @@ public class ExcelStaffInfoController {
         // 第1步，得到开始导出的时间
         Date dateBegin = new Date();
 
-        // 第2步，向页面发送导出数据表的名称
-        model.addAttribute("tableName", "staff_info");
+        // 第2步，创建Excel工作区和工作表对象
+        HSSFWorkbook workbook = new HSSFWorkbook();
+        HSSFSheet sheet = workbook.createSheet();
 
-        // 第3步，创建一个列的集合，用于创建表头
+        // 第3步，给每一列设定列宽
+        sheet = setColumnWidth(sheet);
+
+        // 第4步，分别创建表头和表体的单元格样式
+        // 单元格样式是一个独立的对象但却必须由工作表创建，这可能是为了安全考虑
+        HSSFCellStyle cellStyleTitle = workbook.createCellStyle();
+        // 这里竟然用到了增强灵活性的多态，用实现类来实现接口的方法
+        cellStyleTitle.setBorderTop(HSSFCellStyle.BORDER_THIN);
+        cellStyleTitle.setBorderRight(HSSFCellStyle.BORDER_THIN);
+        cellStyleTitle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+        cellStyleTitle.setBorderRight(HSSFCellStyle.BORDER_THIN);
+        cellStyleTitle.setFillForegroundColor(HSSFColor.BRIGHT_GREEN.index);
+        cellStyleTitle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+        cellStyleTitle.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+        cellStyleTitle.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);
+
+        HSSFCellStyle cellStyleBody = workbook.createCellStyle();
+        cellStyleBody.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+        cellStyleBody.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);
+
+        // 第5步，创建一个列的集合，用于创建表头
         List<String> listColumnNames = createColumnNames();
 
-        // 第4步，向页面输出列的总数
+        // 第6步，向页面输出列的总数
         int columnAmount = listColumnNames.size();
         model.addAttribute("columnAmount", columnAmount);
 
-        // 第5步，创建Excel工作表对象，并向第1行输出表头
-        HSSFWorkbook hssfWorkbook = new HSSFWorkbook();
-        HSSFCellStyle cellStyle = hssfWorkbook.createCellStyle();
-        cellStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);
-        cellStyle.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);
-        HSSFSheet hssfSheet = hssfWorkbook.createSheet();
-        HSSFRow row = hssfSheet.createRow(0);
+        // 第7步，将集合输出到第一行，并设定行高及单元格样式
+        HSSFRow row = sheet.createRow(0);
         row.setHeight((short)800);
-        hssfSheet = setColumnWidth(hssfSheet);
         for (int i=0; i<columnAmount; i++) {
             HSSFCell cell = row.createCell(i);
-            cell.setCellStyle(cellStyle);
+            cell.setCellStyle(cellStyleTitle);
             cell.setCellValue(listColumnNames.get(i));
         }
 
-        // 第6步，从后台得到要导出的源数据
+        // 第8步，向页面输出导出数据表的名称
+        model.addAttribute("tableName", "staff_info");
+
+        // 第9步，从后台得到数据表的源数据
         List<StaffInfo> listAllStaff = iExcelStaffInfoService.getAllStaff();
 
-        // 第7步，果断向页面发送成功导出的项目数，因为不可能失败
-        model.addAttribute("successAmount", listAllStaff.size());
-
-        // 第8步，将后台得到的每一条数据输出到Excel表的剩余部分
+        // 第10步，将源数据列表中的每一个实体类元素输出到Excel表的剩余部分
         for (int i=0; i<listAllStaff.size(); i++) {
             // 先从实体类集合中得到实体类
             StaffInfo staffInfo = listAllStaff.get(i);
-            // 把实体类中的数据转换成一个多元素的列表
+            // 把实体类中的数据转换成一个集合，便于输出行
             List<String> listRowContent = getRowContent(staffInfo);
-            row = hssfSheet.createRow(i+1);
+            row = sheet.createRow(i+1);
             row.setHeight((short)400);
             // 把列表中的元素对应添加到新创建的cell中
             for (int j=0; j<columnAmount; j++) {
                 HSSFCell cell = row.createCell(j);
-                cell.setCellStyle(cellStyle);
+                cell.setCellStyle(cellStyleBody);
                 cell.setCellValue(listRowContent.get(j));
             }
         }
 
-        // 第9步，设定输出文件路径，并添加到页面
+        // 第11步，向页面发送成功导出的条目数，讲道理不存在失败条目
+        model.addAttribute("successAmount", listAllStaff.size());
+
+        // 第12步，创建Excel文件名，后缀加上日期
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyMMdd");
+        String suffix = simpleDateFormat.format(dateBegin);
+        String fileName = "花名册导出" + suffix + ".xls";
+
+        // 第13步，把桌面目录与文件名拼在一起，形成输出路径，并打印到页面
         File desktopDir = FileSystemView.getFileSystemView().getHomeDirectory();
         String desktopPath = desktopDir.getPath();
-        String path = desktopPath + "\\花名册导出.xls";
+        String path = desktopPath + "\\" + fileName;
         model.addAttribute("path", path);
 
-
-
-        // 第10步，发动总攻，把已经制作好的workbook输出到路径
+        // 第14步，发动总攻，把已经制作好的workbook输出到路径
         try {
             // 对于Excel文件要用文件流，不能用FileWriter
             FileOutputStream fileOutputStream = new FileOutputStream(path);
-            hssfWorkbook.write(fileOutputStream);
+            workbook.write(fileOutputStream);
             // 写完要关闭，不然文件被锁定，开Excel不能更改
             fileOutputStream.close();
         } catch (Exception e) {
-            System.out.println(e.toString());
+            model.addAttribute("error", e.toString());
         }
 
-        // 第11步，计算导出时间并输出到页面
+        // 第15步，计算导出时间并输出到页面
         Date dateEnd = new Date();
         long interval = dateEnd.getTime() - dateBegin.getTime();
-        long minute = interval / 1000 / 60;
-        long second = (interval - minute * 60) / 1000;
-        model.addAttribute("cost", minute+"分"+second+"秒");
+        long secondTemp = interval / 100;
+        double second = secondTemp / 10.0;
+        model.addAttribute("cost", second+"秒");
 
         return "excel/staff_info_result_export";
     }

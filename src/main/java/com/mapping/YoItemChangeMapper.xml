@@ -20,7 +20,7 @@
     <result column="ic_change_order" property="icChangeOrder" jdbcType="VARCHAR" />
     <result column="ic_change_province" property="icChangeProvince" jdbcType="VARCHAR" />
     <result column="ic_work_city" property="icWorkCity" jdbcType="VARCHAR" />
-    <result column="ic_timebase" property="icTimebase" jdbcType="VARCHAR" />
+    <result column="ic_department" property="icDepartment" jdbcType="VARCHAR" />
     <result column="ic_outroom_work" property="icOutroomWork" jdbcType="VARCHAR" />
     <result column="ic_effect_date" property="icEffectDate" jdbcType="VARCHAR" />
   </resultMap>
@@ -57,7 +57,7 @@
     ic_sequence_no, ic_approve_no, ic_title, ic_approve_state, ic_approve_result, ic_approve_begin, 
     ic_approve_end, ic_ask_staff_id, ic_ask_staff_name, ic_ask_staff_depart, ic_history_approve_name, 
     ic_approve_record, ic_now_approve_name, ic_cost, ic_change_item, ic_change_order, 
-    ic_change_province, ic_work_city, ic_timebase, ic_outroom_work, ic_effect_date
+    ic_change_province, ic_work_city, ic_department, ic_outroom_work, ic_effect_date
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.model.YoItemChangeExample" >
     select
@@ -90,7 +90,7 @@
       ic_ask_staff_depart, ic_history_approve_name, 
       ic_approve_record, ic_now_approve_name, ic_cost, 
       ic_change_item, ic_change_order, ic_change_province, 
-      ic_work_city, ic_timebase, ic_outroom_work, 
+      ic_work_city, ic_department, ic_outroom_work, 
       ic_effect_date)
     values (#{icSequenceNo,jdbcType=INTEGER}, #{icApproveNo,jdbcType=VARCHAR}, #{icTitle,jdbcType=VARCHAR}, 
       #{icApproveState,jdbcType=VARCHAR}, #{icApproveResult,jdbcType=VARCHAR}, #{icApproveBegin,jdbcType=VARCHAR}, 
@@ -98,7 +98,7 @@
       #{icAskStaffDepart,jdbcType=VARCHAR}, #{icHistoryApproveName,jdbcType=VARCHAR}, 
       #{icApproveRecord,jdbcType=VARCHAR}, #{icNowApproveName,jdbcType=VARCHAR}, #{icCost,jdbcType=VARCHAR}, 
       #{icChangeItem,jdbcType=VARCHAR}, #{icChangeOrder,jdbcType=VARCHAR}, #{icChangeProvince,jdbcType=VARCHAR}, 
-      #{icWorkCity,jdbcType=VARCHAR}, #{icTimebase,jdbcType=VARCHAR}, #{icOutroomWork,jdbcType=VARCHAR}, 
+      #{icWorkCity,jdbcType=VARCHAR}, #{icDepartment,jdbcType=VARCHAR}, #{icOutroomWork,jdbcType=VARCHAR}, 
       #{icEffectDate,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.model.YoItemChange" >
@@ -158,8 +158,8 @@
       <if test="icWorkCity != null" >
         ic_work_city,
       </if>
-      <if test="icTimebase != null" >
-        ic_timebase,
+      <if test="icDepartment != null" >
+        ic_department,
       </if>
       <if test="icOutroomWork != null" >
         ic_outroom_work,
@@ -223,8 +223,8 @@
       <if test="icWorkCity != null" >
         #{icWorkCity,jdbcType=VARCHAR},
       </if>
-      <if test="icTimebase != null" >
-        #{icTimebase,jdbcType=VARCHAR},
+      <if test="icDepartment != null" >
+        #{icDepartment,jdbcType=VARCHAR},
       </if>
       <if test="icOutroomWork != null" >
         #{icOutroomWork,jdbcType=VARCHAR},
@@ -288,8 +288,8 @@
       <if test="icWorkCity != null" >
         ic_work_city = #{icWorkCity,jdbcType=VARCHAR},
       </if>
-      <if test="icTimebase != null" >
-        ic_timebase = #{icTimebase,jdbcType=VARCHAR},
+      <if test="icDepartment != null" >
+        ic_department = #{icDepartment,jdbcType=VARCHAR},
       </if>
       <if test="icOutroomWork != null" >
         ic_outroom_work = #{icOutroomWork,jdbcType=VARCHAR},
@@ -319,7 +319,7 @@
       ic_change_order = #{icChangeOrder,jdbcType=VARCHAR},
       ic_change_province = #{icChangeProvince,jdbcType=VARCHAR},
       ic_work_city = #{icWorkCity,jdbcType=VARCHAR},
-      ic_timebase = #{icTimebase,jdbcType=VARCHAR},
+      ic_department = #{icDepartment,jdbcType=VARCHAR},
       ic_outroom_work = #{icOutroomWork,jdbcType=VARCHAR},
       ic_effect_date = #{icEffectDate,jdbcType=VARCHAR}
     where ic_sequence_no = #{icSequenceNo,jdbcType=INTEGER}

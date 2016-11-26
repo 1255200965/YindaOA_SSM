@@ -37,7 +37,7 @@ public class YoItemChange {
 
     private String icWorkCity;
 
-    private String icTimebase;
+    private String icDepartment;
 
     private String icOutroomWork;
 
@@ -187,12 +187,12 @@ public class YoItemChange {
         this.icWorkCity = icWorkCity;
     }
 
-    public String getIcTimebase() {
-        return icTimebase;
+    public String getIcDepartment() {
+        return icDepartment;
     }
 
-    public void setIcTimebase(String icTimebase) {
-        this.icTimebase = icTimebase;
+    public void setIcDepartment(String icDepartment) {
+        this.icDepartment = icDepartment;
     }
 
     public String getIcOutroomWork() {

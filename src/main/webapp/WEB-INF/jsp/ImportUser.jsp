@@ -53,7 +53,8 @@
         <%--不提交参数，就不要用form表单了！--%>
         <div class="p-box">
             <p>导出部分：把花名册的数据库信息导出成Excel</p>
-            <a href="${controller}/ExcelStaffInfo/export.do"><button>开始导出！（秒导）</button></a>
+            <p>注意：如之前已导出并打开，请先关闭</p>
+            <a href="${controller}/ExcelStaffInfo/export.do"><button>开始导出！</button></a>
         </div>
     </div>
 
