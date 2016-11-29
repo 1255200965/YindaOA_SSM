@@ -6,6 +6,9 @@ import com.util.DateUtil;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,11 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.swing.filechooser.FileSystemView;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -32,9 +31,37 @@ public class ExcelStaffInfoController {
     @Autowired
     private IExcelStaffInfoService iExcelStaffInfoService;
 
-    @RequestMapping("/navigator.do")
-    public String navigator() {
-        return "/upload";
+    @RequestMapping("/testMethod.do")
+    public String testMethod() {
+        return "excel/staff_info_result_export";
+    }
+
+    @RequestMapping("/downloadTemplate.do")
+    public ResponseEntity<byte[]> downloadTemplate() {
+        byte[] body = null;
+        HttpHeaders httpHeaders = new HttpHeaders();
+        HttpStatus httpStatus = HttpStatus.OK;
+        String ctx = System.getProperty("rootPath");
+        String path = ctx + "/template/templateUserInfo.xls";
+        String fileName = "templateUserInfo.xls";
+        File file = new File(path);
+        try {
+            InputStream inputStream = new FileInputStream(file);
+            body = new byte[inputStream.available()];
+            inputStream.read(body);
+            inputStream.close();
+        } catch (Exception e) {
+            System.out.println(path);
+            System.out.println(e.toString());
+            return null;
+        }
+
+        httpHeaders.add("Content-Type", "application/vnd.ms-excel");
+        httpHeaders.add("Content-Length", "" + body.length);
+        httpHeaders.add("Content-Disposition", "attachment;filename=" + fileName);
+
+        ResponseEntity<byte[]> responseEntity = new ResponseEntity<byte[]>(body, httpHeaders, httpStatus);
+        return responseEntity;
     }
 
     /**
@@ -179,18 +206,13 @@ public class ExcelStaffInfoController {
         // 第11步，向页面发送成功导出的条目数，讲道理不存在失败条目
         model.addAttribute("successAmount", listAllStaff.size());
 
-        // 第12步，创建Excel文件名，后缀加上日期
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyMMdd");
-        String suffix = simpleDateFormat.format(dateBegin);
-        String fileName = "花名册导出" + suffix + ".xls";
-
-        // 第13步，把桌面目录与文件名拼在一起，形成输出路径，并打印到页面
-        File desktopDir = FileSystemView.getFileSystemView().getHomeDirectory();
-        String desktopPath = desktopDir.getPath();
-        String path = desktopPath + "\\" + fileName;
+        // 第12步，创建导出到服务器端的路径，并打印到页面
+        String webapp = System.getProperty("rootPath");
+        String fileName = "StaffInfoExport.xls";
+        String path = webapp + "/upload/" + fileName;
         model.addAttribute("path", path);
 
-        // 第14步，发动总攻，把已经制作好的workbook输出到路径
+        // 第13步，发动总攻，把已经制作好的workbook输出到路径
         try {
             // 对于Excel文件要用文件流，不能用FileWriter
             FileOutputStream fileOutputStream = new FileOutputStream(path);
@@ -201,7 +223,7 @@ public class ExcelStaffInfoController {
             model.addAttribute("error", e.toString());
         }
 
-        // 第15步，计算导出时间并输出到页面
+        // 第14步，终于要结束了！计算导出时间并输出到页面
         Date dateEnd = new Date();
         long interval = dateEnd.getTime() - dateBegin.getTime();
         long secondTemp = interval / 100;
@@ -209,6 +231,34 @@ public class ExcelStaffInfoController {
         model.addAttribute("cost", second+"秒");
 
         return "excel/staff_info_result_export";
+    }
+
+    @RequestMapping("downloadExport.do")
+    public ResponseEntity<byte[]> downloadExport() {
+        byte[] body = null;
+        HttpHeaders httpHeaders = new HttpHeaders();
+        HttpStatus httpStatus = HttpStatus.OK;
+        String webapp = System.getProperty("rootPath");
+        String path = webapp + "/upload/StaffInfoExport.xls";
+        String fileName = "StaffInfoExport.xls";
+        File file = new File(path);
+        try {
+            InputStream inputStream = new FileInputStream(file);
+            body = new byte[inputStream.available()];
+            inputStream.read(body);
+            inputStream.close();
+        } catch (Exception e) {
+            System.out.println(path);
+            System.out.println(e.toString());
+            return null;
+        }
+
+        httpHeaders.add("Content-Type", "application/vnd.ms-excel");
+        httpHeaders.add("Content-Length", "" + body.length);
+        httpHeaders.add("Content-Disposition", "attachment;filename=" + fileName);
+
+        ResponseEntity<byte[]> responseEntity = new ResponseEntity<byte[]>(body, httpHeaders, httpStatus);
+        return responseEntity;
     }
 
     /**

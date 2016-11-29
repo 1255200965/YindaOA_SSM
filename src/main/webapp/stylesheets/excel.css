@@ -20,6 +20,13 @@
     color: forestgreen;
 }
 
+.export a {
+    font-family: 楷体;
+    font-size: x-large;
+    font-weight: bold;
+    color: black;
+}
+
 /*导出结果文件按钮的样式*/
 .export button {
     /*根据调试，长宽比2.5比较靠谱*/
@@ -32,4 +39,9 @@
     font-size: x-large;
     font-weight: bold;
     color: orangered;
+}
+
+.import table, .import tr, .import th, .import td {
+    border: 3px solid blue;
+    border-collapse: collapse;
 }
