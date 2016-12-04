@@ -8,6 +8,7 @@
     <title>文件导入结果</title>
     <%--引入excel文件夹的统一样式--%>
     <link rel="stylesheet" type="text/css" href="${ctx}/stylesheets/excel.css" />
+    <script src="../javascripts/jquery.min.js"></script>
 </head>
 
 <body class="import">
@@ -27,32 +28,22 @@
             <th>手机号</th>
             <th>身份证号</th>
         </tr>
+        <c:forEach var="item" items="${listFail}">
+            <tr>
+                <td>${item.staffUserId}</td>
+                <td>${item.department}</td>
+                <td>${item.name}</td>
+                <td>${item.staffId}</td>
+                <td>${item.cellphone}</td>
+                <td>${item.idNo}</td>
+            </tr>
+        </c:forEach>
     </table>
     <a href="${ctx}/ExcelStaffInfo/homePage.do"><button>返回上一页</button></a>
+
 </body>
 
-<script>
-    <c:forEach items="${listFail}">
-        // 首先定义一个列表，用于存放要填的内容
-        var contentList = new Array();
-        contentList.push("${staffUserId}");
-        contentList.push("${apartment}");
-        contentList.push("${name}");
-        contentList.push("${staffId}");
-        contentList.push("${cellphone}");
-        contentList.push("${idNo}");
-
-        var tableList = document.getElementsByTagName("table");
-        var table = tableList[0];
-
-        var rowAmount = table.rows.length;
-        var newRow = table.insertRow(rowAmount);
-        for (var i=0; i<contentList.length; i++) {
-            var cell = newRow.insertCell(i);
-            cell.innerHTML = contentList[i];
-        }
-    </c:forEach>
-
+<script type="text/JavaScript">
 //    document.write('<table border="1" align="center" width="500">');
 //    while(i < 100){
 //        if(i % 10 == 0){

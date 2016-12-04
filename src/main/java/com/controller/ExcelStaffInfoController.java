@@ -29,11 +29,29 @@ public class ExcelStaffInfoController {
     @Autowired
     private IExcelStaffInfoService iExcelStaffInfoService;
 
+    /*
+    这是一个测试方法，什么时候不能忍都可以干掉
+     */
     @RequestMapping("/testMethod.do")
     public String testMethod(Model model) {
         return "/ImportUser";
     }
 
+    /*
+    打开主页
+     */
+    @RequestMapping("/homePage.do")
+    public String homePage( @RequestParam(value = "validateUpload", defaultValue = "") String validateUpload,
+                            @RequestParam(value = "validateTitle", defaultValue = "") String validateTitle,
+                            Model m) {
+        m.addAttribute("validateUpload", validateUpload);
+        m.addAttribute("validateTitle", validateTitle);
+        return "/ImportUser";
+    }
+
+    /*
+    下载模版
+     */
     @RequestMapping("/downloadTemplate.do")
     public ResponseEntity<byte[]> downloadTemplate() {
         byte[] body = null;
@@ -62,21 +80,8 @@ public class ExcelStaffInfoController {
         return responseEntity;
     }
 
-    /**
-     * RequestParam中必须有值传进来，不然会报400错误。所以defaultValue是必须的！
-     */
-    @RequestMapping("/homePage.do")
-    public String homePage( @RequestParam(value = "validateUpload", defaultValue = "") String validateUpload,
-                            @RequestParam(value = "validateTitle", defaultValue = "") String validateTitle,
-                            Model m) {
-        m.addAttribute("validateUpload", validateUpload);
-        m.addAttribute("validateTitle", validateTitle);
-        return "/ImportUser";
-    }
-
     /*
-    点击上传文件按钮后，触发导入功能
-    传送文件是页面主动发送请求，要用POST方法
+    导入功能
      */
     @RequestMapping(value = "/import.do", method = RequestMethod.POST)
     public String importExcel(@RequestParam("fileUpload") MultipartFile fileUpload, Model m, RedirectAttributes ra) {
@@ -109,7 +114,7 @@ public class ExcelStaffInfoController {
             return "redirect:homePage.do";
         }
 
-        // 第3步，添加文件到数据库
+        // 第4步，添加文件到数据库
         Map<String, Object> mapInsert = iExcelStaffInfoService.insertAndUpdate(hssfWorkbook);
         String successAmount = mapInsert.get("successAmount").toString();
         m.addAttribute("successAmount", successAmount);
@@ -117,11 +122,14 @@ public class ExcelStaffInfoController {
         int failAmonutInt = listFail.size();
         String failAmountStr = String.valueOf(failAmonutInt);
         m.addAttribute("failAmount", failAmountStr);
-        m.addAttribute("failList", listFail);
+        m.addAttribute("listFail", listFail);
 
         return "excel/staff_info_result_import";
     }
 
+    /*
+    导出功能，第1步，先导出成文件
+     */
     @RequestMapping("export.do")
     public String export(Model model) {
         // 第1步，得到开始导出的时间
@@ -219,6 +227,9 @@ public class ExcelStaffInfoController {
         return "excel/staff_info_result_export";
     }
 
+    /*
+    导出功能，第2步，下载导出的文件
+     */
     @RequestMapping("downloadExport.do")
     public ResponseEntity<byte[]> downloadExport() {
         byte[] body = null;
@@ -248,8 +259,9 @@ public class ExcelStaffInfoController {
     }
 
     /*
-    该方法实现对表头的校验，至于剩余内容的校验，在插入方法中完成
+    表头校验
     表头不符合规范或者发生了空指针异常，皆视为校验失败
+    剩余内容的校验，在插入方法中完成
      */
     public String validateExcelTitle(HSSFWorkbook hssfWorkbook) {
         // 得到当前文件的总表数
@@ -320,10 +332,8 @@ public class ExcelStaffInfoController {
         return "表头校验成功！";
     }
 
-    /**
-     * 得到表头集合列表
-     * 如果List中的元素类型可以统一，为了安全，最好添加泛型
-     * 由于字段数量还在一个可以忍受的范围内，所以就先用ArrayList一行一行添加了
+    /*
+    得到表头集合列表
      */
     public List<String> createColumnNames() {
         List<String> columnNames = new ArrayList();
@@ -371,8 +381,8 @@ public class ExcelStaffInfoController {
         return columnNames;
     }
 
-    /**
-     * 生成填充内容的数据集
+    /*
+    生成填充内容的数据集
      */
     public List<String> getRowContent(StaffInfo staffInfo) {
         List<String> rowContents = new ArrayList();
@@ -420,6 +430,9 @@ public class ExcelStaffInfoController {
         return rowContents;
     }
 
+    /*
+    设定列宽
+     */
     public HSSFSheet setColumnWidth(HSSFSheet hssfSheet) {
         hssfSheet.setColumnWidth(0, 6000);
         hssfSheet.setColumnWidth(1, 6000);

@@ -77,7 +77,7 @@ public class ExcelStaffInfoServiceImpl implements IExcelStaffInfoService {
                 for (int cellNo=0; cellNo<=cellLastNo; cellNo++) {
                     // cell不为空时才操作，为空也就不用管他是什么类型了
                     // 想管也管不起，因为会报NullPointerException，而我们编程时应当避免异常，而不是积极处理异常
-                    if (hssfRow.getCell(cellNo)==null || hssfRow.getCell(cellNo).equals("")) {
+                    if (hssfRow.getCell(cellNo)==null || hssfRow.getCell(cellNo).toString().equals("")) {
                         // 这里就可以用++i了，听说运算速度更快= =
                         ++emptyCellAmount;
                     }
@@ -133,13 +133,18 @@ public class ExcelStaffInfoServiceImpl implements IExcelStaffInfoService {
                 if (hssfRow.getCell(++cellNo) != null) staffInfo.setLeaveDate(hssfRow.getCell(cellNo).toString());
 
                 /*
-                第4步，判断部门，姓名，手机号，身份证号这4个字段是否为空
+                第4步，判断部门，姓名，工号，手机号这4个字段是否为空
                 如果为空的话，实体对象进入失败列表
+                身份证号暂时允许为空，因为入职的人好鱼啊，可能连身份证号都木有
                  */
                 if (hssfRow.getCell(1) == null
                         || hssfRow.getCell(3) == null
+                        || hssfRow.getCell(5) == null
                         || hssfRow.getCell(7) == null
-                        || hssfRow.getCell(19) == null
+                        || hssfRow.getCell(1).toString().equals("")
+                        || hssfRow.getCell(3).toString().equals("")
+                        || hssfRow.getCell(5).toString().equals("")
+                        || hssfRow.getCell(7).toString().equals("")
                         ) {
                     listFail.add(staffInfo);
                     continue;
