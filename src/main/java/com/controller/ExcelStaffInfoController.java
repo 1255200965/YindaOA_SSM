@@ -2,7 +2,6 @@ package com.controller;
 
 import com.model.StaffInfo;
 import com.service.IExcelStaffInfoService;
-import com.util.DateUtil;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,8 +30,8 @@ public class ExcelStaffInfoController {
     private IExcelStaffInfoService iExcelStaffInfoService;
 
     @RequestMapping("/testMethod.do")
-    public String testMethod() {
-        return "excel/staff_info_result_export";
+    public String testMethod(Model model) {
+        return "/ImportUser";
     }
 
     @RequestMapping("/downloadTemplate.do")
@@ -70,70 +68,58 @@ public class ExcelStaffInfoController {
     @RequestMapping("/homePage.do")
     public String homePage( @RequestParam(value = "validateUpload", defaultValue = "") String validateUpload,
                             @RequestParam(value = "validateTitle", defaultValue = "") String validateTitle,
-                            @RequestParam(value = "successAmount", defaultValue = "") String successAmount,
-                            @RequestParam(value = "failAmount", defaultValue = "") String failAmount,
                             Model m) {
         m.addAttribute("validateUpload", validateUpload);
         m.addAttribute("validateTitle", validateTitle);
-        m.addAttribute("successAmount", successAmount);
-        m.addAttribute("failAmount", failAmount);
         return "/ImportUser";
     }
 
-    /**
-     * 下载按钮和选择文件按钮都直接在前端完成了功能，不需要来这里调方法
-     * 只有上传文件按钮需要调用。该功能分两步，校验和导入
+    /*
+    点击上传文件按钮后，触发导入功能
+    传送文件是页面主动发送请求，要用POST方法
      */
-    @RequestMapping(value = "/importExcel.do", method = RequestMethod.POST)
-    public String importExcel( @RequestParam("fileUpload") MultipartFile fileUpload,
-                               HttpServletRequest request, RedirectAttributes ra) {
-        // 得到上传文件的原文件名
-        String myFileName = fileUpload.getOriginalFilename();
-        // 创建一个时间戳，用于给文件名添加一个唯一存在的后缀
-        String time = DateUtil.getCurrentTimeMillis();
-        // 用于保存的文件名
-        String saveName = time + "_" + myFileName;
-        // 保存路径，为根目录的路径加文件名。这里保存在根目录是因为存完就删
-        // 注：通过ServletContext可以得到Webroot下任意文件夹的绝对路径
-        String savePath = request.getSession().getServletContext().getRealPath("/") + saveName;
-
-        // 开始将传进来的文件按照新路径转存
+    @RequestMapping(value = "/import.do", method = RequestMethod.POST)
+    public String importExcel(@RequestParam("fileUpload") MultipartFile fileUpload, Model m, RedirectAttributes ra) {
+        // 第1步，从上传的文件中得到输入流
+        InputStream inputStream = null;
         try {
-            fileUpload.transferTo(new File(savePath));
+            inputStream = fileUpload.getInputStream();
             ra.addAttribute("validateUpload", "文件上传成功！");
-        } catch (IOException e) {
-            // 异常要在这一步处理，不要再在方法中向上抛出了，因为到顶了。。
+        } catch (Exception e) {
             ra.addAttribute("validateUpload", "文件上传失败，请检查联网状态");
             return "redirect:homePage.do";
         }
 
-        //=========文件上传成功后处理excel
+        // 第2步，从输入流中得到excel工作表
+        // Java的规定，有了输入流才能按照格式读取excel文件
+        HSSFWorkbook hssfWorkbook = null;
         try {
-            // 第一步，校验文件，不合格会直接在页面抛出错误
-            String validateTitle = iExcelStaffInfoService.validateExcelTitle(savePath);
-            ra.addAttribute("validateTitle", validateTitle);
-            if (validateTitle.contains("表头名称错误")) return "redirect:homePage.do";
-            // 第二步，添加文件到数据库，会返回成功的数量和失败的列表
-            Map<String, Object> mapInsert = iExcelStaffInfoService.insertAndUpdate(savePath);
-            String successAmount = mapInsert.get("successAmount").toString();
-            String successAmountPrint = "上传成功的条目数目为：" + successAmount;
-            ra.addAttribute("successAmount", successAmountPrint);
-            List<StaffInfo> listFail = (ArrayList<StaffInfo>)mapInsert.get("listFail");
-            int failAmonutInt = listFail.size();
-            String failAmountStr = String.valueOf(failAmonutInt);
-            String failAmountPrint = "上传失败的条目数目为：" + failAmountStr;
-            ra.addAttribute("failAmount", failAmountPrint);
+            // 猜想：有可能文件太大会爆掉，所以要try
+            hssfWorkbook = new HSSFWorkbook(inputStream);
         } catch (Exception e) {
-            String amountPrint = e.toString();
-            ra.addAttribute("successAmount", amountPrint);
-        } finally {
-            // 第三步，无论异常不异常，我都要把这个文件删除掉，因为已经创建成功了^_^
-            // 161108人生第一次用finally，表示很激动！
-            File fileDelete = new File(savePath);
-            fileDelete.delete();
+            ra.addAttribute("validateTitle", "文件输入流可能太大乃至爆掉了，请换个文件再试试吧！");
+            return "redirect:homePage.do";
         }
 
-        return "redirect:homePage.do";
+        // 第3步，对文件进行表头效验
+        String validateTitle = validateExcelTitle(hssfWorkbook);
+        if (!(validateTitle.contains("成功"))) {
+            // 如果失败了，把失败原因输出到页面
+            ra.addAttribute("validateTitle", validateTitle);
+            return "redirect:homePage.do";
+        }
+
+        // 第3步，添加文件到数据库
+        Map<String, Object> mapInsert = iExcelStaffInfoService.insertAndUpdate(hssfWorkbook);
+        String successAmount = mapInsert.get("successAmount").toString();
+        m.addAttribute("successAmount", successAmount);
+        List<StaffInfo> listFail = (ArrayList<StaffInfo>)mapInsert.get("listFail");
+        int failAmonutInt = listFail.size();
+        String failAmountStr = String.valueOf(failAmonutInt);
+        m.addAttribute("failAmount", failAmountStr);
+        m.addAttribute("failList", listFail);
+
+        return "excel/staff_info_result_import";
     }
 
     @RequestMapping("export.do")
@@ -184,7 +170,7 @@ public class ExcelStaffInfoController {
         // 第8步，向页面输出导出数据表的名称
         model.addAttribute("tableName", "staff_info");
 
-        // 第9步，从后台得到数据表的源数据
+        // 第9步，从后台得到staff_user_id不为空的所有数据
         List<StaffInfo> listAllStaff = iExcelStaffInfoService.getAllStaff();
 
         // 第10步，将源数据列表中的每一个实体类元素输出到Excel表的剩余部分
@@ -259,6 +245,79 @@ public class ExcelStaffInfoController {
 
         ResponseEntity<byte[]> responseEntity = new ResponseEntity<byte[]>(body, httpHeaders, httpStatus);
         return responseEntity;
+    }
+
+    /*
+    该方法实现对表头的校验，至于剩余内容的校验，在插入方法中完成
+    表头不符合规范或者发生了空指针异常，皆视为校验失败
+     */
+    public String validateExcelTitle(HSSFWorkbook hssfWorkbook) {
+        // 得到当前文件的总表数
+        int sheetTotal = hssfWorkbook.getNumberOfSheets();
+
+        // 接下来对每一张表都进行操作
+        for (int sheetNo=0; sheetNo<sheetTotal; sheetNo++) {
+            HSSFSheet hssfSheet = hssfWorkbook.getSheetAt(sheetNo);
+            // 在表头校验方法中，我们只玩第一行！
+            HSSFRow hssfRow = hssfSheet.getRow(0);
+            try {
+                // int也是一个对象，大括号结束后会释放掉
+                int cellNo = 0;
+                // 这里用一个大胆的做法，先执行函数再自加。虽然++i听说效率更高，但想必也高不到哪里去
+                if (hssfRow.getCell(cellNo++).toString().equals("员工UserID")
+                        && hssfRow.getCell(cellNo++).toString().equals("部门")
+                        && hssfRow.getCell(cellNo++).toString().equals("职位")
+                        && hssfRow.getCell(cellNo++).toString().equals("姓名")
+                        && hssfRow.getCell(cellNo++).toString().equals("性别")
+                        && hssfRow.getCell(cellNo++).toString().equals("工号")
+                        && hssfRow.getCell(cellNo++).toString().equals("是否此部门主管(是/否)")
+                        && hssfRow.getCell(cellNo++).toString().equals("手机号")
+                        && hssfRow.getCell(cellNo++).toString().equals("邮箱")
+                        && hssfRow.getCell(cellNo++).toString().equals("分机号")
+                        && hssfRow.getCell(cellNo++).toString().equals("办公地点")
+                        && hssfRow.getCell(cellNo++).toString().equals("备注")
+                        && hssfRow.getCell(cellNo++).toString().equals("合同类型")
+                        && hssfRow.getCell(cellNo++).toString().equals("音达认证")
+                        && hssfRow.getCell(cellNo++).toString().equals("网元")
+                        && hssfRow.getCell(cellNo++).toString().equals("备注2")
+                        && hssfRow.getCell(cellNo++).toString().equals("身份证号")
+                        && hssfRow.getCell(cellNo++).toString().equals("户籍地")
+                        && hssfRow.getCell(cellNo++).toString().equals("分公司")
+                        && hssfRow.getCell(cellNo++).toString().equals("社保地")
+                        && hssfRow.getCell(cellNo++).toString().equals("常驻地")
+                        && hssfRow.getCell(cellNo++).toString().equals("RSO认证")
+                        && hssfRow.getCell(cellNo++).toString().equals("基本工资")
+                        && hssfRow.getCell(cellNo++).toString().equals("项目工资")
+                        && hssfRow.getCell(cellNo++).toString().equals("民族")
+                        && hssfRow.getCell(cellNo++).toString().equals("年龄")
+                        && hssfRow.getCell(cellNo++).toString().equals("最新合同")
+                        && hssfRow.getCell(cellNo++).toString().equals("最新合同起始日期")
+                        && hssfRow.getCell(cellNo++).toString().equals("最新合同结束日期")
+                        && hssfRow.getCell(cellNo++).toString().equals("入职时间")
+                        && hssfRow.getCell(cellNo++).toString().equals("工作年限")
+                        && hssfRow.getCell(cellNo++).toString().equals("工资卡")
+                        && hssfRow.getCell(cellNo++).toString().equals("毕业院校")
+                        && hssfRow.getCell(cellNo++).toString().equals("最高学历")
+                        && hssfRow.getCell(cellNo++).toString().equals("毕业日期")
+                        && hssfRow.getCell(cellNo++).toString().equals("报销卡")
+                        && hssfRow.getCell(cellNo++).toString().equals("项目")
+                        && hssfRow.getCell(cellNo++).toString().equals("订单")
+                        && hssfRow.getCell(cellNo++).toString().equals("员工状态")
+                        && hssfRow.getCell(cellNo++).toString().equals("在职状态")
+                        && hssfRow.getCell(cellNo++).toString().equals("离职日期")
+                        ) {
+                    // 如果验证通过了，就打印成功信息（额，要不然什么都不做的话显得不太好= =）
+                    // sheetNo+1必须用括号括起来，否则+1会被认为是字符串拼接，在此再次感叹Java语法的强大！
+                    System.out.println("表头校验成功！通过校验的表格页数 = "+(sheetNo+1));
+                }
+                else {
+                    return "第"+(sheetNo+1)+"张表的表头名称错误，与模板不相符";
+                }
+            } catch (NullPointerException e) {
+                return "第"+(sheetNo+1)+"张表的表头名称错误，与模板不相符";
+            }
+        }
+        return "表头校验成功！";
     }
 
     /**

@@ -1,17 +1,49 @@
-/*export类下的通用属性，一般把body设为export*/
-.export {
-    text-align: center;
-    /*逻辑要清晰，body中的所有元素都写在padding之下*/
-    padding-top: 200px;
-}
-
-.export h1 {
+h1 {
     font-family: 微软雅黑;
     color: deepskyblue;
 }
 
-.export h2 {
+h2 {
     color: blue;
+}
+
+table {
+    margin: 0 auto;
+    /*设定table内的边框全部折叠收缩为一条*/
+    border-collapse: collapse;
+    border: 1px solid blue;
+    width: 50%;
+}
+
+.import {
+    /*逻辑要清晰，body中的所有元素都写在padding之下*/
+    padding-top: 100px;
+    /*该类下的所有标签文字居中*/
+    text-align: center;
+}
+
+.export {
+    /*逻辑要清晰，body中的所有元素都写在padding之下*/
+    padding-top: 200px;
+    /*该类下的所有标签文字居中*/
+    text-align: center;
+}
+
+.small_title {
+    font-family: 楷体;
+    color: darkred;
+}
+/*export类下的通用属性，一般把body设为export*/
+
+.import th {
+    border: 1px solid blue;
+    height: 60px;
+}
+
+.import td {
+    border: 1px solid blue;
+    height: 40px;
+    text-align: center;
 }
 
 /*为了不破坏h1内置的margin，这里改用padding设定边距*/
@@ -28,7 +60,7 @@
 }
 
 /*导出结果文件按钮的样式*/
-.export button {
+.import button, .export button {
     /*根据调试，长宽比2.5比较靠谱*/
     width: 150px;
     height: 60px;
@@ -39,9 +71,4 @@
     font-size: x-large;
     font-weight: bold;
     color: orangered;
-}
-
-.import table, .import tr, .import th, .import td {
-    border: 3px solid blue;
-    border-collapse: collapse;
 }

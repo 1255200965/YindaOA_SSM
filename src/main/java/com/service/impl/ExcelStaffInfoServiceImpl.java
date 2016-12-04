@@ -1,11 +1,9 @@
 package com.service.impl;
 
-import com.alibaba.fastjson.JSONObject;
 import com.dao.DepartmentMapper;
 import com.dao.OaWtrSalaryMapper;
 import com.dao.StaffInfoMapper;
 import com.ddSdk.auth.AuthHelper;
-import com.ddSdk.utils.FileUtils;
 import com.dingtalk.open.client.ServiceFactory;
 import com.dingtalk.open.client.api.model.corp.CorpUserDetail;
 import com.dingtalk.open.client.api.service.corp.CorpUserService;
@@ -17,9 +15,6 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,97 +34,14 @@ public class ExcelStaffInfoServiceImpl implements IExcelStaffInfoService {
     @Autowired
     public OaWtrSalaryMapper oaWtrSalaryMapper;
 
-    /**
-     * 该方法实现对表头的校验，至于剩余内容的校验，在插入方法中完成
-     * 表头不符合规范或者发生了空指针异常，皆视为校验失败
+     /*
+     循环地从excel中插入每一行数据
+     如果StaffUserId相同，就更新数据
      */
-    public String validateExcelTitle(String fileDir) throws IOException {
-        File file = new File(fileDir);
-        InputStream inputStream = new FileInputStream(file);
-        // Java的规定，有了输入流才能按照格式读取excel文件
-        HSSFWorkbook hssfWorkbook = new HSSFWorkbook(inputStream);
-        // 得到当前文件的总表数
-        int sheetTotal = hssfWorkbook.getNumberOfSheets();
-
-        // 接下来对每一张表都进行操作
-        for (int sheetNo=0; sheetNo<sheetTotal; sheetNo++) {
-            HSSFSheet hssfSheet = hssfWorkbook.getSheetAt(sheetNo);
-            // 在表头校验方法中，我们只玩第一行！
-            HSSFRow hssfRow = hssfSheet.getRow(0);
-            try {
-                // int也是一个对象，大括号结束后会释放掉
-                int cellNo = 0;
-                // 这里用一个大胆的做法，先执行函数再自加。虽然++i听说效率更高，但想必也高不到哪里去
-                if (hssfRow.getCell(cellNo++).toString().equals("员工UserID")
-                        && hssfRow.getCell(cellNo++).toString().equals("部门")
-                        && hssfRow.getCell(cellNo++).toString().equals("职位")
-                        && hssfRow.getCell(cellNo++).toString().equals("姓名")
-                        && hssfRow.getCell(cellNo++).toString().equals("性别")
-                        && hssfRow.getCell(cellNo++).toString().equals("工号")
-                        && hssfRow.getCell(cellNo++).toString().equals("是否此部门主管(是/否)")
-                        && hssfRow.getCell(cellNo++).toString().equals("手机号")
-                        && hssfRow.getCell(cellNo++).toString().equals("邮箱")
-                        && hssfRow.getCell(cellNo++).toString().equals("分机号")
-                        && hssfRow.getCell(cellNo++).toString().equals("办公地点")
-                        && hssfRow.getCell(cellNo++).toString().equals("备注")
-                        && hssfRow.getCell(cellNo++).toString().equals("合同类型")
-                        && hssfRow.getCell(cellNo++).toString().equals("音达认证")
-                        && hssfRow.getCell(cellNo++).toString().equals("备注2")
-                        && hssfRow.getCell(cellNo++).toString().equals("常驻地")
-                        && hssfRow.getCell(cellNo++).toString().equals("社保地")
-                        && hssfRow.getCell(cellNo++).toString().equals("分公司")
-                        && hssfRow.getCell(cellNo++).toString().equals("户籍地")
-                        && hssfRow.getCell(cellNo++).toString().equals("身份证号")
-                        && hssfRow.getCell(cellNo++).toString().equals("网元")
-                        && hssfRow.getCell(cellNo++).toString().equals("RSO认证")
-                        && hssfRow.getCell(cellNo++).toString().equals("基本工资")
-                        && hssfRow.getCell(cellNo++).toString().equals("项目工资")
-                        && hssfRow.getCell(cellNo++).toString().equals("民族")
-                        && hssfRow.getCell(cellNo++).toString().equals("年龄")
-                        && hssfRow.getCell(cellNo++).toString().equals("最新合同")
-                        && hssfRow.getCell(cellNo++).toString().equals("最新合同起始日期")
-                        && hssfRow.getCell(cellNo++).toString().equals("最新合同结束日期")
-                        && hssfRow.getCell(cellNo++).toString().equals("入职时间")
-                        && hssfRow.getCell(cellNo++).toString().equals("工作年限")
-                        && hssfRow.getCell(cellNo++).toString().equals("工资卡")
-                        && hssfRow.getCell(cellNo++).toString().equals("毕业院校")
-                        && hssfRow.getCell(cellNo++).toString().equals("最高学历")
-                        && hssfRow.getCell(cellNo++).toString().equals("毕业日期")
-                        && hssfRow.getCell(cellNo++).toString().equals("报销卡")
-                        && hssfRow.getCell(cellNo++).toString().equals("项目")
-                        && hssfRow.getCell(cellNo++).toString().equals("订单")
-                        && hssfRow.getCell(cellNo++).toString().equals("员工状态")
-                        && hssfRow.getCell(cellNo++).toString().equals("在职状态")
-                        && hssfRow.getCell(cellNo++).toString().equals("离职日期")
-                        ) {
-                    // 如果验证通过了，就打印成功信息（额，要不然什么都不做的话显得不太好= =）
-                    // sheetNo+1必须用括号括起来，否则+1会被认为是字符串拼接，在此再次感叹Java语法的强大！
-                    System.out.println("表头校验成功！通过校验的表格页数 = "+(sheetNo+1));
-                }
-                else {
-                    return "表头名称错误，与模板不相符";
-                }
-            } catch (NullPointerException e) {
-                return "表头名称错误，与模板不相符";
-            }
-        }
-
-        return "表头校验成功！";
-    }
-
-    /**
-     * 循环地操作excel中的每一行数据
-     * 如果审批编号相同，就更新数据，如果为新数据则插入
-     * 为了方便，暂时将Map的格式统一为String+Object
-     */
-    public Map<String, Object> insertAndUpdate(String fileDir) throws IOException {
+    public Map<String, Object> insertAndUpdate(HSSFWorkbook hssfWorkbook) {
         Map<String, Object> mapInsert = new HashMap<String, Object>();
         List<StaffInfo> listFail = new ArrayList<StaffInfo>();
 
-        File file = new File(fileDir);
-        InputStream inputStream = new FileInputStream(file);
-        // Java的规定，有了输入流才能按照格式读取excel文件
-        HSSFWorkbook hssfWorkbook = new HSSFWorkbook(inputStream);
         // 得到当前文件的总表数
         int sheetTotal = hssfWorkbook.getNumberOfSheets();
 
@@ -192,13 +104,13 @@ public class ExcelStaffInfoServiceImpl implements IExcelStaffInfoService {
                 if (hssfRow.getCell(++cellNo) != null) staffInfo.setComment1(hssfRow.getCell(cellNo).toString());
                 if (hssfRow.getCell(++cellNo) != null) staffInfo.setContractType(hssfRow.getCell(cellNo).toString());
                 if (hssfRow.getCell(++cellNo) != null) staffInfo.setYindaIdentify(hssfRow.getCell(cellNo).toString());
-                if (hssfRow.getCell(++cellNo) != null) staffInfo.setComment2(hssfRow.getCell(cellNo).toString());
-                if (hssfRow.getCell(++cellNo) != null) staffInfo.setOrdinaryAddress(hssfRow.getCell(cellNo).toString());
-                if (hssfRow.getCell(++cellNo) != null) staffInfo.setSocialSecurityAddress(hssfRow.getCell(cellNo).toString());
-                if (hssfRow.getCell(++cellNo) != null) staffInfo.setBranchCompany(hssfRow.getCell(cellNo).toString());
-                if (hssfRow.getCell(++cellNo) != null) staffInfo.setHouseholdAddress(hssfRow.getCell(cellNo).toString());
-                if (hssfRow.getCell(++cellNo) != null) staffInfo.setIdNo(hssfRow.getCell(cellNo).toString());
                 if (hssfRow.getCell(++cellNo) != null) staffInfo.setNetUnit(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) staffInfo.setComment2(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) staffInfo.setIdNo(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) staffInfo.setHouseholdAddress(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) staffInfo.setBranchCompany(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) staffInfo.setSocialSecurityAddress(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) staffInfo.setOrdinaryAddress(hssfRow.getCell(cellNo).toString());
                 if (hssfRow.getCell(++cellNo) != null) staffInfo.setRsoIdentify(hssfRow.getCell(cellNo).toString());
                 if (hssfRow.getCell(++cellNo) != null) staffInfo.setBaseSalary(hssfRow.getCell(cellNo).toString());
                 if (hssfRow.getCell(++cellNo) != null) staffInfo.setItemSalary(hssfRow.getCell(cellNo).toString());
@@ -234,8 +146,8 @@ public class ExcelStaffInfoServiceImpl implements IExcelStaffInfoService {
                 }
 
                 /*
-                第5步，如果员工UserId为空的话，那么先插入钉钉
-                从钉钉里面返回一个员工UserId再进行后续操作
+                第5步，如果StaffUserId为空的话，那么先插入钉钉
+                从钉钉里面返回一个StaffUserId再进行后续操作
                  */
                 String staffUserId = null;
                 if (hssfRow.getCell(0) == null || hssfRow.getCell(0).toString().equals("")) {
@@ -249,13 +161,11 @@ public class ExcelStaffInfoServiceImpl implements IExcelStaffInfoService {
                 } else {
                     staffUserId = hssfRow.getCell(0).toString();
                 }
-
                 /*
-                第五步，检查数据库中是否有相同的审批编号，如果没有，说明是一个新的条目，执行插入操作
+                第6步，检查数据库中是否有相同的StaffUserId，如果没有，说明是一个新的条目，执行插入操作
                 之所以有失败的可能性，是因为单元格内容有可能超过数据库长度
                  */
                 StaffInfo staffInfo1 = staffInfoMapper.selectByPrimaryKey(staffUserId);
-
                 if (staffInfo1 == null) {
                     try {
                         staffInfoMapper.insert(staffInfo);
@@ -265,7 +175,7 @@ public class ExcelStaffInfoServiceImpl implements IExcelStaffInfoService {
                     }
                 }
                 /*
-                第六步，如果有相同的编号，说明数据库中有元数据
+                第7步，如果有相同的StaffUserId，说明数据库中有原数据
                 那么，就覆盖查询到的第一条数据
                 同样，也有失败的可能性
                  */
@@ -278,11 +188,22 @@ public class ExcelStaffInfoServiceImpl implements IExcelStaffInfoService {
                     }
                 }
 
+                // 第8步，检查一下对应的工号之前是否有离职数据，如果有，就删掉
+                String staffId = staffInfo.getStaffId();
+                StaffInfoExample example = new StaffInfoExample();
+                example.createCriteria().andStaffIdEqualTo(staffId).andWorkStateEqualTo("离职");
+                List<StaffInfo> list = staffInfoMapper.selectByExample(example);
+                // 不可能有多条离职信息，故只删除第1条
+                if (list.size() > 0){
+                    staffInfo1 = list.get(0);
+                    staffUserId = staffInfo1.getStaffUserId();
+                    staffInfoMapper.deleteByPrimaryKey(staffUserId);
+                }
+
                 // 到了这一步，说明插入或更新成功，数目自加！
                 successAmount++;
             }
         }
-
         // for循环之后，把成功数目和失败列表返回到map
         mapInsert.put("successAmount", successAmount);
         mapInsert.put("listFail", listFail);
@@ -297,7 +218,7 @@ public class ExcelStaffInfoServiceImpl implements IExcelStaffInfoService {
      */
     public List<StaffInfo> getAllStaff() {
         StaffInfoExample staffInfoExample = new StaffInfoExample();
-        staffInfoExample.createCriteria().andCellphoneIsNotNull();
+        staffInfoExample.createCriteria().andStaffUserIdIsNotNull();
         List<StaffInfo> list = staffInfoMapper.selectByExample(staffInfoExample);
         return list;
     }

@@ -44,7 +44,7 @@
     <div style="float: left; width: 50%">
         <p style="margin: 50px 0px 0px 50px">第一步：下载花名册模板</p>
         <a href="${ctx}/ExcelStaffInfo/downloadTemplate.do" class="file" style="margin: 20px 0px 0px 50px">下载文件
-            <input type="file" name="fileUpload" onchange="showFile()">
+            <input type="button" onchange="showFile()">
         </a>
         <p style="margin: 20px 0px 30px 50px">第二步：上传填写好的数据表</p>
     </div>
@@ -52,21 +52,19 @@
     <div style="float: right; width: 50%">
         <p style="margin: 50px 0px 0px 50px">导出部分：把花名册的数据库信息导出成Excel</p>
         <a href="${ctx}/ExcelStaffInfo/export.do" class="file" style="margin: 30px 0px 90px 50px">开始导出
-            <input type="button" name="fileUpload" onchange="showFile()">
+            <input type="button" onchange="showFile()">
         </a>
     </div>
 
     <div class="select-file">
-        <form action="${ctx}/ExcelStaffInfo/importExcel.do" enctype="multipart/form-data" method="post" onsubmit="return check()">
+        <form action="${ctx}/ExcelStaffInfo/import.do" enctype="multipart/form-data" method="post" onsubmit="return check()">
             <div class="select-details">
                 <a href="javascript:;" class="file">选择文件
-                    <input type="file" value="选择文件" id="fileInput" name="fileUpload" onchange="showFile()">
+                    <input type="file" id="fileInput" name="fileUpload" onchange="showFile()">
                 </a>
-                <div style="color:#888888;">
+                <div id="result" style="color:#888888;">
                     <div id="validateUpload">${validateUpload}</div>
                     <div class="gandiao">${validateTitle}</div>
-                    <div class="gandiao">${successAmount}</div>
-                    <div class="gandiao">${failAmount}</div>
                 </div>
             </div>
 
@@ -84,6 +82,7 @@
 </footer>
 
 <script>
+
 $(document).ready(function(){
     if ($("#validateUpload").text() == "") {
         $("#validateUpload").html("未选择任何文件");

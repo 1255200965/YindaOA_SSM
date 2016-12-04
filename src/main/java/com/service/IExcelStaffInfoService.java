@@ -1,8 +1,10 @@
 package com.service;
 
 import com.model.StaffInfo;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -11,11 +13,11 @@ import java.util.Map;
  */
 public interface IExcelStaffInfoService {
 
-    String validateExcelTitle(String fileDir) throws IOException;
-
-    Map<String, Object> insertAndUpdate(String fileDir) throws IOException;
+    /*
+     循环地从excel中插入每一行数据
+     如果StaffUserId相同，就更新数据
+     */
+    Map<String, Object> insertAndUpdate(HSSFWorkbook hssfWorkbook);
 
     List<StaffInfo> getAllStaff();
-
-    void address();
 }
