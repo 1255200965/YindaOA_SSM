@@ -12,7 +12,7 @@
 		<!-- 数据库链接URL、用户名、密码 -->
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
 				connectionURL="jdbc:mysql://121.40.29.241:3306/test"
-				userId="root" password="123456@.com" />
+				userId="root" password="yindatech@.com" />
 		<!-- 生成实体类的包名和位置 -->
 		<javaModelGenerator targetPackage="com.model" targetProject="src/main/java" />
 		<!-- 生成映射文件的包名和位置 -->
