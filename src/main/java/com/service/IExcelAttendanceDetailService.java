@@ -1,5 +1,7 @@
 package com.service;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+
 import java.io.IOException;
 import java.util.Map;
 
@@ -8,7 +10,5 @@ import java.util.Map;
  */
 public interface IExcelAttendanceDetailService {
 
-    String validateExcelTitle(String fileDir) throws IOException;
-
-    Map<String, Object> insertAndUpdate(String fileDir) throws IOException;
+    Map<String, Object> insertAndUpdate(HSSFWorkbook hssfWorkbook);
 }

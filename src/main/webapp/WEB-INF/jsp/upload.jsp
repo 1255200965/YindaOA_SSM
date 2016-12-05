@@ -92,10 +92,10 @@
     <div class="mod">
         <a data-bind="attr: { href: '<%=basePath%>AskLeaveExcel/homePage.do'}"><img src="../images/icon01.png" alt=""><p>请假申请</p></a>
         <a data-bind="attr: { href: '<%=basePath%>OvertimeExcel/homePage.do'}"><img src="../images/icon02.png" alt=""><p>加班申请</p></a>
-        <a data-bind="attr: { href: '<%=basePath%>SubwayExcel/homePage.do'}"><img src="../images/icon01.png" alt=""><p>公交地铁</p></a>
-        <a data-bind="attr: { href: '<%=basePath%>BusinessTripExcel/homePage.do'}"><img src="../images/icon02.png" alt=""><p>出差申请</p></a>
         <a data-bind="attr: { href: '<%=basePath%>ItemChangeExcel/homePage.do'}"><img src="../images/icon01.png" alt=""><p>项目信息变动</p></a>
-        <a data-bind="attr: { href: '<%=basePath%>YindaIdentifyExcel/homePage.do'}"><img src="../images/icon02.png" alt=""><p>音达认证</p></a>
+        <a data-bind="attr: { href: '<%=basePath%>ExcelAttendanceDetail/homePage.do'}"><img src="../images/icon02.png" alt=""><p>考勤明细导入</p></a>
+        <%--<a data-bind="attr: { href: '<%=basePath%>SubwayExcel/homePage.do'}"><img src="../images/icon01.png" alt=""><p>公交地铁</p></a>--%>
+        <%--<a data-bind="attr: { href: '<%=basePath%>YindaIdentifyExcel/homePage.do'}"><img src="../images/icon02.png" alt=""><p>音达认证</p></a>--%>
     </div>
 
 

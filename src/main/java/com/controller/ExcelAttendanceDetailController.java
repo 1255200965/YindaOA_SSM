@@ -1,8 +1,12 @@
 package com.controller;
 
+import com.model.StaffInfo;
 import com.model.YoAtteninfo;
 import com.service.IExcelAttendanceDetailService;
 import com.util.DateUtil;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -28,80 +33,109 @@ public class ExcelAttendanceDetailController {
 
     @RequestMapping("/navigator.do")
     public String navigator() {
-
         return "/upload";
     }
 
-    /**
-     * RequestParam中必须有值传进来，不然会报400错误。所以defaultValue是必须的！
+    /*
+    打开主页
      */
     @RequestMapping("/homePage.do")
     public String homePage( @RequestParam(value = "validateUpload", defaultValue = "") String validateUpload,
                             @RequestParam(value = "validateTitle", defaultValue = "") String validateTitle,
-                            @RequestParam(value = "successAmount", defaultValue = "") String successAmount,
-                            @RequestParam(value = "failAmount", defaultValue = "") String failAmount,
                             Model m) {
         m.addAttribute("validateUpload", validateUpload);
         m.addAttribute("validateTitle", validateTitle);
-        m.addAttribute("successAmount", successAmount);
-        m.addAttribute("failAmount", failAmount);
         return "excel/attendance_detail";
     }
 
-    /**
-     * 下载按钮和选择文件按钮都直接在前端完成了功能，不需要来这里调方法
-     * 只有上传文件按钮需要调用。该功能分两步，校验和导入
+    /*
+    导入功能
      */
-    @RequestMapping(value = "/importExcel.do", method = RequestMethod.POST)
-    public String importExcel( @RequestParam("fileUpload") MultipartFile fileUpload,
-                               HttpServletRequest request, RedirectAttributes ra) {
-        // 得到上传文件的原文件名
-        String myFileName = fileUpload.getOriginalFilename();
-        // 创建一个时间戳，用于给文件名添加一个唯一存在的后缀
-        String time = DateUtil.getCurrentTimeMillis();
-        // 用于保存的文件名
-        String saveName = time + "_" + myFileName;
-        // 保存路径，为根目录的路径加文件名。这里保存在根目录是因为存完就删
-        // 注：通过ServletContext可以得到Webroot下任意文件夹的绝对路径
-        String savePath = request.getSession().getServletContext().getRealPath("/") + saveName;
-
-        // 开始将传进来的文件按照新路径转存
+    @RequestMapping(value = "/import.do", method = RequestMethod.POST)
+    public String importExcel(@RequestParam("fileUpload") MultipartFile fileUpload, Model m, RedirectAttributes ra) {
+        // 第1步，从上传的文件中得到输入流
+        InputStream inputStream = null;
         try {
-            fileUpload.transferTo(new File(savePath));
+            inputStream = fileUpload.getInputStream();
             ra.addAttribute("validateUpload", "文件上传成功！");
-        } catch (IOException e) {
-            // 异常要在这一步处理，不要再在方法中向上抛出了，因为到顶了。。
+        } catch (Exception e) {
             ra.addAttribute("validateUpload", "文件上传失败，请检查联网状态");
             return "redirect:homePage.do";
         }
 
-        //=========文件上传成功后处理excel
+        // 第2步，从输入流中得到excel工作表
+        // Java的规定，有了输入流才能按照格式读取excel文件
+        HSSFWorkbook hssfWorkbook = null;
         try {
-            // 第一步，校验文件，不合格会直接在页面抛出错误
-            String validateTitle = iExcelAttendanceDetailService.validateExcelTitle(savePath);
-            ra.addAttribute("validateTitle", validateTitle);
-            if (validateTitle.contains("表头名称错误")) return "redirect:homePage.do";
-            // 第二步，添加文件到数据库，会返回成功的数量和失败的列表
-            Map<String, Object> mapInsert = iExcelAttendanceDetailService.insertAndUpdate(savePath);
-            String successAmount = mapInsert.get("successAmount").toString();
-            String successAmountPrint = "上传成功的条目数目为：" + successAmount;
-            ra.addAttribute("successAmount", successAmountPrint);
-            List<YoAtteninfo> listFail = (ArrayList<YoAtteninfo>)mapInsert.get("listFail");
-            int failAmonutInt = listFail.size();
-            String failAmountStr = String.valueOf(failAmonutInt);
-            String failAmountPrint = "上传失败的条目数目为：" + failAmountStr;
-            ra.addAttribute("failAmount", failAmountPrint);
+            // 猜想：有可能文件太大会爆掉，所以要try
+            hssfWorkbook = new HSSFWorkbook(inputStream);
         } catch (Exception e) {
-            e.getMessage();
-            String amountPrint = e.toString();
-            ra.addAttribute("successAmount", amountPrint);
-        } finally {
-            // 第三步，无论异常不异常，我都要把这个文件删除掉，因为已经创建成功了^_^
-            // 161108人生第一次用finally，表示很激动！
-            File fileDelete = new File(savePath);
-            fileDelete.delete();
+            ra.addAttribute("validateTitle", "文件输入流可能太大乃至爆掉了，请换个文件再试试吧！");
+            return "redirect:homePage.do";
         }
 
-        return "redirect:homePage.do";
+        // 第3步，对文件进行表头效验
+        String validateTitle = validateExcelTitle(hssfWorkbook);
+        if (!(validateTitle.contains("成功"))) {
+            // 如果失败了，把失败原因输出到页面
+            ra.addAttribute("validateTitle", validateTitle);
+            return "redirect:homePage.do";
+        }
+
+        // 第4步，添加文件到数据库
+        Map<String, Object> mapInsert = iExcelAttendanceDetailService.insertAndUpdate(hssfWorkbook);
+        String successAmount = mapInsert.get("successAmount").toString();
+        m.addAttribute("successAmount", successAmount);
+        List<YoAtteninfo> listFail = (ArrayList<YoAtteninfo>)mapInsert.get("listFail");
+        int failAmonutInt = listFail.size();
+        String failAmountStr = String.valueOf(failAmonutInt);
+        m.addAttribute("failAmount", failAmountStr);
+        m.addAttribute("listFail", listFail);
+
+        return "excel/attendance_detail_import";
+    }
+
+    /*
+    表头校验
+    表头不符合规范或者发生了空指针异常，皆视为校验失败
+    剩余内容的校验，在插入方法中完成
+     */
+    public String validateExcelTitle(HSSFWorkbook hssfWorkbook) {
+        // 得到当前文件的总表数
+        int sheetTotal = hssfWorkbook.getNumberOfSheets();
+
+        // 接下来只对第3张表的第3行进行校验
+        HSSFSheet hssfSheet = hssfWorkbook.getSheetAt(2);
+        HSSFRow hssfRow = hssfSheet.getRow(2);
+        try {
+            // int也是一个对象，大括号结束后会释放掉
+            int cellNo = 0;
+            // 这里用一个大胆的做法，先执行函数再自加。虽然++i听说效率更高，但想必也高不到哪里去
+            if (hssfRow.getCell(cellNo++).toString().equals("部门")
+                    && hssfRow.getCell(cellNo++).toString().equals("工号")
+                    && hssfRow.getCell(cellNo++).toString().equals("userId")
+                    && hssfRow.getCell(cellNo++).toString().equals("姓名")
+                    && hssfRow.getCell(cellNo++).toString().equals("考勤日期")
+                    && hssfRow.getCell(cellNo++).toString().equals("考勤时间")
+                    && hssfRow.getCell(cellNo++).toString().equals("打卡时间")
+                    && hssfRow.getCell(cellNo++).toString().equals("打卡结果")
+                    && hssfRow.getCell(cellNo++).toString().equals("打卡地址")
+                    && hssfRow.getCell(cellNo++).toString().equals("是否外勤")
+                    && hssfRow.getCell(cellNo++).toString().equals("备注")
+                    && hssfRow.getCell(cellNo++).toString().equals("打卡图片1")
+                    && hssfRow.getCell(cellNo++).toString().equals("打卡图片2")
+                    && hssfRow.getCell(cellNo++).toString().equals("打卡设备")
+                    && hssfRow.getCell(cellNo++).toString().equals("设备号")
+                    ) {
+                // 如果验证通过了，就打印成功信息（额，要不然什么都不做的话显得不太好= =）
+                System.out.println("表头校验成功！通过校验的表格页数 = "+3);
+            }
+            else {
+                return "第3张表的表头名称错误，与模板不相符";
+            }
+        } catch (NullPointerException e) {
+            return "第3张表的表头名称错误，与模板不相符";
+        }
+        return "表头校验成功！";
     }
 }
