@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -83,12 +84,18 @@ public class ExcelAttendanceDetailController {
         }
 
         // 第4步，添加文件到数据库
+        Date dateBegin = new Date();
         Map<String, Object> mapInsert = iExcelAttendanceDetailService.insertAndUpdate(hssfWorkbook);
         String successAmount = mapInsert.get("successAmount").toString();
         m.addAttribute("successAmount", successAmount);
         List<YoAtteninfo> listFail = (ArrayList<YoAtteninfo>)mapInsert.get("listFail");
         int failAmonutInt = listFail.size();
         String failAmountStr = String.valueOf(failAmonutInt);
+        Date dateEnd = new Date();
+        long interval = dateEnd.getTime() - dateBegin.getTime();
+        long minute = interval / 60000;
+        long second = (interval - minute * 60000) / 1000;
+        m.addAttribute("cost", minute+"分"+second+"秒");
         m.addAttribute("failAmount", failAmountStr);
         m.addAttribute("listFail", listFail);
 
