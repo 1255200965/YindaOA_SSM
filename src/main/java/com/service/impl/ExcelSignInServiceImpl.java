@@ -107,8 +107,7 @@ public class ExcelSignInServiceImpl implements IExcelSignInService {
             if (hssfRow.getCell(++cellNo) != null) yoSignIn.setSiImage9(image9);
 
             /*
-            第5步，如果工号，日期，时间都相同，就更新，避免重复插入
-            操作数据库如果失败，就进入错误列表
+            第5步，如果工号，日期，时间都相同，就直接下一条，即不成功也不失败
              */
             String staffId = yoSignIn.getSiStaffId();
             String date = yoSignIn.getSiDate();
@@ -118,16 +117,7 @@ public class ExcelSignInServiceImpl implements IExcelSignInService {
             List<YoSignIn> listSignIn = yoSignInMapper.selectByExample(yoSignInExample);
 
             if (listSignIn.size() != 0) {
-                YoSignIn yoSignInOld = listSignIn.get(0);
-                // 注意，只有从数据库里读出来的实体类才有sequenceNo
-                int sequenceNo = yoSignInOld.getSiSequenceNo();
-                yoSignIn.setSiSequenceNo(sequenceNo);
-                try {
-                    yoSignInMapper.updateByPrimaryKey(yoSignIn);
-                } catch (Exception e) {
-                    listFail.add(yoSignIn);
-                    continue;
-                }
+                continue;
             }
 
             // 第6步，如果不相同，就插入新数据
@@ -148,8 +138,6 @@ public class ExcelSignInServiceImpl implements IExcelSignInService {
         // for循环之后，把成功数目和失败列表返回到map
         mapInsert.put("successAmount", successAmount);
         mapInsert.put("listFail", listFail);
-        System.out.println("successAmount = "+successAmount);
-        System.out.println("listFail.size() = "+listFail.size());
         return mapInsert;
     }
 
