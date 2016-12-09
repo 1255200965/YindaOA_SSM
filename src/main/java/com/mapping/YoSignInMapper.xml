@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.YoSignInMapper">
+  <resultMap id="BaseResultMap" type="com.model.YoSignIn">
+    <id column="si_sequence_no" jdbcType="INTEGER" property="siSequenceNo" />
+    <result column="si_name" jdbcType="VARCHAR" property="siName" />
+    <result column="si_staff_id" jdbcType="VARCHAR" property="siStaffId" />
+    <result column="si_department" jdbcType="VARCHAR" property="siDepartment" />
+    <result column="si_complete_department" jdbcType="VARCHAR" property="siCompleteDepartment" />
+    <result column="si_job_position" jdbcType="VARCHAR" property="siJobPosition" />
+    <result column="si_date" jdbcType="VARCHAR" property="siDate" />
+    <result column="si_time" jdbcType="VARCHAR" property="siTime" />
+    <result column="si_longitude" jdbcType="VARCHAR" property="siLongitude" />
+    <result column="si_latitude" jdbcType="VARCHAR" property="siLatitude" />
+    <result column="si_address" jdbcType="VARCHAR" property="siAddress" />
+    <result column="si_complete_address" jdbcType="VARCHAR" property="siCompleteAddress" />
+    <result column="si_meet" jdbcType="VARCHAR" property="siMeet" />
+    <result column="si_comment" jdbcType="VARCHAR" property="siComment" />
+    <result column="si_cellphone_id" jdbcType="VARCHAR" property="siCellphoneId" />
+    <result column="si_image1" jdbcType="VARCHAR" property="siImage1" />
+    <result column="si_image2" jdbcType="VARCHAR" property="siImage2" />
+    <result column="si_image3" jdbcType="VARCHAR" property="siImage3" />
+    <result column="si_image4" jdbcType="VARCHAR" property="siImage4" />
+    <result column="si_image5" jdbcType="VARCHAR" property="siImage5" />
+    <result column="si_image6" jdbcType="VARCHAR" property="siImage6" />
+    <result column="si_image7" jdbcType="VARCHAR" property="siImage7" />
+    <result column="si_image8" jdbcType="VARCHAR" property="siImage8" />
+    <result column="si_image9" jdbcType="VARCHAR" property="siImage9" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    si_sequence_no, si_name, si_staff_id, si_department, si_complete_department, si_job_position, 
+    si_date, si_time, si_longitude, si_latitude, si_address, si_complete_address, si_meet, 
+    si_comment, si_cellphone_id, si_image1, si_image2, si_image3, si_image4, si_image5, 
+    si_image6, si_image7, si_image8, si_image9
+  </sql>
+  <select id="selectByExample" parameterType="com.model.YoSignInExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from yo_sign_in
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from yo_sign_in
+    where si_sequence_no = #{siSequenceNo,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from yo_sign_in
+    where si_sequence_no = #{siSequenceNo,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.model.YoSignIn">
+    insert into yo_sign_in (si_sequence_no, si_name, si_staff_id, 
+      si_department, si_complete_department, si_job_position, 
+      si_date, si_time, si_longitude, 
+      si_latitude, si_address, si_complete_address, 
+      si_meet, si_comment, si_cellphone_id, 
+      si_image1, si_image2, si_image3, 
+      si_image4, si_image5, si_image6, 
+      si_image7, si_image8, si_image9
+      )
+    values (#{siSequenceNo,jdbcType=INTEGER}, #{siName,jdbcType=VARCHAR}, #{siStaffId,jdbcType=VARCHAR}, 
+      #{siDepartment,jdbcType=VARCHAR}, #{siCompleteDepartment,jdbcType=VARCHAR}, #{siJobPosition,jdbcType=VARCHAR}, 
+      #{siDate,jdbcType=VARCHAR}, #{siTime,jdbcType=VARCHAR}, #{siLongitude,jdbcType=VARCHAR}, 
+      #{siLatitude,jdbcType=VARCHAR}, #{siAddress,jdbcType=VARCHAR}, #{siCompleteAddress,jdbcType=VARCHAR}, 
+      #{siMeet,jdbcType=VARCHAR}, #{siComment,jdbcType=VARCHAR}, #{siCellphoneId,jdbcType=VARCHAR}, 
+      #{siImage1,jdbcType=VARCHAR}, #{siImage2,jdbcType=VARCHAR}, #{siImage3,jdbcType=VARCHAR}, 
+      #{siImage4,jdbcType=VARCHAR}, #{siImage5,jdbcType=VARCHAR}, #{siImage6,jdbcType=VARCHAR}, 
+      #{siImage7,jdbcType=VARCHAR}, #{siImage8,jdbcType=VARCHAR}, #{siImage9,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.YoSignIn">
+    insert into yo_sign_in
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="siSequenceNo != null">
+        si_sequence_no,
+      </if>
+      <if test="siName != null">
+        si_name,
+      </if>
+      <if test="siStaffId != null">
+        si_staff_id,
+      </if>
+      <if test="siDepartment != null">
+        si_department,
+      </if>
+      <if test="siCompleteDepartment != null">
+        si_complete_department,
+      </if>
+      <if test="siJobPosition != null">
+        si_job_position,
+      </if>
+      <if test="siDate != null">
+        si_date,
+      </if>
+      <if test="siTime != null">
+        si_time,
+      </if>
+      <if test="siLongitude != null">
+        si_longitude,
+      </if>
+      <if test="siLatitude != null">
+        si_latitude,
+      </if>
+      <if test="siAddress != null">
+        si_address,
+      </if>
+      <if test="siCompleteAddress != null">
+        si_complete_address,
+      </if>
+      <if test="siMeet != null">
+        si_meet,
+      </if>
+      <if test="siComment != null">
+        si_comment,
+      </if>
+      <if test="siCellphoneId != null">
+        si_cellphone_id,
+      </if>
+      <if test="siImage1 != null">
+        si_image1,
+      </if>
+      <if test="siImage2 != null">
+        si_image2,
+      </if>
+      <if test="siImage3 != null">
+        si_image3,
+      </if>
+      <if test="siImage4 != null">
+        si_image4,
+      </if>
+      <if test="siImage5 != null">
+        si_image5,
+      </if>
+      <if test="siImage6 != null">
+        si_image6,
+      </if>
+      <if test="siImage7 != null">
+        si_image7,
+      </if>
+      <if test="siImage8 != null">
+        si_image8,
+      </if>
+      <if test="siImage9 != null">
+        si_image9,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="siSequenceNo != null">
+        #{siSequenceNo,jdbcType=INTEGER},
+      </if>
+      <if test="siName != null">
+        #{siName,jdbcType=VARCHAR},
+      </if>
+      <if test="siStaffId != null">
+        #{siStaffId,jdbcType=VARCHAR},
+      </if>
+      <if test="siDepartment != null">
+        #{siDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="siCompleteDepartment != null">
+        #{siCompleteDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="siJobPosition != null">
+        #{siJobPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="siDate != null">
+        #{siDate,jdbcType=VARCHAR},
+      </if>
+      <if test="siTime != null">
+        #{siTime,jdbcType=VARCHAR},
+      </if>
+      <if test="siLongitude != null">
+        #{siLongitude,jdbcType=VARCHAR},
+      </if>
+      <if test="siLatitude != null">
+        #{siLatitude,jdbcType=VARCHAR},
+      </if>
+      <if test="siAddress != null">
+        #{siAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="siCompleteAddress != null">
+        #{siCompleteAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="siMeet != null">
+        #{siMeet,jdbcType=VARCHAR},
+      </if>
+      <if test="siComment != null">
+        #{siComment,jdbcType=VARCHAR},
+      </if>
+      <if test="siCellphoneId != null">
+        #{siCellphoneId,jdbcType=VARCHAR},
+      </if>
+      <if test="siImage1 != null">
+        #{siImage1,jdbcType=VARCHAR},
+      </if>
+      <if test="siImage2 != null">
+        #{siImage2,jdbcType=VARCHAR},
+      </if>
+      <if test="siImage3 != null">
+        #{siImage3,jdbcType=VARCHAR},
+      </if>
+      <if test="siImage4 != null">
+        #{siImage4,jdbcType=VARCHAR},
+      </if>
+      <if test="siImage5 != null">
+        #{siImage5,jdbcType=VARCHAR},
+      </if>
+      <if test="siImage6 != null">
+        #{siImage6,jdbcType=VARCHAR},
+      </if>
+      <if test="siImage7 != null">
+        #{siImage7,jdbcType=VARCHAR},
+      </if>
+      <if test="siImage8 != null">
+        #{siImage8,jdbcType=VARCHAR},
+      </if>
+      <if test="siImage9 != null">
+        #{siImage9,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.YoSignIn">
+    update yo_sign_in
+    <set>
+      <if test="siName != null">
+        si_name = #{siName,jdbcType=VARCHAR},
+      </if>
+      <if test="siStaffId != null">
+        si_staff_id = #{siStaffId,jdbcType=VARCHAR},
+      </if>
+      <if test="siDepartment != null">
+        si_department = #{siDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="siCompleteDepartment != null">
+        si_complete_department = #{siCompleteDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="siJobPosition != null">
+        si_job_position = #{siJobPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="siDate != null">
+        si_date = #{siDate,jdbcType=VARCHAR},
+      </if>
+      <if test="siTime != null">
+        si_time = #{siTime,jdbcType=VARCHAR},
+      </if>
+      <if test="siLongitude != null">
+        si_longitude = #{siLongitude,jdbcType=VARCHAR},
+      </if>
+      <if test="siLatitude != null">
+        si_latitude = #{siLatitude,jdbcType=VARCHAR},
+      </if>
+      <if test="siAddress != null">
+        si_address = #{siAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="siCompleteAddress != null">
+        si_complete_address = #{siCompleteAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="siMeet != null">
+        si_meet = #{siMeet,jdbcType=VARCHAR},
+      </if>
+      <if test="siComment != null">
+        si_comment = #{siComment,jdbcType=VARCHAR},
+      </if>
+      <if test="siCellphoneId != null">
+        si_cellphone_id = #{siCellphoneId,jdbcType=VARCHAR},
+      </if>
+      <if test="siImage1 != null">
+        si_image1 = #{siImage1,jdbcType=VARCHAR},
+      </if>
+      <if test="siImage2 != null">
+        si_image2 = #{siImage2,jdbcType=VARCHAR},
+      </if>
+      <if test="siImage3 != null">
+        si_image3 = #{siImage3,jdbcType=VARCHAR},
+      </if>
+      <if test="siImage4 != null">
+        si_image4 = #{siImage4,jdbcType=VARCHAR},
+      </if>
+      <if test="siImage5 != null">
+        si_image5 = #{siImage5,jdbcType=VARCHAR},
+      </if>
+      <if test="siImage6 != null">
+        si_image6 = #{siImage6,jdbcType=VARCHAR},
+      </if>
+      <if test="siImage7 != null">
+        si_image7 = #{siImage7,jdbcType=VARCHAR},
+      </if>
+      <if test="siImage8 != null">
+        si_image8 = #{siImage8,jdbcType=VARCHAR},
+      </if>
+      <if test="siImage9 != null">
+        si_image9 = #{siImage9,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where si_sequence_no = #{siSequenceNo,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.YoSignIn">
+    update yo_sign_in
+    set si_name = #{siName,jdbcType=VARCHAR},
+      si_staff_id = #{siStaffId,jdbcType=VARCHAR},
+      si_department = #{siDepartment,jdbcType=VARCHAR},
+      si_complete_department = #{siCompleteDepartment,jdbcType=VARCHAR},
+      si_job_position = #{siJobPosition,jdbcType=VARCHAR},
+      si_date = #{siDate,jdbcType=VARCHAR},
+      si_time = #{siTime,jdbcType=VARCHAR},
+      si_longitude = #{siLongitude,jdbcType=VARCHAR},
+      si_latitude = #{siLatitude,jdbcType=VARCHAR},
+      si_address = #{siAddress,jdbcType=VARCHAR},
+      si_complete_address = #{siCompleteAddress,jdbcType=VARCHAR},
+      si_meet = #{siMeet,jdbcType=VARCHAR},
+      si_comment = #{siComment,jdbcType=VARCHAR},
+      si_cellphone_id = #{siCellphoneId,jdbcType=VARCHAR},
+      si_image1 = #{siImage1,jdbcType=VARCHAR},
+      si_image2 = #{siImage2,jdbcType=VARCHAR},
+      si_image3 = #{siImage3,jdbcType=VARCHAR},
+      si_image4 = #{siImage4,jdbcType=VARCHAR},
+      si_image5 = #{siImage5,jdbcType=VARCHAR},
+      si_image6 = #{siImage6,jdbcType=VARCHAR},
+      si_image7 = #{siImage7,jdbcType=VARCHAR},
+      si_image8 = #{siImage8,jdbcType=VARCHAR},
+      si_image9 = #{siImage9,jdbcType=VARCHAR}
+    where si_sequence_no = #{siSequenceNo,jdbcType=INTEGER}
+  </update>
+</mapper>

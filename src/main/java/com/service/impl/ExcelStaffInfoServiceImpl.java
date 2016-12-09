@@ -131,6 +131,8 @@ public class ExcelStaffInfoServiceImpl implements IExcelStaffInfoService {
                 if (hssfRow.getCell(++cellNo) != null) staffInfo.setWorkState(hssfRow.getCell(cellNo).toString());
                 if (hssfRow.getCell(++cellNo) != null) staffInfo.setLeaveDate(hssfRow.getCell(cellNo).toString());
 
+                System.out.println(staffInfo.getIdNo());
+                System.out.println(staffInfo.getEmail());
                 /*
                 第4步，判断部门，姓名，工号，手机号这4个字段是否为空
                 如果为空的话，实体对象进入失败列表

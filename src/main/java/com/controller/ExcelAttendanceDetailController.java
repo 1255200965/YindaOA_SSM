@@ -1,9 +1,7 @@
 package com.controller;
 
-import com.model.StaffInfo;
 import com.model.YoAtteninfo;
 import com.service.IExcelAttendanceDetailService;
-import com.util.DateUtil;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -16,9 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
@@ -31,11 +26,6 @@ public class ExcelAttendanceDetailController {
 
     @Autowired
     private IExcelAttendanceDetailService iExcelAttendanceDetailService;
-
-    @RequestMapping("/navigator.do")
-    public String navigator() {
-        return "/upload";
-    }
 
     /*
     打开主页
