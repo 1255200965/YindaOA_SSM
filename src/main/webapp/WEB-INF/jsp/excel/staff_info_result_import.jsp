@@ -21,12 +21,12 @@
     <h2 class="small_title">提交不成功的信息列表：</h2>
     <table>
         <tr>
-            <th>员工UserID</th>
-            <th>部门</th>
-            <th>姓名</th>
-            <th>工号</th>
-            <th>手机号</th>
-            <th>身份证号</th>
+            <th style="width: 15%">员工UserID</th>
+            <th style="width: 30%">部门</th>
+            <th style="width: 10%">姓名</th>
+            <th style="width: 10%">工号</th>
+            <th style="width: 17%">手机号</th>
+            <th style="width: 18%">身份证号</th>
         </tr>
         <c:forEach var="item" items="${listFail}">
             <tr>

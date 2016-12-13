@@ -12,7 +12,7 @@ table {
     /*设定table内的边框全部折叠收缩为一条*/
     border-collapse: collapse;
     border: 1px solid blue;
-    width: 50%;
+    width: 800px;
 }
 
 .import {
