@@ -15,19 +15,19 @@
 <head>
     <title>通讯录查看</title>
     <%--<link type="text/css" rel="stylesheet" href="../stylesheets/style.css" />--%>
-    <link rel="stylesheet" href="../stylesheets/reset.css">
+    <link rel="stylesheet" href="<%=path%>/stylesheets/reset.css">
 
-    <link href="../stylesheets/bootstrap.min.css" rel="stylesheet" />
-    <link href="../stylesheets/bootstrap-theme.min.css" rel="stylesheet" />
-    <link href="../stylesheets/bootstrap-treeview.min.css" rel="stylesheet" />
-    <link href="../stylesheets/shujutongji.css" rel="stylesheet" />
-    <link href="../stylesheets/ddcss.css" rel="stylesheet" />
-    <link rel="stylesheet" href="../stylesheets/header.css">
+    <link href="<%=path%>/stylesheets/bootstrap.min.css" rel="stylesheet" />
+    <link href="<%=path%>/stylesheets/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="<%=path%>/stylesheets/bootstrap-treeview.min.css" rel="stylesheet" />
+    <link href="<%=path%>/stylesheets/shujutongji.css" rel="stylesheet" />
+    <link href="<%=path%>/stylesheets/ddcss.css" rel="stylesheet" />
+    <link rel="stylesheet" href="<%=path%>/stylesheets/header.css">
 
-    <script type="text/javascript" src="../javascripts/jquery-1.10.2.js"></script>
-    <script type="text/javascript" src="../javascripts/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../javascripts/bootstrap-treeview.min.js"></script>
-    <script src="../javascripts//knockout-3.4.0rc.js"></script>
+    <script type="text/javascript" src="<%=path%>/javascripts/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="<%=path%>/javascripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="<%=path%>/javascripts/bootstrap-treeview.min.js"></script>
+    <script src="<%=path%>/javascripts//knockout-3.4.0rc.js"></script>
     <style>
         *{box-sizing: content-box;-webkit-box-sizing: content-box;}
         .c_box{min-width:1350px;width:100%;}
@@ -94,7 +94,7 @@
                         type:"post",
                         headers: { 'Content-Type': 'application/json' },
                         dataType: 'json',
-                        url:"../userinfo/login.do",
+                        url:"<%=path%>/userinfo/login.do",
                         error:function(data){
                             alert("出错了！！:"+data.msg);
                         },
@@ -118,7 +118,7 @@
                         type:"post",
                         headers: { 'Content-Type': 'application/json' },
                         dataType: 'json',
-                        url:"../userinfo/query.do",
+                        url:"<%=path%>/userinfo/query.do",
                         error:function(data){
                             alert("出错了！！:"+data.msg);
                         },
@@ -142,7 +142,7 @@
                         type:"post",
                         headers: { 'Content-Type': 'application/json' },
                         dataType: 'json',
-                        url:"../userinfo/adduser.do",
+                        url:"<%=path%>/userinfo/adduser.do",
                         error:function(data){
                             alert("出错了！！:"+data.msg);
                         },
@@ -162,7 +162,7 @@
                     type:"post",
                     headers: { 'Content-Type': 'application/json' },
                     dataType: 'json',
-                    url:"../userinfo/updateuser.do",
+                    url:"<%=path%>/userinfo/updateuser.do",
                     error:function(data){
                         alert("出错了！！:"+data.msg);
                     },
@@ -191,7 +191,7 @@
                         type: "post",
                         data:JSON.stringify(item),
                         contentType: "text/json",
-                        url: "../userinfo/delete.do",
+                        url: "<%=path%>/userinfo/delete.do",
                         headers: { 'Content-Type': 'application/json' },
                         error:function(data){
                             alert("出错了！！:"+data.msg);
@@ -257,7 +257,7 @@
                         type: "post",
                         async: false,
                         contentType: "text/json",
-                        url: "../department/GetDepList.do",
+                        url: "<%=path%>/department/GetDepList.do",
                         headers: { 'Content-Type': 'application/json' },
                         error:function(data){
                             alert("出错了！！:"+data.msg);
@@ -352,7 +352,7 @@
         <header>
             <div class="head-cont">
                 <div class="head-left fl">
-                    <img src="../images/logo.png" height="35" width="50" alt="">
+                    <img src="<%=path%>/images/logo.png" height="35" width="50" alt="">
                     人事管理系统
                 </div>
                 <div class="head-nav fl" id="h-nav">
@@ -366,7 +366,7 @@
                 </div>
                 <div class="head-right fl">
                     欢迎您！管理员&nbsp;&nbsp;&nbsp;
-                    <a href=""><img src="../images/guanbi.png" height="22" width="22" alt=""></a>
+                    <a href=""><img src="<%=path%>/images/guanbi.png" height="22" width="22" alt=""></a>
                 </div>
             </div>
         </header>

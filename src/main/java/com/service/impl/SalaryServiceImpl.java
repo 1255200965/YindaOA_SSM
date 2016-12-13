@@ -28,17 +28,19 @@ public class SalaryServiceImpl implements ISalaryService {
     }
 
 
-    public List<YoSalary> searchYoSalaryByEntity(YoSalary yoSalary) {
-        return yoSalaryMapper.selectAllUser(yoSalary);
+    public List<YoSalary> searchYoSalaryByEntity(YoSalaryExample example) {
+        return yoSalaryMapper.selectByExample(example);
+    }
+
+    public List<YoSalary> selectByExample(YoSalaryExample example){
+        return yoSalaryMapper.selectByExample(example);
     }
 
 
-
-
 //    @Override
-//    public int updateStaffByID(YoSalary yoSalaryid) {
-//        return usermapper.updateByPrimaryKey(yoSalaryid);
-//    }
+    public int updateByPrimaryKey(YoSalary yoSalaryid) {
+       return yoSalaryMapper.updateByPrimaryKey(yoSalaryid);
+    }
 //
 //    @Override
 //    public List<YoSalary> searchYoSalaryByEntity(YoSalary yoSalary) {

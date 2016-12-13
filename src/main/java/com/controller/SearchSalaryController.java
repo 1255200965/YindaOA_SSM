@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.model.StaffInfo;
 import com.model.YoAttendance;
 import com.model.YoUserinfosalary;
+import com.model.YoUserinfosalaryExample;
 import com.service.IAttendanceService;
 import com.service.IStaffInfoService;
 import com.service.IUserInfoSalaryService;
@@ -28,6 +29,7 @@ import java.util.Map;
 
 /**
  * Created by ma on 2016/10/17.
+ * 此方法是奖金生成页面的controller
  */
 @Controller
 @RequestMapping("/userinfosalary")
@@ -43,25 +45,40 @@ public class SearchSalaryController {
      */
     @RequestMapping(value = "/select.do", method = RequestMethod.POST)
     public @ResponseBody Map<String,Object> select(@RequestBody YoUserinfosalary user, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        List<YoUserinfosalary> list = userInfoService.selectSalary(user);
+        YoUserinfosalaryExample example = new YoUserinfosalaryExample();
+        YoUserinfosalaryExample.Criteria criteria1 = example.createCriteria();
+        if (user.getName()!="") criteria1.andNameEqualTo(user.getName());
+        if (user.getSalarydate()!="") criteria1.andSalarydateEqualTo(user.getSalarydate());
+        if (user.getUserid()!="") criteria1.andSalaryidEqualTo(user.getSalaryid());
+        List<YoUserinfosalary> list = userInfoService.selectByExample(example);
+
         Map<String,Object> map = new HashMap<String,Object>();
         map.put("usertest",list);
         if(list.size() != 0){
             map.put("msg", "成功");
         }else{
+//    修改用户工资信息
             map.put("msg", "查询结果为空");
         }
         return map;
     }
 
 
-//    修改用户工资信息
-    @RequestMapping(value = "/updateuser.do", method = RequestMethod.POST)
-    public @ResponseBody Map<String,Object> updateuser(@RequestBody YoUserinfosalary user, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    @RequestMapping(value = "/updatesalary.do", method = RequestMethod.POST)
+    public @ResponseBody Map<String,Object> updateuser(@RequestBody YoUserinfosalary totalSum, HttpServletRequest request, HttpServletResponse response) throws IOException {
         Map<String,Object> map = new HashMap<String,Object>();
-        double caclTotalSalary=user.getTotalsalary()+ user.getUserbonus();
-        user.setTotalsalary(caclTotalSalary);//ok,
-        int result = userInfoService.updateByUserSalary(user);
+        //重新计算工资
+        if (totalSum.getTaskbaseadd() == null) {
+            totalSum.setTaskbaseadd(0.0);
+        }
+        if (totalSum.getTimebaseadd() == null) {
+            totalSum.setTimebaseadd(0.0);
+        }
+        //totalSum.setSubtotal(totalSum.getAttendancesalary() + totalSum.getLeavesalary() + totalSum.getAllowance() + totalSum.getWorksalary() + totalSum.getTrafficsalary());
+        totalSum.setTotalsalary(totalSum.getSubtotal() - totalSum.getSocialdecase() + totalSum.getTimesalary() + totalSum.getTasksalary() + totalSum.getUserbonus() + totalSum.getTimebaseadd() + totalSum.getTaskbaseadd());
+        totalSum.setRealsalary(totalSum.getTotalsalary() - totalSum.getTax());
+
+        int result = userInfoService.updateByUserSalary(totalSum);
 
         if(result != 0){
             map.put("msg", "更新成功");

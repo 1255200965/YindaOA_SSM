@@ -18,14 +18,10 @@ import java.util.List;
 public class UserInfoSalaryServiceImpl implements IUserInfoSalaryService {
     @Autowired
     public YoUserinfosalaryMapper userMapper;
-    @Override
-    public List<YoUserinfosalary> selectByExample() {
-        return null;
-    }
 
     @Override
-    public List<YoUserinfosalary> selectSalary(YoUserinfosalary record) {
-        return userMapper.selectSalary(record);
+    public List<YoUserinfosalary> selectSalary(YoUserinfosalaryExample record) {
+        return userMapper.selectByExample(record);
     }
 
     @Override
@@ -47,23 +43,22 @@ public class UserInfoSalaryServiceImpl implements IUserInfoSalaryService {
 
     @Override
     public int updateByUserSalary(YoUserinfosalary record) {
-        int result=userMapper.updateByUserSalary(record);
+        int result=userMapper.updateByPrimaryKey(record);
         return result;
     }
 
 
     public List<YoUserinfosalary> searchUserInfoByEntity(YoUserinfosalary yo) {
-        Integer sid = yo.getSid();
+        String staffid = yo.getSalaryid();
         String name = yo.getName();
         String depart = yo.getDepartment();
-        String depart2 = "%"+depart+"%";
 
         YoUserinfosalaryExample staffInfoExample = new YoUserinfosalaryExample();
         YoUserinfosalaryExample.Criteria criteria = staffInfoExample.createCriteria();
-        if (sid!=null) criteria.andSidEqualTo(sid);
+        if (staffid!=null) criteria.andSalaryidEqualTo(staffid);
         if (name!=null) criteria.andNameEqualTo(name);
-        if (depart2!=null) criteria.andDepartmentLike(depart2);
-        staffInfoExample.or(criteria);
+        if (depart!=null) criteria.andDepartmentEqualTo(depart);
+
 
         List<YoUserinfosalary> list = userMapper.selectByExample(staffInfoExample);
         return list;

@@ -27,7 +27,10 @@ public class treeModelGenerator {
             else
             {
                 TreeModel parent = FindClassParent(result,pid);
-                if (parent != null) parent.nodes.add(tm);
+                if (parent != null) {
+                    tm.setName(parent.getName() + '-' +temp.getDepName());
+                    parent.nodes.add(tm);
+                }
             }
         }
         return result;

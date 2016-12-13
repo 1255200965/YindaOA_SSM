@@ -23,14 +23,14 @@ import java.util.List;
 @Component
 public class QuartzController {
     //星期一早上打开
-    @Scheduled(cron = "0 30 01 ? * MON")
+    @Scheduled(cron = "0 30 21 ? * SUN")
     public  void start(){
         System.out.println("考勤任务正在执行中。。。。星期一早上01:30打开考勤");
         System.out.println("考勤星期一到星期五可见");
         AttendanceShow();
     }
     //星期五晚上关闭
-    @Scheduled(cron = "0 30 23 ? * FRI")
+    @Scheduled(cron = "0 30 01 ? * SAT")
     public void one() {
         System.out.println("考勤任务正在执行中。。。。星期五晚上23:50关闭考勤");
         System.out.println("考勤星期一到星期五可见");
@@ -38,7 +38,7 @@ public class QuartzController {
     }
 
     //星期六签到打开，
-    @Scheduled(cron = "0 35 23 ? * FRI")
+    @Scheduled(cron = "0 30 21 ? * FRI")
     public void two() {
         System.out.println("考勤任务正在执行中。。。。星期六早上01:10打开签到");
         System.out.println("签到星期六到星期天可见");
@@ -46,13 +46,31 @@ public class QuartzController {
     }
 
     //    星期天晚上23：50---签到关闭
-    @Scheduled(cron = "0 50 23 ? * SUN")
+    @Scheduled(cron = "0 30 01 ? * MON")
     public void job2() {
         System.out.println("签到任务正在执行中。。。。星期天的晚上23：50关闭签到");
         System.out.println("签到星期六到星期天可见");
         SignStop();
     }
+    //    星期天晚上23：30---签到关闭
+    @Scheduled(cron = "0 30 21 ? * SAT")
+    public void job3() {
+        System.out.println("签到任务正在执行中。。。。星期天的晚上23：50关闭签到");
+        System.out.println("签到星期六到星期天可见");
 
+
+        JSONObject json = new JSONObject();
+        List<String> userid=new ArrayList<String>();
+        json.put("agentId", 46157387);
+        json.put("isHidden",true);
+        JSONObject reponseJson = null;
+        try {
+            String url = "https://oapi.dingtalk.com/microapp/set_visible_scopes?access_token=" +  AuthHelper.getAccessToken();
+            reponseJson = HttpHelper.httpPost(url, json);
+        } catch (OApiException e) {
+            e.printStackTrace();
+        }
+    }
 
     //考勤打开
     public static String AttendanceShow() {

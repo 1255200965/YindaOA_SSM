@@ -1282,62 +1282,52 @@ public class YoUserinfosalaryExample {
             return (Criteria) this;
         }
 
-        public Criteria andAllowanceEqualTo(String value) {
+        public Criteria andAllowanceEqualTo(Double value) {
             addCriterion("allowance =", value, "allowance");
             return (Criteria) this;
         }
 
-        public Criteria andAllowanceNotEqualTo(String value) {
+        public Criteria andAllowanceNotEqualTo(Double value) {
             addCriterion("allowance <>", value, "allowance");
             return (Criteria) this;
         }
 
-        public Criteria andAllowanceGreaterThan(String value) {
+        public Criteria andAllowanceGreaterThan(Double value) {
             addCriterion("allowance >", value, "allowance");
             return (Criteria) this;
         }
 
-        public Criteria andAllowanceGreaterThanOrEqualTo(String value) {
+        public Criteria andAllowanceGreaterThanOrEqualTo(Double value) {
             addCriterion("allowance >=", value, "allowance");
             return (Criteria) this;
         }
 
-        public Criteria andAllowanceLessThan(String value) {
+        public Criteria andAllowanceLessThan(Double value) {
             addCriterion("allowance <", value, "allowance");
             return (Criteria) this;
         }
 
-        public Criteria andAllowanceLessThanOrEqualTo(String value) {
+        public Criteria andAllowanceLessThanOrEqualTo(Double value) {
             addCriterion("allowance <=", value, "allowance");
             return (Criteria) this;
         }
 
-        public Criteria andAllowanceLike(String value) {
-            addCriterion("allowance like", value, "allowance");
-            return (Criteria) this;
-        }
-
-        public Criteria andAllowanceNotLike(String value) {
-            addCriterion("allowance not like", value, "allowance");
-            return (Criteria) this;
-        }
-
-        public Criteria andAllowanceIn(List<String> values) {
+        public Criteria andAllowanceIn(List<Double> values) {
             addCriterion("allowance in", values, "allowance");
             return (Criteria) this;
         }
 
-        public Criteria andAllowanceNotIn(List<String> values) {
+        public Criteria andAllowanceNotIn(List<Double> values) {
             addCriterion("allowance not in", values, "allowance");
             return (Criteria) this;
         }
 
-        public Criteria andAllowanceBetween(String value1, String value2) {
+        public Criteria andAllowanceBetween(Double value1, Double value2) {
             addCriterion("allowance between", value1, value2, "allowance");
             return (Criteria) this;
         }
 
-        public Criteria andAllowanceNotBetween(String value1, String value2) {
+        public Criteria andAllowanceNotBetween(Double value1, Double value2) {
             addCriterion("allowance not between", value1, value2, "allowance");
             return (Criteria) this;
         }
@@ -1402,73 +1392,63 @@ public class YoUserinfosalaryExample {
             return (Criteria) this;
         }
 
-        public Criteria andTaskIsNull() {
-            addCriterion("task is null");
+        public Criteria andTimebaseaddIsNull() {
+            addCriterion("timebaseAdd is null");
             return (Criteria) this;
         }
 
-        public Criteria andTaskIsNotNull() {
-            addCriterion("task is not null");
+        public Criteria andTimebaseaddIsNotNull() {
+            addCriterion("timebaseAdd is not null");
             return (Criteria) this;
         }
 
-        public Criteria andTaskEqualTo(String value) {
-            addCriterion("task =", value, "task");
+        public Criteria andTimebaseaddEqualTo(Double value) {
+            addCriterion("timebaseAdd =", value, "timebaseadd");
             return (Criteria) this;
         }
 
-        public Criteria andTaskNotEqualTo(String value) {
-            addCriterion("task <>", value, "task");
+        public Criteria andTimebaseaddNotEqualTo(Double value) {
+            addCriterion("timebaseAdd <>", value, "timebaseadd");
             return (Criteria) this;
         }
 
-        public Criteria andTaskGreaterThan(String value) {
-            addCriterion("task >", value, "task");
+        public Criteria andTimebaseaddGreaterThan(Double value) {
+            addCriterion("timebaseAdd >", value, "timebaseadd");
             return (Criteria) this;
         }
 
-        public Criteria andTaskGreaterThanOrEqualTo(String value) {
-            addCriterion("task >=", value, "task");
+        public Criteria andTimebaseaddGreaterThanOrEqualTo(Double value) {
+            addCriterion("timebaseAdd >=", value, "timebaseadd");
             return (Criteria) this;
         }
 
-        public Criteria andTaskLessThan(String value) {
-            addCriterion("task <", value, "task");
+        public Criteria andTimebaseaddLessThan(Double value) {
+            addCriterion("timebaseAdd <", value, "timebaseadd");
             return (Criteria) this;
         }
 
-        public Criteria andTaskLessThanOrEqualTo(String value) {
-            addCriterion("task <=", value, "task");
+        public Criteria andTimebaseaddLessThanOrEqualTo(Double value) {
+            addCriterion("timebaseAdd <=", value, "timebaseadd");
             return (Criteria) this;
         }
 
-        public Criteria andTaskLike(String value) {
-            addCriterion("task like", value, "task");
+        public Criteria andTimebaseaddIn(List<Double> values) {
+            addCriterion("timebaseAdd in", values, "timebaseadd");
             return (Criteria) this;
         }
 
-        public Criteria andTaskNotLike(String value) {
-            addCriterion("task not like", value, "task");
+        public Criteria andTimebaseaddNotIn(List<Double> values) {
+            addCriterion("timebaseAdd not in", values, "timebaseadd");
             return (Criteria) this;
         }
 
-        public Criteria andTaskIn(List<String> values) {
-            addCriterion("task in", values, "task");
+        public Criteria andTimebaseaddBetween(Double value1, Double value2) {
+            addCriterion("timebaseAdd between", value1, value2, "timebaseadd");
             return (Criteria) this;
         }
 
-        public Criteria andTaskNotIn(List<String> values) {
-            addCriterion("task not in", values, "task");
-            return (Criteria) this;
-        }
-
-        public Criteria andTaskBetween(String value1, String value2) {
-            addCriterion("task between", value1, value2, "task");
-            return (Criteria) this;
-        }
-
-        public Criteria andTaskNotBetween(String value1, String value2) {
-            addCriterion("task not between", value1, value2, "task");
+        public Criteria andTimebaseaddNotBetween(Double value1, Double value2) {
+            addCriterion("timebaseAdd not between", value1, value2, "timebaseadd");
             return (Criteria) this;
         }
 
@@ -1532,63 +1512,63 @@ public class YoUserinfosalaryExample {
             return (Criteria) this;
         }
 
-        public Criteria andBusalaryIsNull() {
-            addCriterion("busalary is null");
+        public Criteria andTaskbaseaddIsNull() {
+            addCriterion("taskbaseAdd is null");
             return (Criteria) this;
         }
 
-        public Criteria andBusalaryIsNotNull() {
-            addCriterion("busalary is not null");
+        public Criteria andTaskbaseaddIsNotNull() {
+            addCriterion("taskbaseAdd is not null");
             return (Criteria) this;
         }
 
-        public Criteria andBusalaryEqualTo(Double value) {
-            addCriterion("busalary =", value, "busalary");
+        public Criteria andTaskbaseaddEqualTo(Double value) {
+            addCriterion("taskbaseAdd =", value, "taskbaseadd");
             return (Criteria) this;
         }
 
-        public Criteria andBusalaryNotEqualTo(Double value) {
-            addCriterion("busalary <>", value, "busalary");
+        public Criteria andTaskbaseaddNotEqualTo(Double value) {
+            addCriterion("taskbaseAdd <>", value, "taskbaseadd");
             return (Criteria) this;
         }
 
-        public Criteria andBusalaryGreaterThan(Double value) {
-            addCriterion("busalary >", value, "busalary");
+        public Criteria andTaskbaseaddGreaterThan(Double value) {
+            addCriterion("taskbaseAdd >", value, "taskbaseadd");
             return (Criteria) this;
         }
 
-        public Criteria andBusalaryGreaterThanOrEqualTo(Double value) {
-            addCriterion("busalary >=", value, "busalary");
+        public Criteria andTaskbaseaddGreaterThanOrEqualTo(Double value) {
+            addCriterion("taskbaseAdd >=", value, "taskbaseadd");
             return (Criteria) this;
         }
 
-        public Criteria andBusalaryLessThan(Double value) {
-            addCriterion("busalary <", value, "busalary");
+        public Criteria andTaskbaseaddLessThan(Double value) {
+            addCriterion("taskbaseAdd <", value, "taskbaseadd");
             return (Criteria) this;
         }
 
-        public Criteria andBusalaryLessThanOrEqualTo(Double value) {
-            addCriterion("busalary <=", value, "busalary");
+        public Criteria andTaskbaseaddLessThanOrEqualTo(Double value) {
+            addCriterion("taskbaseAdd <=", value, "taskbaseadd");
             return (Criteria) this;
         }
 
-        public Criteria andBusalaryIn(List<Double> values) {
-            addCriterion("busalary in", values, "busalary");
+        public Criteria andTaskbaseaddIn(List<Double> values) {
+            addCriterion("taskbaseAdd in", values, "taskbaseadd");
             return (Criteria) this;
         }
 
-        public Criteria andBusalaryNotIn(List<Double> values) {
-            addCriterion("busalary not in", values, "busalary");
+        public Criteria andTaskbaseaddNotIn(List<Double> values) {
+            addCriterion("taskbaseAdd not in", values, "taskbaseadd");
             return (Criteria) this;
         }
 
-        public Criteria andBusalaryBetween(Double value1, Double value2) {
-            addCriterion("busalary between", value1, value2, "busalary");
+        public Criteria andTaskbaseaddBetween(Double value1, Double value2) {
+            addCriterion("taskbaseAdd between", value1, value2, "taskbaseadd");
             return (Criteria) this;
         }
 
-        public Criteria andBusalaryNotBetween(Double value1, Double value2) {
-            addCriterion("busalary not between", value1, value2, "busalary");
+        public Criteria andTaskbaseaddNotBetween(Double value1, Double value2) {
+            addCriterion("taskbaseAdd not between", value1, value2, "taskbaseadd");
             return (Criteria) this;
         }
 
@@ -1652,6 +1632,186 @@ public class YoUserinfosalaryExample {
             return (Criteria) this;
         }
 
+        public Criteria andSocialdecaseIsNull() {
+            addCriterion("socialDecase is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSocialdecaseIsNotNull() {
+            addCriterion("socialDecase is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSocialdecaseEqualTo(Double value) {
+            addCriterion("socialDecase =", value, "socialdecase");
+            return (Criteria) this;
+        }
+
+        public Criteria andSocialdecaseNotEqualTo(Double value) {
+            addCriterion("socialDecase <>", value, "socialdecase");
+            return (Criteria) this;
+        }
+
+        public Criteria andSocialdecaseGreaterThan(Double value) {
+            addCriterion("socialDecase >", value, "socialdecase");
+            return (Criteria) this;
+        }
+
+        public Criteria andSocialdecaseGreaterThanOrEqualTo(Double value) {
+            addCriterion("socialDecase >=", value, "socialdecase");
+            return (Criteria) this;
+        }
+
+        public Criteria andSocialdecaseLessThan(Double value) {
+            addCriterion("socialDecase <", value, "socialdecase");
+            return (Criteria) this;
+        }
+
+        public Criteria andSocialdecaseLessThanOrEqualTo(Double value) {
+            addCriterion("socialDecase <=", value, "socialdecase");
+            return (Criteria) this;
+        }
+
+        public Criteria andSocialdecaseIn(List<Double> values) {
+            addCriterion("socialDecase in", values, "socialdecase");
+            return (Criteria) this;
+        }
+
+        public Criteria andSocialdecaseNotIn(List<Double> values) {
+            addCriterion("socialDecase not in", values, "socialdecase");
+            return (Criteria) this;
+        }
+
+        public Criteria andSocialdecaseBetween(Double value1, Double value2) {
+            addCriterion("socialDecase between", value1, value2, "socialdecase");
+            return (Criteria) this;
+        }
+
+        public Criteria andSocialdecaseNotBetween(Double value1, Double value2) {
+            addCriterion("socialDecase not between", value1, value2, "socialdecase");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserbonusIsNull() {
+            addCriterion("userbonus is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserbonusIsNotNull() {
+            addCriterion("userbonus is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserbonusEqualTo(Double value) {
+            addCriterion("userbonus =", value, "userbonus");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserbonusNotEqualTo(Double value) {
+            addCriterion("userbonus <>", value, "userbonus");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserbonusGreaterThan(Double value) {
+            addCriterion("userbonus >", value, "userbonus");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserbonusGreaterThanOrEqualTo(Double value) {
+            addCriterion("userbonus >=", value, "userbonus");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserbonusLessThan(Double value) {
+            addCriterion("userbonus <", value, "userbonus");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserbonusLessThanOrEqualTo(Double value) {
+            addCriterion("userbonus <=", value, "userbonus");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserbonusIn(List<Double> values) {
+            addCriterion("userbonus in", values, "userbonus");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserbonusNotIn(List<Double> values) {
+            addCriterion("userbonus not in", values, "userbonus");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserbonusBetween(Double value1, Double value2) {
+            addCriterion("userbonus between", value1, value2, "userbonus");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserbonusNotBetween(Double value1, Double value2) {
+            addCriterion("userbonus not between", value1, value2, "userbonus");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubtotalIsNull() {
+            addCriterion("subtotal is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubtotalIsNotNull() {
+            addCriterion("subtotal is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubtotalEqualTo(Double value) {
+            addCriterion("subtotal =", value, "subtotal");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubtotalNotEqualTo(Double value) {
+            addCriterion("subtotal <>", value, "subtotal");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubtotalGreaterThan(Double value) {
+            addCriterion("subtotal >", value, "subtotal");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubtotalGreaterThanOrEqualTo(Double value) {
+            addCriterion("subtotal >=", value, "subtotal");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubtotalLessThan(Double value) {
+            addCriterion("subtotal <", value, "subtotal");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubtotalLessThanOrEqualTo(Double value) {
+            addCriterion("subtotal <=", value, "subtotal");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubtotalIn(List<Double> values) {
+            addCriterion("subtotal in", values, "subtotal");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubtotalNotIn(List<Double> values) {
+            addCriterion("subtotal not in", values, "subtotal");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubtotalBetween(Double value1, Double value2) {
+            addCriterion("subtotal between", value1, value2, "subtotal");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubtotalNotBetween(Double value1, Double value2) {
+            addCriterion("subtotal not between", value1, value2, "subtotal");
+            return (Criteria) this;
+        }
+
         public Criteria andTotalsalaryIsNull() {
             addCriterion("totalsalary is null");
             return (Criteria) this;
@@ -1712,73 +1872,123 @@ public class YoUserinfosalaryExample {
             return (Criteria) this;
         }
 
-        public Criteria andTotalIsNull() {
-            addCriterion("total is null");
+        public Criteria andTaxIsNull() {
+            addCriterion("tax is null");
             return (Criteria) this;
         }
 
-        public Criteria andTotalIsNotNull() {
-            addCriterion("total is not null");
+        public Criteria andTaxIsNotNull() {
+            addCriterion("tax is not null");
             return (Criteria) this;
         }
 
-        public Criteria andTotalEqualTo(String value) {
-            addCriterion("total =", value, "total");
+        public Criteria andTaxEqualTo(Double value) {
+            addCriterion("tax =", value, "tax");
             return (Criteria) this;
         }
 
-        public Criteria andTotalNotEqualTo(String value) {
-            addCriterion("total <>", value, "total");
+        public Criteria andTaxNotEqualTo(Double value) {
+            addCriterion("tax <>", value, "tax");
             return (Criteria) this;
         }
 
-        public Criteria andTotalGreaterThan(String value) {
-            addCriterion("total >", value, "total");
+        public Criteria andTaxGreaterThan(Double value) {
+            addCriterion("tax >", value, "tax");
             return (Criteria) this;
         }
 
-        public Criteria andTotalGreaterThanOrEqualTo(String value) {
-            addCriterion("total >=", value, "total");
+        public Criteria andTaxGreaterThanOrEqualTo(Double value) {
+            addCriterion("tax >=", value, "tax");
             return (Criteria) this;
         }
 
-        public Criteria andTotalLessThan(String value) {
-            addCriterion("total <", value, "total");
+        public Criteria andTaxLessThan(Double value) {
+            addCriterion("tax <", value, "tax");
             return (Criteria) this;
         }
 
-        public Criteria andTotalLessThanOrEqualTo(String value) {
-            addCriterion("total <=", value, "total");
+        public Criteria andTaxLessThanOrEqualTo(Double value) {
+            addCriterion("tax <=", value, "tax");
             return (Criteria) this;
         }
 
-        public Criteria andTotalLike(String value) {
-            addCriterion("total like", value, "total");
+        public Criteria andTaxIn(List<Double> values) {
+            addCriterion("tax in", values, "tax");
             return (Criteria) this;
         }
 
-        public Criteria andTotalNotLike(String value) {
-            addCriterion("total not like", value, "total");
+        public Criteria andTaxNotIn(List<Double> values) {
+            addCriterion("tax not in", values, "tax");
             return (Criteria) this;
         }
 
-        public Criteria andTotalIn(List<String> values) {
-            addCriterion("total in", values, "total");
+        public Criteria andTaxBetween(Double value1, Double value2) {
+            addCriterion("tax between", value1, value2, "tax");
             return (Criteria) this;
         }
 
-        public Criteria andTotalNotIn(List<String> values) {
-            addCriterion("total not in", values, "total");
+        public Criteria andTaxNotBetween(Double value1, Double value2) {
+            addCriterion("tax not between", value1, value2, "tax");
             return (Criteria) this;
         }
 
-        public Criteria andTotalBetween(String value1, String value2) {
-            addCriterion("total between", value1, value2, "total");
+        public Criteria andRealsalaryIsNull() {
+            addCriterion("realsalary is null");
             return (Criteria) this;
         }
 
-        public Criteria andTotalNotBetween(String value1, String value2) {
-            addCriterion("total not between", value1, value2, "total");
+        public Criteria andRealsalaryIsNotNull() {
+            addCriterion("realsalary is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRealsalaryEqualTo(Double value) {
+            addCriterion("realsalary =", value, "realsalary");
+            return (Criteria) this;
+        }
+
+        public Criteria andRealsalaryNotEqualTo(Double value) {
+            addCriterion("realsalary <>", value, "realsalary");
+            return (Criteria) this;
+        }
+
+        public Criteria andRealsalaryGreaterThan(Double value) {
+            addCriterion("realsalary >", value, "realsalary");
+            return (Criteria) this;
+        }
+
+        public Criteria andRealsalaryGreaterThanOrEqualTo(Double value) {
+            addCriterion("realsalary >=", value, "realsalary");
+            return (Criteria) this;
+        }
+
+        public Criteria andRealsalaryLessThan(Double value) {
+            addCriterion("realsalary <", value, "realsalary");
+            return (Criteria) this;
+        }
+
+        public Criteria andRealsalaryLessThanOrEqualTo(Double value) {
+            addCriterion("realsalary <=", value, "realsalary");
+            return (Criteria) this;
+        }
+
+        public Criteria andRealsalaryIn(List<Double> values) {
+            addCriterion("realsalary in", values, "realsalary");
+            return (Criteria) this;
+        }
+
+        public Criteria andRealsalaryNotIn(List<Double> values) {
+            addCriterion("realsalary not in", values, "realsalary");
+            return (Criteria) this;
+        }
+
+        public Criteria andRealsalaryBetween(Double value1, Double value2) {
+            addCriterion("realsalary between", value1, value2, "realsalary");
+            return (Criteria) this;
+        }
+
+        public Criteria andRealsalaryNotBetween(Double value1, Double value2) {
+            addCriterion("realsalary not between", value1, value2, "realsalary");
             return (Criteria) this;
         }
     }

@@ -88,6 +88,12 @@ public class StaffInfoServiceImpl implements IStaffInfoService {
         int result = staffInfoMapper.updateByPrimaryKey(record);
         return result;
     }
+    public List<StaffInfo> searchStaffInfo(StaffInfoExample example) {
+        List<StaffInfo> list = staffInfoMapper.selectByExample(example);
+        return list;
+    }
+
+
 
     /**
      * 通过params来查询员工信息
@@ -97,14 +103,12 @@ public class StaffInfoServiceImpl implements IStaffInfoService {
         String staffId = staffInfo.getStaffId();
         String name = staffInfo.getName();
         String depart = staffInfo.getDepartment();
-        String depart2 = "%"+depart+"%";
 
         StaffInfoExample staffInfoExample = new StaffInfoExample();
         StaffInfoExample.Criteria criteria = staffInfoExample.createCriteria();
         if (staffId!=null) criteria.andStaffIdEqualTo(staffId);
         if (name!=null) criteria.andNameEqualTo(name);
-        if (depart2!=null) criteria.andDepartmentLike(depart2);
-        staffInfoExample.or(criteria);
+        if (depart!=null) criteria.andDepartmentEqualTo(depart);
 
         List<StaffInfo> list = staffInfoMapper.selectByExample(staffInfoExample);
         return list;

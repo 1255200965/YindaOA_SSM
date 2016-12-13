@@ -13,12 +13,9 @@ public interface YoUserinfosalaryMapper {
 
     List<YoUserinfosalary> selectByExample(YoUserinfosalaryExample example);
 
-    List<YoUserinfosalary> selectSalary(YoUserinfosalary record);
-
-    YoUserinfosalary selectByPrimaryKey(YoUserinfosalary sid);
+    YoUserinfosalary selectByPrimaryKey(Integer sid);
 
     int updateByPrimaryKeySelective(YoUserinfosalary record);
 
-
-    int updateByUserSalary(YoUserinfosalary record);
+    int updateByPrimaryKey(YoUserinfosalary record);
 }

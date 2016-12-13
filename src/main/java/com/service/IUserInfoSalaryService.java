@@ -9,9 +9,8 @@ import java.util.List;
  * Created by ma on 2016/11/14.
  */
 public interface IUserInfoSalaryService {
-    List<YoUserinfosalary> selectByExample();
 
-    List<YoUserinfosalary> selectSalary(YoUserinfosalary record);
+    List<YoUserinfosalary> selectSalary(YoUserinfosalaryExample record);
 
     List<YoUserinfosalary> selectByExample(YoUserinfosalaryExample example);
 

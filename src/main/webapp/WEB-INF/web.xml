@@ -66,4 +66,8 @@
     <welcome-file>/index.jsp</welcome-file>
   </welcome-file-list>
 
+  <!-- session的有效期60分钟 -->
+  <session-config>
+  <session-timeout>60</session-timeout>
+  </session-config>
 </web-app>

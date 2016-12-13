@@ -1,52 +1,56 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.dao.YoUserinfosalaryMapper" >
-  <resultMap id="BaseResultMap" type="com.model.YoUserinfosalary" >
-    <id column="sid" property="sid" jdbcType="INTEGER" />
-    <result column="salarydate" property="salarydate" jdbcType="VARCHAR" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="department" property="department" jdbcType="VARCHAR" />
-    <result column="userid" property="userid" jdbcType="VARCHAR" />
-    <result column="salaryid" property="salaryid" jdbcType="VARCHAR" />
-    <result column="date" property="date" jdbcType="DATE" />
-    <result column="datetype" property="datetype" jdbcType="VARCHAR" />
-    <result column="attendance" property="attendance" jdbcType="VARCHAR" />
-    <result column="realityattendance" property="realityattendance" jdbcType="VARCHAR" />
-    <result column="effectiveAttendance" property="effectiveattendance" jdbcType="VARCHAR" />
-    <result column="attendancesalary" property="attendancesalary" jdbcType="DOUBLE" />
-    <result column="leavetype" property="leavetype" jdbcType="VARCHAR" />
-    <result column="leavesalary" property="leavesalary" jdbcType="DOUBLE" />
-    <result column="workovertime" property="workovertime" jdbcType="VARCHAR" />
-    <result column="worksalary" property="worksalary" jdbcType="DOUBLE" />
-    <result column="evection" property="evection" jdbcType="VARCHAR" />
-    <result column="allowance" property="allowance" jdbcType="VARCHAR" />
-    <result column="timesalary" property="timesalary" jdbcType="DOUBLE" />
-    <result column="task" property="task" jdbcType="VARCHAR" />
-    <result column="tasksalary" property="tasksalary" jdbcType="DOUBLE" />
-    <result column="busalary" property="busalary" jdbcType="DOUBLE" />
-    <result column="trafficsalary" property="trafficsalary" jdbcType="DOUBLE" />
-    <result column="userbonus" property="userbonus" jdbcType="DOUBLE" />
-    <result column="totalsalary" property="totalsalary" jdbcType="DOUBLE" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.YoUserinfosalaryMapper">
+  <resultMap id="BaseResultMap" type="com.model.YoUserinfosalary">
+    <id column="sid" jdbcType="INTEGER" property="sid" />
+    <result column="salarydate" jdbcType="VARCHAR" property="salarydate" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="department" jdbcType="VARCHAR" property="department" />
+    <result column="userid" jdbcType="VARCHAR" property="userid" />
+    <result column="salaryid" jdbcType="VARCHAR" property="salaryid" />
+    <result column="date" jdbcType="DATE" property="date" />
+    <result column="datetype" jdbcType="VARCHAR" property="datetype" />
+    <result column="attendance" jdbcType="VARCHAR" property="attendance" />
+    <result column="realityattendance" jdbcType="VARCHAR" property="realityattendance" />
+    <result column="effectiveAttendance" jdbcType="VARCHAR" property="effectiveattendance" />
+    <result column="attendancesalary" jdbcType="DOUBLE" property="attendancesalary" />
+    <result column="leavetype" jdbcType="VARCHAR" property="leavetype" />
+    <result column="leavesalary" jdbcType="DOUBLE" property="leavesalary" />
+    <result column="workovertime" jdbcType="VARCHAR" property="workovertime" />
+    <result column="worksalary" jdbcType="DOUBLE" property="worksalary" />
+    <result column="evection" jdbcType="VARCHAR" property="evection" />
+    <result column="allowance" jdbcType="DOUBLE" property="allowance" />
+    <result column="timesalary" jdbcType="DOUBLE" property="timesalary" />
+    <result column="timebaseAdd" jdbcType="DOUBLE" property="timebaseadd" />
+    <result column="tasksalary" jdbcType="DOUBLE" property="tasksalary" />
+    <result column="taskbaseAdd" jdbcType="DOUBLE" property="taskbaseadd" />
+    <result column="trafficsalary" jdbcType="DOUBLE" property="trafficsalary" />
+    <result column="socialDecase" jdbcType="DOUBLE" property="socialdecase" />
+    <result column="userbonus" jdbcType="DOUBLE" property="userbonus" />
+    <result column="subtotal" jdbcType="DOUBLE" property="subtotal" />
+    <result column="totalsalary" jdbcType="DOUBLE" property="totalsalary" />
+    <result column="tax" jdbcType="DOUBLE" property="tax" />
+    <result column="realsalary" jdbcType="DOUBLE" property="realsalary" />
   </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue" >
+                <when test="criterion.singleValue">
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue" >
+                <when test="criterion.betweenValue">
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue" >
+                <when test="criterion.listValue">
                   and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
                     #{listItem}
                   </foreach>
                 </when>
@@ -57,316 +61,333 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Base_Column_List" >
+  <sql id="Base_Column_List">
     sid, salarydate, name, department, userid, salaryid, date, datetype, attendance, 
     realityattendance, effectiveAttendance, attendancesalary, leavetype, leavesalary, 
-    workovertime, worksalary, evection, allowance, timesalary, task, tasksalary, busalary, 
-    trafficsalary,userbonus, totalsalary
+    workovertime, worksalary, evection, allowance, timesalary, timebaseAdd, tasksalary, 
+    taskbaseAdd, trafficsalary, socialDecase, userbonus, subtotal, totalsalary, tax, 
+    realsalary
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.model.YoUserinfosalaryExample" >
+  <select id="selectByExample" parameterType="com.model.YoUserinfosalaryExample" resultMap="BaseResultMap">
     select
-    <if test="distinct" >
+    <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
     from yo_userinfosalary
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
-    <if test="orderByClause != null" >
+    <if test="orderByClause != null">
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from yo_userinfosalary
     where sid = #{sid,jdbcType=INTEGER}
   </select>
-
-  <select id="selectSalary" resultMap="BaseResultMap" parameterType="com.model.YoUserinfosalaryExample" >
-    select
-    <!--<if test="distinct" >-->
-      <!--distinct-->
-    <!--</if>-->
-    <include refid="Base_Column_List" />
-    from yo_userinfosalary
-    <where>
-      <if test="name!=null">
-        name like CONCAT('%','${name}','%' )
-      </if>
-      <if test="salaryid!=null">
-       and salaryid like CONCAT('%','${salaryid}','%' )
-      </if>
-      <if test="salarydate!=null">
-        and salarydate like CONCAT('%','${salarydate}','%' )
-      </if>
-    </where>
-  </select>
-
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from yo_userinfosalary
     where sid = #{sid,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.model.YoUserinfosalary" >
+  <insert id="insert" parameterType="com.model.YoUserinfosalary">
     insert into yo_userinfosalary (sid, salarydate, name, 
       department, userid, salaryid, 
       date, datetype, attendance, 
       realityattendance, effectiveAttendance, 
       attendancesalary, leavetype, leavesalary, 
       workovertime, worksalary, evection, 
-      allowance, timesalary, task, 
-      tasksalary, busalary, trafficsalary, userbonus,
-      totalsalary)
+      allowance, timesalary, timebaseAdd, 
+      tasksalary, taskbaseAdd, trafficsalary, 
+      socialDecase, userbonus, subtotal, 
+      totalsalary, tax, realsalary
+      )
     values (#{sid,jdbcType=INTEGER}, #{salarydate,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{department,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{salaryid,jdbcType=VARCHAR}, 
       #{date,jdbcType=DATE}, #{datetype,jdbcType=VARCHAR}, #{attendance,jdbcType=VARCHAR}, 
       #{realityattendance,jdbcType=VARCHAR}, #{effectiveattendance,jdbcType=VARCHAR}, 
       #{attendancesalary,jdbcType=DOUBLE}, #{leavetype,jdbcType=VARCHAR}, #{leavesalary,jdbcType=DOUBLE}, 
       #{workovertime,jdbcType=VARCHAR}, #{worksalary,jdbcType=DOUBLE}, #{evection,jdbcType=VARCHAR}, 
-      #{allowance,jdbcType=VARCHAR}, #{timesalary,jdbcType=DOUBLE}, #{task,jdbcType=VARCHAR}, 
-      #{tasksalary,jdbcType=DOUBLE}, #{busalary,jdbcType=DOUBLE}, #{trafficsalary,jdbcType=DOUBLE},
-      #{userbonus,jdbcType=DOUBLE},
-      #{totalsalary,jdbcType=DOUBLE})
+      #{allowance,jdbcType=DOUBLE}, #{timesalary,jdbcType=DOUBLE}, #{timebaseadd,jdbcType=DOUBLE}, 
+      #{tasksalary,jdbcType=DOUBLE}, #{taskbaseadd,jdbcType=DOUBLE}, #{trafficsalary,jdbcType=DOUBLE}, 
+      #{socialdecase,jdbcType=DOUBLE}, #{userbonus,jdbcType=DOUBLE}, #{subtotal,jdbcType=DOUBLE}, 
+      #{totalsalary,jdbcType=DOUBLE}, #{tax,jdbcType=DOUBLE}, #{realsalary,jdbcType=DOUBLE}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.model.YoUserinfosalary" >
+  <insert id="insertSelective" parameterType="com.model.YoUserinfosalary">
     insert into yo_userinfosalary
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="sid != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sid != null">
         sid,
       </if>
-      <if test="salarydate != null" >
+      <if test="salarydate != null">
         salarydate,
       </if>
-      <if test="name != null" >
+      <if test="name != null">
         name,
       </if>
-      <if test="department != null" >
+      <if test="department != null">
         department,
       </if>
-      <if test="userid != null" >
+      <if test="userid != null">
         userid,
       </if>
-      <if test="salaryid != null" >
+      <if test="salaryid != null">
         salaryid,
       </if>
-      <if test="date != null" >
+      <if test="date != null">
         date,
       </if>
-      <if test="datetype != null" >
+      <if test="datetype != null">
         datetype,
       </if>
-      <if test="attendance != null" >
+      <if test="attendance != null">
         attendance,
       </if>
-      <if test="realityattendance != null" >
+      <if test="realityattendance != null">
         realityattendance,
       </if>
-      <if test="effectiveattendance != null" >
+      <if test="effectiveattendance != null">
         effectiveAttendance,
       </if>
-      <if test="attendancesalary != null" >
+      <if test="attendancesalary != null">
         attendancesalary,
       </if>
-      <if test="leavetype != null" >
+      <if test="leavetype != null">
         leavetype,
       </if>
-      <if test="leavesalary != null" >
+      <if test="leavesalary != null">
         leavesalary,
       </if>
-      <if test="workovertime != null" >
+      <if test="workovertime != null">
         workovertime,
       </if>
-      <if test="worksalary != null" >
+      <if test="worksalary != null">
         worksalary,
       </if>
-      <if test="evection != null" >
+      <if test="evection != null">
         evection,
       </if>
-      <if test="allowance != null" >
+      <if test="allowance != null">
         allowance,
       </if>
-      <if test="timesalary != null" >
+      <if test="timesalary != null">
         timesalary,
       </if>
-      <if test="task != null" >
-        task,
+      <if test="timebaseadd != null">
+        timebaseAdd,
       </if>
-      <if test="tasksalary != null" >
+      <if test="tasksalary != null">
         tasksalary,
       </if>
-      <if test="busalary != null" >
-        busalary,
+      <if test="taskbaseadd != null">
+        taskbaseAdd,
       </if>
-      <if test="trafficsalary != null" >
+      <if test="trafficsalary != null">
         trafficsalary,
       </if>
-      <if test="userbonus != null" >
+      <if test="socialdecase != null">
+        socialDecase,
+      </if>
+      <if test="userbonus != null">
         userbonus,
       </if>
-      <if test="totalsalary != null" >
+      <if test="subtotal != null">
+        subtotal,
+      </if>
+      <if test="totalsalary != null">
         totalsalary,
       </if>
-
+      <if test="tax != null">
+        tax,
+      </if>
+      <if test="realsalary != null">
+        realsalary,
+      </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="sid != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sid != null">
         #{sid,jdbcType=INTEGER},
       </if>
-      <if test="salarydate != null" >
+      <if test="salarydate != null">
         #{salarydate,jdbcType=VARCHAR},
       </if>
-      <if test="name != null" >
+      <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="department != null" >
+      <if test="department != null">
         #{department,jdbcType=VARCHAR},
       </if>
-      <if test="userid != null" >
+      <if test="userid != null">
         #{userid,jdbcType=VARCHAR},
       </if>
-      <if test="salaryid != null" >
+      <if test="salaryid != null">
         #{salaryid,jdbcType=VARCHAR},
       </if>
-      <if test="date != null" >
+      <if test="date != null">
         #{date,jdbcType=DATE},
       </if>
-      <if test="datetype != null" >
+      <if test="datetype != null">
         #{datetype,jdbcType=VARCHAR},
       </if>
-      <if test="attendance != null" >
+      <if test="attendance != null">
         #{attendance,jdbcType=VARCHAR},
       </if>
-      <if test="realityattendance != null" >
+      <if test="realityattendance != null">
         #{realityattendance,jdbcType=VARCHAR},
       </if>
-      <if test="effectiveattendance != null" >
+      <if test="effectiveattendance != null">
         #{effectiveattendance,jdbcType=VARCHAR},
       </if>
-      <if test="attendancesalary != null" >
+      <if test="attendancesalary != null">
         #{attendancesalary,jdbcType=DOUBLE},
       </if>
-      <if test="leavetype != null" >
+      <if test="leavetype != null">
         #{leavetype,jdbcType=VARCHAR},
       </if>
-      <if test="leavesalary != null" >
+      <if test="leavesalary != null">
         #{leavesalary,jdbcType=DOUBLE},
       </if>
-      <if test="workovertime != null" >
+      <if test="workovertime != null">
         #{workovertime,jdbcType=VARCHAR},
       </if>
-      <if test="worksalary != null" >
+      <if test="worksalary != null">
         #{worksalary,jdbcType=DOUBLE},
       </if>
-      <if test="evection != null" >
+      <if test="evection != null">
         #{evection,jdbcType=VARCHAR},
       </if>
-      <if test="allowance != null" >
-        #{allowance,jdbcType=VARCHAR},
+      <if test="allowance != null">
+        #{allowance,jdbcType=DOUBLE},
       </if>
-      <if test="timesalary != null" >
+      <if test="timesalary != null">
         #{timesalary,jdbcType=DOUBLE},
       </if>
-      <if test="task != null" >
-        #{task,jdbcType=VARCHAR},
+      <if test="timebaseadd != null">
+        #{timebaseadd,jdbcType=DOUBLE},
       </if>
-      <if test="tasksalary != null" >
+      <if test="tasksalary != null">
         #{tasksalary,jdbcType=DOUBLE},
       </if>
-      <if test="busalary != null" >
-        #{busalary,jdbcType=DOUBLE},
+      <if test="taskbaseadd != null">
+        #{taskbaseadd,jdbcType=DOUBLE},
       </if>
-      <if test="trafficsalary != null" >
+      <if test="trafficsalary != null">
         #{trafficsalary,jdbcType=DOUBLE},
       </if>
-      <if test="userbonus != null" >
+      <if test="socialdecase != null">
+        #{socialdecase,jdbcType=DOUBLE},
+      </if>
+      <if test="userbonus != null">
         #{userbonus,jdbcType=DOUBLE},
       </if>
-      <if test="totalsalary != null" >
+      <if test="subtotal != null">
+        #{subtotal,jdbcType=DOUBLE},
+      </if>
+      <if test="totalsalary != null">
         #{totalsalary,jdbcType=DOUBLE},
+      </if>
+      <if test="tax != null">
+        #{tax,jdbcType=DOUBLE},
+      </if>
+      <if test="realsalary != null">
+        #{realsalary,jdbcType=DOUBLE},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.model.YoUserinfosalary" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.YoUserinfosalary">
     update yo_userinfosalary
-    <set >
-      <if test="salarydate != null" >
+    <set>
+      <if test="salarydate != null">
         salarydate = #{salarydate,jdbcType=VARCHAR},
       </if>
-      <if test="name != null" >
+      <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="department != null" >
+      <if test="department != null">
         department = #{department,jdbcType=VARCHAR},
       </if>
-      <if test="userid != null" >
+      <if test="userid != null">
         userid = #{userid,jdbcType=VARCHAR},
       </if>
-      <if test="salaryid != null" >
+      <if test="salaryid != null">
         salaryid = #{salaryid,jdbcType=VARCHAR},
       </if>
-      <if test="date != null" >
+      <if test="date != null">
         date = #{date,jdbcType=DATE},
       </if>
-      <if test="datetype != null" >
+      <if test="datetype != null">
         datetype = #{datetype,jdbcType=VARCHAR},
       </if>
-      <if test="attendance != null" >
+      <if test="attendance != null">
         attendance = #{attendance,jdbcType=VARCHAR},
       </if>
-      <if test="realityattendance != null" >
+      <if test="realityattendance != null">
         realityattendance = #{realityattendance,jdbcType=VARCHAR},
       </if>
-      <if test="effectiveattendance != null" >
+      <if test="effectiveattendance != null">
         effectiveAttendance = #{effectiveattendance,jdbcType=VARCHAR},
       </if>
-      <if test="attendancesalary != null" >
+      <if test="attendancesalary != null">
         attendancesalary = #{attendancesalary,jdbcType=DOUBLE},
       </if>
-      <if test="leavetype != null" >
+      <if test="leavetype != null">
         leavetype = #{leavetype,jdbcType=VARCHAR},
       </if>
-      <if test="leavesalary != null" >
+      <if test="leavesalary != null">
         leavesalary = #{leavesalary,jdbcType=DOUBLE},
       </if>
-      <if test="workovertime != null" >
+      <if test="workovertime != null">
         workovertime = #{workovertime,jdbcType=VARCHAR},
       </if>
-      <if test="worksalary != null" >
+      <if test="worksalary != null">
         worksalary = #{worksalary,jdbcType=DOUBLE},
       </if>
-      <if test="evection != null" >
+      <if test="evection != null">
         evection = #{evection,jdbcType=VARCHAR},
       </if>
-      <if test="allowance != null" >
-        allowance = #{allowance,jdbcType=VARCHAR},
+      <if test="allowance != null">
+        allowance = #{allowance,jdbcType=DOUBLE},
       </if>
-      <if test="timesalary != null" >
+      <if test="timesalary != null">
         timesalary = #{timesalary,jdbcType=DOUBLE},
       </if>
-      <if test="task != null" >
-        task = #{task,jdbcType=VARCHAR},
+      <if test="timebaseadd != null">
+        timebaseAdd = #{timebaseadd,jdbcType=DOUBLE},
       </if>
-      <if test="tasksalary != null" >
+      <if test="tasksalary != null">
         tasksalary = #{tasksalary,jdbcType=DOUBLE},
       </if>
-      <if test="busalary != null" >
-        busalary = #{busalary,jdbcType=DOUBLE},
+      <if test="taskbaseadd != null">
+        taskbaseAdd = #{taskbaseadd,jdbcType=DOUBLE},
       </if>
-      <if test="trafficsalary != null" >
+      <if test="trafficsalary != null">
         trafficsalary = #{trafficsalary,jdbcType=DOUBLE},
       </if>
-      <if test="userbonus != null" >
+      <if test="socialdecase != null">
+        socialDecase = #{socialdecase,jdbcType=DOUBLE},
+      </if>
+      <if test="userbonus != null">
         userbonus = #{userbonus,jdbcType=DOUBLE},
       </if>
-      <if test="totalsalary != null" >
+      <if test="subtotal != null">
+        subtotal = #{subtotal,jdbcType=DOUBLE},
+      </if>
+      <if test="totalsalary != null">
         totalsalary = #{totalsalary,jdbcType=DOUBLE},
       </if>
-
+      <if test="tax != null">
+        tax = #{tax,jdbcType=DOUBLE},
+      </if>
+      <if test="realsalary != null">
+        realsalary = #{realsalary,jdbcType=DOUBLE},
+      </if>
     </set>
     where sid = #{sid,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.model.YoUserinfosalary" >
+  <update id="updateByPrimaryKey" parameterType="com.model.YoUserinfosalary">
     update yo_userinfosalary
     set salarydate = #{salarydate,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},
@@ -384,95 +405,20 @@
       workovertime = #{workovertime,jdbcType=VARCHAR},
       worksalary = #{worksalary,jdbcType=DOUBLE},
       evection = #{evection,jdbcType=VARCHAR},
-      allowance = #{allowance,jdbcType=VARCHAR},
+      allowance = #{allowance,jdbcType=DOUBLE},
       timesalary = #{timesalary,jdbcType=DOUBLE},
-      task = #{task,jdbcType=VARCHAR},
+      timebaseAdd = #{timebaseadd,jdbcType=DOUBLE},
       tasksalary = #{tasksalary,jdbcType=DOUBLE},
-      busalary = #{busalary,jdbcType=DOUBLE},
+      taskbaseAdd = #{taskbaseadd,jdbcType=DOUBLE},
       trafficsalary = #{trafficsalary,jdbcType=DOUBLE},
+      socialDecase = #{socialdecase,jdbcType=DOUBLE},
       userbonus = #{userbonus,jdbcType=DOUBLE},
-      totalsalary = #{totalsalary,jdbcType=DOUBLE}
+      subtotal = #{subtotal,jdbcType=DOUBLE},
+      totalsalary = #{totalsalary,jdbcType=DOUBLE},
+      tax = #{tax,jdbcType=DOUBLE},
+      realsalary = #{realsalary,jdbcType=DOUBLE}
     where sid = #{sid,jdbcType=INTEGER}
   </update>
 
-  <update id="updateByUserSalary" parameterType="com.model.YoUserinfosalary" >
-    update yo_userinfosalary
-    <set >
-      <if test="salarydate != null" >
-        salarydate = #{salarydate,jdbcType=VARCHAR},
-      </if>
-      <if test="name != null" >
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="department != null" >
-        department = #{department,jdbcType=VARCHAR},
-      </if>
-      <if test="userid != null" >
-        userid = #{userid,jdbcType=VARCHAR},
-      </if>
-      <if test="salaryid != null" >
-        salaryid = #{salaryid,jdbcType=VARCHAR},
-      </if>
-      <if test="date != null" >
-        date = #{date,jdbcType=DATE},
-      </if>
-      <if test="datetype != null" >
-        datetype = #{datetype,jdbcType=VARCHAR},
-      </if>
-      <if test="attendance != null" >
-        attendance = #{attendance,jdbcType=VARCHAR},
-      </if>
-      <if test="realityattendance != null" >
-        realityattendance = #{realityattendance,jdbcType=VARCHAR},
-      </if>
-      <if test="effectiveattendance != null" >
-        effectiveAttendance = #{effectiveattendance,jdbcType=VARCHAR},
-      </if>
-      <if test="attendancesalary != null" >
-        attendancesalary = #{attendancesalary,jdbcType=DOUBLE},
-      </if>
-      <if test="leavetype != null" >
-        leavetype = #{leavetype,jdbcType=VARCHAR},
-      </if>
-      <if test="leavesalary != null" >
-        leavesalary = #{leavesalary,jdbcType=DOUBLE},
-      </if>
-      <if test="workovertime != null" >
-        workovertime = #{workovertime,jdbcType=VARCHAR},
-      </if>
-      <if test="worksalary != null" >
-        worksalary = #{worksalary,jdbcType=DOUBLE},
-      </if>
-      <if test="evection != null" >
-        evection = #{evection,jdbcType=VARCHAR},
-      </if>
-      <if test="allowance != null" >
-        allowance = #{allowance,jdbcType=VARCHAR},
-      </if>
-      <if test="timesalary != null" >
-        timesalary = #{timesalary,jdbcType=DOUBLE},
-      </if>
-      <if test="task != null" >
-        task = #{task,jdbcType=VARCHAR},
-      </if>
-      <if test="tasksalary != null" >
-        tasksalary = #{tasksalary,jdbcType=DOUBLE},
-      </if>
-      <if test="busalary != null" >
-        busalary = #{busalary,jdbcType=DOUBLE},
-      </if>
-      <if test="trafficsalary != null" >
-        trafficsalary = #{trafficsalary,jdbcType=DOUBLE},
-      </if>
-      <if test="userbonus != null" >
-        userbonus = #{userbonus,jdbcType=DOUBLE},
-      </if>
-      <if test="totalsalary != null" >
-        totalsalary = #{totalsalary,jdbcType=DOUBLE},
-      </if>
-
-    </set>
-    where sid = #{sid,jdbcType=INTEGER}
-  </update>
 
 </mapper>

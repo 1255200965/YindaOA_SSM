@@ -37,22 +37,29 @@ public class YoUserinfosalary {
 
     private String evection;
 
-    private String allowance;
+    private Double allowance;
 
     private Double timesalary;
 
-    private String task;
+    private Double timebaseadd;
 
     private Double tasksalary;
 
-    private Double busalary;
+    private Double taskbaseadd;
 
     private Double trafficsalary;
 
+    private Double socialdecase;
+
     private Double userbonus;
+
+    private Double subtotal;
 
     private Double totalsalary;
 
+    private Double tax;
+
+    private Double realsalary;
 
     public Integer getSid() {
         return sid;
@@ -190,11 +197,11 @@ public class YoUserinfosalary {
         this.evection = evection;
     }
 
-    public String getAllowance() {
+    public Double getAllowance() {
         return allowance;
     }
 
-    public void setAllowance(String allowance) {
+    public void setAllowance(Double allowance) {
         this.allowance = allowance;
     }
 
@@ -206,12 +213,12 @@ public class YoUserinfosalary {
         this.timesalary = timesalary;
     }
 
-    public String getTask() {
-        return task;
+    public Double getTimebaseadd() {
+        return timebaseadd;
     }
 
-    public void setTask(String task) {
-        this.task = task;
+    public void setTimebaseadd(Double timebaseadd) {
+        this.timebaseadd = timebaseadd;
     }
 
     public Double getTasksalary() {
@@ -222,12 +229,12 @@ public class YoUserinfosalary {
         this.tasksalary = tasksalary;
     }
 
-    public Double getBusalary() {
-        return busalary;
+    public Double getTaskbaseadd() {
+        return taskbaseadd;
     }
 
-    public void setBusalary(Double busalary) {
-        this.busalary = busalary;
+    public void setTaskbaseadd(Double taskbaseadd) {
+        this.taskbaseadd = taskbaseadd;
     }
 
     public Double getTrafficsalary() {
@@ -238,12 +245,28 @@ public class YoUserinfosalary {
         this.trafficsalary = trafficsalary;
     }
 
+    public Double getSocialdecase() {
+        return socialdecase;
+    }
+
+    public void setSocialdecase(Double socialdecase) {
+        this.socialdecase = socialdecase;
+    }
+
     public Double getUserbonus() {
         return userbonus;
     }
 
     public void setUserbonus(Double userbonus) {
         this.userbonus = userbonus;
+    }
+
+    public Double getSubtotal() {
+        return subtotal;
+    }
+
+    public void setSubtotal(Double subtotal) {
+        this.subtotal = subtotal;
     }
 
     public Double getTotalsalary() {
@@ -254,5 +277,19 @@ public class YoUserinfosalary {
         this.totalsalary = totalsalary;
     }
 
+    public Double getTax() {
+        return tax;
+    }
 
+    public void setTax(Double tax) {
+        this.tax = tax;
+    }
+
+    public Double getRealsalary() {
+        return realsalary;
+    }
+
+    public void setRealsalary(Double realsalary) {
+        this.realsalary = realsalary;
+    }
 }

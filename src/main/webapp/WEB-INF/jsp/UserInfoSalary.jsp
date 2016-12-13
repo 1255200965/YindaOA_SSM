@@ -142,14 +142,14 @@
 
                 }
 
-                //修改部门成员
-                self.UpdateUser = function(){
+                //修改工资
+                self.UpdateSalary = function(){
                     $.ajax({
                         data:JSON.stringify(self.changeItem()),
                         type:"post",
                         headers: { 'Content-Type': 'application/json' },
                         dataType: 'json',
-                        url:"../userinfosalary/updateuser.do",
+                        url:"../userinfosalary/updatesalary.do",
                         error:function(data){
                             alert("出错了！！:"+data.msg);
                         },
@@ -174,7 +174,9 @@
                 self.ClickUpdate = function(item){
                     self.changeItem(item);
                     self.rootid(0);
-                    $("#model1").click();
+                    //$("#model1").click();
+                    self.ClickModelYes();
+
                 };
                 //点击事件-点击搜索
                 self.ClickSearch = function () {
@@ -188,23 +190,12 @@
                 }
                 //点击事件-模态框确定
                 self.ClickModelYes = function() {
-                    if (self.rootid() == 0) {
-                        if ( document.getElementById("userbonus").value=="")
-                        {
-                            alert('请输入要修改奖金!');
-                            return false;
-                        }else{
                             if (!confirm("确认要修改？")) {
                                 window.event.returnValue = false;
                             }else{
-                                self.UpdateUser();
+                                self.UpdateSalary();
                                 return true;
                             }
-                        }
-
-                    } else {
-                        self.AddNewUser();
-                    }
                 };
                 //点击事件-模态框关闭
                 self.ClickModelNo = function(){
@@ -275,25 +266,6 @@
             this.department=depid;
             this.userid = null;
             this.salaryid = salaryid;
-            this.date = null;
-            this.datetype = null;
-            this.attendance = null;
-            this.realityattendance=null;
-            this.effectiveattendance=null;
-            this.attendancesalary = null;
-            this.leavetype = null;
-            this.leavesalary=null;
-            this.workovertime = null;
-            this.worksalary = null;
-            this.evection = null;
-            this.allowance = null;
-            this.timesalary = null;
-            this.task = null;
-            this.tasksalary = null;
-            this.busalary = null;
-            this.trafficsalary = null;
-            this.userbonus= null;
-            this.totalsalary = null;
             return this;
         }
 
@@ -352,11 +324,20 @@
                 <thead class="table-1-tou">
                 <td class="text_center" width="6%">姓名</td>
                 <td class="text_center" width="9%">部门</td>
-                <td class="text_center" width="10%">工号</td>
+                <td class="text_center" width="6%">工号</td>
                 <td class="text_center" width="6%">日期</td>
-                <td class="text_center" width="6%">有效考勤</td>
-                <td class="text_center" width="6%">实际考勤</td>
-                <td class="text_center" width="6%">奖金</td>
+                <td class="text_center" width="6%">出勤天数</td>
+                <td class="text_center" width="6%">出勤工资</td>
+                <td class="text_center" width="6%">请假补款</td>
+                <td class="text_center" width="6%">出差费</td>
+                <td class="text_center" width="6%">交通费</td>
+                <td class="text_center" width="6%">小计</td>
+                <td class="text_center" width="6%">社保代扣</td>
+                <td class="text_center" width="6%">timebase奖金</td>
+                <td class="text_center" width="6%">timebase调整项</td>
+                <td class="text_center" width="6%">taskbase奖金</td>
+                <td class="text_center" width="6%">taskbase调整项</td>
+<%--                <td class="text_center" width="6%">奖金调整项</td>--%>
                 <td class="text_center" width="6%">合计工资</td>
                 <td class="text_center" width="5%">操作</td>
                 </thead>
@@ -368,11 +349,20 @@
                     <td data-bind="text:salaryid">编号</td>
                     <td data-bind="text:salarydate">编号</td>
                     <td data-bind="text:attendance">编号</td>
-                    <td data-bind="text:realityattendance">编号</td>
-                    <td data-bind="text:userbonus">编号</td>
+                    <td data-bind="text:attendancesalary">编号</td>
+                    <td data-bind="text:leavesalary">编号</td>
+                    <td data-bind="text:allowance">编号</td>
+                    <td data-bind="text:trafficsalary">编号</td>
+                    <td data-bind="text:subtotal">编号</td>
+                    <td data-bind="text:socialdecase">编号</td>
+                    <td data-bind="text:timesalary">编号</td>
+                    <td ><input  class="" data-bind="textinput:timebaseadd"/></td>
+                    <td data-bind="text:tasksalary">编号</td>
+                    <td ><input  class="" data-bind="textinput:taskbaseadd"/></td>
+<%--                    <td ><input  class="" data-bind="textinput:userbonus"/></td>--%>
                     <td data-bind="text:totalsalary">编号</td>
                     <td>
-                        <input data-bind="click:$root.ClickUpdate" type="button" value="修改" class="gx-btn"/>
+                        <input data-bind="click:$root.ClickUpdate" type="button" value="保存修改" class="gx-btn"/>
                     </td>
                 </tr>
                 </tbody>

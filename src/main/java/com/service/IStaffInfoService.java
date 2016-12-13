@@ -2,6 +2,7 @@ package com.service;
 
 import com.model.Department;
 import com.model.StaffInfo;
+import com.model.StaffInfoExample;
 
 import java.io.IOException;
 import java.util.List;
@@ -30,7 +31,7 @@ public interface IStaffInfoService {
     int updateStaffByID(StaffInfo staffUserId);
     /*通过工号来查询员工信息*/
     List<StaffInfo> searchStaffInfoByEntity(StaffInfo staffInfo);
-
+    List<StaffInfo> searchStaffInfo(StaffInfoExample example);
     //查询所有用户信息
     List<StaffInfo> selectStaffInfo(StaffInfo staffInfo);
 

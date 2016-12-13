@@ -152,7 +152,7 @@ public class UserSalaryController {
 
 
     //不知道成功没，卧槽，给我成功吧,
-    @RequestMapping("/QuerySalary")
+/*    @RequestMapping("/QuerySalary")
     @ResponseBody
     public Object QuerySalary(@RequestParam(value = "userid", defaultValue = "") String userid,
                                            @RequestParam(value = "date", defaultValue = "") String date,YoSalary yoSalary) {
@@ -168,11 +168,11 @@ public class UserSalaryController {
             e.printStackTrace();
         }
         return null;
-    }
+    }*/
 
 
     //根据类型日期的查询
-    @RequestMapping("/QueryType")
+/*    @RequestMapping("/QueryType")
     @ResponseBody
     public Object handleQuerySchemaEnName(@RequestParam(value = "userid", defaultValue = "") String userid,
       @RequestParam(value = "date", defaultValue = "") String date,
@@ -190,5 +190,5 @@ public class UserSalaryController {
             e.printStackTrace();
         }
         return null;
-      }
+      }*/
     }

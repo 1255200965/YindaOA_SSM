@@ -5,13 +5,11 @@ import java.util.Date;
 public class YoSalary {
     private Integer sid;
 
-    private String name;
-
     private String salarydate;
 
     private String userid;
 
-    private String salaryid;
+    private String staffid;
 
     private Date date;
 
@@ -31,7 +29,7 @@ public class YoSalary {
 
     private String evection;
 
-    private String allowance;
+    private Double allowance;
 
     private Double timesalary;
 
@@ -39,17 +37,17 @@ public class YoSalary {
 
     private Double tasksalary;
 
-    private Double busalary;
-
     private Double trafficsalary;
-
-    private Double additionalsalary;
 
     private String realityattendance;
 
     private String effectiveAttendance;
 
-    private String yoAskStaffId;
+    private String workAddress;
+
+    private Double bonusSalary;
+
+    private Double daySalary;
 
     public Integer getSid() {
         return sid;
@@ -57,14 +55,6 @@ public class YoSalary {
 
     public void setSid(Integer sid) {
         this.sid = sid;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getSalarydate() {
@@ -83,12 +73,12 @@ public class YoSalary {
         this.userid = userid;
     }
 
-    public String getSalaryid() {
-        return salaryid;
+    public String getStaffid() {
+        return staffid;
     }
 
-    public void setSalaryid(String salaryid) {
-        this.salaryid = salaryid;
+    public void setStaffid(String staffid) {
+        this.staffid = staffid;
     }
 
     public Date getDate() {
@@ -163,11 +153,11 @@ public class YoSalary {
         this.evection = evection;
     }
 
-    public String getAllowance() {
+    public Double getAllowance() {
         return allowance;
     }
 
-    public void setAllowance(String allowance) {
+    public void setAllowance(Double allowance) {
         this.allowance = allowance;
     }
 
@@ -195,28 +185,12 @@ public class YoSalary {
         this.tasksalary = tasksalary;
     }
 
-    public Double getBusalary() {
-        return busalary;
-    }
-
-    public void setBusalary(Double busalary) {
-        this.busalary = busalary;
-    }
-
     public Double getTrafficsalary() {
         return trafficsalary;
     }
 
     public void setTrafficsalary(Double trafficsalary) {
         this.trafficsalary = trafficsalary;
-    }
-
-    public Double getAdditionalsalary() {
-        return additionalsalary;
-    }
-
-    public void setAdditionalsalary(Double additionalsalary) {
-        this.additionalsalary = additionalsalary;
     }
 
     public String getRealityattendance() {
@@ -235,11 +209,27 @@ public class YoSalary {
         this.effectiveAttendance = effectiveAttendance;
     }
 
-    public String getYoAskStaffId() {
-        return yoAskStaffId;
+    public String getWorkAddress() {
+        return workAddress;
     }
 
-    public void setYoAskStaffId(String yoAskStaffId) {
-        this.yoAskStaffId = yoAskStaffId;
+    public void setWorkAddress(String workAddress) {
+        this.workAddress = workAddress;
+    }
+
+    public Double getBonusSalary() {
+        return bonusSalary;
+    }
+
+    public void setBonusSalary(Double bonusSalary) {
+        this.bonusSalary = bonusSalary;
+    }
+
+    public Double getDaySalary() {
+        return daySalary;
+    }
+
+    public void setDaySalary(Double daySalary) {
+        this.daySalary = daySalary;
     }
 }
