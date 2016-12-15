@@ -40,8 +40,8 @@ public class ExcelSocialSecurityInfoServiceImpl implements IExcelSocialSecurityI
         // 设定一个变量，记录for循环当中操作成功的条目数目
         int successAmount = 0;
 
-        // 接下来从第1行开始，对每一行进行操作
-        for (int rowNo=0; rowNo<=rowLastNo; rowNo++) {
+        // 接下来从第2行开始，对每一行进行操作
+        for (int rowNo=1; rowNo<=rowLastNo; rowNo++) {
             HSSFRow hssfRow = hssfSheet.getRow(rowNo);
             // 同理，这里也不要用单元格的总数，要用最后一个单元格的序号
             int cellLastNo = hssfRow.getLastCellNum();
