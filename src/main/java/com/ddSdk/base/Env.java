@@ -11,7 +11,6 @@ public class Env {
 	public static final String CORP_SECRET = "Vnm79JLaXD1oiiZi-XV4LJlVW6KOYJmvWQfr3Z5mr-fZA8HSkMMhcoAySyRB5D_8";
 	public static final String SSO_Secret = "";
 
-	
 	public static String suiteTicket; 
 	public static String authCode; 
 	public static String suiteToken; 

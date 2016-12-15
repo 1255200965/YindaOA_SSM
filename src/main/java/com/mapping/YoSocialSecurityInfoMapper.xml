@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.YoSocialSecurityInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.model.YoSocialSecurityInfo" >
+    <id column="ssi_sequence_no" property="ssiSequenceNo" jdbcType="INTEGER" />
+    <result column="ssi_branch_company" property="ssiBranchCompany" jdbcType="VARCHAR" />
+    <result column="ssi_staff_id" property="ssiStaffId" jdbcType="VARCHAR" />
+    <result column="ssi_name" property="ssiName" jdbcType="VARCHAR" />
+    <result column="ssi_security_address" property="ssiSecurityAddress" jdbcType="VARCHAR" />
+    <result column="ssi_begin_month" property="ssiBeginMonth" jdbcType="VARCHAR" />
+    <result column="ssi_endowment" property="ssiEndowment" jdbcType="VARCHAR" />
+    <result column="ssi_endowment_com" property="ssiEndowmentCom" jdbcType="VARCHAR" />
+    <result column="ssi_endowment_per" property="ssiEndowmentPer" jdbcType="VARCHAR" />
+    <result column="ssi_medical" property="ssiMedical" jdbcType="VARCHAR" />
+    <result column="ssi_medical_com" property="ssiMedicalCom" jdbcType="VARCHAR" />
+    <result column="ssi_medical_per" property="ssiMedicalPer" jdbcType="VARCHAR" />
+    <result column="ssi_unemployment" property="ssiUnemployment" jdbcType="VARCHAR" />
+    <result column="ssi_unemployment_com" property="ssiUnemploymentCom" jdbcType="VARCHAR" />
+    <result column="ssi_unemployment_per" property="ssiUnemploymentPer" jdbcType="VARCHAR" />
+    <result column="ssi_maternity" property="ssiMaternity" jdbcType="VARCHAR" />
+    <result column="ssi_maternity_com" property="ssiMaternityCom" jdbcType="VARCHAR" />
+    <result column="ssi_maternity_per" property="ssiMaternityPer" jdbcType="VARCHAR" />
+    <result column="ssi_injury" property="ssiInjury" jdbcType="VARCHAR" />
+    <result column="ssi_injury_com" property="ssiInjuryCom" jdbcType="VARCHAR" />
+    <result column="ssi_injury_per" property="ssiInjuryPer" jdbcType="VARCHAR" />
+    <result column="ssi_accumulation" property="ssiAccumulation" jdbcType="VARCHAR" />
+    <result column="ssi_accumulation_com" property="ssiAccumulationCom" jdbcType="VARCHAR" />
+    <result column="ssi_accumulation_per" property="ssiAccumulationPer" jdbcType="VARCHAR" />
+    <result column="ssi_external_service" property="ssiExternalService" jdbcType="VARCHAR" />
+    <result column="ssi_external_service_com" property="ssiExternalServiceCom" jdbcType="VARCHAR" />
+    <result column="ssi_external_service_per" property="ssiExternalServicePer" jdbcType="VARCHAR" />
+    <result column="ssi_fatal_ill" property="ssiFatalIll" jdbcType="VARCHAR" />
+    <result column="ssi_fatal_ill_com" property="ssiFatalIllCom" jdbcType="VARCHAR" />
+    <result column="ssi_fatal_ill_per" property="ssiFatalIllPer" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ssi_sequence_no, ssi_branch_company, ssi_staff_id, ssi_name, ssi_security_address, 
+    ssi_begin_month, ssi_endowment, ssi_endowment_com, ssi_endowment_per, ssi_medical, 
+    ssi_medical_com, ssi_medical_per, ssi_unemployment, ssi_unemployment_com, ssi_unemployment_per, 
+    ssi_maternity, ssi_maternity_com, ssi_maternity_per, ssi_injury, ssi_injury_com, 
+    ssi_injury_per, ssi_accumulation, ssi_accumulation_com, ssi_accumulation_per, ssi_external_service, 
+    ssi_external_service_com, ssi_external_service_per, ssi_fatal_ill, ssi_fatal_ill_com, 
+    ssi_fatal_ill_per
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.model.YoSocialSecurityInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from yo_social_security_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yo_social_security_info
+    where ssi_sequence_no = #{ssiSequenceNo,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yo_social_security_info
+    where ssi_sequence_no = #{ssiSequenceNo,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.model.YoSocialSecurityInfo" >
+    insert into yo_social_security_info (ssi_sequence_no, ssi_branch_company, 
+      ssi_staff_id, ssi_name, ssi_security_address, 
+      ssi_begin_month, ssi_endowment, ssi_endowment_com, 
+      ssi_endowment_per, ssi_medical, ssi_medical_com, 
+      ssi_medical_per, ssi_unemployment, ssi_unemployment_com, 
+      ssi_unemployment_per, ssi_maternity, ssi_maternity_com, 
+      ssi_maternity_per, ssi_injury, ssi_injury_com, 
+      ssi_injury_per, ssi_accumulation, ssi_accumulation_com, 
+      ssi_accumulation_per, ssi_external_service, 
+      ssi_external_service_com, ssi_external_service_per, 
+      ssi_fatal_ill, ssi_fatal_ill_com, ssi_fatal_ill_per
+      )
+    values (#{ssiSequenceNo,jdbcType=INTEGER}, #{ssiBranchCompany,jdbcType=VARCHAR}, 
+      #{ssiStaffId,jdbcType=VARCHAR}, #{ssiName,jdbcType=VARCHAR}, #{ssiSecurityAddress,jdbcType=VARCHAR}, 
+      #{ssiBeginMonth,jdbcType=VARCHAR}, #{ssiEndowment,jdbcType=VARCHAR}, #{ssiEndowmentCom,jdbcType=VARCHAR}, 
+      #{ssiEndowmentPer,jdbcType=VARCHAR}, #{ssiMedical,jdbcType=VARCHAR}, #{ssiMedicalCom,jdbcType=VARCHAR}, 
+      #{ssiMedicalPer,jdbcType=VARCHAR}, #{ssiUnemployment,jdbcType=VARCHAR}, #{ssiUnemploymentCom,jdbcType=VARCHAR}, 
+      #{ssiUnemploymentPer,jdbcType=VARCHAR}, #{ssiMaternity,jdbcType=VARCHAR}, #{ssiMaternityCom,jdbcType=VARCHAR}, 
+      #{ssiMaternityPer,jdbcType=VARCHAR}, #{ssiInjury,jdbcType=VARCHAR}, #{ssiInjuryCom,jdbcType=VARCHAR}, 
+      #{ssiInjuryPer,jdbcType=VARCHAR}, #{ssiAccumulation,jdbcType=VARCHAR}, #{ssiAccumulationCom,jdbcType=VARCHAR}, 
+      #{ssiAccumulationPer,jdbcType=VARCHAR}, #{ssiExternalService,jdbcType=VARCHAR}, 
+      #{ssiExternalServiceCom,jdbcType=VARCHAR}, #{ssiExternalServicePer,jdbcType=VARCHAR}, 
+      #{ssiFatalIll,jdbcType=VARCHAR}, #{ssiFatalIllCom,jdbcType=VARCHAR}, #{ssiFatalIllPer,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.YoSocialSecurityInfo" >
+    insert into yo_social_security_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ssiSequenceNo != null" >
+        ssi_sequence_no,
+      </if>
+      <if test="ssiBranchCompany != null" >
+        ssi_branch_company,
+      </if>
+      <if test="ssiStaffId != null" >
+        ssi_staff_id,
+      </if>
+      <if test="ssiName != null" >
+        ssi_name,
+      </if>
+      <if test="ssiSecurityAddress != null" >
+        ssi_security_address,
+      </if>
+      <if test="ssiBeginMonth != null" >
+        ssi_begin_month,
+      </if>
+      <if test="ssiEndowment != null" >
+        ssi_endowment,
+      </if>
+      <if test="ssiEndowmentCom != null" >
+        ssi_endowment_com,
+      </if>
+      <if test="ssiEndowmentPer != null" >
+        ssi_endowment_per,
+      </if>
+      <if test="ssiMedical != null" >
+        ssi_medical,
+      </if>
+      <if test="ssiMedicalCom != null" >
+        ssi_medical_com,
+      </if>
+      <if test="ssiMedicalPer != null" >
+        ssi_medical_per,
+      </if>
+      <if test="ssiUnemployment != null" >
+        ssi_unemployment,
+      </if>
+      <if test="ssiUnemploymentCom != null" >
+        ssi_unemployment_com,
+      </if>
+      <if test="ssiUnemploymentPer != null" >
+        ssi_unemployment_per,
+      </if>
+      <if test="ssiMaternity != null" >
+        ssi_maternity,
+      </if>
+      <if test="ssiMaternityCom != null" >
+        ssi_maternity_com,
+      </if>
+      <if test="ssiMaternityPer != null" >
+        ssi_maternity_per,
+      </if>
+      <if test="ssiInjury != null" >
+        ssi_injury,
+      </if>
+      <if test="ssiInjuryCom != null" >
+        ssi_injury_com,
+      </if>
+      <if test="ssiInjuryPer != null" >
+        ssi_injury_per,
+      </if>
+      <if test="ssiAccumulation != null" >
+        ssi_accumulation,
+      </if>
+      <if test="ssiAccumulationCom != null" >
+        ssi_accumulation_com,
+      </if>
+      <if test="ssiAccumulationPer != null" >
+        ssi_accumulation_per,
+      </if>
+      <if test="ssiExternalService != null" >
+        ssi_external_service,
+      </if>
+      <if test="ssiExternalServiceCom != null" >
+        ssi_external_service_com,
+      </if>
+      <if test="ssiExternalServicePer != null" >
+        ssi_external_service_per,
+      </if>
+      <if test="ssiFatalIll != null" >
+        ssi_fatal_ill,
+      </if>
+      <if test="ssiFatalIllCom != null" >
+        ssi_fatal_ill_com,
+      </if>
+      <if test="ssiFatalIllPer != null" >
+        ssi_fatal_ill_per,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ssiSequenceNo != null" >
+        #{ssiSequenceNo,jdbcType=INTEGER},
+      </if>
+      <if test="ssiBranchCompany != null" >
+        #{ssiBranchCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiStaffId != null" >
+        #{ssiStaffId,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiName != null" >
+        #{ssiName,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiSecurityAddress != null" >
+        #{ssiSecurityAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiBeginMonth != null" >
+        #{ssiBeginMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiEndowment != null" >
+        #{ssiEndowment,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiEndowmentCom != null" >
+        #{ssiEndowmentCom,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiEndowmentPer != null" >
+        #{ssiEndowmentPer,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiMedical != null" >
+        #{ssiMedical,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiMedicalCom != null" >
+        #{ssiMedicalCom,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiMedicalPer != null" >
+        #{ssiMedicalPer,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiUnemployment != null" >
+        #{ssiUnemployment,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiUnemploymentCom != null" >
+        #{ssiUnemploymentCom,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiUnemploymentPer != null" >
+        #{ssiUnemploymentPer,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiMaternity != null" >
+        #{ssiMaternity,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiMaternityCom != null" >
+        #{ssiMaternityCom,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiMaternityPer != null" >
+        #{ssiMaternityPer,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiInjury != null" >
+        #{ssiInjury,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiInjuryCom != null" >
+        #{ssiInjuryCom,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiInjuryPer != null" >
+        #{ssiInjuryPer,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiAccumulation != null" >
+        #{ssiAccumulation,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiAccumulationCom != null" >
+        #{ssiAccumulationCom,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiAccumulationPer != null" >
+        #{ssiAccumulationPer,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiExternalService != null" >
+        #{ssiExternalService,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiExternalServiceCom != null" >
+        #{ssiExternalServiceCom,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiExternalServicePer != null" >
+        #{ssiExternalServicePer,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiFatalIll != null" >
+        #{ssiFatalIll,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiFatalIllCom != null" >
+        #{ssiFatalIllCom,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiFatalIllPer != null" >
+        #{ssiFatalIllPer,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.YoSocialSecurityInfo" >
+    update yo_social_security_info
+    <set >
+      <if test="ssiBranchCompany != null" >
+        ssi_branch_company = #{ssiBranchCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiStaffId != null" >
+        ssi_staff_id = #{ssiStaffId,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiName != null" >
+        ssi_name = #{ssiName,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiSecurityAddress != null" >
+        ssi_security_address = #{ssiSecurityAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiBeginMonth != null" >
+        ssi_begin_month = #{ssiBeginMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiEndowment != null" >
+        ssi_endowment = #{ssiEndowment,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiEndowmentCom != null" >
+        ssi_endowment_com = #{ssiEndowmentCom,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiEndowmentPer != null" >
+        ssi_endowment_per = #{ssiEndowmentPer,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiMedical != null" >
+        ssi_medical = #{ssiMedical,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiMedicalCom != null" >
+        ssi_medical_com = #{ssiMedicalCom,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiMedicalPer != null" >
+        ssi_medical_per = #{ssiMedicalPer,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiUnemployment != null" >
+        ssi_unemployment = #{ssiUnemployment,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiUnemploymentCom != null" >
+        ssi_unemployment_com = #{ssiUnemploymentCom,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiUnemploymentPer != null" >
+        ssi_unemployment_per = #{ssiUnemploymentPer,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiMaternity != null" >
+        ssi_maternity = #{ssiMaternity,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiMaternityCom != null" >
+        ssi_maternity_com = #{ssiMaternityCom,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiMaternityPer != null" >
+        ssi_maternity_per = #{ssiMaternityPer,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiInjury != null" >
+        ssi_injury = #{ssiInjury,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiInjuryCom != null" >
+        ssi_injury_com = #{ssiInjuryCom,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiInjuryPer != null" >
+        ssi_injury_per = #{ssiInjuryPer,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiAccumulation != null" >
+        ssi_accumulation = #{ssiAccumulation,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiAccumulationCom != null" >
+        ssi_accumulation_com = #{ssiAccumulationCom,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiAccumulationPer != null" >
+        ssi_accumulation_per = #{ssiAccumulationPer,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiExternalService != null" >
+        ssi_external_service = #{ssiExternalService,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiExternalServiceCom != null" >
+        ssi_external_service_com = #{ssiExternalServiceCom,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiExternalServicePer != null" >
+        ssi_external_service_per = #{ssiExternalServicePer,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiFatalIll != null" >
+        ssi_fatal_ill = #{ssiFatalIll,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiFatalIllCom != null" >
+        ssi_fatal_ill_com = #{ssiFatalIllCom,jdbcType=VARCHAR},
+      </if>
+      <if test="ssiFatalIllPer != null" >
+        ssi_fatal_ill_per = #{ssiFatalIllPer,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ssi_sequence_no = #{ssiSequenceNo,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.YoSocialSecurityInfo" >
+    update yo_social_security_info
+    set ssi_branch_company = #{ssiBranchCompany,jdbcType=VARCHAR},
+      ssi_staff_id = #{ssiStaffId,jdbcType=VARCHAR},
+      ssi_name = #{ssiName,jdbcType=VARCHAR},
+      ssi_security_address = #{ssiSecurityAddress,jdbcType=VARCHAR},
+      ssi_begin_month = #{ssiBeginMonth,jdbcType=VARCHAR},
+      ssi_endowment = #{ssiEndowment,jdbcType=VARCHAR},
+      ssi_endowment_com = #{ssiEndowmentCom,jdbcType=VARCHAR},
+      ssi_endowment_per = #{ssiEndowmentPer,jdbcType=VARCHAR},
+      ssi_medical = #{ssiMedical,jdbcType=VARCHAR},
+      ssi_medical_com = #{ssiMedicalCom,jdbcType=VARCHAR},
+      ssi_medical_per = #{ssiMedicalPer,jdbcType=VARCHAR},
+      ssi_unemployment = #{ssiUnemployment,jdbcType=VARCHAR},
+      ssi_unemployment_com = #{ssiUnemploymentCom,jdbcType=VARCHAR},
+      ssi_unemployment_per = #{ssiUnemploymentPer,jdbcType=VARCHAR},
+      ssi_maternity = #{ssiMaternity,jdbcType=VARCHAR},
+      ssi_maternity_com = #{ssiMaternityCom,jdbcType=VARCHAR},
+      ssi_maternity_per = #{ssiMaternityPer,jdbcType=VARCHAR},
+      ssi_injury = #{ssiInjury,jdbcType=VARCHAR},
+      ssi_injury_com = #{ssiInjuryCom,jdbcType=VARCHAR},
+      ssi_injury_per = #{ssiInjuryPer,jdbcType=VARCHAR},
+      ssi_accumulation = #{ssiAccumulation,jdbcType=VARCHAR},
+      ssi_accumulation_com = #{ssiAccumulationCom,jdbcType=VARCHAR},
+      ssi_accumulation_per = #{ssiAccumulationPer,jdbcType=VARCHAR},
+      ssi_external_service = #{ssiExternalService,jdbcType=VARCHAR},
+      ssi_external_service_com = #{ssiExternalServiceCom,jdbcType=VARCHAR},
+      ssi_external_service_per = #{ssiExternalServicePer,jdbcType=VARCHAR},
+      ssi_fatal_ill = #{ssiFatalIll,jdbcType=VARCHAR},
+      ssi_fatal_ill_com = #{ssiFatalIllCom,jdbcType=VARCHAR},
+      ssi_fatal_ill_per = #{ssiFatalIllPer,jdbcType=VARCHAR}
+    where ssi_sequence_no = #{ssiSequenceNo,jdbcType=INTEGER}
+  </update>
+</mapper>
