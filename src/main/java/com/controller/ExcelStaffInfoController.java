@@ -107,12 +107,12 @@ public class ExcelStaffInfoController {
         }
 
         // 第3步，对文件进行表头效验
-        String validateTitle = validateExcelTitle(hssfWorkbook);
-        if (!(validateTitle.contains("成功"))) {
-            // 如果失败了，把失败原因输出到页面
-            ra.addAttribute("validateTitle", validateTitle);
-            return "redirect:homePage.do";
-        }
+//        String validateTitle = validateExcelTitle(hssfWorkbook);
+//        if (!(validateTitle.contains("成功"))) {
+//            // 如果失败了，把失败原因输出到页面
+//            ra.addAttribute("validateTitle", validateTitle);
+//            return "redirect:homePage.do";
+//        }
 
         // 第4步，添加文件到数据库
         Map<String, Object> mapInsert = iExcelStaffInfoService.insertAndUpdate(hssfWorkbook);

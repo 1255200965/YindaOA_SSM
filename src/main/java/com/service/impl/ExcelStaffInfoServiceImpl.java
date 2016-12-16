@@ -83,59 +83,96 @@ public class ExcelStaffInfoServiceImpl implements IExcelStaffInfoService {
                 }
                 if (emptyCellAmount == cellLastNo+1) continue;
 
-                /*
-                第3步，对于不为空的行，将数据注入引用过来的实体对象
-                在完成后面的函数之后，再对变量自加，方便下一行的判断。再玩一把火！
-                 */
+                // 第3步，对于不为空的行，将excel数据转成实体对象
                 int cellNo = -1;
                 StaffInfo staffInfo = new StaffInfo();
-                if (hssfRow.getCell(++cellNo) != null) staffInfo.setStaffUserId(hssfRow.getCell(cellNo).toString());
-                if (hssfRow.getCell(++cellNo) != null) staffInfo.setDepartment(hssfRow.getCell(cellNo).toString());
-                if (hssfRow.getCell(++cellNo) != null) staffInfo.setPosition(hssfRow.getCell(cellNo).toString());
-                if (hssfRow.getCell(++cellNo) != null) staffInfo.setName(hssfRow.getCell(cellNo).toString());
-                if (hssfRow.getCell(++cellNo) != null) staffInfo.setSex(hssfRow.getCell(cellNo).toString());
-                if (hssfRow.getCell(++cellNo) != null) staffInfo.setStaffId(hssfRow.getCell(cellNo).toString());
-                if (hssfRow.getCell(++cellNo) != null) staffInfo.setWhetherLeader(hssfRow.getCell(cellNo).toString());
-                if (hssfRow.getCell(++cellNo) != null) staffInfo.setCellphone(hssfRow.getCell(cellNo).toString());
-                if (hssfRow.getCell(++cellNo) != null) staffInfo.setEmail(hssfRow.getCell(cellNo).toString());
-                if (hssfRow.getCell(++cellNo) != null) staffInfo.setBranchPhone(hssfRow.getCell(cellNo).toString());
-                if (hssfRow.getCell(++cellNo) != null) staffInfo.setWorkAddress(hssfRow.getCell(cellNo).toString());
-                if (hssfRow.getCell(++cellNo) != null) staffInfo.setComment1(hssfRow.getCell(cellNo).toString());
-                if (hssfRow.getCell(++cellNo) != null) staffInfo.setContractType(hssfRow.getCell(cellNo).toString());
-                if (hssfRow.getCell(++cellNo) != null) staffInfo.setYindaIdentify(hssfRow.getCell(cellNo).toString());
-                if (hssfRow.getCell(++cellNo) != null) staffInfo.setNetUnit(hssfRow.getCell(cellNo).toString());
-                if (hssfRow.getCell(++cellNo) != null) staffInfo.setComment2(hssfRow.getCell(cellNo).toString());
-                if (hssfRow.getCell(++cellNo) != null) staffInfo.setIdNo(hssfRow.getCell(cellNo).toString());
-                if (hssfRow.getCell(++cellNo) != null) staffInfo.setHouseholdAddress(hssfRow.getCell(cellNo).toString());
-                if (hssfRow.getCell(++cellNo) != null) staffInfo.setBranchCompany(hssfRow.getCell(cellNo).toString());
-                if (hssfRow.getCell(++cellNo) != null) staffInfo.setSocialSecurityAddress(hssfRow.getCell(cellNo).toString());
-                if (hssfRow.getCell(++cellNo) != null) staffInfo.setOrdinaryAddress(hssfRow.getCell(cellNo).toString());
-                if (hssfRow.getCell(++cellNo) != null) staffInfo.setRsoIdentify(hssfRow.getCell(cellNo).toString());
-                if (hssfRow.getCell(++cellNo) != null) staffInfo.setBaseSalary(hssfRow.getCell(cellNo).toString());
-                if (hssfRow.getCell(++cellNo) != null) staffInfo.setItemSalary(hssfRow.getCell(cellNo).toString());
-                if (hssfRow.getCell(++cellNo) != null) staffInfo.setNation(hssfRow.getCell(cellNo).toString());
-                if (hssfRow.getCell(++cellNo) != null) staffInfo.setAge(hssfRow.getCell(cellNo).toString());
-                if (hssfRow.getCell(++cellNo) != null) staffInfo.setLastContract(hssfRow.getCell(cellNo).toString());
-                if (hssfRow.getCell(++cellNo) != null) staffInfo.setLastContractBegin(hssfRow.getCell(cellNo).toString());
-                if (hssfRow.getCell(++cellNo) != null) staffInfo.setLastContractEnd(hssfRow.getCell(cellNo).toString());
-                if (hssfRow.getCell(++cellNo) != null) staffInfo.setEnterTime(hssfRow.getCell(cellNo).toString());
-                if (hssfRow.getCell(++cellNo) != null) staffInfo.setWorkYear(hssfRow.getCell(cellNo).toString());
-                if (hssfRow.getCell(++cellNo) != null) staffInfo.setSalaryCard(hssfRow.getCell(cellNo).toString());
-                if (hssfRow.getCell(++cellNo) != null) staffInfo.setGraduateSchool(hssfRow.getCell(cellNo).toString());
-                if (hssfRow.getCell(++cellNo) != null) staffInfo.setSchoolRecord(hssfRow.getCell(cellNo).toString());
-                if (hssfRow.getCell(++cellNo) != null) staffInfo.setGraduateDate(hssfRow.getCell(cellNo).toString());
-                if (hssfRow.getCell(++cellNo) != null) staffInfo.setExpenseCard(hssfRow.getCell(cellNo).toString());
-                if (hssfRow.getCell(++cellNo) != null) staffInfo.setItem(hssfRow.getCell(cellNo).toString());
-                if (hssfRow.getCell(++cellNo) != null) staffInfo.setYoOrder(hssfRow.getCell(cellNo).toString());
-                if (hssfRow.getCell(++cellNo) != null) staffInfo.setStaffState(hssfRow.getCell(cellNo).toString());
-                if (hssfRow.getCell(++cellNo) != null) staffInfo.setWorkState(hssfRow.getCell(cellNo).toString());
-                if (hssfRow.getCell(++cellNo) != null) staffInfo.setLeaveDate(hssfRow.getCell(cellNo).toString());
+//                if (hssfRow.getCell(++cellNo) != null) staffInfo.setStaffUserId(hssfRow.getCell(cellNo).toString());
+//                if (hssfRow.getCell(++cellNo) != null) staffInfo.setDepartment(hssfRow.getCell(cellNo).toString());
+//                if (hssfRow.getCell(++cellNo) != null) staffInfo.setPosition(hssfRow.getCell(cellNo).toString());
+//                if (hssfRow.getCell(++cellNo) != null) staffInfo.setName(hssfRow.getCell(cellNo).toString());
+//                if (hssfRow.getCell(++cellNo) != null) staffInfo.setSex(hssfRow.getCell(cellNo).toString());
+//                if (hssfRow.getCell(++cellNo) != null) staffInfo.setStaffId(hssfRow.getCell(cellNo).toString());
+//                if (hssfRow.getCell(++cellNo) != null) staffInfo.setWhetherLeader(hssfRow.getCell(cellNo).toString());
+//                if (hssfRow.getCell(++cellNo) != null) staffInfo.setCellphone(hssfRow.getCell(cellNo).toString());
+//                if (hssfRow.getCell(++cellNo) != null) staffInfo.setEmail(hssfRow.getCell(cellNo).toString());
+//                if (hssfRow.getCell(++cellNo) != null) staffInfo.setBranchPhone(hssfRow.getCell(cellNo).toString());
+//                if (hssfRow.getCell(++cellNo) != null) staffInfo.setWorkAddress(hssfRow.getCell(cellNo).toString());
+//                if (hssfRow.getCell(++cellNo) != null) staffInfo.setComment1(hssfRow.getCell(cellNo).toString());
+//                if (hssfRow.getCell(++cellNo) != null) staffInfo.setContractType(hssfRow.getCell(cellNo).toString());
+//                if (hssfRow.getCell(++cellNo) != null) staffInfo.setYindaIdentify(hssfRow.getCell(cellNo).toString());
+//                if (hssfRow.getCell(++cellNo) != null) staffInfo.setNetUnit(hssfRow.getCell(cellNo).toString());
+//                if (hssfRow.getCell(++cellNo) != null) staffInfo.setComment2(hssfRow.getCell(cellNo).toString());
+//                if (hssfRow.getCell(++cellNo) != null) staffInfo.setIdNo(hssfRow.getCell(cellNo).toString());
+//                if (hssfRow.getCell(++cellNo) != null) staffInfo.setHouseholdAddress(hssfRow.getCell(cellNo).toString());
+//                if (hssfRow.getCell(++cellNo) != null) staffInfo.setBranchCompany(hssfRow.getCell(cellNo).toString());
+//                if (hssfRow.getCell(++cellNo) != null) staffInfo.setSocialSecurityAddress(hssfRow.getCell(cellNo).toString());
+//                if (hssfRow.getCell(++cellNo) != null) staffInfo.setOrdinaryAddress(hssfRow.getCell(cellNo).toString());
+//                if (hssfRow.getCell(++cellNo) != null) staffInfo.setRsoIdentify(hssfRow.getCell(cellNo).toString());
+//                if (hssfRow.getCell(++cellNo) != null) staffInfo.setBaseSalary(hssfRow.getCell(cellNo).toString());
+//                if (hssfRow.getCell(++cellNo) != null) staffInfo.setItemSalary(hssfRow.getCell(cellNo).toString());
+//                if (hssfRow.getCell(++cellNo) != null) staffInfo.setNation(hssfRow.getCell(cellNo).toString());
+//                if (hssfRow.getCell(++cellNo) != null) staffInfo.setAge(hssfRow.getCell(cellNo).toString());
+//                if (hssfRow.getCell(++cellNo) != null) staffInfo.setLastContract(hssfRow.getCell(cellNo).toString());
+//                if (hssfRow.getCell(++cellNo) != null) staffInfo.setLastContractBegin(hssfRow.getCell(cellNo).toString());
+//                if (hssfRow.getCell(++cellNo) != null) staffInfo.setLastContractEnd(hssfRow.getCell(cellNo).toString());
+//                if (hssfRow.getCell(++cellNo) != null) staffInfo.setEnterTime(hssfRow.getCell(cellNo).toString());
+//                if (hssfRow.getCell(++cellNo) != null) staffInfo.setWorkYear(hssfRow.getCell(cellNo).toString());
+//                if (hssfRow.getCell(++cellNo) != null) staffInfo.setSalaryCard(hssfRow.getCell(cellNo).toString());
+//                if (hssfRow.getCell(++cellNo) != null) staffInfo.setGraduateSchool(hssfRow.getCell(cellNo).toString());
+//                if (hssfRow.getCell(++cellNo) != null) staffInfo.setSchoolRecord(hssfRow.getCell(cellNo).toString());
+//                if (hssfRow.getCell(++cellNo) != null) staffInfo.setGraduateDate(hssfRow.getCell(cellNo).toString());
+//                if (hssfRow.getCell(++cellNo) != null) staffInfo.setExpenseCard(hssfRow.getCell(cellNo).toString());
+//                if (hssfRow.getCell(++cellNo) != null) staffInfo.setItem(hssfRow.getCell(cellNo).toString());
+//                if (hssfRow.getCell(++cellNo) != null) staffInfo.setYoOrder(hssfRow.getCell(cellNo).toString());
+//                if (hssfRow.getCell(++cellNo) != null) staffInfo.setStaffState(hssfRow.getCell(cellNo).toString());
+//                if (hssfRow.getCell(++cellNo) != null) staffInfo.setWorkState(hssfRow.getCell(cellNo).toString());
+//                if (hssfRow.getCell(++cellNo) != null) staffInfo.setLeaveDate(hssfRow.getCell(cellNo).toString());
 
-                System.out.println(staffInfo.getIdNo());
-                System.out.println(staffInfo.getEmail());
+                if (hssfRow.getCell(++cellNo) != null && !hssfRow.getCell(cellNo).toString().equals("")) staffInfo.setStaffUserId(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null && !hssfRow.getCell(cellNo).toString().equals("")) staffInfo.setDepartment(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null && !hssfRow.getCell(cellNo).toString().equals("")) staffInfo.setPosition(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null && !hssfRow.getCell(cellNo).toString().equals("")) staffInfo.setName(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null && !hssfRow.getCell(cellNo).toString().equals("")) staffInfo.setSex(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null && !hssfRow.getCell(cellNo).toString().equals("")) staffInfo.setStaffId(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null && !hssfRow.getCell(cellNo).toString().equals("")) staffInfo.setWhetherLeader(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null && !hssfRow.getCell(cellNo).toString().equals("")) staffInfo.setCellphone(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null && !hssfRow.getCell(cellNo).toString().equals("")) staffInfo.setEmail(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null && !hssfRow.getCell(cellNo).toString().equals("")) staffInfo.setBranchPhone(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null && !hssfRow.getCell(cellNo).toString().equals("")) staffInfo.setWorkAddress(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null && !hssfRow.getCell(cellNo).toString().equals("")) staffInfo.setComment1(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null && !hssfRow.getCell(cellNo).toString().equals("")) staffInfo.setContractType(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null && !hssfRow.getCell(cellNo).toString().equals("")) staffInfo.setYindaIdentify(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null && !hssfRow.getCell(cellNo).toString().equals("")) staffInfo.setNetUnit(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null && !hssfRow.getCell(cellNo).toString().equals("")) staffInfo.setComment2(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null && !hssfRow.getCell(cellNo).toString().equals("")) staffInfo.setIdNo(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null && !hssfRow.getCell(cellNo).toString().equals("")) staffInfo.setHouseholdAddress(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null && !hssfRow.getCell(cellNo).toString().equals("")) staffInfo.setBranchCompany(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null && !hssfRow.getCell(cellNo).toString().equals("")) staffInfo.setSocialSecurityAddress(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null && !hssfRow.getCell(cellNo).toString().equals("")) staffInfo.setOrdinaryAddress(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null && !hssfRow.getCell(cellNo).toString().equals("")) staffInfo.setRsoIdentify(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null && !hssfRow.getCell(cellNo).toString().equals("")) staffInfo.setBaseSalary(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null && !hssfRow.getCell(cellNo).toString().equals("")) staffInfo.setItemSalary(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null && !hssfRow.getCell(cellNo).toString().equals("")) staffInfo.setNation(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null && !hssfRow.getCell(cellNo).toString().equals("")) staffInfo.setAge(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null && !hssfRow.getCell(cellNo).toString().equals("")) staffInfo.setLastContract(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null && !hssfRow.getCell(cellNo).toString().equals("")) staffInfo.setLastContractBegin(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null && !hssfRow.getCell(cellNo).toString().equals("")) staffInfo.setLastContractEnd(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null && !hssfRow.getCell(cellNo).toString().equals("")) staffInfo.setEnterTime(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null && !hssfRow.getCell(cellNo).toString().equals("")) staffInfo.setWorkYear(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null && !hssfRow.getCell(cellNo).toString().equals("")) staffInfo.setSalaryCard(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null && !hssfRow.getCell(cellNo).toString().equals("")) staffInfo.setGraduateSchool(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null && !hssfRow.getCell(cellNo).toString().equals("")) staffInfo.setSchoolRecord(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null && !hssfRow.getCell(cellNo).toString().equals("")) staffInfo.setGraduateDate(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null && !hssfRow.getCell(cellNo).toString().equals("")) staffInfo.setExpenseCard(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null && !hssfRow.getCell(cellNo).toString().equals("")) staffInfo.setItem(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null && !hssfRow.getCell(cellNo).toString().equals("")) staffInfo.setYoOrder(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null && !hssfRow.getCell(cellNo).toString().equals("")) staffInfo.setStaffState(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null && !hssfRow.getCell(cellNo).toString().equals("")) staffInfo.setWorkState(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null && !hssfRow.getCell(cellNo).toString().equals("")) staffInfo.setLeaveDate(hssfRow.getCell(cellNo).toString());
+
                 /*
                 第4步，判断部门，姓名，工号，手机号这4个字段是否为空
-                如果为空的话，实体对象进入失败列表
+                如果为空的话，实体对象直接进入失败列表并跳出循环
                 身份证号暂时允许为空，因为入职的人好鱼啊，可能连身份证号都木有
                  */
                 if (hssfRow.getCell(1) == null
@@ -151,43 +188,32 @@ public class ExcelStaffInfoServiceImpl implements IExcelStaffInfoService {
                     continue;
                 }
 
-                /*
-                第5步，如果StaffUserId为空的话，那么先插入钉钉
-                从钉钉里面返回一个StaffUserId再进行后续操作
-                 */
-                String staffUserId = null;
-                if (hssfRow.getCell(0) == null || hssfRow.getCell(0).toString().equals("")) {
+                // 第5步，判断对象中的staffUserId是否为空。如果为空的话，就先插入钉钉并获得一个
+                String staffUserId = staffInfo.getStaffUserId();
+                if (staffUserId == null || staffUserId.equals("")) {
                     try {
                         staffUserId = createUser(staffInfo);
                     } catch (Exception e) {
+                        // 如果异常直接跳出循环
                         listFail.add(staffInfo);
-                        break;
+                        continue;
                     }
-                    staffInfo.setStaffUserId(staffUserId);
-                } else {
-                    staffUserId = hssfRow.getCell(0).toString();
                 }
-                /*
-                第6步，检查数据库中是否有相同的StaffUserId，如果没有，说明是一个新的条目，执行插入操作
-                之所以有失败的可能性，是因为单元格内容有可能超过数据库长度
-                 */
-                StaffInfo staffInfo1 = staffInfoMapper.selectByPrimaryKey(staffUserId);
-                if (staffInfo1 == null) {
+
+                // 第6步，根据staffUserId在数据库中查询是否有该员工。如果有，则进行选择更新操作
+                if (staffInfoMapper.selectByPrimaryKey(staffUserId) != null) {
                     try {
-                        staffInfoMapper.insert(staffInfo);
+                        staffInfoMapper.updateByPrimaryKeySelective(staffInfo);
                     } catch (Exception e) {
                         listFail.add(staffInfo);
                         continue;
                     }
                 }
-                /*
-                第7步，如果有相同的StaffUserId，说明数据库中有原数据
-                那么，就覆盖查询到的第一条数据
-                同样，也有失败的可能性
-                 */
+
+                // 第7步，如果查不到该员工，说明是一条新数据，执行插入操作
                 else {
                     try {
-                        staffInfoMapper.updateByPrimaryKey(staffInfo);
+                        staffInfoMapper.insert(staffInfo);
                     } catch (Exception e) {
                         listFail.add(staffInfo);
                         continue;
@@ -201,8 +227,9 @@ public class ExcelStaffInfoServiceImpl implements IExcelStaffInfoService {
                 List<StaffInfo> list = staffInfoMapper.selectByExample(example);
                 // 不可能有多条离职信息，故只删除第1条
                 if (list.size() > 0){
-                    staffInfo1 = list.get(0);
-                    staffUserId = staffInfo1.getStaffUserId();
+                    // 由于不再需要读写该对象以及使用其进行更新，于是对之进行复用！
+                    staffInfo = list.get(0);
+                    staffUserId = staffInfo.getStaffUserId();
                     staffInfoMapper.deleteByPrimaryKey(staffUserId);
                 }
 
