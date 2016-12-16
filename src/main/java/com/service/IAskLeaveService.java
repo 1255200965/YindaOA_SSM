@@ -12,9 +12,10 @@ import java.util.Map;
  */
 public interface IAskLeaveService {
    //获取请假表的信息
-   List<AskForLeave> selectByExample();
+   public List<AskForLeave> selectByExample();
 
-   List<AskForLeave> selectByExample(AskForLeaveExample example);
-
+   public List<AskForLeave> selectByExample(AskForLeaveExample example);
+   //根据工号、姓名、时间区间、部门进行查询
+   public List<AskForLeave> selectByPropertities(AskForLeave askForLeave);
 
 }

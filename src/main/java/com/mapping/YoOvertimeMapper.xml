@@ -79,6 +79,34 @@
     from yo_overtime
     where ot_sequence_no = #{otSequenceNo,jdbcType=INTEGER}
   </select>
+    <!-- 加班表列表展示整个方法 -->
+  <select id="selectByProperties" resultMap="BaseResultMap" parameterType="com.model.YoOvertime">
+     select 
+     <include refid="Base_Column_List" />
+     from yo_overtime
+     <where>
+       <if test="otAskStaffName != null and otAskStaffName !=''">
+         ot_ask_staff_name like CONCAT('%','${otAskStaffName}','%')
+       </if>
+       <if test="otAskStaffId != null and otAskStaffId !=''">
+        and ot_ask_staff_id ='${otAskStaffId}'
+       </if>
+       <if test="otAskStaffDepart != null and otAskStaffDepart !=''">
+       and ot_ask_staff_depart like CONCAT('%','${otAskStaffDepart}','%')
+       </if>
+       <if test="otApproveBegin == null or otApproveBegin == ''">
+       <![CDATA[
+            and DATE_SUB(CURDATE(),INTERVAL 1 MONTH) <= date(ot_approve_begin) 
+            ]]>
+       </if>
+       <if test="otApproveBegin !=null and otApproveBegin !=''">
+       <![CDATA[
+            and DATE_FORMAT(ot_approve_begin,"%Y-%m-%d") >= '${otApproveBegin}'
+             and DATE_FORMAT(ot_approve_begin,"%Y-%m-%d") <= '${otApproveEnd}'
+            ]]>
+       </if>
+     </where>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from yo_overtime
     where ot_sequence_no = #{otSequenceNo,jdbcType=INTEGER}

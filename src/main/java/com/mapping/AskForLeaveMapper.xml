@@ -89,6 +89,7 @@
     yo_approve_record, yo_now_approve_name, yo_cost, yo_type, yo_ask_begin_date, yo_ask_begin_time, 
     yo_ask_end_date, yo_ask_end_time, yo_ask_sustain, yo_ask_reason, yo_picture
   </sql>
+  
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.model.AskForLeaveExample" >
     select
     <if test="distinct" >
@@ -282,6 +283,35 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
+  <!-- 根据姓名、工号、部门、时间区间做模糊查询 -->
+  <select id="selectByPropertities" resultMap="BaseResultMap" parameterType="com.model.AskForLeave">
+    select
+      <include refid="Base_Column_List" />
+      from ask_for_leave
+      <where>
+          <if test="yoAskStaffName!=null and yoAskStaffName!=''">
+            yo_ask_staff_name like CONCAT('%','${yoAskStaffName}','%' )
+          </if>
+          <if test="yoAskStaffDepart!=null and yoAskStaffDepart!=''">
+            and yo_ask_staff_depart like CONCAT('%','${yoAskStaffDepart}','%' )
+          </if>
+          <if test="yoAskStaffId!=null and yoAskStaffId!=''">
+           and yo_ask_staff_id = ${yoAskStaffId}
+          </if>
+          <if test="yoAskBeginDate==null or yoAskBeginDate==''">
+          <![CDATA[
+            and DATE_SUB(CURDATE(),INTERVAL 1 MONTH) <= date(yo_ask_begin_date) 
+            ]]>
+           </if>
+           <if test="yoAskBeginDate!=null and yoAskBeginDate!=''">
+           <![CDATA[
+           	and DATE_FORMAT(yo_ask_begin_date,'%Y-%m-%d') >= '${yoAskBeginDate}' and DATE_FORMAT(yo_ask_begin_date,'%Y-%m-%d') <= '${yoAskEndDate}'
+           ]]>
+           </if>
+           
+      </where>
+  </select>
+  
   <update id="updateByExampleSelective" parameterType="map" >
     update ask_for_leave
     <set >

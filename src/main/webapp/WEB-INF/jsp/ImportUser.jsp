@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <!doctype html>
 <html>
@@ -26,7 +25,10 @@
                 <li><a href="${ctx}/Import/navigator.do">审批数据导入</a></li>
                 <li><a href="${ctx}/userinfo/test.do">工资查询</a></li>
                 <li><a href="${ctx}/userinfo/querys.do">个人工资明细</a></li>
-
+                <li><a href="${ctx}/toAskForLeave.do">请假明细</a>
+                <li><a href="${ctx}/toOverTime.do">加班明细</a>
+                <li><a href="${ctx}/toItemChange.do">项目变更</a>
+                <li><a href="${ctx}/toSocialSecurity.do">社保明细查看</a>
             </ul>
         </div>
         <div class="head-right fr">

@@ -21,4 +21,6 @@ public interface YoOvertimeMapper {
     int updateByPrimaryKeySelective(YoOvertime record);
 
     int updateByPrimaryKey(YoOvertime record);
+    //加班表列表展示整个方法
+    public List<YoOvertime> selectByProperties(YoOvertime overTime);
 }

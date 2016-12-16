@@ -8,6 +8,7 @@ import java.util.List;
  * Created by pwj on 2016/11/7.
  */
 public interface IOvertimeService {
-    //获取加班表的信息
-    List<YoOvertime> selectByExample();
+   
+    //加班信息列表展示界面所有方法
+    public List<YoOvertime> selectByProperties(YoOvertime overTime);
 }

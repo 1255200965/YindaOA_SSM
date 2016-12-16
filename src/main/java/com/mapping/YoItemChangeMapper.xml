@@ -79,6 +79,33 @@
     from yo_item_change
     where ic_sequence_no = #{icSequenceNo,jdbcType=INTEGER}
   </select>
+  <select id="selectByPropertities" resultMap="BaseResultMap" parameterType="com.model.YoItemChange">
+   select
+   <include refid="Base_Column_List" />
+   from yo_item_change
+   <where>
+    <if test="icAskStaffName !=null and icAskStaffName !=''">
+      ic_ask_staff_name like CONCAT('%','${icAskStaffName}','%')
+    </if>
+    <if test="icAskStaffId !=null and icAskStaffId !=''">
+    and  ic_ask_staff_id = '${icAskStaffId}'
+    </if>
+    <if test="icAskStaffDepart !=null and icAskStaffDepart !=''">
+    and ic_ask_staff_depart like CONCAT('%','${icAskStaffDepart}','%')
+    </if>
+     <if test="icApproveBegin == null or icApproveBegin==''">
+    <![CDATA[
+     and DATE_SUB(CURDATE(),INTERVAL 1 MONTH) <= DATE_FORMAT(ic_approve_begin,"%Y-%m-%d")
+     ]]>
+    </if> 
+    <if test="icApproveBegin !=null and icApproveBegin !=''">
+    <![CDATA[
+     and DATE_FORMAT(ic_approve_begin,"%Y-%m-%d") >= '${icApproveBegin}' 
+       and DATE_FORMAT(ic_approve_begin,"%Y-%m-%d") <= '${icApproveEnd}'
+    ]]>
+    </if>
+   </where>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from yo_item_change
     where ic_sequence_no = #{icSequenceNo,jdbcType=INTEGER}

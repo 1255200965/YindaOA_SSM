@@ -18,4 +18,6 @@ public interface YoSocialSecurityInfoMapper {
     int updateByPrimaryKeySelective(YoSocialSecurityInfo record);
 
     int updateByPrimaryKey(YoSocialSecurityInfo record);
+    //社保列表展示界面
+    public List<YoSocialSecurityInfo> selectByPropertities(YoSocialSecurityInfo socialSecurity);
 }

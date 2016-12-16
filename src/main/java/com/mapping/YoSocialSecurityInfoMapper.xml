@@ -91,6 +91,32 @@
     from yo_social_security_info
     where ssi_sequence_no = #{ssiSequenceNo,jdbcType=INTEGER}
   </select>
+  <select id="selectByPropertities" resultMap="BaseResultMap" parameterType="com.model.YoSocialSecurityInfo">
+    select
+    <include refid="Base_Column_List" />
+    from yo_social_security_info
+    <where>
+     <if test="ssiName != null and ssiName !=''">
+       ssi_name like CONCAT('%','${ssiName}','%')
+     </if>
+      <if test="ssiStaffId !=null and ssiStaffId !=''">
+        and ssi_staff_id ='${ssiStaffId}'
+     </if>
+      <if test="ssiBranchCompany!=null and ssiBranchCompany !=''">
+        and ssi_branch_company like CONCAT('%','${ssiBranchCompany}','%')
+     </if>
+      <if test="ssiBeginMonth == null or ssiBeginMonth ==''">
+       <![CDATA[
+        and DATE_SUB(CURDATE(),INTERVAL 1 MONTH) <= DATE_FORMAT(ssi_begin_month,"%Y-%m-%d")
+        ]]>
+     </if>
+     <if test="ssiBeginMonth != null and ssiBeginMonth != ''">
+     	<![CDATA[
+     	and DATE_FORMAT(ssi_begin_month,"%Y-%m-%d") >='${ssiBeginMonth}'
+     	]]>
+     </if>
+   </where>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from yo_social_security_info
     where ssi_sequence_no = #{ssiSequenceNo,jdbcType=INTEGER}

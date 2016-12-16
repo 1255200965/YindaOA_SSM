@@ -30,4 +30,6 @@ public interface AskForLeaveMapper {
     int updateByPrimaryKeySelective(AskForLeave record);
 
     int updateByPrimaryKey(AskForLeave record);
+    //根据工号、姓名、时间区间、部门进行查询
+    List<AskForLeave> selectByPropertities(AskForLeave askForLeave);
 }

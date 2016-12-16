@@ -286,7 +286,10 @@
                 <li><a  data-bind="attr: { href: '<%=basePath%>Import/navigator.do'}">审批数据导入</a></li>
                 <li><a data-bind="attr: { href: '<%=basePath%>userinfo/test.do'}">工资查询</a></li>
                 <li><a class="active" data-bind="attr: { href: '<%=basePath%>userinfo/querys.do'}">个人工资明细</a></li>
-
+                <li><a href="<%=basePath%>toAskForLeave.do">请假明细</a>
+                <li><a href="<%=basePath%>toOverTime.do">加班明细</a>
+                <li><a href="<%=basePath%>toItemChange.do">项目变更</a>
+                <li><a href="<%=basePath%>toSocialSecurity.do">社保明细查看</a>
             </ul>
         </div>
         <div class="head-right fl">
@@ -332,12 +335,12 @@
                 <td class="text_center" width="6%">出差费</td>
                 <td class="text_center" width="6%">交通费</td>
                 <td class="text_center" width="6%">小计</td>
-                <td class="text_center" width="6%">社保代扣</td>
+<%--                <td class="text_center" width="6%">社保代扣</td>--%>
                 <td class="text_center" width="6%">timebase奖金</td>
                 <td class="text_center" width="6%">timebase调整项</td>
                 <td class="text_center" width="6%">taskbase奖金</td>
                 <td class="text_center" width="6%">taskbase调整项</td>
-<%--                <td class="text_center" width="6%">奖金调整项</td>--%>
+                <td class="text_center" width="6%">奖金调整项</td>
                 <td class="text_center" width="6%">合计工资</td>
                 <td class="text_center" width="5%">操作</td>
                 </thead>
@@ -354,12 +357,12 @@
                     <td data-bind="text:allowance">编号</td>
                     <td data-bind="text:trafficsalary">编号</td>
                     <td data-bind="text:subtotal">编号</td>
-                    <td data-bind="text:socialdecase">编号</td>
+<%--                    <td data-bind="text:socialdecase">编号</td>--%>
                     <td data-bind="text:timesalary">编号</td>
-                    <td ><input  class="" data-bind="textinput:timebaseadd"/></td>
+                    <td ><input  class="c_ding_input" style="width:50%" data-bind="textinput:timebaseadd"/></td>
                     <td data-bind="text:tasksalary">编号</td>
-                    <td ><input  class="" data-bind="textinput:taskbaseadd"/></td>
-<%--                    <td ><input  class="" data-bind="textinput:userbonus"/></td>--%>
+                    <td ><input  class="c_ding_input" style="width:50%" data-bind="textinput:taskbaseadd"/></td>
+                    <td ><input  class="c_ding_input" style="width:50%" data-bind="textinput:userbonus"/></td>
                     <td data-bind="text:totalsalary">编号</td>
                     <td>
                         <input data-bind="click:$root.ClickUpdate" type="button" value="保存修改" class="gx-btn"/>
