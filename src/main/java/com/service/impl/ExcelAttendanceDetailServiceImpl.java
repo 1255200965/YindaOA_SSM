@@ -53,26 +53,26 @@ public class ExcelAttendanceDetailServiceImpl implements IExcelAttendanceDetailS
             现在开始做真正的功能！
             第1步，把得到的hssfRow中每一个不为null的cell都设为文本类型，确保每一个整形数值在toString后不会自动加上.0
             */
-            for (int cellNo=0; cellNo<=cellLastNo; cellNo++) {
-                // cell不为空时才操作，为空也就不用管他是什么类型了
-                // 想管也管不起，因为会报NullPointerException，而我们编程时应当避免异常，而不是积极处理异常
-                if (hssfRow.getCell(cellNo) != null) hssfRow.getCell(cellNo).setCellType(1);
-            }
+//            for (int cellNo=0; cellNo<=cellLastNo; cellNo++) {
+//                // cell不为空时才操作，为空也就不用管他是什么类型了
+//                // 想管也管不起，因为会报NullPointerException，而我们编程时应当避免异常，而不是积极处理异常
+//                if (hssfRow.getCell(cellNo) != null) hssfRow.getCell(cellNo).setCellType(1);
+//            }
 
             /*
             第2步，检查当前行是不是空行，如果是就跳过后面的，操作下一行
             检查方法：空的单元格的数目是否等于最后单元格序号+1
              */
-            int emptyCellAmount = 0;
-            for (int cellNo=0; cellNo<=cellLastNo; cellNo++) {
-                // cell不为空时才操作，为空也就不用管他是什么类型了
-                // 想管也管不起，因为会报NullPointerException，而我们编程时应当避免异常，而不是积极处理异常
-                if (hssfRow.getCell(cellNo)==null || hssfRow.getCell(cellNo).toString().equals("")) {
-                    // 这里就可以用++i了，听说运算速度更快= =
-                    ++emptyCellAmount;
-                }
-            }
-            if (emptyCellAmount == cellLastNo+1) continue;
+//            int emptyCellAmount = 0;
+//            for (int cellNo=0; cellNo<=cellLastNo; cellNo++) {
+//                // cell不为空时才操作，为空也就不用管他是什么类型了
+//                // 想管也管不起，因为会报NullPointerException，而我们编程时应当避免异常，而不是积极处理异常
+//                if (hssfRow.getCell(cellNo)==null || hssfRow.getCell(cellNo).toString().equals("")) {
+//                    // 这里就可以用++i了，听说运算速度更快= =
+//                    ++emptyCellAmount;
+//                }
+//            }
+//            if (emptyCellAmount == cellLastNo+1) continue;
 
             /*
             第3步，由于考勤日期，考勤时间和打卡时间需要用Date类型，所以按照一定的格式来读取

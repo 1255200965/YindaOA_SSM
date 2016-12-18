@@ -3,7 +3,7 @@ package com.service.impl;
 import com.dao.YoItemChangeMapper;
 import com.model.YoItemChange;
 import com.model.YoItemChangeExample;
-import com.service.IItemChangeExcelService;
+import com.service.IExcelItemChangeService;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -23,7 +23,7 @@ import java.util.Map;
  * 队标：一篇代码，最好不要超过200行，尽量不要超过300行，一定不能超过500行
  */
 @Service
-public class ItemChangeServiceImpl implements IItemChangeExcelService {
+public class ExcelItemChangeServiceImpl implements IExcelItemChangeService {
 
     @Autowired
     public YoItemChangeMapper yoItemChangeMapper;
@@ -65,6 +65,7 @@ public class ItemChangeServiceImpl implements IItemChangeExcelService {
                         && hssfRow.getCell(cellNo++).toString().equals("变动部门")
                         && hssfRow.getCell(cellNo++).toString().equals("变动项目")
                         && hssfRow.getCell(cellNo++).toString().equals("变动订单")
+                        && hssfRow.getCell(cellNo++).toString().equals("商务属性")
                         && hssfRow.getCell(cellNo++).toString().equals("变动省份")
                         && hssfRow.getCell(cellNo++).toString().equals("变动城市")
                         && hssfRow.getCell(cellNo++).toString().equals("室外工作")
@@ -162,6 +163,7 @@ public class ItemChangeServiceImpl implements IItemChangeExcelService {
                 if (hssfRow.getCell(++cellNo) != null) yoItemChange.setIcDepartment(hssfRow.getCell(cellNo).toString());
                 if (hssfRow.getCell(++cellNo) != null) yoItemChange.setIcChangeItem(hssfRow.getCell(cellNo).toString());
                 if (hssfRow.getCell(++cellNo) != null) yoItemChange.setIcChangeOrder(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoItemChange.setIcBusinessProperty(hssfRow.getCell(cellNo).toString());
                 if (hssfRow.getCell(++cellNo) != null) yoItemChange.setIcChangeProvince(hssfRow.getCell(cellNo).toString());
                 if (hssfRow.getCell(++cellNo) != null) yoItemChange.setIcWorkCity(hssfRow.getCell(cellNo).toString());
                 if (hssfRow.getCell(++cellNo) != null) yoItemChange.setIcOutroomWork(hssfRow.getCell(cellNo).toString());
