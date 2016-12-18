@@ -1214,6 +1214,76 @@ public class YoItemChangeExample {
             return (Criteria) this;
         }
 
+        public Criteria andIcBusinessPropertyIsNull() {
+            addCriterion("ic_business_property is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIcBusinessPropertyIsNotNull() {
+            addCriterion("ic_business_property is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIcBusinessPropertyEqualTo(String value) {
+            addCriterion("ic_business_property =", value, "icBusinessProperty");
+            return (Criteria) this;
+        }
+
+        public Criteria andIcBusinessPropertyNotEqualTo(String value) {
+            addCriterion("ic_business_property <>", value, "icBusinessProperty");
+            return (Criteria) this;
+        }
+
+        public Criteria andIcBusinessPropertyGreaterThan(String value) {
+            addCriterion("ic_business_property >", value, "icBusinessProperty");
+            return (Criteria) this;
+        }
+
+        public Criteria andIcBusinessPropertyGreaterThanOrEqualTo(String value) {
+            addCriterion("ic_business_property >=", value, "icBusinessProperty");
+            return (Criteria) this;
+        }
+
+        public Criteria andIcBusinessPropertyLessThan(String value) {
+            addCriterion("ic_business_property <", value, "icBusinessProperty");
+            return (Criteria) this;
+        }
+
+        public Criteria andIcBusinessPropertyLessThanOrEqualTo(String value) {
+            addCriterion("ic_business_property <=", value, "icBusinessProperty");
+            return (Criteria) this;
+        }
+
+        public Criteria andIcBusinessPropertyLike(String value) {
+            addCriterion("ic_business_property like", value, "icBusinessProperty");
+            return (Criteria) this;
+        }
+
+        public Criteria andIcBusinessPropertyNotLike(String value) {
+            addCriterion("ic_business_property not like", value, "icBusinessProperty");
+            return (Criteria) this;
+        }
+
+        public Criteria andIcBusinessPropertyIn(List<String> values) {
+            addCriterion("ic_business_property in", values, "icBusinessProperty");
+            return (Criteria) this;
+        }
+
+        public Criteria andIcBusinessPropertyNotIn(List<String> values) {
+            addCriterion("ic_business_property not in", values, "icBusinessProperty");
+            return (Criteria) this;
+        }
+
+        public Criteria andIcBusinessPropertyBetween(String value1, String value2) {
+            addCriterion("ic_business_property between", value1, value2, "icBusinessProperty");
+            return (Criteria) this;
+        }
+
+        public Criteria andIcBusinessPropertyNotBetween(String value1, String value2) {
+            addCriterion("ic_business_property not between", value1, value2, "icBusinessProperty");
+            return (Criteria) this;
+        }
+
         public Criteria andIcChangeProvinceIsNull() {
             addCriterion("ic_change_province is null");
             return (Criteria) this;

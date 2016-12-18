@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.model.YoItemChange;
-import com.service.IItemChangeService;
+import com.service.IExcelItemChangeService;
 
 @Controller
 public class ItemChangeController {
 	@Autowired
-	private IItemChangeService itemChangeService;
+	private IExcelItemChangeService itemChangeService;
 	@RequestMapping("/toItemChange.do")
 	public ModelAndView toItemChange(HttpServletRequest request,YoItemChange itemChange){
 		ModelAndView mav = new ModelAndView();

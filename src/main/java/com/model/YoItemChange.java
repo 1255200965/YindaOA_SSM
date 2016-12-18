@@ -33,6 +33,8 @@ public class YoItemChange {
 
     private String icChangeOrder;
 
+    private String icBusinessProperty;
+
     private String icChangeProvince;
 
     private String icWorkCity;
@@ -169,6 +171,14 @@ public class YoItemChange {
 
     public void setIcChangeOrder(String icChangeOrder) {
         this.icChangeOrder = icChangeOrder;
+    }
+
+    public String getIcBusinessProperty() {
+        return icBusinessProperty;
+    }
+
+    public void setIcBusinessProperty(String icBusinessProperty) {
+        this.icBusinessProperty = icBusinessProperty;
     }
 
     public String getIcChangeProvince() {

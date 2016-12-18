@@ -1,8 +1,7 @@
 package com.controller;
 
-import com.model.AskForLeave;
 import com.model.YoItemChange;
-import com.service.IItemChangeExcelService;
+import com.service.IItemChangeService;
 import com.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,7 +24,7 @@ import java.util.Map;
 public class ItemChangeExcelController {
 
     @Autowired
-    private IItemChangeExcelService iItemChangeExcelService;
+    private IItemChangeService iItemChangeExcelService;
 
     @RequestMapping("/navigator.do")
     public String navigator() {
