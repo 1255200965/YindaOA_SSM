@@ -123,7 +123,6 @@ public class ExcelStaffInfoController {
         String failAmountStr = String.valueOf(failAmonutInt);
         m.addAttribute("failAmount", failAmountStr);
         m.addAttribute("listFail", listFail);
-
         return "excel/staff_info_result_import";
     }
 

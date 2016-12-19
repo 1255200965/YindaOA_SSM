@@ -22,11 +22,11 @@
     <table>
         <tr>
             <th style="width: 15%">员工UserID</th>
-            <th style="width: 30%">部门</th>
+            <th style="width: 20%">部门</th>
             <th style="width: 10%">姓名</th>
             <th style="width: 10%">工号</th>
-            <th style="width: 17%">手机号</th>
-            <th style="width: 18%">身份证号</th>
+            <th style="width: 15%">手机号</th>
+            <th style="width: 30%">出错原因</th>
         </tr>
         <c:forEach var="item" items="${listFail}">
             <tr>
@@ -35,7 +35,7 @@
                 <td>${item.name}</td>
                 <td>${item.staffId}</td>
                 <td>${item.cellphone}</td>
-                <td>${item.idNo}</td>
+                <td>${item.errorReason}</td>
             </tr>
         </c:forEach>
     </table>

@@ -39,7 +39,8 @@ public class ExcelStaffInfoServiceImpl implements IExcelStaffInfoService {
      */
     public Map<String, Object> insertAndUpdate(HSSFWorkbook hssfWorkbook) {
         Map<String, Object> mapInsert = new HashMap<String, Object>();
-        List<StaffInfo> listFail = new ArrayList<StaffInfo>();
+        // 显示在页面的信息，必须是String类型
+        List<Map<String, String>> listFail = new ArrayList<Map<String, String>>();
 
         // 得到当前文件的总表数
         int sheetTotal = hssfWorkbook.getNumberOfSheets();
@@ -133,16 +134,14 @@ public class ExcelStaffInfoServiceImpl implements IExcelStaffInfoService {
                 如果为空的话，实体对象直接进入失败列表并跳出循环
                 身份证号暂时允许为空，因为入职的人好鱼啊，可能连身份证号都木有
                  */
-                if (hssfRow.getCell(1) == null
-                        || hssfRow.getCell(3) == null
-                        || hssfRow.getCell(5) == null
-                        || hssfRow.getCell(7) == null
-                        || hssfRow.getCell(1).toString().equals("")
-                        || hssfRow.getCell(3).toString().equals("")
-                        || hssfRow.getCell(5).toString().equals("")
-                        || hssfRow.getCell(7).toString().equals("")
+                if (staffInfo.getDepartment() == null
+                        || staffInfo.getName() == null
+                        || staffInfo.getStaffId() == null
+                        || staffInfo.getCellphone() == null
                         ) {
-                    listFail.add(staffInfo);
+                    Map<String, String> errorMap = new HashMap<String, String>();
+                    errorMap.put("errorReason", "该数据部门，姓名，工号，手机号这4个字段至少有一个为空。至于是哪一条数据请自己找！");
+                    listFail.add(errorMap);
                     continue;
                 }
 
@@ -153,7 +152,13 @@ public class ExcelStaffInfoServiceImpl implements IExcelStaffInfoService {
                         staffUserId = createUser(staffInfo);
                     } catch (Exception e) {
                         // 如果异常直接跳出循环
-                        listFail.add(staffInfo);
+                        Map<String, String> errorMap = new HashMap<String, String>();
+                        errorMap.put("department", staffInfo.getDepartment());
+                        errorMap.put("name", staffInfo.getName());
+                        errorMap.put("staffId", staffInfo.getStaffId());
+                        errorMap.put("cellphone", staffInfo.getCellphone());
+                        errorMap.put("errorReason", e.toString());
+                        listFail.add(errorMap);
                         continue;
                     }
                 }
@@ -163,7 +168,14 @@ public class ExcelStaffInfoServiceImpl implements IExcelStaffInfoService {
                     try {
                         staffInfoMapper.updateByPrimaryKeySelective(staffInfo);
                     } catch (Exception e) {
-                        listFail.add(staffInfo);
+                        Map<String, String> errorMap = new HashMap<String, String>();
+                        errorMap.put("staffUserId", staffInfo.getStaffUserId());
+                        errorMap.put("department", staffInfo.getDepartment());
+                        errorMap.put("name", staffInfo.getName());
+                        errorMap.put("staffId", staffInfo.getStaffId());
+                        errorMap.put("cellphone", staffInfo.getCellphone());
+                        errorMap.put("errorReason", e.toString());
+                        listFail.add(errorMap);
                         continue;
                     }
                 }
@@ -173,7 +185,14 @@ public class ExcelStaffInfoServiceImpl implements IExcelStaffInfoService {
                     try {
                         staffInfoMapper.insert(staffInfo);
                     } catch (Exception e) {
-                        listFail.add(staffInfo);
+                        Map<String, String> errorMap = new HashMap<String, String>();
+                        errorMap.put("staffUserId", staffInfo.getStaffUserId());
+                        errorMap.put("department", staffInfo.getDepartment());
+                        errorMap.put("name", staffInfo.getName());
+                        errorMap.put("staffId", staffInfo.getStaffId());
+                        errorMap.put("cellphone", staffInfo.getCellphone());
+                        errorMap.put("errorReason", e.toString());
+                        listFail.add(errorMap);
                         continue;
                     }
                 }
@@ -203,9 +222,8 @@ public class ExcelStaffInfoServiceImpl implements IExcelStaffInfoService {
         return mapInsert;
     }
 
-    /**
-     * 把手机号不为空的员工列表返回
-     * @return
+    /*
+    把staffUserId不为空的员工列表返回
      */
     public List<StaffInfo> getAllStaff() {
         StaffInfoExample staffInfoExample = new StaffInfoExample();

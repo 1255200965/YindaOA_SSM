@@ -19,5 +19,8 @@ public interface IExcelStaffInfoService {
      */
     Map<String, Object> insertAndUpdate(HSSFWorkbook hssfWorkbook);
 
+    /*
+    把staffUserId不为空的员工列表返回
+     */
     List<StaffInfo> getAllStaff();
 }
