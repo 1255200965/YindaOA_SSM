@@ -380,6 +380,7 @@
   select date from yo_salary  WHERE yo_salary.userid = #{userid}
   and  MONTH(date) = MONTH(#{date}) 
   and  evection = 1
+  
 </select>
 
 </mapper>
