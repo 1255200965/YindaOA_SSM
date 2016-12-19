@@ -58,8 +58,8 @@ public class ExcelStaffInfoController {
         HttpHeaders httpHeaders = new HttpHeaders();
         HttpStatus httpStatus = HttpStatus.OK;
         String ctx = System.getProperty("rootPath");
-        String path = ctx + "/template/templateUserInfo.xls";
-        String fileName = "templateUserInfo.xls";
+        String path = ctx + "/template/tem_staff_info.xls";
+        String fileName = "tem_staff_info.xls";
         File file = new File(path);
         try {
             InputStream inputStream = new FileInputStream(file);

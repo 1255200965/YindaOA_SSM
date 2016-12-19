@@ -44,7 +44,7 @@
         <p>第二步：上传填写好的数据表</p>
     </div>
     <div class="select-file">
-        <form action="${controller}/ItemChangeExcel/importExcel.do" enctype="multipart/form-data" method="post" onsubmit="return check()">
+        <form action="${controller}/ExcelItemChangeimportExcel.do" enctype="multipart/form-data" method="post" onsubmit="return check()">
             <div class="select-details">
                 <a href="javascript:;" class="file">选择文件
                     <input type="file" value="选择文件" id="fileInput" name="fileUpload" onchange="showFile()">

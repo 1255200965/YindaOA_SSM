@@ -107,7 +107,7 @@ public class ExcelSignInServiceImpl implements IExcelSignInService {
             if (hssfRow.getCell(++cellNo) != null) yoSignIn.setSiImage9(image9);
 
             /*
-            第5步，如果工号，日期，时间都相同，就直接下一条，即不成功也不失败
+            第5步，如果工号，日期，时间都相同，就直接跳过
              */
             String staffId = yoSignIn.getSiStaffId();
             String date = yoSignIn.getSiDate();
@@ -116,7 +116,7 @@ public class ExcelSignInServiceImpl implements IExcelSignInService {
             yoSignInExample.createCriteria().andSiStaffIdEqualTo(staffId).andSiDateEqualTo(date).andSiTimeEqualTo(time);
             List<YoSignIn> listSignIn = yoSignInMapper.selectByExample(yoSignInExample);
 
-            if (listSignIn.size() != 0) {
+            if (listSignIn.size() > 0) {
                 continue;
             }
 

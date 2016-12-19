@@ -216,7 +216,7 @@
 		}else{
 			$.post("login.do",$("#form").serialize(),function(data){
 				if(data=="success"){
-					alert("登录成功");
+//					alert("登录成功");
 					window.location.href="loginSuccess.do";
 				}else if(data ="fail"){
 					alert("该账户尚未注册,无法登录!")
