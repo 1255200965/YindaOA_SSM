@@ -381,6 +381,7 @@
   and  MONTH(date) = MONTH(#{date}) 
   and  evection = 1
   
+  
 </select>
 
 </mapper>
