@@ -13,6 +13,7 @@ import com.model.YoItemChange;
 public class ItemChangeService implements IItemChangeService {
 	@Autowired
 	private YoItemChangeMapper itemChangeMapper;
+
 	public List<YoItemChange> selectByPropertities(YoItemChange itemChange){
 //		return itemChangeMapper.selectByPropertities(itemChange);
 		return null;

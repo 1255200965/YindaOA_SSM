@@ -1,7 +1,7 @@
 package com.controller;
 
 import com.model.YoItemChange;
-import com.service.IItemChangeService;
+import com.service.IExcelItemChangeService;
 import com.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,11 +20,11 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/ItemChangeExcel")
-public class ItemChangeExcelController {
+@RequestMapping("/ExcelItemChange")
+public class ExcelItemChangeController {
 
     @Autowired
-    private IItemChangeService iItemChangeExcelService;
+    private IExcelItemChangeService iExcelItemChangeService;
 
     @RequestMapping("/navigator.do")
     public String navigator() {
@@ -77,11 +77,11 @@ public class ItemChangeExcelController {
         //=========文件上传成功后处理excel
         try {
             // 第一步，校验文件，不合格会直接在页面抛出错误
-            String validateTitle = iItemChangeExcelService.validateExcelTitle(savePath);
+            String validateTitle = iExcelItemChangeService.validateExcelTitle(savePath);
             ra.addAttribute("validateTitle", validateTitle);
             if (validateTitle.contains("表头名称错误")) return "redirect:homePage.do";
             // 第二步，添加文件到数据库，会返回成功的数量和失败的列表
-            Map<String, Object> mapInsert = iItemChangeExcelService.insertAndUpdate(savePath);
+            Map<String, Object> mapInsert = iExcelItemChangeService.insertAndUpdate(savePath);
             String successAmount = mapInsert.get("successAmount").toString();
             String successAmountPrint = "上传成功的条目数目为：" + successAmount;
             ra.addAttribute("successAmount", successAmountPrint);
