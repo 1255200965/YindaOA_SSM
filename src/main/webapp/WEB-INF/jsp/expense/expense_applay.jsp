@@ -35,7 +35,7 @@
   </a>
   <a href="javascript:;" class="weui_grid js_grid" data-id="toast" onclick="goExpense_taxi();">
     <div class="weui_grid_icon">
-      <img src="<%=path%>/images/bus.png" alt="">
+      <img src="<%=path%>/images/taxi.png" alt="">
     </div>
     <p class="weui_grid_label">
             的士费
@@ -43,7 +43,7 @@
   </a>
   <a href="javascript:;" class="weui_grid js_grid" data-id="toast" onclick="goExpense_hotel();">
     <div class="weui_grid_icon">
-      <img src="<%=path%>/images/bus.png" alt="">
+      <img src="<%=path%>/images/hotel.png" alt="">
     </div>
     <p class="weui_grid_label">
          住宿费
@@ -60,6 +60,7 @@
 </div>
   	<script src="<%=path%>/javascripts/jquery-2.1.4.js"></script>
     <script src="<%=path%>/javascripts/jquery-weui.js"></script>
+    <script type="text/javascript" src="http://g.alicdn.com/ilw/ding/0.7.3/scripts/dingtalk.js"></script>
     <script>
      function goExpense_train(){
     	 location="toExpense_history_train.do";
@@ -73,6 +74,43 @@
      function goExpense_hotel(){
     	 location="toExpense_history_hotel.do";
      }
+     /*权限验证配置所需的信息 */
+     var config =<%=request.getAttribute("config")%>;
+     //当前用户
+     var nowUser=null;
+     //用户授权码
+     var code=null;
+     /* $(document).ready(function(){
+    	 $.alert(config);
+     }); */
+      //配置钉钉jsapi
+     dd.config({
+         agentId : "38433641",
+         corpId : config.corpId,
+         timeStamp : config.timeStamp,
+         nonceStr : config.nonceStr,
+         signature : config.signature,
+         jsApiList : [ 'runtime.info', 'biz.contact.choose',
+             'device.notification.confirm', 'device.notification.alert',
+             'device.notification.prompt', 'biz.ding.post',
+             'biz.util.openLink' ]
+     });
+
+    
+     dd.ready(function() {
+  
+         dd.runtime.permission.requestAuthCode({
+             corpId : config.corpId,
+             onSuccess : function(info) {
+                //存储用户信息
+                $.post("loginJudge.do",{"code":info.code});
+                
+             },
+             onFail : function(err) {
+                 alert('fail: ' + JSON.stringify(err));
+             }
+         });
+     });
     </script>
  </body> 
 </html>

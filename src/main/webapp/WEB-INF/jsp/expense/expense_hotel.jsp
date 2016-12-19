@@ -23,7 +23,7 @@
       			<label class="weui_label"><b>住宿原因</b></label>
    			 </div>
     	 <div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder="" id="picker" name="reason">
+     		<input class="weui_input" type="text" placeholder="" id="picker1" name="reason">
    		 </div>
      	</div>
      		
@@ -39,7 +39,7 @@
   		 <div class="weui_cell ">
   		    <div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>住宿日期</b></label></div>
     		<div class="weui_cell_ft weui_cell_primary">
-     		   <input class="weui_input" type="date" placeholder="" id="picker" name="startTime">
+     		   <input class="weui_input" type="date" placeholder="" id="picker2" name="startTime">
    		    </div>
   		 </div>
   		
@@ -55,7 +55,7 @@
       			<label class="weui_label"><b>金&nbsp;额</b></label>
    			 </div>
     	<div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder="" id="name" name="moneyCost" value="">
+     		<input class="weui_input" type="text" placeholder="" id="name1" name="moneyCost" value="">
    		 </div>
    		 
      	</div>
@@ -65,7 +65,7 @@
       			<label class="weui_label"><b>天&nbsp;数</b></label>
    			 </div>
     	<div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder="" id="name" name="daysCost" value="">
+     		<input class="weui_input" type="text" placeholder="" id="name2" name="daysCost" value="">
    		 </div>
    		 
      	</div>
@@ -75,7 +75,7 @@
       			<label class="weui_label"><b>说&nbsp;明</b></label>
    			 </div>
     	<div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder="" id="name" name="detailExplain" value="" >
+     		<input class="weui_input" type="text" placeholder="" id="name3" name="detailExplain" value="" >
    		 </div>
    		 
      	</div>
@@ -83,7 +83,8 @@
   	     <hr/>
   	     <div class="weui-row">
   	     <div class="weui_uploader_input_wrp">
-            <input class="weui_uploader_input" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" multiple="">
+            <input class="weui_uploader_input" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" multiple="" name="image"  onchange="showInfo();">
+            <p id="picInfo"></p>
   	     </div>
   	     </div>
         <div class="weui-row">
@@ -97,10 +98,16 @@
   	<script src="<%=path%>/javascripts/jquery-2.1.4.js"></script>
     <script src="<%=path%>/javascripts/jquery-weui.js"></script>
     <script>
+    function showInfo(){
+    	if($("input[name='image']").val()!=null && $("input[name='image']").val()!=""){
+    	  $("#picInfo").text("图片一");   
+    	} 
+   	 }
      function goExpense_hotel_save(){
     	 $.post("toExpense_hotel_save.do",$("#form").serialize(),function(data){
     		 if(data=="success"){
     			 $.alert("提交成功,请耐心等待审核");
+    			 window.history.go(-1);
     		 }else{
     			 $.alert("系统繁忙,请稍后重试");
     		 }

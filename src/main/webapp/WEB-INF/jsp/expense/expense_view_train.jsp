@@ -23,7 +23,7 @@
       			<label class="weui_label"><b>出发时间</b></label>
    			 </div>
     	 <div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder="" id="picker" name="startTime" value="${expenseApplayTrain.startTime }" readonly>
+     		<input class="weui_input" type="text" placeholder="" id="picker1" name="startTime" value="${expenseApplayTrain.startTime }" readonly>
    		 </div>
      	</div>	
   	     <div class="weui_cell">
@@ -46,7 +46,7 @@
   		 <div class="weui_cell"> 
     		<div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>目的地点</b></label></div>
     	     <div class="weui_cell_ft weui_cell_primary">
-     	        <input class="weui_input" type="text"  id="name" name="endAddress" value="${expenseApplayTrain.endAddress }" readonly>
+     	        <input class="weui_input" type="text"  id="name1" name="endAddress" value="${expenseApplayTrain.endAddress }" readonly>
    		     </div>
   	     </div> 
   	     <div class="weui_cell">
@@ -54,7 +54,7 @@
       			<label class="weui_label"><b>订票方式</b></label>
    			 </div>
     	<div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder="" id="name"  value="自购" readonly>
+     		<input class="weui_input" type="text" placeholder="" id="name2"  value="自购" readonly>
    		 </div>
    		 
      	</div>
@@ -63,7 +63,7 @@
       			<label class="weui_label"><b>金&nbsp;额</b></label>
    			 </div>
     	<div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder="" id="name" name="moneyCost" value="${expenseApplayTrain.moneyCost }" readonly>
+     		<input class="weui_input" type="text" placeholder="" id="name3" name="moneyCost" value="${expenseApplayTrain.moneyCost }" readonly>
    		 </div>
    		 
      	</div>
@@ -77,11 +77,11 @@
    		 
      	</div>	
   	     <hr/>
-  	     <div class="weui-row">
+  	    <!--  <div class="weui-row">
   	     <div class="weui_uploader_input_wrp">
             <input class="weui_uploader_input" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" multiple="">
   	     </div>
-  	     </div>
+  	     </div> -->
         <div class="weui-row">
 			<div class="weui-col-10"></div>
 			<div class="weui-col-40"><a href="javascript:history.go(-1);" class="weui_btn weui_btn_mini weui_btn_primary" >确认</a></div>

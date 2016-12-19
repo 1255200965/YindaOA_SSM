@@ -241,7 +241,7 @@ public class StaffInfoController {
 //    剪切下来的一部分在test.do后面，从服务器获取数据，并且做好记录
 /*测试的数据，从钉钉里面取出json数据，然后将它保存到数据库中*/
     //测试一条数据
-    @RequestMapping("/test55.do")
+/*    @RequestMapping("/test55.do")
     public String test(HttpServletRequest request) throws IOException {
         DDUtil ddUtil=new DDUtil(userInfoService);
         AttendanceWork ddUtil2 = new AttendanceWork();
@@ -283,7 +283,7 @@ public class StaffInfoController {
 
         }
         return "/UserInfo";
-    }
+    }*/
 
 
     //从服务解析出来的json

@@ -25,7 +25,7 @@ public interface IStaffInfoService {
 
     //查询所有用户id
     //StaffInfo selectAll();
-    List<StaffInfo> selectAllUser();
+    //List<StaffInfo> selectAllUser();
 
     //更新用户
     int updateStaffByID(StaffInfo staffUserId);

@@ -23,7 +23,7 @@
       			<label class="weui_label"><b>出发时间</b></label>
    			 </div>
     	 <div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="date" placeholder="" id="picker" name="startTime">
+     		<input class="weui_input" type="date" placeholder="" id="picker1" name="startTime">
    		 </div>
      	</div>	
   	     <div class="weui_cell">
@@ -46,7 +46,7 @@
   		 <div class="weui_cell"> 
     		<div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>目的地点</b></label></div>
     	     <div class="weui_cell_ft weui_cell_primary">
-     	        <input class="weui_input" type="text"  id="name" name="endAddress">
+     	        <input class="weui_input" type="text"  id="name1" name="endAddress">
    		     </div>
   	     </div> 
   	     <div class="weui_cell">
@@ -54,7 +54,7 @@
       			<label class="weui_label"><b>订票方式</b></label>
    			 </div>
     	<div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder="" id="name"  value="自购" readonly>
+     		<input class="weui_input" type="text" placeholder="" id="name2"  value="自购" readonly>
    		 </div>
    		 
      	</div>
@@ -63,7 +63,7 @@
       			<label class="weui_label"><b>金&nbsp;额</b></label>
    			 </div>
     	<div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder="" id="name" name="moneyCost" value="">
+     		<input class="weui_input" type="text" placeholder="" id="name3" name="moneyCost" value="">
    		 </div>
    		 
      	</div>
@@ -79,7 +79,8 @@
   	     <hr/>
   	     <div class="weui-row">
   	     <div class="weui_uploader_input_wrp">
-            <input class="weui_uploader_input" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" multiple="">
+            <input class="weui_uploader_input" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" multiple="" name="image"  onchange="showInfo();">
+            <p id="picInfo"></p>
   	     </div>
   	     </div>
         <div class="weui-row">
@@ -93,10 +94,16 @@
   	<script src="<%=path%>/javascripts/jquery-2.1.4.js"></script>
     <script src="<%=path%>/javascripts/jquery-weui.js"></script>
     <script type="text/javascript">
+    function showInfo(){
+    	if($("input[name='image']").val()!=null && $("input[name='image']").val()!=""){
+    	  $("#picInfo").text("图片一");   
+    	} 
+   	 }
       function expense_train_save(){
     	  $.post("expense_train_save.do",$("#form").serialize(),function(data){
     		  if(data=="success"){
     			  $.alert("提交成功,请耐心等待审核");
+    			  window.history.go(-1);
     		  }else{
     			  $.alert("系统繁忙,请稍后重试");
     		  }

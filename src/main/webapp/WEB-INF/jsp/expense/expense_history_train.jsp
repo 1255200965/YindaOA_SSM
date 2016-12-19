@@ -19,18 +19,18 @@
  </head>
  <body >
   	<div class="weui-row">
-  		<div class="weui-col-20" style="overflow: hidden;"><b>日期</b></div>
-  		<div class="weui-col-20" style="overflow: hidden;"><b>报销状态</b></div>
-  		<a onclick="goExpense_bus();" ><b>新增</b></a>
+  		<div class="weui-col-40" style="overflow: hidden;"><b>日期</b></div>
+  		<div class="weui-col-40" style="overflow: hidden;"><b>报销状态</b></div>
+  		<a onclick="goExpense_bus();" style="color:red;"><b>新增</b></a>
   		<a></a>
     </div>
     <hr/>
     <c:forEach items="${expenseApplayTrainList }" var="expenseApplayTrain">
  	<div class="weui-row">
-  		<div class="weui-col-20" style="overflow: hidden;">${expenseApplayTrain.startTime}</div>
-  		<div class="weui-col-20" style="overflow: hidden;">${expenseApplayTrain.applayStatus}</div>
+  		<div class="weui-col-40" style="overflow: hidden;">${expenseApplayTrain.startTime}</div>
+  		<div class="weui-col-40" style="overflow: hidden;">${expenseApplayTrain.applayStatus}</div>
   		<a onclick="goExpense_view_train(${expenseApplayTrain.id});">查看</a>
-  		<a href="javascript:history.go(-1);">返回</a>
+  		<a></a>
     </div>
     <hr/>
     </c:forEach>

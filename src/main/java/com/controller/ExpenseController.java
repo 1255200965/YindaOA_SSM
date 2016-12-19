@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,14 +17,18 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ddSdk.auth.AuthHelper;
 import com.model.ExpenseApplayBus;
 import com.model.ExpenseApplayHotel;
 import com.model.ExpenseApplayTaxi;
 import com.model.ExpenseApplayTrain;
+import com.model.StaffInfo;
 import com.service.IExpenseApplayBusService;
 import com.service.IExpenseApplayHotelService;
 import com.service.IExpenseApplayTaxiService;
 import com.service.IExpenseApplayTrainService;
+import com.service.IStaffInfoService;
+import com.util.DDUtil;
 import com.util.GlobalConstant;
 import com.util.ImgUpload;
 
@@ -37,12 +42,29 @@ public class ExpenseController {
 	private IExpenseApplayHotelService expenseApplayHotelService;
 	@Autowired
 	private IExpenseApplayTrainService expenseApplayTrainService;
+	@Autowired
+	private IStaffInfoService staffInfoService;
 	//出差审批界面跳转
 	@RequestMapping("/toExpense_applay.do")
 	public ModelAndView toExpense_applay(HttpServletRequest request){
 		ModelAndView mav =new ModelAndView();
+		String config=AuthHelper.getConfig(request);
+		request.setAttribute("config", config);
 		mav.setViewName("expense/expense_applay");
 		return mav;
+	}
+	@RequestMapping("/loginJudge.do")
+	public void loginJudge(HttpServletRequest request,String code){
+		//根据code获取用员工钉钉ID
+		String staffUserId=DDUtil.getUserID(code);
+		//从数据库中获得该员工的所有信息
+		StaffInfo staffInfo= staffInfoService.selectStaffByID(staffUserId);
+		//在当前回话session中存储相关信息
+		request.getSession().setAttribute(GlobalConstant.user_staffId, staffInfo.getStaffId());
+		request.getSession().setAttribute(GlobalConstant.user_department, staffInfo.getDepartment());
+		request.getSession().setAttribute(GlobalConstant.user_staff_user_id,staffInfo.getStaffUserId());
+		request.getSession().setAttribute(GlobalConstant.user_name,staffInfo.getName());
+		
 	}
 	/**
 	 * 火车票报销
@@ -106,7 +128,6 @@ public class ExpenseController {
     }
     //大巴车报销记录--保存
     @RequestMapping("/toExpense_bus_save.do")
-    @ResponseBody
     public String toExpense_bus_save(HttpServletRequest request,ExpenseApplayBus expenseApplayBus){
 
     	//将新记录的状态记为待审核
@@ -117,7 +138,7 @@ public class ExpenseController {
     	expenseApplayBus.setStaffDepart((String)request.getSession().getAttribute(GlobalConstant.user_department));
     	expenseApplayBus.setStaffUserId((String)request.getSession().getAttribute(GlobalConstant.user_staff_user_id));
     	/*新增人员信息*/
-    	
+    
     	try {
     		/*图片存储*/
         	MultipartRequest mRequest = (MultipartRequest)request;
@@ -126,27 +147,24 @@ public class ExpenseController {
         	String originalName=mFile.getName();
         	//图片存储的物理路径
     		String basePath =ImgUpload.IMG_PATH;
-    		//新的图片名称
-//    		String newFileName=UUID.randomUUID()+originalName.substring(originalName.lastIndexOf("."));
+    		//新的图片名称,设置后缀为.png
     		String newFileName=UUID.randomUUID()+originalName+".png";
     		//新图片
         	File file = new File(basePath+newFileName);
         	//将mFile文件的内容写入file
 			mFile.transferTo(file);
-			System.out.println("上传成功");
-			/*图片存储*/
-		} catch (IllegalStateException | IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			//数据库中记录图片存放位置信息
+			expenseApplayBus.setImageUrl(basePath+newFileName);
+			/**信息存储**/
+			expenseBusService.saveOrUpdate(expenseApplayBus);
+	    	return "redirect:toExpense_bus.do?data="+"success";
+	    	/**信息存储**/
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "redirect:toExpense_bus.do?data="+"fail";
 		} 
     	
-    	try{
-    	expenseBusService.saveOrUpdate(expenseApplayBus);
-    	return "success";
-    	}catch(Exception e){
-    		e.printStackTrace();
-    		return "fail";
-    	}
+    	
     }
     //大巴车报销界面跳转--历史记录
     @RequestMapping("/toExpense_history_bus.do")
@@ -167,9 +185,7 @@ public class ExpenseController {
     	mav.setViewName("expense/expense_view_bus");
     	return mav;
     }
-    /**
-     * 
-     * 
+    /** 
      * 出租车报销
      */
     //出租车报销界面跳转--新增

@@ -18,4 +18,32 @@ public interface YoSalaryMapper {
     int updateByPrimaryKeySelective(YoSalary record);
 
     int updateByPrimaryKey(YoSalary record);
+    
+
+    
+    
+    
+    /**
+     * 日历——考勤
+     * @return  
+     */
+   List<YoSalary> select_BY_Anttendane(YoSalary  yo);
+    
+   /**
+    * 日历——请假
+    * @return  
+    */
+    List<YoSalary> select_BY_Leavetype(YoSalary  yo);
+    
+    /**
+     * 日历——加班
+     * @return  
+     */
+    List<YoSalary> select_BY_WorkTime(YoSalary  yo);
+    
+    /**
+     * 日历——出差
+     * @return  
+     */
+    List<YoSalary> select_BY_Evenctime(YoSalary  yo);
 }

@@ -105,12 +105,12 @@
                 <p><a href="<%=basePath%>user/phone-details.do">点击查看详情</a></p>
             </div>
             <div class="other">
-                <a href="<%=basePath%>user/phone-kaoqin.do">考勤<p id="kq"data-bind="text:attendance"></p></a>
-                <a href="<%=basePath%>user/phone-kaoqin.do">加班日历<p id="jb"data-bind="text:workovertime"></p></a>
-                <a href="<%=basePath%>user/phone-kaoqin.do?date=201611&type=1">请假天数<p id="qj"data-bind="text:leavetype"></p></a>
-                <a href="<%=basePath%>user/phone-kaoqin.do">出差<p id="cc"data-bind="text:attendance"></p></a>
-                <a href="javascript:void(0)" onclick="openLink('<%=basePath%>user/phone-kaoqin.do')">真实考勤<p id="zs"data-bind="text:realityattendance"></p></a>
-                <a href="javascript:void(0)" onclick="openLink('<%=basePath%>user/phone-details.do')">有效考勤<p id="yx"data-bind="text:effectiveattendance"></p></a>
+                <a href=javascript:getQuery("Calendar_Attendance.do")>考勤<p id="kq"data-bind="text:attendance"></p></a>
+                <a href=javascript:getQuery("Calendar_Worktime.do")>加班日历<p id="jb"data-bind="text:workovertime"></p></a>
+                <a href=javascript:getQuery("Calendar_Leavetype.do")>请假天数<p id="qj"data-bind="text:leavetype"></p></a>
+                <a href=javascript:getQuery("Calendar_Evenctime.do")>出差<p id="cc"data-bind="text:attendance"></p></a>
+                <a href="javascript:void(0)" onclick="openLink('<%=basePath%>Calendar/Calendar_Attendance.do')">真实考勤<p id="zs"data-bind="text:realityattendance"></p></a>
+                <a href="javascript:void(0)" onclick="openLink('<%=basePath%>Calendar/Calendar_Attendance.do')">有效考勤<p id="yx"data-bind="text:effectiveattendance"></p></a>
             </div>
         </div>
 
@@ -459,6 +459,11 @@ $(function(){
         this.userid = userid;
         this.salarydate = date;
         return this;
+    }
+
+    function getQuery(queryName){
+        var queryString = "<%=basePath%>Calendar/"+queryName + "?userid="+nowUser + "&date="+nowTime;
+        window.location = queryString;
     }
 </script>
 </body>

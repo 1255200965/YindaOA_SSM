@@ -77,10 +77,12 @@ public class StaffInfoServiceImpl implements IStaffInfoService {
         return selectStaff;
     }
 
+/*
     @Override
     public List<StaffInfo> selectAllUser() {
         return staffInfoMapper.selectAllUser();
     }
+*/
 
 
     //更新用户信息
@@ -119,7 +121,7 @@ public class StaffInfoServiceImpl implements IStaffInfoService {
 //        String name = staffInfo.getName();
 //        String cellphone = staffInfo.getCellphone();
 //        String idNo = staffInfo.getIdNo();
-        return staffInfoMapper.selectAllUser(staffInfo);
+        return null;//staffInfoMapper.selectAllUser(staffInfo);
     }
 
     /**

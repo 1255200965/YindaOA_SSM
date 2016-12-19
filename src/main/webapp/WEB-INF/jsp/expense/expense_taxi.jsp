@@ -48,7 +48,7 @@
   		 <div class="weui_cell"> 
     		<div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>用车事由</b></label></div>
     	     <div class="weui_cell_ft weui_cell_primary">
-     	        <input class="weui_input" type="text"  id="name" name="reason" >
+     	        <input class="weui_input" type="text"  id="name1" name="reason" >
    		     </div>
   	     </div> 
   	     <div style="text-align:center;">---------------------下车---------------------</div>
@@ -58,7 +58,7 @@
       			<label class="weui_label"><b>地址</b></label>
    			 </div>
     	 <div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder="" id="name" name="endAddress" >
+     		<input class="weui_input" type="text" placeholder="" id="name2" name="endAddress" >
    		 </div>
    		 
      	</div>
@@ -67,7 +67,7 @@
       			<label class="weui_label"><b>时间</b></label>
    			 </div>
     	 <div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="date" placeholder="" id="name" name="endTime"  >
+     		<input class="weui_input" type="date" placeholder="" id="name3" name="endTime"  >
    		 </div>
    		 
      	</div>
@@ -76,7 +76,7 @@
       			<label class="weui_label"><b>金&nbsp;额</b></label>
    			 </div>
     	<div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder="" id="name" name="moneyCost" >
+     		<input class="weui_input" type="text" placeholder="" id="name4" name="moneyCost" >
    		 </div>
    		 
      	</div>
@@ -92,7 +92,8 @@
   	     <hr/>
   	     <div class="weui-row">
   	     <div class="weui_uploader_input_wrp">
-            <input class="weui_uploader_input" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" multiple="">
+            <input class="weui_uploader_input" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" multiple=""  name="image"  onchange="showInfo();">
+  	     	<p id="picInfo"></p>
   	     </div>
   	     </div>
         <div class="weui-row">
@@ -106,11 +107,16 @@
   	<script src="<%=path%>/javascripts/jquery-2.1.4.js"></script>
     <script src="<%=path%>/javascripts/jquery-weui.js"></script>
     <script type="text/javascript">
+    function showInfo(){
+    	if($("input[name='image']").val()!=null && $("input[name='image']").val()!=""){
+    	  $("#picInfo").text("图片一");   
+    	} 
+   	 }
     function goExpense_taxi_save(){
     	$.post("toExpense_taxi_save.do",$("#form").serialize(),function(data){
     		if(data=="success"){
     			$.alert("提交成功,请耐心等待审核结果");
-    			location="toExpense_history_taxi.do";
+    			 window.history.go(-1);
     		}else{
     			$.alert("系统繁忙,请稍后重试");
     		}
