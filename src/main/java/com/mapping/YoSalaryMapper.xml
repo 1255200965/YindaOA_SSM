@@ -359,7 +359,7 @@
 <select id="select_BY_Leavetype" parameterType="com.model.YoSalary"  resultMap="BaseResultMap"> 
 
 
-  select * from yo_salary  WHERE yo_salary.userid = #{userid}
+  select date from yo_salary  WHERE yo_salary.userid = #{userid}
   and  MONTH(date) = MONTH(#{date})
   and  leavetype != 0
 
@@ -368,7 +368,7 @@
 <select id="select_BY_WorkTime" parameterType="com.model.YoSalary"  resultMap="BaseResultMap"> 
 
 
-  select * from yo_salary  WHERE yo_salary.userid = #{userid}
+  select date from yo_salary  WHERE yo_salary.userid = #{userid}
   and  MONTH(date) = MONTH(#{date}) 
   and  workovertime = 1
 </select>
@@ -377,7 +377,7 @@
 <select id="select_BY_Evenctime" parameterType="com.model.YoSalary"  resultMap="BaseResultMap"> 
 
 
-  select * from yo_salary  WHERE yo_salary.userid = #{userid}
+  select date from yo_salary  WHERE yo_salary.userid = #{userid}
   and  MONTH(date) = MONTH(#{date}) 
   and  evection = 1
 </select>
