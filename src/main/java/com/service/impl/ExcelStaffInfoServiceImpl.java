@@ -150,6 +150,7 @@ public class ExcelStaffInfoServiceImpl implements IExcelStaffInfoService {
                 if (staffUserId == null || staffUserId.equals("")) {
                     try {
                         staffUserId = createUser(staffInfo);
+                        staffInfo.setStaffUserId(staffUserId);
                     } catch (Exception e) {
                         // 如果异常直接跳出循环
                         Map<String, String> errorMap = new HashMap<String, String>();
