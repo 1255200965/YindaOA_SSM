@@ -123,28 +123,9 @@
             ko.applyBindings(new ViewModel);
         });
         function UserModel(name,salarydate) {
-            this.sid = null;
-            this.name = name;
             this.salarydate=salarydate;
             this.userid = null;
-            this.salaryid = null;
-            this.date = null;
-            this.datetype = null;
-            this.attendance = null;
-            this.attendanceSalary = null;
-            this.leavetype = null;
-            this.workovertime = null;
-            this.worksalary = null;
-            this.evection = null;
-            this.allowance = null;
-            this.timesalary = null;
-            this.task = null;
-            this.tasksalary = null;
-            this.busalary = null;
-            this.trafficsalary = null;
-            this.realityattendance = null;
-            this.effectiveAttendance=null;
-            this.yoAskStaffId=null;
+            this.staffid = name;
             return this;
         }
         function getLocalTime(nS) {
@@ -186,7 +167,7 @@
         </div>
         <div class="search">
             <div class="ser-input fl">
-                姓名：<input type="text" id="search_name" placeholder="输入姓名">
+                工号：<input type="text" id="search_name" placeholder="输入工号">
                 日期：<input type="text"  id="search_date" placeholder="输入查询日期" class="input" >
             </div>
             <div class="ser-btn fr">
@@ -201,7 +182,7 @@
                 <table border="1">
                     <thead>
                     <tr >
-                        <th>姓名</th>
+                        <th>工号</th>
                         <th>日期</th>
                         <th>日期类型</th>
                         <th>打卡情况</th>
@@ -216,15 +197,16 @@
                         <th>time认证奖金</th>
                         <th>task报告数</th>
                         <th>task报告奖金</th>
-                        <th>公交地铁票</th>
                         <th>交通费</th>
                         <th>额外奖金</th>
+                        <th>工作地点</th>
+                        <th>日总额</th>
                     </tr>
                     </thead>
                     <tbody data-bind="foreach:ShowList">
                     <tr >
-                        <td data-bind="text:name">用户编号</td>
-
+                        <%--<td data-bind="text:name">姓名</td>--%>
+                        <td data-bind="text:staffid">用户编号</td>
                         <td data-bind="text:getLocalTime(date)"></td>
                         <td data-bind="text:datetype">日期类型</td>
                         <td data-bind="text:attendance">知识树编号</td>
@@ -239,15 +221,17 @@
                         <td data-bind="text:timesalary">到大</td>
                         <td data-bind="text:task">所属知识</td>
                         <td data-bind="text:tasksalary">修改者</td>
-                        <td data-bind="text:busalary">审核状态</td>
-                        <td data-bind="text:trafficsalary">卫视</td>
-                        <td data-bind="text:additionalsalary">卫视</td>
+                        <td data-bind="text:trafficsalary">审核状态</td>
+                        <td data-bind="text:bonusSalary">卫视</td>
+                        <td data-bind="text:workAddress">卫视</td>
+                        <td data-bind="text:daySalary">卫视</td>
                     </tr>
                     </tbody>
                     <thead>
                     <tr data-bind="with:changeItem">
                         <th >合计</th>
-                        <td data-bind="text:salarydate">用户编号</td>
+                        <td data-bind="text:name">用户编号</td>
+<%--                        <td data-bind="text:salarydate">日期类型</td>--%>
                         <td data-bind="text:datetype">日期类型</td>
                         <td data-bind="text:attendance">知识树编号</td>
                         <td data-bind="text:effectiveattendance">知识树编号</td>
@@ -259,11 +243,13 @@
                         <td data-bind="text:evection">修改者</td>
                         <td data-bind="text:allowance">审核状态</td>
                         <td data-bind="text:timesalary">到大</td>
-                        <td data-bind="text:task">所属知识</td>
+                        <td >报告数</td>
                         <td data-bind="text:tasksalary">修改者</td>
-                        <td data-bind="text:busalary">审核状态</td>
-                        <td data-bind="text:trafficsalary">卫视</td>
+                        <td data-bind="text:trafficsalary">审核状态</td>
+                        <td data-bind="text:userbonus">卫视</td>
+                        <td data-bind="text:subtotal">卫视</td>
                         <td data-bind="text:totalsalary">卫视</td>
+
                     </tr>
                     </thead>
                 </table>

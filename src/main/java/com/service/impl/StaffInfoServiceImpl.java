@@ -108,9 +108,9 @@ public class StaffInfoServiceImpl implements IStaffInfoService {
 
         StaffInfoExample staffInfoExample = new StaffInfoExample();
         StaffInfoExample.Criteria criteria = staffInfoExample.createCriteria();
-        if (staffId!=null) criteria.andStaffIdEqualTo(staffId);
-        if (name!=null) criteria.andNameEqualTo(name);
-        if (depart!=null) criteria.andDepartmentEqualTo(depart);
+        if (staffId!=null && staffId!="") criteria.andStaffIdEqualTo(staffId);
+        if (name!=null && name!="") criteria.andNameEqualTo(name);
+        if (depart!=null && depart!="") criteria.andDepartmentEqualTo(depart);
 
         List<StaffInfo> list = staffInfoMapper.selectByExample(staffInfoExample);
         return list;
@@ -121,6 +121,8 @@ public class StaffInfoServiceImpl implements IStaffInfoService {
 //        String name = staffInfo.getName();
 //        String cellphone = staffInfo.getCellphone();
 //        String idNo = staffInfo.getIdNo();
+        //使用example
+
         return null;//staffInfoMapper.selectAllUser(staffInfo);
     }
 

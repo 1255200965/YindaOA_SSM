@@ -25,7 +25,7 @@
       			<label class="weui_label"><b>市/县</b></label>
    			 </div>
     	 <div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder="" id="picker" name="startCity" value="${expenseApplayBus.startCity}" readonly>
+     		<input class="weui_input" type="text" placeholder=""  name="startCity" value="${expenseApplayBus.startCity}" readonly>
    		 </div>
      	</div>	
   	     <div class="weui_cell">
@@ -33,7 +33,7 @@
       			<label class="weui_label"><b>地址</b></label>
    			 </div>
     	<div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder="" id="start" name="startAddress" value="${expenseApplayBus.startAddress }" readonly>
+     		<input class="weui_input" type="text" placeholder=""  name="startAddress" value="${expenseApplayBus.startAddress }" readonly>
    		 </div>
    		 
      	</div>		
@@ -48,7 +48,7 @@
   		 <div class="weui_cell"> 
     		<div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>用车事由</b></label></div>
     	     <div class="weui_cell_ft weui_cell_primary">
-     	        <input class="weui_input" type="text"  id="name1" name="reason" value="${expenseApplayBus.reason}" readonly>
+     	        <input class="weui_input" type="text"   name="reason" value="${expenseApplayBus.reason}" readonly>
    		     </div>
   	     </div> 
   	     <div style="text-align:center;">---------------------上车---------------------</div>
@@ -58,7 +58,7 @@
       			<label class="weui_label"><b>地址</b></label>
    			 </div>
     	 <div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder="" id="name2" name="destination" value="${expenseApplayBus.destination }" readonly>
+     		<input class="weui_input" type="text" placeholder=""  name="destination" value="${expenseApplayBus.destination }" readonly>
    		 </div>
    		 
      	</div>
@@ -67,7 +67,7 @@
       			<label class="weui_label"><b>时间</b></label>
    			 </div>
     	 <div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder="" id="name3" name="endTime" value="${expenseApplayBus.endTime }" readonly>
+     		<input class="weui_input" type="text" placeholder=""  name="endTime" value="${expenseApplayBus.endTime }" readonly>
    		 </div>
    		 
      	</div>
@@ -76,7 +76,7 @@
       			<label class="weui_label"><b>金&nbsp;额</b></label>
    			 </div>
     	<div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder="" id="name4" name="moneyCost" value="${expenseApplayBus.moneyCost }" readonly>
+     		<input class="weui_input" type="text" placeholder=""  name="moneyCost" value="${expenseApplayBus.moneyCost }" readonly>
    		 </div>
    		 
      	</div>
@@ -85,16 +85,15 @@
       			<label class="weui_label"><b>说&nbsp;明</b></label>
    			 </div>
     	<div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder="" id="name" name="detailExplain" value="${expenseApplayBus.detailExplain }" readonly>
+     		<input class="weui_input" type="text" placeholder=""  name="detailExplain" value="${expenseApplayBus.detailExplain }" readonly>
    		 </div>
    		 
      	</div>	
   	     <hr/>
-  	    <%--  <div class="weui-row">
-  	     <div class="weui_uploader_input_wrp">
-             <img src="${expenseApplayBus.detailExplain }"/>
+  	    <div class="weui-row">
+             <%-- <img src="<%=path%>/upload/${expenseApplayBus.imageUrl}" style="height:10%;width:30%;"/> --%>
+                <img src="<%=path%>/upload/${expenseApplayBus.imageUrl}" style="height:10%;width:30%;"/>
   	     </div>
-  	     </div> --%>
         <div class="weui-row">
 			<div class="weui-col-10"></div>
 			<div class="weui-col-40"><a href="javascript:history.go(-1);" class="weui_btn weui_btn_mini weui_btn_primary" >确认</a></div>

@@ -26,12 +26,14 @@ public class ExpenseApplayTrainServiceImpl implements IExpenseApplayTrainService
 	    return expenseApplayTrainMapper.selectByPrimaryKey(id);
    }
    @Override
-   public void saveOrUpdate(ExpenseApplayTrain expenseApplayTrain){
+   public int saveOrUpdate(ExpenseApplayTrain expenseApplayTrain){
 	   Integer id = expenseApplayTrain.getId();
-	   if(id == null || id == 0){//新增
-		   expenseApplayTrainMapper.insert(expenseApplayTrain);
+	   if(id == null || id == 0){//新增并返回主键值
+		  expenseApplayTrainMapper.insert(expenseApplayTrain);
+		  id=expenseApplayTrain.getId();
+		   return id;
 	   }else{//更新
-		   expenseApplayTrainMapper.updateByPrimaryKey(expenseApplayTrain);
+		 return  expenseApplayTrainMapper.updateByPrimaryKey(expenseApplayTrain); 
 	   }
    }
 }

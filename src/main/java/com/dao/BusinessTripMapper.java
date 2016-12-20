@@ -27,4 +27,6 @@ public interface BusinessTripMapper {
     int updateByPrimaryKeySelective(BusinessTrip record);
 
     int updateByPrimaryKey(BusinessTrip record);
+     //出差信息列表展示
+    public List<BusinessTrip> selectByPropertities(BusinessTrip businessTrip);
 }

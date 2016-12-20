@@ -33,6 +33,12 @@ public class ExpenseApplayBus {
 
     private String imageUrl;
 
+    private String approverOrder;
+
+    private String approverHistory;
+
+    private String approverNow;
+
     public Integer getId() {
         return id;
     }
@@ -159,5 +165,29 @@ public class ExpenseApplayBus {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public String getApproverOrder() {
+        return approverOrder;
+    }
+
+    public void setApproverOrder(String approverOrder) {
+        this.approverOrder = approverOrder;
+    }
+
+    public String getApproverHistory() {
+        return approverHistory;
+    }
+
+    public void setApproverHistory(String approverHistory) {
+        this.approverHistory = approverHistory;
+    }
+
+    public String getApproverNow() {
+        return approverNow;
+    }
+
+    public void setApproverNow(String approverNow) {
+        this.approverNow = approverNow;
     }
 }

@@ -10,5 +10,5 @@ public interface IExpenseApplayHotelService {
 	//根据id查询到对应的报销信息
 	public ExpenseApplayHotel selectById(int id);
 	//根据ID是否存在新增或者更新用户报销信息
-	public void saveOrUpdate(ExpenseApplayHotel expenseApplayHotel);
+	public int saveOrUpdate(ExpenseApplayHotel expenseApplayHotel);
 }

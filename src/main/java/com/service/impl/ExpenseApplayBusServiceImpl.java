@@ -29,12 +29,14 @@ public class ExpenseApplayBusServiceImpl implements IExpenseApplayBusService{
 	  return (ExpenseApplayBus) expenseBusMapper.selectByExample(example).get(0);
   }
   @Override
-  public void saveOrUpdate(ExpenseApplayBus expenseApplayBus){
+  public int saveOrUpdate(ExpenseApplayBus expenseApplayBus){
 	  Integer id =expenseApplayBus.getId();
 	  if(id==null || id==0){//save
 		 expenseBusMapper.insert(expenseApplayBus);
+		 id=expenseApplayBus.getId();
+		 return id;
 	  }else{//update
-		  expenseBusMapper.updateByPrimaryKey(expenseApplayBus);
+		 return expenseBusMapper.updateByPrimaryKey(expenseApplayBus);
 		  }
   }
 }

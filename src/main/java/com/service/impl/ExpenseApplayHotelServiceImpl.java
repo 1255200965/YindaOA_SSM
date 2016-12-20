@@ -26,12 +26,14 @@ public class ExpenseApplayHotelServiceImpl implements IExpenseApplayHotelService
     	return expenseApplayHotelMapper.selectByPrimaryKey(id);
     }
     @Override
-    public void saveOrUpdate(ExpenseApplayHotel expenseApplayHotel){
+    public int saveOrUpdate(ExpenseApplayHotel expenseApplayHotel){
     	Integer id = expenseApplayHotel.getId();
     	if(id == null || id == 0){//新增
     		expenseApplayHotelMapper.insert(expenseApplayHotel);
+    		id = expenseApplayHotel.getId();
+    		return id;
     	}else{//更新
-    		expenseApplayHotelMapper.updateByPrimaryKey(expenseApplayHotel);
+    		return expenseApplayHotelMapper.updateByPrimaryKey(expenseApplayHotel);
     	}
     }
 }

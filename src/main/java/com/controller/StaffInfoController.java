@@ -157,7 +157,7 @@ public class StaffInfoController {
     //根据条件查询所有员工信息
     @RequestMapping(value = "/query.do", method = RequestMethod.POST)
     public @ResponseBody Map<String,Object> query1(@RequestBody StaffInfo stu, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        List<StaffInfo> list = userInfoService.selectStaffInfo(stu);
+        List<StaffInfo> list = userInfoService.searchStaffInfoByEntity(stu);//改！
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("userlist", list);
         if (list.size() != 0) {

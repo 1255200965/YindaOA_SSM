@@ -76,6 +76,9 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.model.ExpenseApplayHotel" >
+  <selectKey resultType="int" order="AFTER" keyProperty="id">
+     SELECT LAST_INSERT_ID() AS id
+   </selectKey>
     insert into expense_applay_hotel (id, staff_id, staff_name, 
       staff_depart, hotel_name, reason, 
       start_time, end_time, money_cost, 

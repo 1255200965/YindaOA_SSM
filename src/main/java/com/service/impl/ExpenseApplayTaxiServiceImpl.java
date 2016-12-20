@@ -30,12 +30,14 @@ public class ExpenseApplayTaxiServiceImpl implements IExpenseApplayTaxiService{
 	   return expenseApplayTaxi;
    }
    @Override
-   public void saveOrUpdate(ExpenseApplayTaxi expenseApplayTaxi){
+   public int saveOrUpdate(ExpenseApplayTaxi expenseApplayTaxi){
 	   Integer id = expenseApplayTaxi.getId();
 	   if(id == null || id == 0){//插入
-		   expenseApplayTaxiMapper.insert(expenseApplayTaxi);
+		    expenseApplayTaxiMapper.insert(expenseApplayTaxi);
+		    id=expenseApplayTaxi.getId();
+		    return id;
 	   }else{
-		   expenseApplayTaxiMapper.updateByPrimaryKey(expenseApplayTaxi);
+		  return expenseApplayTaxiMapper.updateByPrimaryKey(expenseApplayTaxi);
 		   }
    }
 }

@@ -10,5 +10,5 @@ public interface IExpenseApplayBusService {
 	 //根据报销信息ID查询具体的报销信息
 	 public ExpenseApplayBus selectById(int id);
 	 //大巴报销信息保存，返回ID
-	 public void saveOrUpdate(ExpenseApplayBus expenseApplayBus);
+	 public int saveOrUpdate(ExpenseApplayBus expenseApplayBus);
 }

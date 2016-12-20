@@ -58,8 +58,8 @@ public class SalaryController {
         //工资单
         YoSalaryExample example = new YoSalaryExample();
         YoSalaryExample.Criteria criteria1 = example.createCriteria();
-        criteria1.andSalarydateEqualTo(user.getSalarydate());
-        criteria1.andUseridEqualTo(user.getUserid());
+        if (user.getSalarydate()!=null) criteria1.andSalarydateEqualTo(user.getSalarydate());
+        if (user.getStaffid()!=null) criteria1.andStaffidEqualTo(user.getStaffid());
         List<YoSalary> query = userSalaryService.selectByExample(example);
         if (query.size()>0){
             map.put("list",query.get(0));
@@ -68,8 +68,23 @@ public class SalaryController {
         if(query.size() != 0){
             map.put("msg", "成功");
         }else{
-            map.put("msg", "查询结果为空");
+            map.put("msg", "单项查询结果为空");
         }
+
+        //工资单合计
+        YoUserinfosalaryExample example1 = new YoUserinfosalaryExample();
+        YoUserinfosalaryExample.Criteria criteria2 = example1.createCriteria();
+        if (user.getSalarydate()!=null) criteria2.andSalarydateEqualTo(user.getSalarydate());
+        if (user.getStaffid()!=null) criteria2.andSalaryidEqualTo(user.getStaffid());
+        List<YoUserinfosalary> query1 = userinfoSalaryService.selectByExample(example1);
+        if (query1.size()>0){
+            map.put("total",query1.get(0));
+            map.put("msg", "成功");
+        } else {
+            map.put("total",user);
+            map.put("msg", "合计查询结果为空");
+        }
+
         return map;
     }
     //查询员工工资信息(合计)
@@ -83,8 +98,8 @@ public class SalaryController {
         //工资单
         YoUserinfosalaryExample example = new YoUserinfosalaryExample();
         YoUserinfosalaryExample.Criteria criteria1 = example.createCriteria();
-        criteria1.andSalarydateEqualTo(user.getSalarydate());
-        criteria1.andUseridEqualTo(user.getUserid());
+        if (user.getSalarydate()!=null) criteria1.andSalarydateEqualTo(user.getSalarydate());
+        if (user.getSalaryid()!=null) criteria1.andSalaryidEqualTo(user.getSalaryid());
         List<YoUserinfosalary> query = userinfoSalaryService.selectByExample(example);
         if (query.size()>0){
             map.put("total",query.get(0));
@@ -253,7 +268,7 @@ public class SalaryController {
 
                 YoSalaryExample Example = new YoSalaryExample();
                 YoSalaryExample.Criteria criteria1 = Example.createCriteria();
-                criteria1.andSalarydateEqualTo("2016-11");
+                criteria1.andSalarydateEqualTo("2016-12");
                 criteria1.andUseridEqualTo(user.getStaffUserId());
 
                 List<YoSalary> salaryList = userSalaryService.searchYoSalaryByEntity(Example);
@@ -690,306 +705,18 @@ public class SalaryController {
             System.out.print(e.toString());
         }
     }
+    //生成工资方法
     @RequestMapping("/test.do")
     public String testc(HttpServletRequest request) throws IOException {
-        //generateSalary(2016,11);
-        //generateSalary3(2016,11);
+        //generateSalary(2016,12);
+        //generateSalary3(2016,12);
         //System.out.print(DDUtil.testShow());
+
+
         System.out.print("OK!");
         return "/UserSalary" ;
     }
 
- /*   //根据类型日期的查询
-    @RequestMapping("/QueryType")
-    @ResponseBody
-    public Object handleQuerySchemaEnName(@RequestParam(value = "userid", defaultValue = "") String userid,
-                                          @RequestParam(value = "date", defaultValue = "") String date,
-                                          @RequestParam(value = "leavetype", defaultValue = "") String leavetype,YoSalary yoSalary) {
-        try {
-
-            List<YoSalary> schemaEnNameList = userSalaryService.searchYoSalaryByEntity(yoSalary);
-            Map<String,Object> map = new HashMap();
-            map.put("userid",userid);
-            map.put("date",date);
-            map.put("leavetype",leavetype);
-            map.put("root", schemaEnNameList);
-            map.put("success", true);
-            System.out.print("返回map数据"+map.toString());
-            return map;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "/AllSalary";
-    }
-
-
-    //不知道根据用户id，日期,
-    @RequestMapping("/QuerySalary")
-    @ResponseBody
-    public Object QuerySalary(@RequestParam(value = "userid", defaultValue = "") String userid,
-                              @RequestParam(value = "date", defaultValue = "") String date,YoSalary yoSalary) {
-        try {
-            List<YoSalary> schemaEnNameList = userSalaryService.searchYoSalaryByEntity(yoSalary);
-            Map<String,Object> map = new HashMap();
-            map.put("userid",userid);
-            map.put("date",date);
-            map.put("root", schemaEnNameList);
-            map.put("success", true);
-            return map;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }*/
-
-
-
-
-    /**
-     * 计算的次数
-     * @param salariesLists 考勤信息（同一个人）
-    //     * @param all 每项考勤的类型，暂时只有0和1
-     * @return Map<String,Integer>  表示的是考勤的类型和数量
-     */
-    public Map<String,Integer> DatetypeCount(List<YoSalary> salariesLists){
-        Map<String,Integer> mapCount=new HashMap<String,Integer>();
-        List<String> kaoqianDateType=new ArrayList<String>();
-        //统计考勤的类型
-        for(int i=0;i<salariesLists.size();i++){
-            if(null==salariesLists.get(i).getDatetype()||kaoqianDateType.contains(salariesLists.get(i).getDatetype()) ){
-                continue;
-            }
-            kaoqianDateType.add(salariesLists.get(i).getDatetype());
-        }
-        //kaoqianDateType
-        int count=0;//定义一个保存次数的变量
-        for(int j=0;j<kaoqianDateType.size();j++){
-            count=caclKong(salariesLists,kaoqianDateType.get(j));
-            mapCount.put(kaoqianDateType.get(j),count);
-            //将count清零
-           count=0;
-        }
-        return mapCount;
-    }
-
-    /**
-     * 这里计算的是对一个list<int>类型的累计
-     * @param
-     * @return
-     */
-    public int caclKong(List<YoSalary> salariesLists,String dateType){
-        int allCount=0;
-        for(int i=0;i<salariesLists.size();i++){
-            //排除不符合的统计类型
-            if(salariesLists.get(i).getDatetype().equals(dateType)){
-                continue;
-            }
-            allCount++;
-        }
-        return allCount;
-    }
-
-    /**
-     * 打卡情况
-     * @param salariesLists 打卡情况信息（同一个人）
-    //     * @param all 每项考勤的类型，暂时只有0和1
-     * @return Map<String,Integer>  表示的是考勤的类型和数量
-     */
-    public int AttendanceCount(List<YoSalary> salariesLists){
-        int useridSalary=0;
-        //统计考勤的类型
-        for(int i=0;i<salariesLists.size();i++){
-            if(null==salariesLists.get(i).getAttendance() || (Integer.parseInt(salariesLists.get(i).getAttendance()))==0){
-                continue;
-            }
-            useridSalary +=Integer.parseInt(salariesLists.get(i).getAttendance());
-        }
-
-        return useridSalary;
-    }
-
-
-    /**
-     * 有效打卡情况
-     * @param salariesLists 打卡情况信息（同一个人）
-    //     * @param all 每项考勤的类型，暂时只有0和1
-     * @return Map<String,Integer>  表示的是考勤的类型和数量
-     */
-    public int effectiveAttendanceCount(List<YoSalary> salariesLists){
-        int useridSalary=0;
-        for(int i=0;i<salariesLists.size();i++){
-            if(null==salariesLists.get(i).getEffectiveAttendance() || (Integer.parseInt(salariesLists.get(i).getEffectiveAttendance()))==0){
-                continue;
-            }
-            useridSalary +=Integer.parseInt(salariesLists.get(i).getEffectiveAttendance());
-        }
-
-        return useridSalary;
-    }
-
-
-    /**
-     * 计算考勤工资
-     * @param salariesLists 考勤信息（同一个人）
-    //     * @param all 每项考勤的类型，暂时只有0和1
-     * @return Map<String,Integer>  表示的是考勤的类型和数量
-     */
-    public Double AttendanceSalaryCount(List<YoSalary> salariesLists){
-        double useridSalary=0;
-        //统计考勤的类型
-        for(int i=0;i<salariesLists.size();i++){
-            if(null==salariesLists.get(i).getAttendanceSalary() || salariesLists.get(i).getAttendanceSalary()==0){
-                continue;
-            }
-            useridSalary +=salariesLists.get(i).getAttendanceSalary();
-        }
-        return useridSalary;
-    }
-
-
-    /**
-     * 请假的次数
-     * @param salariesLists 考勤信息（同一个人）
-    //     * @param all 每项考勤的类型，暂时只有0和1
-     * @return Map<String,Integer>  表示的是考勤的类型和数量
-     */
-    public Map<String,Integer> LeavetypeCount(List<YoSalary> salariesLists){
-        Map<String,Integer> mapCount=new HashMap<String,Integer>();
-        List<String> kaoqianDateType=new ArrayList<String>();
-        //统计考勤的类型
-        for(int i=0;i<salariesLists.size();i++){
-            if(null==salariesLists.get(i).getLeavetype()||kaoqianDateType.contains(salariesLists.get(i).getLeavetype()) ){
-                continue;
-            }
-            kaoqianDateType.add(salariesLists.get(i).getLeavetype());
-        }
-        //kaoqianDateType
-        int count=0;//定义一个保存次数的变量
-        for(int j=0;j<kaoqianDateType.size();j++){
-            count=leave(salariesLists,kaoqianDateType.get(j));
-            mapCount.put(kaoqianDateType.get(j),count);
-            //将count清零
-            count=0;
-        }
-        return mapCount;
-    }
-
-    /**
-     * 这里计算的是对一个list<int>类型的累计
-     * @param
-     * @return
-     */
-    public int leave(List<YoSalary> salariesLists,String leavetype){
-        int allCount=0;
-        for(int i=0;i<salariesLists.size();i++){
-            //排除不符合的统计类型
-            if(salariesLists.get(i).getLeavetype().equals(leavetype)){
-                continue;
-            }
-            allCount++;
-        }
-        return allCount;
-    }
-
-
-//    //请假次数
-//    public int LeavetypeCount(List<YoSalary> salariesLists){
-//        int useridSalary=0;
-//        for(int i=0;i<salariesLists.size();i++){
-//            if(null==salariesLists.get(i).getLeavetype() || (Integer.parseInt(salariesLists.get(i).getLeavetype()))==0){
-//                continue;
-//            }
-//            useridSalary +=Integer.parseInt(salariesLists.get(i).getLeavetype());
-//        }
-//
-//        return useridSalary;
-//    }
-
-    //加班次数
-    public int WorkovertimeCount(List<YoSalary> salariesLists){
-        int useridSalary=0;
-        for(int i=0;i<salariesLists.size();i++){
-            if(null==salariesLists.get(i).getWorkovertime() || (Integer.parseInt(salariesLists.get(i).getWorkovertime()))==0){
-                continue;
-            }
-            useridSalary +=Integer.parseInt(salariesLists.get(i).getWorkovertime());
-        }
-
-        return useridSalary;
-    }
-
-
-    /**
-     * 计算加班工资
-     * @param salariesLists 考勤信息（同一个人）
-    //     * @param all 每项考勤的类型，暂时只有0和1
-     * @return Map<String,Integer>  表示的是考勤的类型和数量
-     */
-    public Double WorkSalaryCount(List<YoSalary> salariesLists){
-        double useridSalary=0;
-        //统计考勤的类型
-        for(int i=0;i<salariesLists.size();i++){
-            if(null==salariesLists.get(i).getWorksalary() || salariesLists.get(i).getWorksalary()==0){
-                continue;
-            }
-            useridSalary +=salariesLists.get(i).getWorksalary();
-        }
-        return useridSalary;
-    }
-
-
-    //出差次数
-    public int EvectionCount(List<YoSalary> salariesLists){
-        int useridSalary=0;
-        for(int i=0;i<salariesLists.size();i++){
-            if(null==salariesLists.get(i).getEvection() || (Integer.parseInt(salariesLists.get(i).getEvection()))==0){
-                continue;
-            }
-            useridSalary +=Integer.parseInt(salariesLists.get(i).getEvection());
-        }
-
-        return useridSalary;
-    }
-
-    /**
-     * 津贴
-     * @param salariesLists 考勤信息（同一个人）
-    //     * @param all 每项考勤的类型，暂时只有0和1
-     * @return Map<String,Integer>  表示的是考勤的类型和数量
-     */
-/*
-    public int AllowanceCount(List<YoSalary> salariesLists){
-        int useridSalary=0;
-        //统计考勤的类型
-        for(int i=0;i<salariesLists.size();i++){
-            if(null==(salariesLists.get(i).getAllowance()) || (Integer.parseInt(salariesLists.get(i).getAllowance())==0)){
-                continue;
-            }
-            useridSalary +=(Integer.parseInt(salariesLists.get(i).getAllowance()));
-        }
-        return useridSalary;
-    }
-*/
-
-
-    /***
-     * 查询员工工资详细信息
-     */
-/*
-    @RequestMapping(value = "/queryusersalary", method = RequestMethod.POST)
-    public @ResponseBody Map<String,Object> queryusersalary(@RequestBody YoSalary user, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        //查询指定id，填充进map
-        List<YoSalary> list = userSalaryService.searchYoSalaryByEntity(user);
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("usersalary", list);
-        if (list.size() != 0) {
-            map.put("msg", "成功");
-        } else {
-            map.put("msg", "查询结果为空");
-        }
-        return map;
-    }
-*/
 
 
 

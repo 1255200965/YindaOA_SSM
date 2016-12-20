@@ -33,14 +33,14 @@
               大巴费
     </p>
   </a>
-  <a href="javascript:;" class="weui_grid js_grid" data-id="toast" onclick="goExpense_taxi();">
+  <%-- <a href="javascript:;" class="weui_grid js_grid" data-id="toast" onclick="goExpense_taxi();">
     <div class="weui_grid_icon">
       <img src="<%=path%>/images/taxi.png" alt="">
     </div>
     <p class="weui_grid_label">
             的士费
     </p>
-  </a>
+  </a> --%>
   <a href="javascript:;" class="weui_grid js_grid" data-id="toast" onclick="goExpense_hotel();">
     <div class="weui_grid_icon">
       <img src="<%=path%>/images/hotel.png" alt="">
@@ -49,14 +49,14 @@
          住宿费
     </p>
   </a>
-  <a href="javascript:;" class="weui_grid js_grid" data-id="toast">
+  <%-- <a href="javascript:;" class="weui_grid js_grid" data-id="toast">
     <div class="weui_grid_icon">
        <img src="<%=path%>/images/icon_nav_actionSheet.png" alt="">
     </div>
     <p class="weui_grid_label">
      &nbsp;
     </p>
-  </a>  
+  </a>   --%>
 </div>
   	<script src="<%=path%>/javascripts/jquery-2.1.4.js"></script>
     <script src="<%=path%>/javascripts/jquery-weui.js"></script>
@@ -69,7 +69,8 @@
     	 location="toExpense_history_bus.do";
      }
      function goExpense_taxi(){
-    	 location="toExpense_history_taxi.do";
+    	 /* location="toExpense_history_taxi.do"; */
+    	 $.alert("依公司规定,该功能暂未开放");
      }
      function goExpense_hotel(){
     	 location="toExpense_history_hotel.do";

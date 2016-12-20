@@ -26,7 +26,7 @@
       			<label class="weui_label"><b>市/县</b></label>
    			 </div>
     	 <div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder="" id="picker" name="startCity" >
+     		<input class="weui_input" type="text" placeholder=""  name="startCity" >
    		 </div>
      	</div>	
   	     <div class="weui_cell">
@@ -34,7 +34,7 @@
       			<label class="weui_label"><b>地址</b></label>
    			 </div>
     	<div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder="" id="start" name="startAddress" >
+     		<input class="weui_input" type="text" placeholder=""  name="startAddress" >
    		 </div>
    		 
      	</div>		
@@ -49,7 +49,7 @@
   		 <div class="weui_cell"> 
     		<div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>用车事由</b></label></div>
     	     <div class="weui_cell_ft weui_cell_primary">
-     	        <input class="weui_input" type="text"  id="name1" name="reason" >
+     	        <input class="weui_input" type="text"   name="reason" >
    		     </div>
   	     </div> 
   	     <div style="text-align:center;">---------------------上车---------------------</div>
@@ -59,7 +59,7 @@
       			<label class="weui_label"><b>地址</b></label>
    			 </div>
     	 <div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder="" id="name2" name="destination" >
+     		<input class="weui_input" type="text" placeholder=""  name="destination" >
    		 </div>
    		 
      	</div>
@@ -68,7 +68,7 @@
       			<label class="weui_label"><b>时间</b></label>
    			 </div>
     	 <div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="date" placeholder="" id="name3" name="endTime">
+     		<input class="weui_input" type="date" placeholder=""  name="endTime">
    		 </div>
    		 
      	</div>
@@ -77,7 +77,7 @@
       			<label class="weui_label"><b>金&nbsp;额</b></label>
    			 </div>
     	<div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder="" id="name4" name="moneyCost" >
+     		<input class="weui_input" type="text" placeholder=""  name="moneyCost" >
    		 </div>
    		 
      	</div>
@@ -86,7 +86,7 @@
       			<label class="weui_label"><b>说&nbsp;明</b></label>
    			 </div>
     	<div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder="" id="name" name="detailExplain" >
+     		<input class="weui_input" type="text" placeholder=""  name="detailExplain" >
    		 </div>
    		 
      	</div>	
@@ -110,7 +110,7 @@
     <script type="text/javascript">
    	  function showInfo(){
     	if($("input[name='image']").val()!=null && $("input[name='image']").val()!=""){
-    	  $("#picInfo").text("图片一");   
+    	  $("#picInfo").text("图片一已添加");   
     	} 
    	 }
        //文件上传反馈

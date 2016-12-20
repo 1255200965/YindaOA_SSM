@@ -85,6 +85,11 @@
     delete from business_trip
     where bt_sequence_no = #{btSequenceNo,jdbcType=INTEGER}
   </delete>
+  <select id="selectByPropertities" resultMap="BaseResultMap" parameterType="com.model.BusinessTrip">
+   select
+   <include refid="Base_Column_List" />
+   from business_trip
+  </select>
   <insert id="insert" parameterType="com.model.BusinessTrip" >
     insert into business_trip (bt_sequence_no, bt_approve_no, bt_title, 
       bt_approve_state, bt_approve_result, bt_approve_begin, 

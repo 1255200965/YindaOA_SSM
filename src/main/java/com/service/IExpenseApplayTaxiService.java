@@ -10,5 +10,5 @@ public interface IExpenseApplayTaxiService {
   //单条出租车报销信息详情查看
   public ExpenseApplayTaxi selectById(int id);
   //单条出租车报销信息保存、更新(根据id是否为0，进行新增或者更新)
-  public void saveOrUpdate(ExpenseApplayTaxi expenseApplayTaxi);
+  public int saveOrUpdate(ExpenseApplayTaxi expenseApplayTaxi);
 }

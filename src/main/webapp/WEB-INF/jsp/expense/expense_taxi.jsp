@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><!-- JSTL标签引入 -->
 <%
 	String path = request.getContextPath();/*获得当前项目的根路径 */
+	String data = request.getParameter("data");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,7 +17,7 @@
   <title>添加的士票</title>
  </head>
  <body >
-  <form id="form">
+  <form id="form" action="toExpense_taxi_save.do" method="post" enctype="multipart/form-data">
   	<!-- <div class="weui_cells" style="border:none;"> -->
   	 <div style="text-align:center;">---------------------下车---------------------</div>
   	     <br/>
@@ -25,7 +26,7 @@
       			<label class="weui_label"><b>市/县</b></label>
    			 </div>
     	 <div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder="" id="picker" name="startCity" >
+     		<input class="weui_input" type="text" placeholder=""  name="startCity" >
    		 </div>
      	</div>	
   	     <div class="weui_cell">
@@ -33,7 +34,7 @@
       			<label class="weui_label"><b>地址</b></label>
    			 </div>
     	<div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder="" id="start" name="startAddress" >
+     		<input class="weui_input" type="text" placeholder=""  name="startAddress" >
    		 </div>
    		 
      	</div>		
@@ -48,7 +49,7 @@
   		 <div class="weui_cell"> 
     		<div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>用车事由</b></label></div>
     	     <div class="weui_cell_ft weui_cell_primary">
-     	        <input class="weui_input" type="text"  id="name1" name="reason" >
+     	        <input class="weui_input" type="text"   name="reason" >
    		     </div>
   	     </div> 
   	     <div style="text-align:center;">---------------------下车---------------------</div>
@@ -58,7 +59,7 @@
       			<label class="weui_label"><b>地址</b></label>
    			 </div>
     	 <div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder="" id="name2" name="endAddress" >
+     		<input class="weui_input" type="text" placeholder=""  name="endAddress" >
    		 </div>
    		 
      	</div>
@@ -67,7 +68,7 @@
       			<label class="weui_label"><b>时间</b></label>
    			 </div>
     	 <div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="date" placeholder="" id="name3" name="endTime"  >
+     		<input class="weui_input" type="date" placeholder=""  name="endTime"  >
    		 </div>
    		 
      	</div>
@@ -76,7 +77,7 @@
       			<label class="weui_label"><b>金&nbsp;额</b></label>
    			 </div>
     	<div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder="" id="name4" name="moneyCost" >
+     		<input class="weui_input" type="text" placeholder=""  name="moneyCost" >
    		 </div>
    		 
      	</div>
@@ -85,7 +86,7 @@
       			<label class="weui_label"><b>说&nbsp;明</b></label>
    			 </div>
     	<div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder="" id="name" name="detailExplain" >
+     		<input class="weui_input" type="text" placeholder=""  name="detailExplain" >
    		 </div>
    		 
      	</div>	
@@ -98,7 +99,7 @@
   	     </div>
         <div class="weui-row">
 			<div class="weui-col-10"></div>
-			<div class="weui-col-40"><a onclick="goExpense_taxi_save();" class="weui_btn weui_btn_mini weui_btn_primary" >提交</a></div>
+			<div class="weui-col-40"><input type="submit" class="weui_btn weui_btn_mini weui_btn_primary"  value="提交"></div>
 			<div class="weui-col-20"><a href="javascript:history.go(-1);" class="weui_btn weui_btn_mini weui_btn_default">返回</a></div>
 			<div class="weui-col-10"></div>
 	    </div> 
@@ -109,19 +110,21 @@
     <script type="text/javascript">
     function showInfo(){
     	if($("input[name='image']").val()!=null && $("input[name='image']").val()!=""){
-    	  $("#picInfo").text("图片一");   
+    	  $("#picInfo").text("图片一已选择");   
     	} 
    	 }
-    function goExpense_taxi_save(){
-    	$.post("toExpense_taxi_save.do",$("#form").serialize(),function(data){
-    		if(data=="success"){
-    			$.alert("提交成功,请耐心等待审核结果");
-    			 window.history.go(-1);
-    		}else{
-    			$.alert("系统繁忙,请稍后重试");
-    		}
-    	});
-    }
+  //文件上传反馈
+	$(document).ready(function(){
+	   var data="<%=data%>";
+	   if(data==null){
+		   
+	   }else if(data == "success"){
+		   $.alert("提交成功,请耐心等待管理员审核");
+		   window.history.go(-1);
+	   }else if(data=="fail"){
+		   $.alert("系统繁忙,请稍后重试");
+	   }
+	});		
     </script>
  </body> 
 </html>

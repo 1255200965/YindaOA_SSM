@@ -1193,6 +1193,216 @@ public class ExpenseApplayBusExample {
             addCriterion("image_url not between", value1, value2, "imageUrl");
             return (Criteria) this;
         }
+
+        public Criteria andApproverOrderIsNull() {
+            addCriterion("approver_order is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproverOrderIsNotNull() {
+            addCriterion("approver_order is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproverOrderEqualTo(String value) {
+            addCriterion("approver_order =", value, "approverOrder");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproverOrderNotEqualTo(String value) {
+            addCriterion("approver_order <>", value, "approverOrder");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproverOrderGreaterThan(String value) {
+            addCriterion("approver_order >", value, "approverOrder");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproverOrderGreaterThanOrEqualTo(String value) {
+            addCriterion("approver_order >=", value, "approverOrder");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproverOrderLessThan(String value) {
+            addCriterion("approver_order <", value, "approverOrder");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproverOrderLessThanOrEqualTo(String value) {
+            addCriterion("approver_order <=", value, "approverOrder");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproverOrderLike(String value) {
+            addCriterion("approver_order like", value, "approverOrder");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproverOrderNotLike(String value) {
+            addCriterion("approver_order not like", value, "approverOrder");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproverOrderIn(List<String> values) {
+            addCriterion("approver_order in", values, "approverOrder");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproverOrderNotIn(List<String> values) {
+            addCriterion("approver_order not in", values, "approverOrder");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproverOrderBetween(String value1, String value2) {
+            addCriterion("approver_order between", value1, value2, "approverOrder");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproverOrderNotBetween(String value1, String value2) {
+            addCriterion("approver_order not between", value1, value2, "approverOrder");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproverHistoryIsNull() {
+            addCriterion("approver_history is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproverHistoryIsNotNull() {
+            addCriterion("approver_history is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproverHistoryEqualTo(String value) {
+            addCriterion("approver_history =", value, "approverHistory");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproverHistoryNotEqualTo(String value) {
+            addCriterion("approver_history <>", value, "approverHistory");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproverHistoryGreaterThan(String value) {
+            addCriterion("approver_history >", value, "approverHistory");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproverHistoryGreaterThanOrEqualTo(String value) {
+            addCriterion("approver_history >=", value, "approverHistory");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproverHistoryLessThan(String value) {
+            addCriterion("approver_history <", value, "approverHistory");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproverHistoryLessThanOrEqualTo(String value) {
+            addCriterion("approver_history <=", value, "approverHistory");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproverHistoryLike(String value) {
+            addCriterion("approver_history like", value, "approverHistory");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproverHistoryNotLike(String value) {
+            addCriterion("approver_history not like", value, "approverHistory");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproverHistoryIn(List<String> values) {
+            addCriterion("approver_history in", values, "approverHistory");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproverHistoryNotIn(List<String> values) {
+            addCriterion("approver_history not in", values, "approverHistory");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproverHistoryBetween(String value1, String value2) {
+            addCriterion("approver_history between", value1, value2, "approverHistory");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproverHistoryNotBetween(String value1, String value2) {
+            addCriterion("approver_history not between", value1, value2, "approverHistory");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproverNowIsNull() {
+            addCriterion("approver_now is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproverNowIsNotNull() {
+            addCriterion("approver_now is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproverNowEqualTo(String value) {
+            addCriterion("approver_now =", value, "approverNow");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproverNowNotEqualTo(String value) {
+            addCriterion("approver_now <>", value, "approverNow");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproverNowGreaterThan(String value) {
+            addCriterion("approver_now >", value, "approverNow");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproverNowGreaterThanOrEqualTo(String value) {
+            addCriterion("approver_now >=", value, "approverNow");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproverNowLessThan(String value) {
+            addCriterion("approver_now <", value, "approverNow");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproverNowLessThanOrEqualTo(String value) {
+            addCriterion("approver_now <=", value, "approverNow");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproverNowLike(String value) {
+            addCriterion("approver_now like", value, "approverNow");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproverNowNotLike(String value) {
+            addCriterion("approver_now not like", value, "approverNow");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproverNowIn(List<String> values) {
+            addCriterion("approver_now in", values, "approverNow");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproverNowNotIn(List<String> values) {
+            addCriterion("approver_now not in", values, "approverNow");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproverNowBetween(String value1, String value2) {
+            addCriterion("approver_now between", value1, value2, "approverNow");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproverNowNotBetween(String value1, String value2) {
+            addCriterion("approver_now not between", value1, value2, "approverNow");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

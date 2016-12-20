@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><!-- JSTL标签引入 -->
 <%
 	String path = request.getContextPath();/*获得当前项目的根路径 */
+	String data= request.getParameter("data");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,14 +17,14 @@
   <title>添加住宿票</title>
  </head>
  <body >
-  <form id="form">
+  <form id="form" action="toExpense_hotel_save.do" method="post" enctype="multipart/form-data">
   	<!-- <div class="weui_cells" style="border:none;"> -->
   		<div class="weui_cell">
     		<div class="weui_cell_bd weui_cell_primary">
       			<label class="weui_label"><b>住宿原因</b></label>
    			 </div>
     	 <div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder="" id="picker1" name="reason">
+     		<input class="weui_input" type="text" placeholder=""  name="reason">
    		 </div>
      	</div>
      		
@@ -32,21 +33,21 @@
       			<label class="weui_label"><b>旅馆名称</b></label>
    			 </div>
     	<div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder="" id="start" name="hotelName" >
+     		<input class="weui_input" type="text" placeholder=""  name="hotelName" >
    		 </div>
    		 
      	</div>		
   		 <div class="weui_cell ">
   		    <div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>住宿日期</b></label></div>
     		<div class="weui_cell_ft weui_cell_primary">
-     		   <input class="weui_input" type="date" placeholder="" id="picker2" name="startTime">
+     		   <input class="weui_input" type="date" placeholder=""  name="startTime">
    		    </div>
   		 </div>
   		
   	    <div class="weui_cell ">
   		    <div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>离店日期</b></label></div>
     		<div class="weui_cell_ft weui_cell_primary">
-     		   <input class="weui_input" type="date" placeholder="" id="picker" name="endTime">
+     		   <input class="weui_input" type="date" placeholder=""  name="endTime">
    		    </div>
   		 </div>
   			
@@ -55,7 +56,7 @@
       			<label class="weui_label"><b>金&nbsp;额</b></label>
    			 </div>
     	<div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder="" id="name1" name="moneyCost" value="">
+     		<input class="weui_input" type="text" placeholder=""  name="moneyCost" value="">
    		 </div>
    		 
      	</div>
@@ -65,7 +66,7 @@
       			<label class="weui_label"><b>天&nbsp;数</b></label>
    			 </div>
     	<div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder="" id="name2" name="daysCost" value="">
+     		<input class="weui_input" type="text" placeholder=""  name="daysCost" value="">
    		 </div>
    		 
      	</div>
@@ -75,7 +76,7 @@
       			<label class="weui_label"><b>说&nbsp;明</b></label>
    			 </div>
     	<div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder="" id="name3" name="detailExplain" value="" >
+     		<input class="weui_input" type="text" placeholder=""  name="detailExplain" value="" >
    		 </div>
    		 
      	</div>
@@ -89,7 +90,7 @@
   	     </div>
         <div class="weui-row">
 			<div class="weui-col-10"></div>
-			<div class="weui-col-40"><a onclick="goExpense_hotel_save();" class="weui_btn weui_btn_mini weui_btn_primary" >提交</a></div>
+			<div class="weui-col-40"><input type="submit" class="weui_btn weui_btn_mini weui_btn_primary"  value="提交"></div>
 			<div class="weui-col-20"><a href="javascript:history.go(-1);" class="weui_btn weui_btn_mini weui_btn_default">返回</a></div>
 			<div class="weui-col-10"></div>
 	    </div> 
@@ -100,19 +101,24 @@
     <script>
     function showInfo(){
     	if($("input[name='image']").val()!=null && $("input[name='image']").val()!=""){
-    	  $("#picInfo").text("图片一");   
+    	  $("#picInfo").text("图片一已添加");   
     	} 
    	 }
-     function goExpense_hotel_save(){
-    	 $.post("toExpense_hotel_save.do",$("#form").serialize(),function(data){
-    		 if(data=="success"){
-    			 $.alert("提交成功,请耐心等待审核");
-    			 window.history.go(-1);
-    		 }else{
-    			 $.alert("系统繁忙,请稍后重试");
-    		 }
-    	 });
-     }
+  //文件上传反馈
+	$(document).ready(function(){
+	   var data="<%=data%>";
+	   if(data==null){
+		   
+	   }else if(data == "success"){
+		   $.alert("提交成功,请耐心等待管理员审核");
+		 /* location="toExpense_history_bus.do";  */
+		   window.history.go(-1);
+		/*  window.history.back(-2); */
+	   }else if(data=="fail"){
+		   $.alert("系统繁忙,请稍后重试");
+	   }
+	});	
+    
     </script>
  </body> 
 </html>
