@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.YoOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.model.YoOrder" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="department" property="department" jdbcType="VARCHAR" />
+    <result column="project" property="project" jdbcType="VARCHAR" />
+    <result column="order_name" property="orderName" jdbcType="VARCHAR" />
+    <result column="order_number" property="orderNumber" jdbcType="VARCHAR" />
+    <result column="principal" property="principal" jdbcType="VARCHAR" />
+    <result column="business_property" property="businessProperty" jdbcType="VARCHAR" />
+    <result column="outdoor_job" property="outdoorJob" jdbcType="VARCHAR" />
+    <result column="change_province" property="changeProvince" jdbcType="VARCHAR" />
+    <result column="change_city" property="changeCity" jdbcType="VARCHAR" />
+    <result column="order_year" property="orderYear" jdbcType="VARCHAR" />
+    <result column="modify_user" property="modifyUser" jdbcType="VARCHAR" />
+    <result column="modify_time" property="modifyTime" jdbcType="VARCHAR" />
+    <result column="yo_status" property="yoStatus" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, department, project, order_name, order_number, principal, business_property, 
+    outdoor_job, change_province, change_city, order_year, modify_user, modify_time, 
+    yo_status
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.model.YoOrderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from yo_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yo_order
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yo_order
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.model.YoOrder" >
+    insert into yo_order (id, department, project, 
+      order_name, order_number, principal, 
+      business_property, outdoor_job, change_province, 
+      change_city, order_year, modify_user, 
+      modify_time, yo_status)
+    values (#{id,jdbcType=INTEGER}, #{department,jdbcType=VARCHAR}, #{project,jdbcType=VARCHAR}, 
+      #{orderName,jdbcType=VARCHAR}, #{orderNumber,jdbcType=VARCHAR}, #{principal,jdbcType=VARCHAR}, 
+      #{businessProperty,jdbcType=VARCHAR}, #{outdoorJob,jdbcType=VARCHAR}, #{changeProvince,jdbcType=VARCHAR}, 
+      #{changeCity,jdbcType=VARCHAR}, #{orderYear,jdbcType=VARCHAR}, #{modifyUser,jdbcType=VARCHAR}, 
+      #{modifyTime,jdbcType=VARCHAR}, #{yoStatus,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.YoOrder" >
+    insert into yo_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="department != null" >
+        department,
+      </if>
+      <if test="project != null" >
+        project,
+      </if>
+      <if test="orderName != null" >
+        order_name,
+      </if>
+      <if test="orderNumber != null" >
+        order_number,
+      </if>
+      <if test="principal != null" >
+        principal,
+      </if>
+      <if test="businessProperty != null" >
+        business_property,
+      </if>
+      <if test="outdoorJob != null" >
+        outdoor_job,
+      </if>
+      <if test="changeProvince != null" >
+        change_province,
+      </if>
+      <if test="changeCity != null" >
+        change_city,
+      </if>
+      <if test="orderYear != null" >
+        order_year,
+      </if>
+      <if test="modifyUser != null" >
+        modify_user,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="yoStatus != null" >
+        yo_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="department != null" >
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="project != null" >
+        #{project,jdbcType=VARCHAR},
+      </if>
+      <if test="orderName != null" >
+        #{orderName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNumber != null" >
+        #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="principal != null" >
+        #{principal,jdbcType=VARCHAR},
+      </if>
+      <if test="businessProperty != null" >
+        #{businessProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="outdoorJob != null" >
+        #{outdoorJob,jdbcType=VARCHAR},
+      </if>
+      <if test="changeProvince != null" >
+        #{changeProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="changeCity != null" >
+        #{changeCity,jdbcType=VARCHAR},
+      </if>
+      <if test="orderYear != null" >
+        #{orderYear,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUser != null" >
+        #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=VARCHAR},
+      </if>
+      <if test="yoStatus != null" >
+        #{yoStatus,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.YoOrder" >
+    update yo_order
+    <set >
+      <if test="department != null" >
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="project != null" >
+        project = #{project,jdbcType=VARCHAR},
+      </if>
+      <if test="orderName != null" >
+        order_name = #{orderName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNumber != null" >
+        order_number = #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="principal != null" >
+        principal = #{principal,jdbcType=VARCHAR},
+      </if>
+      <if test="businessProperty != null" >
+        business_property = #{businessProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="outdoorJob != null" >
+        outdoor_job = #{outdoorJob,jdbcType=VARCHAR},
+      </if>
+      <if test="changeProvince != null" >
+        change_province = #{changeProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="changeCity != null" >
+        change_city = #{changeCity,jdbcType=VARCHAR},
+      </if>
+      <if test="orderYear != null" >
+        order_year = #{orderYear,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUser != null" >
+        modify_user = #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=VARCHAR},
+      </if>
+      <if test="yoStatus != null" >
+        yo_status = #{yoStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.YoOrder" >
+    update yo_order
+    set department = #{department,jdbcType=VARCHAR},
+      project = #{project,jdbcType=VARCHAR},
+      order_name = #{orderName,jdbcType=VARCHAR},
+      order_number = #{orderNumber,jdbcType=VARCHAR},
+      principal = #{principal,jdbcType=VARCHAR},
+      business_property = #{businessProperty,jdbcType=VARCHAR},
+      outdoor_job = #{outdoorJob,jdbcType=VARCHAR},
+      change_province = #{changeProvince,jdbcType=VARCHAR},
+      change_city = #{changeCity,jdbcType=VARCHAR},
+      order_year = #{orderYear,jdbcType=VARCHAR},
+      modify_user = #{modifyUser,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=VARCHAR},
+      yo_status = #{yoStatus,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+	<select id="getDepartment" parameterType="com.model.YoOrder"
+		resultMap="BaseResultMap">
+
+		select DISTINCT department from yo_order
+	</select>
+
+
+	<select id="getProjectByDepartment" parameterType="com.model.YoOrder"
+		resultMap="BaseResultMap">
+
+		select DISTINCT project from yo_order where department = #{department}
+	</select>
+  
+</mapper>
