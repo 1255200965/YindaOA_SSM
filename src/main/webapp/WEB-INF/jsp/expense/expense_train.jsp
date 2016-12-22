@@ -17,7 +17,7 @@
   <title>添加火车票</title>
  </head>
  <body >
-  <form id="form" action="expense_train_save.do" method="post" enctype="multipart/form-data" >
+  <form id="form" action="expense_train_save.do" method="post" enctype="multipart/form-data" onsubmit="return check();">
   	<!-- <div class="weui_cells" style="border:none;"> -->
   		<div class="weui_cell">
     		<div class="weui_cell_bd weui_cell_primary">
@@ -101,6 +101,17 @@
   	<script src="<%=path%>/javascripts/jquery-2.1.4.js"></script>
     <script src="<%=path%>/javascripts/jquery-weui.js"></script>
     <script type="text/javascript">
+    function check(){
+    	if($("input[name='image']").val()==null || $("input[name='image']").val()==""){
+    		$.alert("请上传出差票据信息照片");
+    		return false;
+    	}
+    	if($("input[name='moneyCost']").val()==null || $("input[name='moneyCost']").val()==""){
+    		$.alert("请填写报销金额");
+    		return false;
+    	}
+    	return true;
+    }
     function showInfo(){
     	if($("input[name='image']").val()!=null && $("input[name='image']").val()!=""){
     	  $("#picInfo").text("图片一");   

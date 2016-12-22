@@ -22,7 +22,19 @@ public interface IOrderService {
 	
 	
 	
-	
-	public   List<YoOrder> getOrderList(YoOrder order);
+	/**
+	 * 条件查询订单
+	 * @param order
+	 * @return
+	 */
+	 List<YoOrder> getOrderList(YoOrder order);
+	 
+	 
+	 /**
+	  * 根据部门，项目获取订单
+	  * @param department
+	  * @return
+	  */
+	 List<YoOrder> getOrderByDepartmentAndProject(String department,String project);
 	
 }

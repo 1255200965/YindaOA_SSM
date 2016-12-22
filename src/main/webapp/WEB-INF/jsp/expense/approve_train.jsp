@@ -74,12 +74,14 @@
    			 </div>
     	<div class="weui_cell_ft weui_cell_primary">
      		<input class="weui_input" type="text" placeholder=""  name="reason" value="${expenseApplayTrain.reason }" readonly>
+     		<input class="weui_input" type="text" placeholder=""  name="imageUrl" value="${expenseApplayTrain.imageUrl }" readonly style="display:none;">
+     		
    		 </div>
    		 
      	</div>	
   	     <hr/>
   	     <div class="weui_row">
-     	<img src="http://121.40.29.241/YindaOA/upload/${expenseApplayTrain.imageUrl }" style="width:30%;height:10%"/>
+     	<img src="http://121.40.29.241/YindaOA/upload/${expenseApplayTrain.imageUrl }" style="width:30%;height:10%；"/>
      	</div>	
   	    <!--  <div class="weui-row">
   	     <div class="weui_uploader_input_wrp">
@@ -88,7 +90,7 @@
   	     </div> -->
         <div class="weui-row">
 			<div class="weui-col-10"></div>
-			<div class="weui-col-80"><a onclick="approve_train_update();" class="weui_btn  weui_btn_primary" >通过</a></div>
+			<div class="weui-col-80" ><a id="flag" onclick="approve_train_update();" class="weui_btn  weui_btn_primary" >通过</a></div>
 			<div class="weui-col-10"></div>
 	    </div> 
   	 <!-- </div> -->
@@ -96,12 +98,21 @@
   	<script src="<%=path%>/javascripts/jquery-2.1.4.js"></script>
     <script src="<%=path%>/javascripts/jquery-weui.js"></script>
     <script>
+    var flag="${flag}";
+    $(document).ready(function(){
+    	
+    	if(flag=="pass"){
+    		$("#flag").hide();
+    	}
+    });
     	function approve_train_update(){
     		$.post("approve_train_update.do",$("#form").serialize(),function(data){
     			if(data == 0){
     				$.alert("系统繁忙,请稍后重试");
+    				
     			}else if(data ==1){
     			$.alert("审核通过成功");	
+    			$("#flag").hide();
     			}
     			
     		});

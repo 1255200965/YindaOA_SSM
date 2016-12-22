@@ -77,12 +77,10 @@ public class StaffInfoServiceImpl implements IStaffInfoService {
         return selectStaff;
     }
 
-/*
     @Override
     public List<StaffInfo> selectAllUser() {
         return staffInfoMapper.selectAllUser();
     }
-*/
 
 
     //更新用户信息
@@ -108,9 +106,9 @@ public class StaffInfoServiceImpl implements IStaffInfoService {
 
         StaffInfoExample staffInfoExample = new StaffInfoExample();
         StaffInfoExample.Criteria criteria = staffInfoExample.createCriteria();
-        if (staffId!=null && staffId!="") criteria.andStaffIdEqualTo(staffId);
-        if (name!=null && name!="") criteria.andNameEqualTo(name);
-        if (depart!=null && depart!="") criteria.andDepartmentEqualTo(depart);
+        if (staffId!=null) criteria.andStaffIdEqualTo(staffId);
+        if (name!=null) criteria.andNameEqualTo(name);
+        if (depart!=null) criteria.andDepartmentEqualTo(depart);
 
         List<StaffInfo> list = staffInfoMapper.selectByExample(staffInfoExample);
         return list;
@@ -121,9 +119,7 @@ public class StaffInfoServiceImpl implements IStaffInfoService {
 //        String name = staffInfo.getName();
 //        String cellphone = staffInfo.getCellphone();
 //        String idNo = staffInfo.getIdNo();
-        //使用example
-
-        return null;//staffInfoMapper.selectAllUser(staffInfo);
+        return staffInfoMapper.selectAllUser(staffInfo);
     }
 
     /**
@@ -162,5 +158,20 @@ public class StaffInfoServiceImpl implements IStaffInfoService {
         Department department = list.get(0);
         return department;
     }
+
+
+	@Override
+	public List<StaffInfo> getIdentifyInStallInfo(String user_staffId) {
+		// TODO Auto-generated method stub
+		
+		return staffInfoMapper.getIdentifyInStallInfo(user_staffId);
+	}
+
+
+	@Override
+	public List<StaffInfo> getContract_typeInStallInfo(String user_staffId) {
+		// TODO Auto-generated method stub
+		return staffInfoMapper.getContract_typeInStallInfo(user_staffId);
+	}
 
 }

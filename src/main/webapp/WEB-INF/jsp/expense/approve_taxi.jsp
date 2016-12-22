@@ -92,7 +92,7 @@
      	</div>	
   	     <hr/>
   	     <div class="weui_row">
-     	<img src="http://121.40.29.241/YindaOA/upload/${expenseApplayTaxi.imageUrl }" style="width:30%;height:10%"/>
+     	<img src="http://121.40.29.241/YindaOA/upload/${expenseApplayTaxi.imageUrl }" style="width:30%;height:10%；"/>
      	</div>	
   	    <!--  <div class="weui-row">
   	     <div class="weui_uploader_input_wrp">

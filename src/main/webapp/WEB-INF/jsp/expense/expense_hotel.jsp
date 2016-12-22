@@ -17,7 +17,7 @@
   <title>添加住宿票</title>
  </head>
  <body >
-  <form id="form" action="toExpense_hotel_save.do" method="post" enctype="multipart/form-data">
+  <form id="form" action="toExpense_hotel_save.do" method="post" enctype="multipart/form-data" onsubmit="return check();">
   	<!-- <div class="weui_cells" style="border:none;"> -->
   		<div class="weui_cell">
     		<div class="weui_cell_bd weui_cell_primary">
@@ -50,16 +50,6 @@
      		   <input class="weui_input" type="date" placeholder=""  name="endTime">
    		    </div>
   		 </div>
-  			
-     	<div class="weui_cell">
-    		<div class="weui_cell_bd weui_cell_primary">
-      			<label class="weui_label"><b>金&nbsp;额</b></label>
-   			 </div>
-    	<div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder=""  name="moneyCost" value="">
-   		 </div>
-   		 
-     	</div>
      	
      	<div class="weui_cell">
     		<div class="weui_cell_bd weui_cell_primary">
@@ -67,6 +57,15 @@
    			 </div>
     	<div class="weui_cell_ft weui_cell_primary">
      		<input class="weui_input" type="text" placeholder=""  name="daysCost" value="">
+   		 </div>
+   		 
+     	</div>
+     	<div class="weui_cell">
+    		<div class="weui_cell_bd weui_cell_primary">
+      			<label class="weui_label"><b>金&nbsp;额</b></label>
+   			 </div>
+    	<div class="weui_cell_ft weui_cell_primary">
+     		<input class="weui_input" type="text" placeholder=""  name="moneyCost" value="">
    		 </div>
    		 
      	</div>
@@ -99,6 +98,29 @@
   	<script src="<%=path%>/javascripts/jquery-2.1.4.js"></script>
     <script src="<%=path%>/javascripts/jquery-weui.js"></script>
     <script>
+    function check(){
+    	if($("input[name='reason']").val()==null || $("input[name='reason']").val()==""){
+    		$.alert("请输入住宿原因");
+    	}
+    	if($("input[name='hotelName']").val()==null || $("input[name='hotelName']").val()==""){
+    		$.alert("请输入旅店名称");
+    	}
+    	if($("input[name='startTime']").val()==null || $("input[name='startTime']").val()==""){
+    		$.alert("请输入住宿日期");
+    	}
+    	if($("input[name='endTime']").val()==null || $("input[name='endTime']").val()==""){
+    		$.alert("请输入离店日期");
+    	}
+    	if($("input[name='daysCost']").val()==null || $("input[name='daysCost']").val()==""){
+    		$.alert("请输入天数");
+    	}
+    	if($("input[name='moneyCost']").val()==null || $("input[name='moneyCost']").val()==""){
+    		$.alert("请输入金额");
+    	}
+    	if($("input[name='image']").val()==null || $("input[name='image']").val()==""){
+    		$.alert("请上传出差票据照片");
+    	}
+    }
     function showInfo(){
     	if($("input[name='image']").val()!=null && $("input[name='image']").val()!=""){
     	  $("#picInfo").text("图片一已添加");   

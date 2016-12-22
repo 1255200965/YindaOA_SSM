@@ -29,6 +29,12 @@ public class YoOrder {
 
     private String yoStatus;
 
+    private String yindaIdentify;
+
+    private String assess;
+
+    private String contractType;
+
     public Integer getId() {
         return id;
     }
@@ -139,5 +145,29 @@ public class YoOrder {
 
     public void setYoStatus(String yoStatus) {
         this.yoStatus = yoStatus;
+    }
+
+    public String getYindaIdentify() {
+        return yindaIdentify;
+    }
+
+    public void setYindaIdentify(String yindaIdentify) {
+        this.yindaIdentify = yindaIdentify;
+    }
+
+    public String getAssess() {
+        return assess;
+    }
+
+    public void setAssess(String assess) {
+        this.assess = assess;
+    }
+
+    public String getContractType() {
+        return contractType;
+    }
+
+    public void setContractType(String contractType) {
+        this.contractType = contractType;
     }
 }

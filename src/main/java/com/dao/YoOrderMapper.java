@@ -20,16 +20,16 @@ public interface YoOrderMapper {
     int updateByPrimaryKey(YoOrder record);
     
     /**
-	 * 获取所有部门
-	 * @return
-	 */
-	List<YoOrder> getDepartment();
-	
-	
-	/**
-	 * 根据部门获取项目
-	 * @param department
-	 * @return
-	 */
-	List<YoOrder> getProjectByDepartment(String department);
+  	 * 获取所有部门
+  	 * @return
+  	 */
+  	List<YoOrder> getDepartment();
+  	
+  	
+  	/**
+  	 * 根据部门获取项目
+  	 * @param department
+  	 * @return
+  	 */
+  	List<YoOrder> getProjectByDepartment(String department);
 }

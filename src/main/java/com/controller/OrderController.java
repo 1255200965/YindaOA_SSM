@@ -1,18 +1,29 @@
 package com.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.http.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.support.incrementer.H2SequenceMaxValueIncrementer;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.dao.YoOrderMapper;
+import com.ddSdk.auth.AuthHelper;
+import com.model.StaffInfo;
 import com.model.YoOrder;
 import com.service.IOrderService;
+import com.service.IStaffInfoService;
+import com.util.DDUtil;
+import com.util.GlobalConstant;
+
 import com.util.StringUtil;
 
-import net.sf.json.JSONArray;
 
 @Controller
 @RequestMapping("order")
@@ -23,16 +34,54 @@ public class OrderController {
 	@Autowired
 	private YoOrderMapper orderMapper;
 	
+	
+	@Autowired
+	private IStaffInfoService iStaffInfoService;
 	/**
 	 * 订单系统界面
 	 * @return
 	 */
 	@RequestMapping("/search_order_page.do")
-	public ModelAndView search_order_page(){		
+	public ModelAndView search_order_page(){
+     
 		ModelAndView mav = new ModelAndView();
-
+		
+		
 		mav.setViewName("order/search_order");
+		
 		return mav;
+	}
+	
+	/**
+	 * 项目变更申请界面
+	 * @return
+	 */
+	@RequestMapping("/change_order_apply_page.do")
+	public ModelAndView change_order_apply_page(HttpServletRequest request){		
+		ModelAndView mav = new ModelAndView();		
+	 	String config= AuthHelper.getConfig(request);
+	 	System.out.println("config:"+config);
+	 	request.setAttribute("config", config);
+		mav.setViewName("order/change_order_apply");		
+		return mav;
+	}
+	
+	/**
+	 * 项目变更申请界面
+	 * @return
+	 */
+	@RequestMapping("/login.do")
+	public void login(HttpServletRequest request,String code){		
+		String staffUserId=DDUtil.getUserID(code);
+		System.out.println("staffUserId:"+staffUserId);
+		//从数据库中获得该员工的所有信息
+		StaffInfo staffInfo= iStaffInfoService.selectStaffByID(staffUserId);
+		//在当前回话session中存储相关信息
+		request.getSession().setAttribute(GlobalConstant.user_staffId, staffInfo.getStaffId());
+		request.getSession().setAttribute(GlobalConstant.user_department, staffInfo.getDepartment());
+		request.getSession().setAttribute(GlobalConstant.user_staff_user_id,staffInfo.getStaffUserId());
+		request.getSession().setAttribute(GlobalConstant.user_name,staffInfo.getName());		
+		
 	}
 	
 
@@ -55,6 +104,18 @@ public class OrderController {
 	@ResponseBody
 	public 	List<YoOrder> getProjectByDepartment(String department){		
 		List<YoOrder> orderList = iOrderService.getProjectByDepartment(department);			
+		return orderList;
+	}
+	
+	/**
+	 * 根据项目获取项目下的所有订单
+	 * @param department
+	 * @return
+	 */
+	@RequestMapping("/getOrderByDepartmentAndProject.do")
+	@ResponseBody
+	public 	List<YoOrder> getOrderByDepartmentAndProject(String department,String project){		
+		List<YoOrder> orderList= iOrderService.getOrderByDepartmentAndProject(department, project);			
 		return orderList;
 	}
 	
@@ -140,4 +201,29 @@ public class OrderController {
 		
 	}
 	
+	/**
+	 * 获取staffinfo表中 商务等级yinda_identify
+	 * @return
+	 */
+	@RequestMapping("/getIdentifyInStallInfo.do")
+	@ResponseBody
+	public List<StaffInfo> getIdentifyInStallInfo(HttpServletRequest request){	
+		String user_staffId =(String) request.getSession().getAttribute(GlobalConstant.user_staffId);
+		System.out.println(user_staffId);
+		List<StaffInfo> staffInfoList = iStaffInfoService.getIdentifyInStallInfo(user_staffId);		
+		return staffInfoList;
+	}
+	
+	
+	/**
+	 * 获取staffinfo表中 合同属性contract_type
+	 * @return
+	 */
+	@RequestMapping("/getContract_typeInStallInfo.do")
+	@ResponseBody
+	public List<StaffInfo> getContract_typeInStallInfo(HttpServletRequest request){
+		String user_staffId =(String) request.getSession().getAttribute(GlobalConstant.user_staffId);
+		List<StaffInfo> staffInfoList = iStaffInfoService.getContract_typeInStallInfo(user_staffId);	
+		return staffInfoList;
+	}
 }

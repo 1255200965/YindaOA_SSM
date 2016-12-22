@@ -32,12 +32,11 @@ import com.service.IExpenseApplayHotelService;
 import com.service.IExpenseApplayTaxiService;
 import com.service.IExpenseApplayTrainService;
 import com.service.IStaffInfoService;
-
 import com.util.DDMessageUtil;
 import com.util.DDSendMessageUtil;
 import com.util.DDUtil;
 import com.util.GlobalConstant;
-import com.util.ImgUpload;
+import com.util.ExpenseApplyResources;
 
 @Controller
 public class ExpenseController {
@@ -141,40 +140,47 @@ public class ExpenseController {
         	String originalName=mFile.getOriginalFilename();
         	System.out.println("上传后的文件名为"+originalName);
         	  //图片存储的物理路径
-    		String basePath =ImgUpload.IMG_PATH;
+    		String basePath =ExpenseApplyResources.IMG_SAVE_PATH;
     		  //新的图片名称
     		String newFileName=UUID.randomUUID()+originalName.substring(originalName.lastIndexOf("."));
     		  //新图片
-        	File file = new File(basePath+newFileName);
-        	  //将mFile文件的内容写入file
+        	File file = new File(basePath+newFileName);  
+        	//将mFile文件的内容写入file
 			mFile.transferTo(file);
 			  //数据库中记录图片存放位置信息
 			expenseApplayTrain.setImageUrl(newFileName);
-			/**图片存储**/
-    		id = expenseApplayTrainService.saveOrUpdate(expenseApplayTrain);
-    		/**推送消息给一级管理员*/
-    		 //首先推送给一级管理员
+			
+			/*****用户对应报销管理员查询******/
 			List<String> approverList=ddSendMessageUtil.getApprovers(expenseApplayTrain.getStaffUserId());
 			String toUser=null;
 			//对于挂职在一级部门的员工
 			if(approverList.size() >1){
 			toUser=approverList.get(1);
+			expenseApplayTrain.setApproverOrder(approverList.get(0)+"|"+approverList.get(1));
 			}else{//对于挂职在二级部门下的员工
 				toUser=approverList.get(0);
-			}
+				expenseApplayTrain.setApproverOrder(approverList.get(0)+"|"+approverList.get(0));
+			}	
+			/*****用户对应报销管理员查询******/
+			
+			
+			/**图片存储**/
+    		id = expenseApplayTrainService.saveOrUpdate(expenseApplayTrain);
+    		/**推送消息给一级管理员*/
+    		 
         	//用户新增的申请需要给管理员推送审批消息
         	String text =DDSendMessageUtil.getText("火车票报销",expenseApplayTrain.getStaffName(),expenseApplayTrain.getStartAddress(),expenseApplayTrain.getEndAddress());
             DDMessageUtil ddMessage = new DDMessageUtil();
-            ddMessage.setMessageUrl("http://121.40.29.241/YindaOA/to_approve_train.do?id="+id);
-            ddMessage.setPicUrl("http://121.40.29.241/YindaOA/images/approve.png");
+            ddMessage.setMessageUrl(ExpenseApplyResources.approve_Message_URL+id);
+            ddMessage.setPicUrl(ExpenseApplyResources.approve_Message_picUrl);
             ddMessage.setText(text);
             ddMessage.setTitle("报销");
             ddMessage.setToParty("");
-            ddMessage.setToUser(toUser);
+            ddMessage.setToUser("07022352451246847");
             DDSendMessageUtil.sendMessage(ddMessage);
         	/**推送消息给管理员*/
             //返回操作状态信息
-    		return "redirecttoExpense_train.do?data=success";
+    		return "redirect:toExpense_train.do?data=success";
     	}catch(Exception e){
     		//返回操作状态信息
     		return "redirect:toExpense_train?data=fail";
@@ -187,7 +193,13 @@ public class ExpenseController {
     public ModelAndView toBus_approve(HttpServletRequest request,int id){
     	ModelAndView mav = new ModelAndView();
     	ExpenseApplayTrain  expenseApplayTrain = expenseApplayTrainService.selectById(id);
-    	/*System.out.println(expenseApplayTrain);*/
+    	
+    	String flag=null;
+    	if("通过".equals(expenseApplayTrain.getApplayStatus())){
+    		flag="pass";
+    	}
+    	System.out.println(flag);
+    	mav.addObject("flag", flag);
     	mav.addObject("expenseApplayTrain", expenseApplayTrain);
     	mav.setViewName("expense/approve_train");
     	return mav;
@@ -238,7 +250,7 @@ public class ExpenseController {
         	String originalName=mFile.getOriginalFilename();
         	System.out.println("上传后的文件名为"+originalName);
         	  //图片存储的物理路径
-    		String basePath =ImgUpload.IMG_PATH;
+    		String basePath =ExpenseApplyResources.IMG_SAVE_PATH;
     		  //新的图片名称
     		String newFileName=UUID.randomUUID()+originalName.substring(originalName.lastIndexOf("."));
     		  //新图片
@@ -247,27 +259,31 @@ public class ExpenseController {
 			mFile.transferTo(file);
 			  //数据库中记录图片存放位置信息
 			expenseApplayBus.setImageUrl(newFileName);
-			/**图片存储**/
-			id=expenseBusService.saveOrUpdate(expenseApplayBus);
-			/**推送消息给管理员*/
-			  //首先推送给一级管理员
+			/*被报销人的各级审批人*/
 			List<String> approverList=ddSendMessageUtil.getApprovers(expenseApplayBus.getStaffUserId());
 			String toUser=null;
 			//对于挂职在一级部门的员工
 			if(approverList.size() >1){
 			toUser=approverList.get(1);
+			expenseApplayBus.setApproverOrder(approverList.get(0)+"|"+approverList.get(1));
 			}else{//对于挂职在二级部门下的员工
 				toUser=approverList.get(0);
+				expenseApplayBus.setApproverOrder(approverList.get(0)+"|"+approverList.get(0));
 			}
+			/*被报销人的各级审批人*/
+			/**图片存储**/
+			id=expenseBusService.saveOrUpdate(expenseApplayBus);
+			/**推送消息给管理员*/
+			  
         	//用户新增的申请需要给管理员推送审批消息
         	String text =DDSendMessageUtil.getText("大巴车票报销",expenseApplayBus.getStaffName(),expenseApplayBus.getStartAddress(),expenseApplayBus.getDestination());
             DDMessageUtil ddMessage = new DDMessageUtil();
-            ddMessage.setMessageUrl("http://121.40.29.241/YindaOA/to_approve_bus.do?id="+id);
-            ddMessage.setPicUrl("http://121.40.29.241/YindaOA/images/approve.png");
+            ddMessage.setMessageUrl(ExpenseApplyResources.approve_Message_URL+id);
+            ddMessage.setPicUrl(ExpenseApplyResources.approve_Message_picUrl);
             ddMessage.setText(text);
             ddMessage.setTitle("报销");
             ddMessage.setToParty("");
-            ddMessage.setToUser(toUser);
+            ddMessage.setToUser("07022352451246847");
             DDSendMessageUtil.sendMessage(ddMessage);
         	/**推送消息给管理员*/
 	    	return "redirect:toExpense_bus.do?data="+"success";
@@ -301,10 +317,16 @@ public class ExpenseController {
     public ModelAndView toApprove_bus(HttpServletRequest request,int id){
     	ModelAndView mav = new ModelAndView();
     	ExpenseApplayBus expenseApplayBus = expenseBusService.selectById(id);
+    	String flag=null;
+    	if("通过".equals(expenseApplayBus.getApplayStatus())){
+    		flag="pass";
+    	}
+    	mav.addObject("flag", flag);
     	mav.addObject("expenseApplayBus",expenseApplayBus );
     	mav.setViewName("expense/approve_bus");
     	return mav;
     }
+    //审核通过信息保存
     @RequestMapping("/to_approve_bus_update.do")
     @ResponseBody
     public int to_approve_bus_update(HttpServletRequest request,ExpenseApplayBus expenseApplayBus){
@@ -316,6 +338,123 @@ public class ExpenseController {
     	expenseApplayBus.setStaffUserId((String)request.getSession().getAttribute(GlobalConstant.user_staff_user_id));
     	/*新增人员信息*/
      return	expenseBusService.saveOrUpdate(expenseApplayBus);
+    }
+    /**
+     * 
+     * 旅店报销
+     * 
+     */
+    //旅店报销界面跳转--新增
+    @RequestMapping("/toExpense_hotel.do")
+    public ModelAndView toExpense_hotel(HttpServletRequest request){
+    	ModelAndView mav =new ModelAndView();
+    	mav.setViewName("expense/expense_hotel");
+    	return mav;
+    }
+    //旅店报销界面跳转--历史信息查看
+    @RequestMapping("/toExpense_history_hotel.do")
+    public ModelAndView toExpense_history_hotel(HttpServletRequest request){
+    	ModelAndView mav = new ModelAndView();
+    	String staffId=(String) request.getSession().getAttribute(GlobalConstant.user_staffId);
+    	List<ExpenseApplayHotel> expenseApplayHotelList = expenseApplayHotelService.selectByStaffId(staffId);
+    	mav.addObject("expenseApplayHotelList", expenseApplayHotelList);
+    	mav.setViewName("expense/expense_history_hotel");
+    	return mav;
+    }
+    //旅店报销界面跳转--详细信息查看
+    @RequestMapping("/toExpense_view_hotel.do")
+    public ModelAndView toExpense_view_hotel(HttpServletRequest request,int id){
+    	ModelAndView mav = new ModelAndView();
+    	ExpenseApplayHotel expenseApplayHotel=expenseApplayHotelService.selectById(id);
+    	mav.addObject("expenseApplayHotel", expenseApplayHotel);
+    	mav.setViewName("expense/expense_view_hotel");
+    	return mav;
+    }
+    //住宿报销信息保存
+    @RequestMapping("/toExpense_hotel_save.do")
+    public String toExpense_hotel_save(HttpServletRequest request,ExpenseApplayHotel expenseApplayHotel){
+    	int id = 0;
+    	//重置报销信息为待审核状态
+    	expenseApplayHotel.setApplayStatus("待审核");
+    	/*记录当前报销人信息*/
+    	expenseApplayHotel.setStaffId((String) request.getSession().getAttribute(GlobalConstant.user_staffId));
+    	expenseApplayHotel.setStaffName((String) request.getSession().getAttribute(GlobalConstant.user_name));
+    	expenseApplayHotel.setStaffDepart((String) request.getSession().getAttribute(GlobalConstant.user_department));
+    	expenseApplayHotel.setStaffUserId((String) request.getSession().getAttribute(GlobalConstant.user_staff_user_id));
+    	/*记录当前报销人信息*/
+    	try{
+    		/**图片存储**/
+        	MultipartRequest mRequest = (MultipartRequest)request;
+        	MultipartFile mFile= mRequest.getFile("image");
+        	   //原始图片名称
+        	String originalName=mFile.getOriginalFilename();
+        	System.out.println("上传后的文件名为"+originalName);
+        	  //图片存储的物理路径
+    		String basePath =ExpenseApplyResources.IMG_SAVE_PATH;
+    		  //新的图片名称
+    		String newFileName=UUID.randomUUID()+originalName.substring(originalName.lastIndexOf("."));
+    		  //新图片
+        	File file = new File(basePath+newFileName);
+        	  //将mFile文件的内容写入file
+			mFile.transferTo(file);
+			  //数据库中记录图片存放位置信息
+			expenseApplayHotel.setImageUrl(newFileName);
+			/**图片存储**/
+			/****被报销人的各级审批人****/
+			List<String> approverList=ddSendMessageUtil.getApprovers(expenseApplayHotel.getStaffUserId());
+			String toUser=null;
+			//对于挂职在一级部门的员工
+			if(approverList.size() >1){
+			toUser=approverList.get(1);
+			expenseApplayHotel.setApproverOrder(approverList.get(0)+"|"+approverList.get(1));
+			}else{//对于挂职在二级部门下的员工
+				toUser=approverList.get(0);
+				expenseApplayHotel.setApproverOrder(approverList.get(0)+"|"+approverList.get(0));
+			}
+			/****被报销人的各级审批人****/
+    		id =expenseApplayHotelService.saveOrUpdate(expenseApplayHotel);
+            /*****推送消息*****/
+    		String text =DDSendMessageUtil.getText("住宿报销",expenseApplayHotel.getStaffName(),"无该信息","无该信息");
+            DDMessageUtil ddMessage = new DDMessageUtil();
+            ddMessage.setMessageUrl(ExpenseApplyResources.approve_Message_URL+id);
+            ddMessage.setPicUrl(ExpenseApplyResources.approve_Message_picUrl);
+            ddMessage.setText(text);
+            ddMessage.setTitle("报销");
+            ddMessage.setToParty("");
+            ddMessage.setToUser("07022352451246847");
+            DDSendMessageUtil.sendMessage(ddMessage);
+            /*****推送消息*****/
+    		return "redirect:toExpense_hotel.do?data=success";
+    	}catch(Exception e){
+    		return "redirect:toExpense_hotel.do?data=fail";
+    	}
+    
+    }
+    //住宿审核界面跳转
+    @RequestMapping("/to_approve_hotel.do")
+    public ModelAndView to_approve_hotel(HttpServletRequest request,int id){
+    	ModelAndView mav = new ModelAndView();
+    	ExpenseApplayHotel expenseApplayHotel =expenseApplayHotelService.selectById(id);
+    	String flag=null;
+    	if("通过".equals(expenseApplayHotel.getApplayStatus())){
+    		flag="pass";
+    	}
+    	mav.addObject("flag", flag);
+    	mav.addObject("expenseApplayHotel",expenseApplayHotel);
+    	mav.setViewName("expense/approve_hotel");
+    	return mav;
+    }
+    @RequestMapping("/approve_hotel_update.do")
+    @ResponseBody
+    public int approve_hotel_update(HttpServletRequest request,ExpenseApplayHotel expenseApplayHotel){
+    	expenseApplayHotel.setApplayStatus("通过");
+    	/**记录当前报销人信息**/
+    	expenseApplayHotel.setStaffId((String) request.getSession().getAttribute(GlobalConstant.user_staffId));
+    	expenseApplayHotel.setStaffName((String) request.getSession().getAttribute(GlobalConstant.user_name));
+    	expenseApplayHotel.setStaffDepart((String) request.getSession().getAttribute(GlobalConstant.user_department));
+    	expenseApplayHotel.setStaffUserId((String) request.getSession().getAttribute(GlobalConstant.user_staff_user_id));
+    	/**记录当前报销人信息**/
+    	return expenseApplayHotelService.saveOrUpdate(expenseApplayHotel);
     }
     /** 
      * 出租车报销
@@ -347,7 +486,7 @@ public class ExpenseController {
         	String originalName=mFile.getOriginalFilename();
         	System.out.println("上传后的文件名为"+originalName);
         	  //图片存储的物理路径
-    		String basePath =ImgUpload.IMG_PATH;
+    		String basePath =ExpenseApplyResources.IMG_SAVE_PATH;
     		  //新的图片名称
     		String newFileName=UUID.randomUUID()+originalName.substring(originalName.lastIndexOf("."));
     		  //新图片
@@ -407,7 +546,7 @@ public class ExpenseController {
     	return mav;
     }
     //出租车报销界面跳转--详细信息查看界
-    @RequestMapping("/toExpense_view_taxi")
+    @RequestMapping("/toExpense_view_taxi.do")
     public ModelAndView toExpense_view_taxi(HttpServletRequest request,int id){
     	ModelAndView mav = new ModelAndView();
     	ExpenseApplayTaxi expenseApplayTaxi = expenseApplayTaxiService.selectById(id);
@@ -415,102 +554,5 @@ public class ExpenseController {
     	mav.setViewName("expense/expense_view_taxi");
     	return mav;
     }
-    /**
-     * 
-     * 旅店报销
-     * 
-     */
-    //旅店报销界面跳转--新增
-    @RequestMapping("/toExpense_hotel.do")
-    public ModelAndView toExpense_hotel(HttpServletRequest request){
-    	ModelAndView mav =new ModelAndView();
-    	mav.setViewName("expense/expense_hotel");
-    	return mav;
-    }
-    //旅店报销界面跳转--历史信息查看
-    @RequestMapping("/toExpense_history_hotel.do")
-    public ModelAndView toExpense_history_hotel(HttpServletRequest request){
-    	ModelAndView mav = new ModelAndView();
-    	String staffId=(String) request.getSession().getAttribute(GlobalConstant.user_staffId);
-    	List<ExpenseApplayHotel> expenseApplayHotelList = expenseApplayHotelService.selectByStaffId(staffId);
-    	mav.addObject("expenseApplayHotelList", expenseApplayHotelList);
-    	mav.setViewName("expense/expense_history_hotel");
-    	return mav;
-    }
-    //旅店报销界面跳转--详细信息查看
-    @RequestMapping("/toExpense_view_hotel.do")
-    public ModelAndView toExpense_view_hotel(HttpServletRequest request,int id){
-    	ModelAndView mav = new ModelAndView();
-    	ExpenseApplayHotel expenseApplayHotel=expenseApplayHotelService.selectById(id);
-    	mav.addObject("expenseApplayHotel", expenseApplayHotel);
-    	mav.setViewName("expense/expense_view_hotel");
-    	return mav;
-    }
-    //住宿报销信息保存
-    @RequestMapping("/toExpense_hotel_save.do")
-    public String toExpense_hotel_save(HttpServletRequest request,ExpenseApplayHotel expenseApplayHotel){
-    	int id = 0;
-    	//重置报销信息为待审核状态
-    	expenseApplayHotel.setApplayStatus("待审核");
-    	/*记录当前报销人信息*/
-    	expenseApplayHotel.setStaffId((String) request.getSession().getAttribute(GlobalConstant.user_staffId));
-    	expenseApplayHotel.setStaffName((String) request.getSession().getAttribute(GlobalConstant.user_name));
-    	expenseApplayHotel.setStaffDepart((String) request.getSession().getAttribute(GlobalConstant.user_department));
-    	expenseApplayHotel.setStaffUserId((String) request.getSession().getAttribute(GlobalConstant.user_staff_user_id));
-    	/*记录当前报销人信息*/
-    	try{
-    		/**图片存储**/
-        	MultipartRequest mRequest = (MultipartRequest)request;
-        	MultipartFile mFile= mRequest.getFile("image");
-        	   //原始图片名称
-        	String originalName=mFile.getOriginalFilename();
-        	System.out.println("上传后的文件名为"+originalName);
-        	  //图片存储的物理路径
-    		String basePath =ImgUpload.IMG_PATH;
-    		  //新的图片名称
-    		String newFileName=UUID.randomUUID()+originalName.substring(originalName.lastIndexOf("."));
-    		  //新图片
-        	File file = new File(basePath+newFileName);
-        	  //将mFile文件的内容写入file
-			mFile.transferTo(file);
-			  //数据库中记录图片存放位置信息
-			expenseApplayHotel.setImageUrl(newFileName);
-			/**图片存储**/
-    		id =expenseApplayHotelService.saveOrUpdate(expenseApplayHotel);
-    		String text =DDSendMessageUtil.getText("住宿报销",expenseApplayHotel.getStaffName(),"无该信息","无该信息");
-            DDMessageUtil ddMessage = new DDMessageUtil();
-            ddMessage.setMessageUrl("http://121.40.29.241/YindaOA/to_approve_hotel.do?id="+id);
-            ddMessage.setPicUrl("http://121.40.29.241/YindaOA/images/approve.png");
-            ddMessage.setText(text);
-            ddMessage.setTitle("报销");
-            ddMessage.setToParty("");
-            ddMessage.setToUser("07022352451246847");
-            DDSendMessageUtil.sendMessage(ddMessage);
-    		return "redirect:toExpense_hotel.do?data=success";
-    	}catch(Exception e){
-    		return "redirect:toExpense_hotel.do?data=fail";
-    	}
     
-    }
-    //住宿审核界面跳转
-    @RequestMapping("/to_approve_hotel.do")
-    public ModelAndView to_approve_hotel(HttpServletRequest request,int id){
-    	ModelAndView mav = new ModelAndView();
-    	ExpenseApplayHotel expenseApplayHotel =expenseApplayHotelService.selectById(id);
-    	mav.addObject("expenseApplayHotel",expenseApplayHotel);
-    	mav.setViewName("expense/approve_hotel");
-    	return mav;
-    }
-    @RequestMapping("/approve_hotel_update.do")
-    @ResponseBody
-    public int approve_hotel_update(HttpServletRequest request,ExpenseApplayHotel expenseApplayHotel){
-    	expenseApplayHotel.setApplayStatus("通过");
-    	/**记录当前报销人信息**/
-    	expenseApplayHotel.setStaffId((String) request.getSession().getAttribute(GlobalConstant.user_staffId));
-    	expenseApplayHotel.setStaffName((String) request.getSession().getAttribute(GlobalConstant.user_name));
-    	expenseApplayHotel.setStaffDepart((String) request.getSession().getAttribute(GlobalConstant.user_department));
-    	expenseApplayHotel.setStaffUserId((String) request.getSession().getAttribute(GlobalConstant.user_staff_user_id));
-    	/**记录当前报销人信息**/
-    	return expenseApplayHotelService.saveOrUpdate(expenseApplayHotel);
-    }
 }

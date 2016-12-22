@@ -25,7 +25,7 @@ public interface IStaffInfoService {
 
     //查询所有用户id
     //StaffInfo selectAll();
-    //List<StaffInfo> selectAllUser();
+    List<StaffInfo> selectAllUser();
 
     //更新用户
     int updateStaffByID(StaffInfo staffUserId);
@@ -44,4 +44,15 @@ public interface IStaffInfoService {
     /*通过部门id，查到实体类*/
     Department id2name(String id);
 
+    
+    /**
+     * 获取staffinfo表中 商务等级yinda_identify
+     * @return
+     */
+    List<StaffInfo>  getIdentifyInStallInfo(String user_staffId);
+     /**
+      *  获取staffinfo表中 合同属性contract_type
+      * @return
+      */
+    List<StaffInfo> getContract_typeInStallInfo(String user_staffId);
 }

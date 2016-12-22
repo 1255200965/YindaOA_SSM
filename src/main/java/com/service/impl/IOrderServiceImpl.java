@@ -5,10 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.dao.YoOrderMapper;
-
 import com.model.YoOrder;
 import com.model.YoOrderExample;
 import com.service.IOrderService;
+import com.util.StringUtil;
 
 
 @Transactional
@@ -18,8 +18,8 @@ public class IOrderServiceImpl implements IOrderService{
 	private YoOrderMapper yoOrderMapper;
 	@Override
 	public List<YoOrder> getDepartment() {
-
-
+    
+	
 		List<YoOrder> orderBusList=yoOrderMapper.getDepartment();
 		return orderBusList;
 	}
@@ -44,6 +44,17 @@ public class IOrderServiceImpl implements IOrderService{
     	List<YoOrder> orderList=yoOrderMapper.selectByExample(example);
     	
     	return orderList;
+	}
+
+	@Override
+	public List<YoOrder> getOrderByDepartmentAndProject(String department,String project) {
+		// TODO Auto-generated method stub
+		YoOrderExample example = new YoOrderExample();
+		YoOrderExample.Criteria criteria = example.createCriteria();
+    	if(StringUtil.NotBlank(project)) {criteria.andProjectEqualTo(project);}else{return null;};
+    	if(StringUtil.NotBlank(department)) {criteria.andDepartmentEqualTo(department);}else{return null;};
+    	List<YoOrder> orderList=yoOrderMapper.selectByExample(example);
+		return orderList;
 	}
 	
 	

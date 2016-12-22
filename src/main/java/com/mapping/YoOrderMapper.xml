@@ -16,6 +16,9 @@
     <result column="modify_user" property="modifyUser" jdbcType="VARCHAR" />
     <result column="modify_time" property="modifyTime" jdbcType="VARCHAR" />
     <result column="yo_status" property="yoStatus" jdbcType="VARCHAR" />
+    <result column="yinda_identify" property="yindaIdentify" jdbcType="VARCHAR" />
+    <result column="assess" property="assess" jdbcType="VARCHAR" />
+    <result column="contract_type" property="contractType" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -49,7 +52,7 @@
   <sql id="Base_Column_List" >
     id, department, project, order_name, order_number, principal, business_property, 
     outdoor_job, change_province, change_city, order_year, modify_user, modify_time, 
-    yo_status
+    yo_status, yinda_identify, assess, contract_type
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.model.YoOrderExample" >
     select
@@ -80,12 +83,14 @@
       order_name, order_number, principal, 
       business_property, outdoor_job, change_province, 
       change_city, order_year, modify_user, 
-      modify_time, yo_status)
+      modify_time, yo_status, yinda_identify, 
+      assess, contract_type)
     values (#{id,jdbcType=INTEGER}, #{department,jdbcType=VARCHAR}, #{project,jdbcType=VARCHAR}, 
       #{orderName,jdbcType=VARCHAR}, #{orderNumber,jdbcType=VARCHAR}, #{principal,jdbcType=VARCHAR}, 
       #{businessProperty,jdbcType=VARCHAR}, #{outdoorJob,jdbcType=VARCHAR}, #{changeProvince,jdbcType=VARCHAR}, 
       #{changeCity,jdbcType=VARCHAR}, #{orderYear,jdbcType=VARCHAR}, #{modifyUser,jdbcType=VARCHAR}, 
-      #{modifyTime,jdbcType=VARCHAR}, #{yoStatus,jdbcType=VARCHAR})
+      #{modifyTime,jdbcType=VARCHAR}, #{yoStatus,jdbcType=VARCHAR}, #{yindaIdentify,jdbcType=VARCHAR}, 
+      #{assess,jdbcType=VARCHAR}, #{contractType,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.model.YoOrder" >
     insert into yo_order
@@ -132,6 +137,15 @@
       <if test="yoStatus != null" >
         yo_status,
       </if>
+      <if test="yindaIdentify != null" >
+        yinda_identify,
+      </if>
+      <if test="assess != null" >
+        assess,
+      </if>
+      <if test="contractType != null" >
+        contract_type,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -175,6 +189,15 @@
       </if>
       <if test="yoStatus != null" >
         #{yoStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="yindaIdentify != null" >
+        #{yindaIdentify,jdbcType=VARCHAR},
+      </if>
+      <if test="assess != null" >
+        #{assess,jdbcType=VARCHAR},
+      </if>
+      <if test="contractType != null" >
+        #{contractType,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -220,6 +243,15 @@
       <if test="yoStatus != null" >
         yo_status = #{yoStatus,jdbcType=VARCHAR},
       </if>
+      <if test="yindaIdentify != null" >
+        yinda_identify = #{yindaIdentify,jdbcType=VARCHAR},
+      </if>
+      <if test="assess != null" >
+        assess = #{assess,jdbcType=VARCHAR},
+      </if>
+      <if test="contractType != null" >
+        contract_type = #{contractType,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -237,7 +269,10 @@
       order_year = #{orderYear,jdbcType=VARCHAR},
       modify_user = #{modifyUser,jdbcType=VARCHAR},
       modify_time = #{modifyTime,jdbcType=VARCHAR},
-      yo_status = #{yoStatus,jdbcType=VARCHAR}
+      yo_status = #{yoStatus,jdbcType=VARCHAR},
+      yinda_identify = #{yindaIdentify,jdbcType=VARCHAR},
+      assess = #{assess,jdbcType=VARCHAR},
+      contract_type = #{contractType,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   
@@ -254,5 +289,7 @@
 
 		select DISTINCT project from yo_order where department = #{department}
 	</select>
+  
+  
   
 </mapper>

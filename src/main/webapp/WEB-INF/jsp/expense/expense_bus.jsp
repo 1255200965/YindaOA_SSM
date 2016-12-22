@@ -17,10 +17,10 @@
   <title>添加大巴票</title>
  </head>
  <body >
-  <form id="form" method="post" enctype="multipart/form-data" action="toExpense_bus_save.do">
+  <form id="form" method="post" enctype="multipart/form-data" action="toExpense_bus_save.do" onsubmit="return check();">
   	<!-- <div class="weui_cells" style="border:none;"> -->
-  	     <br/>
-  	     <div style="text-align:center;">---------------------上车---------------------</div>
+  	    
+  	     
   		<div class="weui_cell">
     		<div class="weui_cell_bd weui_cell_primary">
       			<label class="weui_label"><b>市/县</b></label>
@@ -31,41 +31,32 @@
      	</div>	
   	     <div class="weui_cell">
     		<div class="weui_cell_bd weui_cell_primary">
-      			<label class="weui_label"><b>地址</b></label>
+      			<label class="weui_label"><b>上车地址</b></label>
    			 </div>
     	<div class="weui_cell_ft weui_cell_primary">
      		<input class="weui_input" type="text" placeholder=""  name="startAddress" >
-   		 </div>
-   		 
+   		 </div> 
      	</div>		
-     	
-  		 <div class="weui_cell ">
-  		    <div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>时间</b></label></div>
-    		<div class="weui_cell_ft weui_cell_primary">
-     		   <input class="weui_input" type="date" placeholder=""  name="beginTime" >
-   		    </div>
-  		 </div>
-  	
-  		 <div class="weui_cell"> 
-    		<div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>用车事由</b></label></div>
-    	     <div class="weui_cell_ft weui_cell_primary">
-     	        <input class="weui_input" type="text"   name="reason" >
-   		     </div>
-  	     </div> 
-  	     <div style="text-align:center;">---------------------上车---------------------</div>
-  	     <br/>
+   
   	     <div class="weui_cell">
     		<div class="weui_cell_bd weui_cell_primary">
-      			<label class="weui_label"><b>地址</b></label>
+      			<label class="weui_label"><b>下车地址</b></label>
    			 </div>
     	 <div class="weui_cell_ft weui_cell_primary">
      		<input class="weui_input" type="text" placeholder=""  name="destination" >
    		 </div>
    		 
      	</div>
+     	<div class="weui_cell ">
+  		    <div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>上车时间</b></label></div>
+    		<div class="weui_cell_ft weui_cell_primary">
+     		   <input class="weui_input" type="date" placeholder=""  name="beginTime" >
+   		    </div>
+  		 </div>
+  	    
      	<div class="weui_cell">
     		<div class="weui_cell_bd weui_cell_primary">
-      			<label class="weui_label"><b>时间</b></label>
+      			<label class="weui_label"><b>下车时间</b></label>
    			 </div>
     	 <div class="weui_cell_ft weui_cell_primary">
      		<input class="weui_input" type="date" placeholder=""  name="endTime">
@@ -81,6 +72,12 @@
    		 </div>
    		 
      	</div>
+     	 <div class="weui_cell"> 
+    		<div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>用车事由</b></label></div>
+    	     <div class="weui_cell_ft weui_cell_primary">
+     	        <input class="weui_input" type="text"   name="reason" >
+   		     </div>
+  	     </div> 
      	<div class="weui_cell">
     		<div class="weui_cell_bd weui_cell_primary">
       			<label class="weui_label"><b>说&nbsp;明</b></label>
@@ -108,6 +105,38 @@
   	<script src="<%=path%>/javascripts/jquery-2.1.4.js"></script>
     <script src="<%=path%>/javascripts/jquery-weui.js"></script>
     <script type="text/javascript">
+    function check(){
+    	
+    	if($("input[name='startCity']").val()== null || $("input[name='startCity']").val()=="" ){
+    		$.alert("请输入市/县");
+    		return false;
+    	}
+    	if($("input[name='startAddress']").val()== null || $("input[name='startAddress']").val()=="" ){
+    		$.alert("请输入上车地址");
+    		return false;
+    	}
+    	if($("input[name='destination']").val()== null || $("input[name='destination']").val()=="" ){
+    		$.alert("请输入下车地址");
+    		return false;
+    	}
+    	if($("input[name='beginTime']").val()== null || $("input[name='beginTime']").val()=="" ){
+    		$.alert("请输入上车时间");
+    		return false;
+    	}
+    	if($("input[name='endTime']").val()== null || $("input[name='endTime']").val()=="" ){
+    		$.alert("请输入下车时间");
+    		return false;
+    	}
+    	if($("input[name='moneyCost']").val()== null || $("input[name='moneyCost']").val()=="" ){
+    		$.alert("请输入金额");
+    		return false;
+    	}
+    	if($("#image").val()==null || $("#image").val()==""){
+    		$.alert("请上传出差票据信息照片");
+    		return false;
+    	}
+    	return true;
+    }
    	  function showInfo(){
     	if($("input[name='image']").val()!=null && $("input[name='image']").val()!=""){
     	  $("#picInfo").text("图片一已添加");   

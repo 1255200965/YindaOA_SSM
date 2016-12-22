@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><!-- JSTL标签引入 -->
 <%
 	String path = request.getContextPath();/*获得当前项目的根路径 */
+	
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -77,13 +78,14 @@
    			 </div>
     	<div class="weui_cell_ft weui_cell_primary">
      		<input class="weui_input" type="text" placeholder=""  name="detailExplain" value="${expenseApplayHotel.detailExplain}"  readonly>
+     		<input class="weui_input" type="text" placeholder=""  name="imageUrl" value="${expenseApplayHotel.imageUrl }" readonly style="display:none;">
    		 </div>
    		 
      	</div>
      	
   	     <hr/>
   	     <div class="weui_row">
-     	<img src="http://121.40.29.241/YindaOA/upload/${expenseApplayHotel.imageUrl }" style="width:30%;height:10%"/>
+     	<img src="http://121.40.29.241/YindaOA/upload/${expenseApplayHotel.imageUrl }" style="width:30%;height:10%；"/>
      	</div>	
   	     <!-- <div class="weui-row">
   	     <div class="weui_uploader_input_wrp">
@@ -92,7 +94,7 @@
   	     </div> -->
         <div class="weui-row">
 			<div class="weui-col-10"></div>
-			<div class="weui-col-60"><a onclick="approve_hotel_update();" class="weui_btn weui_btn_primary" >通过</a></div>
+			<div class="weui-col-60" id="flag"><a onclick="approve_hotel_update();" class="weui_btn weui_btn_primary" >通过</a></div>
 			<div class="weui-col-10"></div>
 	    </div> 
 	    
@@ -101,6 +103,12 @@
   	<script src="<%=path%>/javascripts/jquery-2.1.4.js"></script>
     <script src="<%=path%>/javascripts/jquery-weui.js"></script>
     <script type="text/javascript">
+    var flag="${flag}";
+    $(document).ready(function(){
+    	if(flag=="pass"){
+    		$("#flag").hide();
+    	}
+    });
      function approve_hotel_update(){
     	 $.post("approve_hotel_update.do",$("#form").serialize(),function(data){
     		 if(data ==1 ){

@@ -17,6 +17,9 @@
     <result column="trip_id" property="tripId" jdbcType="INTEGER" />
     <result column="applay_status" property="applayStatus" jdbcType="VARCHAR" />
     <result column="image_url" property="imageUrl" jdbcType="VARCHAR" />
+    <result column="approver_order" property="approverOrder" jdbcType="VARCHAR" />
+    <result column="approver_history" property="approverHistory" jdbcType="VARCHAR" />
+    <result column="approver_now" property="approverNow" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -49,7 +52,8 @@
   </sql>
   <sql id="Base_Column_List" >
     id, staff_id, staff_name, staff_depart, hotel_name, reason, start_time, end_time, 
-    money_cost, days_cost, detail_explain, staff_user_id, trip_id, applay_status, image_url
+    money_cost, days_cost, detail_explain, staff_user_id, trip_id, applay_status, image_url, 
+    approver_order, approver_history, approver_now
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.model.ExpenseApplayHotelExample" >
     select
@@ -83,13 +87,15 @@
       staff_depart, hotel_name, reason, 
       start_time, end_time, money_cost, 
       days_cost, detail_explain, staff_user_id, 
-      trip_id, applay_status, image_url
+      trip_id, applay_status, image_url, 
+      approver_order, approver_history, approver_now
       )
     values (#{id,jdbcType=INTEGER}, #{staffId,jdbcType=VARCHAR}, #{staffName,jdbcType=VARCHAR}, 
       #{staffDepart,jdbcType=VARCHAR}, #{hotelName,jdbcType=VARCHAR}, #{reason,jdbcType=VARCHAR}, 
       #{startTime,jdbcType=VARCHAR}, #{endTime,jdbcType=VARCHAR}, #{moneyCost,jdbcType=DOUBLE}, 
       #{daysCost,jdbcType=VARCHAR}, #{detailExplain,jdbcType=VARCHAR}, #{staffUserId,jdbcType=VARCHAR}, 
-      #{tripId,jdbcType=INTEGER}, #{applayStatus,jdbcType=VARCHAR}, #{imageUrl,jdbcType=VARCHAR}
+      #{tripId,jdbcType=INTEGER}, #{applayStatus,jdbcType=VARCHAR}, #{imageUrl,jdbcType=VARCHAR}, 
+      #{approverOrder,jdbcType=VARCHAR}, #{approverHistory,jdbcType=VARCHAR}, #{approverNow,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.model.ExpenseApplayHotel" >
@@ -140,6 +146,15 @@
       <if test="imageUrl != null" >
         image_url,
       </if>
+      <if test="approverOrder != null" >
+        approver_order,
+      </if>
+      <if test="approverHistory != null" >
+        approver_history,
+      </if>
+      <if test="approverNow != null" >
+        approver_now,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -186,6 +201,15 @@
       </if>
       <if test="imageUrl != null" >
         #{imageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="approverOrder != null" >
+        #{approverOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="approverHistory != null" >
+        #{approverHistory,jdbcType=VARCHAR},
+      </if>
+      <if test="approverNow != null" >
+        #{approverNow,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -234,6 +258,15 @@
       <if test="imageUrl != null" >
         image_url = #{imageUrl,jdbcType=VARCHAR},
       </if>
+      <if test="approverOrder != null" >
+        approver_order = #{approverOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="approverHistory != null" >
+        approver_history = #{approverHistory,jdbcType=VARCHAR},
+      </if>
+      <if test="approverNow != null" >
+        approver_now = #{approverNow,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -252,7 +285,10 @@
       staff_user_id = #{staffUserId,jdbcType=VARCHAR},
       trip_id = #{tripId,jdbcType=INTEGER},
       applay_status = #{applayStatus,jdbcType=VARCHAR},
-      image_url = #{imageUrl,jdbcType=VARCHAR}
+      image_url = #{imageUrl,jdbcType=VARCHAR},
+      approver_order = #{approverOrder,jdbcType=VARCHAR},
+      approver_history = #{approverHistory,jdbcType=VARCHAR},
+      approver_now = #{approverNow,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
