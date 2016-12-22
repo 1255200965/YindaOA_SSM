@@ -15,54 +15,7 @@
 <html>
 <head>
 <title>订单</title>
-<%--<link type="text/css" rel="stylesheet" href="../stylesheets/style.css" />--%>
-<link rel="stylesheet" href="<%=path%>/stylesheets/reset.css">
 
-<link href="<%=path%>/stylesheets/bootstrap.min.css" rel="stylesheet" />
-<link href="<%=path%>/stylesheets/bootstrap-theme.min.css"
-	rel="stylesheet" />
-<link href="<%=path%>/stylesheets/bootstrap-treeview.min.css"
-	rel="stylesheet" />
-<link href="<%=path%>/stylesheets/shujutongji.css" rel="stylesheet" />
-<link href="<%=path%>/stylesheets/ddcss.css" rel="stylesheet" />
-<link rel="stylesheet" href="<%=path%>/stylesheets/header.css">
-
-<script type="text/javascript"
-	src="<%=path%>/javascripts/jquery-1.10.2.js"></script>
-<script type="text/javascript"
-	src="<%=path%>/javascripts/bootstrap.min.js"></script>
-<script type="text/javascript"
-	src="<%=path%>/javascripts/bootstrap-treeview.min.js"></script>
-<script src="<%=path%>/javascripts//knockout-3.4.0rc.js"></script>
-<style>
-* {
-	box-sizing: content-box;
-	-webkit-box-sizing: content-box;
-}
-
-.c_box {
-	min-width: 1350px;
-	width: 100%;
-}
-
-.c_box .col-md-2 {
-	min-width: 189px;
-	width: 12.4%;
-}
-
-.c_box .c_left_box {
-	height: 850px;
-}
-
-.c_box .c_right_box {
-	min-width: 1056.7px;
-	width: 79%;
-}
-
-.table-1 tbody td {
-	font-size: 12px;
-}
-</style>
 
 <%-- <script type="text/javascript">
         var result = null;
@@ -376,47 +329,6 @@
 </head>
 <body>
 
-	<header>
-		<div class="">
-			<div class="head-left fl">
-				<img src="<%=path%>/images/logo.png" height="35" width="50" alt="">
-				人事管理系统
-			</div>
-
-			<div class="head-nav fl" id="h-nav">
-				<ul>
-					<li><a href="<%=basePath%>ExcelStaffInfo/homePage.do"
-						target="content">人员导入</a></li>
-					<li><a href="<%=basePath%>ExcelStaffInfo/homePage.do"
-						target="content">通讯录</a></li>
-					<li><a href="<%=basePath%>Import/navigator.do"
-						target="content">审批数据导入</a></li>
-					<li><a href="<%=basePath%>userinfo/test.do" target="content">工资查询</a></li>
-					<li><a href="<%=basePath%>userinfo/querys.do" target="content">个人工资明细</a></li>
-					<li>
-
-						<div class="btn-group">
-							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-								订单系统 <span class="caret"></span>
-							</a>
-							<ul class="dropdown-menu" style="background-color: #3792F2;">
-								<li
-									style="-webkit-border-radius: 10; -moz-border-radius: 10; border-radius: 10;"><a
-									href="<%=basePath%>order/search_order_page.do">订单查询</a></li>
-								<!-- <li><a href="#">Something </a></li>   
-    <li><a href="#">Separated link</a></li> -->
-							</ul>
-						</div>
-					</li>
-
-				</ul>
-			</div>
-			<div class="head-right fl">
-				欢迎您！管理员&nbsp;&nbsp;&nbsp; <a href=""><img
-					src="<%=path%>/images/guanbi.png" height="22" width="22" alt=""></a>
-			</div>
-		</div>
-	</header>
 
 	<div class="row-fluid c_box" style="">
 		<div class="col-md-2 c_left_box">

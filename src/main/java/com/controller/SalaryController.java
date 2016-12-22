@@ -717,7 +717,13 @@ public class SalaryController {
         return "/UserSalary" ;
     }
 
+    @RequestMapping("search_salary_page.do")
+    public ModelAndView search_salary_page(HttpServletRequest request){
+        ModelAndView mav = new ModelAndView();
 
+        mav.setViewName("salary/search_salary");
+        return mav;
+    }
 
 
 
