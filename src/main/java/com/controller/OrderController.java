@@ -2,11 +2,11 @@ package com.controller;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.http.HttpRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.support.incrementer.H2SequenceMaxValueIncrementer;
 import org.springframework.stereotype.Controller;
@@ -16,6 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.dao.YoOrderMapper;
 import com.ddSdk.auth.AuthHelper;
 import com.model.StaffInfo;
+import com.model.YoItemChange;
+import com.model.YoItemChangeExample;
 import com.model.YoOrder;
 import com.service.IOrderService;
 import com.service.IStaffInfoService;
@@ -52,10 +54,23 @@ public class OrderController {
 		return mav;
 	}
 	
+	
+	
 	/**
-	 * 项目变更申请界面
+	 * 项目变更主界面
 	 * @return
 	 */
+	@RequestMapping("/order_mainPage.do")
+	public ModelAndView order_mainPage(HttpServletRequest request){		
+		ModelAndView mav = new ModelAndView();		
+	 	String config= AuthHelper.getConfig(request);
+	 	System.out.println("config:"+config);
+	 	request.setAttribute("config", config);
+		mav.setViewName("order/order_mainPage");		
+		return mav;
+	}
+	
+	
 	@RequestMapping("/change_order_apply_page.do")
 	public ModelAndView change_order_apply_page(HttpServletRequest request){		
 		ModelAndView mav = new ModelAndView();		
@@ -226,4 +241,8 @@ public class OrderController {
 		List<StaffInfo> staffInfoList = iStaffInfoService.getContract_typeInStallInfo(user_staffId);	
 		return staffInfoList;
 	}
+	
+	
+
+
 }

@@ -18,4 +18,8 @@ public interface YoItemChangeMapper {
     int updateByPrimaryKeySelective(YoItemChange record);
 
     int updateByPrimaryKey(YoItemChange record);
+     //项目变更列表展示界面所有方法
+    public List<YoItemChange> selectByPropertities(YoItemChange itemChange);
+
+    int add(YoItemChange record);
 }

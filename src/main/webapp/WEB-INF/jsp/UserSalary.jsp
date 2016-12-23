@@ -96,7 +96,7 @@
                             alert("出错了！！:"+data.msg);
                         },
                         success:function(data){
-                            result = eval(data.userlist);
+                            result = eval(data.list);
                             total = eval(data.total);
                             self.changeItem(total);
                             self.ShowList.removeAll();
@@ -117,6 +117,21 @@
                 self.ClickClear = function() {
                     $("#search_name").val("");
 
+                }
+                self.ClickGenerate = function(){
+                    $.ajax({
+                        data:JSON.stringify(new UserModel($("#search_name").val(),$("#search_date").val())),
+                        type:"post",
+                        headers: { 'Content-Type': 'application/json' },
+                        dataType: 'json',
+                        url:"../usersalary/generate.do",
+                        error:function(data){
+                            alert("出错了！！:"+data.msg);
+                        },
+                        success:function(data){
+                            alert(date);
+                        }
+                    });
                 }
 
             }
@@ -171,7 +186,7 @@
                 日期：<input type="text"  id="search_date" placeholder="输入查询日期" class="input" >
             </div>
             <div class="ser-btn fr">
-
+                <button class="button button-glow button-rounded button-primary button-small " data-bind="click:$root.ClickGenerate">生成</button>
                 <button class="button button-glow button-rounded button-primary button-small " data-bind="click:$root.ClickSearch">查询</button>
                 <button class="button button-glow button-rounded button-highlight button-small " data-bind="click:$root.ClickClear" >清空</button>
 

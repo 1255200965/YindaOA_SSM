@@ -39,9 +39,15 @@ public interface StaffInfoMapper {
      * @return
      */
     List<StaffInfo>  getIdentifyInStallInfo(String user_staffId);
-     /**
-      *  获取staffinfo表中 合同属性contract_type
-      * @return
-      */
+    /**
+     *  获取staffinfo表中 合同属性contract_type
+     * @return
+     */
     List<StaffInfo> getContract_typeInStallInfo(String user_staffId);
+
+    /**
+     *  获取staffinfo表中 合同属性branchCompany
+     * @return
+     */
+    List<StaffInfo> getbranchCompany();
 }

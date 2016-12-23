@@ -364,7 +364,7 @@
                         <li><a data-bind="attr: { href: '<%=basePath%>userinfo/querys.do'}">个人工资明细</a></li>
                         <li><a href="<%=basePath%>toAskForLeave.do">请假明细</a>
                         <li><a href="<%=basePath%>toOverTime.do">加班明细</a>
-                        <li><a href="<%=basePath%>toItemChange.do">项目变更</a>
+                        <li><a href="<%=basePath%>attendance_search.do">考勤导出</a>
                         <li><a href="<%=basePath%>toSocialSecurity.do">社保明细查看</a>
                     </ul>
                 </div>

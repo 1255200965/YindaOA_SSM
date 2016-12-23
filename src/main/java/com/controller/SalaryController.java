@@ -3,9 +3,13 @@ package com.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.dao.StaffInfoMapper;
 import com.model.*;
 import com.service.*;
 import com.util.DDUtil;
+import com.util.SalaryUtil;
+import org.apache.poi.hssf.usermodel.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
@@ -16,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.tagext.PageData;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -32,13 +37,16 @@ public class SalaryController {
     @Resource
     private IAttendanceInfoService userAttendanceService;
     @Resource
+    private IExcelSignInService userSighInService;
+    @Resource
     private IStaffInfoService userStaffInfoService;
     @Resource
     private IAskLeaveService userAskLeaveService;
     @Resource
     private IUserInfoSalaryService userinfoSalaryService;
 
-
+    @Autowired
+    private StaffInfoMapper staffInfoMapper;
     @Resource
     private IWtrService wtrService;
     @Resource
@@ -58,11 +66,11 @@ public class SalaryController {
         //工资单
         YoSalaryExample example = new YoSalaryExample();
         YoSalaryExample.Criteria criteria1 = example.createCriteria();
-        if (user.getSalarydate()!=null) criteria1.andSalarydateEqualTo(user.getSalarydate());
-        if (user.getStaffid()!=null) criteria1.andStaffidEqualTo(user.getStaffid());
+        if (user.getSalarydate()!=null && user.getSalarydate() !="") criteria1.andSalarydateEqualTo(user.getSalarydate());
+        if (user.getStaffid()!=null && user.getStaffid() !="") criteria1.andStaffidEqualTo(user.getStaffid());
         List<YoSalary> query = userSalaryService.selectByExample(example);
         if (query.size()>0){
-            map.put("list",query.get(0));
+            map.put("list",query);
         }
 
         if(query.size() != 0){
@@ -74,8 +82,8 @@ public class SalaryController {
         //工资单合计
         YoUserinfosalaryExample example1 = new YoUserinfosalaryExample();
         YoUserinfosalaryExample.Criteria criteria2 = example1.createCriteria();
-        if (user.getSalarydate()!=null) criteria2.andSalarydateEqualTo(user.getSalarydate());
-        if (user.getStaffid()!=null) criteria2.andSalaryidEqualTo(user.getStaffid());
+        if (user.getSalarydate()!=null && user.getSalarydate() !="") criteria2.andSalarydateEqualTo(user.getSalarydate());
+        if (user.getStaffid()!=null && user.getStaffid() !="") criteria2.andSalaryidEqualTo(user.getStaffid());
         List<YoUserinfosalary> query1 = userinfoSalaryService.selectByExample(example1);
         if (query1.size()>0){
             map.put("total",query1.get(0));
@@ -717,14 +725,170 @@ public class SalaryController {
         return "/UserSalary" ;
     }
 
+    //查询员工工资信息(合计)
+    @RequestMapping(value = "/generate", method = RequestMethod.POST)
+    public @ResponseBody Map<String,Object> generate(@RequestBody YoSalary user, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        //查询指定id，填充进map
+        Map<String,Object> map = new HashMap<String,Object>();
+/*        if (user.getSalarydate()!=null) salaryDate = user.getSalarydate();
+        if (user.getStaffid()!=null) user.getStaffid();*/
+        //generateSalary(2016,12);
+        SalaryUtil salaryUtil = new SalaryUtil(userSalaryService,userAttendanceService,userSighInService,userStaffInfoService,userAskLeaveService,userinfoSalaryService);
+        salaryUtil.generateSalaryByMonth(2016,12);
+        salaryUtil.generateSalaryTotal(2016,12);
+        if(true){
+            map.put("msg", "成功");
+        }else{
+            map.put("msg", "失败");
+        }
+
+
+        return map;
+    }
+
+
     @RequestMapping("search_salary_page.do")
     public ModelAndView search_salary_page(HttpServletRequest request){
         ModelAndView mav = new ModelAndView();
-
         mav.setViewName("salary/search_salary");
         return mav;
     }
 
+
+    @RequestMapping("search_salary.do")
+    @ResponseBody
+    public List<YoUserinfosalary> search_salary(String branchCompany,String salarydate){
+        return userinfoSalaryService.search_salary(branchCompany, salarydate);
+    }
+
+    @RequestMapping("/getbranchCompany.do")
+    @ResponseBody
+    public List<StaffInfo> getbranchCompany(){
+        return staffInfoMapper.getbranchCompany();
+    }
+
+
+    @RequestMapping("export_salary.do")
+    public void export_salary(String branchCompany,String salarydate,HttpServletResponse response){
+
+        List<YoUserinfosalary> salaryList =userinfoSalaryService.search_salary(branchCompany, salarydate);
+        System.out.println(salaryList.size());
+        exportYoUserinfosalary(salaryList, excelHeader, response);
+
+    }
+
+
+    /**
+     * 获得HSSFWorkbook
+     * @param list 数据信息
+     * @param excelHeader 表头
+     * @return HSSFWorkbook
+     */
+
+    private static HSSFWorkbook getHSSFWorkbook(List<YoUserinfosalary> list, String[] excelHeader){
+
+        HSSFWorkbook wb = new HSSFWorkbook();
+        //创建一个sheet
+        HSSFSheet sheet= wb.createSheet("sheet1");
+        //设置单元格宽度
+        sheet.setColumnWidth(0,(int)(20+0.72)*256);
+        sheet.setColumnWidth(1,(int)(20+0.72)*256);
+        sheet.setColumnWidth(2,(int)(20+0.72)*256);
+        sheet.setColumnWidth(3,(int)(20+0.72)*256);
+        sheet.setColumnWidth(4,(int)(20+0.72)*256);
+        sheet.setColumnWidth(5,(int)(20+0.72)*256);
+        sheet.setColumnWidth(6,(int)(20+0.72)*256);
+        sheet.setColumnWidth(7,(int)(20+0.72)*256);
+        sheet.setColumnWidth(8,(int)(20+0.72)*256);
+        sheet.setColumnWidth(9,(int)(30+0.72)*256);
+        sheet.setColumnWidth(10,(int)(20+0.72)*256);
+        sheet.setColumnWidth(11,(int)(20+0.72)*256);
+        sheet.setColumnWidth(12,(int)(20+0.72)*256);
+        sheet.setColumnWidth(13,(int)(20+0.72)*256);
+        sheet.setColumnWidth(14,(int)(20+0.72)*256);
+        sheet.setColumnWidth(15,(int)(20+0.72)*256);
+        sheet.setColumnWidth(16,(int)(20+0.72)*256);
+        sheet.setColumnWidth(17,(int)(20+0.72)*256);
+        sheet.setColumnWidth(18,(int)(20+0.72)*256);
+        sheet.setColumnWidth(19,(int)(30+0.72)*256);
+        sheet.setColumnWidth(20,(int)(20+0.72)*256);
+        sheet.setColumnWidth(21,(int)(20+0.72)*256);
+        sheet.setColumnWidth(22,(int)(20+0.72)*256);
+        sheet.setColumnWidth(23,(int)(20+0.72)*256);
+
+        //创建行
+        HSSFRow row = sheet.createRow(0);
+        //设置表头样式
+        HSSFCellStyle style = wb.createCellStyle();
+        style.setAlignment(HSSFCellStyle.ALIGN_CENTER);//左右居中
+        HSSFFont f = wb.createFont();
+        f.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);//加粗
+        //创建表头
+        for(int i = 0;i <excelHeader.length;i++){//根据反射获取当前对象的属性个数
+            //当前行下创建列
+            HSSFCell cell = row.createCell(i);
+            //列中写入值
+            cell.setCellValue(excelHeader[i]);
+            //设置表头显示风格
+            cell.setCellStyle(style);
+
+            //sheet.autoSizeColumn(i);//单元格宽度自适应
+
+        }
+
+        //写入数据
+        for(int i=0;i<list.size();i++){
+            //创建新的一行
+            row = sheet.createRow(i+1);
+            //每行中写入与表头列数个数相等的数据
+            row.createCell(0).setCellValue(list.get(i).getSalarydate());//月份
+            row.createCell(1).setCellValue(list.get(i).getName());//姓名
+            row.createCell(2).setCellValue(list.get(i).getDepartment());//部门
+            row.createCell(3).setCellValue(list.get(i).getSalaryid());//工号
+            row.createCell(4).setCellValue(list.get(i).getDatetype());//计薪天数
+            row.createCell(5).setCellValue(list.get(i).getAttendance());//出勤
+            row.createCell(6).setCellValue(list.get(i).getRealityattendance());//实际出勤
+            row.createCell(7).setCellValue(list.get(i).getEffectiveattendance());//有效出勤
+            row.createCell(8).setCellValue(list.get(i).getAttendancesalary());//出勤工资
+            row.createCell(9).setCellValue(list.get(i).getLeavetype());//请假天数
+            row.createCell(10).setCellValue(list.get(i).getLeavesalary());//请假补款
+            row.createCell(11).setCellValue(list.get(i).getWorkovertime());//加班时间
+            row.createCell(12).setCellValue(list.get(i).getWorksalary());//加班补款
+            row.createCell(13).setCellValue(list.get(i).getEvection());//出差
+            row.createCell(14).setCellValue(list.get(i).getAllowance());//出差费
+            row.createCell(15).setCellValue(list.get(i).getTimesalary());//timebase奖金
+            row.createCell(16).setCellValue(list.get(i).getTasksalary());//taskbase奖金
+            row.createCell(17).setCellValue(list.get(i).getTrafficsalary());//交通费
+            row.createCell(18).setCellValue(list.get(i).getSocialdecase());//社保扣款
+            row.createCell(19).setCellValue(list.get(i).getUserbonus());//额外奖金
+            row.createCell(20).setCellValue(list.get(i).getSubtotal());//小计
+            row.createCell(21).setCellValue(list.get(i).getTotalsalary());//税前应发
+            row.createCell(22).setCellValue(list.get(i).getTax());//个税
+            //row.createCell(23).setCellValue(list.get(i).getRealsalary());//实际应发
+        }
+        return wb;
+    }
+
+
+
+    String []excelHeader = {"月份","姓名","部门","工号","记薪天数","出勤","实际出勤","有效出勤","出勤工资",
+            "请假天数","请假补款","加班时间","加班补款","出差","出差费用","timebase奖金","taskbase奖金","交通费用",
+            "社保扣款","额外奖金","小计","税前应发","个税","实际应发"};
+    public static void exportYoUserinfosalary(List<YoUserinfosalary> list,String[] excelHeader,HttpServletResponse response){
+        HSSFWorkbook wb = getHSSFWorkbook(list,excelHeader);
+        response.setContentType("application/vnd.ms-excel");
+        response.setHeader("Content-disposition", "attachment;filename=attendanceInfo.xls");
+        OutputStream ouputStream;
+        try {
+            ouputStream = response.getOutputStream();
+            wb.write(ouputStream);
+            ouputStream.flush();
+            ouputStream.close();
+        } catch (IOException e) {
+            System.out.println("=========考勤表模板导出error");
+            e.printStackTrace();
+        }
+    }
 
 
 }

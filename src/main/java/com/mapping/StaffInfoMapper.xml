@@ -824,5 +824,11 @@
   
   select distinct  contract_type from staff_info  where staff_Id = #{user_staffId}
   
-  </select> 
+  </select>
+  <select id="getbranchCompany" resultMap="BaseResultMap">
+
+    select distinct  branch_Company from staff_info
+
+
+  </select>
 </mapper>

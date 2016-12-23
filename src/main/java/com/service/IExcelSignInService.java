@@ -1,7 +1,10 @@
 package com.service;
 
+import com.model.YoSignIn;
+import com.model.YoSignInExample;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -10,4 +13,6 @@ import java.util.Map;
 public interface IExcelSignInService {
 
     Map<String, Object> insertAndUpdate(HSSFWorkbook hssfWorkbook);
+
+    List<YoSignIn> selectByExample(YoSignInExample example);
 }

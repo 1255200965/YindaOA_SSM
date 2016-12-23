@@ -23,5 +23,11 @@ public interface IUserInfoSalaryService {
 //    YoUserinfosalary selectByPrimaryKey(Integer sid);
 
     int updateByUserSalary(YoUserinfosalary record);
-
+    /**
+     * 根据分公司，月份去查询薪资
+     * @param company  分公司
+     * @param salarydate 月份
+     * @return
+     */
+    List<YoUserinfosalary> search_salary(String company,String salarydate);
 }

@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
@@ -14,9 +14,28 @@
 %>
 <html>
 <head>
+<meta charset="utf-8" />
 <title>订单</title>
 
 
+  
+ 
+
+   
+    <link rel="stylesheet" href="<%=path%>/stylesheets/affairs-search.css"/>
+    <link rel="stylesheet" href="<%=path%>/datePlug/jquery.monthpicker.css"/>
+
+    <link href="<%=path%>/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+    
+
+    <script src="<%=path%>/datePlug/jquery.monthpicker.js"></script>
+    <script type="text/javascript" src="<%=path%>/javascripts/bootstrap-treeview.min.js"></script>
+
+    
+
+
+	<script type="text/javascript" src="<%=path%>/datetimepicker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+	<script type="text/javascript" src="<%=path%>/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
 
 <body>
 
@@ -34,17 +53,18 @@
                     <input data-bind="click:$root.ClickAdd" type="button" value="新增"  class="chaxun">
                 </div>--%>
 				<div class="caidan-tiku-s" style="margin-right: 5%">
-					<span>部门：</span>
-					<!--  <select  id="department" class="form-control "><option value="0">无</option></select> -->
-					<select id="department" name="department" class="riqi-xiala " style="width: 70px;"><option>无</option></select>
+					<span>分公司：</span>
+					<!--  <select  id="branchCompany" class="form-control "><option value="0">无</option></select> -->
+					<select id="branchCompany" name="branchCompany" class="riqi-xiala " style="width: 70px;"><option>无</option></select>
 				</div>
 				<div class="caidan-tiku-s" style="margin-right: 5%">
 				
 				</div>
 
 				<div class="caidan-tiku-s" style="margin-right: 5%">
-					<span>年份</span> <input id="order_number" type="text"
-						name="" class="shuruk-a2" placeholder="">
+					<span>年份</span> <input id="salarydate" type="text"  class="laydate-icon shuruk-a2 form_date" 
+						name="salarydate" class="shuruk-a2" placeholder="">
+						 
 				</div>
 				<%--                <div class="caidan-tiku-s"> <span>是否审核：</span>
                     <select id="sh1" class="riqi-xiala" style="width:70px;" data-bind="options: [0,1], optionsText: function (item) {  if (item == 0) return '否'; else return '是';},optionsCaption:''"></select>
@@ -58,8 +78,8 @@
 					<!-- <input data-bind="click:$root.ClickClear"
 						type="button" value="清空" class="chaxun"
 						style="background: #fd9162"> -->
-					<input onclick="open_addModel();" type="button"
-						style="background: green;" value="导出" class="chaxun">
+					<input  type="button"
+						style="background: green;" value="导出" class="chaxun" onclick="export_List();">
 				</div>
 			</div>
 
@@ -69,15 +89,15 @@
 				<table width="100%" border="1" cellspacing="0" cellpadding="0"
 					class="table-1">
 					<thead class="table-1-tou">
-						<td class="text_center" width="13%">部门</td>
-						<td class="text_center" width="6%">项目</td>
-						<td class="text_center" width="15%">订单名</td>
-						<td class="text_center" width="14%">订单号</td>
+						<td class="text_center" width="13%">分公司</td>
+						<td class="text_center" width="6%">月份</td>
+						<td class="text_center" width="15%">姓名</td>
+						<td class="text_center" width="14%">出差薪资</td>
 						<!-- <td class="text_center" width="10%">年份</td> -->
 						<!-- <td class="text_center" width="18%">邮箱</td>
                     <td class="text_center" width="6%">工号</td>
                     <td class="text_center" width="8%">在职状态</td> -->
-						<td class="text_center" width="9%">操作</td>
+						<td class="text_center" width="9%">总工资</td>
 					</thead>
 
 					<tbody id="tbody">
@@ -85,7 +105,7 @@
 					</tbody>
 				</table>
 			</div>
-            <jsp:include page="page.jsp"></jsp:include>
+       
 			
 		</div>
 	</div>
@@ -95,60 +115,50 @@
 
 <script type="text/javascript">
 
-function movePage(pageNo){
-	if("${page.totalCount}"==0){
-		return;
-	}	
-	if(pageNo==0){
-		return ;
-	}
-	var url = "<%=path%>/mvc/search_salary.do?name=${qualityModelEntity.name}&creater=${qualityModelEntity.creater}&state=${qualityModelEntity.state}";
-	var pageSize =50;
-	
-	url+="&pageNo="+pageNo;
-	if(pageSize){
-		url += "&pageSize="+pageSize ;
-	}
-	window.location=url;
-};
+
 /**
  * 初始化部门
  */
     $(function (){
+    	$('.form_date').datetimepicker({
+    	    language:  'zh-CN',
+    	    todayBtn:  1,
+    		autoclose: 1,
+    		format:'yyyy-mm',
+    		minView: "month",
+    	});
     	
-    	 var departmenthtml =$("#department").html();  
-    	$.post("<%=path%>/order/getDepartment.do",function(json){
+    	
+    	
+    	
+    	 var branchCompanythtml =$("#branchCompany").html();  
+    	$.post("<%=path%>/usersalary/getbranchCompany.do",function(json){
     	
     		$.each(json, function (n, value) {
               
-               departmenthtml = departmenthtml+"<option value='"+value.department+"'>"+value.department+"</option>";              
+    			branchCompanythtml = branchCompanythtml+"<option value='"+value.branchCompany+"'>"+value.branchCompany+"</option>";              
             });    		
-    		 $("#department").html(departmenthtml);
+    		 $("#branchCompany").html(branchCompanythtml);
     	});	 
     });
 
    
    /* 订单查询 */ 
 function search_List(){
-	var department=$("#department").val();
-	var orderNumber=$("#order_number").val();
+	var branchCompany=$("#branchCompany").val();
+	var salarydate=$("#salarydate").val();
 	var tbody =$("#tbody").html();
-	 if(department==null||department==""){
-		alert("请选择部门！");
-		return;		
-	}
+	
  	
-	$.post("<%=path%>/order/search_order.do",{"department":department,"project":project,"orderNumber":orderNumber},function(json){		
+	$.post("<%=path%>/usersalary/search_salary.do",{"salarydate":salarydate,"branchCompany":branchCompany},function(json){		
 	   tbody="";
 		$.each(json, function (n, value) {
            tbody = tbody+"<tr>"+
             "<td class='text_center' width='13%'>"+value.department+"</td>"+
-            "<td class='text_center' width='13%'>"+value.project+"</td>"+
-			"<td class='text_center' width='13%'>"+value.orderName+"</td>"+
-			"<td class='text_center' width='13%'>"+value.orderNumber+"</td>"+
-			"<td>  <input  type=\"button\" onclick=\"openModel("+value.id+");\" value=\"更新\" class=\"gx-btn\"/>"+
-			"<input   type=\"button\" value=\"删除\" onclick='del_Entity("+value.id+");'class=\"gx-btn\" style=\"background:#fd9162;\"/>"+
-            "</td>"+
+            "<td class='text_center' width='13%'>"+value.salarydate+"</td>"+
+			"<td class='text_center' width='13%'>"+value.name+"</td>"+
+			"<td class='text_center' width='13%'>"+value.attendancesalary+"</td>"+
+			"<td class='text_center' width='13%'>"+value.totalsalary+"</td>"+
         
 			"</tr>";
         });
@@ -159,83 +169,17 @@ function search_List(){
 	
 	
 	
-}
-/**
- * 打开更新模态框
- */
-function openModel(id){
-	
-	$.post("<%=path%>/order/get_order_by_id.do",{'id':id},function(json){
-		
-		$("#m_department").val(json.department);
-		$("#m_project").val(json.project);
-		$("#m_orderName").val(json.orderName);
-		$("#m_id").val(json.id);
-		
-	});
-	
-	$("#model1").click();
-}
 
-/**
- * 打开新增模态框
- */
-function open_addModel(){
-	
+   }
 
-	 
-	$("#model2").click();
+function export_List(){
+	var branchCompany=$("#branchCompany").val();
+	var salarydate=$("#salarydate").val();
+   
+	window.location.href="<%=path%>/usersalary/export_salary.do?salarydate="+salarydate+"&branchCompany="+branchCompany;
+ 	
+
+
 }
-
-/**
- * 更新订单
- */
-function update_form(){
-	var department= $("#m_department").val();
-	var project= $("#m_project").val();
-	var orderName= $("#m_orderName").val();
-	var id= $("#m_id").val();
-	$.post("<%=path%>/order/update_order.do", {
-			'id' : id,
-			'department' : department,
-			'project' : project,
-			'orderName' : orderName
-		}, function(data) {
-			alert(data)
-		});
-	}
-	
-	
-/**
- * 新增订单
- */
-function add_form(){
-	var department= $("#a_department").val();
-	var project= $("#a_project").val();
-	var orderName= $("#a_orderName").val();
-	var orderNumber= $("#a_orderNumber").val();
-	if(""==department){alert("请输入部门！");return;}
-	if(""==project)   {alert("请输入项目！");return;}
-	if(""==orderName) {alert("请输入订单名！");return;}
-	if(""==orderNumber){alert("请输入订单号！");return;}
-	$.post("<%=path%>/order/add_order.do", {
-			'orderNumber' : orderNumber,
-			'department' : department,
-			'project' : project,
-			'orderName' : orderName		
-		}, function(data) {
-			alert(data)
-		});
-	}
-/*
- * 删除订单
- */
-function del_Entity(id){
-	$.post("<%=path%>/order/delete_order.do", {
-		'id' : id	
-	}, function(data) {
-		alert(data)
-	});
-}	
 </script>
 </html>

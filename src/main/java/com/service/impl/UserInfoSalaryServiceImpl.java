@@ -63,4 +63,10 @@ public class UserInfoSalaryServiceImpl implements IUserInfoSalaryService {
         List<YoUserinfosalary> list = userMapper.selectByExample(staffInfoExample);
         return list;
     }
+
+    @Override
+    public List<YoUserinfosalary> search_salary(String company, String salarydate) {
+        // TODO Auto-generated method stub
+        return userMapper.search_salary(company, salarydate);
+    }
 }

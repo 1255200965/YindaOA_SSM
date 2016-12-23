@@ -38,8 +38,8 @@
     <div class="refresh">正在刷新...</div><!-- 正在刷新时显示的文案 -->
   </div>
  
- <form>
-<div class="weui_cells weui_cells_form " id="divform">
+ <form id="divform">
+<div class="weui_cells weui_cells_form " >
 
   <div class="weui_cell weui_vcode">
     <div class="weui_cell_hd"><label class="weui_label">变动部门</label></div>
@@ -90,8 +90,8 @@
     <div class="weui_cell weui_cell_select">
     <div class="weui_cell_bd weui_cell_primary">
       <select class="weui_select" name="businessProperty" id="businessProperty">
-        <option  value="0">TimeBase</option>
-        <option value="1">TaskBase</option>   
+        <option  value="TimeBase">TimeBase</option>
+        <option value="TaskBase">TaskBase</option>   
       </select>
     </div>
    </div>
@@ -119,10 +119,8 @@
     <div class="weui_cell weui_cell_select">
     <div class="weui_cell_bd weui_cell_primary">
       <select class="weui_select" name="contractType" id="contractType">
-        <option selected="" value="0"></option>
-        <option value="1">微信号</option>
-        <option value="2">QQ号</option>
-        <option value="3">Email</option>
+      
+        
       </select>
     </div>
    </div>
@@ -151,9 +149,9 @@
     <div class="weui_cell_bd weui_cell_primary">
     <div class="weui_cell weui_cell_select">
     <div class="weui_cell_bd weui_cell_primary">
-      <select class="weui_select" name="select1">
-        <option  value="0">是</option>
-        <option  value="1">否</option>
+      <select class="weui_select" name="outdoor">
+        <option  value="是">是</option>
+        <option  value="否">否</option>
       </select>
     </div>
    </div>
@@ -161,19 +159,19 @@
   </div>
   
     <div class="weui_cell">
-    <div class="weui_cell_hd"><label for="" class="weui_label">生效日期</label></div>
+    <div class="weui_cell_hd"><label  class="weui_label">生效日期</label></div>
     <div class="weui_cell_bd weui_cell_primary">
-      <input class="weui_input" type="text" id='datetime-picker'>
+      <input class="weui_input" type="text" id='datetime-picker' name="beginTime">
     </div>
   </div>
 
  
   
-  <div class="weui_cell">
-    <div class="weui_cell_hd"><label for="" class="weui_label">审批人</label></div>
+ <!--  <div class="weui_cell">
+    <div class="weui_cell_hd"><label for="" class="weui_label" >审批人</label></div>
     <div class="weui_cell_bd weui_cell_primary">
      <div class="assess">刷刷<div>
-    </div>
+    </div> -->
   </div>
   </div>
   
@@ -183,10 +181,10 @@
    <div class="weui_cell">
     
     <div class="weui_cell_bd weui_cell_primary">
-     <a href="javascript:;" class="weui_btn weui_btn_primary">提交</a>
+     <a href="javascript:subForm();" class="weui_btn weui_btn_primary">提交</a>
     </div>
   </div>
- </div></form>		
+ </form>
     <script>
     /** 页面下拉刷新**/
     $(document.body).pullToRefresh();   
@@ -341,7 +339,23 @@
      
         
       
-     
+     function subForm()
+     {
+    	$.post("<%=path%>/ItemChange/add_ItemChange.do",$("#divform").serialize(),function(data){
+    		
+    		if("success"==data){
+    			$.alert("申请成功！");
+    			window.history.go(-1);
+    			
+    		}else{
+    			$.alert("申请失败！");
+    		}
+    		
+    		
+    	}) 
+    	 
+    	 
+     }
         
     </script>
  </body> 

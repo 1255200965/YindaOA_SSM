@@ -111,6 +111,7 @@
 										style="-webkit-border-radius: 10; -moz-border-radius: 10; border-radius: 10;"><a onclick="ajaxLoadPage('<%=basePath%>userinfo/querys.do')"
 								>奖金生成</a></li>
 								<li><a onclick="ajaxLoadPage('<%=basePath%>usersalary/search_salary_page.do')">工资导出</a></li>
+								<li><a onclick="ajaxLoadPage('<%=basePath%>userinfo/test.do')">工资查询</a></li>
 							</ul>
 						</div>
 					</li>
@@ -123,9 +124,10 @@
 								<li
 										style="-webkit-border-radius: 10; -moz-border-radius: 10; border-radius: 10;"><a onclick="ajaxLoadPage('<%=basePath%>toAskForLeave.do')"
 								>请假发文</a></li>
-								<li><a onclick="ajaxLoadPage('<%=basePath%>usersalary/toOverTime.do')">加班发文</a></li>
-								<li><a onclick="ajaxLoadPage('<%=basePath%>usersalary/toSocialSecurity.do')">社保发文</a></li>
-								<%--<li><a onclick="ajaxLoadPage('<%=basePath%>usersalary/toItemChange.do')">项目变更发文</a></li>--%>
+								<li><a onclick="ajaxLoadPage('<%=basePath%>toOverTime.do')">加班发文</a></li>
+								<li><a onclick="ajaxLoadPage('<%=basePath%>toSocialSecurity.do')">社保发文</a></li>
+								<li><a onclick="ajaxLoadPage('<%=basePath%>toItemChange.do')">项目变更发文</a></li>
+								<li><a onclick="ajaxLoadPage('<%=basePath%>attendance_search.do')">考勤导出</a></li>
 							</ul>
 						</div>
 					</li>

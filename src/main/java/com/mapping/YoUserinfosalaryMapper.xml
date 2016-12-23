@@ -419,6 +419,10 @@
       realsalary = #{realsalary,jdbcType=DOUBLE}
     where sid = #{sid,jdbcType=INTEGER}
   </update>
-
+  <select id="search_salary" parameterType="java.lang.String" resultType="com.model.YoUserinfosalary">
+    select  yo_userinfosalary.* from
+    (SELECT staff_info.staff_id  as staff_id from staff_info WHERE staff_info.branch_company=#{0}) a,
+    yo_userinfosalary WHERE yo_userinfosalary.salaryid =a.staff_id and yo_userinfosalary.salarydate = #{1}  ;
+  </select>
 
 </mapper>

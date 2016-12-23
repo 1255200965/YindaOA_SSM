@@ -141,4 +141,8 @@ public class ExcelSignInServiceImpl implements IExcelSignInService {
         return mapInsert;
     }
 
+    public List<YoSignIn> selectByExample(YoSignInExample example){
+        return yoSignInMapper.selectByExample(example);
+    }
+
 }

@@ -263,4 +263,70 @@
       deviceid = #{deviceid,jdbcType=VARCHAR}
     where inid = #{inid,jdbcType=INTEGER}
   </update>
+  <resultMap id="BaseResultMap2" type="com.model.YoAtteninfoExcelExport" >
+    <result column="name1" property="name" jdbcType="VARCHAR" />
+    <result column="department" property="department" jdbcType="VARCHAR" />
+    <result column="staff_id" property="staffId" jdbcType="VARCHAR" />
+    <result column="attendtime" property="attendTime" jdbcType="TIMESTAMP" />
+    <result column="attendresult" property="attendResult" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="deviceid" property="deviceid" jdbcType="VARCHAR" />
+    <result column="sco_project_name" property="projectName" jdbcType="VARCHAR" />
+    <result column="sco_order_name" property="orderName" jdbcType="VARCHAR" />
+    <result column="sco_contrat_type" property="contractType" jdbcType="VARCHAR" />
+  </resultMap>
+  <!-- 考勤信息详情明细导出 -->
+   <select id="selectAtteninfoExcelExport" parameterType="com.model.YoAtteninfo" resultMap="BaseResultMap2">
+  	 select a.name1,  a.staff_id, a.department, a.attendtime, a.attendresult, a.deviceid, a.remark, b.sco_project_name, b.sco_order_name, b.sco_contrat_type
+  	 	from  
+  	 	<trim prefix="(" suffix=")" suffixOverrides="," >
+  	 		select j.name as name1,j.staff_id,j.department,j.attendtime,j.attendresult,j.deviceid,j.remark from yo_atteninfo j WHERE
+  	 		<if test="attendtime == null">
+  	 	    <![CDATA[DATE_SUB(CURDATE(),INTERVAL 1 MONTH) <= DATE_FORMAT(attdate,'%Y-%m-%d') ]]>
+  	 	    </if> 
+  	 	    <if test="attendtime != null ">
+  	 	     <![CDATA[
+  	 	     	DATE_FORMAT(attdate,'%Y-%m-%d') >= DATE_FORMAT(#{attendtime,jdbcType=TIMESTAMP},'%Y-%m-%d')
+  	 	     	 and DATE_FORMAT(attdate,'%Y-%m-%d') <= DATE_FORMAT(#{atttime,jdbcType=TIMESTAMP},'%Y-%m-%d')
+  	 	     ]]>
+  	 	    </if>
+  	 		<if test="department !=null">
+  	 	 		and  department= '${department}'
+  	 		</if>
+  	 	</trim>
+  	 	a
+  	 	<!-- 项目名和订单名 都为空--><!-- 单独对部门考勤表的查看 -->
+  	 	<if test="attaddress == null or attaddress ==''">
+  	 	    <if test="device == null or device == ''">
+  	 	     left join 
+  	 	     (select sco_project_name ,sco_order_name,sco_contrat_type,sco_staff_id from yo_staff_current_order) b
+  	 	     on a.staff_id = b.sco_staff_id
+  	 	    </if>
+  	 	</if>
+  	 	<!-- 项目名和订单名都不为空，或者其中一个为空 --><!-- 对某一部门某一项目或者某一订单考勤表的查看 -->
+  	 	<if test="attaddress != null and attaddress !='' or device != null and device != ''">
+  	 	
+  	 	INNER JOIN 
+  	 	<trim prefix="(" suffix=")" suffixOverrides="," >
+  	 	select sco_project_name ,sco_order_name,sco_contrat_type,sco_staff_id from yo_staff_current_order
+  	 	  where 
+  	 	  <!-- 订单名不为空的情况 -->
+  	 	<if test="attaddress != null and attaddress != ''">
+  	 	   sco_order_name = #{attaddress,jdbcType=VARCHAR} 
+  	 	</if> 
+         <!-- 项目名不为空的情况 -->
+  	 	<if test="device != null and device != ''">
+  	 	   <!-- 项目名不为空,并且订单名为空 -->
+  	 	   <if test="attaddress == null or attaddress ==''">
+  	 		sco_project_name = #{device,jdbcType=VARCHAR}
+  	 		</if>	
+  	 		<!-- 项目名不为空,并且订单名不为空 -->
+  	 		<if test="attaddress != null and attaddress !=''">
+  	 		and sco_project_name = #{device,jdbcType=VARCHAR}
+  	 		</if>
+  	 	</if>
+  	 	</trim>
+  	 	  as b on a.staff_id = b.sco_staff_id
+  	 	</if>  
+   </select> 
 </mapper>

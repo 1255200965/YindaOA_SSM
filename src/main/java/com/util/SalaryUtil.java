@@ -23,13 +23,21 @@ public class SalaryUtil {
     private IAskLeaveService userAskLeaveService;
     @Resource
     private IUserInfoSalaryService userinfoSalaryService;
+    @Resource
+    private IExcelSignInService userSighInService;
 
     double manDay = 21.75;//满勤天数
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");//日期转换器
     Calendar ca = Calendar.getInstance();//日历
 
-    public SalaryUtil(ISalaryService service){
-        userSalaryService = service;
+    public SalaryUtil(ISalaryService service1,IAttendanceInfoService service2,IExcelSignInService service6,IStaffInfoService service3,IAskLeaveService service4,IUserInfoSalaryService service5){
+
+        userSalaryService = service1;
+        userAttendanceService = service2;
+        userStaffInfoService = service3;
+        userAskLeaveService = service4;
+        userinfoSalaryService = service5;
+        userSighInService = service6;
     }
 
     /**
@@ -166,9 +174,9 @@ public class SalaryUtil {
             today = updateDateInfo(userid,workDate,workMonth,today);
             today = updateAttendance(userid,workDate,today);
             today = updateLeave(userid,workDate,today);
+            today = updateEffective(userid,workDate,today);
             today = updateEvection(userid,workDate,today);
             today = updateTimebase(userid,workDate,today);
-            today = updateEffective(userid,workDate,today);
             insertORupdate(today);//插入或更新
             workDate = getNext(nowyear, nowMonth, l++);
         }
@@ -293,7 +301,6 @@ public class SalaryUtil {
             Date d = sdf.parse(workDate);
             ca.setTime(d);
             //处理一天的工资
-            YoSalary today = new YoSalary();
 
             salaryItem.setSalarydate(workMonth);
             salaryItem.setDate(sdf.parse(workDate));
@@ -303,8 +310,8 @@ public class SalaryUtil {
             //当天是否周末/节假日
             if (checkHoliday(ca)){
                 //是
-                today.setDatetype("休");
-            } else today.setDatetype("工");
+                salaryItem.setDatetype("休");
+            } else salaryItem.setDatetype("工");
         } catch (Exception e){
             System.out.print(e.getMessage());
         }
@@ -333,6 +340,11 @@ public class SalaryUtil {
 
                 //当天打卡地
                 salaryItem.setWorkAddress(cqlist.get(0).getAttaddress());
+
+            }
+
+            //如果是休息日就要看签到
+            if (salaryItem.getDatetype().equals("休")){
 
             }
         } catch (Exception e){

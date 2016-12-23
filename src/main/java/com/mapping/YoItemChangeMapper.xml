@@ -18,7 +18,6 @@
     <result column="ic_cost" property="icCost" jdbcType="VARCHAR" />
     <result column="ic_change_item" property="icChangeItem" jdbcType="VARCHAR" />
     <result column="ic_change_order" property="icChangeOrder" jdbcType="VARCHAR" />
-    <result column="ic_business_property" property="icBusinessProperty" jdbcType="VARCHAR" />
     <result column="ic_change_province" property="icChangeProvince" jdbcType="VARCHAR" />
     <result column="ic_work_city" property="icWorkCity" jdbcType="VARCHAR" />
     <result column="ic_department" property="icDepartment" jdbcType="VARCHAR" />
@@ -58,8 +57,7 @@
     ic_sequence_no, ic_approve_no, ic_title, ic_approve_state, ic_approve_result, ic_approve_begin, 
     ic_approve_end, ic_ask_staff_id, ic_ask_staff_name, ic_ask_staff_depart, ic_history_approve_name, 
     ic_approve_record, ic_now_approve_name, ic_cost, ic_change_item, ic_change_order, 
-    ic_business_property, ic_change_province, ic_work_city, ic_department, ic_outroom_work, 
-    ic_effect_date
+    ic_change_province, ic_work_city, ic_department, ic_outroom_work, ic_effect_date
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.model.YoItemChangeExample" >
     select
@@ -81,6 +79,33 @@
     from yo_item_change
     where ic_sequence_no = #{icSequenceNo,jdbcType=INTEGER}
   </select>
+  <select id="selectByPropertities" resultMap="BaseResultMap" parameterType="com.model.YoItemChange">
+   select
+   <include refid="Base_Column_List" />
+   from yo_item_change
+   <where>
+    <if test="icAskStaffName !=null and icAskStaffName !=''">
+      ic_ask_staff_name like CONCAT('%','${icAskStaffName}','%')
+    </if>
+    <if test="icAskStaffId !=null and icAskStaffId !=''">
+    and  ic_ask_staff_id = '${icAskStaffId}'
+    </if>
+    <if test="icAskStaffDepart !=null and icAskStaffDepart !=''">
+    and ic_ask_staff_depart like CONCAT('%','${icAskStaffDepart}','%')
+    </if>
+     <if test="icApproveBegin == null or icApproveBegin==''">
+    <![CDATA[
+     and DATE_SUB(CURDATE(),INTERVAL 1 MONTH) <= DATE_FORMAT(ic_approve_begin,"%Y-%m-%d")
+     ]]>
+    </if> 
+    <if test="icApproveBegin !=null and icApproveBegin !=''">
+    <![CDATA[
+     and DATE_FORMAT(ic_approve_begin,"%Y-%m-%d") >= '${icApproveBegin}' 
+       and DATE_FORMAT(ic_approve_begin,"%Y-%m-%d") <= '${icApproveEnd}'
+    ]]>
+    </if>
+   </where>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from yo_item_change
     where ic_sequence_no = #{icSequenceNo,jdbcType=INTEGER}
@@ -91,17 +116,17 @@
       ic_approve_end, ic_ask_staff_id, ic_ask_staff_name, 
       ic_ask_staff_depart, ic_history_approve_name, 
       ic_approve_record, ic_now_approve_name, ic_cost, 
-      ic_change_item, ic_change_order, ic_business_property, 
-      ic_change_province, ic_work_city, ic_department, 
-      ic_outroom_work, ic_effect_date)
+      ic_change_item, ic_change_order, ic_change_province, 
+      ic_work_city, ic_department, ic_outroom_work, 
+      ic_effect_date)
     values (#{icSequenceNo,jdbcType=INTEGER}, #{icApproveNo,jdbcType=VARCHAR}, #{icTitle,jdbcType=VARCHAR}, 
       #{icApproveState,jdbcType=VARCHAR}, #{icApproveResult,jdbcType=VARCHAR}, #{icApproveBegin,jdbcType=VARCHAR}, 
       #{icApproveEnd,jdbcType=VARCHAR}, #{icAskStaffId,jdbcType=VARCHAR}, #{icAskStaffName,jdbcType=VARCHAR}, 
       #{icAskStaffDepart,jdbcType=VARCHAR}, #{icHistoryApproveName,jdbcType=VARCHAR}, 
       #{icApproveRecord,jdbcType=VARCHAR}, #{icNowApproveName,jdbcType=VARCHAR}, #{icCost,jdbcType=VARCHAR}, 
-      #{icChangeItem,jdbcType=VARCHAR}, #{icChangeOrder,jdbcType=VARCHAR}, #{icBusinessProperty,jdbcType=VARCHAR}, 
-      #{icChangeProvince,jdbcType=VARCHAR}, #{icWorkCity,jdbcType=VARCHAR}, #{icDepartment,jdbcType=VARCHAR}, 
-      #{icOutroomWork,jdbcType=VARCHAR}, #{icEffectDate,jdbcType=VARCHAR})
+      #{icChangeItem,jdbcType=VARCHAR}, #{icChangeOrder,jdbcType=VARCHAR}, #{icChangeProvince,jdbcType=VARCHAR}, 
+      #{icWorkCity,jdbcType=VARCHAR}, #{icDepartment,jdbcType=VARCHAR}, #{icOutroomWork,jdbcType=VARCHAR}, 
+      #{icEffectDate,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.model.YoItemChange" >
     insert into yo_item_change
@@ -153,9 +178,6 @@
       </if>
       <if test="icChangeOrder != null" >
         ic_change_order,
-      </if>
-      <if test="icBusinessProperty != null" >
-        ic_business_property,
       </if>
       <if test="icChangeProvince != null" >
         ic_change_province,
@@ -222,9 +244,6 @@
       <if test="icChangeOrder != null" >
         #{icChangeOrder,jdbcType=VARCHAR},
       </if>
-      <if test="icBusinessProperty != null" >
-        #{icBusinessProperty,jdbcType=VARCHAR},
-      </if>
       <if test="icChangeProvince != null" >
         #{icChangeProvince,jdbcType=VARCHAR},
       </if>
@@ -290,9 +309,6 @@
       <if test="icChangeOrder != null" >
         ic_change_order = #{icChangeOrder,jdbcType=VARCHAR},
       </if>
-      <if test="icBusinessProperty != null" >
-        ic_business_property = #{icBusinessProperty,jdbcType=VARCHAR},
-      </if>
       <if test="icChangeProvince != null" >
         ic_change_province = #{icChangeProvince,jdbcType=VARCHAR},
       </if>
@@ -328,7 +344,6 @@
       ic_cost = #{icCost,jdbcType=VARCHAR},
       ic_change_item = #{icChangeItem,jdbcType=VARCHAR},
       ic_change_order = #{icChangeOrder,jdbcType=VARCHAR},
-      ic_business_property = #{icBusinessProperty,jdbcType=VARCHAR},
       ic_change_province = #{icChangeProvince,jdbcType=VARCHAR},
       ic_work_city = #{icWorkCity,jdbcType=VARCHAR},
       ic_department = #{icDepartment,jdbcType=VARCHAR},
@@ -336,4 +351,25 @@
       ic_effect_date = #{icEffectDate,jdbcType=VARCHAR}
     where ic_sequence_no = #{icSequenceNo,jdbcType=INTEGER}
   </update>
+  <insert id="add" parameterType="com.model.YoItemChange" keyColumn="ic_approve_no"  keyProperty="icSequenceNo" useGeneratedKeys="true" >
+
+    insert into yo_item_change (ic_approve_no, ic_title,
+    ic_approve_state, ic_approve_result, ic_approve_begin,
+    ic_approve_end, ic_ask_staff_id, ic_ask_staff_name,
+    ic_ask_staff_depart, ic_history_approve_name,
+    ic_approve_record, ic_now_approve_name, ic_cost,
+    ic_change_item, ic_change_order, ic_business_property,
+    ic_change_province, ic_work_city, ic_department,
+    ic_outroom_work, ic_effect_date)
+    values ( #{icApproveNo,jdbcType=VARCHAR}, #{icTitle,jdbcType=VARCHAR},
+    #{icApproveState,jdbcType=VARCHAR}, #{icApproveResult,jdbcType=VARCHAR}, #{icApproveBegin,jdbcType=VARCHAR},
+    #{icApproveEnd,jdbcType=VARCHAR}, #{icAskStaffId,jdbcType=VARCHAR}, #{icAskStaffName,jdbcType=VARCHAR},
+    #{icAskStaffDepart,jdbcType=VARCHAR}, #{icHistoryApproveName,jdbcType=VARCHAR},
+    #{icApproveRecord,jdbcType=VARCHAR}, #{icNowApproveName,jdbcType=VARCHAR}, #{icCost,jdbcType=VARCHAR},
+    #{icChangeItem,jdbcType=VARCHAR}, #{icChangeOrder,jdbcType=VARCHAR}, #{icBusinessProperty,jdbcType=VARCHAR},
+    #{icChangeProvince,jdbcType=VARCHAR}, #{icWorkCity,jdbcType=VARCHAR}, #{icDepartment,jdbcType=VARCHAR},
+    #{icOutroomWork,jdbcType=VARCHAR}, #{icEffectDate,jdbcType=VARCHAR})
+  </insert>
+
+
 </mapper>
