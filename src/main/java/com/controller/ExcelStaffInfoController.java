@@ -434,12 +434,12 @@ public class ExcelStaffInfoController {
      */
     public HSSFSheet setColumnWidth(HSSFSheet hssfSheet) {
         hssfSheet.setColumnWidth(0, 6000);
-        hssfSheet.setColumnWidth(1, 6000);
-        hssfSheet.setColumnWidth(2, 4000);
+        hssfSheet.setColumnWidth(1, 7000);
+        hssfSheet.setColumnWidth(2, 5000);
         hssfSheet.setColumnWidth(5, 3000);
         hssfSheet.setColumnWidth(6, 5000);
         hssfSheet.setColumnWidth(7, 4000);
-        hssfSheet.setColumnWidth(8, 7000);
+        hssfSheet.setColumnWidth(8, 9000);
         hssfSheet.setColumnWidth(11, 7000);
         hssfSheet.setColumnWidth(14, 4000);
         hssfSheet.setColumnWidth(16, 6000);
@@ -450,6 +450,8 @@ public class ExcelStaffInfoController {
         hssfSheet.setColumnWidth(28, 4000);
         hssfSheet.setColumnWidth(29, 4000);
         hssfSheet.setColumnWidth(32, 9000);
+        hssfSheet.setColumnWidth(36, 8000);
+        hssfSheet.setColumnWidth(37, 3000);
         hssfSheet.setColumnWidth(40, 5000);
         return hssfSheet;
     }

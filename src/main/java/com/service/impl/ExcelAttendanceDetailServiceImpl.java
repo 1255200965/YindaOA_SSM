@@ -103,8 +103,8 @@ public class ExcelAttendanceDetailServiceImpl implements IExcelAttendanceDetailS
             YoAtteninfo yoAtteninfo = new YoAtteninfo();
             if (hssfRow.getCell(++cellNo) != null) yoAtteninfo.setDepartment(hssfRow.getCell(cellNo).toString());
             if (hssfRow.getCell(++cellNo) != null) yoAtteninfo.setStaffId(hssfRow.getCell(cellNo).toString());
-            if (hssfRow.getCell(++cellNo) != null) yoAtteninfo.setName(hssfRow.getCell(cellNo).toString());
             if (hssfRow.getCell(++cellNo) != null) yoAtteninfo.setUserid(hssfRow.getCell(cellNo).toString());
+            if (hssfRow.getCell(++cellNo) != null) yoAtteninfo.setName(hssfRow.getCell(cellNo).toString());
             if (hssfRow.getCell(++cellNo) != null) yoAtteninfo.setAttdate(dateAttdate);
             if (hssfRow.getCell(++cellNo) != null) yoAtteninfo.setAtttime(dateAtttime);
             if (hssfRow.getCell(++cellNo) != null) yoAtteninfo.setAttendtime(dateAttendtime);
