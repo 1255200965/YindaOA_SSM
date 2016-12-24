@@ -13,7 +13,7 @@
 
 <body>
 
-<header>
+<%-- <header>
     <div class="head-cont">
         <div class="head-left fl">
             <img src="../images/logo.png" height="35" width="50" alt="">
@@ -34,7 +34,7 @@
         </div>
     </div>
 </header>
-
+ --%>
 <div class="content">
     <div class="cont-tit">
         <img src="../images/icon02.png"  width="100" alt="">考勤明细导入

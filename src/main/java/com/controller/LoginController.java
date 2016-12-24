@@ -48,7 +48,7 @@ public class LoginController {
   @RequestMapping("/loginSuccess.do")
   public ModelAndView loginSuccess(){
 	  ModelAndView mav =new ModelAndView();
-	  mav.setViewName("UserInfo");
+	  mav.setViewName("index");
 	  return mav;
   }
 }

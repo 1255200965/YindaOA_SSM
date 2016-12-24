@@ -14,7 +14,7 @@
 %>
 <html>
 <head>
-<title>订单</title>
+<title>人资管理平台</title>
 <%--<link type="text/css" rel="stylesheet" href="../stylesheets/style.css" />--%>
 <link rel="stylesheet" href="<%=path%>/stylesheets/reset.css">
 
@@ -83,9 +83,16 @@
 							</a>
 							<ul class="dropdown-menu" style="background-color: #3792F2;">
 								<li
-										style="-webkit-border-radius: 10; -moz-border-radius: 10; border-radius: 10;"><a onclick="ajaxLoadPage('<%=basePath%>ExcelStaffInfo/homePage.do')"
+										style="-webkit-border-radius: 10; -moz-border-radius: 10; border-radius: 10;">
+										<a href="<%=basePath%>ExcelStaffInfo/homePage.do" target="loadcontent"
 								>花名册导入</a></li>
-								<li><a onclick="ajaxLoadPage('<%=basePath%>/Import/navigator.do')">审批数据导入</a></li>
+								<li><a href="<%=basePath%>AskLeaveExcel/homePage.do" target="loadcontent">请假申请</a></li>
+								<li><a href="<%=basePath%>OvertimeExcel/homePage.do" target="loadcontent">加班申请</a></li>
+								<li><a href="<%=basePath%>ExcelItemChange/homePage.do" target="loadcontent">项目信息变动</a></li>
+								<li><a href="<%=basePath%>ExcelAttendanceDetail/homePage.do" target="loadcontent">考勤明细导入</a></li>
+								<li><a href="<%=basePath%>ExcelSignIn/homePage.do" target="loadcontent">签到导入</a></li>
+								<li><a href="<%=basePath%>ExcelSocialSecurityInfo/homePage.do"target="loadcontent">社保信息导入</a></li>
+								
 							</ul>
 						</div>
 					</li>
@@ -95,9 +102,9 @@
 								通讯录 <span class="caret"></span>
 							</a>
 							<ul class="dropdown-menu" style="background-color: #3792F2;">
-								<li
-										style="-webkit-border-radius: 10; -moz-border-radius: 10; border-radius: 10;"><a onclick="ajaxLoadPage('<%=basePath%>userinfo/testMethod.do')"
-								>通讯录</a></li>
+								<li style="-webkit-border-radius: 10; -moz-border-radius: 10; border-radius: 10;">
+										<a href="<%=basePath%>userinfo/testMethod.do" target="loadcontent">通讯录</a>
+								</li>
 							</ul>
 						</div>
 					</li>
@@ -108,10 +115,10 @@
 							</a>
 							<ul class="dropdown-menu" style="background-color: #3792F2;">
 								<li
-										style="-webkit-border-radius: 10; -moz-border-radius: 10; border-radius: 10;"><a onclick="ajaxLoadPage('<%=basePath%>userinfo/querys.do')"
+										style="-webkit-border-radius: 10; -moz-border-radius: 10; border-radius: 10;"><a href="<%=basePath%>userinfo/querys.do" target="loadcontent"
 								>奖金生成</a></li>
-								<li><a onclick="ajaxLoadPage('<%=basePath%>usersalary/search_salary_page.do')">工资导出</a></li>
-								<li><a onclick="ajaxLoadPage('<%=basePath%>userinfo/test.do')">工资查询</a></li>
+								<li><a href="<%=basePath%>usersalary/search_salary_page.do" target="loadcontent">工资导出</a></li> 
+								<%-- <li><a href="<%=basePath%>userinfo/test.do" target="loadcontent">工资查询</a></li> --%>
 							</ul>
 						</div>
 					</li>
@@ -121,13 +128,13 @@
 								发文模块 <span class="caret"></span>
 							</a>
 							<ul class="dropdown-menu" style="background-color: #3792F2;">
-								<li
-										style="-webkit-border-radius: 10; -moz-border-radius: 10; border-radius: 10;"><a onclick="ajaxLoadPage('<%=basePath%>toAskForLeave.do')"
-								>请假发文</a></li>
-								<li><a onclick="ajaxLoadPage('<%=basePath%>toOverTime.do')">加班发文</a></li>
-								<li><a onclick="ajaxLoadPage('<%=basePath%>toSocialSecurity.do')">社保发文</a></li>
-								<li><a onclick="ajaxLoadPage('<%=basePath%>toItemChange.do')">项目变更发文</a></li>
-								<li><a onclick="ajaxLoadPage('<%=basePath%>attendance_search.do')">考勤导出</a></li>
+								<li style="-webkit-border-radius: 10; -moz-border-radius: 10; border-radius: 10;">
+								<a href="<%=basePath%>toAskForLeave.do"  target="loadcontent">请假发文</a>
+								</li>
+								<li><a href="<%=basePath%>toOverTime.do" target="loadcontent">加班发文</a></li>
+								<li><a href="<%=basePath%>toSocialSecurity.do" target="loadcontent">社保发文</a></li>
+								<%-- <li><a href="<%=basePath%>toItemChange.do" target="loadcontent">项目变更发文</a></li> --%>
+								<li><a href="<%=basePath%>attendance_search.do" target="loadcontent">考勤导出</a></li>
 							</ul>
 						</div>
 					</li>
@@ -138,9 +145,8 @@
 								订单系统 <span class="caret"></span>
 							</a>
 							<ul class="dropdown-menu" style="background-color: #3792F2;">
-								<li
-									style="-webkit-border-radius: 10; -moz-border-radius: 10; border-radius: 10;"><a onclick="ajaxLoadPage('<%=basePath%>order/search_order_page.do')"
-									>订单查询</a></li>
+								<li style="-webkit-border-radius: 10; -moz-border-radius: 10; border-radius: 10;">
+								<a href="<%=basePath%>order/search_order_page.do" target="loadcontent">订单查询</a></li>
 							 <%--<li><a onclick="ajaxLoadPage('<%=basePath%>usersalary/search_salary_page.do')">工资查询</a></li>--%>
 							</ul>
 						</div>
@@ -155,11 +161,13 @@
 		</div>
 	</header>
 
-	<div class="row-fluid c_box" id="loadcontent">
-		
-	
-	</div>
-	<div class="row-fluid">
+	<div>
+             <iframe class="weui_tab_bd " height="1000px"; frameborder="no" src="<%=basePath%>userinfo/testMethod.do" name="loadcontent" style="width:100%;">
+			 
+			 
+			 </iframe>
+    </div>
+	<!-- <div class="row-fluid">
 		<div class="footer" data-reactid=".0.a">
 			<div style="margin-bottom: 5px;" data-reactid=".0.a.0">
 				<span data-reactid=".0.a.0.0"> <img width="11px"
@@ -168,20 +176,11 @@
 			</div>
 
 		</div>
-	</div>
+	</div> -->
 	
 </body>
 
 <script type="text/javascript">
-function ajaxLoadPage(url){
 	
-	$.post(url,function(result){
-		
-		$("#loadcontent").html(result).fadeIn();
-		
-	});
-	
-	
-}
 </script>
 </html>

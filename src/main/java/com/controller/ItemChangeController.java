@@ -33,7 +33,7 @@ public class ItemChangeController {
 	private DDSendMessageUtil ddSendMessageUtil;
 	@Autowired
 	private  IStaffInfoService iStaffInfoService;
-	
+
 	@RequestMapping("/toItemChange.do")
 	public ModelAndView toItemChange(HttpServletRequest request,YoItemChange itemChange){
 		ModelAndView mav = new ModelAndView();
@@ -42,42 +42,42 @@ public class ItemChangeController {
 		mav.addObject("itemChangeList",itemChangeList);
 		mav.addObject("itemChange2", itemChange2);
 		mav.setViewName("itemchange");
-	    return mav;
+		return mav;
 	}
-	
+
 	/**
 	 * 根据id 获取单条项目变更
 	 */
 	@RequestMapping("/getItemChangeById.do")
 	@ResponseBody
-	public ModelAndView getItemChangeById(String id){	
+	public ModelAndView getItemChangeById(String id){
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/order/approve_order");		
+		mav.setViewName("/order/approve_order");
 		YoItemChange itemChange= itemChangeMapper.selectByPrimaryKey(Integer.valueOf(id));
 		mav.addObject("itemChange", itemChange);
-		return mav;	
+		return mav;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * 获取申请人的所有项目审批列表
 
-	 */	
+	 */
 	@RequestMapping("/getItemChangeByStaffId.do")
 	@ResponseBody
 	public List<YoItemChange> getItemChangeByStaffId(HttpServletRequest request ){
-		String user_staffId =(String) request.getSession().getAttribute(GlobalConstant.user_staffId);		
+		String user_staffId =(String) request.getSession().getAttribute(GlobalConstant.user_staffId);
 		List<YoItemChange> itemChangeList= itemChangeService.getItemChangeByStaffId(user_staffId);
-	    return itemChangeList;
+		return itemChangeList;
 	}
 
-	
-	
+
+
 
 	/**
 	 * 获取申请人的所有项目审批列表
-	 */	
+	 */
 	@RequestMapping("/add_ItemChange.do")
 	@ResponseBody
 	public String  add_ItemChange(
@@ -92,11 +92,11 @@ public class ItemChangeController {
 			String yindaIdentify,
 			String contractType,
 			HttpServletRequest request){
-		
-		String user_staffId =(String) request.getSession().getAttribute(GlobalConstant.user_staffId);	
+
+		String user_staffId =(String) request.getSession().getAttribute(GlobalConstant.user_staffId);
 		String staff_user_id =(String) request.getSession().getAttribute(GlobalConstant.user_staff_user_id);
 		String user_name =(String) request.getSession().getAttribute(GlobalConstant.user_name);
-		
+
 		List <String> now_approveList = ddSendMessageUtil.getApprovers(staff_user_id);
 		YoItemChange itemChange  = new YoItemChange();
 		itemChange.setIcAskStaffId(user_staffId);
@@ -112,30 +112,30 @@ public class ItemChangeController {
 		itemChange.setIcTitle(user_name+"的"+orderName+"项目变更申请");
 		itemChange.setIcApproveRecord(contractType);//数据库字段暂时顶替
 		itemChange.setIcCost(yindaIdentify);//数据库字段暂时顶替
-		itemChange.setIcNowApproveName(now_approveList.get(0));	
+		itemChange.setIcNowApproveName(now_approveList.get(0));
 		int i= itemChangeMapper.add(itemChange);
-		
+
 		if(i>0){
 			DDMessageUtil message = new DDMessageUtil();
-			
+
 			message.setMessageUrl("http://121.40.29.241/YindaOA/ItemChange/approve_order_page.do?id="+itemChange.getIcSequenceNo());
 			message.setPicUrl("/cc");
-			message.setToUser("07022352451246847");
+			message.setToUser("022418113430903564");
 			message.setToParty("");
 			message.setTitle(user_name+"的项目审批");
 			message.setText("您好！请查收！");
 			ddSendMessageUtil.sendMessage(message);
-			
-			
+
+
 			return "success";
 		}else{
-			 return "error";
+			return "error";
 		}
-	   
+
 	}
 	@RequestMapping("/approve_order_page.do")
 	public ModelAndView approve_order_page(String id,HttpServletRequest request){
-		ModelAndView mav = new ModelAndView();	
+		ModelAndView mav = new ModelAndView();
 		YoItemChange itemChange =itemChangeMapper.selectByPrimaryKey(Integer.valueOf(id));
 		String approveId =itemChange.getIcNowApproveName();//根据项目审批中查找审批人的ID
 		StaffInfo approve =iStaffInfoService.selectStaffByID(approveId); //根据审批人的ID查找审批人
@@ -145,12 +145,12 @@ public class ItemChangeController {
 		mav.setViewName("/order/approve_order");
 		return mav;
 	}
-	
-	
+
+
 	@RequestMapping("/pass_approve.do")
 	@ResponseBody
 	public String pass_approve(String id,HttpServletRequest request){
-	
+
 		YoItemChange itemChange =itemChangeMapper.selectByPrimaryKey(Integer.valueOf(id));
 		itemChange.setIcApproveState("完成");
 		itemChange.setIcApproveResult("同意");
@@ -160,14 +160,14 @@ public class ItemChangeController {
 		}catch(Exception e){
 			return "error";
 		}
-		
+
 	}
-	
-	
+
+
 	@RequestMapping("/refuse_approve.do")
 	@ResponseBody
 	public String refuse_approve(String id,HttpServletRequest request){
-		ModelAndView mav = new ModelAndView();	
+		ModelAndView mav = new ModelAndView();
 		YoItemChange itemChange =itemChangeMapper.selectByPrimaryKey(Integer.valueOf(id));
 		itemChange.setIcApproveResult("拒绝");
 		itemChange.setIcApproveState("完成");
@@ -178,21 +178,21 @@ public class ItemChangeController {
 			return "error";
 		}
 	}
-	
+
 	@RequestMapping("toItemchange_history.do")
 	public ModelAndView toItemchange_history(HttpServletRequest request){
 		ModelAndView mav = new ModelAndView();
 		YoItemChangeExample example = new YoItemChangeExample();
 		YoItemChangeExample.Criteria criteria = example.createCriteria();
 		String staffId = (String) request.getSession().getAttribute(GlobalConstant.user_staffId);
-		
+
 		criteria.andIcAskStaffIdEqualTo(staffId);
 		List<YoItemChange> itemChangeList = itemChangeMapper.selectByExample(example);
 		mav.addObject("itemChangeList", itemChangeList);
 		mav.setViewName("order/itemchange_history");
 		return mav;
 	}
-    //单条项目变更信息详情查看
+	//单条项目变更信息详情查看
 	@RequestMapping("itemChange_view.do")
 	public ModelAndView itemChange_view(HttpServletRequest request,int id){
 		ModelAndView  mav = new ModelAndView();

@@ -50,7 +50,7 @@
 </head>
 
 <body style="background-color:white;">
-<header>
+<%-- <header>
    <div class="head-cont">
         <div class="head-left fl">
             <img src="<%=path%>/images/logo.png" height="35" width="50" alt="">
@@ -74,7 +74,7 @@
             <a href=""><img src="<%=path%>/images/guanbi.png" height="22" width="22" alt=""></a>
         </div>
     </div>
-</header>
+</header> --%>
 <br/>
 <form id="form"> 
   <div class="caidan-tiku" style="margin-bottom:3%">              
@@ -132,7 +132,7 @@
             </table>
             <%-- <jsp:include page="./commons/page.jsp"></jsp:include> --%>
      </div>
-<footer>
+<footer height="100px";>
     <p><img src="<%=path%>/images/tubiao.png" alt="">上海音达科技实业有限公司</p>
 </footer> 
 <script type="text/javascript">

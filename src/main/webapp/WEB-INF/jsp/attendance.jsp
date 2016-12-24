@@ -51,7 +51,7 @@
 </head>
 
 <body style="background-color:white;">
-<header>
+<%-- <header>
    <div class="head-cont">
         <div class="head-left fl">
             <img src="<%=path%>/images/logo.png" height="35" width="50" alt="">
@@ -73,7 +73,7 @@
             <a href=""><img src="<%=path%>/images/guanbi.png" height="22" width="22" alt=""></a>
         </div>
     </div>
-</header>
+</header> --%>
 <br/>
 <form id="form" > 
   <div class="caidan-tiku" style="margin-bottom:3%">              

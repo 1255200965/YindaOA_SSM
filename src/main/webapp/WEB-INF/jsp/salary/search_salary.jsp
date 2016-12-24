@@ -17,7 +17,53 @@
 <meta charset="utf-8" />
 <title>订单</title>
 
+	<link rel="stylesheet" href="<%=path%>/stylesheets/reset.css">
 
+<link href="<%=path%>/stylesheets/bootstrap.min.css" rel="stylesheet" />
+<link href="<%=path%>/stylesheets/bootstrap-theme.min.css"
+	rel="stylesheet" />
+<link href="<%=path%>/stylesheets/bootstrap-treeview.min.css"
+	rel="stylesheet" />
+<link href="<%=path%>/stylesheets/shujutongji.css" rel="stylesheet" />
+<link href="<%=path%>/stylesheets/ddcss.css" rel="stylesheet" />
+<link rel="stylesheet" href="<%=path%>/stylesheets/header.css">
+
+<script type="text/javascript"
+	src="<%=path%>/javascripts/jquery-1.10.2.js"></script>
+<script type="text/javascript"
+	src="<%=path%>/javascripts/bootstrap.min.js"></script>
+<script type="text/javascript"
+	src="<%=path%>/javascripts/bootstrap-treeview.min.js"></script>
+<script src="<%=path%>/javascripts//knockout-3.4.0rc.js"></script>
+<style>
+* {
+	box-sizing: content-box;
+	-webkit-box-sizing: content-box;
+}
+
+.c_box {
+	min-width: 1350px;
+	width: 100%;
+}
+
+.c_box .col-md-2 {
+	min-width: 189px;
+	width: 12.4%;
+}
+
+.c_box .c_left_box {
+	height: 850px;
+}
+
+.c_box .c_right_box {
+	min-width: 1056.7px;
+	width: 79%;
+}
+
+.table-1 tbody td {
+	font-size: 12px;
+}
+</style>
   
  
 
@@ -41,13 +87,13 @@
 
 	
 
-	<div class="row-fluid c_box" style="">
-		<div class="col-md-2 c_left_box">
+	<div class="row-fluid c_box" style="background:white;">
+		<!-- <div class="col-md-2 c_left_box">
 			<div style="margin-top: 3%"></div>
 			<div id="tree" style="overflow: auto; height: 800px;"></div>
 
-		</div>
-		<div class="col-md-10 c_right_box">
+		</div> -->
+		<div class="col-md-12">
 			<div class="caidan-tiku" style="margin-bottom: 3%">
 				<%--                <div style="float:left">
                     <input data-bind="click:$root.ClickAdd" type="button" value="新增"  class="chaxun">
@@ -93,10 +139,7 @@
 						<td class="text_center" width="6%">月份</td>
 						<td class="text_center" width="15%">姓名</td>
 						<td class="text_center" width="14%">出差薪资</td>
-						<!-- <td class="text_center" width="10%">年份</td> -->
-						<!-- <td class="text_center" width="18%">邮箱</td>
-                    <td class="text_center" width="6%">工号</td>
-                    <td class="text_center" width="8%">在职状态</td> -->
+						
 						<td class="text_center" width="9%">总工资</td>
 					</thead>
 
@@ -109,7 +152,9 @@
 			
 		</div>
 	</div>
-	
+	<footer>
+    <p><img src="<%=path%>/images/tubiao.png" alt="">上海音达科技实业有限公司</p>
+</footer> 
 
 </body>
 

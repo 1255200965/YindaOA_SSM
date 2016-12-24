@@ -50,7 +50,7 @@
 </head>
 
 <body style="background-color:white;">
-<header>
+<%-- <header>
    <div class="head-cont">
         <div class="head-left fl">
             <img src="<%=path%>/images/logo.png" height="35" width="50" alt="">
@@ -74,7 +74,7 @@
             <a href=""><img src="<%=path%>/images/guanbi.png" height="22" width="22" alt=""></a>
         </div>
     </div>
-</header>
+</header> --%>
 <br/>
 <form id="form"> 
   <div class="caidan-tiku" style="margin-bottom:3%">              
@@ -96,7 +96,8 @@
                 </div>         
     </div>
 </form>
-    <div style="width:100%; height:700px;padding-top:5px;overflow:auto;border:0 solid #000000;">
+ <div style="overflow-x:auto;">
+    <div style="width:4000px; height:700px;padding-top:5px;overflow:auto;border:0 solid #000000;">
             <table  width="100%" border="1" cellspacing="0" cellpadding="0" class="table-1"  >
                 <thead class="table-1-tou">
                 <td class="text_center" width="3%">分公司</td>
@@ -167,9 +168,16 @@
             </table>
             <%-- <jsp:include page="./commons/page.jsp"></jsp:include> --%>
      </div>
-<footer>
-    <p><img src="<%=path%>/images/tubiao.png" alt="">上海音达科技实业有限公司</p>
-</footer> 
+     </div>
+<div class="row-fluid">
+    <div class="footer" data-reactid=".0.a">
+        <div style="margin-bottom:5px;" data-reactid=".0.a.0">
+            <span data-reactid=".0.a.0.0">
+                <img width="11px" src="https://gw.alicdn.com/tps/TB14UngLXXXXXXQapXXXXXXXXXX-22-26.png" data-reactid=".0.a.0.0.0"></span>
+            <span data-reactid=".0.a.0.1">上海音达科技实业有限公司</span></div>
+
+    </div>
+</div>
 <script type="text/javascript">
 $('.form_date').datetimepicker({
     language:  'zh-CN',

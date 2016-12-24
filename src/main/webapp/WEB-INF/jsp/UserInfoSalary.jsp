@@ -273,31 +273,7 @@
 </head>
 <body>
 
-<header>
-    <div class="head-cont">
-        <div class="head-left fl">
-            <img src="../images/logo.png" height="35" width="50" alt="">
-            人事管理系统
-        </div>
-        <div class="head-nav fl" id="h-nav">
-            <ul>
-                <li><a data-bind="attr: { href: '<%=basePath%>ExcelStaffInfo/homePage.do'}">人员导入</a></li>
-                <li><a  data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">通讯录</a></li>
-                <li><a  data-bind="attr: { href: '<%=basePath%>Import/navigator.do'}">审批数据导入</a></li>
-                <li><a data-bind="attr: { href: '<%=basePath%>userinfo/test.do'}">工资查询</a></li>
-                <li><a class="active" data-bind="attr: { href: '<%=basePath%>userinfo/querys.do'}">个人工资明细</a></li>
-                <li><a href="<%=basePath%>toAskForLeave.do">请假明细</a>
-                <li><a href="<%=basePath%>toOverTime.do">加班明细</a>
-                <li><a href="<%=basePath%>toItemChange.do">项目变更</a>
-                <li><a href="<%=basePath%>toSocialSecurity.do">社保明细查看</a>
-            </ul>
-        </div>
-        <div class="head-right fl">
-            欢迎您！管理员&nbsp;&nbsp;&nbsp;
-            <a href=""><img src="../images/guanbi.png" height="22" width="22" alt=""></a>
-        </div>
-    </div>
-</header>
+
 <div class="row-fluid c_box" style="">
     <div class="col-md-2 c_left_box" >
         <div style="margin-top:3%"></div>

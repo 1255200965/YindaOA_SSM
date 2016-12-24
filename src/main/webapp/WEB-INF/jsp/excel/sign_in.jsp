@@ -13,7 +13,7 @@
 
 <body>
 
-<header>
+<%-- <header>
     <div class="head-cont">
         <div class="head-left fl">
             <img src="../images/logo.png" height="35" width="50" alt="">
@@ -33,7 +33,7 @@
             <a href=""><img src="../images/guanbi.png" height="22" width="22" alt=""></a>
         </div>
     </div>
-</header>
+</header> --%>
 
 <div class="content">
     <div class="cont-tit">

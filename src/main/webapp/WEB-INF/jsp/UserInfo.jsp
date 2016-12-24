@@ -347,34 +347,9 @@
 
     </script>
 </head>
-<body>
+<body >
 
-        <header>
-            <div class="head-cont">
-                <div class="head-left fl">
-                    <img src="<%=path%>/images/logo.png" height="35" width="50" alt="">
-                    人事管理系统
-                </div>
-                <div class="head-nav fl" id="h-nav">
-                    <ul>
-                        <li><a data-bind="attr: { href: '<%=basePath%>ExcelStaffInfo/homePage.do'}">人员导入</a></li>
-                        <li><a class="active" data-bind="attr: { href: '<%=basePath%>userinfo/testMethod.do'}">通讯录</a></li>
-                        <li><a  data-bind="attr: { href: '<%=basePath%>Import/navigator.do'}">审批数据导入</a></li>
-                        <li><a data-bind="attr: { href: '<%=basePath%>userinfo/test.do'}">工资查询</a></li>
-                        <li><a data-bind="attr: { href: '<%=basePath%>userinfo/querys.do'}">个人工资明细</a></li>
-                        <li><a href="<%=basePath%>toAskForLeave.do">请假明细</a>
-                        <li><a href="<%=basePath%>toOverTime.do">加班明细</a>
-                        <li><a href="<%=basePath%>attendance_search.do">考勤导出</a>
-                        <li><a href="<%=basePath%>toSocialSecurity.do">社保明细查看</a>
-                    </ul>
-                </div>
-                <div class="head-right fl">
-                    欢迎您！管理员&nbsp;&nbsp;&nbsp;
-                    <a href=""><img src="<%=path%>/images/guanbi.png" height="22" width="22" alt=""></a>
-                </div>
-            </div>
-        </header>
-    <div class="row-fluid c_box" style="">
+	<div class="row-fluid c_box" style="">
         <div class="col-md-2 c_left_box" >
             <div style="margin-top:3%"></div>
             <div id="tree" style="overflow:auto;height:800px;"></div>
@@ -439,18 +414,12 @@
 
                 </tr>
                 </tbody>
-            </table></div>
-
-        <%--<div align="center" style="font-size:12px">--%>
-        <%--<p>	                <span class="STYLE33">当前是[第  ${currPage}&nbsp;页 / 共有&nbsp;${totalPage}<span class="STYLE7">&nbsp;</span>页]</span>--%>
-        <%--<span class="STYLE15"><span class="STYLE20"><a href="javascript:submitByPage(1)">首页</a>--%>
-        <%--<a href="javascript:submitByPage(${currPage -1  < 1? 1: currPage-1})">上一页</a>--%>
-        <%--<a href="javascript:submitByPage(${currPage+1> totalPage? totalPage: currPage+1 })">下一页</a>--%>
-        <%--<a href="javascript:submitByPage(${totalPage})">末页 </a></span></span> </p>--%>
-        <%--</div>--%>
+            </table>
+            </div>
     </div>
-</div>
-<div class="row-fluid">
+    </div>
+
+<div class="row-fluid" height="20px">
     <div class="footer" data-reactid=".0.a">
         <div style="margin-bottom:5px;" data-reactid=".0.a.0">
             <span data-reactid=".0.a.0.0">
@@ -459,8 +428,6 @@
 
     </div>
 </div>
-<%--</div>--%>
-<!-- Button trigger modal -->
 <button type="button" id="model1" style="display: none" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
     modal
 </button>

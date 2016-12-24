@@ -50,32 +50,7 @@
 </head>
 
 <body style="background-color:white;">
-<header>
-   <div class="head-cont">
-        <div class="head-left fl">
-            <img src="<%=path%>/images/logo.png" height="35" width="50" alt="">
-            人事管理系统
-        </div>
-        <div class="head-nav fl" id="h-nav">
-            <ul>
-                <li><a href="<%=path%>/ExcelStaffInfo/homePage.do">人员导入</a></li>
-                <li><a href="<%=path%>/userinfo/testMethod.do">通讯录</a></li>
-                <li><a href="<%=path%>/Import/navigator.do">审批数据导入</a></li>
-                <li><a href="<%=path%>/userinfo/test.do">工资查询</a></li>
-                <li><a href="<%=path%>/userinfo/querys.do">个人工资明细</a></li>
-                <li><a href="<%=path%>/toAskForLeave.do">请假明细</a>
-                <li><a class="active" href="<%=path%>/toOverTime.do">加班明细</a>
-                <li><a href="<%=path%>/toItemChange.do">项目变更</a>
-                <li><a href="<%=path%>/toSocialSecurity.do">社保明细查看</a>
-                
-            </ul>
-        </div>
-        <div class="head-right fr">
-            欢迎您！管理员&nbsp;&nbsp;&nbsp;
-            <a href=""><img src="<%=path%>/images/guanbi.png" height="22" width="22" alt=""></a>
-        </div>
-    </div>
-</header>
+
 <br/>
 <form id="form"> 
   <div class="caidan-tiku" style="margin-bottom:3%">              

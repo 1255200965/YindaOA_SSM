@@ -39,11 +39,7 @@
         .content a:nth-child(5){background:#F5684A;}
         .content a:nth-child(6){background:#7CD33A;}
         .content .mod{margin:0 auto;width:750px;overflow:hidden;}
-        /*        .content ul{overflow: hidden;margin-left:80px;margin-bottom:30px;}
-                .content ul li{float:left;width:190px;height: 150px;background: purple;margin:30px;text-align: center;border-radius:20px;color:#fff;line-height: 150px;}
-                .content ul li:hover{cursor: pointer;}
-                .content ul li a{color:#fff;}*/
-
+        
         footer{background:#e7e8eb;padding:50px 0;}
         footer img{width:14px;display:inline-block;vertical-align: middle;}
         footer p{text-align: center;color:#888;font-size:14px;}
@@ -58,7 +54,7 @@
     </script>
 </head>
 <body>
-    <header>
+   <%--  <header>
         <div class="head-cont">
             <div class="head-left fl">
                 <img src="../images/logo.png" height="35" width="50" alt="">
@@ -82,9 +78,9 @@
                 <a href=""><img src="../images/guanbi.png" height="22" width="22" alt=""></a>
             </div>
         </div>
-    </header>
+    </header> --%>
 
-<div class="content">
+<%-- <div class="content">
     <div class="mod">
         <a data-bind="attr: { href: '<%=basePath%>AskLeaveExcel/homePage.do'}"><img src="../images/icon01.png" alt=""><p>请假申请</p></a>
         <a data-bind="attr: { href: '<%=basePath%>OvertimeExcel/homePage.do'}"><img src="../images/icon02.png" alt=""><p>加班申请</p></a>
@@ -94,7 +90,7 @@
         <a data-bind="attr: { href: '<%=basePath%>ExcelSocialSecurityInfo/homePage.do'}"><img src="../images/icon02.png" alt=""><p>社保信息导入</p></a>
     </div>
 
-</div>
+</div> --%>
 
 <footer>
     <p><img src="../images/tubiao.png" alt="">上海音达科技实业有限公司</p>

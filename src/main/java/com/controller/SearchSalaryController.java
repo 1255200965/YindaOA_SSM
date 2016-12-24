@@ -49,7 +49,7 @@ public class SearchSalaryController {
         YoUserinfosalaryExample.Criteria criteria1 = example.createCriteria();
         if (user.getName()!="") criteria1.andNameEqualTo(user.getName());
         if (user.getSalarydate()!="") criteria1.andSalarydateEqualTo(user.getSalarydate());
-        if (user.getUserid()!="") criteria1.andSalaryidEqualTo(user.getSalaryid());
+        if (user.getSalaryid()!="") criteria1.andSalaryidEqualTo(user.getSalaryid());
         List<YoUserinfosalary> list = userInfoService.selectByExample(example);
 
         Map<String,Object> map = new HashMap<String,Object>();
@@ -69,13 +69,13 @@ public class SearchSalaryController {
         Map<String,Object> map = new HashMap<String,Object>();
         //重新计算工资
         if (totalSum.getTaskbaseadd() == null) {
-            totalSum.setTaskbaseadd(0.0);
+            totalSum.setTaskbaseadd(totalSum.getTasksalary());
         }
         if (totalSum.getTimebaseadd() == null) {
-            totalSum.setTimebaseadd(0.0);
+            totalSum.setTimebaseadd(totalSum.getTimesalary());
         }
         //totalSum.setSubtotal(totalSum.getAttendancesalary() + totalSum.getLeavesalary() + totalSum.getAllowance() + totalSum.getWorksalary() + totalSum.getTrafficsalary());
-        totalSum.setTotalsalary(totalSum.getSubtotal() - totalSum.getSocialdecase() + totalSum.getTimesalary() + totalSum.getTasksalary() + totalSum.getUserbonus() + totalSum.getTimebaseadd() + totalSum.getTaskbaseadd());
+        totalSum.setTotalsalary(totalSum.getSubtotal() - totalSum.getSocialdecase()  + totalSum.getUserbonus() + totalSum.getTimebaseadd() + totalSum.getTaskbaseadd());
         totalSum.setRealsalary(totalSum.getTotalsalary() - totalSum.getTax());
 
         int result = userInfoService.updateByUserSalary(totalSum);

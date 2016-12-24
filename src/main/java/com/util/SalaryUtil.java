@@ -174,10 +174,14 @@ public class SalaryUtil {
             today = updateDateInfo(userid,workDate,workMonth,today);
             today = updateAttendance(userid,workDate,today);
             today = updateLeave(userid,workDate,today);
+            today = updateOverwork(userid,workDate,today);
             today = updateEffective(userid,workDate,today);
             today = updateEvection(userid,workDate,today);
             today = updateTimebase(userid,workDate,today);
+
+            //如果是在职区间
             insertORupdate(today);//插入或更新
+
             workDate = getNext(nowyear, nowMonth, l++);
         }
 
@@ -193,6 +197,7 @@ public class SalaryUtil {
         for(StaffInfo user: userlist) {
             //String userid = user.getStaffUserId();
             //每个人每个月的工资
+            //if (!user.getStaffUserId().equals("062201111627694277")) continue;
             generateSalaryByMonth(nowyear,nowMonth,user);
         }
 
@@ -345,6 +350,23 @@ public class SalaryUtil {
 
             //如果是休息日就要看签到
             if (salaryItem.getDatetype().equals("休")){
+                YoSignInExample siExample = new YoSignInExample();
+                YoSignInExample.Criteria criteria1 = siExample.createCriteria();
+                criteria1.andSiStaffIdEqualTo(user.getStaffId());
+                criteria1.andSiDateEqualTo(workDate);
+                List<YoSignIn> silist = userSighInService.selectByExample(siExample);
+                if (0 == silist.size()) {
+                    //当天没有出勤
+                    salaryItem.setAttendance("0");
+
+                    salaryItem.setWorkAddress("");
+                } else {
+                    salaryItem.setAttendance("1");
+
+                    //当天打卡地
+                    salaryItem.setWorkAddress(silist.get(0).getSiCompleteAddress());
+
+                }
 
             }
         } catch (Exception e){
@@ -387,6 +409,8 @@ public class SalaryUtil {
      */
     public YoSalary updateOverwork(StaffInfo user, String workDate , YoSalary salaryItem) {
 
+        salaryItem.setWorkovertime("0");
+        salaryItem.setWorksalary(0.0);
         return salaryItem;
     }
     /**
@@ -418,7 +442,8 @@ public class SalaryUtil {
      */
     public YoSalary updateTimebase(StaffInfo user, String workDate , YoSalary salaryItem) {
         //timebase奖金,今天是真实出勤日，人在对应项目中
-        if (!user.getYoOrder().isEmpty() && user.getYoOrder().equals("Timebase") && !salaryItem.getRealityattendance().equals("0")){
+        //if (!user.getYoOrder().isEmpty() && user.getYoOrder().equals("Timebase") && !salaryItem.getRealityattendance().equals("0")){
+        if (user.getYoOrder()!= null && user.getYoOrder().equals("Timebase") && !salaryItem.getRealityattendance().equals("0")){
             //按技术等级发奖金
             salaryItem.setTimesalary(callYI(user.getYindaIdentify()));
         } else salaryItem.setTimesalary(0.0);
@@ -431,13 +456,16 @@ public class SalaryUtil {
         //处理出差,签到地点与base地是否匹配,是否有打卡，是否要算加班费，是否是指定合同FDS
         String workaddress = salaryItem.getWorkAddress();
         String address = user.getOrdinaryAddress().trim();
-        if (!salaryItem.getRealityattendance().equals("0") && !user.getComment2().isEmpty() && !user.getComment2().equals("否") && checkContract(user.getContractType()) && !address.isEmpty() && !workaddress.isEmpty() && !workaddress.substring(0,2).contains(address)){
+        //if (!salaryItem.getRealityattendance().equals("0") && !user.getComment2().isEmpty() && !user.getComment2().equals("否") && checkContract(user.getContractType()) && !address.isEmpty() && !workaddress.isEmpty() && !workaddress.substring(0,2).contains(address)){
+        if (!salaryItem.getRealityattendance().equals("0") && user.getComment2()!=null && !user.getComment2().equals("否") && checkContract(user.getContractType()) && address!=null && workaddress!=null && workaddress.length()>1 && !workaddress.substring(0,2).contains(address)){
+
                 salaryItem.setEvection("1");
                 salaryItem.setAllowance(16.0);
             } else {
                 salaryItem.setEvection("0");
                 salaryItem.setAllowance(16.0);
             }
+
 
         return salaryItem;
     }
@@ -451,7 +479,7 @@ public class SalaryUtil {
         try{
             YoUserinfosalaryExample Example = new YoUserinfosalaryExample();
             YoUserinfosalaryExample.Criteria criteria1 = Example.createCriteria();
-            criteria1.andDateEqualTo(salaryItem.getDate());
+            criteria1.andSalarydateEqualTo(salaryItem.getSalarydate());
             criteria1.andUseridEqualTo(salaryItem.getUserid());
             List<YoUserinfosalary> qlist = userinfoSalaryService.selectByExample(Example);
             if (qlist.size() != 0) {
@@ -497,6 +525,8 @@ public class SalaryUtil {
         String workMonth = "" + nowyear + '-' + nowMonth;
         YoUserinfosalary totalSum = new YoUserinfosalary();
         totalSum.setUserid(user.getStaffUserId());
+        totalSum.setName(user.getName());
+        totalSum.setDepartment(user.getDepartment());
         totalSum.setSalaryid(user.getStaffId());
         totalSum.setSalarydate(workMonth);
         totalSum.setDatetype("0");
@@ -509,9 +539,10 @@ public class SalaryUtil {
         totalSum.setEvection("0");
         totalSum.setAllowance(0.0);
         totalSum.setTimesalary(0.0);
+        totalSum.setTasksalary(0.0);
         totalSum.setEffectiveattendance("0");
         totalSum.setRealityattendance("0");
-
+        totalSum.setUserbonus(0.0);
         totalSum.setSocialdecase(0.0);
         totalSum.setTax(0.0);
 
@@ -604,7 +635,7 @@ public class SalaryUtil {
             //把总工资插入到工资表中
 
             totalSum.setSubtotal(totalSum.getAttendancesalary() + totalSum.getLeavesalary() + totalSum.getAllowance() + totalSum.getWorksalary() + totalSum.getTrafficsalary());
-            totalSum.setTotalsalary(totalSum.getSubtotal() - totalSum.getSocialdecase() + totalSum.getTimesalary() + totalSum.getTasksalary() + totalSum.getUserbonus() + totalSum.getTimebaseadd() + totalSum.getTaskbaseadd());
+            totalSum.setTotalsalary(totalSum.getSubtotal() - totalSum.getSocialdecase() + totalSum.getUserbonus() + totalSum.getTimebaseadd() + totalSum.getTaskbaseadd());
             totalSum.setRealsalary(totalSum.getTotalsalary() - totalSum.getTax());
 
             insertORupdateTotal(totalSum);

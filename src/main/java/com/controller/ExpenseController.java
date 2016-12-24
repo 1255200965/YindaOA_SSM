@@ -176,7 +176,7 @@ public class ExpenseController {
             ddMessage.setText(text);
             ddMessage.setTitle("报销");
             ddMessage.setToParty("");
-            ddMessage.setToUser("07022352451246847");
+            ddMessage.setToUser(toUser);
             DDSendMessageUtil.sendMessage(ddMessage);
         	/**推送消息给管理员*/
             //返回操作状态信息
@@ -283,7 +283,7 @@ public class ExpenseController {
             ddMessage.setText(text);
             ddMessage.setTitle("报销");
             ddMessage.setToParty("");
-            ddMessage.setToUser("07022352451246847");
+            ddMessage.setToUser(toUser);
             DDSendMessageUtil.sendMessage(ddMessage);
         	/**推送消息给管理员*/
 	    	return "redirect:toExpense_bus.do?data="+"success";
@@ -421,7 +421,7 @@ public class ExpenseController {
             ddMessage.setText(text);
             ddMessage.setTitle("报销");
             ddMessage.setToParty("");
-            ddMessage.setToUser("07022352451246847");
+            ddMessage.setToUser(toUser);
             DDSendMessageUtil.sendMessage(ddMessage);
             /*****推送消息*****/
     		return "redirect:toExpense_hotel.do?data=success";

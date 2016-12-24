@@ -277,7 +277,7 @@ $(function(){
     });
 
     dd.error(function(err) {
-        alert('dd error: ' + JSON.stringify(err));
+        //alert('dd error: ' + JSON.stringify(err));
     });
     //获取个人信息
     function getUserInfo(){

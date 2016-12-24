@@ -13,31 +13,6 @@
 
 <body>
 
-<header>
-    <div class="head-cont">
-        <div class="head-left fl">
-            <img src="../images/logo.png" height="35" width="50" alt="">
-            人事管理系统
-        </div>
-        <div class="head-nav fl" id="h-nav">
-            <ul>
-                <li><a class="active" href="${ctx}/ExcelStaffInfo/homePage.do">人员导入</a></li>
-                <li><a href="${ctx}/userinfo/testMethod.do">通讯录</a></li>
-                <li><a href="${ctx}/Import/navigator.do">审批数据导入</a></li>
-                <li><a href="${ctx}/userinfo/test.do">工资查询</a></li>
-                <li><a href="${ctx}/userinfo/querys.do">个人工资明细</a></li>
-                <li><a href="${ctx}/toAskForLeave.do">请假明细</a>
-                <li><a href="${ctx}/toOverTime.do">加班明细</a>
-                <li><a href="${ctx}/toItemChange.do">项目变更</a>
-                <li><a href="${ctx}/toSocialSecurity.do">社保明细查看</a>
-            </ul>
-        </div>
-        <div class="head-right fr">
-            欢迎您！管理员&nbsp;&nbsp;&nbsp;
-            <a href=""><img src="../images/guanbi.png" height="22" width="22" alt=""></a>
-        </div>
-    </div>
-</header>
 
 <div class="content">
     <div class="cont-tit">
@@ -80,7 +55,7 @@
 
 </div>
 
-<footer>
+<footer sthle="height:100px;">
     <p><img src="../images/tubiao.png" alt="">上海音达科技实业有限公司</p>
 </footer>
 
