@@ -428,7 +428,7 @@ public class SalaryUtil {
         if (!salaryItem.getLeavetype().equals("0"))
         {
             //如果有请假，实际算缺勤出勤，今天是休息日，看签到
-            salaryItem.setEffectiveAttendance("0");
+            salaryItem.setRealityattendance("0");
         }
         //有效工资-通过有效出勤计算
         if (!salaryItem.getEffectiveAttendance().equals("0") ){
