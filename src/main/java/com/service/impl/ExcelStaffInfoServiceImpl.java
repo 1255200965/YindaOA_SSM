@@ -146,11 +146,9 @@ public class ExcelStaffInfoServiceImpl implements IExcelStaffInfoService {
                 }
 
                 // 第5步，判断对象中的staffUserId是否为空。如果为空的话，就先插入钉钉并获得一个
-                String staffUserId = staffInfo.getStaffUserId();
-                if (staffUserId == null || staffUserId.equals("")) {
+                if (staffInfo.getStaffUserId() == null || staffInfo.getStaffUserId().equals("")) {
                     try {
-                        staffUserId = createUser(staffInfo);
-                        staffInfo.setStaffUserId(staffUserId);
+                        staffInfo.setStaffUserId(createUser(staffInfo));
                     } catch (Exception e) {
                         // 如果异常直接跳出循环
                         Map<String, String> errorMap = new HashMap<String, String>();
@@ -165,7 +163,7 @@ public class ExcelStaffInfoServiceImpl implements IExcelStaffInfoService {
                 }
 
                 // 第6步，根据staffUserId在数据库中查询是否有该员工。如果有，则进行选择更新操作
-                if (staffInfoMapper.selectByPrimaryKey(staffUserId) != null) {
+                if (staffInfoMapper.selectByPrimaryKey(staffInfo.getStaffUserId()) != null) {
                     try {
                         staffInfoMapper.updateByPrimaryKeySelective(staffInfo);
                     } catch (Exception e) {
@@ -207,8 +205,7 @@ public class ExcelStaffInfoServiceImpl implements IExcelStaffInfoService {
                 if (list.size() > 0){
                     // 由于不再需要读写该对象以及使用其进行更新，于是对之进行复用！
                     staffInfo = list.get(0);
-                    staffUserId = staffInfo.getStaffUserId();
-                    staffInfoMapper.deleteByPrimaryKey(staffUserId);
+                    staffInfoMapper.deleteByPrimaryKey(staffInfo.getStaffUserId());
                 }
 
                 // 到了这一步，说明插入或更新成功，数目自加！
