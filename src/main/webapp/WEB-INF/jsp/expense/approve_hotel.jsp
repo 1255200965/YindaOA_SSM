@@ -24,7 +24,7 @@
       			<label class="weui_label"><b>住宿原因</b></label>
    			 </div>
     	 <div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder=""  name="reason" value="${expenseApplayHotel.reason }"  readonly>
+     		<span>${expenseApplayHotel.reason }</span>
      		<input class="weui_input" type="text" placeholder=""  name="id" value="${expenseApplayHotel.id }"  readonly style="display:none;">
    		 </div>
      	</div>
@@ -34,21 +34,21 @@
       			<label class="weui_label"><b>旅馆名称</b></label>
    			 </div>
     	<div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder=""  name="hotelName" value="${expenseApplayHotel.hotelName }" readonly>
+     		<span>${expenseApplayHotel.hotelName }</span>
    		 </div>
    		 
      	</div>		
   		 <div class="weui_cell ">
   		    <div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>住宿日期</b></label></div>
     		<div class="weui_cell_ft weui_cell_primary">
-     		   <input class="weui_input" type="text" placeholder=""  name="startTime" value="${expenseApplayHotel.startTime }" readonly>
+     		   <span>${expenseApplayHotel.startTime }</span>
    		    </div>
   		 </div>
   		
   	    <div class="weui_cell ">
   		    <div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>离店日期</b></label></div>
     		<div class="weui_cell_ft weui_cell_primary">
-     		   <input class="weui_input" type="text" placeholder=""  name="endTime" value="${expenseApplayHotel.endTime }" readonly>
+     		   <span>${expenseApplayHotel.endTime }</span>
    		    </div>
   		 </div>
   			
@@ -57,7 +57,7 @@
       			<label class="weui_label"><b>金&nbsp;额</b></label>
    			 </div>
     	<div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder=""  name="moneyCost"  value="${expenseApplayHotel.moneyCost }" readonly>
+     		<span>${expenseApplayHotel.moneyCost }</span>
    		 </div>
    		 
      	</div>
@@ -67,7 +67,7 @@
       			<label class="weui_label"><b>天&nbsp;数</b></label>
    			 </div>
     	<div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder=""  name="daysCost" value="${expenseApplayHotel.daysCost }"  readonly>
+     		<span>${expenseApplayHotel.daysCost }</span>
    		 </div>
    		 
      	</div>
@@ -77,8 +77,7 @@
       			<label class="weui_label"><b>说&nbsp;明</b></label>
    			 </div>
     	<div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder=""  name="detailExplain" value="${expenseApplayHotel.detailExplain}"  readonly>
-     		<input class="weui_input" type="text" placeholder=""  name="imageUrl" value="${expenseApplayHotel.imageUrl }" readonly style="display:none;">
+     		<span>${expenseApplayHotel.detailExplain}</span>	
    		 </div>
    		 
      	</div>
@@ -92,9 +91,10 @@
             <input class="weui_uploader_input" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" multiple="">
   	     </div>
   	     </div> -->
-        <div class="weui-row">
+        <div class="weui-row" id="flag">
 			<div class="weui-col-10"></div>
-			<div class="weui-col-60" id="flag"><a onclick="approve_hotel_update();" class="weui_btn weui_btn_primary" >通过</a></div>
+			<div class="weui-col-40" ><a onclick="approve_hotel_update('agree');" class="weui_btn weui_btn_mini weui_btn_primary" >通过</a></div>
+			<div class="weui-col-20" ><a onclick="approve_hotel_update('disagree');" class="weui_btn  weui_btn_mini weui_btn_default" >驳回</a></div>
 			<div class="weui-col-10"></div>
 	    </div> 
 	    
@@ -105,14 +105,15 @@
     <script type="text/javascript">
     var flag="${flag}";
     $(document).ready(function(){
-    	if(flag=="pass"){
+    	if(flag=="hide"){
     		$("#flag").hide();
     	}
     });
-     function approve_hotel_update(){
-    	 $.post("approve_hotel_update.do",$("#form").serialize(),function(data){
+     function approve_hotel_update(data2){
+    	 $.post("approve_hotel_update.do",{"result":data2,"id":$("input[name='id']").val()},function(data){
     		 if(data ==1 ){
-    			 $.alert("审核通过");
+    			 $.alert("操作成功");
+    			 $("#flag").hide();
     		 }else if(data == 0){
     			 $.alert("系统繁忙,请稍后重试");
     		 }

@@ -25,6 +25,9 @@
     <result column="bt_ask_end_time" property="btAskEndTime" jdbcType="VARCHAR" />
     <result column="bt_ask_sustain" property="btAskSustain" jdbcType="VARCHAR" />
     <result column="bt_ask_reason" property="btAskReason" jdbcType="VARCHAR" />
+    <result column="bt_ask_staff_user_id" property="btAskStaffUserId" jdbcType="VARCHAR" />
+    <result column="bt_ask_staff_depart_id" property="btAskStaffDepartId" jdbcType="VARCHAR" />
+    <result column="bt_trip" property="btTrip" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -59,7 +62,8 @@
     bt_sequence_no, bt_approve_no, bt_title, bt_approve_state, bt_approve_result, bt_approve_begin, 
     bt_approve_end, bt_ask_staff_id, bt_ask_staff_name, bt_ask_staff_depart, bt_history_approve_name, 
     bt_approve_record, bt_now_approve_name, bt_cost, bt_detail, bt_aim, bt_start_city, 
-    bt_address, bt_vehicle, bt_ask_begin_time, bt_ask_end_time, bt_ask_sustain, bt_ask_reason
+    bt_address, bt_vehicle, bt_ask_begin_time, bt_ask_end_time, bt_ask_sustain, bt_ask_reason, 
+    bt_ask_staff_user_id, bt_ask_staff_depart_id, bt_trip
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.model.BusinessTripExample" >
     select
@@ -75,6 +79,11 @@
       order by ${orderByClause}
     </if>
   </select>
+   <select id="selectByPropertities" resultMap="BaseResultMap" parameterType="com.model.BusinessTrip">
+   select
+   <include refid="Base_Column_List" />
+   from business_trip
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
@@ -85,11 +94,6 @@
     delete from business_trip
     where bt_sequence_no = #{btSequenceNo,jdbcType=INTEGER}
   </delete>
-  <select id="selectByPropertities" resultMap="BaseResultMap" parameterType="com.model.BusinessTrip">
-   select
-   <include refid="Base_Column_List" />
-   from business_trip
-  </select>
   <insert id="insert" parameterType="com.model.BusinessTrip" >
     insert into business_trip (bt_sequence_no, bt_approve_no, bt_title, 
       bt_approve_state, bt_approve_result, bt_approve_begin, 
@@ -98,7 +102,8 @@
       bt_approve_record, bt_now_approve_name, bt_cost, 
       bt_detail, bt_aim, bt_start_city, 
       bt_address, bt_vehicle, bt_ask_begin_time, 
-      bt_ask_end_time, bt_ask_sustain, bt_ask_reason
+      bt_ask_end_time, bt_ask_sustain, bt_ask_reason, 
+      bt_ask_staff_user_id, bt_ask_staff_depart_id, bt_trip
       )
     values (#{btSequenceNo,jdbcType=INTEGER}, #{btApproveNo,jdbcType=VARCHAR}, #{btTitle,jdbcType=VARCHAR}, 
       #{btApproveState,jdbcType=VARCHAR}, #{btApproveResult,jdbcType=VARCHAR}, #{btApproveBegin,jdbcType=VARCHAR}, 
@@ -107,7 +112,8 @@
       #{btApproveRecord,jdbcType=VARCHAR}, #{btNowApproveName,jdbcType=VARCHAR}, #{btCost,jdbcType=VARCHAR}, 
       #{btDetail,jdbcType=VARCHAR}, #{btAim,jdbcType=VARCHAR}, #{btStartCity,jdbcType=VARCHAR}, 
       #{btAddress,jdbcType=VARCHAR}, #{btVehicle,jdbcType=VARCHAR}, #{btAskBeginTime,jdbcType=VARCHAR}, 
-      #{btAskEndTime,jdbcType=VARCHAR}, #{btAskSustain,jdbcType=VARCHAR}, #{btAskReason,jdbcType=VARCHAR}
+      #{btAskEndTime,jdbcType=VARCHAR}, #{btAskSustain,jdbcType=VARCHAR}, #{btAskReason,jdbcType=VARCHAR}, 
+      #{btAskStaffUserId,jdbcType=VARCHAR}, #{btAskStaffDepartId,jdbcType=VARCHAR}, #{btTrip,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.model.BusinessTrip" >
@@ -182,6 +188,15 @@
       <if test="btAskReason != null" >
         bt_ask_reason,
       </if>
+      <if test="btAskStaffUserId != null" >
+        bt_ask_staff_user_id,
+      </if>
+      <if test="btAskStaffDepartId != null" >
+        bt_ask_staff_depart_id,
+      </if>
+      <if test="btTrip != null" >
+        bt_trip,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="btSequenceNo != null" >
@@ -252,6 +267,15 @@
       </if>
       <if test="btAskReason != null" >
         #{btAskReason,jdbcType=VARCHAR},
+      </if>
+      <if test="btAskStaffUserId != null" >
+        #{btAskStaffUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="btAskStaffDepartId != null" >
+        #{btAskStaffDepartId,jdbcType=VARCHAR},
+      </if>
+      <if test="btTrip != null" >
+        #{btTrip,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -324,6 +348,15 @@
       <if test="btAskReason != null" >
         bt_ask_reason = #{btAskReason,jdbcType=VARCHAR},
       </if>
+      <if test="btAskStaffUserId != null" >
+        bt_ask_staff_user_id = #{btAskStaffUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="btAskStaffDepartId != null" >
+        bt_ask_staff_depart_id = #{btAskStaffDepartId,jdbcType=VARCHAR},
+      </if>
+      <if test="btTrip != null" >
+        bt_trip = #{btTrip,jdbcType=VARCHAR},
+      </if>
     </set>
     where bt_sequence_no = #{btSequenceNo,jdbcType=INTEGER}
   </update>
@@ -350,7 +383,10 @@
       bt_ask_begin_time = #{btAskBeginTime,jdbcType=VARCHAR},
       bt_ask_end_time = #{btAskEndTime,jdbcType=VARCHAR},
       bt_ask_sustain = #{btAskSustain,jdbcType=VARCHAR},
-      bt_ask_reason = #{btAskReason,jdbcType=VARCHAR}
+      bt_ask_reason = #{btAskReason,jdbcType=VARCHAR},
+      bt_ask_staff_user_id = #{btAskStaffUserId,jdbcType=VARCHAR},
+      bt_ask_staff_depart_id = #{btAskStaffDepartId,jdbcType=VARCHAR},
+      bt_trip = #{btTrip,jdbcType=VARCHAR}
     where bt_sequence_no = #{btSequenceNo,jdbcType=INTEGER}
   </update>
 </mapper>

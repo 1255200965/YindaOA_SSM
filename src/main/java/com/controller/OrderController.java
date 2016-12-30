@@ -1,5 +1,7 @@
 package com.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -92,10 +94,18 @@ public class OrderController {
 		//从数据库中获得该员工的所有信息
 		StaffInfo staffInfo= iStaffInfoService.selectStaffByID(staffUserId);
 		//在当前回话session中存储相关信息
+		String staffId ="99999";
+		String user_staff_id = "071536130021650043";
+		String department ="创新事业部";
+		String username ="叶祥磊";
+//		request.getSession().setAttribute(GlobalConstant.user_staffId, staffId);
+//		request.getSession().setAttribute(GlobalConstant.user_department, department);
+//		request.getSession().setAttribute(GlobalConstant.user_staff_user_id,user_staff_id);
+//		request.getSession().setAttribute(GlobalConstant.user_name,username);
 		request.getSession().setAttribute(GlobalConstant.user_staffId, staffInfo.getStaffId());
 		request.getSession().setAttribute(GlobalConstant.user_department, staffInfo.getDepartment());
 		request.getSession().setAttribute(GlobalConstant.user_staff_user_id,staffInfo.getStaffUserId());
-		request.getSession().setAttribute(GlobalConstant.user_name,staffInfo.getName());		
+		request.getSession().setAttribute(GlobalConstant.user_name,staffInfo.getName());
 		
 	}
 	
@@ -129,10 +139,35 @@ public class OrderController {
 	 */
 	@RequestMapping("/getOrderByDepartmentAndProject.do")
 	@ResponseBody
-	public 	List<YoOrder> getOrderByDepartmentAndProject(String department,String project){		
-		List<YoOrder> orderList= iOrderService.getOrderByDepartmentAndProject(department, project);			
+	public 	List<YoOrder> getOrderByDepartmentAndProject(String department,String project){	
+		
+		List<YoOrder> orderList= iOrderService.getOrderByDepartmentAndProject(department, project);	
 		return orderList;
 	}
+	
+	
+	/**
+	 * 根据项目获取项目下的所有订单
+	 * @return
+	 */
+	@RequestMapping("/getRemarkByOrder.do")
+	@ResponseBody
+	public 	List<String> getRemarkByOrder(YoOrder order){	
+		List<String> remarkList = new ArrayList<String>();
+		List<YoOrder> orderList= iOrderService.getOrderList(order);
+		if(orderList==null||orderList.size()==0){
+			return null;
+		}
+		String remark = orderList.get(0).getBusinessProperty();//数据库字段替换
+		if(remark!=null){
+			if(remark.contains("|")){
+			String [] strList =remark.split("\\|");
+			remarkList =Arrays.asList(strList);
+			}			
+		}
+		return remarkList;
+	}
+	
 	
 	/**
 	 * 订单查询

@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="<%=path%>/stylesheets/weui.css"/>
   <link rel="stylesheet" href="<%=path%>/stylesheets/jquery-weui.css"/>
   <link rel="stylesheet" href="<%=path%>/stylesheets/projectcss.css"/>
-  <title>添加住宿票</title>
+  <title>发起住宿费用报销</title>
  </head>
  <body >
   <form id="form" action="toExpense_hotel_save.do" method="post" enctype="multipart/form-data" onsubmit="return check();">
@@ -131,11 +131,6 @@
 	   var data="<%=data%>";
 	   if(data==null){
 		   
-	   }else if(data == "success"){
-		   $.alert("提交成功,请耐心等待管理员审核");
-		 /* location="toExpense_history_bus.do";  */
-		   window.history.go(-1);
-		/*  window.history.back(-2); */
 	   }else if(data=="fail"){
 		   $.alert("系统繁忙,请稍后重试");
 	   }

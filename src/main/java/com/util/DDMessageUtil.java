@@ -10,10 +10,54 @@ public class DDMessageUtil {
 	//默认为报销信息的推送
 	private String AgentId="55840385";
 	/*private String msgType;*/
+	//点击消息后跳转的页面链接
 	private String messageUrl;
 	private String picUrl;
+	//正文标题
 	private String title;
+	//头部标题
 	private String text;
+	//申请人
+	private String askStaffName;
+	//所在部门
+	private String askStaffDepartment;
+	//申请发送时间
+	private String askTime;
+	//起始地址
+	private String startAddress;
+	//终止地址
+	private String endAddress;
+	//旅馆名称
+	private String hotelName;
+	
+	public String getHotelName() {
+		return hotelName;
+	}
+	public void setHotelName(String hotelName) {
+		this.hotelName = hotelName;
+	}
+	public String getAskStaffName() {
+		return askStaffName;
+	}
+	public void setAskStaffName(String askStaffName) {
+		this.askStaffName = askStaffName;
+	}
+	public String getAskStaffDepartment() {
+		return askStaffDepartment;
+	}
+	public void setAskStaffDepartment(String askStaffDepartment) {
+		this.askStaffDepartment = askStaffDepartment;
+	}
+	
+	public String getAskTime() {
+		return askTime;
+	}
+	public void setAskTime(String askTime) {
+		this.askTime = askTime;
+	}
+	public void setAgentId(String agentId) {
+		AgentId = agentId;
+	}
 	public String getToUser() {
 		return toUser;
 	}
@@ -62,6 +106,18 @@ public class DDMessageUtil {
 	}
 	public void setText(String text) {
 		this.text = text;
+	}
+	public String getStartAddress() {
+		return startAddress;
+	}
+	public void setStartAddress(String startAddress) {
+		this.startAddress = startAddress;
+	}
+	public String getEndAddress() {
+		return endAddress;
+	}
+	public void setEndAddress(String endAddress) {
+		this.endAddress = endAddress;
 	}
 	
 	

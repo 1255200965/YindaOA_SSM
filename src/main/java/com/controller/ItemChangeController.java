@@ -1,14 +1,19 @@
 package com.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import com.service.IItemChangeService;
+import com.service.IOrderChangeService;
 import com.service.IStaffInfoService;
 import com.util.DDMessageUtil;
 import com.util.DDSendMessageUtil;
 import com.util.GlobalConstant;
+import com.util.OrderMessage;
+import com.util.OrderMessageUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,9 +22,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dao.YoItemChangeMapper;
+import com.dao.YoOrderChangeMapper;
 import com.model.StaffInfo;
 import com.model.YoItemChange;
 import com.model.YoItemChangeExample;
+import com.model.YoOrderChange;
 
 
 @Controller
@@ -32,8 +39,15 @@ public class ItemChangeController {
 	@Autowired
 	private DDSendMessageUtil ddSendMessageUtil;
 	@Autowired
+	private OrderMessageUtil orderMessageUtil;
+	@Autowired
 	private  IStaffInfoService iStaffInfoService;
-
+	@Autowired
+    private YoOrderChangeMapper yoOrderChangeMapper;
+	
+	@Autowired
+	private  IOrderChangeService iOrderChangeService;
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	@RequestMapping("/toItemChange.do")
 	public ModelAndView toItemChange(HttpServletRequest request,YoItemChange itemChange){
 		ModelAndView mav = new ModelAndView();
@@ -76,7 +90,7 @@ public class ItemChangeController {
 
 
 	/**
-	 * 获取申请人的所有项目审批列表
+	 * 提交项目变更
 	 */
 	@RequestMapping("/add_ItemChange.do")
 	@ResponseBody
@@ -91,57 +105,75 @@ public class ItemChangeController {
 			String beginTime,
 			String yindaIdentify,
 			String contractType,
+			String remark,
 			HttpServletRequest request){
 
 		String user_staffId =(String) request.getSession().getAttribute(GlobalConstant.user_staffId);
 		String staff_user_id =(String) request.getSession().getAttribute(GlobalConstant.user_staff_user_id);
 		String user_name =(String) request.getSession().getAttribute(GlobalConstant.user_name);
-
-		List <String> now_approveList = ddSendMessageUtil.getApprovers(staff_user_id);
-		YoItemChange itemChange  = new YoItemChange();
-		itemChange.setIcAskStaffId(user_staffId);
-		itemChange.setIcAskStaffDepart(department);
-		itemChange.setIcApproveBegin(beginTime);
-		itemChange.setIcAskStaffName(user_name);
-		itemChange.setIcOutroomWork(outdoor);
-		itemChange.setIcChangeProvince(changeProvince);
-		itemChange.setIcWorkCity(changeCity);
-		itemChange.setIcBusinessProperty(businessProperty);
-		itemChange.setIcChangeItem(project);
-		itemChange.setIcChangeOrder(orderName);
-		itemChange.setIcTitle(user_name+"的"+orderName+"项目变更申请");
-		itemChange.setIcApproveRecord(contractType);//数据库字段暂时顶替
-		itemChange.setIcCost(yindaIdentify);//数据库字段暂时顶替
-		itemChange.setIcNowApproveName(now_approveList.get(0));
-		int i= itemChangeMapper.add(itemChange);
-
+		String assess ="";
+		List <String> approverList = ddSendMessageUtil.getApprovers(staff_user_id);
+		System.out.println("审批人列表"+approverList.toString());
+		String toUser=null;
+		
+		YoOrderChange orderChange  = new YoOrderChange();
+		orderChange.setBusinessProperty(businessProperty);
+		orderChange.setChangeCity(changeCity);
+		orderChange.setChangeProvince(changeProvince);
+		orderChange.setContractType(contractType);
+		orderChange.setDepartment(department);		
+		orderChange.setModifyUser(user_name);
+		orderChange.setOrderName(orderName);
+		orderChange.setOrderRemark(remark);
+		orderChange.setOutdoorJob(outdoor);
+		orderChange.setModifyTime(sdf.format(new Date())+"");
+		orderChange.setYindaIdentify(yindaIdentify);
+		orderChange.setStaffUserId(staff_user_id);
+		orderChange.setStaffId(user_staffId);
+		orderChange.setUsername(user_name);
+		orderChange.setProject(project);
+		//对于挂职在一级部门的员工
+		if(approverList.size() >1){
+		toUser=approverList.get(1);
+		orderChange.setAssess(approverList.get(1)+"|"+approverList.get(0));
+		orderChange.setNowAcess(approverList.get(1));
+		}else{//对于挂职在二级部门下的员工
+			toUser=approverList.get(0);
+			orderChange.setAssess(approverList.get(0));
+			orderChange.setNowAcess(approverList.get(0));
+		}
+		int i= yoOrderChangeMapper.add(orderChange);
+		
 		if(i>0){
-			DDMessageUtil message = new DDMessageUtil();
-
-			message.setMessageUrl("http://121.40.29.241/YindaOA/ItemChange/approve_order_page.do?id="+itemChange.getIcSequenceNo());
+			OrderMessage message = new OrderMessage();
+			message.setMessageUrl("http://121.40.29.241/YindaOA/orderChange/approve_order_page.do?id="+orderChange.getId()+"&staff_user_id="+orderChange.getNowAcess());
 			message.setPicUrl("/cc");
-			message.setToUser("022418113430903564");
+			System.out.println("第一次发送："+orderChange.getNowAcess());
+			message.setToUser(orderChange.getNowAcess());
 			message.setToParty("");
-			message.setTitle(user_name+"的项目审批");
-			message.setText("您好！请查收！");
-			ddSendMessageUtil.sendMessage(message);
-
-
+			message.setTitle(user_name+"的项目变更申请");
+			message.setDepartment(department);
+			message.setOrderName(orderName);
+			message.setProject(project);
+			message.setUsername(user_name);
+			orderMessageUtil.sendMessage(message);
+			//yoOrderChangeMapper.updateByPrimaryKeySelective(orderChange2);			
 			return "success";
 		}else{
 			return "error";
 		}
 
 	}
-	@RequestMapping("/approve_order_page.do")
+/*	@RequestMapping("/approve_order_page.do")
 	public ModelAndView approve_order_page(String id,HttpServletRequest request){
 		ModelAndView mav = new ModelAndView();
-		YoItemChange itemChange =itemChangeMapper.selectByPrimaryKey(Integer.valueOf(id));
-		String approveId =itemChange.getIcNowApproveName();//根据项目审批中查找审批人的ID
-		StaffInfo approve =iStaffInfoService.selectStaffByID(approveId); //根据审批人的ID查找审批人
+		YoOrderChange orderChange =yoOrderChangeMapper.selectByPrimaryKey(Integer.valueOf(id));
+		String approveId =orderChange.getStaffUserId();//根据项目申请中查找申请人的ID
+		StaffInfo approve =iStaffInfoService.selectStaffByID(approveId); //根据申请人的ID查找审批人
 		String approveName = approve.getName();//获取审批人的姓名
-		mav.addObject("itemChange", itemChange);
+		mav.addObject("itemChange", orderChange);
 		mav.addObject("approveName", approveName);
+		mav.addObject("alength", approveName.length());
 		mav.setViewName("/order/approve_order");
 		return mav;
 	}
@@ -177,7 +209,7 @@ public class ItemChangeController {
 		}catch(Exception e){
 			return "error";
 		}
-	}
+	}*/
 
 	@RequestMapping("toItemchange_history.do")
 	public ModelAndView toItemchange_history(HttpServletRequest request){

@@ -2,8 +2,11 @@ package com.util;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.http.client.ClientProtocolException;
@@ -14,6 +17,10 @@ import net.sf.json.JSONObject;
 
 import com.ddSdk.base.OApiException;
 import com.model.DepartmentExample;
+import com.model.ExpenseApplayBus;
+import com.model.ExpenseApplayHotel;
+import com.model.ExpenseApplayTrain;
+import com.model.ExpenseApplySubway;
 import com.service.IDepartmentService;
 import com.service.IStaffInfoService;
 import com.service.impl.StaffInfoServiceImpl;
@@ -34,6 +41,17 @@ public class DDSendMessageUtil {
     private static String baseUrl02="https://oapi.dingtalk.com/message/send?access_token=";
 	//获取部门详情
     private static String baseUrl03="https://oapi.dingtalk.com/department/get?access_token=";
+    /**
+     * 获取当前时间
+     * @return
+     */
+    private static  String getCurrentTimeDate() {
+
+        Date date=new Date();
+        DateFormat format=new SimpleDateFormat("yyyy-MM-dd");
+        String time=format.format(date);
+        return time;
+    }
     /**
 	 * 获取access_token
 	 * @return
@@ -65,8 +83,9 @@ public class DDSendMessageUtil {
      * 推送消息
      * @param message
      */
-    public static void sendMessage(DDMessageUtil message){
-    	String contentJson="{"
+    public static void sendMessage(DDMessageUtil message,String type){
+    	//link消息类型
+    	String contentJson1="{"
 			    +"touser:"+"'"+message.getToUser()+"'"+","
 			    +"toparty:"+"'"+message.getToParty()+"'"+","
 			    +"agentid:"+"'"+message.getAgentId()+"'"+","
@@ -78,20 +97,133 @@ public class DDSendMessageUtil {
 			    + "text:"+"'"+message.getText()+"'"
 			    + "}"
 	    		+ "}"; 
+    	//OA消息类型
+    	String contentJsonSubway = "{"
+				+"touser:"+"'"+message.getToUser()+"'"+","
+				+"toparty:"+"'"+message.getToParty()+"'"+","
+				+"agentid:"+"'"+message.getAgentId()+"'"+","
+				+"msgtype:" +"'oa',"
+				+"oa: "+"{"
+				+  "message_url:"+ "'"+message.getMessageUrl()+"',"
+				+ "head:" +"{"
+				+    "bgcolor:"+ "'FF0000FF',"
+				+     "text: "+"'"+message.getText()+"'"
+				+ "},"
+				+  "body:{" 
+				+      "title:" +"'"+message.getTitle()+"',"
+				+     "form:" +"["
+				+         " {"
+				+            "key: "+"'姓名:',"
+				+            "value:"+ "'"+message.getAskStaffName()+"'"
+				+"},"			
+				+         " {"
+				+            "key: "+"'部门:',"
+				+            "value:"+ "'"+message.getAskStaffDepartment()+"'"
+				+      "},"  
+				+         " {"
+				+            "key: "+"'申请发送时间:',"
+				+            "value:"+ "'"+message.getAskTime()+"'"
+				+      "}" 
+				+" ],"   	          
+				+"}" 
+				+"}" 
+				+"}";
+    	String contentJsonBus = "{"
+				+"touser:"+"'"+message.getToUser()+"'"+","
+				+"toparty:"+"'"+message.getToParty()+"'"+","
+				+"agentid:"+"'"+message.getAgentId()+"'"+","
+				+"msgtype:" +"'oa',"
+				+"oa: "+"{"
+				+  "message_url:"+ "'"+message.getMessageUrl()+"',"
+				+ "head:" +"{"
+				+    "bgcolor:"+ "'FF0000FF',"
+				+     "text: "+"'"+message.getText()+"'"
+				+ "},"
+				+  "body:{" 
+				+      "title:" +"'"+message.getTitle()+"',"
+				+     "form:" +"["
+				+         " {"
+				+            "key: "+"'姓名:',"
+				+            "value:"+ "'"+message.getAskStaffName()+"'"
+				+"},"			
+				+         " {"
+				+            "key: "+"'部门:',"
+				+            "value:"+ "'"+message.getAskStaffDepartment()+"'"
+				+      "}," 
+				+         " {"
+				+            "key: "+"'起始地址:',"
+				+            "value:"+ "'"+message.getStartAddress()+"'"
+				+      "},"
+				+         " {"
+				+            "key: "+"'终点地址:',"
+				+            "value:"+ "'"+message.getEndAddress()+"'"
+				+      "},"
+				+         " {"
+				+            "key: "+"'乘车时间:',"
+				+            "value:"+ "'"+message.getAskTime()+"'"
+				+      "}" 
+				+" ],"   	          
+				+"}" 
+				+"}" 
+				+"}";
+    	String contentJsonHotel = "{"
+				+"touser:"+"'"+message.getToUser()+"'"+","
+				+"toparty:"+"'"+message.getToParty()+"'"+","
+				+"agentid:"+"'"+message.getAgentId()+"'"+","
+				+"msgtype:" +"'oa',"
+				+"oa: "+"{"
+				+  "message_url:"+ "'"+message.getMessageUrl()+"',"
+				+ "head:" +"{"
+				+    "bgcolor:"+ "'FF0000FF',"
+				+     "text: "+"'"+message.getText()+"'"
+				+ "},"
+				+  "body:{" 
+				+      "title:" +"'"+message.getTitle()+"',"
+				+     "form:" +"["
+				+         " {"
+				+            "key: "+"'姓名:',"
+				+            "value:"+ "'"+message.getAskStaffName()+"'"
+				+"},"			
+				+         " {"
+				+            "key: "+"'部门:',"
+				+            "value:"+ "'"+message.getAskStaffDepartment()+"'"
+				+      "}," 
+				+         " {"
+				+            "key: "+"'旅店名称:',"
+				+            "value:"+ "'"+message.getHotelName()+"'"
+				+      "},"
+				+         " {"
+				+            "key: "+"'住店时间:',"
+				+            "value:"+ "'"+message.getAskTime()+"'"
+				+      "},"
+				+" ],"   	          
+				+"}" 
+				+"}" 
+				+"}";
+        String contentJson=null;
+    	if("subway".equals(type)){
+    		contentJson=contentJsonSubway;
+    	}else if("bus".equals(type)){
+    		contentJson = contentJsonBus;
+    	}else if("hotel".equals(type)){
+    		contentJson=contentJsonHotel;
+    	}else{
+    		contentJson=contentJson1;
+    	}
     	System.out.println("contentJson====="+contentJson);
     	try {
 			String access_token = DDSendMessageUtil.getAccess_token();
 			JSONObject json=HttpsUtil.httpPost(DDSendMessageUtil.baseUrl02+access_token,contentJson);
-			System.out.println("发送成功"+json);
+			System.out.println("消息发送成功----->钉钉返回Json"+json);
 		} catch (OApiException e) {
 			e.printStackTrace();
-		}
-    	
+		}  	
     }
     /**
      * 根据当前用户的钉钉ID生成当前审批请求的审批人
      * @param staffUserId 当前用户钉钉ID
      * @return  [二级部门审批人钉钉ID,一级部门审批人钉钉ID]
+     * 对于挂职在二级部门下的员工【二级部门审批人钉钉ID】
      */
     public  List<String> getApprovers(String staffUserId){
     	List<String> approverList=new ArrayList<String>();//需要的审批人信息记录
@@ -148,29 +280,84 @@ public class DDSendMessageUtil {
     	}
     	return managerDDId;
     }
-    public static void main(String []args) throws ClientProtocolException{
-    	/*DDMessageUtil ddMessage = new DDMessageUtil();
-    	ddMessage.setMessageUrl("http://www.baidu.com");
-    	ddMessage.setText("马卫的报销记录");
-    	ddMessage.setTitle("报销");
-    	ddMessage.setPicUrl("123");
-    	ddMessage.setToParty("");
-    	ddMessage.setToUser("07022352451246847");
-    	DDSendMessageUtil.sendMessage(ddMessage);*/
+    /**
+     * 发送火车票报销信息
+     * @param expenseApplayTrain 报销信息
+     * @param id 报销记录数据库主键
+     * @param toUser  被发发送方
+     */
+    public static void sendMessageTrain(ExpenseApplayTrain expenseApplayTrain,int id,String toUser){
+        DDMessageUtil ddMessage = new DDMessageUtil();
+        ddMessage.setMessageUrl(ExpenseApplyResources.approve_Message_URL_TRAIN+id+"&manager="+toUser);
+        ddMessage.setPicUrl(ExpenseApplyResources.approve_Message_picUrl);
+        ddMessage.setText("");
+        ddMessage.setTitle("火车票报销");
+        ddMessage.setToParty("");
+        ddMessage.setToUser(toUser);
+        ddMessage.setAskStaffName(expenseApplayTrain.getStaffName());
+        ddMessage.setAskStaffDepartment(expenseApplayTrain.getStaffDepart());
+        ddMessage.setStartAddress(expenseApplayTrain.getStartAddress());
+        ddMessage.setEndAddress(expenseApplayTrain.getEndAddress());
+        ddMessage.setAskTime(expenseApplayTrain.getStartTime());
+        DDSendMessageUtil.sendMessage(ddMessage,"bus");
+    }
+    /**
+     * 发送大巴车报销信息
+
+     * @param id
+     * @param toUser
+     */
+    public static void sendMessageBus(ExpenseApplayBus expenseApplayBus,int id,String toUser){
+        DDMessageUtil ddMessage = new DDMessageUtil();
+        ddMessage.setMessageUrl(ExpenseApplyResources.approve_Message_URL_BUS+id+"&manager="+toUser);
+        ddMessage.setPicUrl(ExpenseApplyResources.approve_Message_picUrl);
+        ddMessage.setText("");
+        ddMessage.setTitle("大巴车报销申请");
+        ddMessage.setToParty("");
+        ddMessage.setToUser(toUser);
+        ddMessage.setAskStaffName(expenseApplayBus.getStaffName());
+        ddMessage.setAskStaffDepartment(expenseApplayBus.getStaffDepart());
+        ddMessage.setAskTime(expenseApplayBus.getBeginTime());
+        ddMessage.setStartAddress(expenseApplayBus.getStartAddress());
+        ddMessage.setEndAddress(expenseApplayBus.getDestination());
+        DDSendMessageUtil.sendMessage(ddMessage,"bus");
+    }
+    /**
+     * 发送大巴车报销信息
+
+     * @param id
+     * @param toUser
+     */
+    public static void sendMessageHotel(ExpenseApplayHotel expenseApplayHotel,int id,String toUser){
     	
-    	//商务部----Manager:10389 employer:15249
-    	//核心网实业部---manager:10305
-     	DDSendMessageUtil ddSendMessage = new DDSendMessageUtil();
-    	String strList = null;
-		try {
-			strList = ddSendMessage.getManagerDDId("4195154");
-			 System.out.println("管理员DDID==="+strList);	
-		} catch (ParseException | IOException
-				| URISyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        		
-    	
+        DDMessageUtil ddMessage = new DDMessageUtil();
+        ddMessage.setMessageUrl(ExpenseApplyResources.approve_Message_URL_HOTEL+id+"&manager="+toUser);
+        ddMessage.setPicUrl(ExpenseApplyResources.approve_Message_picUrl);
+        ddMessage.setText("");
+        ddMessage.setTitle("住宿费用报销申请");
+        ddMessage.setToParty("");
+        ddMessage.setToUser(toUser);
+        ddMessage.setAskStaffName(expenseApplayHotel.getStaffName());
+        ddMessage.setAskStaffDepartment(expenseApplayHotel.getStaffDepart());
+        ddMessage.setHotelName(expenseApplayHotel.getHotelName());
+        ddMessage.setAskTime(expenseApplayHotel.getStartTime());
+        DDSendMessageUtil.sendMessage(ddMessage,"hotel");
+    }
+    /**
+     * 发送地铁公交报销申请
+     * @param id
+     * @param toUser
+     */
+    public static void sendMessageSubway(ExpenseApplySubway subwayApply,int id,String toUser){
+        DDMessageUtil ddMessage = new DDMessageUtil();
+        ddMessage.setMessageUrl(ExpenseApplyResources.approve_Message_URL_SUBWAY+id+"&manager="+toUser);
+        ddMessage.setText("");
+        ddMessage.setTitle("地铁公交报销");
+        ddMessage.setToParty("");
+        ddMessage.setToUser(toUser);
+        ddMessage.setAskStaffName(subwayApply.getAskStaffName());
+        ddMessage.setAskStaffDepartment(subwayApply.getAskStaffDepart());
+        ddMessage.setAskTime(getCurrentTimeDate());
+        DDSendMessageUtil.sendMessage(ddMessage,"subway");
     }
 }

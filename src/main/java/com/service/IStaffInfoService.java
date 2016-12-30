@@ -55,4 +55,6 @@ public interface IStaffInfoService {
      * @return
      */
     List<StaffInfo> getContract_typeInStallInfo(String user_staffId);
+    
+    
 }

@@ -90,8 +90,7 @@
     <div class="weui_cell weui_cell_select">
     <div class="weui_cell_bd weui_cell_primary">
       <select class="weui_select" name="businessProperty" id="businessProperty">
-        <option  value="TimeBase">TimeBase</option>
-        <option value="TaskBase">TaskBase</option>   
+        
       </select>
     </div>
    </div>
@@ -131,14 +130,19 @@
    <div class="weui_cell">
     <div class="weui_cell_hd"><label class="weui_label">变动省份</label></div>
     <div class="weui_cell_bd weui_cell_primary">
-      <input class="weui_input" type="text" placeholder="请输入省份" id="changeProvince" name="changeProvince">
+      <input class="weui_input" type="text" placeholder="请输入省份" id="changeProvince" name="changeProvince" readonly="readonly">
     </div>
   </div>
   
      <div class="weui_cell">
     <div class="weui_cell_hd"><label class="weui_label">变动城市</label></div>
     <div class="weui_cell_bd weui_cell_primary">
-      <input class="weui_input" type="text" placeholder="请输入城市" id="changeCity" name="changeCity">
+     
+    <!--     <select class="weui_select" name="changeCity" placeholder="请输入城市" >
+      
+        
+      </select> -->
+       <input class="weui_input" type="text" placeholder="请输入城市"  name="changeCity" >
     </div>
   </div>
 
@@ -166,7 +170,18 @@
   </div>
 
  
-  
+     <div class="weui_cell weui_vcode">
+    <div class="weui_cell_hd"><label class="weui_label">备注</label></div>
+    <div class="weui_cell_bd weui_cell_primary">
+    <div class="weui_cell weui_cell_select">
+    <div class="weui_cell_bd weui_cell_primary">
+      <select class="weui_select" name="remark" id="remark">
+          
+      </select>
+    </div>
+   </div>
+   </div>
+  </div>
  <!--  <div class="weui_cell">
     <div class="weui_cell_hd"><label for="" class="weui_label" >审批人</label></div>
     <div class="weui_cell_bd weui_cell_primary">
@@ -193,46 +208,7 @@
     	$(document.body).pullToRefreshDone();
     	});
 
-    /*权限验证配置所需的信息 */
-    var config =<%=request.getAttribute("config")%>;
-    //当前用户
-    var nowUser=null;
-    //用户授权码
-    var code=null;
-    /* $(document).ready(function(){
-   	 $.alert(config);
-    }); */
-     //配置钉钉jsapi
-    dd.config({
-        agentId : "38433641", 
-        corpId : config.corpId,
-        timeStamp : config.timeStamp,
-        nonceStr : config.nonceStr,
-        signature : config.signature,
-        jsApiList : [ 'runtime.info', 'biz.contact.choose',
-            'device.notification.confirm', 'device.notification.alert',
-            'device.notification.prompt', 'biz.ding.post',
-            'biz.util.openLink' ]
-    });
 
-   
-    dd.ready(function() {
- 
-        dd.runtime.permission.requestAuthCode({
-            corpId : config.corpId, //请求 code
-            onSuccess : function(info) {
-               //存储用户信息
-               
-               $.post("<%=path%>/order/login.do",{"code":info.code}); //向后台传入code
-               
-            },
-            onFail : function(err) {
-                alert('fail: ' + JSON.stringify(err));
-            }
-        });
-    });
-    
-    
     
     
   
@@ -298,7 +274,7 @@
         	
         	/**项目变动改变订单**/   
         	 $("#project").change(function (){    	
-             	var orderhtml;
+             	var orderhtml ="<option >请选择</option>";
              	var department =$("#department").val();
              	var project =$(this).val();
              	
@@ -318,7 +294,7 @@
         	 
         	 /**部门变动改变订单 **/   
         	 $("#department").change(function (){    	
-              	var orderhtml;
+              	var orderhtml ="<option >请选择</option>";
               	var department =$("#department").val();
               	var project =$("#project").val();
               	
@@ -334,6 +310,46 @@
               	});      	
          	
          });
+        	 
+        	 $("#orderName").change(function (){
+        		 var orderName = $("#orderName").val();
+        		 var  changeCityHTML ="<option >请选择</option>";
+        		 $.post("<%=path%>/orderProperty/getOrderProvince.do",{'orderName':orderName},function (data){
+        			 
+        			 $("#changeProvince").val(data);
+        			 
+        		 })
+        		 
+                 $.post("<%=path%>/orderProperty/getOrderCity.do",{'orderName':orderName},function (data){
+                	 $.each(data, function (n, value) {                
+                		 changeCityHTML = changeCityHTML +"<option value='"+value.orderCity+"'>"+value.orderCity+"</option>";  
+                       });
+        			 $("#changeCity").html(changeCityHTML);
+        			 
+        		 })
+        		 
+        		 var businessPropertyHTML;
+        		    $.post("<%=path%>/orderProperty/getBusinessProperty.do",{'orderName':orderName},function (data){
+                   	 $.each(data, function (n, value) {                
+                   		businessPropertyHTML = businessPropertyHTML +"<option value='"+value+"'>"+value+"</option>";  
+                          });
+           			 $("#businessProperty").html(businessPropertyHTML);
+           			 
+           		 });
+           		 
+           		 var remarkHTML;
+           	    $.post("<%=path%>/order/getRemarkByOrder.do",{'orderName':orderName},function (data){
+                	 $.each(data, function (n, value) { 
+                		
+                		 remarkHTML = remarkHTML +"<option value='"+value+"'>"+value+"</option>";  
+                       });
+        			 $("#remark").html(remarkHTML);
+        			 
+        		 });  
+           		 
+        		 
+        	 });
+        	
 
         });
      
@@ -341,6 +357,23 @@
       
      function subForm()
      {
+    	 var beginTime = $("#datetime-picker").val();
+    	 var changeCity =$("input[name='changeCity']").val();
+    	 var  orderName =$("#orderName").val();
+    	 if(beginTime==null || ""==beginTime){   
+    		
+    		 $.alert("生效日期不能为空！");
+    		 return;
+    	 }
+    	 if(changeCity==null || "" == changeCity){    		 
+    		 $.alert("变动城市不能为空！");
+    		 return;
+    	 }
+    	
+    	 if(orderName==null || ""== orderName || "请选择" == orderName ){    		 
+    		 $.alert("订单不能为空！");
+    		 return;
+    	 }
     	$.post("<%=path%>/ItemChange/add_ItemChange.do",$("#divform").serialize(),function(data){
     		
     		if("success"==data){

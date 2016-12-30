@@ -39,8 +39,9 @@ public class IOrderServiceImpl implements IOrderService{
 		YoOrderExample example = new YoOrderExample();
 		YoOrderExample.Criteria criteria = example.createCriteria();
     	if(order.getOrderNumber()!=null&&!"".equals(order.getOrderNumber())) criteria.andOrderNumberEqualTo(order.getOrderNumber());
-    	if(order.getProject()!=null) criteria.andProjectEqualTo(order.getProject());
-    	if(order.getDepartment()!=null) criteria.andDepartmentEqualTo(order.getDepartment());
+    	if(order.getProject()!=null&&!"".equals(order.getProject())) criteria.andProjectEqualTo(order.getProject());
+    	if(order.getDepartment()!=null&&!"".equals(order.getDepartment())) criteria.andDepartmentEqualTo(order.getDepartment());
+    	if(order.getOrderName()!=null&&!"".equals(order.getOrderName()))criteria.andOrderNameEqualTo(order.getOrderName());
     	List<YoOrder> orderList=yoOrderMapper.selectByExample(example);
     	
     	return orderList;
@@ -53,6 +54,7 @@ public class IOrderServiceImpl implements IOrderService{
 		YoOrderExample.Criteria criteria = example.createCriteria();
     	if(StringUtil.NotBlank(project)) {criteria.andProjectEqualTo(project);}else{return null;};
     	if(StringUtil.NotBlank(department)) {criteria.andDepartmentEqualTo(department);}else{return null;};
+    	criteria.andOrderNumberLike("17"+"%");   	
     	List<YoOrder> orderList=yoOrderMapper.selectByExample(example);
 		return orderList;
 	}

@@ -1,14 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%
 	String path = request.getContextPath();/*获得当前项目的根路径 */
 %>
+
 <!DOCTYPE html>
 <html lang="en">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    
+    <META HTTP-EQUIV="pragma" CONTENT="no-cache">    
+    <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">    
+    <META HTTP-EQUIV="expires" CONTENT="0">    
+  
  <head>
   <link rel="stylesheet" href="<%=path%>/stylesheets/weui.css"/>
   <link rel="stylesheet" href="<%=path%>/stylesheets/jquery-weui.css"/>
@@ -27,6 +34,7 @@
  border-radius:40px; 
  text-align:center;
  line-height:40px;
+ margin-right:20px;
  }
  </style>
  <body >
@@ -47,7 +55,7 @@
     <div class="weui_cell weui_cell_select">
     <div class="weui_cell_bd weui_cell_primary">
       <select class="weui_select" name="department" id="department">
-        <option value="${itemChange.icDepartment}">${itemChange.icAskStaffDepart}</option>
+        <option value="${itemChange.department}">${itemChange.department}</option>
       </select>
     </div>
    </div>
@@ -61,7 +69,7 @@
     <div class="weui_cell weui_cell_select">
     <div class="weui_cell_bd weui_cell_primary">
       <select class="weui_select" name="project" id="project">
-      <option  >${itemChange.icChangeItem}</option>
+      <option  >${itemChange.project}</option>
       </select>
     </div>
    </div>
@@ -76,7 +84,7 @@
     <div class="weui_cell weui_cell_select">
     <div class="weui_cell_bd weui_cell_primary">
       <select class="weui_select" name="orderName" id="orderName">
-        <option >${itemChange.icChangeOrder}</option>
+        <option >${itemChange.orderName}</option>
       </select>
     </div>
    </div>
@@ -90,8 +98,8 @@
     <div class="weui_cell weui_cell_select">
     <div class="weui_cell_bd weui_cell_primary">
       <select class="weui_select" name="businessProperty" id="businessProperty">
-        <option  value="TimeBase" <c:if test="${itemChange.icBusinessProperty=='TimeBase'}">selected='selected'</c:if> >TimeBase</option> 
-        <option value="TaskBase"<c:if test="${itemChange.icBusinessProperty=='TaskBase'}">selected='selected'</c:if> >TaskBase</option>   
+        <option  value="${itemChange.businessProperty}"> ${itemChange.businessProperty}</option> 
+        
       </select>
     </div>
    </div>
@@ -106,7 +114,9 @@
     <div class="weui_cell weui_cell_select">
     <div class="weui_cell_bd weui_cell_primary">
       <select class="weui_select" name="yindaIdentify" id="yindaIdentify">
-       <option >${itemChange.icCost}</option>
+      <c:forEach items="${identifyList}" var="staff"> 
+       <option value="${staff.yindaIdentify}"  <c:if test="${staff.yindaIdentify eq itemChange.yindaIdentify }">selected="selected"</c:if>>${staff.yindaIdentify} </option>
+      </c:forEach>
       </select>
     </div>
    </div>
@@ -119,7 +129,7 @@
     <div class="weui_cell weui_cell_select">
     <div class="weui_cell_bd weui_cell_primary">
       <select class="weui_select" name="contractType" id="contractType">
-       <option >${itemChange.icApproveRecord}</option>
+       <option >${itemChange.contractType}</option>
       </select>
     </div>
    </div>
@@ -130,14 +140,14 @@
    <div class="weui_cell">
     <div class="weui_cell_hd"><label class="weui_label">变动省份</label></div>
     <div class="weui_cell_bd weui_cell_primary">
-      <input class="weui_input" type="text" placeholder="请输入省份" id="changeProvince" name="changeProvince" value="${itemChange.icChangeProvince}" readOnly>
+      <input class="weui_input" type="text" placeholder="请输入省份" id="changeProvince" name="changeProvince" value="${itemChange.changeProvince}" readOnly>
     </div>
   </div>
   
      <div class="weui_cell">
     <div class="weui_cell_hd"><label class="weui_label">变动城市</label></div>
     <div class="weui_cell_bd weui_cell_primary">
-      <input class="weui_input" type="text" placeholder="请输入城市" id="changeCity" name="changeCity" value="${itemChange.icWorkCity}" readOnly>
+      <input class="weui_input" type="text" placeholder="请输入城市" id="changeCity" name="changeCity" value="${itemChange.changeCity}" readOnly>
     </div>
   </div>
 
@@ -149,7 +159,7 @@
     <div class="weui_cell weui_cell_select">
     <div class="weui_cell_bd weui_cell_primary">
       <select class="weui_select" name="select1">
-        <option  value="${itemChange.icOutroomWork}">${itemChange.icOutroomWork}</option>  
+        <option  value="${itemChange.outdoorJob}">${itemChange.outdoorJob}</option>  
       </select>
     </div>
    </div>
@@ -159,16 +169,16 @@
     <div class="weui_cell">
     <div class="weui_cell_hd"><label for="" class="weui_label">生效日期</label></div>
     <div class="weui_cell_bd weui_cell_primary">
-      <input class="weui_input" type="text" value="${itemChange.icApproveBegin}">
+      <input class="weui_input" type="text" value="${itemChange.modifyTime}">
     </div>
   </div>
 
  
   
   <div class="weui_cell">
-    <div class="weui_cell_hd"><label for="" class="weui_label">审批人</label></div>
+    <div class="weui_cell_hd"><label for="" class="weui_label">申请人</label></div>
     <div class="weui_cell_bd weui_cell_primary">
-     <div class="assess">${approveName}<div>
+     <div class="assess">${fn:substring(approveName, 1,alength)}<div>
     </div>
   </div>
   </div>
@@ -179,11 +189,11 @@
    <div class="weui_cell">
     
     <div class="weui_cell_bd weui_cell_primary">
-      <c:if test="${itemChange.icApproveResult==null}"><a href="javascript:pass_approve();" class="weui_btn weui_btn_primary">通过</a></c:if>
+     <c:if test="${itemChange.nowAcess eq staff_user_id}"> <a href="javascript:pass_approve();" class="weui_btn weui_btn_primary">通过</a> </c:if> 
     </div>
     
       <div class="weui_cell_bd weui_cell_primary">
-       <c:if test="${itemChange.icApproveResult==null}"><a href="javascript:refuse_approve();" class="weui_btn weui_btn_disabled weui_btn_warn">拒绝</a></c:if>
+      <c:if test="${itemChange.nowAcess eq staff_user_id}">  <a href="javascript:refuse_approve();" class="weui_btn weui_btn_disabled weui_btn_warn">拒绝</a> </c:if> 
     </div>
    
   </div>
@@ -200,25 +210,23 @@
     
     function pass_approve(){
     	
-    	var id ="${itemChange.icSequenceNo}";
-    	
-    	$.post("<%=path%>/ItemChange/pass_approve.do",{"id":id},function(data){
+    	var id ="${itemChange.id}";
+    	var yindaIdentify =$("#yindaIdentify").val();
+    	$.post("<%=path%>/orderChange/pass_approve.do",{"id":id,"identify":yindaIdentify},function(data){
     	if("success"==data){
-    		$.alert("操作成功！");
-    	window.history.go(-1);
+    		//$.alert("操作成功！");
+    		window.history.go(-1);
     	}else{   		
     		$.alert("操作失败！");
-    	}
-    		
-    		
+    	}    		
     	});
     	
     }
   
 
     function refuse_approve(){
-    	 var id ="${itemChange.icSequenceNo}";
-    		$.post("<%=path%>/ItemChange/refuse_approve.do",{"id":id},function(data){
+    	 var id ="${itemChange.id}";
+    		$.post("<%=path%>/orderChange/refuse_approve.do",{"id":id},function(data){
     			if("success"==data){
     	    		$.alert("操作成功！");
     	    		window.history.go(-1);

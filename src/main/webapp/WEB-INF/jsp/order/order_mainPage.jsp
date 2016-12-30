@@ -22,33 +22,33 @@
       <img src="<%=path%>/images/train.png" alt="">
     </div>
     <p class="weui_grid_label">
-                   新增审批
+               变更申请
     </p>
   </a>
-  <a  class="weui_grid js_grid" data-id="cell" href="<%=path%>/ItemChange/toItemchange_history.do">
+  <a  class="weui_grid js_grid" data-id="cell" href="<%=path%>/orderChange/approve_history_page.do">
     <div class="weui_grid_icon">
       <img src="<%=path%>/images/bus.png" alt="">
     </div>
     <p class="weui_grid_label">
-                  我的审批
+                  已审批
     </p>
   </a>
-  <%-- <a href="javascript:;" class="weui_grid js_grid" data-id="toast" onclick="goExpense_taxi();">
+   <a class="weui_grid js_grid" data-id="toast" href="<%=path%>/orderChange/get_approve_un.do">
     <div class="weui_grid_icon">
-      <img src="<%=path%>/images/taxi.png" alt="">
+      <img src="<%=path%>/images/bus.png" alt="">
     </div>
     <p class="weui_grid_label">
-            的士费
+               待审批 
     </p>
-  </a> --%>
- <%--  <a href="javascript:;" class="weui_grid js_grid" data-id="toast" onclick="goExpense_hotel();">
+  </a> 
+  <a  class="weui_grid js_grid" data-id="toast" href="<%=path%>/orderChange/get_Apply.do">
     <div class="weui_grid_icon">
-      <img src="<%=path%>/images/hotel.png" alt="">
+      <img src="<%=path%>/images/bus.png" alt="">
     </div>
     <p class="weui_grid_label">
-         住宿费
+            申请记录
     </p>
-  </a> --%>
+  </a> 
   <%-- <a href="javascript:;" class="weui_grid js_grid" data-id="toast">
     <div class="weui_grid_icon">
        <img src="<%=path%>/images/icon_nav_actionSheet.png" alt="">
@@ -73,7 +73,7 @@
      }); */
       //配置钉钉jsapi
      dd.config({
-         agentId : "38433641",
+         agentId : "56136978",
          corpId : config.corpId,
          timeStamp : config.timeStamp,
          nonceStr : config.nonceStr,

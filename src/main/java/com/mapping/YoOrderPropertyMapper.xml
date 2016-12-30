@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.YoOrderPropertyMapper" >
+  <resultMap id="BaseResultMap" type="com.model.YoOrderProperty" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="order_name" property="orderName" jdbcType="VARCHAR" />
+    <result column="order_number" property="orderNumber" jdbcType="VARCHAR" />
+    <result column="order_province" property="orderProvince" jdbcType="VARCHAR" />
+    <result column="order_city" property="orderCity" jdbcType="VARCHAR" />
+    <result column="order_business_property" property="orderBusinessProperty" jdbcType="VARCHAR" />
+    <result column="order_remark" property="orderRemark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, order_name, order_number, order_province, order_city, order_business_property, 
+    order_remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.model.YoOrderPropertyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from yo_order_property
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yo_order_property
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yo_order_property
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.model.YoOrderProperty" >
+    insert into yo_order_property (id, order_name, order_number, 
+      order_province, order_city, order_business_property, 
+      order_remark)
+    values (#{id,jdbcType=INTEGER}, #{orderName,jdbcType=VARCHAR}, #{orderNumber,jdbcType=VARCHAR}, 
+      #{orderProvince,jdbcType=VARCHAR}, #{orderCity,jdbcType=VARCHAR}, #{orderBusinessProperty,jdbcType=VARCHAR}, 
+      #{orderRemark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.YoOrderProperty" >
+    insert into yo_order_property
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderName != null" >
+        order_name,
+      </if>
+      <if test="orderNumber != null" >
+        order_number,
+      </if>
+      <if test="orderProvince != null" >
+        order_province,
+      </if>
+      <if test="orderCity != null" >
+        order_city,
+      </if>
+      <if test="orderBusinessProperty != null" >
+        order_business_property,
+      </if>
+      <if test="orderRemark != null" >
+        order_remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orderName != null" >
+        #{orderName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNumber != null" >
+        #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="orderProvince != null" >
+        #{orderProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCity != null" >
+        #{orderCity,jdbcType=VARCHAR},
+      </if>
+      <if test="orderBusinessProperty != null" >
+        #{orderBusinessProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="orderRemark != null" >
+        #{orderRemark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.YoOrderProperty" >
+    update yo_order_property
+    <set >
+      <if test="orderName != null" >
+        order_name = #{orderName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNumber != null" >
+        order_number = #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="orderProvince != null" >
+        order_province = #{orderProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCity != null" >
+        order_city = #{orderCity,jdbcType=VARCHAR},
+      </if>
+      <if test="orderBusinessProperty != null" >
+        order_business_property = #{orderBusinessProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="orderRemark != null" >
+        order_remark = #{orderRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.YoOrderProperty" >
+    update yo_order_property
+    set order_name = #{orderName,jdbcType=VARCHAR},
+      order_number = #{orderNumber,jdbcType=VARCHAR},
+      order_province = #{orderProvince,jdbcType=VARCHAR},
+      order_city = #{orderCity,jdbcType=VARCHAR},
+      order_business_property = #{orderBusinessProperty,jdbcType=VARCHAR},
+      order_remark = #{orderRemark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

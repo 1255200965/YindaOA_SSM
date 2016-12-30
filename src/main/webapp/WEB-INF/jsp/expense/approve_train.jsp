@@ -23,7 +23,7 @@
       			<label class="weui_label"><b>出发时间</b></label>
    			 </div>
     	 <div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder=""  name="startTime" value="${expenseApplayTrain.startTime }" readonly>
+     		<span>${expenseApplayTrain.startTime }</span>
      		<input class="weui_input" type="text" placeholder=""  name="id" value="${expenseApplayTrain.id }" readonly style="display:none;">
    		 </div>
      	</div>	
@@ -32,7 +32,7 @@
       			<label class="weui_label"><b>出发地点</b></label>
    			 </div>
     	<div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder=""  name="startAddress"  value="${expenseApplayTrain.startAddress }" readonly>
+     		<span>${expenseApplayTrain.startAddress }</span>
    		 </div>
    		 
      	</div>		
@@ -40,14 +40,14 @@
   		 <div class="weui_cell ">
   		    <div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>到达时间</b></label></div>
     		<div class="weui_cell_ft weui_cell_primary">
-     		   <input class="weui_input" type="text" placeholder=""  name="endTime" value="${expenseApplayTrain.endTime }" readonly>
+     		   <span>${expenseApplayTrain.endTime }</span>
    		    </div>
   		 </div>
   	
   		 <div class="weui_cell"> 
     		<div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>目的地点</b></label></div>
     	     <div class="weui_cell_ft weui_cell_primary">
-     	        <input class="weui_input" type="text"   name="endAddress" value="${expenseApplayTrain.endAddress }" readonly>
+     	        <span>${expenseApplayTrain.endAddress }</span>
    		     </div>
   	     </div> 
   	     <div class="weui_cell">
@@ -55,7 +55,7 @@
       			<label class="weui_label"><b>订票方式</b></label>
    			 </div>
     	<div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder=""   value="自购" readonly>
+     		<span>自购</span>
    		 </div>
    		 
      	</div>
@@ -64,7 +64,7 @@
       			<label class="weui_label"><b>金&nbsp;额</b></label>
    			 </div>
     	<div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder=""  name="moneyCost" value="${expenseApplayTrain.moneyCost }" readonly>
+     		<span>${expenseApplayTrain.moneyCost }</span>
    		 </div>
    		 
      	</div>
@@ -73,9 +73,7 @@
       			<label class="weui_label"><b>说&nbsp;明</b></label>
    			 </div>
     	<div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder=""  name="reason" value="${expenseApplayTrain.reason }" readonly>
-     		<input class="weui_input" type="text" placeholder=""  name="imageUrl" value="${expenseApplayTrain.imageUrl }" readonly style="display:none;">
-     		
+     		<span>${expenseApplayTrain.reason }</span>
    		 </div>
    		 
      	</div>	
@@ -88,9 +86,10 @@
             <input class="weui_uploader_input" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" multiple="">
   	     </div>
   	     </div> -->
-        <div class="weui-row">
+        <div class="weui-row" id="flag">
 			<div class="weui-col-10"></div>
-			<div class="weui-col-80" ><a id="flag" onclick="approve_train_update();" class="weui_btn  weui_btn_primary" >通过</a></div>
+			<div class="weui-col-40" ><a  onclick="approve_train_update('agree');" class="weui_btn weui_btn_mini weui_btn_primary" >通过</a></div>
+			<div class="weui-col-20" ><a  onclick="approve_train_update('disagree');" class="weui_btn weui_btn_mini  weui_btn_default" >驳回</a></div>
 			<div class="weui-col-10"></div>
 	    </div> 
   	 <!-- </div> -->
@@ -100,19 +99,19 @@
     <script>
     var flag="${flag}";
     $(document).ready(function(){
-    	
-    	if(flag=="pass"){
+    	if(flag=="hide"){
     		$("#flag").hide();
     	}
     });
-    	function approve_train_update(){
-    		$.post("approve_train_update.do",$("#form").serialize(),function(data){
+    	function approve_train_update(data2){
+    		$.post("approve_train_update.do",{"id":$("input[name='id']").val(),"result":data2},function(data){
     			if(data == 0){
     				$.alert("系统繁忙,请稍后重试");
     				
     			}else if(data ==1){
-    			$.alert("审核通过成功");	
-    			$("#flag").hide();
+    		    	//审核通过隐藏审批按钮
+    				$.alert("操作成功");	
+    				$("#flag").hide();
     			}
     			
     		});

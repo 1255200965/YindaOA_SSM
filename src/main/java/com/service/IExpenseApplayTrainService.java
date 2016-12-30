@@ -11,4 +11,8 @@ public interface IExpenseApplayTrainService {
 	public ExpenseApplayTrain selectById(int id);
 	//根据ID值是否为空新增或者更新数据库报销信息
 	public int saveOrUpdate(ExpenseApplayTrain expenseApplayTrain);
+	//判断是否需要发消息给下一级审批员
+	public ExpenseApplayTrain sendTONextManager(ExpenseApplayTrain expenseApplayTrain);
+	//驳回操作
+	public ExpenseApplayTrain refuseOption(ExpenseApplayTrain expenseApplayTrain);
 }

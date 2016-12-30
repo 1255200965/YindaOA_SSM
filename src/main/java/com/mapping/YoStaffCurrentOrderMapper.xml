@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.YoStaffCurrentOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.model.YoStaffCurrentOrder" >
+    <id column="sco_sequence_no" property="scoSequenceNo" jdbcType="INTEGER" />
+    <result column="staff_user_id" property="staffUserId" jdbcType="VARCHAR" />
+    <result column="sco_staff_user_id" property="scoStaffUserId" jdbcType="VARCHAR" />
+    <result column="sco_order_no" property="scoOrderNo" jdbcType="VARCHAR" />
+    <result column="sco_project_name" property="scoProjectName" jdbcType="VARCHAR" />
+    <result column="sco_order_name" property="scoOrderName" jdbcType="VARCHAR" />
+    <result column="sco_contrat_type" property="scoContratType" jdbcType="VARCHAR" />
+    <result column="department" property="department" jdbcType="VARCHAR" />
+    <result column="principal" property="principal" jdbcType="VARCHAR" />
+    <result column="business_property" property="businessProperty" jdbcType="VARCHAR" />
+    <result column="outdoor_job" property="outdoorJob" jdbcType="VARCHAR" />
+    <result column="order_province" property="orderProvince" jdbcType="VARCHAR" />
+    <result column="order_city" property="orderCity" jdbcType="VARCHAR" />
+    <result column="order_year" property="orderYear" jdbcType="VARCHAR" />
+    <result column="yinda_identify" property="yindaIdentify" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    sco_sequence_no, staff_user_id, sco_staff_user_id, sco_order_no, sco_project_name, 
+    sco_order_name, sco_contrat_type, department, principal, business_property, outdoor_job, 
+    order_province, order_city, order_year, yinda_identify
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.model.YoStaffCurrentOrderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from yo_staff_current_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yo_staff_current_order
+    where sco_sequence_no = #{scoSequenceNo,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yo_staff_current_order
+    where sco_sequence_no = #{scoSequenceNo,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.model.YoStaffCurrentOrder" >
+    insert into yo_staff_current_order (sco_sequence_no, staff_user_id, sco_staff_user_id, 
+      sco_order_no, sco_project_name, sco_order_name, 
+      sco_contrat_type, department, principal, 
+      business_property, outdoor_job, order_province, 
+      order_city, order_year, yinda_identify
+      )
+    values (#{scoSequenceNo,jdbcType=INTEGER}, #{staffUserId,jdbcType=VARCHAR}, #{scoStaffUserId,jdbcType=VARCHAR}, 
+      #{scoOrderNo,jdbcType=VARCHAR}, #{scoProjectName,jdbcType=VARCHAR}, #{scoOrderName,jdbcType=VARCHAR}, 
+      #{scoContratType,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR}, #{principal,jdbcType=VARCHAR}, 
+      #{businessProperty,jdbcType=VARCHAR}, #{outdoorJob,jdbcType=VARCHAR}, #{orderProvince,jdbcType=VARCHAR}, 
+      #{orderCity,jdbcType=VARCHAR}, #{orderYear,jdbcType=VARCHAR}, #{yindaIdentify,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.YoStaffCurrentOrder" >
+    insert into yo_staff_current_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="scoSequenceNo != null" >
+        sco_sequence_no,
+      </if>
+      <if test="staffUserId != null" >
+        staff_user_id,
+      </if>
+      <if test="scoStaffUserId != null" >
+        sco_staff_user_id,
+      </if>
+      <if test="scoOrderNo != null" >
+        sco_order_no,
+      </if>
+      <if test="scoProjectName != null" >
+        sco_project_name,
+      </if>
+      <if test="scoOrderName != null" >
+        sco_order_name,
+      </if>
+      <if test="scoContratType != null" >
+        sco_contrat_type,
+      </if>
+      <if test="department != null" >
+        department,
+      </if>
+      <if test="principal != null" >
+        principal,
+      </if>
+      <if test="businessProperty != null" >
+        business_property,
+      </if>
+      <if test="outdoorJob != null" >
+        outdoor_job,
+      </if>
+      <if test="orderProvince != null" >
+        order_province,
+      </if>
+      <if test="orderCity != null" >
+        order_city,
+      </if>
+      <if test="orderYear != null" >
+        order_year,
+      </if>
+      <if test="yindaIdentify != null" >
+        yinda_identify,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="scoSequenceNo != null" >
+        #{scoSequenceNo,jdbcType=INTEGER},
+      </if>
+      <if test="staffUserId != null" >
+        #{staffUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="scoStaffUserId != null" >
+        #{scoStaffUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="scoOrderNo != null" >
+        #{scoOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="scoProjectName != null" >
+        #{scoProjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="scoOrderName != null" >
+        #{scoOrderName,jdbcType=VARCHAR},
+      </if>
+      <if test="scoContratType != null" >
+        #{scoContratType,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="principal != null" >
+        #{principal,jdbcType=VARCHAR},
+      </if>
+      <if test="businessProperty != null" >
+        #{businessProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="outdoorJob != null" >
+        #{outdoorJob,jdbcType=VARCHAR},
+      </if>
+      <if test="orderProvince != null" >
+        #{orderProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCity != null" >
+        #{orderCity,jdbcType=VARCHAR},
+      </if>
+      <if test="orderYear != null" >
+        #{orderYear,jdbcType=VARCHAR},
+      </if>
+      <if test="yindaIdentify != null" >
+        #{yindaIdentify,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.YoStaffCurrentOrder" >
+    update yo_staff_current_order
+    <set >
+      <if test="staffUserId != null" >
+        staff_user_id = #{staffUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="scoStaffUserId != null" >
+        sco_staff_user_id = #{scoStaffUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="scoOrderNo != null" >
+        sco_order_no = #{scoOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="scoProjectName != null" >
+        sco_project_name = #{scoProjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="scoOrderName != null" >
+        sco_order_name = #{scoOrderName,jdbcType=VARCHAR},
+      </if>
+      <if test="scoContratType != null" >
+        sco_contrat_type = #{scoContratType,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="principal != null" >
+        principal = #{principal,jdbcType=VARCHAR},
+      </if>
+      <if test="businessProperty != null" >
+        business_property = #{businessProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="outdoorJob != null" >
+        outdoor_job = #{outdoorJob,jdbcType=VARCHAR},
+      </if>
+      <if test="orderProvince != null" >
+        order_province = #{orderProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCity != null" >
+        order_city = #{orderCity,jdbcType=VARCHAR},
+      </if>
+      <if test="orderYear != null" >
+        order_year = #{orderYear,jdbcType=VARCHAR},
+      </if>
+      <if test="yindaIdentify != null" >
+        yinda_identify = #{yindaIdentify,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sco_sequence_no = #{scoSequenceNo,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.YoStaffCurrentOrder" >
+    update yo_staff_current_order
+    set staff_user_id = #{staffUserId,jdbcType=VARCHAR},
+      sco_staff_user_id = #{scoStaffUserId,jdbcType=VARCHAR},
+      sco_order_no = #{scoOrderNo,jdbcType=VARCHAR},
+      sco_project_name = #{scoProjectName,jdbcType=VARCHAR},
+      sco_order_name = #{scoOrderName,jdbcType=VARCHAR},
+      sco_contrat_type = #{scoContratType,jdbcType=VARCHAR},
+      department = #{department,jdbcType=VARCHAR},
+      principal = #{principal,jdbcType=VARCHAR},
+      business_property = #{businessProperty,jdbcType=VARCHAR},
+      outdoor_job = #{outdoorJob,jdbcType=VARCHAR},
+      order_province = #{orderProvince,jdbcType=VARCHAR},
+      order_city = #{orderCity,jdbcType=VARCHAR},
+      order_year = #{orderYear,jdbcType=VARCHAR},
+      yinda_identify = #{yindaIdentify,jdbcType=VARCHAR}
+    where sco_sequence_no = #{scoSequenceNo,jdbcType=INTEGER}
+  </update>
+</mapper>

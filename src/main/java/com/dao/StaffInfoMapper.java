@@ -50,4 +50,10 @@ public interface StaffInfoMapper {
      * @return
      */
     List<StaffInfo> getbranchCompany();
+    
+    /**
+     * 获取staffinfo表中的所有商务属性
+     * @return
+     */
+    List<StaffInfo> getAllIdentifyInStallInfo();
 }

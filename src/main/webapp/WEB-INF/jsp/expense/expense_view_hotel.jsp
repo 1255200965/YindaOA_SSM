@@ -86,7 +86,7 @@
   	     </div>
         <div class="weui-row">
 			<div class="weui-col-10"></div>
-			<div class="weui-col-40"><a href="javascript:history.go(-1);" class="weui_btn weui_btn_mini weui_btn_primary" >提交</a></div>
+			<div class="weui-col-40"><a href="javascript:history.go(-1);" class="weui_btn weui_btn_mini weui_btn_primary" >确认</a></div>
 			<div class="weui-col-20"><a href="javascript:history.go(-1);" class="weui_btn weui_btn_mini weui_btn_default">返回</a></div>
 			<div class="weui-col-10"></div>
 	    </div> 

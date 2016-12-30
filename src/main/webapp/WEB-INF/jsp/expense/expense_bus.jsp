@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="<%=path%>/stylesheets/weui.css"/>
   <link rel="stylesheet" href="<%=path%>/stylesheets/jquery-weui.css"/>
   <link rel="stylesheet" href="<%=path%>/stylesheets/projectcss.css"/>
-  <title>添加大巴票</title>
+  <title>发起大巴车报销</title>
  </head>
  <body >
   <form id="form" method="post" enctype="multipart/form-data" action="toExpense_bus_save.do" onsubmit="return check();">
@@ -90,7 +90,7 @@
   	     <hr/>
   	     <div class="weui-row">
   	     <div class="weui_uploader_input_wrp">
-            <input class="weui_uploader_input" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" name="image" onchange="showInfo();" value="">
+            <input class="weui_uploader_input" type="file" id="image" accept="image/jpg,image/jpeg,image/png,image/gif" name="image" onchange="showInfo();" value="">
             <p id="picInfo"></p>
   	     </div>
   	     </div>
@@ -147,11 +147,6 @@
     	   var data="<%=data%>";
     	   if(data==null){
     		   
-    	   }else if(data == "success"){
-    		   $.alert("提交成功,请耐心等待管理员审核");
-    		 /* location="toExpense_history_bus.do";  */
-    		   window.history.go(-1);
-    		/*  window.history.back(-2); */
     	   }else if(data=="fail"){
     		   $.alert("系统繁忙,请稍后重试");
     	   }

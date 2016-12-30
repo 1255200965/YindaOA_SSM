@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.ExpenseApplySubwayMapper" >
+  <resultMap id="BaseResultMap" type="com.model.ExpenseApplySubway" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="ask_staff_name" property="askStaffName" jdbcType="VARCHAR" />
+    <result column="ask_staff_user_id" property="askStaffUserId" jdbcType="VARCHAR" />
+    <result column="ask_staff_id" property="askStaffId" jdbcType="VARCHAR" />
+    <result column="ask_staff_depart" property="askStaffDepart" jdbcType="VARCHAR" />
+    <result column="ask_month" property="askMonth" jdbcType="VARCHAR" />
+    <result column="ask_money" property="askMoney" jdbcType="VARCHAR" />
+    <result column="approver_order" property="approverOrder" jdbcType="VARCHAR" />
+    <result column="approver_history" property="approverHistory" jdbcType="VARCHAR" />
+    <result column="approver_now" property="approverNow" jdbcType="VARCHAR" />
+    <result column="approve_status" property="approveStatus" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, ask_staff_name, ask_staff_user_id, ask_staff_id, ask_staff_depart, ask_month, 
+    ask_money, approver_order, approver_history, approver_now, approve_status
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.model.ExpenseApplySubwayExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from expense_apply_subway
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from expense_apply_subway
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from expense_apply_subway
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.model.ExpenseApplySubway" >
+   <selectKey resultType="int" order="AFTER" keyProperty="id">
+     SELECT LAST_INSERT_ID() AS id
+   </selectKey>
+    insert into expense_apply_subway (id, ask_staff_name, ask_staff_user_id, 
+      ask_staff_id, ask_staff_depart, ask_month, 
+      ask_money, approver_order, approver_history, 
+      approver_now, approve_status)
+    values (#{id,jdbcType=INTEGER}, #{askStaffName,jdbcType=VARCHAR}, #{askStaffUserId,jdbcType=VARCHAR}, 
+      #{askStaffId,jdbcType=VARCHAR}, #{askStaffDepart,jdbcType=VARCHAR}, #{askMonth,jdbcType=VARCHAR}, 
+      #{askMoney,jdbcType=VARCHAR}, #{approverOrder,jdbcType=VARCHAR}, #{approverHistory,jdbcType=VARCHAR}, 
+      #{approverNow,jdbcType=VARCHAR}, #{approveStatus,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.ExpenseApplySubway" >
+    insert into expense_apply_subway
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="askStaffName != null" >
+        ask_staff_name,
+      </if>
+      <if test="askStaffUserId != null" >
+        ask_staff_user_id,
+      </if>
+      <if test="askStaffId != null" >
+        ask_staff_id,
+      </if>
+      <if test="askStaffDepart != null" >
+        ask_staff_depart,
+      </if>
+      <if test="askMonth != null" >
+        ask_month,
+      </if>
+      <if test="askMoney != null" >
+        ask_money,
+      </if>
+      <if test="approverOrder != null" >
+        approver_order,
+      </if>
+      <if test="approverHistory != null" >
+        approver_history,
+      </if>
+      <if test="approverNow != null" >
+        approver_now,
+      </if>
+      <if test="approveStatus != null" >
+        approve_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="askStaffName != null" >
+        #{askStaffName,jdbcType=VARCHAR},
+      </if>
+      <if test="askStaffUserId != null" >
+        #{askStaffUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="askStaffId != null" >
+        #{askStaffId,jdbcType=VARCHAR},
+      </if>
+      <if test="askStaffDepart != null" >
+        #{askStaffDepart,jdbcType=VARCHAR},
+      </if>
+      <if test="askMonth != null" >
+        #{askMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="askMoney != null" >
+        #{askMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="approverOrder != null" >
+        #{approverOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="approverHistory != null" >
+        #{approverHistory,jdbcType=VARCHAR},
+      </if>
+      <if test="approverNow != null" >
+        #{approverNow,jdbcType=VARCHAR},
+      </if>
+      <if test="approveStatus != null" >
+        #{approveStatus,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.ExpenseApplySubway" >
+    update expense_apply_subway
+    <set >
+      <if test="askStaffName != null" >
+        ask_staff_name = #{askStaffName,jdbcType=VARCHAR},
+      </if>
+      <if test="askStaffUserId != null" >
+        ask_staff_user_id = #{askStaffUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="askStaffId != null" >
+        ask_staff_id = #{askStaffId,jdbcType=VARCHAR},
+      </if>
+      <if test="askStaffDepart != null" >
+        ask_staff_depart = #{askStaffDepart,jdbcType=VARCHAR},
+      </if>
+      <if test="askMonth != null" >
+        ask_month = #{askMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="askMoney != null" >
+        ask_money = #{askMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="approverOrder != null" >
+        approver_order = #{approverOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="approverHistory != null" >
+        approver_history = #{approverHistory,jdbcType=VARCHAR},
+      </if>
+      <if test="approverNow != null" >
+        approver_now = #{approverNow,jdbcType=VARCHAR},
+      </if>
+      <if test="approveStatus != null" >
+        approve_status = #{approveStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.ExpenseApplySubway" >
+    update expense_apply_subway
+    set ask_staff_name = #{askStaffName,jdbcType=VARCHAR},
+      ask_staff_user_id = #{askStaffUserId,jdbcType=VARCHAR},
+      ask_staff_id = #{askStaffId,jdbcType=VARCHAR},
+      ask_staff_depart = #{askStaffDepart,jdbcType=VARCHAR},
+      ask_month = #{askMonth,jdbcType=VARCHAR},
+      ask_money = #{askMoney,jdbcType=VARCHAR},
+      approver_order = #{approverOrder,jdbcType=VARCHAR},
+      approver_history = #{approverHistory,jdbcType=VARCHAR},
+      approver_now = #{approverNow,jdbcType=VARCHAR},
+      approve_status = #{approveStatus,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

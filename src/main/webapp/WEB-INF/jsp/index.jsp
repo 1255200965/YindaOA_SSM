@@ -88,11 +88,12 @@
 								>花名册导入</a></li>
 								<li><a href="<%=basePath%>AskLeaveExcel/homePage.do" target="loadcontent">请假申请</a></li>
 								<li><a href="<%=basePath%>OvertimeExcel/homePage.do" target="loadcontent">加班申请</a></li>
+								<li><a href="<%=basePath%>upload/toBusinessTrip.do"target="loadcontent">出差导入</a></li>
 								<li><a href="<%=basePath%>ExcelItemChange/homePage.do" target="loadcontent">项目信息变动</a></li>
 								<li><a href="<%=basePath%>ExcelAttendanceDetail/homePage.do" target="loadcontent">考勤明细导入</a></li>
 								<li><a href="<%=basePath%>ExcelSignIn/homePage.do" target="loadcontent">签到导入</a></li>
 								<li><a href="<%=basePath%>ExcelSocialSecurityInfo/homePage.do"target="loadcontent">社保信息导入</a></li>
-								
+
 							</ul>
 						</div>
 					</li>

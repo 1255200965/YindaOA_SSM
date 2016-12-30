@@ -30,16 +30,20 @@
  	<div class="weui-row">
   		<div class="weui-col-40" style="overflow: hidden;">${expenseApplayHotel.startTime }</div>
   		<div class="weui-col-40" style="overflow: hidden;">${expenseApplayHotel.applayStatus }</div>
-  		<a onclick="goExpense_view_hotel(${expenseApplayHotel.id})">查看</a>
+  		<a onclick="go_approve_page(${expenseApplayHotel.id},${sessionScope.staff_user_id})">查看</a>
   		<a></a>
     </div>
     <hr/>
     </c:forEach>
     <script>
     
-
+function go_approve_page(id,userid){
+	
+	window.location =  "<%=path%>/orderChange/approve_order_page.do?id="+id+"&staff_user_id="+userid;
+	
+}
      
-    
+  
     
     
     </script>

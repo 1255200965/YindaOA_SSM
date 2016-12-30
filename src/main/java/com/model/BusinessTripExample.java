@@ -1703,6 +1703,216 @@ public class BusinessTripExample {
             addCriterion("bt_ask_reason not between", value1, value2, "btAskReason");
             return (Criteria) this;
         }
+
+        public Criteria andBtAskStaffUserIdIsNull() {
+            addCriterion("bt_ask_staff_user_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAskStaffUserIdIsNotNull() {
+            addCriterion("bt_ask_staff_user_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAskStaffUserIdEqualTo(String value) {
+            addCriterion("bt_ask_staff_user_id =", value, "btAskStaffUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAskStaffUserIdNotEqualTo(String value) {
+            addCriterion("bt_ask_staff_user_id <>", value, "btAskStaffUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAskStaffUserIdGreaterThan(String value) {
+            addCriterion("bt_ask_staff_user_id >", value, "btAskStaffUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAskStaffUserIdGreaterThanOrEqualTo(String value) {
+            addCriterion("bt_ask_staff_user_id >=", value, "btAskStaffUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAskStaffUserIdLessThan(String value) {
+            addCriterion("bt_ask_staff_user_id <", value, "btAskStaffUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAskStaffUserIdLessThanOrEqualTo(String value) {
+            addCriterion("bt_ask_staff_user_id <=", value, "btAskStaffUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAskStaffUserIdLike(String value) {
+            addCriterion("bt_ask_staff_user_id like", value, "btAskStaffUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAskStaffUserIdNotLike(String value) {
+            addCriterion("bt_ask_staff_user_id not like", value, "btAskStaffUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAskStaffUserIdIn(List<String> values) {
+            addCriterion("bt_ask_staff_user_id in", values, "btAskStaffUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAskStaffUserIdNotIn(List<String> values) {
+            addCriterion("bt_ask_staff_user_id not in", values, "btAskStaffUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAskStaffUserIdBetween(String value1, String value2) {
+            addCriterion("bt_ask_staff_user_id between", value1, value2, "btAskStaffUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAskStaffUserIdNotBetween(String value1, String value2) {
+            addCriterion("bt_ask_staff_user_id not between", value1, value2, "btAskStaffUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAskStaffDepartIdIsNull() {
+            addCriterion("bt_ask_staff_depart_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAskStaffDepartIdIsNotNull() {
+            addCriterion("bt_ask_staff_depart_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAskStaffDepartIdEqualTo(String value) {
+            addCriterion("bt_ask_staff_depart_id =", value, "btAskStaffDepartId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAskStaffDepartIdNotEqualTo(String value) {
+            addCriterion("bt_ask_staff_depart_id <>", value, "btAskStaffDepartId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAskStaffDepartIdGreaterThan(String value) {
+            addCriterion("bt_ask_staff_depart_id >", value, "btAskStaffDepartId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAskStaffDepartIdGreaterThanOrEqualTo(String value) {
+            addCriterion("bt_ask_staff_depart_id >=", value, "btAskStaffDepartId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAskStaffDepartIdLessThan(String value) {
+            addCriterion("bt_ask_staff_depart_id <", value, "btAskStaffDepartId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAskStaffDepartIdLessThanOrEqualTo(String value) {
+            addCriterion("bt_ask_staff_depart_id <=", value, "btAskStaffDepartId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAskStaffDepartIdLike(String value) {
+            addCriterion("bt_ask_staff_depart_id like", value, "btAskStaffDepartId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAskStaffDepartIdNotLike(String value) {
+            addCriterion("bt_ask_staff_depart_id not like", value, "btAskStaffDepartId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAskStaffDepartIdIn(List<String> values) {
+            addCriterion("bt_ask_staff_depart_id in", values, "btAskStaffDepartId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAskStaffDepartIdNotIn(List<String> values) {
+            addCriterion("bt_ask_staff_depart_id not in", values, "btAskStaffDepartId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAskStaffDepartIdBetween(String value1, String value2) {
+            addCriterion("bt_ask_staff_depart_id between", value1, value2, "btAskStaffDepartId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAskStaffDepartIdNotBetween(String value1, String value2) {
+            addCriterion("bt_ask_staff_depart_id not between", value1, value2, "btAskStaffDepartId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtTripIsNull() {
+            addCriterion("bt_trip is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtTripIsNotNull() {
+            addCriterion("bt_trip is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtTripEqualTo(String value) {
+            addCriterion("bt_trip =", value, "btTrip");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtTripNotEqualTo(String value) {
+            addCriterion("bt_trip <>", value, "btTrip");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtTripGreaterThan(String value) {
+            addCriterion("bt_trip >", value, "btTrip");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtTripGreaterThanOrEqualTo(String value) {
+            addCriterion("bt_trip >=", value, "btTrip");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtTripLessThan(String value) {
+            addCriterion("bt_trip <", value, "btTrip");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtTripLessThanOrEqualTo(String value) {
+            addCriterion("bt_trip <=", value, "btTrip");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtTripLike(String value) {
+            addCriterion("bt_trip like", value, "btTrip");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtTripNotLike(String value) {
+            addCriterion("bt_trip not like", value, "btTrip");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtTripIn(List<String> values) {
+            addCriterion("bt_trip in", values, "btTrip");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtTripNotIn(List<String> values) {
+            addCriterion("bt_trip not in", values, "btTrip");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtTripBetween(String value1, String value2) {
+            addCriterion("bt_trip between", value1, value2, "btTrip");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtTripNotBetween(String value1, String value2) {
+            addCriterion("bt_trip not between", value1, value2, "btTrip");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

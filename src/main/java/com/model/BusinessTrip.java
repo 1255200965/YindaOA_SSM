@@ -47,6 +47,12 @@ public class BusinessTrip {
 
     private String btAskReason;
 
+    private String btAskStaffUserId;
+
+    private String btAskStaffDepartId;
+
+    private String btTrip;
+
     public Integer getBtSequenceNo() {
         return btSequenceNo;
     }
@@ -230,4 +236,74 @@ public class BusinessTrip {
     public void setBtAskReason(String btAskReason) {
         this.btAskReason = btAskReason;
     }
+
+    public String getBtAskStaffUserId() {
+        return btAskStaffUserId;
+    }
+
+    public void setBtAskStaffUserId(String btAskStaffUserId) {
+        this.btAskStaffUserId = btAskStaffUserId;
+    }
+
+    public String getBtAskStaffDepartId() {
+        return btAskStaffDepartId;
+    }
+
+    public void setBtAskStaffDepartId(String btAskStaffDepartId) {
+        this.btAskStaffDepartId = btAskStaffDepartId;
+    }
+
+    public String getBtTrip() {
+        return btTrip;
+    }
+
+    public void setBtTrip(String btTrip) {
+        this.btTrip = btTrip;
+    }
+
+	@Override
+	public String toString() {
+		return "BusinessTrip [btSequenceNo=" + btSequenceNo + ", btApproveNo="
+				+ btApproveNo + ", btTitle=" + btTitle + ", btApproveState="
+				+ btApproveState + ", btApproveResult=" + btApproveResult
+				+ ", btApproveBegin=" + btApproveBegin + ", btApproveEnd="
+				+ btApproveEnd + ", btAskStaffId=" + btAskStaffId
+				+ ", btAskStaffName=" + btAskStaffName + ", btAskStaffDepart="
+				+ btAskStaffDepart + ", btHistoryApproveName="
+				+ btHistoryApproveName + ", btApproveRecord=" + btApproveRecord
+				+ ", btNowApproveName=" + btNowApproveName + ", btCost="
+				+ btCost + ", btDetail=" + btDetail + ", btAim=" + btAim
+				+ ", btStartCity=" + btStartCity + ", btAddress=" + btAddress
+				+ ", btVehicle=" + btVehicle + ", btAskBeginTime="
+				+ btAskBeginTime + ", btAskEndTime=" + btAskEndTime
+				+ ", btAskSustain=" + btAskSustain + ", btAskReason="
+				+ btAskReason + ", btAskStaffUserId=" + btAskStaffUserId
+				+ ", btAskStaffDepartId=" + btAskStaffDepartId + ", btTrip="
+				+ btTrip + ", getBtSequenceNo()=" + getBtSequenceNo()
+				+ ", getBtApproveNo()=" + getBtApproveNo() + ", getBtTitle()="
+				+ getBtTitle() + ", getBtApproveState()=" + getBtApproveState()
+				+ ", getBtApproveResult()=" + getBtApproveResult()
+				+ ", getBtApproveBegin()=" + getBtApproveBegin()
+				+ ", getBtApproveEnd()=" + getBtApproveEnd()
+				+ ", getBtAskStaffId()=" + getBtAskStaffId()
+				+ ", getBtAskStaffName()=" + getBtAskStaffName()
+				+ ", getBtAskStaffDepart()=" + getBtAskStaffDepart()
+				+ ", getBtHistoryApproveName()=" + getBtHistoryApproveName()
+				+ ", getBtApproveRecord()=" + getBtApproveRecord()
+				+ ", getBtNowApproveName()=" + getBtNowApproveName()
+				+ ", getBtCost()=" + getBtCost() + ", getBtDetail()="
+				+ getBtDetail() + ", getBtAim()=" + getBtAim()
+				+ ", getBtStartCity()=" + getBtStartCity()
+				+ ", getBtAddress()=" + getBtAddress() + ", getBtVehicle()="
+				+ getBtVehicle() + ", getBtAskBeginTime()="
+				+ getBtAskBeginTime() + ", getBtAskEndTime()="
+				+ getBtAskEndTime() + ", getBtAskSustain()="
+				+ getBtAskSustain() + ", getBtAskReason()=" + getBtAskReason()
+				+ ", getBtAskStaffUserId()=" + getBtAskStaffUserId()
+				+ ", getBtAskStaffDepartId()=" + getBtAskStaffDepartId()
+				+ ", getBtTrip()=" + getBtTrip() + ", getClass()=" + getClass()
+				+ ", hashCode()=" + hashCode() + ", toString()="
+				+ super.toString() + "]";
+	}
+    
 }

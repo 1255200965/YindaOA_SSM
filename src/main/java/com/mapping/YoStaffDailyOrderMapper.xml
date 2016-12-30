@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.YoStaffDailyOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.model.YoStaffDailyOrder" >
+    <id column="sdo_sequence_no" property="sdoSequenceNo" jdbcType="INTEGER" />
+    <result column="staff_user_id" property="staffUserId" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="sdo_staff_id" property="sdoStaffId" jdbcType="VARCHAR" />
+    <result column="sdo_date" property="sdoDate" jdbcType="VARCHAR" />
+    <result column="sdo_order_no" property="sdoOrderNo" jdbcType="VARCHAR" />
+    <result column="department" property="department" jdbcType="VARCHAR" />
+    <result column="project" property="project" jdbcType="VARCHAR" />
+    <result column="order_name" property="orderName" jdbcType="VARCHAR" />
+    <result column="principal" property="principal" jdbcType="VARCHAR" />
+    <result column="business_property" property="businessProperty" jdbcType="VARCHAR" />
+    <result column="outdoor_job" property="outdoorJob" jdbcType="VARCHAR" />
+    <result column="order_province" property="orderProvince" jdbcType="VARCHAR" />
+    <result column="order_city" property="orderCity" jdbcType="VARCHAR" />
+    <result column="order_year" property="orderYear" jdbcType="VARCHAR" />
+    <result column="yinda_identify" property="yindaIdentify" jdbcType="VARCHAR" />
+    <result column="contract_type" property="contractType" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    sdo_sequence_no, staff_user_id, username, sdo_staff_id, sdo_date, sdo_order_no, department, 
+    project, order_name, principal, business_property, outdoor_job, order_province, order_city, 
+    order_year, yinda_identify, contract_type
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.model.YoStaffDailyOrderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from yo_staff_daily_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yo_staff_daily_order
+    where sdo_sequence_no = #{sdoSequenceNo,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yo_staff_daily_order
+    where sdo_sequence_no = #{sdoSequenceNo,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.model.YoStaffDailyOrder" >
+    insert into yo_staff_daily_order (sdo_sequence_no, staff_user_id, username, 
+      sdo_staff_id, sdo_date, sdo_order_no, 
+      department, project, order_name, 
+      principal, business_property, outdoor_job, 
+      order_province, order_city, order_year, 
+      yinda_identify, contract_type)
+    values (#{sdoSequenceNo,jdbcType=INTEGER}, #{staffUserId,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
+      #{sdoStaffId,jdbcType=VARCHAR}, #{sdoDate,jdbcType=VARCHAR}, #{sdoOrderNo,jdbcType=VARCHAR}, 
+      #{department,jdbcType=VARCHAR}, #{project,jdbcType=VARCHAR}, #{orderName,jdbcType=VARCHAR}, 
+      #{principal,jdbcType=VARCHAR}, #{businessProperty,jdbcType=VARCHAR}, #{outdoorJob,jdbcType=VARCHAR}, 
+      #{orderProvince,jdbcType=VARCHAR}, #{orderCity,jdbcType=VARCHAR}, #{orderYear,jdbcType=VARCHAR}, 
+      #{yindaIdentify,jdbcType=VARCHAR}, #{contractType,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.YoStaffDailyOrder" >
+    insert into yo_staff_daily_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sdoSequenceNo != null" >
+        sdo_sequence_no,
+      </if>
+      <if test="staffUserId != null" >
+        staff_user_id,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="sdoStaffId != null" >
+        sdo_staff_id,
+      </if>
+      <if test="sdoDate != null" >
+        sdo_date,
+      </if>
+      <if test="sdoOrderNo != null" >
+        sdo_order_no,
+      </if>
+      <if test="department != null" >
+        department,
+      </if>
+      <if test="project != null" >
+        project,
+      </if>
+      <if test="orderName != null" >
+        order_name,
+      </if>
+      <if test="principal != null" >
+        principal,
+      </if>
+      <if test="businessProperty != null" >
+        business_property,
+      </if>
+      <if test="outdoorJob != null" >
+        outdoor_job,
+      </if>
+      <if test="orderProvince != null" >
+        order_province,
+      </if>
+      <if test="orderCity != null" >
+        order_city,
+      </if>
+      <if test="orderYear != null" >
+        order_year,
+      </if>
+      <if test="yindaIdentify != null" >
+        yinda_identify,
+      </if>
+      <if test="contractType != null" >
+        contract_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sdoSequenceNo != null" >
+        #{sdoSequenceNo,jdbcType=INTEGER},
+      </if>
+      <if test="staffUserId != null" >
+        #{staffUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="sdoStaffId != null" >
+        #{sdoStaffId,jdbcType=VARCHAR},
+      </if>
+      <if test="sdoDate != null" >
+        #{sdoDate,jdbcType=VARCHAR},
+      </if>
+      <if test="sdoOrderNo != null" >
+        #{sdoOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="project != null" >
+        #{project,jdbcType=VARCHAR},
+      </if>
+      <if test="orderName != null" >
+        #{orderName,jdbcType=VARCHAR},
+      </if>
+      <if test="principal != null" >
+        #{principal,jdbcType=VARCHAR},
+      </if>
+      <if test="businessProperty != null" >
+        #{businessProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="outdoorJob != null" >
+        #{outdoorJob,jdbcType=VARCHAR},
+      </if>
+      <if test="orderProvince != null" >
+        #{orderProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCity != null" >
+        #{orderCity,jdbcType=VARCHAR},
+      </if>
+      <if test="orderYear != null" >
+        #{orderYear,jdbcType=VARCHAR},
+      </if>
+      <if test="yindaIdentify != null" >
+        #{yindaIdentify,jdbcType=VARCHAR},
+      </if>
+      <if test="contractType != null" >
+        #{contractType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.YoStaffDailyOrder" >
+    update yo_staff_daily_order
+    <set >
+      <if test="staffUserId != null" >
+        staff_user_id = #{staffUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="sdoStaffId != null" >
+        sdo_staff_id = #{sdoStaffId,jdbcType=VARCHAR},
+      </if>
+      <if test="sdoDate != null" >
+        sdo_date = #{sdoDate,jdbcType=VARCHAR},
+      </if>
+      <if test="sdoOrderNo != null" >
+        sdo_order_no = #{sdoOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="project != null" >
+        project = #{project,jdbcType=VARCHAR},
+      </if>
+      <if test="orderName != null" >
+        order_name = #{orderName,jdbcType=VARCHAR},
+      </if>
+      <if test="principal != null" >
+        principal = #{principal,jdbcType=VARCHAR},
+      </if>
+      <if test="businessProperty != null" >
+        business_property = #{businessProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="outdoorJob != null" >
+        outdoor_job = #{outdoorJob,jdbcType=VARCHAR},
+      </if>
+      <if test="orderProvince != null" >
+        order_province = #{orderProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCity != null" >
+        order_city = #{orderCity,jdbcType=VARCHAR},
+      </if>
+      <if test="orderYear != null" >
+        order_year = #{orderYear,jdbcType=VARCHAR},
+      </if>
+      <if test="yindaIdentify != null" >
+        yinda_identify = #{yindaIdentify,jdbcType=VARCHAR},
+      </if>
+      <if test="contractType != null" >
+        contract_type = #{contractType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sdo_sequence_no = #{sdoSequenceNo,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.YoStaffDailyOrder" >
+    update yo_staff_daily_order
+    set staff_user_id = #{staffUserId,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      sdo_staff_id = #{sdoStaffId,jdbcType=VARCHAR},
+      sdo_date = #{sdoDate,jdbcType=VARCHAR},
+      sdo_order_no = #{sdoOrderNo,jdbcType=VARCHAR},
+      department = #{department,jdbcType=VARCHAR},
+      project = #{project,jdbcType=VARCHAR},
+      order_name = #{orderName,jdbcType=VARCHAR},
+      principal = #{principal,jdbcType=VARCHAR},
+      business_property = #{businessProperty,jdbcType=VARCHAR},
+      outdoor_job = #{outdoorJob,jdbcType=VARCHAR},
+      order_province = #{orderProvince,jdbcType=VARCHAR},
+      order_city = #{orderCity,jdbcType=VARCHAR},
+      order_year = #{orderYear,jdbcType=VARCHAR},
+      yinda_identify = #{yindaIdentify,jdbcType=VARCHAR},
+      contract_type = #{contractType,jdbcType=VARCHAR}
+    where sdo_sequence_no = #{sdoSequenceNo,jdbcType=INTEGER}
+  </update>
+</mapper>

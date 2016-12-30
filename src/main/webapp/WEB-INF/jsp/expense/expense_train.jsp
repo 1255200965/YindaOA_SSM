@@ -17,6 +17,8 @@
   <title>添加火车票</title>
  </head>
  <body >
+ 
+ 
   <form id="form" action="expense_train_save.do" method="post" enctype="multipart/form-data" onsubmit="return check();">
   	<!-- <div class="weui_cells" style="border:none;"> -->
   		<div class="weui_cell">
@@ -98,9 +100,13 @@
 	    </div> 
   	 <!-- </div> -->
   	</form>
+  	
+  	
+  	
   	<script src="<%=path%>/javascripts/jquery-2.1.4.js"></script>
     <script src="<%=path%>/javascripts/jquery-weui.js"></script>
     <script type="text/javascript">
+   
     function check(){
     	if($("input[name='image']").val()==null || $("input[name='image']").val()==""){
     		$.alert("请上传出差票据信息照片");
@@ -127,14 +133,22 @@
     }
   //文件上传反馈
 	$(document).ready(function(){
+		$.modal({
+			   title: "请选择报销车票类型",
+			   text: "",
+			   buttons: [
+			     { text: "省内", onClick: function(){
+			    	 window.location.href="toExpense_train_InProvince.do";
+			    	 } },
+			        
+			     { text: "省外", onClick: function(){ 
+			    	
+			     } },
+			   ]
+			 });
 	   var data="<%=data%>";
-	   if(data==null){
+	   if(data==null || data ==""){
 		   
-	   }else if(data == "success"){
-		   $.alert("提交成功,请耐心等待管理员审核");
-		 /* location="toExpense_history_bus.do";  */
-		   window.history.go(-2);
-		/*  window.history.back(-2); */
 	   }else if(data=="fail"){
 		   $.alert("系统繁忙,请稍后重试");
 	   }

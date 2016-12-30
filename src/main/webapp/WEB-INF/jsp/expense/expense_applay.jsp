@@ -22,7 +22,7 @@
       <img src="<%=path%>/images/train.png" alt="">
     </div>
     <p class="weui_grid_label">
-                   火车票
+                   火车票报销
     </p>
   </a>
   <a  class="weui_grid js_grid" data-id="cell" onclick="goExpense_history_bus();">
@@ -30,25 +30,33 @@
       <img src="<%=path%>/images/bus.png" alt="">
     </div>
     <p class="weui_grid_label">
-              大巴费
+              大巴费报销
     </p>
   </a>
-  <%-- <a href="javascript:;" class="weui_grid js_grid" data-id="toast" onclick="goExpense_taxi();">
-    <div class="weui_grid_icon">
-      <img src="<%=path%>/images/taxi.png" alt="">
-    </div>
-    <p class="weui_grid_label">
-            的士费
-    </p>
-  </a> --%>
   <a href="javascript:;" class="weui_grid js_grid" data-id="toast" onclick="goExpense_hotel();">
     <div class="weui_grid_icon">
       <img src="<%=path%>/images/hotel.png" alt="">
     </div>
     <p class="weui_grid_label">
-         住宿费
+         住宿费报销
     </p>
   </a>
+   <a href="javascript:;" class="weui_grid js_grid" data-id="toast" onclick="goExpense_subway();">
+    <div class="weui_grid_icon">
+      <img src="<%=path%>/images/taxi.png" alt="">
+    </div>
+    <p class="weui_grid_label">
+           地铁公交费报销
+    </p>
+  </a> 
+   <a href="javascript:;" class="weui_grid js_grid" data-id="toast" onclick="goApprove_history_view();">
+    <div class="weui_grid_icon">
+      <img src="<%=path%>/images/taxi.png" alt="">
+    </div>
+    <p class="weui_grid_label">
+            我的审批历史信息查看
+    </p>
+  </a> 
   <%-- <a href="javascript:;" class="weui_grid js_grid" data-id="toast">
     <div class="weui_grid_icon">
        <img src="<%=path%>/images/icon_nav_actionSheet.png" alt="">
@@ -74,6 +82,13 @@
      }
      function goExpense_hotel(){
     	 location="toExpense_history_hotel.do";
+     }
+     function goExpense_subway(){
+    	 location="toExpense_subway.do";
+     }
+     function goApprove_history_view(){
+    	 /* location="goApprove_history_view.do"; */
+    	 $.alert("该功能暂时未开放");
      }
      /*权限验证配置所需的信息 */
      var config =<%=request.getAttribute("config")%>;

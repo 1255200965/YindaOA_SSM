@@ -35,9 +35,11 @@
     <hr/>
     </c:forEach>
     <script>
+      //新增
     	function goExpense_bus(){
     		location="toExpense_train.do";
     	};
+    	//查看单条报销记录
     	function goExpense_view_train(data){
     		location="toExpense_view_train.do?id="+data;
     	};

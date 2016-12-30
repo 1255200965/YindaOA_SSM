@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.model.ExpenseApplayBus;
 
+
 public interface IExpenseApplayBusService {
 	//根据用户ID查询用户所有的大巴票据报销信息
 	 public List<ExpenseApplayBus> selectAllByStaffId(String staffId);
@@ -11,4 +12,7 @@ public interface IExpenseApplayBusService {
 	 public ExpenseApplayBus selectById(int id);
 	 //大巴报销信息保存，返回ID
 	 public int saveOrUpdate(ExpenseApplayBus expenseApplayBus);
+	 //各级管理员审核
+	 public ExpenseApplayBus sendTONextManager(ExpenseApplayBus expenseApplayBus);
+	public ExpenseApplayBus refuseOption(ExpenseApplayBus expenseApplayBus);
 }
