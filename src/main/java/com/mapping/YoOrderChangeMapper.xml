@@ -77,7 +77,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from yo_order_change
     where id = #{id,jdbcType=INTEGER}
@@ -87,24 +87,24 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.model.YoOrderChange" >
-    insert into yo_order_change (id, staff_id, staff_user_id, 
-      department, project, order_name, 
-      order_number, principal, business_property, 
-      outdoor_job, change_province, change_city, 
-      order_year, modify_user, modify_time, 
-      order_status, yinda_identify, assess, 
-      contract_type, order_result, order_remark, 
-      history_access, now_acess, username
-      )
-    values (#{id,jdbcType=INTEGER}, #{staffId,jdbcType=VARCHAR}, #{staffUserId,jdbcType=VARCHAR}, 
-      #{department,jdbcType=VARCHAR}, #{project,jdbcType=VARCHAR}, #{orderName,jdbcType=VARCHAR}, 
-      #{orderNumber,jdbcType=VARCHAR}, #{principal,jdbcType=VARCHAR}, #{businessProperty,jdbcType=VARCHAR}, 
-      #{outdoorJob,jdbcType=VARCHAR}, #{changeProvince,jdbcType=VARCHAR}, #{changeCity,jdbcType=VARCHAR}, 
-      #{orderYear,jdbcType=VARCHAR}, #{modifyUser,jdbcType=VARCHAR}, #{modifyTime,jdbcType=VARCHAR}, 
-      #{orderStatus,jdbcType=VARCHAR}, #{yindaIdentify,jdbcType=VARCHAR}, #{assess,jdbcType=VARCHAR}, 
-      #{contractType,jdbcType=VARCHAR}, #{orderResult,jdbcType=VARCHAR}, #{orderRemark,jdbcType=VARCHAR}, 
-      #{historyAccess,jdbcType=VARCHAR}, #{nowAcess,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}
-      )
+    insert into yo_order_change (id, staff_id, staff_user_id,
+    department, project, order_name,
+    order_number, principal, business_property,
+    outdoor_job, change_province, change_city,
+    order_year, modify_user, modify_time,
+    order_status, yinda_identify, assess,
+    contract_type, order_result, order_remark,
+    history_access, now_acess, username
+    )
+    values (#{id,jdbcType=INTEGER}, #{staffId,jdbcType=VARCHAR}, #{staffUserId,jdbcType=VARCHAR},
+    #{department,jdbcType=VARCHAR}, #{project,jdbcType=VARCHAR}, #{orderName,jdbcType=VARCHAR},
+    #{orderNumber,jdbcType=VARCHAR}, #{principal,jdbcType=VARCHAR}, #{businessProperty,jdbcType=VARCHAR},
+    #{outdoorJob,jdbcType=VARCHAR}, #{changeProvince,jdbcType=VARCHAR}, #{changeCity,jdbcType=VARCHAR},
+    #{orderYear,jdbcType=VARCHAR}, #{modifyUser,jdbcType=VARCHAR}, #{modifyTime,jdbcType=VARCHAR},
+    #{orderStatus,jdbcType=VARCHAR}, #{yindaIdentify,jdbcType=VARCHAR}, #{assess,jdbcType=VARCHAR},
+    #{contractType,jdbcType=VARCHAR}, #{orderResult,jdbcType=VARCHAR}, #{orderRemark,jdbcType=VARCHAR},
+    #{historyAccess,jdbcType=VARCHAR}, #{nowAcess,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}
+    )
   </insert>
   <insert id="insertSelective" parameterType="com.model.YoOrderChange" >
     insert into yo_order_change
@@ -335,53 +335,53 @@
   <update id="updateByPrimaryKey" parameterType="com.model.YoOrderChange" >
     update yo_order_change
     set staff_id = #{staffId,jdbcType=VARCHAR},
-      staff_user_id = #{staffUserId,jdbcType=VARCHAR},
-      department = #{department,jdbcType=VARCHAR},
-      project = #{project,jdbcType=VARCHAR},
-      order_name = #{orderName,jdbcType=VARCHAR},
-      order_number = #{orderNumber,jdbcType=VARCHAR},
-      principal = #{principal,jdbcType=VARCHAR},
-      business_property = #{businessProperty,jdbcType=VARCHAR},
-      outdoor_job = #{outdoorJob,jdbcType=VARCHAR},
-      change_province = #{changeProvince,jdbcType=VARCHAR},
-      change_city = #{changeCity,jdbcType=VARCHAR},
-      order_year = #{orderYear,jdbcType=VARCHAR},
-      modify_user = #{modifyUser,jdbcType=VARCHAR},
-      modify_time = #{modifyTime,jdbcType=VARCHAR},
-      order_status = #{orderStatus,jdbcType=VARCHAR},
-      yinda_identify = #{yindaIdentify,jdbcType=VARCHAR},
-      assess = #{assess,jdbcType=VARCHAR},
-      contract_type = #{contractType,jdbcType=VARCHAR},
-      order_result = #{orderResult,jdbcType=VARCHAR},
-      order_remark = #{orderRemark,jdbcType=VARCHAR},
-      history_access = #{historyAccess,jdbcType=VARCHAR},
-      now_acess = #{nowAcess,jdbcType=VARCHAR},
-      username = #{username,jdbcType=VARCHAR}
+    staff_user_id = #{staffUserId,jdbcType=VARCHAR},
+    department = #{department,jdbcType=VARCHAR},
+    project = #{project,jdbcType=VARCHAR},
+    order_name = #{orderName,jdbcType=VARCHAR},
+    order_number = #{orderNumber,jdbcType=VARCHAR},
+    principal = #{principal,jdbcType=VARCHAR},
+    business_property = #{businessProperty,jdbcType=VARCHAR},
+    outdoor_job = #{outdoorJob,jdbcType=VARCHAR},
+    change_province = #{changeProvince,jdbcType=VARCHAR},
+    change_city = #{changeCity,jdbcType=VARCHAR},
+    order_year = #{orderYear,jdbcType=VARCHAR},
+    modify_user = #{modifyUser,jdbcType=VARCHAR},
+    modify_time = #{modifyTime,jdbcType=VARCHAR},
+    order_status = #{orderStatus,jdbcType=VARCHAR},
+    yinda_identify = #{yindaIdentify,jdbcType=VARCHAR},
+    assess = #{assess,jdbcType=VARCHAR},
+    contract_type = #{contractType,jdbcType=VARCHAR},
+    order_result = #{orderResult,jdbcType=VARCHAR},
+    order_remark = #{orderRemark,jdbcType=VARCHAR},
+    history_access = #{historyAccess,jdbcType=VARCHAR},
+    now_acess = #{nowAcess,jdbcType=VARCHAR},
+    username = #{username,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  
-  <insert id="add" parameterType="com.model.YoOrderChange"
-		keyColumn="id" keyProperty="id" useGeneratedKeys="true">
 
-  insert into yo_order_change ( staff_id, staff_user_id, 
-      department, project, order_name, 
-      order_number, principal, business_property, 
-      outdoor_job, change_province, change_city, 
-      order_year, modify_user, modify_time, 
-      order_status, yinda_identify, assess, 
-      contract_type, order_result, order_remark, 
-      history_access, now_acess, username
-      )
-    values ( #{staffId,jdbcType=VARCHAR}, #{staffUserId,jdbcType=VARCHAR}, 
-      #{department,jdbcType=VARCHAR}, #{project,jdbcType=VARCHAR}, #{orderName,jdbcType=VARCHAR}, 
-      #{orderNumber,jdbcType=VARCHAR}, #{principal,jdbcType=VARCHAR}, #{businessProperty,jdbcType=VARCHAR}, 
-      #{outdoorJob,jdbcType=VARCHAR}, #{changeProvince,jdbcType=VARCHAR}, #{changeCity,jdbcType=VARCHAR}, 
-      #{orderYear,jdbcType=VARCHAR}, #{modifyUser,jdbcType=VARCHAR}, #{modifyTime,jdbcType=VARCHAR}, 
-      #{orderStatus,jdbcType=VARCHAR}, #{yindaIdentify,jdbcType=VARCHAR}, #{assess,jdbcType=VARCHAR}, 
-      #{contractType,jdbcType=VARCHAR}, #{orderResult,jdbcType=VARCHAR}, #{orderRemark,jdbcType=VARCHAR}, 
-      #{historyAccess,jdbcType=VARCHAR}, #{nowAcess,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}
-      )
-	</insert>
-  
-  
+  <insert id="add" parameterType="com.model.YoOrderChange"
+          keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+
+    insert into yo_order_change ( staff_id, staff_user_id,
+    department, project, order_name,
+    order_number, principal, business_property,
+    outdoor_job, change_province, change_city,
+    order_year, modify_user, modify_time,
+    order_status, yinda_identify, assess,
+    contract_type, order_result, order_remark,
+    history_access, now_acess, username
+    )
+    values ( #{staffId,jdbcType=VARCHAR}, #{staffUserId,jdbcType=VARCHAR},
+    #{department,jdbcType=VARCHAR}, #{project,jdbcType=VARCHAR}, #{orderName,jdbcType=VARCHAR},
+    #{orderNumber,jdbcType=VARCHAR}, #{principal,jdbcType=VARCHAR}, #{businessProperty,jdbcType=VARCHAR},
+    #{outdoorJob,jdbcType=VARCHAR}, #{changeProvince,jdbcType=VARCHAR}, #{changeCity,jdbcType=VARCHAR},
+    #{orderYear,jdbcType=VARCHAR}, #{modifyUser,jdbcType=VARCHAR}, #{modifyTime,jdbcType=VARCHAR},
+    #{orderStatus,jdbcType=VARCHAR}, #{yindaIdentify,jdbcType=VARCHAR}, #{assess,jdbcType=VARCHAR},
+    #{contractType,jdbcType=VARCHAR}, #{orderResult,jdbcType=VARCHAR}, #{orderRemark,jdbcType=VARCHAR},
+    #{historyAccess,jdbcType=VARCHAR}, #{nowAcess,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}
+    )
+  </insert>
+
+
 </mapper>

@@ -83,7 +83,8 @@
                 <td class="text_center" width="6%">加班原因</td>
                 <td class="text_center" width="6%">开始时间</td>
                 <td class="text_center" width="6%">结束时间</td>
-                <td class="text_center" width="6%">加班时长</td>  
+                <td class="text_center" width="6%">加班时长</td>
+                <td class="text_center" width="6%">加班地点</td>
                 <td class="text_center" width="6%">历史审人</td>
                 <td class="text_center" width="6%">当前审批人</td>
                 <td class="text_center" width="6%">审批状态</td>
@@ -101,6 +102,7 @@
                 <td class="text_center" width="6%">${overTime.otApproveBegin}</td>
                 <td class="text_center" width="6%">${overTime.otApproveEnd }</td>
                 <td class="text_center" width="6%">${overTime.otCost}</td>
+                <td class="text_center" width="6%">${overTime.otAddress}</td>
                 <td class="text_center" width="6%">${overTime.otHistoryApproveName}</td>
                 <td class="text_center" width="6%">${overTime.otNowApproveName }</td>
                  <td class="text_center" width="6%">${overTime.otApproveState}</td>

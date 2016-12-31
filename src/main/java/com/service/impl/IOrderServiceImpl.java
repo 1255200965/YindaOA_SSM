@@ -1,9 +1,11 @@
 package com.service.impl;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.dao.YoOrderMapper;
 import com.model.YoOrder;
 import com.model.YoOrderExample;
@@ -59,5 +61,16 @@ public class IOrderServiceImpl implements IOrderService{
 		return orderList;
 	}
 	
-	
+	@Override
+	public List<String> selectAllDepartment(){
+		return yoOrderMapper.selectAllDepartment();
+	}
+	@Override
+	public List<String> selectProjectOfDepartment(String department){
+		return yoOrderMapper.selectProjectOfDepartment(department);
+	}
+	@Override
+	public List<String> selectOrderofProject(String project){
+		return yoOrderMapper.selectOrderofProject(project);
+	}
 }

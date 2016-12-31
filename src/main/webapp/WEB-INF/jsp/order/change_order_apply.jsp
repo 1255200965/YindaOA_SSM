@@ -99,7 +99,7 @@
   
   
   
-    <div class="weui_cell weui_vcode">
+    <div class="weui_cell weui_vcode" style="display: none;">
     <div class="weui_cell_hd"><label class="weui_label">商务等级</label></div>
     <div class="weui_cell_bd weui_cell_primary">
     <div class="weui_cell weui_cell_select">
@@ -339,7 +339,8 @@
            		 
            		 var remarkHTML;
            	    $.post("<%=path%>/order/getRemarkByOrder.do",{'orderName':orderName},function (data){
-                	 $.each(data, function (n, value) { 
+                    remarkHTML = null;
+                	 $.each(data, function (n, value) {
                 		
                 		 remarkHTML = remarkHTML +"<option value='"+value+"'>"+value+"</option>";  
                        });

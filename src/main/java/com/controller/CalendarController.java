@@ -65,7 +65,7 @@ public class CalendarController {
 		List<CalendarUtil> CalendarList = new ArrayList<CalendarUtil>();
 		for(YoSalary yo:list){
 			CalendarUtil cu = new CalendarUtil();
-			cu.setColor("green");
+			cu.setColor("red");
 			cu.setStart(sdf.format(yo.getDate()));
 			cu.setTitle("请假");
 			CalendarList.add(cu);
@@ -88,7 +88,7 @@ public class CalendarController {
 		List<CalendarUtil> CalendarList = new ArrayList<CalendarUtil>();
 		for(YoSalary yo:list){
 			CalendarUtil cu = new CalendarUtil();
-			cu.setColor("green");
+			cu.setColor("blue");
 			cu.setStart(sdf.format(yo.getDate()));
 			cu.setTitle("出差");
 			CalendarList.add(cu);
@@ -111,7 +111,7 @@ public class CalendarController {
 		List<CalendarUtil> CalendarList = new ArrayList<CalendarUtil>();
 		for(YoSalary yo:list){
 			CalendarUtil cu = new CalendarUtil();
-			cu.setColor("green");
+			cu.setColor("yellow");
 			cu.setStart(sdf.format(yo.getDate()));
 			cu.setTitle("加班");
 			CalendarList.add(cu);

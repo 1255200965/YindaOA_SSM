@@ -23,6 +23,7 @@
     <result column="ot_ask_sustain" property="otAskSustain" jdbcType="VARCHAR" />
     <result column="ot_ask_reason" property="otAskReason" jdbcType="VARCHAR" />
     <result column="ot_comment" property="otComment" jdbcType="VARCHAR" />
+    <result column="ot_address" property="otAddress" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -57,7 +58,7 @@
     ot_sequence_no, ot_approve_no, ot_title, ot_approve_state, ot_approve_result, ot_approve_begin, 
     ot_approve_end, ot_ask_staff_id, ot_ask_staff_name, ot_ask_staff_depart, ot_history_approve_name, 
     ot_approve_record, ot_now_approve_name, ot_cost, ot_ask_begin_time, ot_ask_end_time, 
-    ot_legal_holiday, ot_pay_method, ot_ask_sustain, ot_ask_reason, ot_comment
+    ot_legal_holiday, ot_pay_method, ot_ask_sustain, ot_ask_reason, ot_comment, ot_address
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.model.YoOvertimeExample" >
     select
@@ -73,13 +74,8 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from yo_overtime
-    where ot_sequence_no = #{otSequenceNo,jdbcType=INTEGER}
-  </select>
-    <!-- 加班表列表展示整个方法 -->
+  
+   <!-- 加班表列表展示整个方法 -->
   <select id="selectByProperties" resultMap="BaseResultMap" parameterType="com.model.YoOvertime">
      select 
      <include refid="Base_Column_List" />
@@ -107,6 +103,13 @@
        </if>
      </where>
   </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yo_overtime
+    where ot_sequence_no = #{otSequenceNo,jdbcType=INTEGER}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from yo_overtime
     where ot_sequence_no = #{otSequenceNo,jdbcType=INTEGER}
@@ -119,7 +122,7 @@
       ot_approve_record, ot_now_approve_name, ot_cost, 
       ot_ask_begin_time, ot_ask_end_time, ot_legal_holiday, 
       ot_pay_method, ot_ask_sustain, ot_ask_reason, 
-      ot_comment)
+      ot_comment, ot_address)
     values (#{otSequenceNo,jdbcType=INTEGER}, #{otApproveNo,jdbcType=VARCHAR}, #{otTitle,jdbcType=VARCHAR}, 
       #{otApproveState,jdbcType=VARCHAR}, #{otApproveResult,jdbcType=VARCHAR}, #{otApproveBegin,jdbcType=VARCHAR}, 
       #{otApproveEnd,jdbcType=VARCHAR}, #{otAskStaffId,jdbcType=VARCHAR}, #{otAskStaffName,jdbcType=VARCHAR}, 
@@ -127,7 +130,7 @@
       #{otApproveRecord,jdbcType=VARCHAR}, #{otNowApproveName,jdbcType=VARCHAR}, #{otCost,jdbcType=VARCHAR}, 
       #{otAskBeginTime,jdbcType=VARCHAR}, #{otAskEndTime,jdbcType=VARCHAR}, #{otLegalHoliday,jdbcType=VARCHAR}, 
       #{otPayMethod,jdbcType=VARCHAR}, #{otAskSustain,jdbcType=VARCHAR}, #{otAskReason,jdbcType=VARCHAR}, 
-      #{otComment,jdbcType=VARCHAR})
+      #{otComment,jdbcType=VARCHAR}, #{otAddress,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.model.YoOvertime" >
     insert into yo_overtime
@@ -195,6 +198,9 @@
       <if test="otComment != null" >
         ot_comment,
       </if>
+      <if test="otAddress != null" >
+        ot_address,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="otSequenceNo != null" >
@@ -259,6 +265,9 @@
       </if>
       <if test="otComment != null" >
         #{otComment,jdbcType=VARCHAR},
+      </if>
+      <if test="otAddress != null" >
+        #{otAddress,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -325,6 +334,9 @@
       <if test="otComment != null" >
         ot_comment = #{otComment,jdbcType=VARCHAR},
       </if>
+      <if test="otAddress != null" >
+        ot_address = #{otAddress,jdbcType=VARCHAR},
+      </if>
     </set>
     where ot_sequence_no = #{otSequenceNo,jdbcType=INTEGER}
   </update>
@@ -349,7 +361,8 @@
       ot_pay_method = #{otPayMethod,jdbcType=VARCHAR},
       ot_ask_sustain = #{otAskSustain,jdbcType=VARCHAR},
       ot_ask_reason = #{otAskReason,jdbcType=VARCHAR},
-      ot_comment = #{otComment,jdbcType=VARCHAR}
+      ot_comment = #{otComment,jdbcType=VARCHAR},
+      ot_address = #{otAddress,jdbcType=VARCHAR}
     where ot_sequence_no = #{otSequenceNo,jdbcType=INTEGER}
   </update>
 </mapper>

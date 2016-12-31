@@ -102,15 +102,15 @@
             <div class="affair-msg">
                 <p id="date" data-bind="text:salarydate"></p><p>总收入（元）</p>
                 <p id = "total"data-bind="text:totalsalary">0.00</p>
-                <p><a href="<%=basePath%>user/phone-details.do">点击查看详情</a></p>
+                <%--<p><a href="<%=basePath%>user/phone-details.do">点击查看详情</a></p>--%>
             </div>
             <div class="other">
-                <a href=javascript:getQuery("Calendar_Attendance.do")>考勤<p id="kq"data-bind="text:attendance"></p></a>
+                <a href=javascript:getQuery("Calendar_Attendance.do")>考勤打卡<p id="kq"data-bind="text:attendance"></p></a>
                 <a href=javascript:getQuery("Calendar_Worktime.do")>加班日历<p id="jb"data-bind="text:workovertime"></p></a>
                 <a href=javascript:getQuery("Calendar_Leavetype.do")>请假天数<p id="qj"data-bind="text:leavetype"></p></a>
-                <a href=javascript:getQuery("Calendar_Evenctime.do")>出差<p id="cc"data-bind="text:attendance"></p></a>
-                <a href="javascript:void(0)" onclick="openLink('<%=basePath%>Calendar/Calendar_Attendance.do')">真实考勤<p id="zs"data-bind="text:realityattendance"></p></a>
-                <a href="javascript:void(0)" onclick="openLink('<%=basePath%>Calendar/Calendar_Attendance.do')">有效考勤<p id="yx"data-bind="text:effectiveattendance"></p></a>
+                <a href=javascript:getQuery("Calendar_Evenctime.do")>出差<p id="cc"data-bind="text:evection"></p></a>
+                <a >真实考勤<p id="zs"data-bind="text:realityattendance"></p></a>
+                <a >计薪考勤<p id="yx"data-bind="text:effectiveattendance"></p></a>
             </div>
         </div>
 

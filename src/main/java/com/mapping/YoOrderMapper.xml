@@ -74,6 +74,26 @@
     from yo_order
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <!-- 后加SQL -->
+  <resultMap id = "depResultMap" type="java.lang.String">
+     <result column="department" property="department" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id = "proResultMap" type="java.lang.String">
+     <result column="project" property="project" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id = "orderResultMap" type="java.lang.String">
+     <result column="order_name" property="orderName" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="selectAllDepartment" resultMap="depResultMap"  >
+    select distinct department from yo_order
+  </select>
+  <select id="selectProjectOfDepartment" resultMap="proResultMap" parameterType="java.lang.String" >
+    select distinct project from yo_order where Department = #{department,jdbcType=VARCHAR}
+  </select>
+  <select id="selectOrderofProject" resultMap="orderResultMap" parameterType="java.lang.String" >
+    select distinct order_name from yo_order where project = #{project,jdbcType=VARCHAR}
+  </select>
+  <!-- 后加SQL -->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from yo_order
     where id = #{id,jdbcType=INTEGER}

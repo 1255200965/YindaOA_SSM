@@ -1,6 +1,7 @@
 package com.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,14 +10,17 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import bsh.ParseException;
 
-import com.dao.YoAtteninfoMapper;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.model.YoAtteninfo;
 import com.model.YoAtteninfoExcelExport;
 import com.service.IAttendanceInfoService;
+import com.service.IOrderService;
 import com.util.ExportUtil;
 
 
@@ -25,6 +29,8 @@ import com.util.ExportUtil;
 public class ExcelAtteninfoExportController {
 	 @Autowired
 	private IAttendanceInfoService atteninfoService;
+	 @Autowired
+	 private IOrderService orderService;
 	 /**
 	  * 考勤信息展示
 	  * @param request
@@ -62,6 +68,9 @@ public class ExcelAtteninfoExportController {
 	   yoAtteninfo.setAttaddress(attendtime);
 	   yoAtteninfo.setAttendresult(atttime);
 	   yoAtteninfo.setIfactivity(orderName);
+	   List<String> depList = orderService.selectAllDepartment();
+	   //先加载页面后面使用ajax加载部门列表时会出现延迟加载的情况用户体验教差,因此直接将部门列表传到前台去
+	   mav.addObject("depList", depList);
 	   mav.addObject("yoAtteninfo", yoAtteninfo);
 	   mav.addObject("YEList", YEList);
 	   mav.setViewName("attendance");
@@ -96,5 +105,25 @@ public class ExcelAtteninfoExportController {
 	      ExportUtil.export2(exportList, excelHeader, response);
  	   } 
     	  
+    }
+    /**
+     * 异步加载项目名
+     * @param department
+     * @return
+     */
+    @RequestMapping("/loadProjectName.do")
+    public @ResponseBody List<String> loadDep(String department){
+    	List<String>  proList = orderService.selectProjectOfDepartment(department);
+    	return  proList;
+    }
+    /**
+     * 异步加载订单名
+     * @param projectName
+     * @return
+     */
+    @RequestMapping("/loadOrderName.do")
+    public @ResponseBody List<String> lodaOrderName(String projectName){
+    	List<String> orderList = orderService.selectOrderofProject(projectName);
+    	return orderList;
     }
 }

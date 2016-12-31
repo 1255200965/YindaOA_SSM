@@ -142,6 +142,22 @@
 			    	 } },
 			        
 			     { text: "省外", onClick: function(){ 
+			    	 
+			    	if( "${businessTripList}" == "[]" || "${businessTripList}" ==null){
+			    		$.modal({
+			 			   title: "暂无当前用户从阿里商旅订购火车票的信息,无法进行省外火车票报销",
+			 			   text: "",
+			 			   buttons: [
+			 			     { text: "进行省内火车票报销", onClick: function(){
+			 			    	 window.location.href="toExpense_train_InProvince.do";
+			 			    	 } },
+			 			        
+			 			     { text: "退出", onClick: function(){ 
+			 			    	window.location.href="toExpense_applay.do";
+			 			     } },
+			 			   ]
+			 			 });
+			    	}
 			    	
 			     } },
 			   ]

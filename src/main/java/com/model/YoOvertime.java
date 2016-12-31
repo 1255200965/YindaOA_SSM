@@ -43,6 +43,8 @@ public class YoOvertime {
 
     private String otComment;
 
+    private String otAddress;
+
     public Integer getOtSequenceNo() {
         return otSequenceNo;
     }
@@ -209,5 +211,13 @@ public class YoOvertime {
 
     public void setOtComment(String otComment) {
         this.otComment = otComment;
+    }
+
+    public String getOtAddress() {
+        return otAddress;
+    }
+
+    public void setOtAddress(String otAddress) {
+        this.otAddress = otAddress;
     }
 }

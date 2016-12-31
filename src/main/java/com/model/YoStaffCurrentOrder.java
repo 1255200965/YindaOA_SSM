@@ -5,7 +5,7 @@ public class YoStaffCurrentOrder {
 
     private String staffUserId;
 
-    private String scoStaffUserId;
+    private String scoStaffId;
 
     private String scoOrderNo;
 
@@ -47,12 +47,12 @@ public class YoStaffCurrentOrder {
         this.staffUserId = staffUserId;
     }
 
-    public String getScoStaffUserId() {
-        return scoStaffUserId;
+    public String getScoStaffId() {
+        return scoStaffId;
     }
 
-    public void setScoStaffUserId(String scoStaffUserId) {
-        this.scoStaffUserId = scoStaffUserId;
+    public void setScoStaffId(String scoStaffId) {
+        this.scoStaffId = scoStaffId;
     }
 
     public String getScoOrderNo() {

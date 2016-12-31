@@ -23,7 +23,7 @@ public class StaffCurrentOrderServiceImpl implements IStaffCurrentOrderService{
 		// TODO Auto-generated method stub
 		YoStaffCurrentOrderExample yoStaffCurrentOrderExample = new YoStaffCurrentOrderExample();
 		YoStaffCurrentOrderExample.Criteria criteria = yoStaffCurrentOrderExample.createCriteria();
-		if(staff_user_id != null) criteria.andScoStaffUserIdEqualTo(staff_user_id);
+		if(staff_user_id != null) criteria.andStaffUserIdEqualTo(staff_user_id);
 		List<YoStaffCurrentOrder> staffCurrentOrderList=yoStaffCurrentOrderMapper.selectByExample(yoStaffCurrentOrderExample);
 		if(staffCurrentOrderList!=null&&staffCurrentOrderList.size()>0){
 			return staffCurrentOrderList.get(0);

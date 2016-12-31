@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.model.YoStaffCurrentOrder" >
     <id column="sco_sequence_no" property="scoSequenceNo" jdbcType="INTEGER" />
     <result column="staff_user_id" property="staffUserId" jdbcType="VARCHAR" />
-    <result column="sco_staff_user_id" property="scoStaffUserId" jdbcType="VARCHAR" />
+    <result column="sco_staff_id" property="scoStaffId" jdbcType="VARCHAR" />
     <result column="sco_order_no" property="scoOrderNo" jdbcType="VARCHAR" />
     <result column="sco_project_name" property="scoProjectName" jdbcType="VARCHAR" />
     <result column="sco_order_name" property="scoOrderName" jdbcType="VARCHAR" />
@@ -48,9 +48,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    sco_sequence_no, staff_user_id, sco_staff_user_id, sco_order_no, sco_project_name, 
-    sco_order_name, sco_contrat_type, department, principal, business_property, outdoor_job, 
-    order_province, order_city, order_year, yinda_identify
+    sco_sequence_no, staff_user_id, sco_staff_id, sco_order_no, sco_project_name, sco_order_name, 
+    sco_contrat_type, department, principal, business_property, outdoor_job, order_province, 
+    order_city, order_year, yinda_identify
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.model.YoStaffCurrentOrderExample" >
     select
@@ -77,13 +77,13 @@
     where sco_sequence_no = #{scoSequenceNo,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.model.YoStaffCurrentOrder" >
-    insert into yo_staff_current_order (sco_sequence_no, staff_user_id, sco_staff_user_id, 
+    insert into yo_staff_current_order (sco_sequence_no, staff_user_id, sco_staff_id, 
       sco_order_no, sco_project_name, sco_order_name, 
       sco_contrat_type, department, principal, 
       business_property, outdoor_job, order_province, 
       order_city, order_year, yinda_identify
       )
-    values (#{scoSequenceNo,jdbcType=INTEGER}, #{staffUserId,jdbcType=VARCHAR}, #{scoStaffUserId,jdbcType=VARCHAR}, 
+    values (#{scoSequenceNo,jdbcType=INTEGER}, #{staffUserId,jdbcType=VARCHAR}, #{scoStaffId,jdbcType=VARCHAR}, 
       #{scoOrderNo,jdbcType=VARCHAR}, #{scoProjectName,jdbcType=VARCHAR}, #{scoOrderName,jdbcType=VARCHAR}, 
       #{scoContratType,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR}, #{principal,jdbcType=VARCHAR}, 
       #{businessProperty,jdbcType=VARCHAR}, #{outdoorJob,jdbcType=VARCHAR}, #{orderProvince,jdbcType=VARCHAR}, 
@@ -99,8 +99,8 @@
       <if test="staffUserId != null" >
         staff_user_id,
       </if>
-      <if test="scoStaffUserId != null" >
-        sco_staff_user_id,
+      <if test="scoStaffId != null" >
+        sco_staff_id,
       </if>
       <if test="scoOrderNo != null" >
         sco_order_no,
@@ -146,8 +146,8 @@
       <if test="staffUserId != null" >
         #{staffUserId,jdbcType=VARCHAR},
       </if>
-      <if test="scoStaffUserId != null" >
-        #{scoStaffUserId,jdbcType=VARCHAR},
+      <if test="scoStaffId != null" >
+        #{scoStaffId,jdbcType=VARCHAR},
       </if>
       <if test="scoOrderNo != null" >
         #{scoOrderNo,jdbcType=VARCHAR},
@@ -193,8 +193,8 @@
       <if test="staffUserId != null" >
         staff_user_id = #{staffUserId,jdbcType=VARCHAR},
       </if>
-      <if test="scoStaffUserId != null" >
-        sco_staff_user_id = #{scoStaffUserId,jdbcType=VARCHAR},
+      <if test="scoStaffId != null" >
+        sco_staff_id = #{scoStaffId,jdbcType=VARCHAR},
       </if>
       <if test="scoOrderNo != null" >
         sco_order_no = #{scoOrderNo,jdbcType=VARCHAR},
@@ -238,7 +238,7 @@
   <update id="updateByPrimaryKey" parameterType="com.model.YoStaffCurrentOrder" >
     update yo_staff_current_order
     set staff_user_id = #{staffUserId,jdbcType=VARCHAR},
-      sco_staff_user_id = #{scoStaffUserId,jdbcType=VARCHAR},
+      sco_staff_id = #{scoStaffId,jdbcType=VARCHAR},
       sco_order_no = #{scoOrderNo,jdbcType=VARCHAR},
       sco_project_name = #{scoProjectName,jdbcType=VARCHAR},
       sco_order_name = #{scoOrderName,jdbcType=VARCHAR},

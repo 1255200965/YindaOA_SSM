@@ -234,73 +234,73 @@ public class YoStaffCurrentOrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andScoStaffUserIdIsNull() {
-            addCriterion("sco_staff_user_id is null");
+        public Criteria andScoStaffIdIsNull() {
+            addCriterion("sco_staff_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andScoStaffUserIdIsNotNull() {
-            addCriterion("sco_staff_user_id is not null");
+        public Criteria andScoStaffIdIsNotNull() {
+            addCriterion("sco_staff_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andScoStaffUserIdEqualTo(String value) {
-            addCriterion("sco_staff_user_id =", value, "scoStaffUserId");
+        public Criteria andScoStaffIdEqualTo(String value) {
+            addCriterion("sco_staff_id =", value, "scoStaffId");
             return (Criteria) this;
         }
 
-        public Criteria andScoStaffUserIdNotEqualTo(String value) {
-            addCriterion("sco_staff_user_id <>", value, "scoStaffUserId");
+        public Criteria andScoStaffIdNotEqualTo(String value) {
+            addCriterion("sco_staff_id <>", value, "scoStaffId");
             return (Criteria) this;
         }
 
-        public Criteria andScoStaffUserIdGreaterThan(String value) {
-            addCriterion("sco_staff_user_id >", value, "scoStaffUserId");
+        public Criteria andScoStaffIdGreaterThan(String value) {
+            addCriterion("sco_staff_id >", value, "scoStaffId");
             return (Criteria) this;
         }
 
-        public Criteria andScoStaffUserIdGreaterThanOrEqualTo(String value) {
-            addCriterion("sco_staff_user_id >=", value, "scoStaffUserId");
+        public Criteria andScoStaffIdGreaterThanOrEqualTo(String value) {
+            addCriterion("sco_staff_id >=", value, "scoStaffId");
             return (Criteria) this;
         }
 
-        public Criteria andScoStaffUserIdLessThan(String value) {
-            addCriterion("sco_staff_user_id <", value, "scoStaffUserId");
+        public Criteria andScoStaffIdLessThan(String value) {
+            addCriterion("sco_staff_id <", value, "scoStaffId");
             return (Criteria) this;
         }
 
-        public Criteria andScoStaffUserIdLessThanOrEqualTo(String value) {
-            addCriterion("sco_staff_user_id <=", value, "scoStaffUserId");
+        public Criteria andScoStaffIdLessThanOrEqualTo(String value) {
+            addCriterion("sco_staff_id <=", value, "scoStaffId");
             return (Criteria) this;
         }
 
-        public Criteria andScoStaffUserIdLike(String value) {
-            addCriterion("sco_staff_user_id like", value, "scoStaffUserId");
+        public Criteria andScoStaffIdLike(String value) {
+            addCriterion("sco_staff_id like", value, "scoStaffId");
             return (Criteria) this;
         }
 
-        public Criteria andScoStaffUserIdNotLike(String value) {
-            addCriterion("sco_staff_user_id not like", value, "scoStaffUserId");
+        public Criteria andScoStaffIdNotLike(String value) {
+            addCriterion("sco_staff_id not like", value, "scoStaffId");
             return (Criteria) this;
         }
 
-        public Criteria andScoStaffUserIdIn(List<String> values) {
-            addCriterion("sco_staff_user_id in", values, "scoStaffUserId");
+        public Criteria andScoStaffIdIn(List<String> values) {
+            addCriterion("sco_staff_id in", values, "scoStaffId");
             return (Criteria) this;
         }
 
-        public Criteria andScoStaffUserIdNotIn(List<String> values) {
-            addCriterion("sco_staff_user_id not in", values, "scoStaffUserId");
+        public Criteria andScoStaffIdNotIn(List<String> values) {
+            addCriterion("sco_staff_id not in", values, "scoStaffId");
             return (Criteria) this;
         }
 
-        public Criteria andScoStaffUserIdBetween(String value1, String value2) {
-            addCriterion("sco_staff_user_id between", value1, value2, "scoStaffUserId");
+        public Criteria andScoStaffIdBetween(String value1, String value2) {
+            addCriterion("sco_staff_id between", value1, value2, "scoStaffId");
             return (Criteria) this;
         }
 
-        public Criteria andScoStaffUserIdNotBetween(String value1, String value2) {
-            addCriterion("sco_staff_user_id not between", value1, value2, "scoStaffUserId");
+        public Criteria andScoStaffIdNotBetween(String value1, String value2) {
+            addCriterion("sco_staff_id not between", value1, value2, "scoStaffId");
             return (Criteria) this;
         }
 

@@ -27,4 +27,6 @@ public interface IOrderChangeService {
 	  */
 	 List<YoOrderChange> get_Apply(String user_staff_id);
 	 
+	 List<YoOrderChange> selectForExport(YoOrderChange orderChange);
+	 
 }

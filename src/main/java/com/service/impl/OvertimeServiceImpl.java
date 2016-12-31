@@ -66,6 +66,7 @@ public class OvertimeServiceImpl implements IOvertimeExcelService {
                         && hssfRow.getCell(cellNo++).toString().equals("开始时间")
                         && hssfRow.getCell(cellNo++).toString().equals("结束时间")
                         && hssfRow.getCell(cellNo++).toString().equals("加班时长（小时）")
+                        && hssfRow.getCell(cellNo++).toString().equals("加班地点")
                         && hssfRow.getCell(cellNo++).toString().equals("加班原因")
                         && hssfRow.getCell(cellNo++).toString().equals("备注")
                         ) {
@@ -162,6 +163,7 @@ public class OvertimeServiceImpl implements IOvertimeExcelService {
                 if (hssfRow.getCell(++cellNo) != null) yoOvertime.setOtAskBeginTime(hssfRow.getCell(cellNo).toString());
                 if (hssfRow.getCell(++cellNo) != null) yoOvertime.setOtAskEndTime(hssfRow.getCell(cellNo).toString());
                 if (hssfRow.getCell(++cellNo) != null) yoOvertime.setOtAskSustain(hssfRow.getCell(cellNo).toString());
+                if (hssfRow.getCell(++cellNo) != null) yoOvertime.setOtAddress(hssfRow.getCell(cellNo).toString());
                 if (hssfRow.getCell(++cellNo) != null) yoOvertime.setOtAskReason(hssfRow.getCell(cellNo).toString());
                 if (hssfRow.getCell(++cellNo) != null) yoOvertime.setOtComment(hssfRow.getCell(cellNo).toString());
 

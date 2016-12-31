@@ -32,6 +32,21 @@ public interface YoOrderMapper {
   	 * @return
   	 */
   	List<YoOrder> getProjectByDepartment(String department);
-  	
-  	
+  	/**
+  	 * 获取所有部门
+  	 * @return
+  	 */
+  	List<String> selectAllDepartment();
+  	/**
+  	 * 根据部门获取部门下所有的项目
+  	 * @param department
+  	 * @return
+  	 */
+  	public List<String> selectProjectOfDepartment(String department);
+  	/**
+  	 * 获取某个项目下的所有订单
+  	 * @param project
+  	 * @return
+  	 */
+  	public List<String> selectOrderofProject(String project);
 }

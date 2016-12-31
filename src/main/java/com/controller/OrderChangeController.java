@@ -59,18 +59,18 @@ public class OrderChangeController {
 		List <StaffInfo> identifyList = staffInfoMapper.getAllIdentifyInStallInfo();
 		String approveName = approve.getName();//获取审批人的姓名
 		System.out.println("商务等级长度"+identifyList.size());
-		mav.addObject("identifyList", identifyList);		
+		mav.addObject("identifyList", identifyList);
 		mav.addObject("itemChange", orderChange);
 		mav.addObject("approveName", approveName);
-		mav.addObject("staff_user_id", staff_user_id);		
+		mav.addObject("staff_user_id", staff_user_id);
 		mav.addObject("alength", approveName.length());
 		mav.setViewName("/order/approve_order");
 		return mav;
-		
+
 	}
-    
-	
-	
+
+
+
 	@RequestMapping("/approve_order_page_in.do")
 	public ModelAndView approve_order_page_in(String id,HttpServletRequest request,String staff_user_id){
 		ModelAndView mav = new ModelAndView();
@@ -81,10 +81,10 @@ public class OrderChangeController {
 		List <StaffInfo> identifyList = staffInfoMapper.getAllIdentifyInStallInfo();
 		String approveName = approve.getName();//获取审批人的姓名
 		System.out.println("商务等级长度"+identifyList.size());
-		mav.addObject("identifyList", identifyList);		
+		mav.addObject("identifyList", identifyList);
 		mav.addObject("itemChange", orderChange);
 		mav.addObject("approveName", approveName);
-		mav.addObject("staff_user_id", staff_user_id);		
+		mav.addObject("staff_user_id", staff_user_id);
 		mav.addObject("alength", approveName.length());
 		mav.setViewName("/order/approve_order2");
 		return mav;
@@ -98,11 +98,13 @@ public class OrderChangeController {
 	 */
 	@RequestMapping("/pass_approve.do")
 	@ResponseBody
-	public String pass_approve(String id,HttpServletRequest request,String identify){
+	public String pass_approve(String id,HttpServletRequest request,String identify,String orderRemark,String businessProp){
 
 		YoOrderChange itemChange =yoOrderChangeMapper.selectByPrimaryKey(Integer.valueOf(id));
 		itemChange.setOrderStatus("审核通过");
 		itemChange.setYindaIdentify(identify);//前端修改的商务属性
+		itemChange.setBusinessProperty(businessProp);
+		itemChange.setOrderRemark(orderRemark);
 		try{
 			yoOrderChangeMapper.updateByPrimaryKey(itemChange);
 			itemChange.setModifyTime(sdf.format(new Date()));
@@ -125,7 +127,7 @@ public class OrderChangeController {
 				String yindaIdentify=itemChange.getYindaIdentify();
 				if (staffCurentOrder==null){
 					//创建新的当前订单信息表
-					staffCurentOrder = new YoStaffCurrentOrder();	
+					staffCurentOrder = new YoStaffCurrentOrder();
 				}else{
 					//将当前订单表中的订单信息存入历史订单表中
 					System.out.println("保存到历史订单表");
@@ -142,7 +144,7 @@ public class OrderChangeController {
 					String scoOrderNo2=staffCurentOrder.getScoOrderNo();
 					String scoProjectName2= staffCurentOrder.getScoProjectName();
 					String yindaIdentify2=staffCurentOrder.getYindaIdentify();
-                    //历史订单对象赋值
+					//历史订单对象赋值
 					dorder.setStaffUserId(user_staff_id);
 					dorder.setBusinessProperty(businessProperty2);
 					dorder.setDepartment(department2);
@@ -158,9 +160,9 @@ public class OrderChangeController {
 					dorder.setYindaIdentify(yindaIdentify2);
 					staffDailyOrderMapper.insert(dorder);
 				}
-				
-				staffCurentOrder.setScoStaffUserId(user_staff_id);
-				staffCurentOrder.setBusinessProperty(businessProperty);
+
+				staffCurentOrder.setStaffUserId(user_staff_id);
+				staffCurentOrder.setBusinessProperty(businessProp);
 				staffCurentOrder.setDepartment(department);
 				staffCurentOrder.setOrderCity(orderCity);
 				staffCurentOrder.setOrderProvince(orderProvince);
@@ -172,7 +174,7 @@ public class OrderChangeController {
 				staffCurentOrder.setScoOrderNo(scoOrderNo);
 				staffCurentOrder.setScoProjectName(scoProjectName);
 				staffCurentOrder.setYindaIdentify(yindaIdentify);
-
+				staffCurentOrder.setYindaIdentify(orderRemark);
 				if(staffCurentOrder.getScoSequenceNo()!=null){
 					staffCurrentOrderMapper.updateByPrimaryKeySelective(staffCurentOrder);//如果当前有该用户的信息，跟新
 					System.out.println("更新当前订单表");
@@ -212,7 +214,7 @@ public class OrderChangeController {
 			return "error";
 		}
 	}
-	
+
 	/**
 	 * 已审批列表
 	 * @param request
@@ -223,18 +225,18 @@ public class OrderChangeController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("order/approve_history");
 		String user_staff_id= (String) request.getSession().getAttribute(GlobalConstant.user_staff_user_id);
-		
+
 		List<YoOrderChange> orderChangeList = iOrderChangeService.get_approve_history(user_staff_id);
 		//System.out.println("已审批列表长度："+orderChangeList.size());
 		mav.addObject("orderChangeList", orderChangeList);
 		return mav;
 	}
 
-    /**
-     * 待审批列表
-     * @param request
-     * @return
-     */
+	/**
+	 * 待审批列表
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/get_approve_un.do")
 	public  ModelAndView  get_approve_un(HttpServletRequest request){
 		ModelAndView mav = new ModelAndView();
@@ -245,15 +247,15 @@ public class OrderChangeController {
 		return mav;
 	}
 
-    /**
-     * 申请记录列表
-     * @param request
-     * @return
-     */
+	/**
+	 * 申请记录列表
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/get_Apply.do")
 	public  ModelAndView  get_Apply(HttpServletRequest request){
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("order/get_Apply");		
+		mav.setViewName("order/get_Apply");
 		String user_staff_id= (String) request.getSession().getAttribute(GlobalConstant.user_staff_user_id);
 		List<YoOrderChange> orderChangeList =iOrderChangeService.get_Apply(user_staff_id);
 		mav.addObject("orderChangeList", orderChangeList);

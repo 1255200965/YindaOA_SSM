@@ -39,64 +39,60 @@
 	<script type="text/javascript" src="<%=path%>/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
 
 
-    <style>
+    <!-- <style>
         *{box-sizing: content-box;-webkit-box-sizing: content-box;}
         .c_box{min-width:1350px;width:100%;}
         .c_box .col-md-2{min-width:189px;width:12.4%;}
         .c_box .c_left_box{height:850px;}
         .c_box .c_right_box {min-width:1056.7px;width:79%;}
         .table-1 tbody td{font-size:12px;}
-    </style>
+    </style> -->
     
 </head>
 
 <body style="background-color:white;">
-<%-- <header>
-   <div class="head-cont">
-        <div class="head-left fl">
-            <img src="<%=path%>/images/logo.png" height="35" width="50" alt="">
-            人事管理系统
-        </div>
-        <div class="head-nav fl" id="h-nav">
-            <ul>
-                <li><a href="<%=path%>/ExcelStaffInfo/homePage.do">人员导入</a></li>
-                <li><a href="<%=path%>/userinfo/testMethod.do">通讯录</a></li>
-                <li><a href="<%=path%>/Import/navigator.do">审批数据导入</a></li>
-                <li><a href="<%=path%>/userinfo/test.do">工资查询</a></li>
-                <li><a href="<%=path%>/userinfo/querys.do">个人工资明细</a></li>
-                <li><a  href="<%=path%>/toAskForLeave.do">请假明细</a>
-                <li><a class="active" href="<%=path%>/toAskForLeave.do">考勤明细</a>
-            </ul>
-        </div>
-        <div class="head-right fr">
-            欢迎您！管理员&nbsp;&nbsp;&nbsp;
-            <a href=""><img src="<%=path%>/images/guanbi.png" height="22" width="22" alt=""></a>
-        </div>
-    </div>
-</header> --%>
+
 <br/>
-<form id="form" > 
-  <div class="caidan-tiku" style="margin-bottom:3%">              
-              <div class="caidan-tiku-s" style="margin-right:5%"> <span>部门：</span>
-                    <input id="search_name" type="text" name="department" class="shuruk-a2" placeholder="" value="${yoAtteninfo.department }">
-                </div>
-                <div class="caidan-tiku-s" style="margin-right:5%"> <span>项目名称：</span>
-                    <input id="search_workid" type="text" name="projectName" class="shuruk-a2" placeholder="" value="${yoAtteninfo.device }">
-                </div>
-                <div class="caidan-tiku-s" style="margin-right:5%"> <span>订单名称：</span>
-                    <input id="search_workid" type="text" name="orderName" class="shuruk-a2" placeholder="" value="${yoAtteninfo.ifactivity }">
-                </div>
-                 <div class="caidan-tiku-s" style="margin-right:5%"> <span>时间：</span>
-                    <input id="start" type="text" name="attendtime" class="laydate-icon shuruk-a2 form_date" placeholder="" value="${yoAtteninfo.attaddress }" >
-                    <input id="search_name" type="text" name="atttime" class="shuruk-a2 form_date" placeholder="" value="${yoAtteninfo.attendresult }" >
+<form class="form-inline"  id="form">   
+               <div class="col-sm-2 form-group "> 
+                  <label class="col-sm-3 control-label">部门:</label>
+                    <select id="department"  name="department" class="col-sm-7" onchange="loadProjectName();">
+                        <option value="" selected="selected" ></option>
+                    	<c:forEach items="${ depList}" var="dep">
+                    	  <option value="${dep}">${dep}</option>
+                    	</c:forEach>
+                    </select>
+                 </div>
+                 <div class="col-sm-2 form-group "> 
+                  <label class="col-sm-4 control-label" >项目名称:</label>
+                    <select   name="projectName" class="col-sm-7" id="projectName" onchange="loadOrder();">
+                       <option value="" selected="selected"></option>
+                    </select>
+                 </div>
+                 <div class="col-sm-2 form-group "> 
+                    <label class="col-sm-4 control-label">订单名称: </label> 
+                     <select  name="orderName" class="col-sm-7" id="orderName">
+                       <option value="" selected="selected"></option>
+                    </select>
+                 </div>
+                 <div class="col-sm-2 form-group form-group-lg"> 
+                    <label class="col-sm-3 control-label">时间</label>
+                    <input id="start" type="text" name="attendtime" class="col-sm-4 form_date  " placeholder="" value="${yoAtteninfo.attaddress }" >
+                    <input id="search_name" type="text" name="atttime" class="col-sm-4 form_date" placeholder="" value="${yoAtteninfo.attendresult }" >
                 </div>
                  <div style="float:right;margin-right:0px;padding-bottom:0px;" >
                     <button  type="button"   class="btn btn_primary" onclick="subForm();">查询</button>
                     <button  type="button"   class="btn btn_info"  onclick="clearPropertities();">清空</button>
                     <button  type="button"   class="btn btn_danger" style="background:#fd9162" onclick="download();">下载</button>
-                </div>         
-    </div>
+                </div>   
+    <!-- <div class="form-group has-success has-feedback">
+    <label class="control-label" for="inputSuccess4">Input with success</label>
+    <input type="text" class="form-control" id="inputSuccess4">
+    <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+  </div> -->
+                      
 </form>
+<br/>
     <div style="width:100%; height:700px;padding-top: 5px;overflow:auto;border:0 solid #000000;">
             <table  width="100%" border="1" cellspacing="0" cellpadding="0" class="table-1">
                <thead class="table-1-tou">
@@ -141,36 +137,36 @@ $('.form_date').datetimepicker({
 	format:'yyyy-mm-dd',
 	minView: "month",
 });
-//查询
+   //查询
 	function subForm(){
-		if($("input[name='department']").val() == ""){
-			alert("请选择查询条件--部门;\r注:部门、开始日期、结束为必填项,项目、订单名称可填,可不填");
+		if($("select[name='department']").val() == ""){
+			alert("请选择查询条件--部门;\r注:部门+开始日期+结束日期为必填项,项目、订单名称可填,可不填");
 			return false;
 		}
 		
 		if($("input[name='attendtime']").val() == "" || $("input[name='attendtime']").val() ==null){
-			alert("请输入查询条件--开始日期;\r注:部门、开始日期、结束为必填项,项目、订单名称可填,可不填");
+			alert("请输入查询条件--开始日期;\r注:部门+开始日期+结束日期为必填项,项目、订单名称可填,可不填");
 			return false;
 		}
 		if($("input[name='atttime']").val()== "" || $("input[name='atttime']").val() == null){
-			alert("请选择查询条件--截止日期;\r注:部门、开始日期、结束为必填项,项目、订单名称可填,可不填");
+			alert("请选择查询条件--截止日期;\r注:部门+开始日期+结束日期为必填项,项目、订单名称可填,可不填");
 			return false;
 		}
 		$("#form").submit();
 	}
 	//下载
 	function download(){
-		if($("input[name='department']").val() == ""){
-			alert("请选择查询条件--部门;\r注:部门、开始日期、结束为必填项,项目、订单名称可填,可不填");
+		if($("select[name='department']").val() == ""){
+			alert("请选择查询条件--部门;\r注:部门+开始日期+结束日期为必填项项目、订单名称可填,可不填");
 			return false;
 		}
 		
 		if($("input[name='attendtime']").val() == "" || $("input[name='attendtime']").val() ==null){
-			alert("请输入查询条件--开始日期;\r注:部门、开始日期、结束为必填项,项目、订单名称可填,可不填");
+			alert("请输入查询条件--开始日期;\r注:部门+开始日期+结束日期为必填项,项目、订单名称可填,可不填");
 			return false;
 		}
 		if($("input[name='atttime']").val()== "" || $("input[name='atttime']").val() == null){
-			alert("请选择查询条件--截止日期;\r注:部门、开始日期、结束为必填项,项目、订单名称可填,可不填");
+			alert("请选择查询条件--截止日期;\r注:部门+开始日期+结束日期为必填项,项目、订单名称可填,可不填");
 			return false;
 		}
 		window.location.href="attendance_export.do?department="+$("input[name='department']").val()+
@@ -179,11 +175,29 @@ $('.form_date').datetimepicker({
 	}
 	//清空按钮
 	function clearPropertities(){
-		$("input[name='department']").val("");
-		$("input[name='orderName']").val("");
+		$("select[name='department']").val("");
+		$("select[name='orderName']").val("");
 		$("input[name='atttime']").val("");
 		$("input[name='attendtime']").val("");
-		$("input[name='projectName']").val("");
+		$("select[name='projectName']").val("");
+	}
+	//项目名称下拉框连动
+	function loadProjectName(){
+		$.post("loadProjectName.do",{"department":$("select[name='department']").val()},function(data){
+			$.each(data,function(index,item){
+				$("#projectName").append("<option value='"+item+"'>"+item+"</option>");
+			});
+		});
+	};
+	function loadOrder(){
+		
+		$.post("loadOrderName.do",{"projectName":$("select[name='projectName']").val()},
+				
+				function(data){
+			$.each(data,function(index,item){
+				$("#orderName").append("<option value='"+item+"'>"+item+"</option>");
+			});
+		   });
 	}
 </script>
 </body>

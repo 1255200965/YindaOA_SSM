@@ -44,6 +44,9 @@
     <result column="work_state" property="workState" jdbcType="VARCHAR" />
     <result column="leave_date" property="leaveDate" jdbcType="VARCHAR" />
   </resultMap>
+  <resultMap id="YIResultMap" type="com.model.StaffInfo" >
+      <result column="name" property="yindaIdentify" jdbcType="VARCHAR" />
+  </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -822,9 +825,9 @@
   </select>
   
   
-    <select id="getAllIdentifyInStallInfo"  resultMap="BaseResultMap" parameterType="java.lang.String">
+    <select id="getAllIdentifyInStallInfo"  resultMap="YIResultMap" parameterType="java.lang.String">
   
-   select distinct  yinda_identify from staff_info 
+   select  name  from yo_identify
   </select>
   
    <select id="getContract_typeInStallInfo"  resultMap="BaseResultMap" parameterType="java.lang.String">

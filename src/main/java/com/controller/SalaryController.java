@@ -107,7 +107,7 @@ public class SalaryController {
         YoUserinfosalaryExample example = new YoUserinfosalaryExample();
         YoUserinfosalaryExample.Criteria criteria1 = example.createCriteria();
         if (user.getSalarydate()!=null) criteria1.andSalarydateEqualTo(user.getSalarydate());
-        if (user.getSalaryid()!=null) criteria1.andSalaryidEqualTo(user.getSalaryid());
+        if (user.getUserid()!=null) criteria1.andUseridEqualTo(user.getUserid());
         List<YoUserinfosalary> query = userinfoSalaryService.selectByExample(example);
         if (query.size()>0){
             map.put("total",query.get(0));
@@ -733,9 +733,11 @@ public class SalaryController {
 /*        if (user.getSalarydate()!=null) salaryDate = user.getSalarydate();
         if (user.getStaffid()!=null) user.getStaffid();*/
         //generateSalary(2016,12);
-        SalaryUtil salaryUtil = new SalaryUtil(userSalaryService,userAttendanceService,userSighInService,userStaffInfoService,userAskLeaveService,userinfoSalaryService);
-        salaryUtil.generateSalaryByMonth(2016,12);
-        salaryUtil.generateSalaryTotal(2016,12);
+        //SalaryUtil salaryUtil = new SalaryUtil(userSalaryService,userAttendanceService,userSighInService,userStaffInfoService,userAskLeaveService,userinfoSalaryService);
+        //salaryUtil.generateSalaryByMonth(2016,12);
+        //salaryUtil.generateSalaryTotal(2016,12);
+        List<StaffInfo> ttt = staffInfoMapper.getAllIdentifyInStallInfo();
+
         if(true){
             map.put("msg", "成功");
         }else{

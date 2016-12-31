@@ -1563,6 +1563,76 @@ public class YoOvertimeExample {
             addCriterion("ot_comment not between", value1, value2, "otComment");
             return (Criteria) this;
         }
+
+        public Criteria andOtAddressIsNull() {
+            addCriterion("ot_address is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOtAddressIsNotNull() {
+            addCriterion("ot_address is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOtAddressEqualTo(String value) {
+            addCriterion("ot_address =", value, "otAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andOtAddressNotEqualTo(String value) {
+            addCriterion("ot_address <>", value, "otAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andOtAddressGreaterThan(String value) {
+            addCriterion("ot_address >", value, "otAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andOtAddressGreaterThanOrEqualTo(String value) {
+            addCriterion("ot_address >=", value, "otAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andOtAddressLessThan(String value) {
+            addCriterion("ot_address <", value, "otAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andOtAddressLessThanOrEqualTo(String value) {
+            addCriterion("ot_address <=", value, "otAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andOtAddressLike(String value) {
+            addCriterion("ot_address like", value, "otAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andOtAddressNotLike(String value) {
+            addCriterion("ot_address not like", value, "otAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andOtAddressIn(List<String> values) {
+            addCriterion("ot_address in", values, "otAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andOtAddressNotIn(List<String> values) {
+            addCriterion("ot_address not in", values, "otAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andOtAddressBetween(String value1, String value2) {
+            addCriterion("ot_address between", value1, value2, "otAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andOtAddressNotBetween(String value1, String value2) {
+            addCriterion("ot_address not between", value1, value2, "otAddress");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

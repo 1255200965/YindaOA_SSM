@@ -36,8 +36,22 @@ public interface IOrderService {
 	  * @return
 	  */
 	 List<YoOrder> getOrderByDepartmentAndProject(String department,String project);
-	
-	 
-	 
+	/**
+	 * 获取所有部门信息
+	 * @return
+	 */
+	 public List<String> selectAllDepartment();
+	 /**
+	  * 根据部门名称获取部门下的所有项目的名称
+	  * @param department
+	  * @return
+	  */
+	 public List<String> selectProjectOfDepartment(String department);
+	 /**
+	  	 * 获取某个项目下的所有订单
+	  	 * @param project
+	  	 * @return
+	  	 */
+	 public List<String> selectOrderofProject(String project);
 
 }

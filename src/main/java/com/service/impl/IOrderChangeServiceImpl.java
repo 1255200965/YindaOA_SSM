@@ -127,5 +127,13 @@ IOrderChangeService{
 				List<YoOrderChange> expenseBusList=orderChangeMapper.selectByExample(orderChangeExample);  
 				return expenseBusList;
 	}
+	
+	@Override
+	public List<YoOrderChange> selectForExport(YoOrderChange orderChange){
+		YoOrderChangeExample example = new YoOrderChangeExample();
+		YoOrderChangeExample.Criteria criteria = example.createCriteria();
+		criteria.andIdBetween(1, 2000000);
+		return orderChangeMapper.selectByExample(example);
+	}
 }
 

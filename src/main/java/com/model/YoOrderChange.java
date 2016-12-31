@@ -1,20 +1,7 @@
 package com.model;
 
 public class YoOrderChange {
-	
-    @Override
-	public String toString() {
-		return "YoOrderChange [id=" + id + ", staffId=" + staffId + ", staffUserId=" + staffUserId + ", department="
-				+ department + ", project=" + project + ", orderName=" + orderName + ", orderNumber=" + orderNumber
-				+ ", principal=" + principal + ", businessProperty=" + businessProperty + ", outdoorJob=" + outdoorJob
-				+ ", changeProvince=" + changeProvince + ", changeCity=" + changeCity + ", orderYear=" + orderYear
-				+ ", modifyUser=" + modifyUser + ", modifyTime=" + modifyTime + ", orderStatus=" + orderStatus
-				+ ", yindaIdentify=" + yindaIdentify + ", assess=" + assess + ", contractType=" + contractType
-				+ ", orderResult=" + orderResult + ", orderRemark=" + orderRemark + ", historyAccess=" + historyAccess
-				+ ", nowAcess=" + nowAcess + ", username=" + username + "]";
-	}
-
-	private Integer id;
+    private Integer id;
 
     private String staffId;
 
