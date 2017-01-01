@@ -229,8 +229,10 @@ public class DDSendMessageUtil {
     	List<String> approverList=new ArrayList<String>();//需要的审批人信息记录
     	List<String> departmentList=new ArrayList<String>();//当前用户所在的各级部门列表
     	List<String> depDDIdList=new ArrayList<String>();;//当前用户所在部门的各级部门钉钉ID列表
-    	//根据staffuserid获取用户的部门结构List
-    	departmentList = Arrays.asList(staffInfoService.selectStaffByID(staffUserId).getDepartment().split("\\-"));
+    	//根据staffuserid获取用户的部门结构List 	
+    	departmentList = Arrays.asList(Arrays.asList(staffInfoService.selectStaffByID(staffUserId)
+    			.getDepartment().split("\\,")).get(0).split("\\-"));
+    	System.out.println(departmentList.toString());
     	//根据二级部门名称,获取二级部门ID
     	DepartmentExample example = new DepartmentExample();
     	DepartmentExample.Criteria criteria = example.createCriteria();
