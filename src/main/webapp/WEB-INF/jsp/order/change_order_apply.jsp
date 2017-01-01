@@ -84,7 +84,7 @@
         </div>
 
 
-        <div class="weui_cell weui_vcode">
+        <!-- <div class="weui_cell weui_vcode">
             <div class="weui_cell_hd"><label class="weui_label">商务属性</label></div>
             <div class="weui_cell_bd weui_cell_primary">
                 <div class="weui_cell weui_cell_select">
@@ -95,7 +95,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+         </div> -->
 
 
 
@@ -170,18 +170,18 @@
         </div>
 
 
-        <div class="weui_cell weui_vcode">
-            <div class="weui_cell_hd"><label class="weui_label">备注</label></div>
-            <div class="weui_cell_bd weui_cell_primary">
-                <div class="weui_cell weui_cell_select">
-                    <div class="weui_cell_bd weui_cell_primary">
-                        <select class="weui_select" name="remark" id="remark">
+        <!--  <div class="weui_cell weui_vcode">
+             <div class="weui_cell_hd"><label class="weui_label">备注</label></div>
+             <div class="weui_cell_bd weui_cell_primary">
+                 <div class="weui_cell weui_cell_select">
+                     <div class="weui_cell_bd weui_cell_primary">
+                         <select class="weui_select" name="remark" id="remark">
 
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </div>
+                         </select>
+                     </div>
+                 </div>
+             </div>
+         </div> -->
         <!--  <div class="weui_cell">
            <div class="weui_cell_hd"><label for="" class="weui_label" >审批人</label></div>
            <div class="weui_cell_bd weui_cell_primary">

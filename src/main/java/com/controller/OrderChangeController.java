@@ -98,13 +98,14 @@ public class OrderChangeController {
 	 */
 	@RequestMapping("/pass_approve.do")
 	@ResponseBody
-	public String pass_approve(String id,HttpServletRequest request,String identify,String orderRemark,String businessProp){
+	public String pass_approve(String id,HttpServletRequest request,String identify,String orderRemark,String businessProp,String outdoorJob3){
 
 		YoOrderChange itemChange =yoOrderChangeMapper.selectByPrimaryKey(Integer.valueOf(id));
 		itemChange.setOrderStatus("审核通过");
 		itemChange.setYindaIdentify(identify);//前端修改的商务属性
 		itemChange.setBusinessProperty(businessProp);
 		itemChange.setOrderRemark(orderRemark);
+		itemChange.setOutdoorJob(outdoorJob3);
 		try{
 			yoOrderChangeMapper.updateByPrimaryKey(itemChange);
 			itemChange.setModifyTime(sdf.format(new Date()));
@@ -167,7 +168,7 @@ public class OrderChangeController {
 				staffCurentOrder.setOrderCity(orderCity);
 				staffCurentOrder.setOrderProvince(orderProvince);
 				staffCurentOrder.setOrderYear(orderYear);
-				staffCurentOrder.setOutdoorJob(outdoorJob);
+				staffCurentOrder.setOutdoorJob(outdoorJob3);
 				staffCurentOrder.setPrincipal(principal);
 				staffCurentOrder.setScoContratType(scoContratType);
 				staffCurentOrder.setScoOrderName(scoOrderName);

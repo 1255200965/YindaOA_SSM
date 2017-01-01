@@ -90,71 +90,62 @@
                 </div>
             </div>
         </div>
-
-
-        <div class="weui_cell weui_vcode">
-            <div class="weui_cell_hd"><label class="weui_label">商务属性</label></div>
-            <div class="weui_cell_bd weui_cell_primary">
-                <div class="weui_cell weui_cell_select">
-                    <div class="weui_cell_bd weui_cell_primary">
-                        <select class="weui_select" name="businessProperty" id="businessProperty" >
-                            <%-- <option  id="option1" value="TimeBase" <c:if test="${itemChange.businessProperty eq 'TimeBase'}">selected="selected"</c:if>>TimeBase</option>
-                            <option id="option2" value="TaskBase" <c:if test="${itemChange.businessProperty eq 'TaskBase'}">selected="selected"</c:if>>TaskBase</option> --%>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </div>
         <script>
             $(document).ready(function(){
                 var businessPropertyHTML="";
                 $.post("<%=path%>/orderProperty/getBusinessProperty.do",{'orderName':"${itemChange.orderName}"},function (data){
                     $.each(data, function (n, value) {
-                        if ("${itemChange.businessProperty}" == value){
-                            businessPropertyHTML = businessPropertyHTML +"<option value='"+value+"' selected=selected>"+value+"</option>";
-                        } else{
-                            businessPropertyHTML = businessPropertyHTML +"<option value='"+value+"'>"+value+"</option>";
-                        }
-
-
+                        businessPropertyHTML = businessPropertyHTML +"<option value='"+value+"'>"+value+"</option>";
                     });
                     $("#businessProperty").html(businessPropertyHTML);
 
                 });
-
                 var remarkHTML = "";
                 $.post("<%=path%>/order/getRemarkByOrder.do",{'orderName':"${itemChange.orderName}"},function (data){
                     $.each(data, function (n, value) {
-                        if ("${itemChange.orderRemark}" == value){
-                            remarkHTML = remarkHTML +"<option value='"+value+"' selected=selected>"+value+"</option>";
-                        } else{
-                            remarkHTML = remarkHTML +"<option value='"+value+"'>"+value+"</option>";
-                        }
+
+                        remarkHTML = remarkHTML +"<option value='"+value+"'>"+value+"</option>";
 
                     });
-                    $("#remark").html(remarkHTML);
+
+                    $("#yindaIdentify").html(remarkHTML);
+
 
                 });
             });
 
 
         </script>
-
-        <div class="weui_cell weui_vcode">
-            <div class="weui_cell_hd"><label class="weui_label">商务等级</label></div>
+<c:if test="${itemChange.nowAcess eq staff_user_id || fn:contains(itemChange.historyAccess,staff_user_id)}">
+        <div class="weui_cell weui_vcode" >
+            <div class="weui_cell_hd"><label class="weui_label">商务属性</label></div>
             <div class="weui_cell_bd weui_cell_primary">
                 <div class="weui_cell weui_cell_select">
                     <div class="weui_cell_bd weui_cell_primary">
-                        <select class="weui_select" name="yindaIdentify" id="yindaIdentify">
-                            <c:forEach items="${identifyList}" var="staff">
-                                <option value="${staff.yindaIdentify}"  <c:if test="${staff.yindaIdentify eq itemChange.yindaIdentify }">selected="selected"</c:if>>${staff.yindaIdentify} </option>
-                            </c:forEach>
+                        <select class="weui_select" name="businessProperty" id="businessProperty" >
+
                         </select>
                     </div>
                 </div>
             </div>
         </div>
+</c:if>
 
+        <c:if test="${itemChange.nowAcess eq staff_user_id}">
+            <div class="weui_cell weui_vcode">
+                <div class="weui_cell_hd"><label class="weui_label">商务等级</label></div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <div class="weui_cell weui_cell_select">
+                        <div class="weui_cell_bd weui_cell_primary">
+
+                                <select class="weui_select" name="yindaIdentify" id="yindaIdentify" >
+
+                                </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </c:if>
         <div class="weui_cell weui_vcode">
             <div class="weui_cell_hd"><label class="weui_label">合同类型</label></div>
             <div class="weui_cell_bd weui_cell_primary">
@@ -191,7 +182,8 @@
                 <div class="weui_cell weui_cell_select">
                     <div class="weui_cell_bd weui_cell_primary">
                         <select class="weui_select" name="select1">
-                            <option  value="${itemChange.outdoorJob}">${itemChange.outdoorJob}</option>
+                            <option value="是" <c:if test="${itemChange.outdoorJob eq '是'}">selected="selected"</c:if>>是</option>
+                            <option value="否" <c:if test="${itemChange.outdoorJob eq '否'}">selected="selected"</c:if>>否</option> 
                         </select>
                     </div>
                 </div>
@@ -199,7 +191,7 @@
         </div>
 
         <div class="weui_cell">
-            <div class="weui_cell_hd"><label for="" class="weui_label">生效日期</label></div>
+            <div class="weui_cell_hd"><label  class="weui_label">生效日期</label></div>
             <div class="weui_cell_bd weui_cell_primary">
                 <input class="weui_input" type="text" value="${itemChange.modifyTime}">
             </div>
@@ -208,7 +200,7 @@
 
 
         <div class="weui_cell">
-            <div class="weui_cell_hd"><label for="" class="weui_label">申请人</label></div>
+            <div class="weui_cell_hd"><label  class="weui_label">申请人</label></div>
             <div class="weui_cell_bd weui_cell_primary">
                 <div class="assess">${fn:substring(approveName, 1,alength)}<div>
                 </div>
@@ -221,9 +213,7 @@
             <div class="weui_cell_bd weui_cell_primary">
                 <div class="weui_cell weui_cell_select">
                     <div class="weui_cell_bd weui_cell_primary">
-                        <select class="weui_select" name="orderRemark" id="remark" >
-
-                        </select>
+                        <input class="weui_input" type="text" placeholder="请输入附加信息" id="remark" name="orderRemark" value="${itemChange.orderRemark}" >
                     </div>
                 </div>
             </div>
@@ -257,7 +247,9 @@
         var yindaIdentify =$("#yindaIdentify").val();
         var orderRemark=$("#remark").val();
         var businessProperty=$("#businessProperty").val();
-        $.post("<%=path%>/orderChange/pass_approve.do",{"id":id,"identify":yindaIdentify,"orderRemark":orderRemark,"businessProp":businessProperty},function(data){
+        var outdoorJob=$("#outdoorJob").val();
+        $.post("<%=path%>/orderChange/pass_approve.do",{"id":id,"identify":yindaIdentify,"orderRemark":orderRemark,
+        	"businessProp":businessProperty,"outdoorJob3":outdoorJob},function(data){
             if("success"==data){
                 $.alert("操作成功！");
                 window.history.go(-1);

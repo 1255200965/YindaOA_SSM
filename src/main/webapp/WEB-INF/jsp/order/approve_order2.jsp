@@ -91,20 +91,20 @@
    </div>
   </div>
   
-  
+ <c:if test="${itemChange.nowAcess eq staff_user_id || fn:contains(itemChange.historyAccess,staff_user_id)}">
     <div class="weui_cell weui_vcode">
     <div class="weui_cell_hd"><label class="weui_label">商务属性</label></div>
     <div class="weui_cell_bd weui_cell_primary">
     <div class="weui_cell weui_cell_select">
     <div class="weui_cell_bd weui_cell_primary">
       <select class="weui_select" name="businessProperty" id="businessProperty">
-        <option  value="${itemChange.businessProperty}"> ${itemChange.businessProperty}</option>       
+<%--        <option  value="${itemChange.businessProperty}"> ${itemChange.businessProperty}</option>      --%>
       </select>
     </div>
    </div>
    </div>
   </div>
-  
+  </c:if>
   
   
     <div class="weui_cell weui_vcode">
@@ -113,15 +113,42 @@
     <div class="weui_cell weui_cell_select">
     <div class="weui_cell_bd weui_cell_primary">
       <select class="weui_select" name="yindaIdentify" id="yindaIdentify">
-      <c:forEach items="${identifyList}" var="staff"> 
+ <%--     <c:forEach items="${identifyList}" var="staff">
        <option value="${staff.yindaIdentify}"  <c:if test="${staff.yindaIdentify eq itemChange.yindaIdentify }">selected="selected"</c:if>>${staff.yindaIdentify} </option>
-      </c:forEach>
+      </c:forEach>--%>
       </select>
     </div>
    </div>
    </div>
   </div>
-  
+
+    <script>
+        $(document).ready(function(){
+            var businessPropertyHTML="";
+            $.post("<%=path%>/orderProperty/getBusinessProperty.do",{'orderName':"${itemChange.orderName}"},function (data){
+                $.each(data, function (n, value) {
+                    businessPropertyHTML = businessPropertyHTML +"<option value='"+value+"'>"+value+"</option>";
+                });
+                $("#businessProperty").html(businessPropertyHTML);
+
+            });
+            var remarkHTML = "";
+            $.post("<%=path%>/order/getRemarkByOrder.do",{'orderName':"${itemChange.orderName}"},function (data){
+                $.each(data, function (n, value) {
+
+                    remarkHTML = remarkHTML +"<option value='"+value+"'>"+value+"</option>";
+
+                });
+
+                $("#yindaIdentify").html(remarkHTML);
+
+
+            });
+        });
+
+
+    </script>
+
         <div class="weui_cell weui_vcode">
     <div class="weui_cell_hd"><label class="weui_label">合同类型</label></div>
     <div class="weui_cell_bd weui_cell_primary">
@@ -157,8 +184,9 @@
     <div class="weui_cell_bd weui_cell_primary">
     <div class="weui_cell weui_cell_select">
     <div class="weui_cell_bd weui_cell_primary">
-      <select class="weui_select" name="select1">
-        <option  value="${itemChange.outdoorJob}">${itemChange.outdoorJob}</option>  
+      <select class="weui_select" name="outdoorJob" id="outdoorJob">
+        <option value="是" <c:if test="${itemChange.outdoorJob eq '是'}">selected = "selected"</c:if>>是</option>
+        <option value="否" <c:if test="${itemChange.outdoorJob eq '否'}">selected = "selected"</c:if>>否</option>  
       </select>
     </div>
    </div>
@@ -166,7 +194,7 @@
   </div>
   
     <div class="weui_cell">
-    <div class="weui_cell_hd"><label for="" class="weui_label">生效日期</label></div>
+    <div class="weui_cell_hd"><label  class="weui_label">生效日期</label></div>
     <div class="weui_cell_bd weui_cell_primary">
       <input class="weui_input" type="text" value="${itemChange.modifyTime}">
     </div>
@@ -175,7 +203,7 @@
  
   
   <div class="weui_cell">
-    <div class="weui_cell_hd"><label for="" class="weui_label">申请人</label></div>
+    <div class="weui_cell_hd"><label  class="weui_label">申请人</label></div>
     <div class="weui_cell_bd weui_cell_primary">
      <div class="assess">${fn:substring(approveName, 1,alength)}<div>
     </div>
@@ -211,7 +239,8 @@
     	
     	var id ="${itemChange.id}";
     	var yindaIdentify =$("#yindaIdentify").val();
-    	$.post("<%=path%>/orderChange/pass_approve.do",{"id":id,"identify":yindaIdentify},function(data){
+    	var outdoorJob=$("#outdoorJob").val();
+    	$.post("<%=path%>/orderChange/pass_approve.do",{"id":id,"identify":yindaIdentify,"outdoorJob3":outdoorJob},function(data){
     	if("success"==data){
     		$.alert("操作成功！");
     		$.post("<%=path%>/orderChange/get_approve_un.do",function(data){
