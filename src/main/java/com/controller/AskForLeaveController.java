@@ -17,6 +17,7 @@ import com.service.IAskLeaveService;
 public class AskForLeaveController {
 	@Autowired
 	private IAskLeaveService iAskLeaveService;
+	
 	@RequestMapping("/toAskForLeave.do")
 	public ModelAndView toAskForLeave(HttpServletRequest request,AskForLeave askForLeave){
 		ModelAndView mav = new ModelAndView();
