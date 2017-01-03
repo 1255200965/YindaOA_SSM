@@ -26,14 +26,14 @@ IOrderChangeService{
 
 
 
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	@Autowired
 	private YoOrderChangeMapper orderChangeMapper;
 	@Autowired
 	private OrderMessageUtil orderMessageUtil;
 
 	@Override
-	public YoOrderChange sendTONextManager(YoOrderChange orderChange ){
+	public YoOrderChange sendTONextManager(YoOrderChange orderChange){
 		//获取待审批人列表
 		String approverOrder=orderChange.getAssess();
 		List<String> approverOrderList01 = Arrays.asList(approverOrder.split("\\|"));
@@ -89,7 +89,7 @@ IOrderChangeService{
 			}else{
 				return null;
 			}
-		criteria.andNowAcessEqualTo("");
+		//criteria.andNowAcessEqualTo("");
 		List<YoOrderChange> expenseBusList=orderChangeMapper.selectByExample(orderChangeExample);  
 		return expenseBusList;
 	}

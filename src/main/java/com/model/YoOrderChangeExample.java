@@ -1074,6 +1074,76 @@ public class YoOrderChangeExample {
             return (Criteria) this;
         }
 
+        public Criteria andEffectTimeIsNull() {
+            addCriterion("effect_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEffectTimeIsNotNull() {
+            addCriterion("effect_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEffectTimeEqualTo(String value) {
+            addCriterion("effect_time =", value, "effectTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEffectTimeNotEqualTo(String value) {
+            addCriterion("effect_time <>", value, "effectTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEffectTimeGreaterThan(String value) {
+            addCriterion("effect_time >", value, "effectTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEffectTimeGreaterThanOrEqualTo(String value) {
+            addCriterion("effect_time >=", value, "effectTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEffectTimeLessThan(String value) {
+            addCriterion("effect_time <", value, "effectTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEffectTimeLessThanOrEqualTo(String value) {
+            addCriterion("effect_time <=", value, "effectTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEffectTimeLike(String value) {
+            addCriterion("effect_time like", value, "effectTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEffectTimeNotLike(String value) {
+            addCriterion("effect_time not like", value, "effectTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEffectTimeIn(List<String> values) {
+            addCriterion("effect_time in", values, "effectTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEffectTimeNotIn(List<String> values) {
+            addCriterion("effect_time not in", values, "effectTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEffectTimeBetween(String value1, String value2) {
+            addCriterion("effect_time between", value1, value2, "effectTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEffectTimeNotBetween(String value1, String value2) {
+            addCriterion("effect_time not between", value1, value2, "effectTime");
+            return (Criteria) this;
+        }
+
         public Criteria andModifyTimeIsNull() {
             addCriterion("modify_time is null");
             return (Criteria) this;
@@ -1351,6 +1421,76 @@ public class YoOrderChangeExample {
 
         public Criteria andAssessNotBetween(String value1, String value2) {
             addCriterion("assess not between", value1, value2, "assess");
+            return (Criteria) this;
+        }
+
+        public Criteria andLteIsNull() {
+            addCriterion("LTE is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLteIsNotNull() {
+            addCriterion("LTE is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLteEqualTo(String value) {
+            addCriterion("LTE =", value, "lte");
+            return (Criteria) this;
+        }
+
+        public Criteria andLteNotEqualTo(String value) {
+            addCriterion("LTE <>", value, "lte");
+            return (Criteria) this;
+        }
+
+        public Criteria andLteGreaterThan(String value) {
+            addCriterion("LTE >", value, "lte");
+            return (Criteria) this;
+        }
+
+        public Criteria andLteGreaterThanOrEqualTo(String value) {
+            addCriterion("LTE >=", value, "lte");
+            return (Criteria) this;
+        }
+
+        public Criteria andLteLessThan(String value) {
+            addCriterion("LTE <", value, "lte");
+            return (Criteria) this;
+        }
+
+        public Criteria andLteLessThanOrEqualTo(String value) {
+            addCriterion("LTE <=", value, "lte");
+            return (Criteria) this;
+        }
+
+        public Criteria andLteLike(String value) {
+            addCriterion("LTE like", value, "lte");
+            return (Criteria) this;
+        }
+
+        public Criteria andLteNotLike(String value) {
+            addCriterion("LTE not like", value, "lte");
+            return (Criteria) this;
+        }
+
+        public Criteria andLteIn(List<String> values) {
+            addCriterion("LTE in", values, "lte");
+            return (Criteria) this;
+        }
+
+        public Criteria andLteNotIn(List<String> values) {
+            addCriterion("LTE not in", values, "lte");
+            return (Criteria) this;
+        }
+
+        public Criteria andLteBetween(String value1, String value2) {
+            addCriterion("LTE between", value1, value2, "lte");
+            return (Criteria) this;
+        }
+
+        public Criteria andLteNotBetween(String value1, String value2) {
+            addCriterion("LTE not between", value1, value2, "lte");
             return (Criteria) this;
         }
 
