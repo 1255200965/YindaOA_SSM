@@ -33,7 +33,6 @@ public class SendOrderMessageUtil {
 	@Autowired
 	private  IDepartmentService departmentService;
 	
-	
 	private static String corp_id= "ding246914ee44e47d4c";
 	private static String corp_secrect= "Vnm79JLaXD1oiiZi-XV4LJlVW6KOYJmvWQfr3Z5mr-fZA8HSkMMhcoAySyRB5D_8";
 	//请求access_token的URL
@@ -222,7 +221,6 @@ public class SendOrderMessageUtil {
     }
     /**
      * 根据当前用户的钉钉ID生成当前审批请求的审批人
-     * @param staffUserId 当前用户钉钉ID
      * @return  [二级部门审批人钉钉ID,一级部门审批人钉钉ID]
      * 对于挂职在二级部门下的员工【二级部门审批人钉钉ID】
      */
@@ -230,9 +228,9 @@ public class SendOrderMessageUtil {
     	
     	List<String> approverList=new ArrayList<String>();//需要的审批人信息记录
     	List<String> departmentList=new ArrayList<String>();//当前用户所在的各级部门列表
-    	List<String> depDDIdList=new ArrayList<String>();;//当前用户所在部门的各级部门钉钉ID列表
+    	List<String> depDDIdList=new ArrayList<String>();//当前用户所在部门的各级部门钉钉ID列表
     	//根据staffuserid获取用户的部门结构List 	
-    	departmentList = Arrays.asList(Arrays.asList(("创新事业部-海南项目").split("\\,")).get(0).split("\\-"));
+    	departmentList = Arrays.asList(Arrays.asList((department+"-"+project).split("\\,")).get(0).split("\\-"));
     	System.out.println("目标部门"+departmentList.toString());
     	//根据二级部门名称,获取二级部门ID
     	DepartmentExample example = new DepartmentExample();
@@ -285,5 +283,4 @@ public class SendOrderMessageUtil {
     	return managerDDId;
     }
    
-    
 }

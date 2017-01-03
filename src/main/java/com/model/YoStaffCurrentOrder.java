@@ -31,6 +31,12 @@ public class YoStaffCurrentOrder {
 
     private String yindaIdentify;
 
+    private String lte;
+
+    private String modifyTime;
+
+    private String effectTime;
+
     public Integer getScoSequenceNo() {
         return scoSequenceNo;
     }
@@ -149,5 +155,29 @@ public class YoStaffCurrentOrder {
 
     public void setYindaIdentify(String yindaIdentify) {
         this.yindaIdentify = yindaIdentify;
+    }
+
+    public String getLte() {
+        return lte;
+    }
+
+    public void setLte(String lte) {
+        this.lte = lte;
+    }
+
+    public String getModifyTime() {
+        return modifyTime;
+    }
+
+    public void setModifyTime(String modifyTime) {
+        this.modifyTime = modifyTime;
+    }
+
+    public String getEffectTime() {
+        return effectTime;
+    }
+
+    public void setEffectTime(String effectTime) {
+        this.effectTime = effectTime;
     }
 }

@@ -14,6 +14,7 @@ import com.util.DDSendMessageUtil;
 import com.util.GlobalConstant;
 import com.util.OrderMessage;
 import com.util.OrderMessageUtil;
+import com.util.SendOrderMessageUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,13 +38,14 @@ public class ItemChangeController {
 	@Autowired
 	private YoItemChangeMapper itemChangeMapper;
 	@Autowired
-	private DDSendMessageUtil ddSendMessageUtil;
+	private SendOrderMessageUtil sendOrderMessageUtil;
 	@Autowired
 	private OrderMessageUtil orderMessageUtil;
 	@Autowired
 	private  IStaffInfoService iStaffInfoService;
 	@Autowired
     private YoOrderChangeMapper yoOrderChangeMapper;
+	 
 	
 	@Autowired
 	private  IOrderChangeService iOrderChangeService;
@@ -106,18 +108,21 @@ public class ItemChangeController {
 			String yindaIdentify,
 			String contractType,
 			String remark,
+			String lte,
+			
 			HttpServletRequest request){
 
 		String user_staffId =(String) request.getSession().getAttribute(GlobalConstant.user_staffId);
 		String staff_user_id =(String) request.getSession().getAttribute(GlobalConstant.user_staff_user_id);
 		String user_name =(String) request.getSession().getAttribute(GlobalConstant.user_name);
 		String assess ="";
-		List <String> approverList = ddSendMessageUtil.getApprovers(staff_user_id);
+		List <String> approverList = sendOrderMessageUtil.getApprovers(department,project);
 		System.out.println("审批人列表"+approverList.toString());
 		String toUser=null;
 		
 		YoOrderChange orderChange  = new YoOrderChange();
 		orderChange.setBusinessProperty(businessProperty);
+		orderChange.setLte(lte);
 		orderChange.setChangeCity(changeCity);
 		orderChange.setChangeProvince(changeProvince);
 		orderChange.setContractType(contractType);
@@ -132,6 +137,7 @@ public class ItemChangeController {
 		orderChange.setStaffId(user_staffId);
 		orderChange.setUsername(user_name);
 		orderChange.setProject(project);
+		orderChange.setEffectTime(beginTime);
 		//对于挂职在一级部门的员工
 		if(approverList.size() >1){
 		toUser=approverList.get(1);
@@ -145,7 +151,7 @@ public class ItemChangeController {
 		int i= yoOrderChangeMapper.add(orderChange);
 		
 		if(i>0){
-			OrderMessage message = new OrderMessage();
+			OrderMessage message = new OrderMessage();//正式服务器ip 121.40.29.241 //测试服务器ip yexianglei.ngrok.cc
 			message.setMessageUrl("http://121.40.29.241/YindaOA/orderChange/approve_order_page.do?id="+orderChange.getId()+"&staff_user_id="+orderChange.getNowAcess());
 			message.setPicUrl("/cc");
 			System.out.println("第一次发送："+orderChange.getNowAcess());

@@ -169,8 +169,30 @@
                 </div>
             </div>
         </div>
+<c:if test="${itemChange.nowAcess eq staff_user_id || fn:contains(itemChange.historyAccess,staff_user_id)}">
+   		<div class="weui_cell weui_vcode">
+				<div class="weui_cell_hd">
+					<label class="weui_label">LTE认证 </label>
+				</div>
+				<div class="weui_cell_bd weui_cell_primary">
+					<div class="weui_cell weui_cell_select">
+						<div class="weui_cell_bd weui_cell_primary">
+							<select class="weui_select" name="lte" id="lte">
+                                <option value="" <c:if test="${itemChange.lte eq ''}"> selected="selected"</c:if>> </option>
+								<option value="NPO LTE Specialist1" <c:if test="${itemChange.lte eq 'NPO LTE Specialist1'}"> selected="selected"</c:if>>NPO LTE Specialist1</option>
+								<option value="NPO LTE Senior"      <c:if test="${itemChange.lte eq 'NPO LTE Senior'}"> selected="selected"</c:if>>NPO LTE Senior</option>
+								<option value="NPO LTE Intermediate" <c:if test="${itemChange.lte eq 'NPO LTE Intermediate'}"> selected="selected"</c:if>>NPO LTE Intermediate</option>
+								<option value="Radio LTE Senior"  <c:if test="${itemChange.lte eq 'Radio LTE Senior'}"> selected="selected"</c:if>>Radio LTE Senior</option>
+								<option value="Radio LTE Intermediate" <c:if test="${itemChange.lte eq 'Radio LTE Intermediate'}">selected="selected"</c:if>>Radio LTE Intermediate</option>
+								<option value="LTE双初级" <c:if test="${itemChange.lte eq 'LTE双初级'}">selected="selected"</c:if>>LTE双初级</option>
+								<option value="LTE单初级"  <c:if test="${itemChange.lte eq 'LTE单初级'}">selected="selected"</c:if>>LTE单初级</option>
 
-
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+</c:if>
         <div class="weui_cell">
             <div class="weui_cell_hd"><label class="weui_label">变动省份</label></div>
             <div class="weui_cell_bd weui_cell_primary">
@@ -204,7 +226,7 @@
         <div class="weui_cell">
             <div class="weui_cell_hd"><label  class="weui_label">生效日期</label></div>
             <div class="weui_cell_bd weui_cell_primary">
-                <input class="weui_input" type="text" value="${itemChange.modifyTime}">
+                <input class="weui_input" type="text" value="${itemChange.effectTime}">
             </div>
         </div>
 
@@ -220,7 +242,7 @@
         </div>
 
         <div class="weui_cell weui_vcode">
-            <div class="weui_cell_hd"><label class="weui_label">备注</label></div>
+            <div class="weui_cell_hd"><label class="weui_label">备注 </label></div>
             <div class="weui_cell_bd weui_cell_primary">
                 <div class="weui_cell weui_cell_select">
                     <div class="weui_cell_bd weui_cell_primary">
@@ -259,8 +281,9 @@
         var orderRemark=$("#remark").val();
         var businessProperty=$("#businessProperty").val();
         var outdoorJob=$("#outdoorJob").val();
+        var lte=$("#lte").val();
         $.post("<%=path%>/orderChange/pass_approve.do",{"id":id,"identify":yindaIdentify,"orderRemark":orderRemark,
-        	"businessProp":businessProperty,"outdoorJob3":outdoorJob},function(data){
+        	"businessProp":businessProperty,"outdoorJob3":outdoorJob,"lte3":lte},function(data){
             if("success"==data){
                 $.alert("操作成功！");
                 window.history.go(-1);

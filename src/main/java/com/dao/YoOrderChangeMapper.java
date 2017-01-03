@@ -19,6 +19,5 @@ public interface YoOrderChangeMapper {
 
     int updateByPrimaryKey(YoOrderChange record);
     
-
     int add(YoOrderChange record); 
 }

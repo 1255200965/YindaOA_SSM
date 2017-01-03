@@ -29,6 +29,8 @@ public class YoOrderChange {
 
     private String modifyUser;
 
+    private String effectTime;
+
     private String modifyTime;
 
     private String orderStatus;
@@ -36,6 +38,8 @@ public class YoOrderChange {
     private String yindaIdentify;
 
     private String assess;
+
+    private String lte;
 
     private String contractType;
 
@@ -161,6 +165,14 @@ public class YoOrderChange {
         this.modifyUser = modifyUser;
     }
 
+    public String getEffectTime() {
+        return effectTime;
+    }
+
+    public void setEffectTime(String effectTime) {
+        this.effectTime = effectTime;
+    }
+
     public String getModifyTime() {
         return modifyTime;
     }
@@ -191,6 +203,14 @@ public class YoOrderChange {
 
     public void setAssess(String assess) {
         this.assess = assess;
+    }
+
+    public String getLte() {
+        return lte;
+    }
+
+    public void setLte(String lte) {
+        this.lte = lte;
     }
 
     public String getContractType() {

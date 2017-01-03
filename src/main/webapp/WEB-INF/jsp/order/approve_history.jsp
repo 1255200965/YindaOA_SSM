@@ -31,8 +31,7 @@
  	<div class="weui-row">
   		<div class="weui-col-35" style="overflow: hidden;">${orderChange.modifyTime}</div>
   		<div class="weui-col-25" style="overflow: hidden;">${orderChange.modifyUser}</div>
-  		<div class="weui-col-25" style="overflow: hidden;">${orderChange.orderStatus}</div>
-  		
+  		<div class="weui-col-25" style="overflow: hidden;">${orderChange.orderStatus}</div>  		
   		<div class="weui-col-15" style="overflow: hidden;"><a onclick="go_approve_page(${orderChange.id},'${sessionScope.staff_user_id}');">查看</a></div>
   		<!-- <a href="javascript:history.go(-1);">返回</a> -->
     </div>
