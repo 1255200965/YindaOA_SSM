@@ -33,6 +33,7 @@ public class SendOrderMessageUtil {
 	@Autowired
 	private  IDepartmentService departmentService;
 	
+	
 	private static String corp_id= "ding246914ee44e47d4c";
 	private static String corp_secrect= "Vnm79JLaXD1oiiZi-XV4LJlVW6KOYJmvWQfr3Z5mr-fZA8HSkMMhcoAySyRB5D_8";
 	//请求access_token的URL
