@@ -115,9 +115,6 @@ public class OrderChangeController {
 				//根据根据用户的钉钉号查找当前订单信息中是否有该用户的订单
 				YoStaffCurrentOrder staffCurentOrder =iStaffCurrentOrderService.getStaffCurrentOrderByStaff_user_id(user_staff_id);
 				String businessProperty=itemChange.getBusinessProperty();
-				String lte =itemChange.getLte();
-				
-				String effectTime =itemChange.getEffectTime();
 				String department= itemChange.getDepartment();
 				String orderCity= itemChange.getChangeCity();
 				String orderProvince =itemChange.getChangeProvince();
@@ -134,7 +131,7 @@ public class OrderChangeController {
 					staffCurentOrder = new YoStaffCurrentOrder();
 				}else{
 					//将当前订单表中的订单信息存入历史订单表中
-/*					System.out.println("保存到历史订单表");
+					System.out.println("保存到历史订单表");
 					YoStaffDailyOrder  dorder = new YoStaffDailyOrder();
 					String businessProperty2=staffCurentOrder.getBusinessProperty();
 					String department2= staffCurentOrder.getDepartment();
@@ -148,24 +145,21 @@ public class OrderChangeController {
 					String scoOrderNo2=staffCurentOrder.getScoOrderNo();
 					String scoProjectName2= staffCurentOrder.getScoProjectName();
 					String yindaIdentify2=staffCurentOrder.getYindaIdentify();
-					String lte2  =staffCurentOrder.getLte();
-					String effectTime2=staffCurentOrder.getEffectTime();
-					String modifyTime2 =staffCurentOrder.getModifyTime();*/
 					//历史订单对象赋值
-//					dorder.setStaffUserId(user_staff_id);
-//					dorder.setBusinessProperty(businessProperty2);
-//					dorder.setDepartment(department2);
-//					dorder.setOrderCity(orderCity2);
-//					dorder.setOrderProvince(orderProvince2);
-//					dorder.setOrderYear(orderYear2);
-//					dorder.setOutdoorJob(outdoorJob2);
-//					dorder.setPrincipal(principal2);
-//					dorder.setContractType(scoContratType2);
-//					dorder.setOrderName(scoOrderName2);
-//					dorder.setSdoDate(sdf.format(new Date()));
-//					dorder.setProject(scoProjectName2);
-//					dorder.setYindaIdentify(yindaIdentify2);
-//					staffDailyOrderMapper.insert(dorder);
+					dorder.setStaffUserId(user_staff_id);
+					dorder.setBusinessProperty(businessProperty2);
+					dorder.setDepartment(department2);
+					dorder.setOrderCity(orderCity2);
+					dorder.setOrderProvince(orderProvince2);
+					dorder.setOrderYear(orderYear2);
+					dorder.setOutdoorJob(outdoorJob2);
+					dorder.setPrincipal(principal2);
+					dorder.setContractType(scoContratType2);
+					dorder.setOrderName(scoOrderName2);
+					dorder.setSdoDate(sdf.format(new Date()));
+					dorder.setProject(scoProjectName2);
+					dorder.setYindaIdentify(yindaIdentify2);
+					staffDailyOrderMapper.insert(dorder);
 				}
 
 				staffCurentOrder.setStaffUserId(user_staff_id);
@@ -181,11 +175,9 @@ public class OrderChangeController {
 				staffCurentOrder.setScoOrderNo(scoOrderNo);
 				staffCurentOrder.setScoProjectName(scoProjectName);
 				staffCurentOrder.setYindaIdentify(yindaIdentify);
-				staffCurentOrder.setEffectTime(effectTime);
-				staffCurentOrder.setModifyTime(sdf.format(new Date()));
-				staffCurentOrder.setLte(lte);
+
 				if(staffCurentOrder.getScoSequenceNo()!=null){
-					staffCurrentOrderMapper.updateByPrimaryKey(staffCurentOrder);//如果当前有该用户的信息，跟新
+					staffCurrentOrderMapper.updateByPrimaryKeySelective(staffCurentOrder);//如果当前有该用户的信息，跟新
 					System.out.println("更新当前订单表");
 				}else{
 					staffCurrentOrderMapper.insert(staffCurentOrder);//如果数据库中没有该用户的信息，添加
@@ -196,7 +188,7 @@ public class OrderChangeController {
 			}
 
 			System.out.println("OrderChange"+OrderChange.toString());
-			yoOrderChangeMapper.updateByPrimaryKey(OrderChange);
+			yoOrderChangeMapper.updateByPrimaryKeySelective(OrderChange);
 			return "success";
 		}catch(Exception e){
 			return "error";

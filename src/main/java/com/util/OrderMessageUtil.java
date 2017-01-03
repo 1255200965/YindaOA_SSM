@@ -177,9 +177,9 @@ public class OrderMessageUtil {
 
 	}
 	public static OrderMessage Order2Message(YoOrderChange orderChange ){
-		String staff_user_id =orderChange.getNowAcess();
-		OrderMessage message = new OrderMessage();//正式服务器ip 121.40.29.241 //测试服务器ip yexianglei.ngrok.cc
-		message.setMessageUrl("http://121.40.29.241/YindaOA/orderChange/approve_order_page.do?id="+orderChange.getId()+"&staff_user_id="+staff_user_id);
+		
+		OrderMessage message = new OrderMessage();
+		message.setMessageUrl("http://121.40.29.241/YindaOA/orderChange/approve_order_page.do?id="+orderChange.getId());
 		message.setPicUrl("/cc");
 		message.setToUser(orderChange.getNowAcess());
 		message.setToParty("");
