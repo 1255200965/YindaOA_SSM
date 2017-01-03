@@ -21,6 +21,7 @@ public class AskForLeaveController {
 	@RequestMapping("/toAskForLeave.do")
 	public ModelAndView toAskForLeave(HttpServletRequest request,AskForLeave askForLeave){
 		ModelAndView mav = new ModelAndView();
+		
 		/*AskForLeave askForLeave2 = new AskForLeave();
 		askForLeave2.setYoAskStaffName(askForLeave.getYoAskStaffName());
 		askForLeave2.setYoAskStaffId(askForLeave.getYoAskStaffId());
