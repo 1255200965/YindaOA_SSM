@@ -175,7 +175,7 @@ public class OrderChangeController {
 				staffCurentOrder.setScoOrderNo(scoOrderNo);
 				staffCurentOrder.setScoProjectName(scoProjectName);
 				staffCurentOrder.setYindaIdentify(yindaIdentify);
-				staffCurentOrder.setYindaIdentify(orderRemark);
+
 				if(staffCurentOrder.getScoSequenceNo()!=null){
 					staffCurrentOrderMapper.updateByPrimaryKeySelective(staffCurentOrder);//如果当前有该用户的信息，跟新
 					System.out.println("更新当前订单表");

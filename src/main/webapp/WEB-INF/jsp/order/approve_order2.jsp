@@ -97,7 +97,7 @@
     <div class="weui_cell_bd weui_cell_primary">
     <div class="weui_cell weui_cell_select">
     <div class="weui_cell_bd weui_cell_primary">
-      <select class="weui_select" name="businessProperty" id="businessProperty">
+      <select class="weui_select" name="businessProperty" id="businessProperty" onchange="yindaIdentifyRefresh()">
 <%--        <option  value="${itemChange.businessProperty}"> ${itemChange.businessProperty}</option>      --%>
       </select>
     </div>
@@ -123,29 +123,39 @@
   </div>
 
     <script>
+        var remarkHTML = "";
+        function yindaIdentifyRefresh(){
+            if ($("#businessProperty").val() == "TaskBase" && "${itemChange.orderName}".indexOf("无线工程")>0 ) {
+                $("#yindaIdentify").html("");
+            } else {
+                $("#yindaIdentify").html(remarkHTML);
+            }
+        }
         $(document).ready(function(){
-            var businessPropertyHTML="";
             $.post("<%=path%>/orderProperty/getBusinessProperty.do",{'orderName':"${itemChange.orderName}"},function (data){
+                var businessPropertyHTML="";
                 $.each(data, function (n, value) {
-                    businessPropertyHTML = businessPropertyHTML +"<option value='"+value+"'>"+value+"</option>";
+                    if ("${itemChange.businessProperty}" == value){
+                        businessPropertyHTML = businessPropertyHTML + "<option value='" + value + "' selected>" + value + "</option>";
+                    } else {
+                        businessPropertyHTML = businessPropertyHTML + "<option value='" + value + "'>" + value + "</option>";
+                    }
                 });
                 $("#businessProperty").html(businessPropertyHTML);
 
             });
-            var remarkHTML = "";
+
             $.post("<%=path%>/order/getRemarkByOrder.do",{'orderName':"${itemChange.orderName}"},function (data){
                 $.each(data, function (n, value) {
-
-                    remarkHTML = remarkHTML +"<option value='"+value+"'>"+value+"</option>";
-
+                    if ("${itemChange.yindaIdentify}" == value){
+                        remarkHTML = remarkHTML + "<option value='" + value + "' selected>" + value + "</option>";
+                    } else {
+                        remarkHTML = remarkHTML + "<option value='" + value + "'>" + value + "</option>";
+                    }
                 });
-
-                $("#yindaIdentify").html(remarkHTML);
-
-
+                yindaIdentifyRefresh();
             });
         });
-
 
     </script>
 
@@ -209,9 +219,19 @@
     </div>
   </div>
   </div>
-  
- 
+
 </div>
+
+    <div class="weui_cell weui_vcode">
+        <div class="weui_cell_hd"><label class="weui_label">备注</label></div>
+        <div class="weui_cell_bd weui_cell_primary">
+            <div class="weui_cell weui_cell_select">
+                <div class="weui_cell_bd weui_cell_primary">
+                    <input class="weui_input" type="text" placeholder="请输入附加信息" id="remark" name="orderRemark" value="${itemChange.orderRemark}" >
+                </div>
+            </div>
+        </div>
+    </div>
 
    <div class="weui_cell">
     
@@ -239,8 +259,10 @@
     	
     	var id ="${itemChange.id}";
     	var yindaIdentify =$("#yindaIdentify").val();
+        var orderRemark=$("#remark").val();
+        var businessProperty=$("#businessProperty").val();
     	var outdoorJob=$("#outdoorJob").val();
-    	$.post("<%=path%>/orderChange/pass_approve.do",{"id":id,"identify":yindaIdentify,"outdoorJob3":outdoorJob},function(data){
+    	$.post("<%=path%>/orderChange/pass_approve.do",{"id":id,"identify":yindaIdentify,"orderRemark":orderRemark,"businessProp":businessProperty,"outdoorJob3":outdoorJob},function(data){
     	if("success"==data){
     		$.alert("操作成功！");
     		$.post("<%=path%>/orderChange/get_approve_un.do",function(data){

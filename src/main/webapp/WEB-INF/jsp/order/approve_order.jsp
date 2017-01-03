@@ -91,29 +91,40 @@
             </div>
         </div>
         <script>
+            var remarkHTML = "";
+            function yindaIdentifyRefresh(){
+                if ($("#businessProperty").val() == "TaskBase" && "${itemChange.orderName}".indexOf("无线工程")>0 ) {
+                    $("#yindaIdentify").html("");
+                } else {
+                    $("#yindaIdentify").html(remarkHTML);
+                }
+            }
             $(document).ready(function(){
-                var businessPropertyHTML="";
+
                 $.post("<%=path%>/orderProperty/getBusinessProperty.do",{'orderName':"${itemChange.orderName}"},function (data){
+                    var businessPropertyHTML="";
                     $.each(data, function (n, value) {
-                        businessPropertyHTML = businessPropertyHTML +"<option value='"+value+"'>"+value+"</option>";
+                        if ("${itemChange.businessProperty}" == value){
+                            businessPropertyHTML = businessPropertyHTML + "<option value='" + value + "' selected>" + value + "</option>";
+                        } else {
+                            businessPropertyHTML = businessPropertyHTML + "<option value='" + value + "'>" + value + "</option>";
+                        }
                     });
                     $("#businessProperty").html(businessPropertyHTML);
 
                 });
-                var remarkHTML = "";
+
                 $.post("<%=path%>/order/getRemarkByOrder.do",{'orderName':"${itemChange.orderName}"},function (data){
-                    $.each(data, function (n, value) {
-
-                        remarkHTML = remarkHTML +"<option value='"+value+"'>"+value+"</option>";
-
-                    });
-
-                    $("#yindaIdentify").html(remarkHTML);
-
-
+                        $.each(data, function (n, value) {
+                            if ("${itemChange.yindaIdentify}" == value){
+                                remarkHTML = remarkHTML + "<option value='" + value + "' selected>" + value + "</option>";
+                            } else {
+                                remarkHTML = remarkHTML + "<option value='" + value + "'>" + value + "</option>";
+                            }
+                        });
+                    yindaIdentifyRefresh();
                 });
             });
-
 
         </script>
 <c:if test="${itemChange.nowAcess eq staff_user_id || fn:contains(itemChange.historyAccess,staff_user_id)}">
@@ -122,7 +133,7 @@
             <div class="weui_cell_bd weui_cell_primary">
                 <div class="weui_cell weui_cell_select">
                     <div class="weui_cell_bd weui_cell_primary">
-                        <select class="weui_select" name="businessProperty" id="businessProperty" >
+                        <select class="weui_select" name="businessProperty" id="businessProperty" onchange="yindaIdentifyRefresh()">
 
                         </select>
                     </div>
@@ -131,7 +142,7 @@
         </div>
 </c:if>
 
-        <c:if test="${itemChange.nowAcess eq staff_user_id}">
+        <c:if test="${itemChange.nowAcess eq staff_user_id || fn:contains(itemChange.historyAccess,staff_user_id)}">
             <div class="weui_cell weui_vcode">
                 <div class="weui_cell_hd"><label class="weui_label">商务等级</label></div>
                 <div class="weui_cell_bd weui_cell_primary">
@@ -181,7 +192,7 @@
             <div class="weui_cell_bd weui_cell_primary">
                 <div class="weui_cell weui_cell_select">
                     <div class="weui_cell_bd weui_cell_primary">
-                        <select class="weui_select" name="select1">
+                        <select class="weui_select" name="outdoorJob" id="outdoorJob">
                             <option value="是" <c:if test="${itemChange.outdoorJob eq '是'}">selected="selected"</c:if>>是</option>
                             <option value="否" <c:if test="${itemChange.outdoorJob eq '否'}">selected="selected"</c:if>>否</option> 
                         </select>
@@ -263,20 +274,17 @@
 
     function refuse_approve(){
         var id ="${itemChange.id}";
-        $.post("<%=path%>/orderChange/refuse_approve.do",{"id":id},function(data){
-            if("success"==data){
+        $.post("<%=path%>/orderChange/refuse_approve.do",{"id":id},function(data) {
+            if ("success" == data) {
                 $.alert("操作成功！");
                 window.history.go(-1);
-            }else{
+            } else {
                 $.alert("操作失败！");
             }
 
 
         });
     }
-
-
-
 
 
 
