@@ -88,7 +88,7 @@
    		 
      	</div>
      	<div class="weui_row">
-     	<img src="http://121.40.29.241/YindaOA/upload/${expenseApplayBus.imageUrl }" style="width:30%;height:10%；"/>
+     	<img src="http://121.40.29.241/YindaOAImageUpload/${expenseApplayBus.imageUrl }" style="width:30%;height:10%"/>
      	</div>	
   	     <hr/>
   	    <%--  <div class="weui-row">

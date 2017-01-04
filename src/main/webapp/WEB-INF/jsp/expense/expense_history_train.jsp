@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="<%=path%>/stylesheets/projectcss.css"/>
   <script src="<%=path%>/javascripts/jquery-2.1.4.js"></script>
   <script src="<%=path%>/javascripts/jquery-weui.js"></script>
-  <title>火车票报销历史记录</title>
+  <title>我的火车票报销记录</title>
  </head>
  <body >
   	<div class="weui-row">

@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dao.ExpenseApplySubwayMapper;
+import com.model.ExpenseApplayHotel;
 import com.model.ExpenseApplayTrain;
 import com.model.ExpenseApplySubway;
+import com.model.ExpenseApplySubwayExample;
 import com.service.IExpenseApplySubwayService;
 import com.util.DDSendMessageUtil;
 @Service
@@ -90,4 +92,21 @@ public class ExpenseApplySubwayServiceImpl implements IExpenseApplySubwayService
    	  expenseApplySubway.setApproverNow("");
    	  return expenseApplySubway;
 	}
+	  @Override
+	  //根据用户钉钉Id查询其当前30天内的审批记录
+	    public List<ExpenseApplySubway> selectApproved(String userStaffId){
+	    	return subwayMapper.selectApproved(userStaffId);
+	    }
+	  @Override
+	  public  List<ExpenseApplySubway> selectByStaffId(String staffId){
+		  ExpenseApplySubwayExample example = new ExpenseApplySubwayExample();
+		  ExpenseApplySubwayExample.Criteria criteria = example.createCriteria();
+		  criteria.andAskStaffIdEqualTo(staffId);
+		  return subwayMapper.selectByExample(example);
+	  }
+	  @Override
+	  //根据用户钉钉Id查询其当前30天内的审批记录
+	    public List<ExpenseApplySubway> selectApproval(String userStaffId){
+	    	return subwayMapper.selectApproval(userStaffId);
+	    }
 }

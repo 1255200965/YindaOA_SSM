@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="<%=path%>/stylesheets/projectcss.css"/>
   <script src="<%=path%>/javascripts/jquery-2.1.4.js"></script>
   <script src="<%=path%>/javascripts/jquery-weui.js"></script>
-  <title>住宿费报销历史信息查看</title>
+  <title>我的住宿费报销记录</title>
  </head>
  <body >
   	<div class="weui-row">

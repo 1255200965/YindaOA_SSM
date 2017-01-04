@@ -74,7 +74,7 @@ public class ExpenseApplayTrainServiceImpl implements IExpenseApplayTrainService
     	 
     	  String toUser = approverOrderList.get(1);
     	  expenseApplayTrain.setApproverNow(toUser);
-    	  expenseApplayTrain.setEndAddress("非洲");
+//    	  expenseApplayTrain.setEndAddress("非洲");
     	  if(approverHistory == null || "".equals(approverHistory))
     	  {
     		  expenseApplayTrain.setApproverHistory(approverNow);
@@ -102,4 +102,14 @@ public class ExpenseApplayTrainServiceImpl implements IExpenseApplayTrainService
 	  expenseApplayTrain.setApproverNow("");
   	  return expenseApplayTrain;
 	}
+   @Override
+	  //根据用户钉钉Id查询其当前30天内的审批记录
+	    public List<ExpenseApplayTrain> selectApproved(String userStaffId){
+	    	return expenseApplayTrainMapper.selectApproved(userStaffId);
+	    }
+   @Override
+	  //根据用户钉钉Id查询其当前30天内的审批记录
+	    public List<ExpenseApplayTrain> selectApproval(String userStaffId){
+	    	return expenseApplayTrainMapper.selectApproval(userStaffId);
+	    }
 }

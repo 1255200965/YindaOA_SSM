@@ -101,4 +101,14 @@ public class ExpenseApplayHotelServiceImpl implements IExpenseApplayHotelService
 	  expenseApplayHotel.setApproverNow("");
    	  return expenseApplayHotel;
 	}
+    @Override
+  //根据用户钉钉Id查询其当前30天内的审批记录
+    public List<ExpenseApplayHotel> selectApproved(String userStaffId){
+    	return expenseApplayHotelMapper.selectApproved(userStaffId);
+    }
+    @Override
+    //根据用户钉钉Id查询其当前30天内的审批记录
+      public List<ExpenseApplayHotel> selectApproval(String userStaffId){
+      	return expenseApplayHotelMapper.selectApproval(userStaffId);
+      }
 }

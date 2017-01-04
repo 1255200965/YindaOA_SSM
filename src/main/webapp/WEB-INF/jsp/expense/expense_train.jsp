@@ -21,9 +21,17 @@
  
   <form id="form" action="expense_train_save.do" method="post" enctype="multipart/form-data" onsubmit="return check();">
   	<!-- <div class="weui_cells" style="border:none;"> -->
+  	    <div class="weui_cell">
+    		<div class="weui_cell_bd weui_cell_primary">
+      			<label class="weui_label"><b>车次</b></label>
+   			 </div>
+    	 <div class="weui_cell_ft weui_cell_primary">
+     		<input class="weui_input" type="text" placeholder=""   value="" name="trainNum">	
+   		 </div>
+     	</div>	
   		<div class="weui_cell">
     		<div class="weui_cell_bd weui_cell_primary">
-      			<label class="weui_label"><b>出发时间</b></label>
+      			<label class="weui_label"><b>上车时间</b></label>
    			 </div>
     	 <div class="weui_cell_ft weui_cell_primary">
      		<!-- <input class="weui_input" type="date" placeholder=""  name="startTime"> -->
@@ -37,7 +45,7 @@
      	</div>	
   	     <div class="weui_cell">
     		<div class="weui_cell_bd weui_cell_primary">
-      			<label class="weui_label"><b>出发地点</b></label>
+      			<label class="weui_label"><b>上车地点</b></label>
    			 </div>
     	<div class="weui_cell_ft weui_cell_primary">
      		<input class="weui_input" type="text" placeholder=""  name="startAddress" value="" id="startAddress" readonly>
@@ -46,18 +54,19 @@
      	</div>		
      	
   		 <div class="weui_cell ">
-  		    <div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>到达时间</b></label></div>
+  		    <div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>下车时间</b></label></div>
     		<div class="weui_cell_ft weui_cell_primary">
      		   <input class="weui_input" type="date" placeholder=""  name="endTime"  id="endTime" readonly>
    		    </div>
   		 </div>
   	
   		 <div class="weui_cell"> 
-    		<div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>目的地点</b></label></div>
+    		<div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>下车地点</b></label></div>
     	     <div class="weui_cell_ft weui_cell_primary">
      	        <input class="weui_input" type="text"   name="endAddress"  id="endAddress" readonly>
    		     </div>
   	     </div> 
+  	     
   	     <div class="weui_cell">
     		<div class="weui_cell_bd weui_cell_primary">
       			<label class="weui_label"><b>订票方式</b></label>
@@ -116,6 +125,11 @@
     		$.alert("请填写报销金额");
     		return false;
     	}
+    	if($("input[name='trainNum']").val()==null || $("input[name='trainNum']").val()==""){
+    		$.alert("请填写车次信息");
+    		return false;
+    	}
+        
     	return true;
     }
     function showInfo(){

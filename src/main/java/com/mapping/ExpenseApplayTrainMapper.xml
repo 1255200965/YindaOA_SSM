@@ -8,6 +8,7 @@
     <result column="staff_depart" property="staffDepart" jdbcType="VARCHAR" />
     <result column="start_time" property="startTime" jdbcType="VARCHAR" />
     <result column="end_time" property="endTime" jdbcType="VARCHAR" />
+    <result column="train_num" property="trainNum" jdbcType="VARCHAR" />
     <result column="start_address" property="startAddress" jdbcType="VARCHAR" />
     <result column="end_address" property="endAddress" jdbcType="VARCHAR" />
     <result column="money_cost" property="moneyCost" jdbcType="DOUBLE" />
@@ -51,9 +52,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, staff_name, staff_id, staff_depart, start_time, end_time, start_address, end_address, 
-    money_cost, detail_explain, staff_user_id, trip_id, applay_status, reason, image_url, 
-    approver_order, approver_history, approver_now
+    id, staff_name, staff_id, staff_depart, start_time, end_time, train_num, start_address, 
+    end_address, money_cost, detail_explain, staff_user_id, trip_id, applay_status, reason, 
+    image_url, approver_order, approver_history, approver_now
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.model.ExpenseApplayTrainExample" >
     select
@@ -80,23 +81,23 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.model.ExpenseApplayTrain" >
-   <selectKey resultType="int" order="AFTER" keyProperty="id">
+  <selectKey resultType="int" order="AFTER" keyProperty="id">
      SELECT LAST_INSERT_ID() AS id
    </selectKey>
     insert into expense_applay_train (id, staff_name, staff_id, 
       staff_depart, start_time, end_time, 
-      start_address, end_address, money_cost, 
-      detail_explain, staff_user_id, trip_id, 
-      applay_status, reason, image_url, 
-      approver_order, approver_history, approver_now
-      )
+      train_num, start_address, end_address, 
+      money_cost, detail_explain, staff_user_id, 
+      trip_id, applay_status, reason, 
+      image_url, approver_order, approver_history, 
+      approver_now)
     values (#{id,jdbcType=INTEGER}, #{staffName,jdbcType=VARCHAR}, #{staffId,jdbcType=VARCHAR}, 
       #{staffDepart,jdbcType=VARCHAR}, #{startTime,jdbcType=VARCHAR}, #{endTime,jdbcType=VARCHAR}, 
-      #{startAddress,jdbcType=VARCHAR}, #{endAddress,jdbcType=VARCHAR}, #{moneyCost,jdbcType=DOUBLE}, 
-      #{detailExplain,jdbcType=VARCHAR}, #{staffUserId,jdbcType=VARCHAR}, #{tripId,jdbcType=INTEGER}, 
-      #{applayStatus,jdbcType=VARCHAR}, #{reason,jdbcType=VARCHAR}, #{imageUrl,jdbcType=VARCHAR}, 
-      #{approverOrder,jdbcType=VARCHAR}, #{approverHistory,jdbcType=VARCHAR}, #{approverNow,jdbcType=VARCHAR}
-      )
+      #{trainNum,jdbcType=VARCHAR}, #{startAddress,jdbcType=VARCHAR}, #{endAddress,jdbcType=VARCHAR}, 
+      #{moneyCost,jdbcType=DOUBLE}, #{detailExplain,jdbcType=VARCHAR}, #{staffUserId,jdbcType=VARCHAR}, 
+      #{tripId,jdbcType=INTEGER}, #{applayStatus,jdbcType=VARCHAR}, #{reason,jdbcType=VARCHAR}, 
+      #{imageUrl,jdbcType=VARCHAR}, #{approverOrder,jdbcType=VARCHAR}, #{approverHistory,jdbcType=VARCHAR}, 
+      #{approverNow,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.model.ExpenseApplayTrain" >
     insert into expense_applay_train
@@ -118,6 +119,9 @@
       </if>
       <if test="endTime != null" >
         end_time,
+      </if>
+      <if test="trainNum != null" >
+        train_num,
       </if>
       <if test="startAddress != null" >
         start_address,
@@ -175,6 +179,9 @@
       <if test="endTime != null" >
         #{endTime,jdbcType=VARCHAR},
       </if>
+      <if test="trainNum != null" >
+        #{trainNum,jdbcType=VARCHAR},
+      </if>
       <if test="startAddress != null" >
         #{startAddress,jdbcType=VARCHAR},
       </if>
@@ -231,6 +238,9 @@
       <if test="endTime != null" >
         end_time = #{endTime,jdbcType=VARCHAR},
       </if>
+      <if test="trainNum != null" >
+        train_num = #{trainNum,jdbcType=VARCHAR},
+      </if>
       <if test="startAddress != null" >
         start_address = #{startAddress,jdbcType=VARCHAR},
       </if>
@@ -277,6 +287,7 @@
       staff_depart = #{staffDepart,jdbcType=VARCHAR},
       start_time = #{startTime,jdbcType=VARCHAR},
       end_time = #{endTime,jdbcType=VARCHAR},
+      train_num = #{trainNum,jdbcType=VARCHAR},
       start_address = #{startAddress,jdbcType=VARCHAR},
       end_address = #{endAddress,jdbcType=VARCHAR},
       money_cost = #{moneyCost,jdbcType=DOUBLE},
@@ -291,4 +302,20 @@
       approver_now = #{approverNow,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <!-- 查询当前时间一个月已审批的报销信息 -->
+  <select id="selectApproved" resultMap="BaseResultMap"  parameterType="java.lang.String">
+    select 
+    <include refid="Base_Column_List" />
+    from expense_applay_train
+    where  <![CDATA[ DATE_SUB(CURDATE(),INTERVAL 1 MONTH) <= date(start_time)]]>
+    and approver_history like CONCAT('%',#{UserStaffId,jdbcType=VARCHAR},'%')
+  </select>
+   <!-- 查询当前时间一个月待审批的报销信息 -->
+  <select id="selectApproval" resultMap="BaseResultMap"  parameterType="java.lang.String">
+    select 
+    <include refid="Base_Column_List" />
+    from expense_applay_train
+    where  <![CDATA[ DATE_SUB(CURDATE(),INTERVAL 1 MONTH) <= date(start_time)]]>
+    and approver_now = #{UserStaffId,jdbcType=VARCHAR}
+  </select>
 </mapper>

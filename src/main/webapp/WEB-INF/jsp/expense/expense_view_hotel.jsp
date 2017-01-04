@@ -82,7 +82,7 @@
      	
   	     <hr/>
   	    <div class="weui-row">
-             <img src="<%=path%>/upload/${expenseApplayHotel.imageUrl}" style="height:10%;width:30%;"/>
+             <img src="http://121.40.29.241/YindaOAImageUpload/${expenseApplayHotel.imageUrl}" style="height:10%;width:30%;"/>
   	     </div>
         <div class="weui-row">
 			<div class="weui-col-10"></div>

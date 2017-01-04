@@ -514,6 +514,76 @@ public class ExpenseApplayTrainExample {
             return (Criteria) this;
         }
 
+        public Criteria andTrainNumIsNull() {
+            addCriterion("train_num is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrainNumIsNotNull() {
+            addCriterion("train_num is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrainNumEqualTo(String value) {
+            addCriterion("train_num =", value, "trainNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrainNumNotEqualTo(String value) {
+            addCriterion("train_num <>", value, "trainNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrainNumGreaterThan(String value) {
+            addCriterion("train_num >", value, "trainNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrainNumGreaterThanOrEqualTo(String value) {
+            addCriterion("train_num >=", value, "trainNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrainNumLessThan(String value) {
+            addCriterion("train_num <", value, "trainNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrainNumLessThanOrEqualTo(String value) {
+            addCriterion("train_num <=", value, "trainNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrainNumLike(String value) {
+            addCriterion("train_num like", value, "trainNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrainNumNotLike(String value) {
+            addCriterion("train_num not like", value, "trainNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrainNumIn(List<String> values) {
+            addCriterion("train_num in", values, "trainNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrainNumNotIn(List<String> values) {
+            addCriterion("train_num not in", values, "trainNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrainNumBetween(String value1, String value2) {
+            addCriterion("train_num between", value1, value2, "trainNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrainNumNotBetween(String value1, String value2) {
+            addCriterion("train_num not between", value1, value2, "trainNum");
+            return (Criteria) this;
+        }
+
         public Criteria andStartAddressIsNull() {
             addCriterion("start_address is null");
             return (Criteria) this;

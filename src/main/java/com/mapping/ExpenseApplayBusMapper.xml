@@ -76,6 +76,7 @@
     from expense_applay_bus
     where id = #{id,jdbcType=INTEGER}
   </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from expense_applay_bus
     where id = #{id,jdbcType=INTEGER}
@@ -302,4 +303,20 @@
       approver_now = #{approverNow,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <!-- 查询当前时间一个月已审批的报销信息 -->
+  <select id="selectApproved" resultMap="BaseResultMap"  parameterType="java.lang.String">
+    select 
+    <include refid="Base_Column_List" />
+    from expense_applay_bus
+    where  <![CDATA[ DATE_SUB(CURDATE(),INTERVAL 1 MONTH) <= date(begin_time)]]>
+    and approver_history like CONCAT('%',#{staffId,jdbcType=INTEGER},'%')
+  </select>
+  <!-- 查询当前时间一个月待审批的报销信息 -->
+  <select id="selectApproval" resultMap="BaseResultMap"  parameterType="java.lang.String">
+    select 
+    <include refid="Base_Column_List" />
+    from expense_applay_bus
+    where  <![CDATA[ DATE_SUB(CURDATE(),INTERVAL 1 MONTH) <= date(begin_time)]]>
+    and approver_now = #{staffId,jdbcType=INTEGER}
+  </select>
 </mapper>

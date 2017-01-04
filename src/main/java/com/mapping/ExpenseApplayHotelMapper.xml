@@ -69,6 +69,22 @@
       order by ${orderByClause}
     </if>
   </select>
+  <!-- 查询当前时间一个月已审批的报销信息 -->
+  <select id="selectApproved" resultMap="BaseResultMap"  parameterType="java.lang.String">
+    select 
+    <include refid="Base_Column_List" />
+    from expense_applay_hotel
+    where  <![CDATA[ DATE_SUB(CURDATE(),INTERVAL 1 MONTH) <= date(start_time)]]>
+    and approver_now = #{UserStaffId,jdbcType=VARCHAR}
+  </select>
+  <!-- 查询当前时间一个月待审批的报销信息 -->
+  <select id="selectApproval" resultMap="BaseResultMap"  parameterType="java.lang.String">
+    select 
+    <include refid="Base_Column_List" />
+    from expense_applay_hotel
+    where  <![CDATA[ DATE_SUB(CURDATE(),INTERVAL 1 MONTH) <= date(start_time)]]>
+    and approver_now = #{UserStaffId,jdbcType=VARCHAR}
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

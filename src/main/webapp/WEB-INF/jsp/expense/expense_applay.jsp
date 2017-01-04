@@ -84,11 +84,11 @@
     	 location="toExpense_history_hotel.do";
      }
      function goExpense_subway(){
-    	 location="toExpense_subway.do";
+    	 location="toSubwayHistory.do";
      }
      function goApprove_history_view(){
-    	 /* location="goApprove_history_view.do"; */
-    	 $.alert("该功能暂时未开放");
+    	 location="goApprove_history_view.do";
+    	
      }
      /*权限验证配置所需的信息 */
      var config =<%=request.getAttribute("config")%>;

@@ -19,7 +19,7 @@
   <form id="form">
   	<!-- <div class="weui_cells" style="border:none;"> -->
   	     <br/>
-  	     <div style="text-align:center;">---------------------上车---------------------</div>
+  	     
   		<div class="weui_cell">
     		<div class="weui_cell_bd weui_cell_primary">
       			<label class="weui_label"><b>市/县</b></label>
@@ -51,7 +51,7 @@
      	        <input class="weui_input" type="text"   name="reason" value="${expenseApplayBus.reason}" readonly>
    		     </div>
   	     </div> 
-  	     <div style="text-align:center;">---------------------上车---------------------</div>
+  	    
   	     <br/>
   	     <div class="weui_cell">
     		<div class="weui_cell_bd weui_cell_primary">
@@ -92,7 +92,7 @@
   	     <hr/>
   	    <div class="weui-row">
              <%-- <img src="<%=path%>/upload/${expenseApplayBus.imageUrl}" style="height:10%;width:30%;"/> --%>
-                <img src="<%=path%>/upload/${expenseApplayBus.imageUrl}" style="height:10%;width:30%;"/>
+                <img src="http://121.40.29.241/YindaOAImageUpload/${expenseApplayBus.imageUrl}" style="height:10%;width:30%;"/>
   	     </div>
         <div class="weui-row">
 			<div class="weui-col-10"></div>

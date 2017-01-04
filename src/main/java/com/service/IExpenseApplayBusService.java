@@ -14,5 +14,10 @@ public interface IExpenseApplayBusService {
 	 public int saveOrUpdate(ExpenseApplayBus expenseApplayBus);
 	 //各级管理员审核
 	 public ExpenseApplayBus sendTONextManager(ExpenseApplayBus expenseApplayBus);
-	public ExpenseApplayBus refuseOption(ExpenseApplayBus expenseApplayBus);
+	 //大巴拒绝操作
+	 public ExpenseApplayBus refuseOption(ExpenseApplayBus expenseApplayBus);
+	 //查询当前管理员的历史审批信息--一个月以前
+	 public List<ExpenseApplayBus> selectByApproveHistory(String approverStaffId);
+	//查询当前管理员的历史审批信息--一个月以前
+	public List<ExpenseApplayBus> selectApproval(String approverStaffId);
 }

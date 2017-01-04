@@ -20,7 +20,7 @@
   	<form id="form">
   	<div class="weui_cell">
     		<div class="weui_cell_bd weui_cell_primary">
-      			<label class="weui_label"><b>出发时间</b></label>
+      			<label class="weui_label"><b>上车时间</b></label>
    			 </div>
     	 <div class="weui_cell_ft weui_cell_primary">
      		<span>${expenseApplayTrain.startTime }</span>
@@ -29,7 +29,7 @@
      	</div>	
   	     <div class="weui_cell">
     		<div class="weui_cell_bd weui_cell_primary">
-      			<label class="weui_label"><b>出发地点</b></label>
+      			<label class="weui_label"><b>上车地点</b></label>
    			 </div>
     	<div class="weui_cell_ft weui_cell_primary">
      		<span>${expenseApplayTrain.startAddress }</span>
@@ -38,14 +38,14 @@
      	</div>		
      	
   		 <div class="weui_cell ">
-  		    <div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>到达时间</b></label></div>
+  		    <div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>下车时间</b></label></div>
     		<div class="weui_cell_ft weui_cell_primary">
      		   <span>${expenseApplayTrain.endTime }</span>
    		    </div>
   		 </div>
   	
   		 <div class="weui_cell"> 
-    		<div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>目的地点</b></label></div>
+    		<div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>下车地点</b></label></div>
     	     <div class="weui_cell_ft weui_cell_primary">
      	        <span>${expenseApplayTrain.endAddress }</span>
    		     </div>
@@ -79,7 +79,7 @@
      	</div>	
   	     <hr/>
   	     <div class="weui_row">
-     	<img src="http://121.40.29.241/YindaOA/upload/${expenseApplayTrain.imageUrl }" style="width:30%;height:10%；"/>
+     	<img src="http://121.40.29.241/YindaOAImageUpload/${expenseApplayTrain.imageUrl }" style="width:30%;height:10%"/>
      	</div>	
   	    <!--  <div class="weui-row">
   	     <div class="weui_uploader_input_wrp">

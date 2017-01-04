@@ -207,4 +207,20 @@
       approve_status = #{approveStatus,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <!-- 查询当前时间一个月已审批的报销信息 -->
+  <select id="selectApproved" resultMap="BaseResultMap"  parameterType="java.lang.String">
+    select 
+    <include refid="Base_Column_List" />
+    from expense_apply_subway
+    where  <![CDATA[ DATE_FORMAT(DATE_SUB(CURDATE(),INTERVAL 1 MONTH),'%Y-%m') = ask_month]]>
+    and approver_history like CONCAT('%',#{UserStaffId,jdbcType=VARCHAR},'%')
+  </select>
+  <!-- 查询当前时间一个月待审批的报销信息 -->
+  <select id="selectApproval" resultMap="BaseResultMap"  parameterType="java.lang.String">
+    select 
+    <include refid="Base_Column_List" />
+    from expense_apply_subway
+    where  <![CDATA[ DATE_FORMAT(DATE_SUB(CURDATE(),INTERVAL 1 MONTH),'%Y-%m') = ask_month]]>
+    and approver_now = #{UserStaffId,jdbcType=VARCHAR}
+  </select>
 </mapper>

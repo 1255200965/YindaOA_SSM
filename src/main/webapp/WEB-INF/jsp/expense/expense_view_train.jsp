@@ -18,35 +18,43 @@
  <body >
 
   	<form id="form">
-  	<div class="weui_cell">
+  	   <div class="weui_cell">
     		<div class="weui_cell_bd weui_cell_primary">
-      			<label class="weui_label"><b>出发时间</b></label>
+      			<label class="weui_label"><b>车次</b></label>
    			 </div>
     	 <div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder=""  name="startTime" value="${expenseApplayTrain.startTime }" readonly>
+     		<p>${expenseApplayTrain.trainNum }</p>	
+   		 </div>
+     	</div>	
+  	   <div class="weui_cell">
+    		<div class="weui_cell_bd weui_cell_primary">
+      			<label class="weui_label"><b>上车时间</b></label>
+   			 </div>
+    	 <div class="weui_cell_ft weui_cell_primary">
+     		<p>${expenseApplayTrain.startTime }" </p>
    		 </div>
      	</div>	
   	     <div class="weui_cell">
     		<div class="weui_cell_bd weui_cell_primary">
-      			<label class="weui_label"><b>出发地点</b></label>
+      			<label class="weui_label"><b>上车地点</b></label>
    			 </div>
     	<div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder=""  name="startAddress"  value="${expenseApplayTrain.startAddress }" readonly>
+     		<p>${expenseApplayTrain.startAddress }</p>
    		 </div>
    		 
      	</div>		
      	
   		 <div class="weui_cell ">
-  		    <div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>到达时间</b></label></div>
+  		    <div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>下车时间</b></label></div>
     		<div class="weui_cell_ft weui_cell_primary">
-     		   <input class="weui_input" type="text" placeholder=""  name="endTime" value="${expenseApplayTrain.endTime }" readonly>
+     		   <p>${expenseApplayTrain.endTime }</p>
    		    </div>
   		 </div>
   	
   		 <div class="weui_cell"> 
-    		<div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>目的地点</b></label></div>
+    		<div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>下车地点</b></label></div>
     	     <div class="weui_cell_ft weui_cell_primary">
-     	        <input class="weui_input" type="text"   name="endAddress" value="${expenseApplayTrain.endAddress }" readonly>
+     	        <p>${expenseApplayTrain.endAddress }</p>
    		     </div>
   	     </div> 
   	     <div class="weui_cell">
@@ -54,7 +62,7 @@
       			<label class="weui_label"><b>订票方式</b></label>
    			 </div>
     	<div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder=""   value="自购" readonly>
+     		<p>自购</p>
    		 </div>
    		 
      	</div>
@@ -63,7 +71,7 @@
       			<label class="weui_label"><b>金&nbsp;额</b></label>
    			 </div>
     	<div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder=""  name="moneyCost" value="${expenseApplayTrain.moneyCost }" readonly>
+     		<p>${expenseApplayTrain.moneyCost }</p>
    		 </div>
    		 
      	</div>
@@ -72,13 +80,13 @@
       			<label class="weui_label"><b>说&nbsp;明</b></label>
    			 </div>
     	<div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder=""  name="reason" value="${expenseApplayTrain.reason }" readonly>
+     		<p>${expenseApplayTrain.reason }</p>
    		 </div>
    		 
      	</div>	
   	     <hr/>
   	    <div class="weui-row">
-             <img src="<%=path%>/upload/${expenseApplayTrain.imageUrl}" style="height:10%;width:30%;"/>
+             <img src="http://121.40.29.241/YindaOAImageUpload/${expenseApplayTrain.imageUrl}" style="height:10%;width:30%;"/>
   	     </div>
         <div class="weui-row">
 			<div class="weui-col-10"></div>

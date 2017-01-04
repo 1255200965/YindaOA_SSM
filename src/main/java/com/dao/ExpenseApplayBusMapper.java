@@ -18,4 +18,8 @@ public interface ExpenseApplayBusMapper {
     int updateByPrimaryKeySelective(ExpenseApplayBus record);
 
     int updateByPrimaryKey(ExpenseApplayBus record);
+    //查询当前管理员一个月之前的已审批信息
+    public List<ExpenseApplayBus> selectApproved(String staffId);
+    //查询当前管理员一个月之前的待审批信息
+    public List<ExpenseApplayBus> selectApproval(String staffId);
 }

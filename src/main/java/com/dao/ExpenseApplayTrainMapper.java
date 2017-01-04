@@ -1,7 +1,9 @@
 package com.dao;
 
+import com.model.ExpenseApplayHotel;
 import com.model.ExpenseApplayTrain;
 import com.model.ExpenseApplayTrainExample;
+
 import java.util.List;
 
 public interface ExpenseApplayTrainMapper {
@@ -18,4 +20,8 @@ public interface ExpenseApplayTrainMapper {
     int updateByPrimaryKeySelective(ExpenseApplayTrain record);
 
     int updateByPrimaryKey(ExpenseApplayTrain record);
+   //根据用户钉钉Id查询其当前30天内的审批记录
+    public List<ExpenseApplayTrain> selectApproved(String userStaffId); 
+  //根据用户钉钉Id查询其当前30天内的审批记录
+    public List<ExpenseApplayTrain> selectApproval(String userStaffId); 
 }

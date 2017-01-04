@@ -2,11 +2,11 @@ package com.controller;
 
 
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -440,9 +440,15 @@ try{ subwayApply.setAskStaffId((String) request.getSession().getAttribute(Global
 	 return "fail";
   }
 }
+    @RequestMapping("/toExpense_view_subway.do")
+    public ModelAndView toExpense_view_subway(HttpServletRequest request,int id){
+    	ModelAndView mav = new ModelAndView();
+    	return mav;
+    }
     //地铁公交报销审批界面跳转
     @RequestMapping("/toExpense_subway_approve.do")
     public ModelAndView toExpense_subway_approve(int id , String manager){
+    	System.out.println("进来了");
     	ModelAndView mav = new ModelAndView();
     	//找出该条报销记录
     	ExpenseApplySubway subwayApply=expenseApplySubwayService.selectByPrimarykey(id);
@@ -472,14 +478,89 @@ try{ subwayApply.setAskStaffId((String) request.getSession().getAttribute(Global
     		return "fail";
     	}
     }
+    @RequestMapping("/toSubwayHistory.do")
+    public ModelAndView subwayHistory(HttpServletRequest request){
+    	ModelAndView mav = new ModelAndView();
+    	//员工工号
+    	String staffId = (String) request.getSession().getAttribute(GlobalConstant.user_staffId);
+    	List<ExpenseApplySubway> subwayList = expenseApplySubwayService.selectByStaffId(staffId);
+    	mav.addObject("subwayList", subwayList);
+    	mav.setViewName("expense/expense_history_subway");
+    	return mav;
+    }
     //历史审批信息查看
     @RequestMapping("/goApprove_history_view.do")
     public ModelAndView goApprove_history_view(){
     	ModelAndView mav = new ModelAndView();
-    	mav.setViewName("expense/approve_history_view");
+    	mav.setViewName("expense/approve_history");
     	return mav;
     }
-   
+    //已审批信息汇总
+    @RequestMapping("/approved.do")
+    public ModelAndView approved(HttpServletRequest request,String type){
+    	ModelAndView mav = new ModelAndView();
+    	String approverStaffUserId = (String) request.getSession().getAttribute(GlobalConstant.user_staff_user_id);
+    	@SuppressWarnings("rawtypes")
+		List approvedList = null;
+    	if("train".equals(type)){
+    		approvedList = expenseApplayTrainService.selectApproved(approverStaffUserId);
+    		mav.addObject("approvedList", approvedList);
+    		mav.addObject("type","train");
+    	}else if("bus".equals(type)){
+    		approvedList = expenseBusService.selectByApproveHistory(approverStaffUserId);
+    		mav.addObject("approvedList", approvedList);
+    		mav.addObject("type","bus");
+    	}else if("subway".equals(type)){
+    		approvedList = expenseApplySubwayService.selectApproved(approverStaffUserId);
+    		mav.addObject("approvedList", approvedList);
+    		mav.addObject("type","subway");
+    		mav.setViewName("expense/approved_history_subway");
+        	return mav;
+    	}else if("hotel".equals(type)){
+    		approvedList = expenseApplayHotelService.selectApproved(approverStaffUserId);
+    		mav.addObject("approvedList", approvedList);
+    		mav.addObject("type","hotel");
+    	}
+    	mav.setViewName("expense/approved_history_bus");
+    	return mav;
+    }
+    //待审批信息汇总
+    @RequestMapping("/approval.do")
+    public ModelAndView approval(HttpServletRequest request ,String type){
+    	ModelAndView mav = new ModelAndView();
+    	String approverStaffUserId = (String) request.getSession().getAttribute(GlobalConstant.user_staff_user_id);
+    	@SuppressWarnings("rawtypes")
+		List approvalList = null;
+    	if("train".equals(type)){
+    		approvalList = expenseApplayTrainService.selectApproval(approverStaffUserId);
+    		mav.addObject("approvalList", approvalList);
+    		mav.addObject("type","train");
+    	}else if("bus".equals(type)){
+    		approvalList = expenseBusService.selectApproval(approverStaffUserId);
+    		mav.addObject("approvalList", approvalList);
+    		mav.addObject("type","bus");
+    	}else if("subway".equals(type)){
+    		approvalList = expenseApplySubwayService.selectApproval(approverStaffUserId);
+    		mav.addObject("approvalList", approvalList);
+    		mav.addObject("type","subway");
+    		mav.setViewName("expense/approval_history_subway");
+        	return mav;
+    	}else if("hotel".equals(type)){
+    		approvalList = expenseApplayHotelService.selectApproval(approverStaffUserId);
+    		mav.addObject("approvalList", approvalList);
+    		mav.addObject("type","hotel");
+    	}
+    	mav.setViewName("expense/approval_history_bus");
+    	return mav;
+    }
+    @RequestMapping("/subwayDetailView.do")
+    public ModelAndView subwayDetailView(int id){
+    	ModelAndView mav = new ModelAndView();
+    	ExpenseApplySubway subwayApply = expenseApplySubwayService.selectByPrimarykey(id);
+    	mav.addObject("subwayApply", subwayApply);
+    	mav.setViewName("expense/expense_view_subway");
+    	return mav;
+    }
 //    /** 
 //     * 出租车报销
 //     */

@@ -13,6 +13,8 @@ public class ExpenseApplayTrain {
 
     private String endTime;
 
+    private String trainNum;
+
     private String startAddress;
 
     private String endAddress;
@@ -83,6 +85,14 @@ public class ExpenseApplayTrain {
 
     public void setEndTime(String endTime) {
         this.endTime = endTime;
+    }
+
+    public String getTrainNum() {
+        return trainNum;
+    }
+
+    public void setTrainNum(String trainNum) {
+        this.trainNum = trainNum;
     }
 
     public String getStartAddress() {

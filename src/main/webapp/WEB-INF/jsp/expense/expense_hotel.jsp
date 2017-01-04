@@ -101,25 +101,33 @@
     function check(){
     	if($("input[name='reason']").val()==null || $("input[name='reason']").val()==""){
     		$.alert("请输入住宿原因");
+    		return false;
     	}
     	if($("input[name='hotelName']").val()==null || $("input[name='hotelName']").val()==""){
     		$.alert("请输入旅店名称");
+    		return false;
     	}
     	if($("input[name='startTime']").val()==null || $("input[name='startTime']").val()==""){
     		$.alert("请输入住宿日期");
+    		return false;
     	}
     	if($("input[name='endTime']").val()==null || $("input[name='endTime']").val()==""){
     		$.alert("请输入离店日期");
+    		return false;
     	}
     	if($("input[name='daysCost']").val()==null || $("input[name='daysCost']").val()==""){
     		$.alert("请输入天数");
+    		return false;
     	}
     	if($("input[name='moneyCost']").val()==null || $("input[name='moneyCost']").val()==""){
     		$.alert("请输入金额");
+    		return false;
     	}
     	if($("input[name='image']").val()==null || $("input[name='image']").val()==""){
     		$.alert("请上传出差票据照片");
+    		return false;
     	}
+    	return true;
     }
     function showInfo(){
     	if($("input[name='image']").val()!=null && $("input[name='image']").val()!=""){

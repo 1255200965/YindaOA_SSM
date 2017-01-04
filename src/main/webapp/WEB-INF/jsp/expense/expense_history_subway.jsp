@@ -16,33 +16,32 @@
   <link rel="stylesheet" href="<%=path%>/stylesheets/projectcss.css"/>
   <script src="<%=path%>/javascripts/jquery-2.1.4.js"></script>
   <script src="<%=path%>/javascripts/jquery-weui.js"></script>
-  <title>大巴车报销记录</title>
+  <title>我的地铁公交费用报销记录</title>
  </head>
  <body >
   	<div class="weui-row">
-  		<div class="weui-col-40" style="overflow: hidden;"><b>日期</b></div>
+  		<div class="weui-col-40" style="overflow: hidden;"><b>月份</b></div>
   		<div class="weui-col-40" style="overflow: hidden;"><b>报销状态</b></div>
-  		<a  onclick="goExpense_bus();" style="color:red;"><b >新增</b></a>
+  		<a  onclick="subwayAdd();" style="color:red;"><b >新增</b></a>
   		<a></a>
   		<!-- <a></a> -->
     </div>
     <hr/>
-    <c:forEach items="${expenseApplayBusList }" var="expenseApplayBus">
+    <c:forEach items="${subwayList }" var="subway">
  	<div class="weui-row">
-  		<div class="weui-col-40" style="overflow: hidden;">${expenseApplayBus.beginTime }</div>
-  		<div class="weui-col-40" style="overflow: hidden;">${expenseApplayBus.applayStatus}</div>
-  		<a onclick="goExpense_bus_view(${expenseApplayBus.id});">查看</a>
+  		<div class="weui-col-40" style="overflow: hidden;">${subway.askMonth }</div>
+  		<div class="weui-col-40" style="overflow: hidden;">${subway.approveStatus}</div>
+  		<a onclick="detailView(${subway.id});">查看</a>
   		<a></a>
-  		<!-- <a href="javascript:history.go(-1);">返回</a> -->
     </div>
     <hr/>
     </c:forEach>
     <script>
-    	function goExpense_bus(){
-    		location="toExpense_bus.do";
+    	function detailView(id){
+    	  location = "subwayDetailView.do?id="+id;
     	};
-    	function goExpense_bus_view(data){
-    		location="toExpense_view_bus.do?id="+data;
+    	function subwayAdd(){
+    		location="toExpense_subway.do";
     	};
     </script>
  </body> 

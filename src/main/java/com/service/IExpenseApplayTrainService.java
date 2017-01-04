@@ -15,4 +15,8 @@ public interface IExpenseApplayTrainService {
 	public ExpenseApplayTrain sendTONextManager(ExpenseApplayTrain expenseApplayTrain);
 	//驳回操作
 	public ExpenseApplayTrain refuseOption(ExpenseApplayTrain expenseApplayTrain);
+	//根据用户钉钉Id查询其当前30天内的审批记录
+	List<ExpenseApplayTrain> selectApproved(String userStaffId);
+	//根据用户钉钉Id查询其当前30天内的待审批记录
+	List<ExpenseApplayTrain> selectApproval(String userStaffId);
 }

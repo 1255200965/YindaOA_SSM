@@ -16,4 +16,8 @@ public interface IExpenseApplayHotelService {
     public ExpenseApplayHotel sendTONextManager(ExpenseApplayHotel expenseApplayHotel);
     //驳回操作
 	public ExpenseApplayHotel refuseOption(ExpenseApplayHotel expenseApplayHotel);
+	//根据用户钉钉Id查询其当前30天内的审批记录
+    public List<ExpenseApplayHotel> selectApproved(String userStaffId); 
+  //根据用户钉钉Id查询其当前30天内的待审批记录
+    public List<ExpenseApplayHotel> selectApproval(String userStaffId); 
 }

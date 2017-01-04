@@ -110,4 +110,16 @@ public class ExpenseApplySubway {
     public void setApproveStatus(String approveStatus) {
         this.approveStatus = approveStatus;
     }
+
+	@Override
+	public String toString() {
+		return "ExpenseApplySubway [id=" + id + ", askStaffName="
+				+ askStaffName + ", askStaffUserId=" + askStaffUserId
+				+ ", askStaffId=" + askStaffId + ", askStaffDepart="
+				+ askStaffDepart + ", askMonth=" + askMonth + ", askMoney="
+				+ askMoney + ", approverOrder=" + approverOrder
+				+ ", approverHistory=" + approverHistory + ", approverNow="
+				+ approverNow + ", approveStatus=" + approveStatus + "]";
+	}
+    
 }

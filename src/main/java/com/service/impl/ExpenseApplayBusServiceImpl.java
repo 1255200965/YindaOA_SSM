@@ -12,6 +12,7 @@ import com.model.ExpenseApplayBus;
 import com.model.ExpenseApplayBusExample;
 import com.service.IExpenseApplayBusService;
 import com.util.DDSendMessageUtil;
+import com.util.DateUtil;
 @Service
 public class ExpenseApplayBusServiceImpl implements IExpenseApplayBusService{
   @Autowired
@@ -103,4 +104,14 @@ public class ExpenseApplayBusServiceImpl implements IExpenseApplayBusService{
 	  expenseApplayBus.setApproverNow("");
  	  return expenseApplayBus;
 	}
+   @Override
+   public List<ExpenseApplayBus> selectByApproveHistory(String approverStaffId){
+	   List<ExpenseApplayBus> expenseBusList = expenseBusMapper.selectApproved(approverStaffId);
+	   return expenseBusList;  
+   }
+   @Override
+   public List<ExpenseApplayBus> selectApproval(String approverStaffId){
+	   List<ExpenseApplayBus> expenseBusList = expenseBusMapper.selectApproval(approverStaffId);
+	   return expenseBusList;  
+   }
 }

@@ -18,4 +18,8 @@ public interface ExpenseApplayHotelMapper {
     int updateByPrimaryKeySelective(ExpenseApplayHotel record);
 
     int updateByPrimaryKey(ExpenseApplayHotel record);
+    //根据用户钉钉Id查询其当前30天内的已审批记录
+     public List<ExpenseApplayHotel> selectApproved(String userStaffId); 
+   //根据用户钉钉Id查询其当前30天内的待审批记录
+     public List<ExpenseApplayHotel> selectApproval(String userStaffId); 
 }
