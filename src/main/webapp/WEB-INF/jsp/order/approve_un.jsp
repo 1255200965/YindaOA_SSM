@@ -43,7 +43,7 @@
    
     <c:forEach items="${orderChangeList}" var="orderChange">
  	<div class="weui-row">
-  		<div class="weui-col-35" style="overflow: hidden;">${orderChange.modifyTime}</div>
+  		<div class="weui-col-35" style="overflow: hidden;">${fn:substring(orderChange.modifyTime,0,10)}</div>
   		<div class="weui-col-25" style="overflow: hidden;">${orderChange.modifyUser}</div>
   		<div class="weui-col-25" style="overflow: hidden;">未完成</div>
   		

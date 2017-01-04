@@ -225,6 +225,7 @@ public class SendOrderMessageUtil {
      * 对于挂职在二级部门下的员工【二级部门审批人钉钉ID】
      */
     public  List<String> getApprovers(String department,String project){//目标部门
+    	try{
     	
     	List<String> approverList=new ArrayList<String>();//需要的审批人信息记录
     	List<String> departmentList=new ArrayList<String>();//当前用户所在的各级部门列表
@@ -246,6 +247,7 @@ public class SendOrderMessageUtil {
         depDDIdList.add(departmentService.selectByExample(example2).get(0).getDepDdId());
     	
     	}
+    	
     	System.out.println(depDDIdList);
     	//根据获得的部门ID查询对应的审批人的滴滴ID
     	for(String depDDId : depDDIdList){
@@ -264,6 +266,10 @@ public class SendOrderMessageUtil {
 			}
     	}
     	return approverList;
+    	}catch(Exception e){
+    		System.out.println("department表和order表不一致");
+    		return null;
+    	}
     }
     //根据当前部门的钉钉ID获取当前部门的管理员的钉钉ID
     private static String getManagerDDId(String depDDId) throws ClientProtocolException, ParseException, IOException, URISyntaxException{

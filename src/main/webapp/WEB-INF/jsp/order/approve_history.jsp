@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%
 	String path = request.getContextPath();/*获得当前项目的根路径 */
 %>
@@ -29,7 +30,7 @@
     <hr/>
     <c:forEach items="${orderChangeList}" var="orderChange">
  	<div class="weui-row">
-  		<div class="weui-col-35" style="overflow: hidden;">${orderChange.modifyTime}</div>
+  		<div class="weui-col-35" style="overflow: hidden;">${fn:substring(orderChange.modifyTime,0,10)}</div>
   		<div class="weui-col-25" style="overflow: hidden;">${orderChange.modifyUser}</div>
   		<div class="weui-col-25" style="overflow: hidden;">${orderChange.orderStatus}</div>  		
   		<div class="weui-col-15" style="overflow: hidden;"><a onclick="go_approve_page(${orderChange.id},'${sessionScope.staff_user_id}');">查看</a></div>

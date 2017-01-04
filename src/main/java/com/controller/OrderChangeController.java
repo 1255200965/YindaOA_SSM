@@ -2,7 +2,9 @@ package com.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -24,6 +26,7 @@ import com.model.YoStaffDailyOrder;
 import com.service.IOrderChangeService;
 import com.service.IStaffCurrentOrderService;
 import com.service.IStaffInfoService;
+import com.util.DDUtil;
 import com.util.GlobalConstant;
 
 @Controller
@@ -48,6 +51,7 @@ public class OrderChangeController {
 	private  YoStaffDailyOrderMapper staffDailyOrderMapper;
 
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	SimpleDateFormat msdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	@RequestMapping("/approve_order_page.do")
 	public ModelAndView approve_order_page(String id,HttpServletRequest request,String staff_user_id){
@@ -109,12 +113,14 @@ public class OrderChangeController {
 		itemChange.setLte(lte3);
 		try{
 			yoOrderChangeMapper.updateByPrimaryKey(itemChange);
-			itemChange.setModifyTime(sdf.format(new Date()));
+			itemChange.setModifyTime(msdf.format(new Date()));
 			YoOrderChange OrderChange =iOrderChangeService.sendTONextManager(itemChange);
 			if(OrderChange.getOrderResult()!=null&&!"".equalsIgnoreCase(OrderChange.getOrderResult())){
 				String user_staff_id = itemChange.getStaffUserId();//申请通过后 项目中声请人的钉钉号
-				//根据根据用户的钉钉号查找当前订单信息中是否有该用户的订单
+				String staff_id =itemChange.getStaffId();
+				//第1步 根据根据用户的钉钉号查找当前订单信息中是否有该用户的订单
 				YoStaffCurrentOrder staffCurentOrder =iStaffCurrentOrderService.getStaffCurrentOrderByStaff_user_id(user_staff_id);
+				//第2步 获取审批中的项目变更新的信息
 				String businessProperty=itemChange.getBusinessProperty();
 				String lte =itemChange.getLte();
 				String effectTime =itemChange.getEffectTime();
@@ -130,7 +136,7 @@ public class OrderChangeController {
 				String scoProjectName= itemChange.getProject();
 				String yindaIdentify=itemChange.getYindaIdentify();
 				if (staffCurentOrder==null){
-					//创建新的当前订单信息表
+					//如果当前订单表中中没有 该订单信息 创建新的当前订单信息表
 					staffCurentOrder = new YoStaffCurrentOrder();
 				}else{
 					//将当前订单表中的订单信息存入历史订单表中
@@ -167,7 +173,8 @@ public class OrderChangeController {
 //					dorder.setYindaIdentify(yindaIdentify2);
 //					staffDailyOrderMapper.insert(dorder);
 				}
-
+			    //第3步 当前订单信息表中 对象属性赋值
+				staffCurentOrder.setScoStaffId(staff_id);
 				staffCurentOrder.setStaffUserId(user_staff_id);
 				staffCurentOrder.setBusinessProperty(businessProp);
 				staffCurentOrder.setDepartment(department);
@@ -182,7 +189,7 @@ public class OrderChangeController {
 				staffCurentOrder.setScoProjectName(scoProjectName);
 				staffCurentOrder.setYindaIdentify(yindaIdentify);
 				staffCurentOrder.setEffectTime(effectTime);
-				staffCurentOrder.setModifyTime(sdf.format(new Date()));
+				staffCurentOrder.setModifyTime(msdf.format(new Date()));
 				staffCurentOrder.setLte(lte);
 				if(staffCurentOrder.getScoSequenceNo()!=null){
 					staffCurrentOrderMapper.updateByPrimaryKey(staffCurentOrder);//如果当前有该用户的信息，跟新
@@ -191,12 +198,45 @@ public class OrderChangeController {
 					staffCurrentOrderMapper.insert(staffCurentOrder);//如果数据库中没有该用户的信息，添加
 					System.out.println("添加到当前订单表");
 				}
-
-
+			    //第4步 更新/添加 当前订单表后 需要同步staff_info 表中人员信息
+				
+				//根据工号查找staff_info的人员信息
+				StaffInfo staffInfo = new StaffInfo();
+				staffInfo.setStaffId(staff_id);
+			    try{
+			    	staffInfo = iStaffInfoService.searchStaffInfoByEntity(staffInfo).get(0);
+			    }catch(Exception e){
+			    	System.out.println("staff_info表没有工号"+staffInfo+"的人员信息");
+			    	return "error";
+			    }
+			    
+			
+			    //第5步 同步staff_info 表中的信息
+			    staffInfo.setDepartment(department+"-"+scoProjectName);//数据库字段 格式为： 无线事业部-内蒙移动
+			    staffInfo.setItem(scoOrderName);
+			    staffInfo.setYoOrder(businessProp);			   
+			    staffInfo.setContractType(scoContratType);
+			    try{
+			    	 staffInfoMapper.updateByPrimaryKey(staffInfo);
+			    }catch(Exception e){
+			    	System.out.println("staff_info表中"+staffInfo+"更新失败");
+			    	return "error";
+			    }
+			    //第7步 更新钉钉中人员信息 钉钉侧修改
+		        DDUtil ddutil = new DDUtil(iStaffInfoService);
+		        Map<String,Object> map = new HashMap<String,Object>();
+		        String DDresult = ddutil.updateUser(staffInfo);
+		        if (DDresult != null){
+		            map.put("msg", DDresult);
+		            System.out.println(map);
+		        }
+			    
 			}
 
-			System.out.println("OrderChange"+OrderChange.toString());
+			//第6步 更新 yo_order_change表中的信息 
 			yoOrderChangeMapper.updateByPrimaryKey(OrderChange);
+						
+			
 			return "success";
 		}catch(Exception e){
 			return "error";

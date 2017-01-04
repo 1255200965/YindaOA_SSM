@@ -50,6 +50,7 @@ public class ItemChangeController {
 	@Autowired
 	private  IOrderChangeService iOrderChangeService;
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	SimpleDateFormat msdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	@RequestMapping("/toItemChange.do")
 	public ModelAndView toItemChange(HttpServletRequest request,YoItemChange itemChange){
 		ModelAndView mav = new ModelAndView();
@@ -117,6 +118,9 @@ public class ItemChangeController {
 		String user_name =(String) request.getSession().getAttribute(GlobalConstant.user_name);
 		String assess ="";
 		List <String> approverList = sendOrderMessageUtil.getApprovers(department,project);
+		if(approverList==null||approverList.size()==0){
+			return "error";
+		}
 		System.out.println("审批人列表"+approverList.toString());
 		String toUser=null;
 		
@@ -131,13 +135,14 @@ public class ItemChangeController {
 		orderChange.setOrderName(orderName);
 		orderChange.setOrderRemark(remark);
 		orderChange.setOutdoorJob(outdoor);
-		orderChange.setModifyTime(sdf.format(new Date())+"");
+		orderChange.setModifyTime(msdf.format(new Date())+"");
 		orderChange.setYindaIdentify(yindaIdentify);
 		orderChange.setStaffUserId(staff_user_id);
 		orderChange.setStaffId(user_staffId);
 		orderChange.setUsername(user_name);
 		orderChange.setProject(project);
 		orderChange.setEffectTime(beginTime);
+		orderChange.setStaffId(user_staffId);
 		//对于挂职在一级部门的员工
 		if(approverList.size() >1){
 		toUser=approverList.get(1);
@@ -170,74 +175,7 @@ public class ItemChangeController {
 		}
 
 	}
-/*	@RequestMapping("/approve_order_page.do")
-	public ModelAndView approve_order_page(String id,HttpServletRequest request){
-		ModelAndView mav = new ModelAndView();
-		YoOrderChange orderChange =yoOrderChangeMapper.selectByPrimaryKey(Integer.valueOf(id));
-		String approveId =orderChange.getStaffUserId();//根据项目申请中查找申请人的ID
-		StaffInfo approve =iStaffInfoService.selectStaffByID(approveId); //根据申请人的ID查找审批人
-		String approveName = approve.getName();//获取审批人的姓名
-		mav.addObject("itemChange", orderChange);
-		mav.addObject("approveName", approveName);
-		mav.addObject("alength", approveName.length());
-		mav.setViewName("/order/approve_order");
-		return mav;
-	}
 
 
-	@RequestMapping("/pass_approve.do")
-	@ResponseBody
-	public String pass_approve(String id,HttpServletRequest request){
-
-		YoItemChange itemChange =itemChangeMapper.selectByPrimaryKey(Integer.valueOf(id));
-		itemChange.setIcApproveState("完成");
-		itemChange.setIcApproveResult("同意");
-		try{
-			itemChangeMapper.updateByPrimaryKey(itemChange);
-			return "success";
-		}catch(Exception e){
-			return "error";
-		}
-
-	}
-
-
-	@RequestMapping("/refuse_approve.do")
-	@ResponseBody
-	public String refuse_approve(String id,HttpServletRequest request){
-		ModelAndView mav = new ModelAndView();
-		YoItemChange itemChange =itemChangeMapper.selectByPrimaryKey(Integer.valueOf(id));
-		itemChange.setIcApproveResult("拒绝");
-		itemChange.setIcApproveState("完成");
-		try{
-			itemChangeMapper.updateByPrimaryKey(itemChange);
-			return "success";
-		}catch(Exception e){
-			return "error";
-		}
-	}*/
-
-	@RequestMapping("toItemchange_history.do")
-	public ModelAndView toItemchange_history(HttpServletRequest request){
-		ModelAndView mav = new ModelAndView();
-		YoItemChangeExample example = new YoItemChangeExample();
-		YoItemChangeExample.Criteria criteria = example.createCriteria();
-		String staffId = (String) request.getSession().getAttribute(GlobalConstant.user_staffId);
-
-		criteria.andIcAskStaffIdEqualTo(staffId);
-		List<YoItemChange> itemChangeList = itemChangeMapper.selectByExample(example);
-		mav.addObject("itemChangeList", itemChangeList);
-		mav.setViewName("order/itemchange_history");
-		return mav;
-	}
-	//单条项目变更信息详情查看
-	@RequestMapping("itemChange_view.do")
-	public ModelAndView itemChange_view(HttpServletRequest request,int id){
-		ModelAndView  mav = new ModelAndView();
-		YoItemChange itemChange = new YoItemChange();
-		itemChange=itemChangeMapper.selectByPrimaryKey(id);
-		mav.addObject("itemChange",itemChange);
-		mav.setViewName("order/itemchange_view");
-		return mav;
-	}
+	
 }
