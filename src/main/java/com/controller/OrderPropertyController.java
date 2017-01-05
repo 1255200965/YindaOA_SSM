@@ -1,5 +1,7 @@
 package com.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.dao.YoOrderPropertyMapper;
 import com.model.YoOrderProperty;
 import com.service.IOrderPropertyService;
+
 
 @Controller
 @RequestMapping("orderProperty")
@@ -34,12 +37,28 @@ public class OrderPropertyController {
 		return null;
 	}
 	
-	
+	/**
+	 * 从orderproperty中获取当前
+	 * @param orderName
+	 * @return
+	 */
 	@RequestMapping("getOrderCity.do")
 	@ResponseBody
-	public List<YoOrderProperty> getOrderCity(String orderName){
-		List<YoOrderProperty> o = iOrderPropertyService.getOrderCity(orderName);		
-		return o;
+	public List<String> getOrderCity(String orderName){
+		List<YoOrderProperty> o = iOrderPropertyService.getOrderCity(orderName);
+		System.out.println("o"+o);
+		if(o==null||o.size()==0){
+			return null;
+		}
+		List<String> strList = null;
+		try{
+			System.out.println(o.get(0).getOrderCity());
+			strList = Arrays.asList(o.get(0).getOrderCity().split("\\|"));
+		}catch(Exception e){
+			return null;	
+		}	 
+		System.out.println(strList.size());
+		return strList;
 	}
 	
 	

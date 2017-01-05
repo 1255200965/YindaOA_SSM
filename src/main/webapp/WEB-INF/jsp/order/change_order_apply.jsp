@@ -182,12 +182,12 @@
 				</div>
 				<div class="weui_cell_bd weui_cell_primary">
 
-					<!--     <select class="weui_select" name="changeCity" placeholder="请输入城市" >
+					  <select class="weui_select" name="changeCity" placeholder="请输入城市" id="changeCity">
 
 
-                  </select> -->
-					<input class="weui_input" type="text" placeholder="请输入城市"
-						name="changeCity">
+                  </select> 
+					<!-- <input class="weui_input" type="text" placeholder="请输入城市"
+						name="changeCity"> -->
 				</div>
 			</div>
 
@@ -363,7 +363,7 @@
 
         $("#orderName").change(function (){
             var orderName = $("#orderName").val();
-            var  changeCityHTML ="<option >请选择</option>";
+            var  changeCityHTML ="<option>请选择</option>";
             $.post("<%=path%>/orderProperty/getOrderProvince.do",{'orderName':orderName},function (data){
 
                 $("#changeProvince").val(data);
@@ -372,7 +372,7 @@
 
             $.post("<%=path%>/orderProperty/getOrderCity.do",{'orderName':orderName},function (data){
                 $.each(data, function (n, value) {
-                    changeCityHTML = changeCityHTML +"<option value='"+value.orderCity+"'>"+value.orderCity+"</option>";
+                    changeCityHTML = changeCityHTML +"<option value='"+value+"'>"+value+"</option>";
                 });
                 $("#changeCity").html(changeCityHTML);
 
