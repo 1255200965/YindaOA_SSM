@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 import net.sf.json.JSONObject;
 
 import com.ddSdk.base.OApiException;
+import com.model.Department;
 import com.model.DepartmentExample;
 import com.model.ExpenseApplayBus;
 import com.model.ExpenseApplayHotel;
@@ -244,8 +245,10 @@ public class SendOrderMessageUtil {
     	DepartmentExample.Criteria criteria02 = example2.createCriteria();
     	criteria02.andDepParentidEqualTo(depDDIdList.get(0));
     	criteria02.andDepNameEqualTo(departmentList.get(1));
-        depDDIdList.add(departmentService.selectByExample(example2).get(0).getDepDdId());
-    	
+    	List<Department> departmentList2= departmentService.selectByExample(example2); //从department表中获取二级部门
+    	if(departmentList2!=null&&departmentList2.size()>0){//从department表中如果有二级部门 则加入depDDIdList中
+    		 depDDIdList.add(departmentService.selectByExample(example2).get(0).getDepDdId());
+    	}
     	}
     	
     	System.out.println(depDDIdList);
