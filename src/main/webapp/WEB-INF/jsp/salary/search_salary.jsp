@@ -180,8 +180,10 @@
     	$.post("<%=path%>/usersalary/getbranchCompany.do",function(json){
     	
     		$.each(json, function (n, value) {
-              
-    			branchCompanythtml = branchCompanythtml+"<option value='"+value.branchCompany+"'>"+value.branchCompany+"</option>";              
+              if(value!=null){
+            	  branchCompanythtml = branchCompanythtml+"<option value='"+value.branchCompany+"'>"+value.branchCompany+"</option>";              
+              }
+    			
             });    		
     		 $("#branchCompany").html(branchCompanythtml);
     	});	 
