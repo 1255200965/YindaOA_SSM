@@ -94,9 +94,9 @@
             var remarkHTML = "";
             function yindaIdentifyRefresh(){
                 if ($("#businessProperty").val() == "TaskBase" && "${itemChange.orderName}".indexOf("无线工程")>0 ) {
-                    $("#yindaIdentify").html("");
+                    $("#yindaIdentify").html("<option></option>");
                 } else {
-                    $("#yindaIdentify").html(remarkHTML);
+                    $("#yindaIdentify").html("<option></option>"+remarkHTML);
                 }
             }
             $(document).ready(function(){

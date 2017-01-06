@@ -408,7 +408,7 @@
     function subForm()
     {
         var beginTime = $("#datetime-picker").val();
-        var changeCity =$("input[name='changeCity']").val();
+        var changeCity =$("select[name='changeCity']").val();
         var  orderName =$("#orderName").val();
         if(beginTime==null || ""==beginTime){
 
