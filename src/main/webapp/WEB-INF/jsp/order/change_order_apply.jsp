@@ -182,12 +182,12 @@
 				</div>
 				<div class="weui_cell_bd weui_cell_primary">
 
-					  <select class="weui_select" name="changeCity" placeholder="请输入城市" id="changeCity">
+					 <!--  <select class="weui_select" name="changeCity" placeholder="请输入城市" id="changeCity">
 
 
-                  </select> 
-					<!-- <input class="weui_input" type="text" placeholder="请输入城市"
-						name="changeCity"> -->
+                  </select>  -->
+					 <input class="weui_input" type="text" placeholder="请输入城市"
+						name="changeCity">
 				</div>
 			</div>
 
@@ -408,7 +408,7 @@
     function subForm()
     {
         var beginTime = $("#datetime-picker").val();
-        var changeCity =$("select[name='changeCity']").val();
+        var changeCity =$("input[name='changeCity']").val();
         var  orderName =$("#orderName").val();
         if(beginTime==null || ""==beginTime){
 
