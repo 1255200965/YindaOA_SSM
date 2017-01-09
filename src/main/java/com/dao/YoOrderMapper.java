@@ -49,4 +49,13 @@ public interface YoOrderMapper {
   	 * @return
   	 */
   	public List<String> selectOrderofProject(String project);
+  	
+  	/**
+  	 * 获取所有项目
+  	 * @return
+  	 */
+  	List<YoOrder>  getAllProject();
+  	
+  	
+  	
 }

@@ -309,6 +309,12 @@
 
 		select DISTINCT project from yo_order where department = #{department}
 	</select>
+	
+	<select id="getAllProject" parameterType="com.model.YoOrder"
+		resultMap="BaseResultMap">
+
+		select   DISTINCT project,department  from yo_order 
+	</select>
   
   
   

@@ -150,6 +150,26 @@
       <artifactId>jackson-mapper-asl</artifactId>
       <version>1.9.13</version>
     </dependency>
+    
+    
+     <dependency>
+  	<groupId>org.apache.commons</groupId>
+  	<artifactId>commons-lang3</artifactId>
+  	<version>3.1</version>
+  </dependency>
+  <dependency>
+  	<groupId>bsh</groupId>
+  	<artifactId>bsh</artifactId>
+ 	<version>1.3.0</version>
+  </dependency>
+  <dependency>
+  	<groupId>net.sf.json-lib</groupId>
+  	<artifactId>json-lib</artifactId>
+  	<version>2.4</version>
+  	<classifier>jdk15</classifier>
+  </dependency>
+    
+    
     <!-- 上传组件包 -->
     <dependency>
       <groupId>commons-fileupload</groupId>
@@ -233,40 +253,45 @@
       <version>1.9.40</version>
     </dependency>
     <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-lang3</artifactId>
-      <version>3.1</version>
+    	<groupId>org.mybatis</groupId>
+    	<artifactId>mybatis</artifactId>
+    	<version>3.3.0</version>
     </dependency>
     <dependency>
-      <groupId>bsh</groupId>
-      <artifactId>bsh</artifactId>
-      <version>1.3.0</version>
+    	<groupId>org.mybatis.generator</groupId>
+    	<artifactId>mybatis-generator-core</artifactId>
+        <version>1.3.2</version>
     </dependency>
     <dependency>
-      <groupId>net.sf.json-lib</groupId>
-      <artifactId>json-lib</artifactId>
-      <version>2.4</version>
-      <classifier>jdk15</classifier>
+    	<groupId>org.postgresql</groupId>
+    	<artifactId>postgresql</artifactId>
+    	<version>9.4-1206-jdbc41</version>
     </dependency>
+     <!-- spring 缓存 -->
+ <dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache-core</artifactId>
+			<version>2.6.9</version>
+		</dependency>
   </dependencies>
 
-  <build>
+ <!-- <build>
     <finalName>YindaOA</finalName>
-    <plugins>
-      <plugin>
+    <plugins> -->
+      <!-- <plugin>
         <groupId>org.mybatis.generator</groupId>
         <artifactId>mybatis-generator-maven-plugin</artifactId>
         <version>1.3.2</version>
         <configuration>
           <overwrite>true</overwrite>
         </configuration>
-      </plugin>
-      <plugin>
-        <!-- 这个是相对于maven_repository的路径 -->
+      </plugin> -->
+      <!-- <plugin>
+        这个是相对于maven_repository的路径
         <groupId>org.apache.tomcat.maven</groupId>
-        <!-- 在groupId下的插件名 -->
+        在groupId下的插件名
         <artifactId>tomcat7-maven-plugin</artifactId>
-        <!-- 插件的版本，注意内有jar文件的才可使用 -->
+        插件的版本，注意内有jar文件的才可使用
         <version>2.2</version>
         <configuration>
             <uriEncoding>UTF-8</uriEncoding>
@@ -277,8 +302,8 @@
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
             <configuration>
-                <source>1.7</source>
-                <target>1.7</target>
+                <source>1.6</source>
+                <target>1.6</target>
             </configuration>
         </plugin>
     </plugins>
@@ -300,6 +325,7 @@
         </includes>
       </resource>
     </resources>
-  </build>
+  </build> 
+ -->
 
 </project>

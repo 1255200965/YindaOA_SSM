@@ -1,9 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"   import="com.ecache.*" %>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
     String path = request.getContextPath();/*获得当前项目的根路径 */
+    
 %>
+
 <!DOCTYPE html>
 <html lang="en">
 <meta charset="utf-8">
@@ -11,13 +14,13 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no">
 <head>
-<link rel="stylesheet" href="<%=path%>/stylesheets/weui.css" />
-<link rel="stylesheet" href="<%=path%>/stylesheets/jquery-weui.css" />
-<link rel="stylesheet" href="<%=path%>/stylesheets/projectcss.css" />
-<script src="<%=path%>/javascripts/jquery-2.1.4.js"></script>
-<script src="<%=path%>/javascripts/jquery-weui.js"></script>
+<link rel="stylesheet" href="<%=path%>/stylesheets/weui.css?v=<%=SystemConfig.version%>" />
+<link rel="stylesheet" href="<%=path%>/stylesheets/jquery-weui.css?v=<%=SystemConfig.version%>" />
+<link rel="stylesheet" href="<%=path%>/stylesheets/projectcss.css?v=<%=SystemConfig.version%>" />
+<script src="<%=path%>/javascripts/jquery-2.1.4.js?v=<%=SystemConfig.version%>"></script>
+<script src="<%=path%>/javascripts/jquery-weui.js?v=<%=SystemConfig.version%>"></script>
 <script type="text/javascript"
-	src="http://g.alicdn.com/ilw/ding/0.7.3/scripts/dingtalk.js"></script>
+	src="http://g.alicdn.com/ilw/ding/0.7.3/scripts/dingtalk.js?v=<%=SystemConfig.version%>"></script>
 <title>项目变动申请</title>
 </head>
 <style>
@@ -136,8 +139,8 @@
 					<div class="weui_cell weui_cell_select">
 						<div class="weui_cell_bd weui_cell_primary">
 							<select class="weui_select" name="contractType" id="contractType">
-
-
+                             <option value="${sessionScope.contractType}">${sessionScope.contractType}</option>
+                       
 							</select>
 						</div>
 					</div>
@@ -276,7 +279,7 @@
 
             $.each(json, function (n, value) {
 
-                departmenthtml = departmenthtml+"<option value='"+value.department+"'>"+value.department+"</option>";
+                departmenthtml = departmenthtml+"<option value='"+value+"'>"+value+"</option>";
             });
             $("#department").html(departmenthtml);
         });
@@ -295,7 +298,7 @@
 
 
         /**初始化合同类型**/
-        $.post("<%=path%>/order/getContract_typeInStallInfo.do",function(json){
+       <%--  $.post("<%=path%>/order/getContract_typeInStallInfo.do",function(json){
 
             var contractTypehtml;
             $.each(json, function (n, value) {
@@ -304,7 +307,7 @@
             });
 
             $("#contractType").html(contractTypehtml);
-        });
+        }); --%>
     });
     /**部门变动改变项目 **/
     $("#department").change(function (){
@@ -315,7 +318,7 @@
         $.post("<%=path%>/order/getProjectByDepartment.do",{'department':department},function(json){
             projecthtml+="<option >请选择</option>";
             $.each(json, function (n, value) {
-                projecthtml = projecthtml +"<option value='"+value.project+"'>"+value.project+"</option>";
+                projecthtml = projecthtml +"<option value='"+value+"'>"+value+"</option>";
 
             });
 
@@ -332,7 +335,7 @@
             if(project=="请选择"){$("#orderName").html("  <option >请选择</option>");return;}
             $.post("<%=path%>/order/getOrderByDepartmentAndProject.do",{'department':department,'project':project},function(json){
                 $.each(json, function (n, value) {
-                    orderhtml = orderhtml +"<option value='"+value.orderName+"'>"+value.orderName+"</option>";
+                    orderhtml = orderhtml +"<option value='"+value+"'>"+value+"</option>";
 
                 });
 
