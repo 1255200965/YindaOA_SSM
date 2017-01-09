@@ -2,6 +2,7 @@ package com.service.impl;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -45,7 +46,7 @@ public class BusinessTripServiceImpl implements IBusinessTripService{
     	return businessTripMapper.selectByPrimaryKey(id);
     }
     @Override
-    public List<String[]> readExcel(FileInputStream fis) throws IOException{
+    public List<String[]> readExcel(InputStream fis) throws IOException{
     	BusinessTrip businessTrip = new BusinessTrip();
     	String startCity=null;
     	String endCity = null;

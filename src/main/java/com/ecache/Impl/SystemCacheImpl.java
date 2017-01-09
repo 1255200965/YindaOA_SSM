@@ -78,7 +78,7 @@ public class SystemCacheImpl  implements SystemCache{
     	
     	List<String> strList=null;                                 // 申明一个字符串列表
     	for(String department : departmentList1){                  // 循环处理好的部门列表
-    		strList = new ArrayList<>();                           // 充值strList                		
+    		strList = new ArrayList<String>();                           // 充值strList
     		for(YoOrder project :projectList ){                    // 循环项目列表      		
         		if(department.equals(project.getDepartment())){    // 如果部门中的部门等于项目中的部门
         			strList.add(project.getProject());

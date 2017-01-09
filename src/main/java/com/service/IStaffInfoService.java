@@ -26,7 +26,8 @@ public interface IStaffInfoService {
     //查询所有用户id
     //StaffInfo selectAll();
     List<StaffInfo> selectAllUser();
-
+   //查询所有的用户名称已经钉钉ID
+    List<StaffInfo> selectAllUserName();
     //更新用户
     int updateStaffByID(StaffInfo staffUserId);
     /*通过工号来查询员工信息*/

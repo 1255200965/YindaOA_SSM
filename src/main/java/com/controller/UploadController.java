@@ -1,5 +1,6 @@
 package com.controller;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -42,13 +43,15 @@ public class UploadController {
 		ModelAndView mav = new ModelAndView();
 		MultipartRequest mRequest=(MultipartRequest) request;
 		MultipartFile file=null;
-		FileInputStream fis=null;
+//		FileInputStream fis=null;
+		InputStream fis= null;
 		List<String []> errorList=new ArrayList<String []>();
 		try{
 			file = mRequest.getFile("file");
-			fis = (FileInputStream) file.getInputStream();
+			fis =  file.getInputStream();
 		}catch(Exception e){
-			String []errorMsg = {"导入失败","无法从本地读取文件内容,请查看文件夹权限或者查看文件是否正在被使用"};
+			e.printStackTrace();
+			String []errorMsg = {"导入失败","1.无法从本地读取文件内容,请查看文件夹权限或者查看文件是否正在被使用2.查看文件是否为.xls格式的EXCEL文件"};
 			errorList.add(errorMsg);
 		}
 		if(errorList.size()==0){

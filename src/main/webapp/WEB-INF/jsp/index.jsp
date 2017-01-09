@@ -93,6 +93,8 @@
 								<li><a href="<%=basePath%>ExcelAttendanceDetail/homePage.do" target="loadcontent">考勤明细导入</a></li>
 								<li><a href="<%=basePath%>ExcelSignIn/homePage.do" target="loadcontent">签到导入</a></li>
 								<li><a href="<%=basePath%>ExcelSocialSecurityInfo/homePage.do"target="loadcontent">社保信息导入</a></li>
+								<li><a href="<%=basePath%>advance/toUpload.do"target="loadcontent">预付款导入</a></li>
+
 
 							</ul>
 						</div>
@@ -136,6 +138,7 @@
 								<li><a href="<%=basePath%>toSocialSecurity.do" target="loadcontent">社保发文</a></li>
 								<%-- <li><a href="<%=basePath%>toItemChange.do" target="loadcontent">项目变更发文</a></li> --%>
 								<li><a href="<%=basePath%>attendance_search.do" target="loadcontent">考勤导出</a></li>
+								<li><a href="<%=basePath%>advance/toAdvance_getList.do" target="loadcontent">预付款发文</a></li>
 							</ul>
 						</div>
 					</li>

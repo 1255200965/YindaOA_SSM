@@ -174,4 +174,8 @@ public class StaffInfoServiceImpl implements IStaffInfoService {
 		return staffInfoMapper.getContract_typeInStallInfo(user_staffId);
 	}
 
+	@Override
+	public List<StaffInfo> selectAllUserName(){
+		return staffInfoMapper.selectAllUser();
+	}
 }

@@ -54,8 +54,8 @@ public class IOrderServiceImpl implements IOrderService{
 		// TODO Auto-generated method stub
 		YoOrderExample example = new YoOrderExample();
 		YoOrderExample.Criteria criteria = example.createCriteria();
-    	if(StringUtil.NotBlank(project)) {criteria.andProjectEqualTo(project);}else{return null;};
-    	if(StringUtil.NotBlank(department)) {criteria.andDepartmentEqualTo(department);}else{return null;};
+		if(StringUtil.NotBlank(project)) {criteria.andProjectEqualTo(project);};//else{return null;}
+		if(StringUtil.NotBlank(department)) {criteria.andDepartmentEqualTo(department);};//else{return null;}
     	criteria.andOrderNumberLike("17"+"%");   	
     	List<YoOrder> orderList=yoOrderMapper.selectByExample(example);
 		return orderList;

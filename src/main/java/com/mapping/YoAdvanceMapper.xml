@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.YoAdvanceMapper" >
+  <resultMap id="BaseResultMap" type="com.model.YoAdvance" >
+    <id column="approve_no" property="approveNo" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="approve_status" property="approveStatus" jdbcType="VARCHAR" />
+    <result column="approve_result" property="approveResult" jdbcType="VARCHAR" />
+    <result column="ask_start_time" property="askStartTime" jdbcType="VARCHAR" />
+    <result column="ask_end_time" property="askEndTime" jdbcType="VARCHAR" />
+    <result column="ask_staff_id" property="askStaffId" jdbcType="VARCHAR" />
+    <result column="ask_staff_name" property="askStaffName" jdbcType="VARCHAR" />
+    <result column="ask_staff_dep" property="askStaffDep" jdbcType="VARCHAR" />
+    <result column="approver_history" property="approverHistory" jdbcType="VARCHAR" />
+    <result column="approve_record" property="approveRecord" jdbcType="VARCHAR" />
+    <result column="approver_now" property="approverNow" jdbcType="VARCHAR" />
+    <result column="approve_cost" property="approveCost" jdbcType="VARCHAR" />
+    <result column="advance_start_time" property="advanceStartTime" jdbcType="VARCHAR" />
+    <result column="advance_aim_MC" property="advanceAimMc" jdbcType="VARCHAR" />
+    <result column="advance_aim_SC" property="advanceAimSc" jdbcType="VARCHAR" />
+    <result column="advance_sum" property="advanceSum" jdbcType="VARCHAR" />
+    <result column="advance_payee" property="advancePayee" jdbcType="VARCHAR" />
+    <result column="advance_bank" property="advanceBank" jdbcType="VARCHAR" />
+    <result column="advance_branch" property="advanceBranch" jdbcType="VARCHAR" />
+    <result column="advance_bank_account" property="advanceBankAccount" jdbcType="VARCHAR" />
+    <result column="advance_reason" property="advanceReason" jdbcType="VARCHAR" />
+    <result column="other" property="other" jdbcType="VARCHAR" />
+    <result column="export_status" property="exportStatus" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    approve_no, title, approve_status, approve_result, ask_start_time, ask_end_time, 
+    ask_staff_id, ask_staff_name, ask_staff_dep, approver_history, approve_record, approver_now, 
+    approve_cost, advance_start_time, advance_aim_MC, advance_aim_SC, advance_sum, advance_payee, 
+    advance_bank, advance_branch, advance_bank_account, advance_reason, other, export_status
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.model.YoAdvanceExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from yo_advance
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from yo_advance
+    where approve_no = #{approveNo,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from yo_advance
+    where approve_no = #{approveNo,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.model.YoAdvance" >
+    insert into yo_advance (approve_no, title, approve_status, 
+      approve_result, ask_start_time, ask_end_time, 
+      ask_staff_id, ask_staff_name, ask_staff_dep, 
+      approver_history, approve_record, approver_now, 
+      approve_cost, advance_start_time, advance_aim_MC, 
+      advance_aim_SC, advance_sum, advance_payee, 
+      advance_bank, advance_branch, advance_bank_account, 
+      advance_reason, other, export_status
+      )
+    values (#{approveNo,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{approveStatus,jdbcType=VARCHAR}, 
+      #{approveResult,jdbcType=VARCHAR}, #{askStartTime,jdbcType=VARCHAR}, #{askEndTime,jdbcType=VARCHAR}, 
+      #{askStaffId,jdbcType=VARCHAR}, #{askStaffName,jdbcType=VARCHAR}, #{askStaffDep,jdbcType=VARCHAR}, 
+      #{approverHistory,jdbcType=VARCHAR}, #{approveRecord,jdbcType=VARCHAR}, #{approverNow,jdbcType=VARCHAR}, 
+      #{approveCost,jdbcType=VARCHAR}, #{advanceStartTime,jdbcType=VARCHAR}, #{advanceAimMc,jdbcType=VARCHAR}, 
+      #{advanceAimSc,jdbcType=VARCHAR}, #{advanceSum,jdbcType=VARCHAR}, #{advancePayee,jdbcType=VARCHAR}, 
+      #{advanceBank,jdbcType=VARCHAR}, #{advanceBranch,jdbcType=VARCHAR}, #{advanceBankAccount,jdbcType=VARCHAR}, 
+      #{advanceReason,jdbcType=VARCHAR}, #{other,jdbcType=VARCHAR}, #{exportStatus,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.YoAdvance" >
+    insert into yo_advance
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="approveNo != null" >
+        approve_no,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="approveStatus != null" >
+        approve_status,
+      </if>
+      <if test="approveResult != null" >
+        approve_result,
+      </if>
+      <if test="askStartTime != null" >
+        ask_start_time,
+      </if>
+      <if test="askEndTime != null" >
+        ask_end_time,
+      </if>
+      <if test="askStaffId != null" >
+        ask_staff_id,
+      </if>
+      <if test="askStaffName != null" >
+        ask_staff_name,
+      </if>
+      <if test="askStaffDep != null" >
+        ask_staff_dep,
+      </if>
+      <if test="approverHistory != null" >
+        approver_history,
+      </if>
+      <if test="approveRecord != null" >
+        approve_record,
+      </if>
+      <if test="approverNow != null" >
+        approver_now,
+      </if>
+      <if test="approveCost != null" >
+        approve_cost,
+      </if>
+      <if test="advanceStartTime != null" >
+        advance_start_time,
+      </if>
+      <if test="advanceAimMc != null" >
+        advance_aim_MC,
+      </if>
+      <if test="advanceAimSc != null" >
+        advance_aim_SC,
+      </if>
+      <if test="advanceSum != null" >
+        advance_sum,
+      </if>
+      <if test="advancePayee != null" >
+        advance_payee,
+      </if>
+      <if test="advanceBank != null" >
+        advance_bank,
+      </if>
+      <if test="advanceBranch != null" >
+        advance_branch,
+      </if>
+      <if test="advanceBankAccount != null" >
+        advance_bank_account,
+      </if>
+      <if test="advanceReason != null" >
+        advance_reason,
+      </if>
+      <if test="other != null" >
+        other,
+      </if>
+      <if test="exportStatus != null" >
+        export_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="approveNo != null" >
+        #{approveNo,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="approveStatus != null" >
+        #{approveStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="approveResult != null" >
+        #{approveResult,jdbcType=VARCHAR},
+      </if>
+      <if test="askStartTime != null" >
+        #{askStartTime,jdbcType=VARCHAR},
+      </if>
+      <if test="askEndTime != null" >
+        #{askEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="askStaffId != null" >
+        #{askStaffId,jdbcType=VARCHAR},
+      </if>
+      <if test="askStaffName != null" >
+        #{askStaffName,jdbcType=VARCHAR},
+      </if>
+      <if test="askStaffDep != null" >
+        #{askStaffDep,jdbcType=VARCHAR},
+      </if>
+      <if test="approverHistory != null" >
+        #{approverHistory,jdbcType=VARCHAR},
+      </if>
+      <if test="approveRecord != null" >
+        #{approveRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="approverNow != null" >
+        #{approverNow,jdbcType=VARCHAR},
+      </if>
+      <if test="approveCost != null" >
+        #{approveCost,jdbcType=VARCHAR},
+      </if>
+      <if test="advanceStartTime != null" >
+        #{advanceStartTime,jdbcType=VARCHAR},
+      </if>
+      <if test="advanceAimMc != null" >
+        #{advanceAimMc,jdbcType=VARCHAR},
+      </if>
+      <if test="advanceAimSc != null" >
+        #{advanceAimSc,jdbcType=VARCHAR},
+      </if>
+      <if test="advanceSum != null" >
+        #{advanceSum,jdbcType=VARCHAR},
+      </if>
+      <if test="advancePayee != null" >
+        #{advancePayee,jdbcType=VARCHAR},
+      </if>
+      <if test="advanceBank != null" >
+        #{advanceBank,jdbcType=VARCHAR},
+      </if>
+      <if test="advanceBranch != null" >
+        #{advanceBranch,jdbcType=VARCHAR},
+      </if>
+      <if test="advanceBankAccount != null" >
+        #{advanceBankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="advanceReason != null" >
+        #{advanceReason,jdbcType=VARCHAR},
+      </if>
+      <if test="other != null" >
+        #{other,jdbcType=VARCHAR},
+      </if>
+      <if test="exportStatus != null" >
+        #{exportStatus,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.YoAdvance" >
+    update yo_advance
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="approveStatus != null" >
+        approve_status = #{approveStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="approveResult != null" >
+        approve_result = #{approveResult,jdbcType=VARCHAR},
+      </if>
+      <if test="askStartTime != null" >
+        ask_start_time = #{askStartTime,jdbcType=VARCHAR},
+      </if>
+      <if test="askEndTime != null" >
+        ask_end_time = #{askEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="askStaffId != null" >
+        ask_staff_id = #{askStaffId,jdbcType=VARCHAR},
+      </if>
+      <if test="askStaffName != null" >
+        ask_staff_name = #{askStaffName,jdbcType=VARCHAR},
+      </if>
+      <if test="askStaffDep != null" >
+        ask_staff_dep = #{askStaffDep,jdbcType=VARCHAR},
+      </if>
+      <if test="approverHistory != null" >
+        approver_history = #{approverHistory,jdbcType=VARCHAR},
+      </if>
+      <if test="approveRecord != null" >
+        approve_record = #{approveRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="approverNow != null" >
+        approver_now = #{approverNow,jdbcType=VARCHAR},
+      </if>
+      <if test="approveCost != null" >
+        approve_cost = #{approveCost,jdbcType=VARCHAR},
+      </if>
+      <if test="advanceStartTime != null" >
+        advance_start_time = #{advanceStartTime,jdbcType=VARCHAR},
+      </if>
+      <if test="advanceAimMc != null" >
+        advance_aim_MC = #{advanceAimMc,jdbcType=VARCHAR},
+      </if>
+      <if test="advanceAimSc != null" >
+        advance_aim_SC = #{advanceAimSc,jdbcType=VARCHAR},
+      </if>
+      <if test="advanceSum != null" >
+        advance_sum = #{advanceSum,jdbcType=VARCHAR},
+      </if>
+      <if test="advancePayee != null" >
+        advance_payee = #{advancePayee,jdbcType=VARCHAR},
+      </if>
+      <if test="advanceBank != null" >
+        advance_bank = #{advanceBank,jdbcType=VARCHAR},
+      </if>
+      <if test="advanceBranch != null" >
+        advance_branch = #{advanceBranch,jdbcType=VARCHAR},
+      </if>
+      <if test="advanceBankAccount != null" >
+        advance_bank_account = #{advanceBankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="advanceReason != null" >
+        advance_reason = #{advanceReason,jdbcType=VARCHAR},
+      </if>
+      <if test="other != null" >
+        other = #{other,jdbcType=VARCHAR},
+      </if>
+      <if test="exportStatus != null" >
+        export_status = #{exportStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where approve_no = #{approveNo,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.YoAdvance" >
+    update yo_advance
+    set title = #{title,jdbcType=VARCHAR},
+      approve_status = #{approveStatus,jdbcType=VARCHAR},
+      approve_result = #{approveResult,jdbcType=VARCHAR},
+      ask_start_time = #{askStartTime,jdbcType=VARCHAR},
+      ask_end_time = #{askEndTime,jdbcType=VARCHAR},
+      ask_staff_id = #{askStaffId,jdbcType=VARCHAR},
+      ask_staff_name = #{askStaffName,jdbcType=VARCHAR},
+      ask_staff_dep = #{askStaffDep,jdbcType=VARCHAR},
+      approver_history = #{approverHistory,jdbcType=VARCHAR},
+      approve_record = #{approveRecord,jdbcType=VARCHAR},
+      approver_now = #{approverNow,jdbcType=VARCHAR},
+      approve_cost = #{approveCost,jdbcType=VARCHAR},
+      advance_start_time = #{advanceStartTime,jdbcType=VARCHAR},
+      advance_aim_MC = #{advanceAimMc,jdbcType=VARCHAR},
+      advance_aim_SC = #{advanceAimSc,jdbcType=VARCHAR},
+      advance_sum = #{advanceSum,jdbcType=VARCHAR},
+      advance_payee = #{advancePayee,jdbcType=VARCHAR},
+      advance_bank = #{advanceBank,jdbcType=VARCHAR},
+      advance_branch = #{advanceBranch,jdbcType=VARCHAR},
+      advance_bank_account = #{advanceBankAccount,jdbcType=VARCHAR},
+      advance_reason = #{advanceReason,jdbcType=VARCHAR},
+      other = #{other,jdbcType=VARCHAR},
+      export_status = #{exportStatus,jdbcType=VARCHAR}
+    where approve_no = #{approveNo,jdbcType=VARCHAR}
+  </update>
+</mapper>

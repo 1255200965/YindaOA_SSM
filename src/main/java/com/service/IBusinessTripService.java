@@ -14,5 +14,5 @@ public interface IBusinessTripService {
 	//根据出差申请单号查询出差相关信息
 	public BusinessTrip selectById(int id);
 	//Excel上传导入
-	public List<String[]> readExcel(FileInputStream fis) throws IOException;
+	public List<String[]> readExcel(InputStream fis) throws IOException;
 }
