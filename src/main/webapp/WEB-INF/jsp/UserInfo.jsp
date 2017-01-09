@@ -386,27 +386,29 @@
 
             <table  width="100%" border="1" cellspacing="0" cellpadding="0" class="table-1">
                 <thead class="table-1-tou">
-                    <td class="text_center" width="13%">编号</td>
-                    <td class="text_center" width="6%">姓名</td>
-                    <td class="text_center" width="15%">身份证号</td>
+                    <td class="text_center" width="6%">工号</td>
+                    <td class="text_center" width="5%">姓名</td>
                     <td class="text_center" width="14%">部门</td>
                     <td class="text_center" width="10%">手机号</td>
                     <td class="text_center" width="18%">邮箱</td>
-                    <td class="text_center" width="6%">工号</td>
+                    <td class="text_center" width="6%">合同类型</td>
+                    <td class="text_center" width="10%">音达认证</td>
+                    <td class="text_center" width="12%">身份证号</td>
                     <td class="text_center" width="8%">在职状态</td>
                     <td class="text_center" width="9%">操作</td>
                 </thead>
 
                 <tbody data-bind="foreach:ShowList">
                 <tr >
-                    <td data-bind="text:staffUserId">编号</td>
-                    <td data-bind="text:name">标题</td>
-                    <td data-bind="text:idNo">题型</td>
-                    <td data-bind="text:department">难度</td>
-                    <td data-bind="text:cellphone">知识树编号</td>
-                    <td data-bind="text:email">所属知识</td>
-                    <td data-bind="text:staffId">修改者</td>
-                    <td data-bind="text:workState">审核状态</td>
+                    <td data-bind="text:staffId"></td>
+                    <td data-bind="text:name"></td>
+                    <td data-bind="text:department"></td>
+                    <td data-bind="text:cellphone"></td>
+                    <td data-bind="text:email"></td>
+                    <td data-bind="text:contractType"></td>
+                    <td data-bind="text:yindaIdentify"></td>
+                    <td data-bind="text:idNo"></td>
+                    <td data-bind="text:workState"></td>
                     <td>
                         <input data-bind="click:$root.ClickUpdate" type="button" value="更新" class="gx-btn"/>
                         <input  data-bind="click:$root.ClickDelete" type="button" value="删除" class="gx-btn" style="background:#fd9162;"/>
@@ -442,7 +444,9 @@
                 </div>
                 <div class="modal-body c_modal_body">
                     <div data-bind="with:changeItem">
-                        <div class="c_action_content" >手机端展示信息</div>
+                        <%--170108LLR，临时改革方法，去掉这两个小标题栏--%>
+                        <%--<div class="c_action_content" >手机端展示信息</div>--%>
+                        <%--<div class="c_action_content" >手机端不展示信息</div>--%>
                         <div class="c_ding_form" >
                             <div class="c_ding_form_group" >
                                 <label><i class="iconfont c_ding_from_icon" >*</i><span >姓名:</span></label>
@@ -450,7 +454,6 @@
                                     <input class="c_ding_input" data-bind="textinput:name"/>
                                 </div>
                             </div>
-
                             <div class="c_ding_form_group" >
                                 <label><i class="iconfont c_ding_from_icon" >*</i><span >电话:</span></label>
                                 <div class="input_content" >
@@ -475,13 +478,16 @@
                                     <input class="c_ding_input" data-bind="textinput:contractType"/>
                                 </div>
                             </div>
-                        </div>
-                        <div class="c_action_content" >手机端不展示信息</div>
-                        <div class="c_ding_form" >
                             <div class="c_ding_form_group" >
                                 <label><i class="iconfont c_ding_from_icon" ></i><span >工号:</span></label>
                                 <div class="input_content" >
                                     <input class="c_ding_input" data-bind="textinput:staffId"/>
+                                </div>
+                            </div>
+                            <div class="c_ding_form_group" >
+                                <label><i class="iconfont c_ding_from_icon" ></i><span >身份证号:</span></label>
+                                <div class="input_content" >
+                                    <input class="c_ding_input" data-bind="textinput:idNo"/>
                                 </div>
                             </div>
                             <div class="c_ding_form_group" >
@@ -493,7 +499,19 @@
                             <div class="c_ding_form_group" >
                                 <label><i class="iconfont c_ding_from_icon" ></i><span >钉钉id:</span></label>
                                 <div class="input_content" >
-                                    <input class="c_ding_input" data-bind="textinput:staffUserId"/>
+                                    <input class="c_ding_input" readonly="readonly" data-bind="textinput:staffUserId"/>
+                                </div>
+                            </div>
+                            <div class="c_ding_form_group" >
+                                <label><i class="iconfont c_ding_from_icon" ></i><span >音达认证:</span></label>
+                                <div class="input_content" >
+                                    <input class="c_ding_input" data-bind="textinput:yindaIdentify"/>
+                                </div>
+                            </div>
+                            <div class="c_ding_form_group" >
+                                <label><i class="iconfont c_ding_from_icon" ></i><span >入职日期:</span></label>
+                                <div class="input_content" >
+                                    <input class="c_ding_input" data-bind="textinput:enterTime"/>
                                 </div>
                             </div>
                             <div class="c_ding_form_group" >
@@ -509,7 +527,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
                 <div class="modal-footer c_modal_foot">

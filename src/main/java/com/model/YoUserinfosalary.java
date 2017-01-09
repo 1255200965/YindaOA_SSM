@@ -39,6 +39,8 @@ public class YoUserinfosalary {
 
     private Double allowance;
 
+    private String contractType;
+
     private Double timesalary;
 
     private Double timebaseadd;
@@ -203,6 +205,14 @@ public class YoUserinfosalary {
 
     public void setAllowance(Double allowance) {
         this.allowance = allowance;
+    }
+
+    public String getContractType() {
+        return contractType;
+    }
+
+    public void setContractType(String contractType) {
+        this.contractType = contractType;
     }
 
     public Double getTimesalary() {

@@ -293,7 +293,7 @@
             </div>
             <div style="float:right;margin-right:15px;padding-bottom:10px;" >
                 <input data-bind="click:$root.ClickSearch" type="button" value="查询"  class="chaxun">
-                <input  data-bind="click:$root.ClickClear" type="button" value="清空"  class="chaxun" style="background:#fd9162">
+                <%--<input  data-bind="click:$root.ClickClear" type="button" value="清空"  class="chaxun" style="background:#fd9162">--%>
             </div>
         </div>
 
@@ -301,17 +301,17 @@
 
             <table  width="100%" border="1" cellspacing="0" cellpadding="0" class="table-1">
                 <thead class="table-1-tou">
-                <td class="text_center" width="6%">姓名</td>
+                <td class="text_center" width="5%">姓名</td>
                 <td class="text_center" width="9%">部门</td>
-                <td class="text_center" width="6%">工号</td>
+                <td class="text_center" width="5%">工号</td>
                 <td class="text_center" width="6%">日期</td>
-                <td class="text_center" width="6%">出勤天数</td>
+                <td class="text_center" width="5%">出勤天数</td>
                 <td class="text_center" width="6%">出勤工资</td>
-                <td class="text_center" width="6%">请假补款</td>
+                <td class="text_center" width="5%">请假补款</td>
                 <td class="text_center" width="6%">出差费</td>
-                <td class="text_center" width="6%">交通费</td>
+                <td class="text_center" width="4%">交通费</td>
                 <td class="text_center" width="6%">小计</td>
-<%--                <td class="text_center" width="6%">社保代扣</td>--%>
+                <td class="text_center" width="5%">合同类型</td>
                 <td class="text_center" width="6%">timebase奖金</td>
                 <td class="text_center" width="6%">timebase调整项</td>
                 <td class="text_center" width="6%">taskbase奖金</td>
@@ -333,7 +333,7 @@
                     <td data-bind="text:allowance">编号</td>
                     <td data-bind="text:trafficsalary">编号</td>
                     <td data-bind="text:subtotal">编号</td>
-<%--                    <td data-bind="text:socialdecase">编号</td>--%>
+                    <td data-bind="text:contractType"></td>
                     <td data-bind="text:timesalary">编号</td>
                     <td ><input  class="c_ding_input" style="width:50%" data-bind="textinput:timebaseadd"/></td>
                     <td data-bind="text:tasksalary">编号</td>
@@ -341,7 +341,7 @@
                     <td ><input  class="c_ding_input" style="width:50%" data-bind="textinput:userbonus"/></td>
                     <td data-bind="text:totalsalary">编号</td>
                     <td>
-                        <input data-bind="click:$root.ClickUpdate" type="button" value="保存修改" class="gx-btn"/>
+                        <input data-bind="click:$root.ClickUpdate" type="button" value="保存修改" class="gx-btn_large"/>
                     </td>
                 </tr>
                 </tbody>
@@ -357,8 +357,6 @@
 
     </div>
 </div>
-
-
 
 
 <%--</div>--%>

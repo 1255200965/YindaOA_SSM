@@ -1332,6 +1332,76 @@ public class YoUserinfosalaryExample {
             return (Criteria) this;
         }
 
+        public Criteria andContractTypeIsNull() {
+            addCriterion("contract_type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andContractTypeIsNotNull() {
+            addCriterion("contract_type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andContractTypeEqualTo(String value) {
+            addCriterion("contract_type =", value, "contractType");
+            return (Criteria) this;
+        }
+
+        public Criteria andContractTypeNotEqualTo(String value) {
+            addCriterion("contract_type <>", value, "contractType");
+            return (Criteria) this;
+        }
+
+        public Criteria andContractTypeGreaterThan(String value) {
+            addCriterion("contract_type >", value, "contractType");
+            return (Criteria) this;
+        }
+
+        public Criteria andContractTypeGreaterThanOrEqualTo(String value) {
+            addCriterion("contract_type >=", value, "contractType");
+            return (Criteria) this;
+        }
+
+        public Criteria andContractTypeLessThan(String value) {
+            addCriterion("contract_type <", value, "contractType");
+            return (Criteria) this;
+        }
+
+        public Criteria andContractTypeLessThanOrEqualTo(String value) {
+            addCriterion("contract_type <=", value, "contractType");
+            return (Criteria) this;
+        }
+
+        public Criteria andContractTypeLike(String value) {
+            addCriterion("contract_type like", value, "contractType");
+            return (Criteria) this;
+        }
+
+        public Criteria andContractTypeNotLike(String value) {
+            addCriterion("contract_type not like", value, "contractType");
+            return (Criteria) this;
+        }
+
+        public Criteria andContractTypeIn(List<String> values) {
+            addCriterion("contract_type in", values, "contractType");
+            return (Criteria) this;
+        }
+
+        public Criteria andContractTypeNotIn(List<String> values) {
+            addCriterion("contract_type not in", values, "contractType");
+            return (Criteria) this;
+        }
+
+        public Criteria andContractTypeBetween(String value1, String value2) {
+            addCriterion("contract_type between", value1, value2, "contractType");
+            return (Criteria) this;
+        }
+
+        public Criteria andContractTypeNotBetween(String value1, String value2) {
+            addCriterion("contract_type not between", value1, value2, "contractType");
+            return (Criteria) this;
+        }
+
         public Criteria andTimesalaryIsNull() {
             addCriterion("timesalary is null");
             return (Criteria) this;

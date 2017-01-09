@@ -55,86 +55,6 @@ public class StaffInfoController {
         return "/UserInfo";
     }
 
-/*    @RequestMapping("/import.do")
-    public String ImportUser(Map<String,Object> map,HttpServletRequest request){
-        List<StaffInfo> userDtoList = new ArrayList<StaffInfo>();
-
-        map.put("listUser", userDtoList);
-        return "/ImportUser";
-    }
-    @RequestMapping("/importMethod.do")
-    public ModelAndView upload2(HttpServletRequest request, HttpServletResponse response) throws IllegalStateException, IOException {
-        Map<String,Object> map = new HashMap<String,Object>();
-        List<String> filelist = new ArrayList<String>();
-        try {
-            String tab = request.getParameter("tab");
-            String fileans = "";
-            map.put("tab",tab);
-            //创建一个通用的多部分解析器
-            CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
-            //判断 request 是否有文件上传,即多部分请求
-            if (multipartResolver.isMultipart(request)) {
-                //转换成多部分request
-                MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
-                //取得request中的所有文件名
-                Iterator<String> iter = multiRequest.getFileNames();
-                while (iter.hasNext()) {
-                    //记录上传过程起始时的时间，用来计算上传时间
-                    int pre = (int) System.currentTimeMillis();
-                    //取得上传文件
-                    MultipartFile file = multiRequest.getFile(iter.next());
-                    if (file != null) {
-                        //取得当前上传文件的文件名称
-                        String myFileName = file.getOriginalFilename();
-                        //如果名称不为“”,说明该文件存在，否则说明该文件不存在
-                        if (myFileName.trim() != "") {
-                            System.out.println(myFileName);
-                            String time = DateUtil.getCurrentTimeMillis();
-                            //重命名上传后的文件名
-                            String fileName = time + "_" + file.getOriginalFilename();
-                            //定义上传路径
-                            //String path = "H:/" + fileName;
-                            String path = request.getSession().getServletContext().getRealPath("upload/") + "/" +fileName;
-                            File localFile = new File(path);
-                            //创建失败
-                            if (!localFile.exists()&&!localFile.isDirectory()){
-                                localFile.mkdir();
-                            }
-                            file.transferTo(localFile);
-                            filelist.add(path);
-                            fileans += file.getOriginalFilename() + "<br/>";
-                        }
-                    }
-                    //记录上传该文件后的时间
-                    int finaltime = (int) System.currentTimeMillis();
-                    System.out.println(finaltime - pre);
-                }
-            }
-            //=========导入成功后处理excel
-            for (String path:filelist){
-                ExcelToMysql excelToMysql = new ExcelToMysql();
-                Map<String, String> errorMap = excelToMysql.checkFile(path);
-
-                if (errorMap.isEmpty()) {
-                    map.put("validate","文件验证通过！");
-                } else {
-                    map.putAll(errorMap);
-                    continue;
-                }
-                // 添加文件到数据库
-                Map<String, Object> map2 = userInfoService.insertAndUpdate(path);
-                map.putAll(map2);
-            }
-
-            map.put("filename",fileans);
-        }catch (Exception e)
-        {
-            e.printStackTrace();
-            map.put("error",e.toString());
-        }
-        return new ModelAndView("/ImportUser",map);
-    }*/
-
     /**
      * 点击查询按钮后，根据输入框产生的实体类进行查询，页面不跳转
      * @param user
@@ -174,19 +94,23 @@ public class StaffInfoController {
     public @ResponseBody Map<String,Object> updateuser(@RequestBody StaffInfo user, HttpServletRequest request, HttpServletResponse response) throws IOException {
         Map<String,Object> map = new HashMap<String,Object>();
 
-        //钉钉侧修改
-        DDUtil ddutil = new DDUtil(userInfoService);
-        String DDresult = ddutil.updateUser(user);
-        if (DDresult != null){
-            map.put("msg", DDresult);
-            return map;
-        }
+        // 数据库修改部分
         int result = userInfoService.updateStaffByID(user);
         if(result != 0){
             map.put("msg", "更新成功");
             map.put("ok", "ok");
         }else{
             map.put("msg", "更新失败");
+        }
+
+        // 钉钉修改部分
+        DDUtil ddutil = new DDUtil(userInfoService);
+        // 把手机号置为空后再更新钉钉
+        user.setCellphone("");
+        String DDresult = ddutil.updateUser(user);
+        if (DDresult != null){
+            map.put("msg", DDresult);
+            return map;
         }
         return map;
     }
@@ -235,57 +159,6 @@ public class StaffInfoController {
         return "/UserSalary";
     }
 
-
-
-
-//    剪切下来的一部分在test.do后面，从服务器获取数据，并且做好记录
-/*测试的数据，从钉钉里面取出json数据，然后将它保存到数据库中*/
-    //测试一条数据
-/*    @RequestMapping("/test55.do")
-    public String test(HttpServletRequest request) throws IOException {
-        DDUtil ddUtil=new DDUtil(userInfoService);
-        AttendanceWork ddUtil2 = new AttendanceWork();
-        //我要先查出StaffInfo里面的所有id
-        List<StaffInfo> listAll = userInfoService.selectAllUser();
-        List<String> userlistIds=new ArrayList<String>();
-        for (StaffInfo staffInfos:listAll){
-            if(null!=staffInfos.getStaffUserId() &&  !staffInfos.getStaffUserId().isEmpty()){
-                userlistIds.add(staffInfos.getStaffUserId());
-            }
-        }
-        try {
-//            StaffInfo staffInfo=new StaffInfo();
-//            staffInfo.getStaffUserId();
-//            List<StaffInfo> ids=new  ArrayList<StaffInfo>();
-//            List<StaffInfo> list = userInfoService.seletecId();
-            ///我想将这个01002626191049(数据库的id),变成一个集合，就是一张表里面的全部id,怎么弄
-//            "2016-10-15 01：00：00","2016-10-21 00：00：00"
-//            "2016-10-22 01：00：00","2016-10-28 00：00：00"
-//            "2016-10-29 01：00：00","2016-11-04 00：00：00"
-//            "2016-11-05 01：00：00","2016-11-11 00：00：00"
-//            "2016-11-12 01：00：00","2016-11-19 00：00：00"
-
-            //"2016-10-15 00:00:00", "2016-10-21 00:00:00",
-            //"2016-10-21 01:00:00", "2016-10-28 00:00:00",
-            //"2016-10-28 01:00:00", "2016-11-03 00:00:00",
-            for(int i=0;i<userlistIds.size();i++) {
-                String result = ddUtil2.getSuiteToken(userlistIds.get(i), "2016-11-10 01:00:00", "2016-11-12 00:00:00", ddUtil.getAccessToken());
-                if (null == result || result.isEmpty()) {
-                    continue;
-                }
-                System.out.println("开始存放数据============================");
-                saveAttendance(result);
-                Thread.sleep(5000);
-                System.out.println("暂停存放数据============================");
-            }
-            System.out.println(">>>>>>>>>>>>>SUCCESS>>>>>存放批量数据结束=========================");
-        } catch (Exception e) {
-
-        }
-        return "/UserInfo";
-    }*/
-
-
     //从服务解析出来的json
     public  void saveAttendance(String result) {
         //我要将0100变成一个集合，就是一张表里的所有id
@@ -319,7 +192,5 @@ public class StaffInfoController {
                 }
             }
         }
-
-
 
 }

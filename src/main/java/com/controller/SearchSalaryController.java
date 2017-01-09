@@ -44,7 +44,7 @@ public class SearchSalaryController {
      * @throws IOException
      */
     @RequestMapping(value = "/select.do", method = RequestMethod.POST)
-    public @ResponseBody Map<String,Object> select(@RequestBody YoUserinfosalary user, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public @ResponseBody Map<String,Object> select(@RequestBody YoUserinfosalary user) throws IOException {
         YoUserinfosalaryExample example = new YoUserinfosalaryExample();
         YoUserinfosalaryExample.Criteria criteria1 = example.createCriteria();
         if (user.getName()!="") criteria1.andNameEqualTo(user.getName());
@@ -65,7 +65,7 @@ public class SearchSalaryController {
 
 
     @RequestMapping(value = "/updatesalary.do", method = RequestMethod.POST)
-    public @ResponseBody Map<String,Object> updateuser(@RequestBody YoUserinfosalary totalSum, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public @ResponseBody Map<String,Object> updateuser(@RequestBody YoUserinfosalary totalSum) throws IOException {
         Map<String,Object> map = new HashMap<String,Object>();
         //重新计算工资
         if (totalSum.getTaskbaseadd() == null) {
@@ -88,7 +88,6 @@ public class SearchSalaryController {
         }
         return map;
     }
-
 
     @RequestMapping(value = "/querys.do", method = RequestMethod.POST)
     public @ResponseBody Map<String,Object> querys(@RequestBody YoUserinfosalary user, HttpServletRequest request, HttpServletResponse response) throws IOException {

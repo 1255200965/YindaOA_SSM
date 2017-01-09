@@ -20,7 +20,7 @@
 		<!-- 生成DAO层的包名和位置 -->
 		<javaClientGenerator targetPackage="com.dao" targetProject="src/main/java" type="XMLMAPPER" />
 		<!-- 要生成的那些表(更改tableName就可以了，注意大小写不能错)，example方法设为只有select需要 -->
-		<table tableName="staff_info" enableDeleteByExample="false" enableUpdateByExample="false"
+		<table tableName="yo_userinfosalary" enableDeleteByExample="false" enableUpdateByExample="false"
 				enableCountByExample="false "/>
 	</context>
 </generatorConfiguration>

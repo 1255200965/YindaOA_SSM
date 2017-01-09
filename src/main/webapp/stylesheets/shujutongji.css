@@ -86,6 +86,7 @@
 .xia:hover{background:url(../images/xyi-hover.png);}
 
 .gx-btn{background:#49a0fb; color:#fff; font-family:"微软雅黑"; border:none; border-radius:3px; width:46px; height:26px; line-height:26px; float:left; margin-right:8px;}
+.gx-btn_large{background:#49a0fb; color:#fff; font-family:"微软雅黑"; border:none; border-radius:3px; width:60px; height:26px; line-height:26px; float:left; margin-right:8px;}
 .gx-btn:hover{filter:alpha(opacity=70); -moz-opacity:0.7;opacity:0.7;}
 
 .daoru-top{ width:80%; margin:auto; height:305px; margin-top:14px;}
