@@ -145,7 +145,7 @@ public class OrderChangeController {
 				if (staffCurentOrder==null){
 					//如果当前订单表中中没有 该订单信息 创建新的当前订单信息表 那么当前订单表中没有部门和项目信息 
 					staffCurentOrder = new YoStaffCurrentOrder();
-					StaffInfo s =staffInfoMapper.selectByPrimaryKey(staffCurentOrder.getStaffUserId()); //从当前staff_info表中拿到该人的信息
+					StaffInfo s =staffInfoMapper.selectByPrimaryKey(user_staff_id); //从当前staff_info表中拿到该人的信息
 					if(s.getDepartment().split("\\|").length==1){//如果当前订单表中的 只有部门没有项目
 						staffCurentOrder.setDepartment(Arrays.asList(s.getDepartment().split("\\|")).get(0));						
 					}else if(s.getDepartment().split("\\|").length==2){//如果当前订单表中的 有部门也有项目
