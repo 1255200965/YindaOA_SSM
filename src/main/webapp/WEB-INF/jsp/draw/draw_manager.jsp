@@ -39,19 +39,23 @@
 
 
 	<div class="header">
-		<h1 class="weui-footer__fixed-bottom">上海音达科技实业有限公司</h1>
+		<h2 class="weui-footer__fixed-bottom">上海音达科技实业有限公司</h2>
 	</div>
- <select class="weui_select" name="drawType" id="drawType">
+<div class="weui_cell weui_cell_select">
+    <div class="weui_cell_bd weui_cell_primary">
+ 	<select class="weui_select" name="drawType" id="drawType">
         <option selected="" value="0">请选择奖品类别</option>
         <option value="一等奖">一等奖</option>
         <option value="二等奖">二等奖</option>
         <option value="三等奖">三等奖</option>
         <option value="阳光普照奖">阳光普照奖</option>
- </select>	
-<textarea class="weui_textarea"  rows="1" id="luckyStaff">音达科技</textarea>
+ 	</select>
+   </div>
+</div>	
+<textarea class="weui_textarea"  rows="1" id="luckyStaff" readonly>音达科技</textarea>
 <br/>
 <a id="btn" class="weui_btn weui_btn_plain_default">开始</a>
-
+<a id="btn2" class="weui_btn weui_btn_plain_default">获奖人员确认</a>
 
 <script src="<%=path%>/javascripts/jquery-2.1.4.js"></script>
 <script src="<%=path%>/javascripts/jquery-weui.js"></script>
@@ -74,11 +78,22 @@
 		break;
 		case '开始': //这里是停止循环
 			getIndex(1);
-			$.post("getMessageMJ.do",{"option":"end","result":$("#luckyStaff").html(),"drawType":$("#drawType").val()});
+			
 			$('#luckyStaff').html($("#luckyStaff").html()); //汇报结果
 		break;
 		}
 	 }
+	});
+	$('#btn2').click(function(){
+		$.confirm({
+			  title: '',
+			  text: '确认'+$("#luckyStaff").html()+"获得"+$("#drawType").val(),
+			  onOK: function () {
+				  $.post("getMessageMJ.do",{"option":"end","result":$("#luckyStaff").html(),"drawType":$("#drawType").val()});
+			  },
+			  onCancel: function () {
+			  }
+			});
 	});
 	function getIndex(mark)
 		{

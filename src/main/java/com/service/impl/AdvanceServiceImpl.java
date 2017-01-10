@@ -40,14 +40,20 @@ public class AdvanceServiceImpl implements IAdvanceService{
 		
 		YoAdvance advance = new YoAdvance();
 		List<String []> errorList = new ArrayList<String[]>();//导入错误汇总
+		@SuppressWarnings("resource")
 		Workbook workbook = new HSSFWorkbook(is);
+         
+		Sheet sheet=null;
+	    
+	 for(int s = 0;s < workbook.getNumberOfSheets();s++){
 			//获取第一个sheet
-    	Sheet sheet = workbook.getSheetAt(0);
+	    sheet= workbook.getSheetAt(s);
     		//获取表头
         Row rowHead = sheet.getRow(0);
         	//表头验证
         String errorMsg[] = ExcelHeadValidate(rowHead);
         if(errorMsg[0] !=null){
+        	errorMsg[1] +="第"+s+"个Sheet";
         	errorList.add(errorMsg);
         		//表头验证失败直接返回,错误信息
         	return errorList;
@@ -111,12 +117,14 @@ public class AdvanceServiceImpl implements IAdvanceService{
         	}catch(Exception e){
         		e.printStackTrace();
         		errorMsg[0]="行数据导入错误";
-        		errorMsg[1]="第"+(i+1)+"行数据导入错误";
+        		errorMsg[1]="第"+s+"个sheet;"+(i+1)+"行数据导入错误";
         		errorList.add(errorMsg);
         	}
         
         }
+	 }
         return errorList;
+	 
 	}
 	/**
 	 * 判断当前数据是否已经在数据库中

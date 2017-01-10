@@ -30,7 +30,7 @@
 </head>
 <body>
 	<div class="header">
-		<h1 class="weui-footer__fixed-bottom">上海音达科技实业有限公司年终晚会抽奖</h1>
+		<h2 class="weui-footer__fixed-bottom">上海音达科技实业有限公司年终晚会抽奖</h2>
 	</div>
 <div class="luckyStaff" >
 	<h2   id="luckyStaffs">获奖人员名单</h2>

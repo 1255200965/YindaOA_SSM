@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.Cache.ValueWrapper;
 import org.springframework.jdbc.support.incrementer.H2SequenceMaxValueIncrementer;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.dao.YoOrderMapper;
 import com.ddSdk.auth.AuthHelper;
+import com.ecache.Impl.SystemCacheImpl;
 import com.model.StaffInfo;
 import com.model.YoItemChange;
 import com.model.YoItemChangeExample;
@@ -29,6 +31,7 @@ import com.util.GlobalConstant;
 import com.util.StringUtil;
 
 
+
 @Controller
 @RequestMapping("order")
 public class OrderController {	
@@ -38,25 +41,27 @@ public class OrderController {
 	@Autowired
 	private YoOrderMapper orderMapper;
 	
-	
+	 
 	@Autowired
 	private IStaffInfoService iStaffInfoService;
+	
+	 ValueWrapper departmentCache =SystemCacheImpl.cache.get("department");
+	 
+	 ValueWrapper projectCache =SystemCacheImpl.cache.get("project");
+	 ValueWrapper orderCache =SystemCacheImpl.cache.get("order");
 	/**
 	 * 订单系统界面
 	 * @return
 	 */
 	@RequestMapping("/search_order_page.do")
-	public ModelAndView search_order_page(){
-     
-		ModelAndView mav = new ModelAndView();
-		
-		
+	public ModelAndView search_order_page(){     
+		ModelAndView mav = new ModelAndView();	
 		mav.setViewName("order/search_order");
 		
 		return mav;
 	}
 	
-	
+	 
 	
 	/**
 	 * 项目变更主界面
@@ -106,6 +111,7 @@ public class OrderController {
 		request.getSession().setAttribute(GlobalConstant.user_department, staffInfo.getDepartment());
 		request.getSession().setAttribute(GlobalConstant.user_staff_user_id,staffInfo.getStaffUserId());
 		request.getSession().setAttribute(GlobalConstant.user_name,staffInfo.getName());
+		request.getSession().setAttribute("contractType",staffInfo.getContractType());
 		
 	}
 	
@@ -116,8 +122,9 @@ public class OrderController {
 	 */
 	@RequestMapping("/getDepartment.do")
 	@ResponseBody
-	public 	List<YoOrder> getDepartment(){		
-		List<YoOrder> orderList = iOrderService.getDepartment();
+	public 	List<String> getDepartment(){		
+        List<String> orderList = (List<String>) departmentCache.get();
+        
 		return orderList;
 	}
 	/**
@@ -127,8 +134,10 @@ public class OrderController {
 	 */
 	@RequestMapping("/getProjectByDepartment.do")
 	@ResponseBody
-	public 	List<YoOrder> getProjectByDepartment(String department){		
-		List<YoOrder> orderList = iOrderService.getProjectByDepartment(department);			
+	public 	List<String> getProjectByDepartment(String department){		
+		//List<YoOrder> orderList = iOrderService.getProjectByDepartment(department);
+		Map<String,List<String>>  projectMap = (Map) projectCache.get();
+		List<String> orderList = (List<String>) projectMap.get(department);
 		return orderList;
 	}
 	
@@ -139,10 +148,18 @@ public class OrderController {
 	 */
 	@RequestMapping("/getOrderByDepartmentAndProject.do")
 	@ResponseBody
-	public 	List<YoOrder> getOrderByDepartmentAndProject(String department,String project){	
+	public 	List<String> getOrderByDepartmentAndProject(String department,String project){	
 		
-		List<YoOrder> orderList= iOrderService.getOrderByDepartmentAndProject(department, project);	
-		return orderList;
+		//List<YoOrder> orderList= iOrderService.getOrderByDepartmentAndProject(department, project);	
+		Map<String,String> orderMap = (Map) orderCache.get();
+		List<String> strList = new ArrayList<String>();
+		for(Map.Entry<String,String> entry : orderMap.entrySet())   //循环所有的部门
+    	{    
+			if(entry.getValue()!=null&&entry.getValue().equals(department+project)){
+				strList.add(entry.getKey());
+			}   	     
+    	}  
+		return strList;
 	}
 	
 	
@@ -273,7 +290,8 @@ public class OrderController {
 	@ResponseBody
 	public List<StaffInfo> getContract_typeInStallInfo(HttpServletRequest request){
 		String user_staffId =(String) request.getSession().getAttribute(GlobalConstant.user_staffId);
-		List<StaffInfo> staffInfoList = iStaffInfoService.getContract_typeInStallInfo(user_staffId);	
+		List<StaffInfo> staffInfoList = iStaffInfoService.getContract_typeInStallInfo(user_staffId);
+		
 		return staffInfoList;
 	}
 	
