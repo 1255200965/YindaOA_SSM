@@ -843,29 +843,143 @@ public class SalaryController {
             //创建新的一行
             row = sheet.createRow(i+1);
             //每行中写入与表头列数个数相等的数据
-            row.createCell(0).setCellValue(list.get(i).getSalarydate());//月份
-            row.createCell(1).setCellValue(list.get(i).getName());//姓名
-            row.createCell(2).setCellValue(list.get(i).getDepartment());//部门
-            row.createCell(3).setCellValue(list.get(i).getSalaryid());//工号
-            row.createCell(4).setCellValue(list.get(i).getDatetype());//计薪天数
-            row.createCell(5).setCellValue(list.get(i).getAttendance());//出勤
-            row.createCell(6).setCellValue(list.get(i).getRealityattendance());//实际出勤
-            row.createCell(7).setCellValue(list.get(i).getEffectiveattendance());//有效出勤
-            row.createCell(8).setCellValue(list.get(i).getAttendancesalary());//出勤工资
-            row.createCell(9).setCellValue(list.get(i).getLeavetype());//请假天数
-            row.createCell(10).setCellValue(list.get(i).getLeavesalary());//请假补款
-            row.createCell(11).setCellValue(list.get(i).getWorkovertime());//加班时间
-            row.createCell(12).setCellValue(list.get(i).getWorksalary());//加班补款
-            row.createCell(13).setCellValue(list.get(i).getEvection());//出差
-            row.createCell(14).setCellValue(list.get(i).getAllowance());//出差费
-            row.createCell(15).setCellValue(list.get(i).getTimesalary());//timebase奖金
-            row.createCell(16).setCellValue(list.get(i).getTasksalary());//taskbase奖金
-            row.createCell(17).setCellValue(list.get(i).getTrafficsalary());//交通费
-            row.createCell(18).setCellValue(list.get(i).getSocialdecase());//社保扣款
-            row.createCell(19).setCellValue(list.get(i).getUserbonus());//额外奖金
-            row.createCell(20).setCellValue(list.get(i).getSubtotal());//小计
-            row.createCell(21).setCellValue(list.get(i).getTotalsalary());//税前应发
-            row.createCell(22).setCellValue(list.get(i).getTax());//个税
+            if(list.get(i).getSalarydate()!=null){
+            	 row.createCell(0).setCellValue(list.get(i).getSalarydate());//月份
+            }else{
+            	row.createCell(0).setCellValue("");//月份
+            }
+           
+            if(list.get(i).getName()!=null){
+            	 row.createCell(1).setCellValue(list.get(i).getName());//姓名
+            }else{
+            	row.createCell(1).setCellValue("");
+            }
+           
+            if(list.get(i).getDepartment()!=null){
+            	 row.createCell(2).setCellValue(list.get(i).getDepartment());//部门
+            }else{
+            	 row.createCell(2).setCellValue("");//部门
+            }
+           
+            if(list.get(i).getSalaryid()!=null){
+            	  row.createCell(3).setCellValue(list.get(i).getSalaryid());//工号
+            }else{
+            	 row.createCell(3).setCellValue("");//工号
+            }
+          
+            if(list.get(i).getDatetype()!=null){
+            	  row.createCell(4).setCellValue(list.get(i).getDatetype());//计薪天数
+            }else{
+            	 row.createCell(4).setCellValue("");//计薪天数
+            }
+          
+            if(list.get(i).getAttendance()!=null){
+            	  row.createCell(5).setCellValue(list.get(i).getAttendance());//出勤
+            }else{
+            	  row.createCell(5).setCellValue("");//出勤
+            }
+           
+            if(list.get(i).getRealityattendance()!=null){
+            	 row.createCell(6).setCellValue(list.get(i).getRealityattendance());//实际出勤
+            }else{
+            	 row.createCell(6).setCellValue("");//实际出勤
+            }
+           
+           if(list.get(i).getEffectiveattendance()!=null){
+        	   row.createCell(7).setCellValue(list.get(i).getEffectiveattendance());//有效出勤
+           }else{
+        	   row.createCell(7).setCellValue("");//有效出勤
+           }
+           
+           if(list.get(i).getAttendancesalary()!=null){
+        	   row.createCell(8).setCellValue(list.get(i).getAttendancesalary());//出勤工资
+           }else{
+        	   row.createCell(8).setCellValue("");//出勤工资
+           }
+           
+          if(list.get(i).getLeavetype()!=null){
+        	  row.createCell(9).setCellValue(list.get(i).getLeavetype());//请假天数
+          }else{
+        	  row.createCell(9).setCellValue("");//请假天数
+          }
+          
+          if(list.get(i).getLeavesalary()!=null){
+        	  row.createCell(10).setCellValue(list.get(i).getLeavesalary());//请假补款
+          }else{
+        	  row.createCell(10).setCellValue("");//请假补款
+          }
+          
+          if(list.get(i).getWorkovertime()!=null){
+        	  row.createCell(11).setCellValue(list.get(i).getWorkovertime());//加班时间  
+          }else{
+        	  row.createCell(11).setCellValue("");//加班时间  
+          }
+            
+          if(list.get(i).getWorksalary()!=null){
+        	  row.createCell(12).setCellValue(list.get(i).getWorksalary());//加班补款
+          }else{
+        	  row.createCell(12).setCellValue("");//加班补款
+          }
+           
+          if(list.get(i).getEvection()!=null){
+        	  row.createCell(13).setCellValue(list.get(i).getEvection());//出差 
+          }else{
+        	  row.createCell(13).setCellValue("");//出差 
+        	  
+          }
+           
+          if(list.get(i).getAllowance()!=null){
+        	  row.createCell(14).setCellValue(list.get(i).getAllowance());//出差费
+          }else{
+        	  row.createCell(14).setCellValue("");//出差费
+          }
+           
+          if(list.get(i).getTimesalary()!=null){
+        	   row.createCell(15).setCellValue(list.get(i).getTimesalary());//timebase奖金
+          }else{
+        	  row.createCell(15).setCellValue("");//timebase奖金
+          }
+         
+          if(list.get(i).getTasksalary()!=null){
+        	  row.createCell(16).setCellValue(list.get(i).getTasksalary());//taskbase奖金
+          }else{
+        	  row.createCell(16).setCellValue("");//taskbase奖金
+          }
+           
+            if( list.get(i).getTrafficsalary()!=null){row.createCell(17).setCellValue(list.get(i).getTrafficsalary());//交通费
+            }else{
+            	row.createCell(17).setCellValue("");
+            }
+           
+            if(list.get(i).getSocialdecase()!=null){
+            	  row.createCell(18).setCellValue(list.get(i).getSocialdecase());//社保扣款
+            }else{
+            	 row.createCell(18).setCellValue("");//社保扣款
+            }
+          
+            if(list.get(i).getUserbonus()!=null){
+            	  row.createCell(19).setCellValue(list.get(i).getUserbonus());//额外奖金
+            }else{
+            	row.createCell(19).setCellValue("");//额外奖金
+            }
+            
+            if(list.get(i).getSubtotal()!=null){
+            	 row.createCell(20).setCellValue(list.get(i).getSubtotal());//小计
+            }else{
+            	 row.createCell(20).setCellValue("");//小计
+            }
+          
+           if(list.get(i).getTotalsalary()!=null){
+        	   row.createCell(21).setCellValue(list.get(i).getTotalsalary());//税前应发
+           }else{
+        	   row.createCell(21).setCellValue("");//税前应发
+           }
+           if(list.get(i).getTax()!=null){
+        	   row.createCell(22).setCellValue(list.get(i).getTax());//个税
+           }else{
+        	   row.createCell(22).setCellValue("");//个税
+           }
+            
             //row.createCell(23).setCellValue(list.get(i).getRealsalary());//实际应发
         }
         return wb;
