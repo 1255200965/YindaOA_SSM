@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ma
-  Date: 2016/10/17
-  Time: 14:12
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%
@@ -279,7 +273,7 @@
     	
     		$.each(json, function (n, value) {
               
-               departmenthtml = departmenthtml+"<option value='"+value.department+"'>"+value.department+"</option>";              
+               departmenthtml = departmenthtml+"<option value='"+value+"'>"+value+"</option>";              
             });    		
     		 $("#department").html(departmenthtml);
     	});	 
@@ -292,7 +286,7 @@
     	if(department=="无"){$("#project").html("");return;}
     	$.post("<%=path%>/order/getProjectByDepartment.do",{'department':department},function(json){    		
     		$.each(json, function (n, value) {                
-    			projecthtml = projecthtml +"<option value='"+value.project+"'>"+value.project+"</option>";
+    			projecthtml = projecthtml +"<option value='"+value+"'>"+value+"</option>";
                 
             });
     		
