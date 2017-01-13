@@ -1,0 +1,601 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.ExpenseWorkMapper" >
+  <resultMap id="BaseResultMap" type="com.model.ExpenseWork" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="approve_number" property="approveNumber" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="expense_status" property="expenseStatus" jdbcType="VARCHAR" />
+    <result column="result" property="result" jdbcType="VARCHAR" />
+    <result column="start_time" property="startTime" jdbcType="VARCHAR" />
+    <result column="end_time" property="endTime" jdbcType="VARCHAR" />
+    <result column="apply_staff_id" property="applyStaffId" jdbcType="VARCHAR" />
+    <result column="apply_name" property="applyName" jdbcType="VARCHAR" />
+    <result column="apply_department" property="applyDepartment" jdbcType="VARCHAR" />
+    <result column="histoty_access" property="histotyAccess" jdbcType="VARCHAR" />
+    <result column="history_record" property="historyRecord" jdbcType="VARCHAR" />
+    <result column="now_access" property="nowAccess" jdbcType="VARCHAR" />
+    <result column="used_time" property="usedTime" jdbcType="VARCHAR" />
+    <result column="department" property="department" jdbcType="VARCHAR" />
+    <result column="project" property="project" jdbcType="VARCHAR" />
+    <result column="order_name" property="orderName" jdbcType="VARCHAR" />
+    <result column="office_site" property="officeSite" jdbcType="VARCHAR" />
+    <result column="cost_class" property="costClass" jdbcType="VARCHAR" />
+    <result column="receiver_name" property="receiverName" jdbcType="VARCHAR" />
+    <result column="bank" property="bank" jdbcType="VARCHAR" />
+    <result column="brach_bank" property="brachBank" jdbcType="VARCHAR" />
+    <result column="bank_account" property="bankAccount" jdbcType="VARCHAR" />
+    <result column="total_money" property="totalMoney" jdbcType="VARCHAR" />
+    <result column="total_money_upper" property="totalMoneyUpper" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="invoice" property="invoice" jdbcType="VARCHAR" />
+    <result column="invoice_class" property="invoiceClass" jdbcType="VARCHAR" />
+    <result column="invoice_code" property="invoiceCode" jdbcType="VARCHAR" />
+    <result column="invoice_number" property="invoiceNumber" jdbcType="VARCHAR" />
+    <result column="invoice_time" property="invoiceTime" jdbcType="VARCHAR" />
+    <result column="receive_org" property="receiveOrg" jdbcType="VARCHAR" />
+    <result column="receive_org_number" property="receiveOrgNumber" jdbcType="VARCHAR" />
+    <result column="receive_money" property="receiveMoney" jdbcType="VARCHAR" />
+    <result column="image" property="image" jdbcType="VARCHAR" />
+    <result column="money_month" property="moneyMonth" jdbcType="VARCHAR" />
+    <result column="bank_card_image" property="bankCardImage" jdbcType="VARCHAR" />
+    <result column="is_export" property="isExport" jdbcType="VARCHAR" />
+    <result column="improt_time" property="improtTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, approve_number, title, expense_status, result, start_time, end_time, apply_staff_id, 
+    apply_name, apply_department, histoty_access, history_record, now_access, used_time, 
+    department, project, order_name, office_site, cost_class, receiver_name, bank, brach_bank, 
+    bank_account, total_money, total_money_upper, description, invoice, invoice_class, 
+    invoice_code, invoice_number, invoice_time, receive_org, receive_org_number, receive_money, 
+    image, money_month, bank_card_image, is_export, improt_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.model.ExpenseWorkExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from expense_work
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from expense_work
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from expense_work
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.model.ExpenseWork" >
+    insert into expense_work (id, approve_number, title, 
+      expense_status, result, start_time, 
+      end_time, apply_staff_id, apply_name, 
+      apply_department, histoty_access, history_record, 
+      now_access, used_time, department, 
+      project, order_name, office_site, 
+      cost_class, receiver_name, bank, 
+      brach_bank, bank_account, total_money, 
+      total_money_upper, description, invoice, 
+      invoice_class, invoice_code, invoice_number, 
+      invoice_time, receive_org, receive_org_number, 
+      receive_money, image, money_month, 
+      bank_card_image, is_export, improt_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{approveNumber,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{expenseStatus,jdbcType=VARCHAR}, #{result,jdbcType=VARCHAR}, #{startTime,jdbcType=VARCHAR}, 
+      #{endTime,jdbcType=VARCHAR}, #{applyStaffId,jdbcType=VARCHAR}, #{applyName,jdbcType=VARCHAR}, 
+      #{applyDepartment,jdbcType=VARCHAR}, #{histotyAccess,jdbcType=VARCHAR}, #{historyRecord,jdbcType=VARCHAR}, 
+      #{nowAccess,jdbcType=VARCHAR}, #{usedTime,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR}, 
+      #{project,jdbcType=VARCHAR}, #{orderName,jdbcType=VARCHAR}, #{officeSite,jdbcType=VARCHAR}, 
+      #{costClass,jdbcType=VARCHAR}, #{receiverName,jdbcType=VARCHAR}, #{bank,jdbcType=VARCHAR}, 
+      #{brachBank,jdbcType=VARCHAR}, #{bankAccount,jdbcType=VARCHAR}, #{totalMoney,jdbcType=VARCHAR}, 
+      #{totalMoneyUpper,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{invoice,jdbcType=VARCHAR}, 
+      #{invoiceClass,jdbcType=VARCHAR}, #{invoiceCode,jdbcType=VARCHAR}, #{invoiceNumber,jdbcType=VARCHAR}, 
+      #{invoiceTime,jdbcType=VARCHAR}, #{receiveOrg,jdbcType=VARCHAR}, #{receiveOrgNumber,jdbcType=VARCHAR}, 
+      #{receiveMoney,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR}, #{moneyMonth,jdbcType=VARCHAR}, 
+      #{bankCardImage,jdbcType=VARCHAR}, #{isExport,jdbcType=VARCHAR}, #{improtTime,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.ExpenseWork" >
+    insert into expense_work
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="approveNumber != null" >
+        approve_number,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="expenseStatus != null" >
+        expense_status,
+      </if>
+      <if test="result != null" >
+        result,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="applyStaffId != null" >
+        apply_staff_id,
+      </if>
+      <if test="applyName != null" >
+        apply_name,
+      </if>
+      <if test="applyDepartment != null" >
+        apply_department,
+      </if>
+      <if test="histotyAccess != null" >
+        histoty_access,
+      </if>
+      <if test="historyRecord != null" >
+        history_record,
+      </if>
+      <if test="nowAccess != null" >
+        now_access,
+      </if>
+      <if test="usedTime != null" >
+        used_time,
+      </if>
+      <if test="department != null" >
+        department,
+      </if>
+      <if test="project != null" >
+        project,
+      </if>
+      <if test="orderName != null" >
+        order_name,
+      </if>
+      <if test="officeSite != null" >
+        office_site,
+      </if>
+      <if test="costClass != null" >
+        cost_class,
+      </if>
+      <if test="receiverName != null" >
+        receiver_name,
+      </if>
+      <if test="bank != null" >
+        bank,
+      </if>
+      <if test="brachBank != null" >
+        brach_bank,
+      </if>
+      <if test="bankAccount != null" >
+        bank_account,
+      </if>
+      <if test="totalMoney != null" >
+        total_money,
+      </if>
+      <if test="totalMoneyUpper != null" >
+        total_money_upper,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="invoice != null" >
+        invoice,
+      </if>
+      <if test="invoiceClass != null" >
+        invoice_class,
+      </if>
+      <if test="invoiceCode != null" >
+        invoice_code,
+      </if>
+      <if test="invoiceNumber != null" >
+        invoice_number,
+      </if>
+      <if test="invoiceTime != null" >
+        invoice_time,
+      </if>
+      <if test="receiveOrg != null" >
+        receive_org,
+      </if>
+      <if test="receiveOrgNumber != null" >
+        receive_org_number,
+      </if>
+      <if test="receiveMoney != null" >
+        receive_money,
+      </if>
+      <if test="image != null" >
+        image,
+      </if>
+      <if test="moneyMonth != null" >
+        money_month,
+      </if>
+      <if test="bankCardImage != null" >
+        bank_card_image,
+      </if>
+      <if test="isExport != null" >
+        is_export,
+      </if>
+      <if test="improtTime != null" >
+        improt_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="approveNumber != null" >
+        #{approveNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="expenseStatus != null" >
+        #{expenseStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null" >
+        #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="applyStaffId != null" >
+        #{applyStaffId,jdbcType=VARCHAR},
+      </if>
+      <if test="applyName != null" >
+        #{applyName,jdbcType=VARCHAR},
+      </if>
+      <if test="applyDepartment != null" >
+        #{applyDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="histotyAccess != null" >
+        #{histotyAccess,jdbcType=VARCHAR},
+      </if>
+      <if test="historyRecord != null" >
+        #{historyRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="nowAccess != null" >
+        #{nowAccess,jdbcType=VARCHAR},
+      </if>
+      <if test="usedTime != null" >
+        #{usedTime,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="project != null" >
+        #{project,jdbcType=VARCHAR},
+      </if>
+      <if test="orderName != null" >
+        #{orderName,jdbcType=VARCHAR},
+      </if>
+      <if test="officeSite != null" >
+        #{officeSite,jdbcType=VARCHAR},
+      </if>
+      <if test="costClass != null" >
+        #{costClass,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverName != null" >
+        #{receiverName,jdbcType=VARCHAR},
+      </if>
+      <if test="bank != null" >
+        #{bank,jdbcType=VARCHAR},
+      </if>
+      <if test="brachBank != null" >
+        #{brachBank,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAccount != null" >
+        #{bankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="totalMoney != null" >
+        #{totalMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="totalMoneyUpper != null" >
+        #{totalMoneyUpper,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="invoice != null" >
+        #{invoice,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceClass != null" >
+        #{invoiceClass,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceCode != null" >
+        #{invoiceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceNumber != null" >
+        #{invoiceNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceTime != null" >
+        #{invoiceTime,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveOrg != null" >
+        #{receiveOrg,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveOrgNumber != null" >
+        #{receiveOrgNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveMoney != null" >
+        #{receiveMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null" >
+        #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="moneyMonth != null" >
+        #{moneyMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCardImage != null" >
+        #{bankCardImage,jdbcType=VARCHAR},
+      </if>
+      <if test="isExport != null" >
+        #{isExport,jdbcType=VARCHAR},
+      </if>
+      <if test="improtTime != null" >
+        #{improtTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.ExpenseWork" >
+    update expense_work
+    <set >
+      <if test="approveNumber != null" >
+        approve_number = #{approveNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="expenseStatus != null" >
+        expense_status = #{expenseStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null" >
+        result = #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="applyStaffId != null" >
+        apply_staff_id = #{applyStaffId,jdbcType=VARCHAR},
+      </if>
+      <if test="applyName != null" >
+        apply_name = #{applyName,jdbcType=VARCHAR},
+      </if>
+      <if test="applyDepartment != null" >
+        apply_department = #{applyDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="histotyAccess != null" >
+        histoty_access = #{histotyAccess,jdbcType=VARCHAR},
+      </if>
+      <if test="historyRecord != null" >
+        history_record = #{historyRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="nowAccess != null" >
+        now_access = #{nowAccess,jdbcType=VARCHAR},
+      </if>
+      <if test="usedTime != null" >
+        used_time = #{usedTime,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="project != null" >
+        project = #{project,jdbcType=VARCHAR},
+      </if>
+      <if test="orderName != null" >
+        order_name = #{orderName,jdbcType=VARCHAR},
+      </if>
+      <if test="officeSite != null" >
+        office_site = #{officeSite,jdbcType=VARCHAR},
+      </if>
+      <if test="costClass != null" >
+        cost_class = #{costClass,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverName != null" >
+        receiver_name = #{receiverName,jdbcType=VARCHAR},
+      </if>
+      <if test="bank != null" >
+        bank = #{bank,jdbcType=VARCHAR},
+      </if>
+      <if test="brachBank != null" >
+        brach_bank = #{brachBank,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAccount != null" >
+        bank_account = #{bankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="totalMoney != null" >
+        total_money = #{totalMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="totalMoneyUpper != null" >
+        total_money_upper = #{totalMoneyUpper,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="invoice != null" >
+        invoice = #{invoice,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceClass != null" >
+        invoice_class = #{invoiceClass,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceCode != null" >
+        invoice_code = #{invoiceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceNumber != null" >
+        invoice_number = #{invoiceNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceTime != null" >
+        invoice_time = #{invoiceTime,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveOrg != null" >
+        receive_org = #{receiveOrg,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveOrgNumber != null" >
+        receive_org_number = #{receiveOrgNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveMoney != null" >
+        receive_money = #{receiveMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null" >
+        image = #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="moneyMonth != null" >
+        money_month = #{moneyMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCardImage != null" >
+        bank_card_image = #{bankCardImage,jdbcType=VARCHAR},
+      </if>
+      <if test="isExport != null" >
+        is_export = #{isExport,jdbcType=VARCHAR},
+      </if>
+      <if test="improtTime != null" >
+        improt_time = #{improtTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.ExpenseWork" >
+    update expense_work
+    set approve_number = #{approveNumber,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      expense_status = #{expenseStatus,jdbcType=VARCHAR},
+      result = #{result,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=VARCHAR},
+      end_time = #{endTime,jdbcType=VARCHAR},
+      apply_staff_id = #{applyStaffId,jdbcType=VARCHAR},
+      apply_name = #{applyName,jdbcType=VARCHAR},
+      apply_department = #{applyDepartment,jdbcType=VARCHAR},
+      histoty_access = #{histotyAccess,jdbcType=VARCHAR},
+      history_record = #{historyRecord,jdbcType=VARCHAR},
+      now_access = #{nowAccess,jdbcType=VARCHAR},
+      used_time = #{usedTime,jdbcType=VARCHAR},
+      department = #{department,jdbcType=VARCHAR},
+      project = #{project,jdbcType=VARCHAR},
+      order_name = #{orderName,jdbcType=VARCHAR},
+      office_site = #{officeSite,jdbcType=VARCHAR},
+      cost_class = #{costClass,jdbcType=VARCHAR},
+      receiver_name = #{receiverName,jdbcType=VARCHAR},
+      bank = #{bank,jdbcType=VARCHAR},
+      brach_bank = #{brachBank,jdbcType=VARCHAR},
+      bank_account = #{bankAccount,jdbcType=VARCHAR},
+      total_money = #{totalMoney,jdbcType=VARCHAR},
+      total_money_upper = #{totalMoneyUpper,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      invoice = #{invoice,jdbcType=VARCHAR},
+      invoice_class = #{invoiceClass,jdbcType=VARCHAR},
+      invoice_code = #{invoiceCode,jdbcType=VARCHAR},
+      invoice_number = #{invoiceNumber,jdbcType=VARCHAR},
+      invoice_time = #{invoiceTime,jdbcType=VARCHAR},
+      receive_org = #{receiveOrg,jdbcType=VARCHAR},
+      receive_org_number = #{receiveOrgNumber,jdbcType=VARCHAR},
+      receive_money = #{receiveMoney,jdbcType=VARCHAR},
+      image = #{image,jdbcType=VARCHAR},
+      money_month = #{moneyMonth,jdbcType=VARCHAR},
+      bank_card_image = #{bankCardImage,jdbcType=VARCHAR},
+      is_export = #{isExport,jdbcType=VARCHAR},
+      improt_time = #{improtTime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  	<insert id="insertList" parameterType="java.util.List"
+		useGeneratedKeys="true">
+		insert into expense_work ( approve_number, title,
+		expense_status,
+		result, start_time,
+		end_time, apply_staff_id, apply_name,
+		apply_department, histoty_access, history_record,
+		now_access,
+		used_time, department,
+		project, order_name, office_site,
+		cost_class,
+		receiver_name, bank,
+		brach_bank, bank_account, total_money,
+		total_money_upper, description, invoice,
+		invoice_class, invoice_code,
+		invoice_number,
+		invoice_time, receive_org, receive_org_number,
+		receive_money, image, money_month,
+		bank_card_image, is_export,improtTime)
+		values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+
+			( #{item.approveNumber,jdbcType=VARCHAR},
+			#{item.title,jdbcType=VARCHAR},
+			#{item.expenseStatus,jdbcType=VARCHAR},
+			#{item.result,jdbcType=VARCHAR}, #{item.startTime,jdbcType=VARCHAR},
+			#{item.endTime,jdbcType=VARCHAR},
+			#{item.applyStaffId,jdbcType=VARCHAR},
+			#{item.applyName,jdbcType=VARCHAR},
+			#{item.applyDepartment,jdbcType=VARCHAR},
+			#{item.histotyAccess,jdbcType=VARCHAR},
+			#{item.historyRecord,jdbcType=VARCHAR},
+			#{item.nowAccess,jdbcType=VARCHAR},
+			#{item.usedTime,jdbcType=VARCHAR},
+			#{item.department,jdbcType=VARCHAR},
+			#{item.project,jdbcType=VARCHAR}, #{item.orderName,jdbcType=VARCHAR},
+			#{item.officeSite,jdbcType=VARCHAR},
+			#{item.costClass,jdbcType=VARCHAR},
+			#{item.receiverName,jdbcType=VARCHAR}, #{item.bank,jdbcType=VARCHAR},
+			#{item.brachBank,jdbcType=VARCHAR},
+			#{item.bankAccount,jdbcType=VARCHAR},
+			#{item.totalMoney,jdbcType=VARCHAR},
+			#{item.totalMoneyUpper,jdbcType=VARCHAR},
+			#{item.description,jdbcType=VARCHAR},
+			#{item.invoice,jdbcType=VARCHAR},
+			#{item.invoiceClass,jdbcType=VARCHAR},
+			#{item.invoiceCode,jdbcType=VARCHAR},
+			#{item.invoiceNumber,jdbcType=VARCHAR},
+			#{item.invoiceTime,jdbcType=VARCHAR},
+			#{item.receiveOrg,jdbcType=VARCHAR},
+			#{item.receiveOrgNumber,jdbcType=VARCHAR},
+			#{item.receiveMoney,jdbcType=VARCHAR},
+			#{item.image,jdbcType=VARCHAR}, #{item.moneyMonth,jdbcType=VARCHAR},
+			#{item.bankCardImage,jdbcType=VARCHAR},
+			#{item.isExport,jdbcType=VARCHAR},
+		    #{item.improtTime,jdbcType=VARCHAR}
+			)
+
+		</foreach>
+	</insert>
+</mapper>
