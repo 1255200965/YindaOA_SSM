@@ -220,4 +220,24 @@ public class YoOvertime {
     public void setOtAddress(String otAddress) {
         this.otAddress = otAddress;
     }
+
+	@Override
+	public String toString() {
+		return "YoOvertime [otSequenceNo=" + otSequenceNo + ", otApproveNo="
+				+ otApproveNo + ", otTitle=" + otTitle + ", otApproveState="
+				+ otApproveState + ", otApproveResult=" + otApproveResult
+				+ ", otApproveBegin=" + otApproveBegin + ", otApproveEnd="
+				+ otApproveEnd + ", otAskStaffId=" + otAskStaffId
+				+ ", otAskStaffName=" + otAskStaffName + ", otAskStaffDepart="
+				+ otAskStaffDepart + ", otHistoryApproveName="
+				+ otHistoryApproveName + ", otApproveRecord=" + otApproveRecord
+				+ ", otNowApproveName=" + otNowApproveName + ", otCost="
+				+ otCost + ", otAskBeginTime=" + otAskBeginTime
+				+ ", otAskEndTime=" + otAskEndTime + ", otLegalHoliday="
+				+ otLegalHoliday + ", otPayMethod=" + otPayMethod
+				+ ", otAskSustain=" + otAskSustain + ", otAskReason="
+				+ otAskReason + ", otComment=" + otComment + ", otAddress="
+				+ otAddress + "]";
+	}
+    
 }

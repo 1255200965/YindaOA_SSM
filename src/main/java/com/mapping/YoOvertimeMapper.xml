@@ -90,15 +90,18 @@
        <if test="otAskStaffDepart != null and otAskStaffDepart !=''">
        and ot_ask_staff_depart like CONCAT('%','${otAskStaffDepart}','%')
        </if>
-       <if test="otApproveBegin == null or otApproveBegin == ''">
+        <if test="otApproveResult != null and otApproveResult !=''">
+      	 and ot_approve_result = '${otApproveResult}'
+       </if>
+       <if test="otAskBeginTime == null or otAskBeginTime == ''">
        <![CDATA[
-            and DATE_SUB(CURDATE(),INTERVAL 1 MONTH) <= date(ot_approve_begin) 
+            and DATE_SUB(CURDATE(),INTERVAL 1 MONTH) <= date(ot_ask_begin_time) 
             ]]>
        </if>
-       <if test="otApproveBegin !=null and otApproveBegin !=''">
+       <if test="otAskBeginTime !=null and otAskBeginTime !=''">
        <![CDATA[
-            and DATE_FORMAT(ot_approve_begin,"%Y-%m-%d") >= '${otApproveBegin}'
-             and DATE_FORMAT(ot_approve_begin,"%Y-%m-%d") <= '${otApproveEnd}'
+            and DATE_FORMAT(ot_ask_begin_time,"%Y-%m-%d") >= '${otAskBeginTime}'
+             and DATE_FORMAT(ot_ask_end_time,"%Y-%m-%d") <= '${otAskEndTime}'
             ]]>
        </if>
      </where>
