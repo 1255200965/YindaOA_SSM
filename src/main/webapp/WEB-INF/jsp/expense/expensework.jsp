@@ -103,6 +103,7 @@
 						<option value="煤气费">煤气费</option>
 						<option value="暖气费">暖气费</option>
 						<option value="水费">水费</option>
+						<option value="中介费">中介费</option>
 					</select>
 				</div>
 				<div class="caidan-tiku-s" style="margin-right: 5%">
@@ -112,7 +113,7 @@
 
 				</div>
 
-				<div class="caidan-tiku-s" style="margin-r ight: 5%">
+				<div class="caidan-tiku-s" style="margin-right: 5%">
 					<span>审批结果：</span> <select id="result" class="riqi-xiala "
 						name="result" style="width: 70px;">
 						<option value="同意">同意</option>
@@ -126,11 +127,11 @@
 						type="button" style="background: green;" value="导出" class="chaxun">
 				</div>
 			</div>
-			<div style="overflow-x:auto; width: 100%; height: 500px; scrollbar-track-color: #FFFFFF;">
+			<div style="overflow:scroll; width: 100%; height: 500px; scrollbar-track-color: #FFFFFF;">
 				<div
 					style="width:3000px; padding-top: 5px; border: 0 solid #000000;">
 
-					<table width="100%" border="1" cellspacing="0" cellpadding="0"
+					<table width="100%" height="100%" border="1" cellspacing="0" cellpadding="0"
 						class="table-1">
 						<thead class="table-1-tou">
 							<td class="text_center" width="4%">审批编号</td>
