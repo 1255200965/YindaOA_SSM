@@ -162,6 +162,18 @@ public class ExcelStaffInfoServiceImpl implements IExcelStaffInfoService {
                     }
                 }
 
+                if (staffInfo.getStaffUserId() == null) {
+                    // 如果异常直接跳出循环
+                    Map<String, String> errorMap = new HashMap<String, String>();
+                    errorMap.put("department", staffInfo.getDepartment());
+                    errorMap.put("name", staffInfo.getName());
+                    errorMap.put("staffId", staffInfo.getStaffId());
+                    errorMap.put("cellphone", staffInfo.getCellphone());
+                    errorMap.put("errorReason", "插入钉钉失败，可能手机号码在公司中已存在");
+                    listFail.add(errorMap);
+                    continue;
+                }
+
                 // 第6步，根据staffUserId在数据库中查询是否有该员工。如果有，则进行选择更新操作
                 if (staffInfoMapper.selectByPrimaryKey(staffInfo.getStaffUserId()) != null) {
                     try {
