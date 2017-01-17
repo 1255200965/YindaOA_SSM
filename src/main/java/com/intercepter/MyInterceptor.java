@@ -48,7 +48,10 @@ public class MyInterceptor extends HandlerInterceptorAdapter {
 		}
 		//第3步 进去其他链接判断用户对应的角色是否有权限
 		List<String> urlList = (List<String>) request.getSession().getAttribute("urlList");
-		
+		if(urlList==null||urlList.size()==0){
+			response.sendRedirect(request.getContextPath()+"/error.jsp");
+			return false;
+		}
 
 	    System.out.println("用户可访问的url:" +urlList.size());
 	    for(String str :urlList){
