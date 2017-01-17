@@ -15,7 +15,10 @@ import org.springframework.stereotype.Service;
 import com.dao.YoOrderMapper;
 import com.ecache.SystemCache;
 import com.model.YoOrder;
+import com.model.YoRoleModule;
+import com.model.YoUserRole;
 import com.service.IOrderService;
+import com.service.OrgService;
 
 
 
@@ -27,6 +30,8 @@ public class SystemCacheImpl  implements SystemCache{
 	private YoOrderMapper yoOrderMapper;
 	@Autowired
 	private IOrderService iOrderService;
+	@Autowired
+	private OrgService orgService;
 	/**
 	 * 缓存名字
 	 */
@@ -121,6 +126,15 @@ public class SystemCacheImpl  implements SystemCache{
 		  getCache().put("department",departmentList1);
 		  getCache().put("project",projectMap);
 		  getCache().put("order",orderMap);
+		  
+		  //初始化用户角色缓存
+		  System.out.println("正在初始化角色权限缓存");
+		  System.out.println(orgService.getAllUserRole().size());
+		  List<YoUserRole> userRoleList = orgService.getAllUserRole();
+		  getCache().put("user_role", userRoleList);
+		  //初始化用户模块信息
+		  List<YoRoleModule> roleModuleList = orgService.getAllRoleModule();
+		  getCache().put("role_module", roleModuleList);
 		  
 	}
 	
