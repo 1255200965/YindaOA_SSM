@@ -36,5 +36,10 @@ public interface IAdvanceService {
 	 * @return
 	 */
 	public List<YoAdvance> searchForExport(YoAdvance advance);
-    
+	/**
+	 * 根据工号查询预付款记录信息
+	 * @param staffId
+	 * @return
+	 */
+    public List<YoAdvance> selectByStaffId(String staffId);
 }

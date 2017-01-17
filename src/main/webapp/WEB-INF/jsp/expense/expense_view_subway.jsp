@@ -45,11 +45,7 @@
    		    </div>
   		 </div>
      	<br/>
-        <div class="weui-row" id="approveOption">
-			<div class="weui-col-10"></div>
-			<div class="weui-col-70"><input type="button" onclick="javascript:history.go(-1);" class="weui_btn weui_btn_primary"  value="返回"></div>
-			<div class="weui-col-10"></div>
-	    </div> 
+        <div><a href="javascript:history.go(-1);" class="weui_btn weui_btn_plain_default" >返回</a></div>
   	 <!-- </div> -->
   	</form>	
   	<script src="<%=path%>/javascripts/jquery-2.1.4.js"></script>

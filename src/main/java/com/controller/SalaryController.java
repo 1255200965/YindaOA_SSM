@@ -733,10 +733,10 @@ public class SalaryController {
 /*        if (user.getSalarydate()!=null) salaryDate = user.getSalarydate();
         if (user.getStaffid()!=null) user.getStaffid();*/
         //generateSalary(2016,12);
-        //SalaryUtil salaryUtil = new SalaryUtil(userSalaryService,userAttendanceService,userSighInService,userStaffInfoService,userAskLeaveService,userinfoSalaryService);
-        //salaryUtil.generateSalaryByMonth(2016,12);
-        //salaryUtil.generateSalaryTotal(2016,12);
-        List<StaffInfo> ttt = staffInfoMapper.getAllIdentifyInStallInfo();
+        SalaryUtil salaryUtil = new SalaryUtil(userSalaryService,userAttendanceService,userSighInService,userStaffInfoService,userAskLeaveService,userinfoSalaryService);
+        salaryUtil.generateSalaryByMonth(2016,12);
+        salaryUtil.generateSalaryTotal(2016,12);
+        //List<StaffInfo> ttt = staffInfoMapper.getAllIdentifyInStallInfo();
 
         if(true){
             map.put("msg", "成功");
@@ -744,7 +744,7 @@ public class SalaryController {
             map.put("msg", "失败");
         }
 
-
+        System.out.print("！！！OK!");
         return map;
     }
 
@@ -772,7 +772,7 @@ public class SalaryController {
 
     @RequestMapping("export_salary.do")
     public void export_salary(String branchCompany,String salarydate,HttpServletResponse response){
-
+        System.out.println(branchCompany+"==="+salarydate);
         List<YoUserinfosalary> salaryList =userinfoSalaryService.search_salary(branchCompany, salarydate);
         System.out.println(salaryList.size());
         exportYoUserinfosalary(salaryList, excelHeader, response);

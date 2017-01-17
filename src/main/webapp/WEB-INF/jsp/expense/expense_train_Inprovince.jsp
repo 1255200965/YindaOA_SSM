@@ -21,14 +21,7 @@
   	
   	<form id="form" action="expense_train_save.do" method="post" enctype="multipart/form-data" onsubmit="return check();" >
   	<!-- <div class="weui_cells" style="border:none;"> -->
-  	   <div class="weui_cell">
-    		<div class="weui_cell_bd weui_cell_primary">
-      			<label class="weui_label"><b>车次</b></label>
-   			 </div>
-    	 <div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder=""   value="" name="trainNum">	
-   		 </div>
-     	</div>	
+  	   
   		<div class="weui_cell">
     		<div class="weui_cell_bd weui_cell_primary">
       			<label class="weui_label"><b>上车时间</b></label>
@@ -71,6 +64,14 @@
    		 </div>
    		 
      	</div>
+     	<div class="weui_cell">
+    		<div class="weui_cell_bd weui_cell_primary">
+      			<label class="weui_label"><b>车次</b></label>
+   			 </div>
+    	 <div class="weui_cell_ft weui_cell_primary">
+     		<input class="weui_input" type="text" placeholder=""   value="" name="trainNum">	
+   		 </div>
+     	</div>	
      	<div class="weui_cell">
     		<div class="weui_cell_bd weui_cell_primary">
       			<label class="weui_label"><b>金&nbsp;额</b></label>

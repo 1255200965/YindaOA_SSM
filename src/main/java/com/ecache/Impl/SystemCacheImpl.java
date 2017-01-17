@@ -7,18 +7,19 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
-
 import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.cache.support.SimpleValueWrapper;
 import org.springframework.stereotype.Service;
 
 import com.dao.YoOrderMapper;
 import com.ecache.SystemCache;
+import com.model.StaffInfo;
 import com.model.YoOrder;
 import com.model.YoRoleModule;
 import com.model.YoUserRole;
 import com.service.IOrderService;
 import com.service.OrgService;
+import com.service.IStaffInfoService;
 
 
 
@@ -32,6 +33,8 @@ public class SystemCacheImpl  implements SystemCache{
 	private IOrderService iOrderService;
 	@Autowired
 	private OrgService orgService;
+	@Autowired
+	private IStaffInfoService staffInfoService;
 	/**
 	 * 缓存名字
 	 */
@@ -122,7 +125,17 @@ public class SystemCacheImpl  implements SystemCache{
     	     
     	} 
 
-    	  
+    	System.out.println("员工表缓存初始化");
+   	   List<StaffInfo> staffInfoList = staffInfoService.selectAllUser();
+   	   Map<String,String> staffMap = new HashMap<String,String>();
+   	   for(StaffInfo staff : staffInfoList){
+   		  staffMap.put(staff.getName(), staff.getStaffId());
+
+   	   }
+   	  System.out.println(staffMap.toString());
+   	  System.out.println("员工个数"+staffMap.size());
+
+   	      getCache().put("staffInfo", staffMap);
 		  getCache().put("department",departmentList1);
 		  getCache().put("project",projectMap);
 		  getCache().put("order",orderMap);
@@ -135,7 +148,7 @@ public class SystemCacheImpl  implements SystemCache{
 		  //初始化用户模块信息
 		  List<YoRoleModule> roleModuleList = orgService.getAllRoleModule();
 		  getCache().put("role_module", roleModuleList);
-		  
+
 	}
 	
     

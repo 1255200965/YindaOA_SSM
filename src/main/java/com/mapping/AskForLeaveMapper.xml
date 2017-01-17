@@ -295,7 +295,10 @@
           <if test="yoAskStaffDepart!=null and yoAskStaffDepart!=''">
             and yo_ask_staff_depart like CONCAT('%','${yoAskStaffDepart}','%' )
           </if>
-          <if test="yoAskStaffId!=null and yoAskStaffId!=''">
+          <if test="yoApproveResult!=null and yoApproveResult!=''">
+           and yo_approve_result = #{yoApproveResult,jdbcType=VARCHAR}
+          </if>
+          <if test="yoAskStaffId !=null and yoAskStaffId !=''">
            and yo_ask_staff_id = ${yoAskStaffId}
           </if>
           <if test="yoAskBeginDate==null or yoAskBeginDate==''">

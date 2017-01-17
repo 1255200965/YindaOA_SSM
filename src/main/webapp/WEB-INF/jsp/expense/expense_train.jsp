@@ -21,21 +21,14 @@
  
   <form id="form" action="expense_train_save.do" method="post" enctype="multipart/form-data" onsubmit="return check();">
   	<!-- <div class="weui_cells" style="border:none;"> -->
-  	    <div class="weui_cell">
-    		<div class="weui_cell_bd weui_cell_primary">
-      			<label class="weui_label"><b>车次</b></label>
-   			 </div>
-    	 <div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder=""   value="" name="trainNum">	
-   		 </div>
-     	</div>	
+  	    
   		<div class="weui_cell">
     		<div class="weui_cell_bd weui_cell_primary">
-      			<label class="weui_label"><b>上车时间</b></label>
+      			<label class="weui_label"><b>车次选择</b></label>
    			 </div>
     	 <div class="weui_cell_ft weui_cell_primary">
      		<!-- <input class="weui_input" type="date" placeholder=""  name="startTime"> -->
-     		<select class="weui_select" name="btSequenceNo" onchange="getDetail();">
+     		<select class="weui_select" name="btSequenceNo" onchange="getDetail();" id="btSequenceNo">
   	 		   <c:forEach items="${businessTripList}" var="businessTrip">
   	 		   			<option value=""></option>
   	   					<option value="${businessTrip.btSequenceNo }">${businessTrip.btAskBeginTime}----${businessTrip.btStartCity}---->${businessTrip.btAddress }</option>
@@ -43,6 +36,13 @@
   			</select>
    		 </div>
      	</div>	
+     	 <div class="weui_cell ">
+  		    <div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>上车时间</b></label></div>
+    		<div class="weui_cell_ft weui_cell_primary">
+     		   <input class="weui_input" type="date" placeholder=""  name="startTime"  id="startTime" readonly>
+   		    </div>
+  		 </div>
+  	
   	     <div class="weui_cell">
     		<div class="weui_cell_bd weui_cell_primary">
       			<label class="weui_label"><b>上车地点</b></label>
@@ -76,6 +76,14 @@
    		 </div>
    		 
      	</div>
+     	<div class="weui_cell">
+    		<div class="weui_cell_bd weui_cell_primary">
+      			<label class="weui_label"><b>车次</b></label>
+   			 </div>
+    	 <div class="weui_cell_ft weui_cell_primary">
+     		<input class="weui_input" type="text" placeholder=""   value="" name="trainNum">	
+   		 </div>
+     	</div>	
      	<div class="weui_cell">
     		<div class="weui_cell_bd weui_cell_primary">
       			<label class="weui_label"><b>金&nbsp;额</b></label>
@@ -142,7 +150,8 @@
     		$("#startAddress").val(data.btStartCity);
     		$("#reason").val(data.btAskReason);
     		$("#endAddress").val(data.btAddress);
-    		$("#endTime").val(data.btAskBeginTime);
+    		$("#endTime").val(data.btAskEndTime);
+    		$("#startTime").val(data.btAskBeginTime);
     	});
     }
   //文件上传反馈

@@ -88,12 +88,7 @@
   	    <div class="weui-row">
              <img src="http://121.40.29.241/YindaOAImageUpload/${expenseApplayTrain.imageUrl}" style="height:10%;width:30%;"/>
   	     </div>
-        <div class="weui-row">
-			<div class="weui-col-10"></div>
-			<div class="weui-col-40"><a href="javascript:history.go(-1);" class="weui_btn weui_btn_mini weui_btn_primary" >确认</a></div>
-			<div class="weui-col-20"><a href="javascript:history.go(-1);" class="weui_btn weui_btn_mini weui_btn_default">返回</a></div>
-			<div class="weui-col-10"></div>
-	    </div> 
+        <div><a href="javascript:history.go(-1);" class="weui_btn weui_btn_plain_default" >返回</a></div>
   	 <!-- </div> -->
   	</form>	
   	<script src="<%=path%>/javascripts/jquery-2.1.4.js"></script>

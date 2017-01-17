@@ -17,7 +17,11 @@ import com.model.YoAdvance;
 import com.service.IAdvanceService;
 import com.service.IDepartmentService;
 import com.service.IOrderService;
-
+/**
+ * 预付款
+ * @author mawei
+ *
+ */
 @Controller
 @RequestMapping("/advance")
 public class AdvanceController {
@@ -69,10 +73,11 @@ public class AdvanceController {
 	 */
 	@RequestMapping("/toAdvance_getList.do")
 	public ModelAndView advanceGetList(HttpServletRequest request,YoAdvance advance){
-		
+		System.out.println(advance.toString());
 		ModelAndView mav = new ModelAndView();
 		YoAdvance advance2 = advance;
 		List<YoAdvance> advanceList = advanceService.search(advance);
+	
 		mav.addObject("advanceList", advanceList);		
 		//部门信息
 		List<String> depList = orderService.selectAllDepartment();
@@ -84,8 +89,10 @@ public class AdvanceController {
 	@RequestMapping("/downLoad.do")
 	public void  downLoad(HttpServletRequest request,HttpServletResponse response,
 			YoAdvance advance){
+		
 		List<YoAdvance> advanceList = advanceService.searchForExport(advance);
-		System.out.println(advanceList.toString());
+		
+		System.out.println("导出信息"+advanceList.toString()+"=="+advanceList.size());
 		String []excelHeader={"审批编号","标题","审批状态","审批结果","审批发起时间","审批完成时间","发起人工号",
 				"发起人姓名","发起人部门","历史审批人姓名","审批记录","当前处理人姓名","审批耗时","借款时间",
 				"借款用途大类","借款用途小类","借款金额","收款人","开户银行","开户支行","银行账号","借款原因","其他"};

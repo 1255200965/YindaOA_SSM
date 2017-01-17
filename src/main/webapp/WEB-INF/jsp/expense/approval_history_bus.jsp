@@ -48,7 +48,7 @@
 			window.location.href="to_approve_bus.do?id="+id+"&manager="+manager;
 		}
 		if("hotel" == type){
-			window.location.href="toExpense_view_hotel.do?id="+id+"&manager="+manager;
+			window.location.href="to_approve_hotel.do?id="+id+"&manager="+manager;
 		}
 		if("subway" == type){
 			window.location.href="toExpense_subway_approve.do?id="+id+"&manager="+manager;

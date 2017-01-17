@@ -30,7 +30,7 @@
      	</div>	
   	     <div class="weui_cell">
     		<div class="weui_cell_bd weui_cell_primary">
-      			<label class="weui_label"><b>地址</b></label>
+      			<label class="weui_label"><b>上车地点</b></label>
    			 </div>
     	<div class="weui_cell_ft weui_cell_primary">
      		<input class="weui_input" type="text" placeholder=""  name="startAddress" value="${expenseApplayBus.startAddress }" readonly>
@@ -39,23 +39,18 @@
      	</div>		
      	
   		 <div class="weui_cell ">
-  		    <div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>时间</b></label></div>
+  		    <div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>上车时间</b></label></div>
     		<div class="weui_cell_ft weui_cell_primary">
      		   <input class="weui_input" type="text" placeholder=""  name="beginTime" value="${expenseApplayBus.beginTime }" readonly>
    		    </div>
   		 </div>
   	
-  		 <div class="weui_cell"> 
-    		<div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>用车事由</b></label></div>
-    	     <div class="weui_cell_ft weui_cell_primary">
-     	        <input class="weui_input" type="text"   name="reason" value="${expenseApplayBus.reason}" readonly>
-   		     </div>
-  	     </div> 
+  		 
   	    
   	     <br/>
   	     <div class="weui_cell">
     		<div class="weui_cell_bd weui_cell_primary">
-      			<label class="weui_label"><b>地址</b></label>
+      			<label class="weui_label"><b>下车地点</b></label>
    			 </div>
     	 <div class="weui_cell_ft weui_cell_primary">
      		<input class="weui_input" type="text" placeholder=""  name="destination" value="${expenseApplayBus.destination }" readonly>
@@ -64,7 +59,7 @@
      	</div>
      	<div class="weui_cell">
     		<div class="weui_cell_bd weui_cell_primary">
-      			<label class="weui_label"><b>时间</b></label>
+      			<label class="weui_label"><b>下车时间</b></label>
    			 </div>
     	 <div class="weui_cell_ft weui_cell_primary">
      		<input class="weui_input" type="text" placeholder=""  name="endTime" value="${expenseApplayBus.endTime }" readonly>
@@ -80,6 +75,12 @@
    		 </div>
    		 
      	</div>
+     	<div class="weui_cell"> 
+    		<div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>用车事由</b></label></div>
+    	     <div class="weui_cell_ft weui_cell_primary">
+     	        <input class="weui_input" type="text"   name="reason" value="${expenseApplayBus.reason}" readonly>
+   		     </div>
+  	     </div> 
      	<div class="weui_cell">
     		<div class="weui_cell_bd weui_cell_primary">
       			<label class="weui_label"><b>说&nbsp;明</b></label>
@@ -94,12 +95,11 @@
              <%-- <img src="<%=path%>/upload/${expenseApplayBus.imageUrl}" style="height:10%;width:30%;"/> --%>
                 <img src="http://121.40.29.241/YindaOAImageUpload/${expenseApplayBus.imageUrl}" style="height:10%;width:30%;"/>
   	     </div>
-        <div class="weui-row">
-			<div class="weui-col-10"></div>
-			<div class="weui-col-40"><a href="javascript:history.go(-1);" class="weui_btn weui_btn_mini weui_btn_primary" >确认</a></div>
-			<div class="weui-col-20"><a href="javascript:history.go(-1);" class="weui_btn weui_btn_mini weui_btn_default">返回</a></div>
-			<div class="weui-col-10"></div>
-	    </div> 
+        
+			
+			<div><a href="javascript:history.go(-1);" class="weui_btn weui_btn_plain_default" >返回</a></div>
+			
+	   
   	 <!-- </div> -->
   	</form>	
   	<script src="<%=path%>/javascripts/jquery-2.1.4.js"></script>

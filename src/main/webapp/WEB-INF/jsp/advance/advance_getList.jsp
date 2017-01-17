@@ -68,6 +68,12 @@
                     	</c:forEach>
                     </select>
                 </div>
+                <div class="caidan-tiku-s" style="margin-right:5%"> <span>审批状态：</span>
+                    <select id="approveResult" type="text" name="approveResult" class="shuruk-a2" placeholder="" >
+                        <option value="同意" <c:if test="${advance2.approveResult eq '同意' }">selected="selected"</c:if>>已同意</option>
+                    	<option value="" <c:if test="${advance2.approveResult eq '' }">selected="selected"</c:if>>全部</option>
+                    </select>
+                </div>
                 <div class="caidan-tiku-s" style="margin-right:5%"> <span>时间：</span>
                     <input id="askStartTime" type="text" name="askStartTime" class="laydate-icon shuruk-a2 form_date" placeholder="" value="${advance2.askStartTime }">
                     <input id="askEndTime" type="text" name="askEndTime" class="shuruk-a2 form_date" placeholder=""  value="${advance2.askEndTime }">
@@ -171,15 +177,16 @@ $('.form_date').datetimepicker({
 	function clearPropertities(){
 		$("input[name='askStaffName']").val("");
 		$("input[name='askStaffId']").val("");
-		$("input[name='askStaffDep']").val("");
+		$("select[name='askStaffDep']").val("");
 		$("input[name='askStartTime']").val("");
 		$("input[name='askEndTime']").val("");	
+		
 	}
 	function downLoad(){
 		
 		window.location.href="downLoad.do?askStaffName="+$("#askStaffName").val()+"&askStaffId="+$("#askStaffId").val()
-						+"&askStaffDep="+$("#askStaffDep").val()+"&askStartTime="+$("#askStartTime").val(),
-						"&askEndTime="+$("#askEndTime").val();
+						+"&askStaffDep="+$("#askStaffDep").val()+"&askStartTime="+$("#askStartTime").val()
+						+"&askEndTime="+$("#askEndTime").val()+"&approveResult="+$("#approveResult").val();
 	}
 	
 </script>

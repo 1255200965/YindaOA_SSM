@@ -220,4 +220,25 @@ public class AskForLeave {
     public void setYoPicture(String yoPicture) {
         this.yoPicture = yoPicture;
     }
+
+	@Override
+	public String toString() {
+		return "AskForLeave [sequenceNo=" + sequenceNo + ", yoApproveNo="
+				+ yoApproveNo + ", yoTitle=" + yoTitle + ", yoApproveState="
+				+ yoApproveState + ", yoApproveResult=" + yoApproveResult
+				+ ", yoApproveBegin=" + yoApproveBegin + ", yoApproveEnd="
+				+ yoApproveEnd + ", yoAskStaffId=" + yoAskStaffId
+				+ ", yoAskStaffName=" + yoAskStaffName + ", yoAskStaffDepart="
+				+ yoAskStaffDepart + ", yoHistoryApproveName="
+				+ yoHistoryApproveName + ", yoApproveRecord=" + yoApproveRecord
+				+ ", yoNowApproveName=" + yoNowApproveName + ", yoCost="
+				+ yoCost + ", yoType=" + yoType + ", yoAskBeginDate="
+				+ yoAskBeginDate + ", yoAskBeginTime=" + yoAskBeginTime
+				+ ", yoAskEndDate=" + yoAskEndDate + ", yoAskEndTime="
+				+ yoAskEndTime + ", yoAskSustain=" + yoAskSustain
+				+ ", yoAskReason=" + yoAskReason + ", yoPicture=" + yoPicture
+				+ "]";
+	}
+    
+    
 }

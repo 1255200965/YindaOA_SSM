@@ -46,10 +46,12 @@ public class AdvanceServiceImpl implements IAdvanceService{
 		Sheet sheet=null;
 	    
 	 for(int s = 0;s < workbook.getNumberOfSheets();s++){
+		
 			//获取第一个sheet
 	    sheet= workbook.getSheetAt(s);
     		//获取表头
         Row rowHead = sheet.getRow(0);
+     
         	//表头验证
         String errorMsg[] = ExcelHeadValidate(rowHead);
         if(errorMsg[0] !=null){
@@ -61,30 +63,30 @@ public class AdvanceServiceImpl implements IAdvanceService{
         	//获取总行数
         int totalRowNum =sheet.getLastRowNum();
         	//获取总列数
-//        int totalCellNum =rowHead.getPhysicalNumberOfCells();
-        //按行读取数据
+//      int totalCellNum =rowHead.getPhysicalNumberOfCells();
+        	//按行读取数据
         for(int i = 1 ;i<=totalRowNum;i++){
         	
         	Row row = sheet.getRow(i);
         	try{    
         	    		//从第1列读入
         			int j=0; 
-        			advance.setApproveNo(row.getCell(j++).getStringCellValue().toString());
-        			advance.setTitle(row.getCell(j++).getStringCellValue().toString());
-        			advance.setApproveStatus(row.getCell(j++).getStringCellValue().toString());
-        			advance.setApproveResult(row.getCell(j++).getStringCellValue().toString());
-        			advance.setAskStartTime(row.getCell(j++).getStringCellValue().toString());
-        			advance.setAskEndTime(row.getCell(j++).getStringCellValue().toString());
-        			advance.setAskStaffId(row.getCell(j++).getStringCellValue().toString());
-        			advance.setAskStaffName(row.getCell(j++).getStringCellValue().toString());
-        			advance.setAskStaffDep(row.getCell(j++).getStringCellValue().toString());
-        			advance.setApproverHistory(row.getCell(j++).getStringCellValue().toString());
-        			advance.setApproveRecord(row.getCell(j++).getStringCellValue().toString());
-        			advance.setApproverNow(row.getCell(j++).getStringCellValue().toString());
-        			advance.setApproveCost(row.getCell(j++).getStringCellValue().toString());
-        			advance.setAdvanceStartTime(row.getCell(j++).getStringCellValue().toString());
+        	if(row.getCell(j)!=null)		advance.setApproveNo(row.getCell(j++).getStringCellValue().toString());
+        	if(row.getCell(j)!=null)		advance.setTitle(row.getCell(j++).getStringCellValue().toString());
+        	if(row.getCell(j)!=null)		advance.setApproveStatus(row.getCell(j++).getStringCellValue().toString());
+        	if(row.getCell(j)!=null)		advance.setApproveResult(row.getCell(j++).getStringCellValue().toString());
+        	if(row.getCell(j)!=null)		advance.setAskStartTime(row.getCell(j++).getStringCellValue().toString());
+        	if(row.getCell(j)!=null)		advance.setAskEndTime(row.getCell(j++).getStringCellValue().toString());
+        	if(row.getCell(j)!=null)		advance.setAskStaffId(row.getCell(j++).getStringCellValue().toString());
+        	if(row.getCell(j)!=null)		advance.setAskStaffName(row.getCell(j++).getStringCellValue().toString());
+        	if(row.getCell(j)!=null)		advance.setAskStaffDep(row.getCell(j++).getStringCellValue().toString());
+        	if(row.getCell(j)!=null)		advance.setApproverHistory(row.getCell(j++).getStringCellValue().toString());
+        	if(row.getCell(j)!=null)		advance.setApproveRecord(row.getCell(j++).getStringCellValue().toString());
+        	if(row.getCell(j)!=null)		advance.setApproverNow(row.getCell(j++).getStringCellValue().toString());
+        	if(row.getCell(j)!=null)		advance.setApproveCost(row.getCell(j++).getStringCellValue().toString());
+        	if(row.getCell(j)!=null)		advance.setAdvanceStartTime(row.getCell(j++).getStringCellValue().toString());
         				//借款用途大类
-        			advance.setAdvanceAimMc(row.getCell(j++).getStringCellValue().toString());
+        	if(row.getCell(j)!=null)		advance.setAdvanceAimMc(row.getCell(j++).getStringCellValue().toString());
         				//获取借款用途小类
         			j++;
         			while(row.getCell(j).getStringCellValue().toString() != null && !"".equals(row.getCell(j).getStringCellValue().toString())){
@@ -96,19 +98,19 @@ public class AdvanceServiceImpl implements IAdvanceService{
         			}
         				//获取到借款用途小类之后直接去获取借款金额
         			j=20;
-        			advance.setAdvanceSum(row.getCell(j++).getStringCellValue().toString());
-                    advance.setAdvancePayee(row.getCell(j++).getStringCellValue().toString());
-                    advance.setAdvanceBank(row.getCell(j++).getStringCellValue().toString());
-                    advance.setAdvanceBranch(row.getCell(j++).getStringCellValue().toString());
-                    advance.setAdvanceBankAccount(row.getCell(j++).getStringCellValue().toString());
-                    advance.setAdvanceReason(row.getCell(j++).getStringCellValue().toString());
-                    advance.setOther(row.getCell(j++).getStringCellValue().toString());
-                   
+        			if(row.getCell(j)!=null)	advance.setAdvanceSum(row.getCell(j++).getStringCellValue().toString());
+        			if(row.getCell(j)!=null)    advance.setAdvancePayee(row.getCell(j++).getStringCellValue().toString());
+        			if(row.getCell(j)!=null)    advance.setAdvanceBank(row.getCell(j++).getStringCellValue().toString());
+        			if(row.getCell(j)!=null)    advance.setAdvanceBranch(row.getCell(j++).getStringCellValue().toString());
+        			if(row.getCell(j)!=null)    advance.setAdvanceBankAccount(row.getCell(j++).getStringCellValue().toString());
+        			if(row.getCell(j)!=null)    advance.setAdvanceReason(row.getCell(j++).getStringCellValue().toString());
+        			if(row.getCell(j)!=null)    advance.setOther(row.getCell(j++).getStringCellValue());
+                  
                     if(isExistRecord(advance.getApproveNo())){
-                    	
+                    	System.out.println("更新");
                     	advanceMapper.updateByPrimaryKeySelective(advance);
                     }else{
-                    	
+                    	System.out.println("插入");
                     	advanceMapper.insert(advance);
                     }
         			if(j > 26) continue;
@@ -117,7 +119,7 @@ public class AdvanceServiceImpl implements IAdvanceService{
         	}catch(Exception e){
         		e.printStackTrace();
         		errorMsg[0]="行数据导入错误";
-        		errorMsg[1]="第"+s+"个sheet;"+(i+1)+"行数据导入错误";
+        		errorMsg[1]="第"+s+"个sheet;"+i+"行数据导入错误";
         		errorList.add(errorMsg);
         	}
         
@@ -239,7 +241,11 @@ public class AdvanceServiceImpl implements IAdvanceService{
 				criteria.andAdvanceStartTimeGreaterThanOrEqualTo(advance.getAskStartTime());
 		if(advance.getAskEndTime() != null && !"".equals(advance.getAskEndTime()))
 				criteria.andAdvanceStartTimeLessThanOrEqualTo(advance.getAskEndTime());
-		
+		if(advance.getApproveResult() != null && !"".equals(advance.getApproveResult()) ){
+			
+				   criteria.andApproveResultEqualTo(advance.getApproveResult());
+			
+		}
 		
 		return advanceMapper.selectByExample(example);	
 	}
@@ -260,7 +266,13 @@ public class AdvanceServiceImpl implements IAdvanceService{
 		{
 				criteria.andAdvanceStartTimeLessThanOrEqualTo(advance.getAskEndTime());
 		}
+		if(advance.getApproveResult() != null && !"".equals(advance.getApproveResult()) ){
+			
+			   criteria.andApproveResultEqualTo(advance.getApproveResult());
+			
+		}
 		criteria.andExportStatusIsNull();
+		
 		return advanceMapper.selectByExample(example);	
 	}
     @Override
@@ -316,6 +328,7 @@ public class AdvanceServiceImpl implements IAdvanceService{
        	sheet.setColumnWidth(20,(int)(20+0.72)*256);
        	sheet.setColumnWidth(21,(int)(20+0.72)*256);
        	sheet.setColumnWidth(22,(int)(20+0.72)*256);
+    	sheet.setColumnWidth(23,(int)(20+0.72)*256);
        	//创建行
        	HSSFRow row = sheet.createRow(0);
        	//设置表头样式
@@ -387,6 +400,7 @@ public class AdvanceServiceImpl implements IAdvanceService{
        	row.createCell(21).setCellValue(list.get(i).getAdvanceReason());
        		/**其他**/
        	row.createCell(22).setCellValue(list.get(i).getOther());
+       	row.createCell(23).setCellValue(list.get(i).getOther());
        		//更新记录下载状态
     	advance2 = list.get(i);
     	advance2.setExportStatus("已下载");
@@ -395,5 +409,12 @@ public class AdvanceServiceImpl implements IAdvanceService{
        	return wb;
        }
       
-      
+      @Override
+      public List<YoAdvance> selectByStaffId(String staffId){
+    	  
+    	  YoAdvanceExample example = new YoAdvanceExample();
+    	  YoAdvanceExample.Criteria criteria = example.createCriteria();
+    	  criteria.andAskStaffIdEqualTo(staffId);
+    	  return advanceMapper.selectByExample(example);
+      }
 }

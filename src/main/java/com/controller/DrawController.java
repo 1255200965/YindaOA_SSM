@@ -1,13 +1,18 @@
 package com.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.Cache.ValueWrapper;
+import org.springframework.cache.support.SimpleValueWrapper;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.ecache.Impl.SystemCacheImpl;
 import com.model.LuckyStaff;
 import com.model.StaffInfo;
 import com.service.ILuckyStaffService;
@@ -25,34 +31,19 @@ import com.service.IStaffInfoService;
 public class DrawController {
 	
 	private String option=null;
-	private String result=null;
-	private String drawType=null;
-	private LuckyStaff luckyStaff = new LuckyStaff();
+	private LuckyStaff luckyStaff = new LuckyStaff();//当前中奖人信息
+	private List<LuckyStaff> recordList=new ArrayList<LuckyStaff>();//中奖人信息记录
+	
+	private String []drawTypes={"三等奖","二等奖","一等奖"};//所有奖项设置
+	private String drawType=drawTypes[0];//待抽奖项
+	private int i=0;//标识当前该抽的奖项类别
+	
 	@Autowired
 	private IStaffInfoService staffInfoService;
 	@Autowired
 	private ILuckyStaffService LSService;
-	/**
-	 * 首登界面
-	 * @return
-	 */
-	@RequestMapping("/toDraw.do")
-	public String toDraw(){
-		return "draw/draw";
-	}
-		/**
-		 * 管理员抽奖操作界面
-		 * @return
-		 */
-	@RequestMapping("/toDrawManager.do")
-	public ModelAndView toDrawManager(){
-		ModelAndView mav = new ModelAndView();
-		List<StaffInfo> staffInfoList = staffInfoService.selectAllUserName();
-		System.out.println(staffInfoList.toString());
-		mav.addObject("staffInfoList", staffInfoList);
-		mav.setViewName("draw/draw_manager");
-		return mav;
-	}
+	
+	ValueWrapper staffCache = SystemCacheImpl.cache.get("staffInfo");
 		/**
 		 * 职工抽奖观看界面跳转
 		 * @return
@@ -60,52 +51,73 @@ public class DrawController {
 	@RequestMapping("/toDrawStaff.do")
 	public ModelAndView toDrawStaff(){
 		ModelAndView mav = new ModelAndView();
-		List<StaffInfo> staffInfoList = staffInfoService.selectAllUserName();
-		System.out.println(staffInfoList.toString());
-		mav.addObject("staffInfoList", staffInfoList);
+		
+		@SuppressWarnings("unchecked")
+		Map<String,String> staffMap=(Map<String, String>) staffCache.get();
+		List<LuckyStaff> luckyList =LSService.selectAll();
+		mav.addObject("luckyList", luckyList);
+		mav.addObject("staffMap", staffMap);
 		mav.setViewName("draw/draw_staff");
 		return mav;
 	}
-		//管理员界面定时返回操作信息
-	@RequestMapping("/getMessageMJ")
-	public void getMessageMJ(String option ,String result,String drawType){
-		this.option = option;
-		this.result = result;
-		this.drawType=drawType;
-		luckyStaff.setStaffName(result);
-		luckyStaff.setDrawType(this.drawType);
-		if(result!=null && !"".equals(result)){
-			LSService.save(luckyStaff);
-		}
-		
-		System.out.println(option+"========="+result);
-	}
-		//普通职工界面定时从后台获取当前数据
+		//每个小时的10 进行抽奖
+	 @Scheduled(cron = "0 01 * * * *")
+	 public void startDraw(){
+		 
+		 System.out.println("设置信息==========");
+		 option="start";
+		 	//重置当前抽奖类别
+		 if(i<drawTypes.length){
+			 
+		  drawType=drawTypes[i];
+		 }else{
+			 drawType="本次抽奖活动已结束";
+		 }
+		 	//定时任务开始前清空中奖员工信息
+		 luckyStaff.setStaffId("");
+		 luckyStaff.setStaffName("");
+		 luckyStaff.setDrawType("");
+		 System.out.println("设置信息======="+option);
+	 }
+	 	
+	//每小时20分进行一次抽奖
+	 @Scheduled(cron="0 20 * * * *")
+	 public void draw(){
+		 
+		 if(i<drawTypes.length){
+			 
+			 System.out.println("第"+i+"次抽奖开始======================");
+			 List<StaffInfo> staffInfoList = staffInfoService.selectAllUser();
+			 Random r = new Random();
+			 int n = r.nextInt(staffInfoList.size());
+			 luckyStaff.setStaffId(staffInfoList.get(n).getStaffId());
+			 luckyStaff.setStaffName(staffInfoList.get(n).getName());
+			 luckyStaff.setDrawType(this.drawType);
+			 System.out.println("当前中奖人员信息=="+luckyStaff.toString());
+			 LSService.save(luckyStaff);
+			 recordList.add(luckyStaff);
+			 	//重置抽奖状态为结束
+			 option="end";	
+			 i++;
+			 	
+	   }	 
+	 }
+//普通职工界面定时从后台获取当前数据
 	@RequestMapping(value="/getFlagSJ.do",method=RequestMethod.POST,
 					produces={"application/json;charset=UTF-8"})
 	public @ResponseBody String getFlagSJ(HttpServletRequest request,HttpServletResponse response){
 		
-		System.out.println(option+"=========="+result);
+		System.out.println(option+"=========="+luckyStaff.toString());
 		Map<String,String> map = new HashMap<String,String>();
+		if(drawType==null){
+			drawType=drawTypes[0];
+		}
 		map.put("option",option);
-		map.put("result", result);
 		map.put("drawType",drawType);
+		map.put("staffName",luckyStaff.getStaffName());
+		map.put("staffId",luckyStaff.getStaffId());
 		String json =JSON.toJSONString(map);
 		System.out.println(json);
 		return json;
-	}
-	@RequestMapping("/toDraw_getList")
-	public ModelAndView toDraw_getList(){
-		
-		ModelAndView mav = new ModelAndView();
-		List<LuckyStaff> list = LSService.selectAll();
-		mav.addObject("list", list);
-		mav.setViewName("draw/draw_getList");
-		return mav;
-	}
-	@RequestMapping("/getDrawResult")
-	public @ResponseBody List<LuckyStaff> getDrawResult(){
-		List<LuckyStaff> list = LSService.selectAll();
-		return list;
 	}
 }
