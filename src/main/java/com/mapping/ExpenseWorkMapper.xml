@@ -555,7 +555,7 @@
 		invoice_number,
 		invoice_time, receive_org, receive_org_number,
 		receive_money, image, money_month,
-		bank_card_image, is_export,improtTime)
+		bank_card_image, is_export,improt_Time)
 		values
 		<foreach collection="list" item="item" index="index"
 			separator=",">
