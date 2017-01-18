@@ -38,20 +38,32 @@ public class ExpenseWorkSerivceImpl implements ExpenseWorkSerivce{
 		// TODO Auto-generated method stub
 		Map<String, Object> mapInsert = new HashMap<String, Object>();
 		List<ExpenseWork> listFail = new ArrayList<ExpenseWork>();
+        
+		
 
-		// 得到第1张表
-		HSSFSheet hssfSheet = hssfWorkbook.getSheetAt(0);
+		//插入的数据
+		List<ExpenseWork> insertList = new ArrayList<ExpenseWork>(); 
+
+		//更新的数据
+		List<ExpenseWork> updateList = new ArrayList<ExpenseWork>();
+		
+		
+		int sheetNumber = hssfWorkbook.getNumberOfSheets();
+		System.out.println("总表单数为："+hssfWorkbook.getNumberOfSheets());
+		
+		
+		for(int j =0 ;j<sheetNumber;j++){
+			
+	   // 得j张到第表
+	    HSSFSheet hssfSheet = hssfWorkbook.getSheetAt(j);
+	    
+	    
 		// 这里不要用物理行数，要用最后一行的编号，不然很容易跳坑
 		int rowLastNo = hssfSheet.getLastRowNum();
         
 		// 设定一个变量，记录for循环当中操作成功的条目数目
 		int successAmount = 0;
 
-		//插入的数据
-		List<ExpenseWork> insertList = new ArrayList<ExpenseWork>(); 
-
-		//更新的数据
-		List<ExpenseWork> updateList = new ArrayList<ExpenseWork>(); 
 		
         //校验表头
 		HSSFRow hssfRow0 =hssfSheet.getRow(0);
@@ -140,7 +152,7 @@ public class ExpenseWorkSerivceImpl implements ExpenseWorkSerivce{
 			if (hssfRow.getCell(++cellNo) != null) expenseWork.setReceiveMoney(hssfRow.getCell(cellNo).toString());
 			if (hssfRow.getCell(++cellNo) != null) expenseWork.setImage(hssfRow.getCell(cellNo).toString());
 			                                       expenseWork.setImprotTime(sdf.format(new Date()));
-
+		
 
 
 			/*
@@ -152,6 +164,7 @@ public class ExpenseWorkSerivceImpl implements ExpenseWorkSerivce{
 
 			criteria.andApproveNumberEqualTo(expenseWork.getApproveNumber());
 			criteria.andInvoiceEqualTo(expenseWork.getInvoice());
+			criteria.andIsExportNotEqualTo("已导出");
 			List<ExpenseWork> ExpenseWorkList = expenseWorkMapper.selectByExample(expenseWorkExample);
 
 			if (ExpenseWorkList.size() > 0) {
@@ -159,7 +172,7 @@ public class ExpenseWorkSerivceImpl implements ExpenseWorkSerivce{
 				updateList.add(expenseWork);
 				continue;
 			}
-
+		
 			// 第6步，如果是一条新信息，就插入新数据
 			else {
 				try {
@@ -173,6 +186,7 @@ public class ExpenseWorkSerivceImpl implements ExpenseWorkSerivce{
 			// 到了这一步，说明插入或更新成功，数目自加！
 			successAmount++;
 			if (successAmount % 1000 == 0) System.out.println(successAmount);
+		}
 		}
 		System.out.println("插入的条数为："+insertList.size());
 		System.out.println("更新的条数为："+updateList.size());
