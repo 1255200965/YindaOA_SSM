@@ -22,5 +22,5 @@ public interface ExpenseWorkSerivce {
 	 * @param expenseWork
 	 * @return
 	 */
-	 List<ExpenseWork> search_expenseWorkList(ExpenseWork expenseWork);
+	 List<ExpenseWork> search_expenseWorkList(ExpenseWork expenseWork,String endTime1,String endTime2);
 }

@@ -226,21 +226,20 @@ public class ExpenseWorkSerivceImpl implements ExpenseWorkSerivce{
 
 	}
 	@Override
-	public List<ExpenseWork> search_expenseWorkList(ExpenseWork expenseWork) {
+	public List<ExpenseWork> search_expenseWorkList(ExpenseWork expenseWork,String endTime1,String endTime2) {
 		
 		// TODO Auto-generated method stub
 		ExpenseWorkExample expenseWorkExample = new ExpenseWorkExample();
 		ExpenseWorkExample.Criteria criteria = expenseWorkExample.createCriteria();
         if(expenseWork.getResult()!=null){ criteria.andResultEqualTo(expenseWork.getResult());}
-        if(expenseWork.getEndTime()!=null && !"".equals(expenseWork.getEndTime())){ 
-        	String value1 = expenseWork.getEndTime() + " 00:00:0000";
-        	String value2 = expenseWork.getEndTime() + " 23:59:9999";
-        	criteria.andEndTimeBetween(value1, value2);}
+        
+        	String value1 = endTime1 + " 00:00:0000";
+        	String value2 = endTime2 + " 23:59:9999";
+        	criteria.andEndTimeBetween(value1, value2);
         if(expenseWork.getCostClass()!=null){ criteria.andCostClassEqualTo(expenseWork.getCostClass());}
         
         List<ExpenseWork> expenseWorkList = expenseWorkMapper.selectByExample(expenseWorkExample);
 		return expenseWorkList;
 	} 
 }
-
 

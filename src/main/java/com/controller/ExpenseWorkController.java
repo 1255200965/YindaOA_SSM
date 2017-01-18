@@ -3,9 +3,11 @@ package com.controller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -23,11 +25,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.dao.ExpenseWorkMapper;
 import com.model.ExpenseWork;
-import com.model.YoUserinfosalary;
 import com.service.ExpenseWorkSerivce;
+
 
 
 /**
@@ -42,6 +44,8 @@ public class ExpenseWorkController {
 	@Autowired
 	private ExpenseWorkSerivce expenseWorkSerivce; 
 
+	@Autowired
+	private ExpenseWorkMapper expenseWorkMapper; 
 	/**
 	 * 进去办事处费用导入界面
 	 * @return
@@ -68,8 +72,8 @@ public class ExpenseWorkController {
      */
 	@RequestMapping("/expenseWork_search.do")
 	@ResponseBody
-	public List<ExpenseWork> expenseWork_search(HttpServletRequest request,ExpenseWork expenseWork){		
-		List<ExpenseWork> expenseWorkList=expenseWorkSerivce.search_expenseWorkList(expenseWork);
+	public List<ExpenseWork> expenseWork_search(HttpServletRequest request,ExpenseWork expenseWork,String endTime1,String endTime2){		
+		List<ExpenseWork> expenseWorkList=expenseWorkSerivce.search_expenseWorkList(expenseWork,endTime1,endTime2);
 		return expenseWorkList;
 	}
 	
@@ -120,6 +124,7 @@ public class ExpenseWorkController {
     		int updateList =(int) reulstmap.get("updateList");
     		mav.addObject("validateTitle", "导入系统成功！");
     		
+  
     		mav.addObject("insertList", insertList);
     		mav.addObject("updateList", updateList);
         }catch(Exception e){
@@ -131,6 +136,10 @@ public class ExpenseWorkController {
 		
 		return mav;
 	}
+	
+	
+	
+	  //EXCEL表头
 	  String []excelHeader = {"审批编号","标题","审批状态","审批结果","审批发起时间","审批完成时间","发起人工号","发起人姓名","发起人部门",
 	            "历史审批人姓名","审批记录","当前处理人姓名","审批耗时","所属部门","所属项目","所属订单","办事处名称","费用类别",
 	            "费用月份","收款人","开户银行","开户支行","银行账号","总金额（元）","总金额（元）(大写)","银行卡照片","说明","发票","发票类型","发票代码","发票号码","发票日期","收款方名称"," 收款方税号","金额（元）","图片"};
@@ -141,12 +150,32 @@ public class ExpenseWorkController {
 
 
 
-
+    
 	@RequestMapping("expenseWork_export.do")
-	public void expenseWork_export(ExpenseWork expenseWork,HttpServletRequest request,HttpServletResponse response){
-		    List<ExpenseWork> expenseWorkList=expenseWorkSerivce.search_expenseWorkList(expenseWork);
-	        System.out.println(expenseWorkList.size());
-	        export(expenseWorkList, excelHeader, response);
+	public void expenseWork_export(ExpenseWork expenseWork,HttpServletRequest request,HttpServletResponse response,String endTime1,String endTime2){
+		    //按条件查询
+		    List<ExpenseWork> expenseWorkList=expenseWorkSerivce.search_expenseWorkList(expenseWork,endTime1,endTime2); 
+		  
+		    //导出列表
+		    List<ExpenseWork> exportList = new ArrayList<ExpenseWork>();
+		   
+		    //按条件查询的结果中是未导出过的那么添加到导出的列表中
+            for(ExpenseWork e :expenseWorkList){
+		    	if((e.getIsExport()==null||"".equals(e.getIsExport()))&&e.getResult().equals("同意") ){
+		    		exportList.add(e);
+		    	}
+		    }
+            
+            //导出
+	        export(exportList,excelHeader,response);
+	        
+	        //导出的列表状态修改为已经导出 更新
+	        for( ExpenseWork e :exportList){
+	        	e.setIsExport("已导出");
+	        	expenseWorkMapper.updateByPrimaryKey(e);
+	        }
+	        
+	        
 	}
 	
 	

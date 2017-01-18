@@ -107,8 +107,12 @@
 					</select>
 				</div>
 				<div class="caidan-tiku-s" style="margin-right: 5%">
-					<span>审批完成时间：</span> <input id="endTime" type="text"
-						class="laydate-icon shuruk-a2 form_date" name="endTime"
+					<span>审批完成时间：</span> <input id="endTime1" type="text"
+						class="laydate-icon shuruk-a2 form_date" name="endTime1"
+						class="shuruk-a2" placeholder="">
+						——
+						<input id="endTime2" type="text"
+						class="laydate-icon shuruk-a2 form_date" name="endTime2"
 						class="shuruk-a2" placeholder="">
 
 				</div>
@@ -127,28 +131,28 @@
 						type="button" style="background: green;" value="导出" class="chaxun">
 				</div>
 			</div>
-			<div style="overflow:scroll; width: 100%; height: 500px; scrollbar-track-color: #FFFFFF;">
+			<div style="overflow:scroll; width: 100%; height: 700px; ">
 				<div
-					style="width:3000px; padding-top: 5px; border: 0 solid #000000;">
+					style=" padding-top: 5px; border: 0 solid #000000;">
 
 					<table width="100%" height="100%" border="1" cellspacing="0" cellpadding="0"
 						class="table-1">
 						<thead class="table-1-tou">
 							<td class="text_center" width="4%">审批编号</td>
 							<td class="text_center" width="4%">标题</td>
-							<td class="text_center" width="4%">审批状态</td>
+							<!-- <td class="text_center" width="4%">审批状态</td> -->
 							<td class="text_center" width="4%">审批结果</td>
-							<td class="text_center" width="4%">审批发起时间</td>
-							<td class="text_center" width="4%">审批完成时间</td>
+							<!-- <td class="text_center" width="4%">审批发起时间</td>
+							<td class="text_center" width="4%">审批完成时间</td> -->
 							<td class="text_center" width="4%">发起人工号</td>
 							<td class="text_center" width="4%">发起人姓名</td>
 							<td class="text_center" width="4%">发起人部门</td>
-							<td class="text_center" width="4%">历史审批人姓名</td>
+							<!-- <td class="text_center" width="4%">历史审批人姓名</td>
 							<td class="text_center" width="4%">审批记录</td>
 							<td class="text_center" width="4%">当前处理人</td>
 							<td class="text_center" width="4%">审批耗时</td>
 							<td class="text_center" width="4%">所属部门</td>
-							<td class="text_center" width="4%">所属项目</td>
+							<td class="text_center" width="4%">所属项目</td> -->
 							<td class="text_center" width="4%">办事处名称</td>
 							<td class="text_center" width="4%">费用类别</td>
 							<td class="text_center" width="4%">收款人</td>
@@ -327,33 +331,38 @@
    /* 订单查询 */ 
 function search_List(){
 	var result=$("#result").val();
-	var endTime =$("#endTime").val();
+	var endTime1 =$("#endTime1").val();
+	var endTime2 =$("#endTime2").val();
 	var costClass=$("#costClass").val();
 	var tbody =$("#tbody").html();
-  if(endTime==null||endTime==""){
+	if(endTime1==null||endTime1==""){
+		alert("输入审批完成时间！");
+		return;		
+	} 
+	if(endTime2==null||endTime2==""){
 		alert("输入审批完成时间！");
 		return;		
 	} 
  
-	$.post("<%=path%>/expenseWork/expenseWork_search.do",{"result":result,"costClass":costClass,"endTime":endTime},function(json){		
+	$.post("<%=path%>/expenseWork/expenseWork_search.do",{"result":result,"costClass":costClass,"endTime1":endTime1,"endTime2":endTime2},function(json){		
 	   tbody="";
 		$.each(json, function (n, value) {
            tbody = tbody+"<tr>"+
             "<td class='text_center' width='4%'>"+value.approveNumber+"</td>"+
             "<td class='text_center' width='4%'>"+value.title+"</td>"+
-			"<td class='text_center' width='4%'>"+value.expenseStatus+"</td>"+
+			/* "<td class='text_center' width='4%'>"+value.expenseStatus+"</td>"+ */
 			"<td class='text_center' width='4%'>"+value.result+"</td>"+
-			 "<td class='text_center' width='4%'>"+value.startTime+"</td>"+
-	         "<td class='text_center' width='4%'>"+value.endTime+"</td>"+
+			/*  "<td class='text_center' width='4%'>"+value.startTime+"</td>"+
+	         "<td class='text_center' width='4%'>"+value.endTime+"</td>"+ */
 			 "<td class='text_center' width='4%'>"+value.applyStaffId+"</td>"+
 			 "<td class='text_center' width='4%'>"+value.applyName+"</td>"+
 			 "<td class='text_center' width='4%'>"+value.applyDepartment+"</td>"+
-		     "<td class='text_center' width='4%'>"+value.histotyAccess+"</td>"+
+		    /*  "<td class='text_center' width='4%'>"+value.histotyAccess+"</td>"+
 		     "<td class='text_center' width='4%'>"+value.historyRecord.substring(0,30)+"...</td>"+
 			 "<td class='text_center' width='4%'>"+value.nowAccess+"</td>"+
 			 "<td class='text_center' width='4%'>"+value.usedTime+"</td>"+
 			 "<td class='text_center' width='4%'>"+value.department+"</td>"+
-			 "<td class='text_center' width='4%'>"+value.project+"</td>"+
+			 "<td class='text_center' width='4%'>"+value.project+"</td>"+ */
 		     "<td class='text_center' width='4%'>"+value.officeSite+"</td>"+
 			 "<td class='text_center' width='4%'>"+value.costClass+"</td>"+		 
 			 "<td class='text_center' width='4%'>"+value.receiverName+"</td>"+
@@ -377,13 +386,18 @@ function search_List(){
    
   function expensework_export(){
 		var result=$("#result").val();
-		var endTime =$("#endTime").val();
+		var endTime1 =$("#endTime1").val();
+		var endTime2 =$("#endTime2").val();
 		var costClass=$("#costClass").val();
-		if(endTime==null||endTime==""){
+		if(endTime1==null||endTime1==""){
 			alert("输入审批完成时间！");
 			return;		
 		} 
-		window.location.href="<%=path%>/expenseWork/expenseWork_export.do?result="+result+"&endTime="+endTime+"&costClass="+costClass;
+		if(endTime2==null||endTime2==""){
+			alert("输入审批完成时间！");
+			return;		
+		} 
+		window.location.href="<%=path%>/expenseWork/expenseWork_export.do?result="+result+"&endTime1="+endTime1+"&costClass="+costClass+"&endTime2="+endTime2;
 	 	
   } 
 /**
