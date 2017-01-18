@@ -39,8 +39,6 @@ public class ExpenseWorkSerivceImpl implements ExpenseWorkSerivce{
 		Map<String, Object> mapInsert = new HashMap<String, Object>();
 		List<ExpenseWork> listFail = new ArrayList<ExpenseWork>();
         
-		
-
 		//插入的数据
 		List<ExpenseWork> insertList = new ArrayList<ExpenseWork>(); 
 
@@ -111,7 +109,7 @@ public class ExpenseWorkSerivceImpl implements ExpenseWorkSerivce{
 			if (emptyCellAmount == cellLastNo+1) continue;
 
 			/*
-	            第3步，对于不为空的行，将数据注入引用过来的实体对象
+	                           第3步，对于不为空的行，将数据注入引用过来的实体对象
 			 */
 			int cellNo = -1;
 			ExpenseWork expenseWork = new ExpenseWork();
@@ -160,20 +158,31 @@ public class ExpenseWorkSerivceImpl implements ExpenseWorkSerivce{
 			 */
 
 			ExpenseWorkExample expenseWorkExample = new ExpenseWorkExample();
-			ExpenseWorkExample.Criteria criteria = expenseWorkExample.createCriteria();
-
+			ExpenseWorkExample.Criteria criteria = expenseWorkExample.createCriteria();            
 			criteria.andApproveNumberEqualTo(expenseWork.getApproveNumber());
-			criteria.andInvoiceEqualTo(expenseWork.getInvoice());
-			criteria.andIsExportNotEqualTo("已导出");
+			criteria.andInvoiceEqualTo(expenseWork.getInvoice());			
 			List<ExpenseWork> ExpenseWorkList = expenseWorkMapper.selectByExample(expenseWorkExample);
-
+             
+			//如果数据库中有这条记录的话
 			if (ExpenseWorkList.size() > 0) {
-				expenseWork.setId(ExpenseWorkList.get(0).getId());
-				updateList.add(expenseWork);
-				continue;
+				
+				//这条记录为导出状态
+				if("已导出".equals(ExpenseWorkList.get(0).getIsExport())){
+					//跳过
+					continue;
+				}else{
+				//不是导出状态的话，添加到更新列表中去	
+					expenseWork.setId(ExpenseWorkList.get(0).getId());
+					updateList.add(expenseWork);
+					continue;
+				}
+				
 			}
-		
-			// 第6步，如果是一条新信息，就插入新数据
+			
+			/*
+                                          第6步，如果是一条新信息，就插入新数据      
+             */
+
 			else {
 				try {
 					insertList.add(expenseWork);
@@ -192,6 +201,7 @@ public class ExpenseWorkSerivceImpl implements ExpenseWorkSerivce{
 		System.out.println("更新的条数为："+updateList.size());
 		insert(insertList);
 		update(updateList);
+		
 		// for循环之后，把成功数目和失败列表返回到map
 		
 		mapInsert.put("listFail", listFail.size()+"");
