@@ -434,7 +434,7 @@
                 window.history.go(-1);
 
             }else{
-                $.alert("申请失败！");
+                $.alert(data);
             }
         });
     }

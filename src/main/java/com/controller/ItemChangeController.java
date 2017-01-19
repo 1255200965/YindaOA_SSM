@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.service.IDepartmentService;
 import com.service.IItemChangeService;
 import com.service.IOrderChangeService;
 import com.service.IStaffInfoService;
@@ -24,6 +25,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.dao.YoItemChangeMapper;
 import com.dao.YoOrderChangeMapper;
+import com.model.Department;
+import com.model.DepartmentExample;
 import com.model.StaffInfo;
 import com.model.YoItemChange;
 import com.model.YoItemChangeExample;
@@ -45,7 +48,7 @@ public class ItemChangeController {
 	private  IStaffInfoService iStaffInfoService;
 	@Autowired
     private YoOrderChangeMapper yoOrderChangeMapper;
-	 
+	
 	
 	@Autowired
 	private  IOrderChangeService iOrderChangeService;
@@ -109,21 +112,24 @@ public class ItemChangeController {
 			String yindaIdentify,
 			String contractType,
 			String remark,
-			String lte,
-			
+			String lte,			
 			HttpServletRequest request){
 
 		String user_staffId =(String) request.getSession().getAttribute(GlobalConstant.user_staffId);
 		String staff_user_id =(String) request.getSession().getAttribute(GlobalConstant.user_staff_user_id);
 		String user_name =(String) request.getSession().getAttribute(GlobalConstant.user_name);
+		if(user_staffId==null||"".equals(staff_user_id)){
+			return "Yinda OA without your information ,Please contact administrators!";
+		}
 		String assess ="";
 		List <String> approverList = sendOrderMessageUtil.getApprovers(department,project);
+	
 		if(approverList==null||approverList.size()==0){
-			return "error";
+			return "You don't have a target for approval,Please contact administrators!";
 		}
-		System.out.println("审批人列表"+approverList.toString());
-		String toUser=null;
+		System.out.println("审批人列表"+approverList.toString());	
 		
+		String toUser=null;		
 		YoOrderChange orderChange  = new YoOrderChange();
 		orderChange.setBusinessProperty(businessProperty);
 		orderChange.setLte(lte);
@@ -140,7 +146,9 @@ public class ItemChangeController {
 		orderChange.setStaffUserId(staff_user_id);
 		orderChange.setStaffId(user_staffId);
 		orderChange.setUsername(user_name);
-		orderChange.setProject(project);
+        orderChange.setProject(project);
+		
+		
 		orderChange.setEffectTime(beginTime);
 		orderChange.setStaffId(user_staffId);
 		//对于挂职在一级部门的员工
@@ -157,7 +165,7 @@ public class ItemChangeController {
 		
 		if(i>0){
 			OrderMessage message = new OrderMessage();//正式服务器ip 121.40.29.241 //测试服务器ip yexianglei.ngrok.cc
-			message.setMessageUrl("http://121.40.29.241/YindaOA/orderChange/approve_order_page.do?id="+orderChange.getId()+"&staff_user_id="+orderChange.getNowAcess());
+			message.setMessageUrl("http://yexianglei.ngrok.cc/YindaOA/orderChange/approve_order_page.do?id="+orderChange.getId()+"&staff_user_id="+orderChange.getNowAcess());
 			message.setPicUrl("/cc");
 			System.out.println("第一次发送："+orderChange.getNowAcess());
 			message.setToUser(orderChange.getNowAcess());
