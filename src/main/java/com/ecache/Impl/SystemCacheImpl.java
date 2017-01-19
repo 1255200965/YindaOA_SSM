@@ -126,7 +126,7 @@ public class SystemCacheImpl  implements SystemCache{
     	} 
 
     	System.out.println("员工表缓存初始化");
-   	   List<StaffInfo> staffInfoList = staffInfoService.selectAllUser();
+   	   List<StaffInfo> staffInfoList = staffInfoService.selectStaffInWork();
    	   Map<String,String> staffMap = new HashMap<String,String>();
    	   for(StaffInfo staff : staffInfoList){
    		  staffMap.put(staff.getName(), staff.getStaffId());

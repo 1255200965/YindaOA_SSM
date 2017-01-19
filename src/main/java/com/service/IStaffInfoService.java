@@ -56,6 +56,10 @@ public interface IStaffInfoService {
      * @return
      */
     List<StaffInfo> getContract_typeInStallInfo(String user_staffId);
-    
+    /**
+     * 查询在职的员工
+     * @return
+     */
+    List<StaffInfo> selectStaffInWork();
     
 }

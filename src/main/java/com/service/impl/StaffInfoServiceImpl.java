@@ -178,4 +178,13 @@ public class StaffInfoServiceImpl implements IStaffInfoService {
 	public List<StaffInfo> selectAllUserName(){
 		return staffInfoMapper.selectAllUser();
 	}
+
+    @Override
+    public List<StaffInfo> selectStaffInWork(){
+        StaffInfoExample example = new StaffInfoExample();
+        StaffInfoExample.Criteria criteria = example.createCriteria();
+        criteria.andWorkStateEqualTo("在职");
+        criteria.andContractTypeNotEqualTo("S");
+        return staffInfoMapper.selectByExample(example);
+    }
 }
