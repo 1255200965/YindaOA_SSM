@@ -140,6 +140,8 @@
 								<li><a href="<%=basePath%>attendance_search.do" target="loadcontent">考勤导出</a></li>
 								<li><a href="<%=basePath%>advance/toAdvance_getList.do" target="loadcontent">预付款发文</a></li>
 								<li><a href="<%=basePath%>expenseWork/expenseWork_page.do" target="loadcontent">办事处报销发文</a></li>
+								<li><a href="<%=basePath%>loan/toLoan_operation.do" target="loadcontent">冲借款提交</a></li>
+								<li><a href="<%=basePath%>loan/toLoan_getList.do" target="loadcontent">冲借款发文</a></li>
 							</ul>
 						</div>
 					</li>

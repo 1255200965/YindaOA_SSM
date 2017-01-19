@@ -42,4 +42,14 @@ public interface IAdvanceService {
 	 * @return
 	 */
     public List<YoAdvance> selectByStaffId(String staffId);
+    /**
+     * 根据申请编号查询对应的预付款信息
+     * @param approveNo
+     * @return
+     */
+    public YoAdvance selectByapproveNo(String approveNo);
+    /**
+     * 选择性更新预付款记录
+     */
+    public void updateSelective(YoAdvance advance);
 }

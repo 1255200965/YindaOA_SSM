@@ -86,6 +86,12 @@ public class AdvanceController {
 		mav.setViewName("advance/advance_getList");
 		return mav;
 	}
+	/**
+	 * 预付款导出
+	 * @param request
+	 * @param response
+	 * @param advance
+	 */
 	@RequestMapping("/downLoad.do")
 	public void  downLoad(HttpServletRequest request,HttpServletResponse response,
 			YoAdvance advance){

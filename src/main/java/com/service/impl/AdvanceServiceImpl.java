@@ -86,16 +86,32 @@ public class AdvanceServiceImpl implements IAdvanceService{
         	if(row.getCell(j)!=null)		advance.setApproveCost(row.getCell(j++).getStringCellValue().toString());
         	if(row.getCell(j)!=null)		advance.setAdvanceStartTime(row.getCell(j++).getStringCellValue().toString());
         				//借款用途大类
+        	
         	if(row.getCell(j)!=null)		advance.setAdvanceAimMc(row.getCell(j++).getStringCellValue().toString());
         				//获取借款用途小类
         			j++;
-        			while(row.getCell(j).getStringCellValue().toString() != null && !"".equals(row.getCell(j).getStringCellValue().toString())){
-        			   if(row.getCell(j).getStringCellValue().toString() != null && !"".equals(row.getCell(j).getStringCellValue().toString())){
-        				   advance.setAdvanceAimSc(row.getCell(j).getStringCellValue().toString());  
-        				   break;
-        			   }
-        			   j++;
-        			}
+        			
+//        			while(j<20){
+//        				
+//        			   if(row.getCell(j).getStringCellValue().toString() != null && !"".equals(row.getCell(j).getStringCellValue().toString())){
+//        				   advance.setAdvanceAimSc(row.getCell(j).getStringCellValue().toString());
+//        				   
+//        				   break;
+//        			   }
+//        			   j++;
+//        			}
+        	if("车辆".equals(advance.getAdvanceAimMc())){
+        		advance.setAdvanceAimSc(row.getCell(17).getStringCellValue().toString());
+        	}
+        	if("采购".equals(advance.getAdvanceAimMc())){
+        		advance.setAdvanceAimSc(row.getCell(18).getStringCellValue().toString());
+        	}
+        	if("工资社保".equals(advance.getAdvanceAimMc())){
+        		advance.setAdvanceAimSc(row.getCell(16).getStringCellValue().toString());
+        	}
+        	if("押金".equals(advance.getAdvanceAimMc())){
+        		advance.setAdvanceAimSc(row.getCell(19).getStringCellValue().toString());
+        	}
         				//获取到借款用途小类之后直接去获取借款金额
         			j=20;
         			if(row.getCell(j)!=null)	advance.setAdvanceSum(row.getCell(j++).getStringCellValue().toString());
@@ -415,6 +431,22 @@ public class AdvanceServiceImpl implements IAdvanceService{
     	  YoAdvanceExample example = new YoAdvanceExample();
     	  YoAdvanceExample.Criteria criteria = example.createCriteria();
     	  criteria.andAskStaffIdEqualTo(staffId);
+    	  criteria.andApproveResultEqualTo("同意");
     	  return advanceMapper.selectByExample(example);
+      }
+      
+      @Override
+      public YoAdvance selectByapproveNo(String approveNo){
+    	  
+    	  YoAdvanceExample example = new YoAdvanceExample();
+    	  YoAdvanceExample.Criteria criteria = example.createCriteria();
+    	  criteria.andApproveNoEqualTo(approveNo);
+    	  return advanceMapper.selectByExample(example).get(0);  
+      }
+      
+      @Override
+      public void updateSelective(YoAdvance advance){
+    	  
+    	  advanceMapper.updateByPrimaryKeySelective(advance);
       }
 }

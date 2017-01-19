@@ -1,6 +1,6 @@
 package com.model;
 
-public class YoAdvance {
+public class YoLoan {
     private String approveNo;
 
     private String title;
@@ -27,29 +27,27 @@ public class YoAdvance {
 
     private String approveCost;
 
-    private String advanceStartTime;
+    private String loanStartTime;
 
-    private String advanceAimMc;
+    private String loanAimMc;
 
-    private String advanceAimSc;
+    private String loanAimSc;
 
-    private String advanceSum;
+    private String loanSum;
 
-    private String advancePayee;
+    private String loanPayee;
 
-    private String advanceBank;
+    private String loanBank;
 
-    private String advanceBranch;
+    private String loanBranch;
 
-    private String advanceBankAccount;
+    private String loanBankAccount;
 
-    private String advanceReason;
+    private String loanReason;
 
     private String other;
 
     private String exportStatus;
-
-    private String operationStatus;
 
     public String getApproveNo() {
         return approveNo;
@@ -155,76 +153,76 @@ public class YoAdvance {
         this.approveCost = approveCost;
     }
 
-    public String getAdvanceStartTime() {
-        return advanceStartTime;
+    public String getLoanStartTime() {
+        return loanStartTime;
     }
 
-    public void setAdvanceStartTime(String advanceStartTime) {
-        this.advanceStartTime = advanceStartTime;
+    public void setLoanStartTime(String loanStartTime) {
+        this.loanStartTime = loanStartTime;
     }
 
-    public String getAdvanceAimMc() {
-        return advanceAimMc;
+    public String getLoanAimMc() {
+        return loanAimMc;
     }
 
-    public void setAdvanceAimMc(String advanceAimMc) {
-        this.advanceAimMc = advanceAimMc;
+    public void setLoanAimMc(String loanAimMc) {
+        this.loanAimMc = loanAimMc;
     }
 
-    public String getAdvanceAimSc() {
-        return advanceAimSc;
+    public String getLoanAimSc() {
+        return loanAimSc;
     }
 
-    public void setAdvanceAimSc(String advanceAimSc) {
-        this.advanceAimSc = advanceAimSc;
+    public void setLoanAimSc(String loanAimSc) {
+        this.loanAimSc = loanAimSc;
     }
 
-    public String getAdvanceSum() {
-        return advanceSum;
+    public String getLoanSum() {
+        return loanSum;
     }
 
-    public void setAdvanceSum(String advanceSum) {
-        this.advanceSum = advanceSum;
+    public void setLoanSum(String loanSum) {
+        this.loanSum = loanSum;
     }
 
-    public String getAdvancePayee() {
-        return advancePayee;
+    public String getLoanPayee() {
+        return loanPayee;
     }
 
-    public void setAdvancePayee(String advancePayee) {
-        this.advancePayee = advancePayee;
+    public void setLoanPayee(String loanPayee) {
+        this.loanPayee = loanPayee;
     }
 
-    public String getAdvanceBank() {
-        return advanceBank;
+    public String getLoanBank() {
+        return loanBank;
     }
 
-    public void setAdvanceBank(String advanceBank) {
-        this.advanceBank = advanceBank;
+    public void setLoanBank(String loanBank) {
+        this.loanBank = loanBank;
     }
 
-    public String getAdvanceBranch() {
-        return advanceBranch;
+    public String getLoanBranch() {
+        return loanBranch;
     }
 
-    public void setAdvanceBranch(String advanceBranch) {
-        this.advanceBranch = advanceBranch;
+    public void setLoanBranch(String loanBranch) {
+        this.loanBranch = loanBranch;
     }
 
-    public String getAdvanceBankAccount() {
-        return advanceBankAccount;
+    public String getLoanBankAccount() {
+        return loanBankAccount;
     }
 
-    public void setAdvanceBankAccount(String advanceBankAccount) {
-        this.advanceBankAccount = advanceBankAccount;
+    public void setLoanBankAccount(String loanBankAccount) {
+        this.loanBankAccount = loanBankAccount;
     }
 
-    public String getAdvanceReason() {
-        return advanceReason;
+    public String getLoanReason() {
+        return loanReason;
     }
 
-    public void setAdvanceReason(String advanceReason) {
-        this.advanceReason = advanceReason;
+    public void setLoanReason(String loanReason) {
+        this.loanReason = loanReason;
     }
 
     public String getOther() {
@@ -241,13 +239,5 @@ public class YoAdvance {
 
     public void setExportStatus(String exportStatus) {
         this.exportStatus = exportStatus;
-    }
-
-    public String getOperationStatus() {
-        return operationStatus;
-    }
-
-    public void setOperationStatus(String operationStatus) {
-        this.operationStatus = operationStatus;
     }
 }

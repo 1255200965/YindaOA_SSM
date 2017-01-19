@@ -3,14 +3,14 @@ package com.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class YoAdvanceExample {
+public class YoLoanExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public YoAdvanceExample() {
+    public YoLoanExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -1014,633 +1014,633 @@ public class YoAdvanceExample {
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceStartTimeIsNull() {
-            addCriterion("advance_start_time is null");
+        public Criteria andLoanStartTimeIsNull() {
+            addCriterion("loan_start_time is null");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceStartTimeIsNotNull() {
-            addCriterion("advance_start_time is not null");
+        public Criteria andLoanStartTimeIsNotNull() {
+            addCriterion("loan_start_time is not null");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceStartTimeEqualTo(String value) {
-            addCriterion("advance_start_time =", value, "advanceStartTime");
+        public Criteria andLoanStartTimeEqualTo(String value) {
+            addCriterion("loan_start_time =", value, "loanStartTime");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceStartTimeNotEqualTo(String value) {
-            addCriterion("advance_start_time <>", value, "advanceStartTime");
+        public Criteria andLoanStartTimeNotEqualTo(String value) {
+            addCriterion("loan_start_time <>", value, "loanStartTime");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceStartTimeGreaterThan(String value) {
-            addCriterion("advance_start_time >", value, "advanceStartTime");
+        public Criteria andLoanStartTimeGreaterThan(String value) {
+            addCriterion("loan_start_time >", value, "loanStartTime");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceStartTimeGreaterThanOrEqualTo(String value) {
-            addCriterion("advance_start_time >=", value, "advanceStartTime");
+        public Criteria andLoanStartTimeGreaterThanOrEqualTo(String value) {
+            addCriterion("loan_start_time >=", value, "loanStartTime");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceStartTimeLessThan(String value) {
-            addCriterion("advance_start_time <", value, "advanceStartTime");
+        public Criteria andLoanStartTimeLessThan(String value) {
+            addCriterion("loan_start_time <", value, "loanStartTime");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceStartTimeLessThanOrEqualTo(String value) {
-            addCriterion("advance_start_time <=", value, "advanceStartTime");
+        public Criteria andLoanStartTimeLessThanOrEqualTo(String value) {
+            addCriterion("loan_start_time <=", value, "loanStartTime");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceStartTimeLike(String value) {
-            addCriterion("advance_start_time like", value, "advanceStartTime");
+        public Criteria andLoanStartTimeLike(String value) {
+            addCriterion("loan_start_time like", value, "loanStartTime");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceStartTimeNotLike(String value) {
-            addCriterion("advance_start_time not like", value, "advanceStartTime");
+        public Criteria andLoanStartTimeNotLike(String value) {
+            addCriterion("loan_start_time not like", value, "loanStartTime");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceStartTimeIn(List<String> values) {
-            addCriterion("advance_start_time in", values, "advanceStartTime");
+        public Criteria andLoanStartTimeIn(List<String> values) {
+            addCriterion("loan_start_time in", values, "loanStartTime");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceStartTimeNotIn(List<String> values) {
-            addCriterion("advance_start_time not in", values, "advanceStartTime");
+        public Criteria andLoanStartTimeNotIn(List<String> values) {
+            addCriterion("loan_start_time not in", values, "loanStartTime");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceStartTimeBetween(String value1, String value2) {
-            addCriterion("advance_start_time between", value1, value2, "advanceStartTime");
+        public Criteria andLoanStartTimeBetween(String value1, String value2) {
+            addCriterion("loan_start_time between", value1, value2, "loanStartTime");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceStartTimeNotBetween(String value1, String value2) {
-            addCriterion("advance_start_time not between", value1, value2, "advanceStartTime");
+        public Criteria andLoanStartTimeNotBetween(String value1, String value2) {
+            addCriterion("loan_start_time not between", value1, value2, "loanStartTime");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceAimMcIsNull() {
-            addCriterion("advance_aim_MC is null");
+        public Criteria andLoanAimMcIsNull() {
+            addCriterion("loan_aim_mc is null");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceAimMcIsNotNull() {
-            addCriterion("advance_aim_MC is not null");
+        public Criteria andLoanAimMcIsNotNull() {
+            addCriterion("loan_aim_mc is not null");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceAimMcEqualTo(String value) {
-            addCriterion("advance_aim_MC =", value, "advanceAimMc");
+        public Criteria andLoanAimMcEqualTo(String value) {
+            addCriterion("loan_aim_mc =", value, "loanAimMc");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceAimMcNotEqualTo(String value) {
-            addCriterion("advance_aim_MC <>", value, "advanceAimMc");
+        public Criteria andLoanAimMcNotEqualTo(String value) {
+            addCriterion("loan_aim_mc <>", value, "loanAimMc");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceAimMcGreaterThan(String value) {
-            addCriterion("advance_aim_MC >", value, "advanceAimMc");
+        public Criteria andLoanAimMcGreaterThan(String value) {
+            addCriterion("loan_aim_mc >", value, "loanAimMc");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceAimMcGreaterThanOrEqualTo(String value) {
-            addCriterion("advance_aim_MC >=", value, "advanceAimMc");
+        public Criteria andLoanAimMcGreaterThanOrEqualTo(String value) {
+            addCriterion("loan_aim_mc >=", value, "loanAimMc");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceAimMcLessThan(String value) {
-            addCriterion("advance_aim_MC <", value, "advanceAimMc");
+        public Criteria andLoanAimMcLessThan(String value) {
+            addCriterion("loan_aim_mc <", value, "loanAimMc");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceAimMcLessThanOrEqualTo(String value) {
-            addCriterion("advance_aim_MC <=", value, "advanceAimMc");
+        public Criteria andLoanAimMcLessThanOrEqualTo(String value) {
+            addCriterion("loan_aim_mc <=", value, "loanAimMc");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceAimMcLike(String value) {
-            addCriterion("advance_aim_MC like", value, "advanceAimMc");
+        public Criteria andLoanAimMcLike(String value) {
+            addCriterion("loan_aim_mc like", value, "loanAimMc");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceAimMcNotLike(String value) {
-            addCriterion("advance_aim_MC not like", value, "advanceAimMc");
+        public Criteria andLoanAimMcNotLike(String value) {
+            addCriterion("loan_aim_mc not like", value, "loanAimMc");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceAimMcIn(List<String> values) {
-            addCriterion("advance_aim_MC in", values, "advanceAimMc");
+        public Criteria andLoanAimMcIn(List<String> values) {
+            addCriterion("loan_aim_mc in", values, "loanAimMc");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceAimMcNotIn(List<String> values) {
-            addCriterion("advance_aim_MC not in", values, "advanceAimMc");
+        public Criteria andLoanAimMcNotIn(List<String> values) {
+            addCriterion("loan_aim_mc not in", values, "loanAimMc");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceAimMcBetween(String value1, String value2) {
-            addCriterion("advance_aim_MC between", value1, value2, "advanceAimMc");
+        public Criteria andLoanAimMcBetween(String value1, String value2) {
+            addCriterion("loan_aim_mc between", value1, value2, "loanAimMc");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceAimMcNotBetween(String value1, String value2) {
-            addCriterion("advance_aim_MC not between", value1, value2, "advanceAimMc");
+        public Criteria andLoanAimMcNotBetween(String value1, String value2) {
+            addCriterion("loan_aim_mc not between", value1, value2, "loanAimMc");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceAimScIsNull() {
-            addCriterion("advance_aim_SC is null");
+        public Criteria andLoanAimScIsNull() {
+            addCriterion("loan_aim_sc is null");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceAimScIsNotNull() {
-            addCriterion("advance_aim_SC is not null");
+        public Criteria andLoanAimScIsNotNull() {
+            addCriterion("loan_aim_sc is not null");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceAimScEqualTo(String value) {
-            addCriterion("advance_aim_SC =", value, "advanceAimSc");
+        public Criteria andLoanAimScEqualTo(String value) {
+            addCriterion("loan_aim_sc =", value, "loanAimSc");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceAimScNotEqualTo(String value) {
-            addCriterion("advance_aim_SC <>", value, "advanceAimSc");
+        public Criteria andLoanAimScNotEqualTo(String value) {
+            addCriterion("loan_aim_sc <>", value, "loanAimSc");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceAimScGreaterThan(String value) {
-            addCriterion("advance_aim_SC >", value, "advanceAimSc");
+        public Criteria andLoanAimScGreaterThan(String value) {
+            addCriterion("loan_aim_sc >", value, "loanAimSc");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceAimScGreaterThanOrEqualTo(String value) {
-            addCriterion("advance_aim_SC >=", value, "advanceAimSc");
+        public Criteria andLoanAimScGreaterThanOrEqualTo(String value) {
+            addCriterion("loan_aim_sc >=", value, "loanAimSc");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceAimScLessThan(String value) {
-            addCriterion("advance_aim_SC <", value, "advanceAimSc");
+        public Criteria andLoanAimScLessThan(String value) {
+            addCriterion("loan_aim_sc <", value, "loanAimSc");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceAimScLessThanOrEqualTo(String value) {
-            addCriterion("advance_aim_SC <=", value, "advanceAimSc");
+        public Criteria andLoanAimScLessThanOrEqualTo(String value) {
+            addCriterion("loan_aim_sc <=", value, "loanAimSc");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceAimScLike(String value) {
-            addCriterion("advance_aim_SC like", value, "advanceAimSc");
+        public Criteria andLoanAimScLike(String value) {
+            addCriterion("loan_aim_sc like", value, "loanAimSc");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceAimScNotLike(String value) {
-            addCriterion("advance_aim_SC not like", value, "advanceAimSc");
+        public Criteria andLoanAimScNotLike(String value) {
+            addCriterion("loan_aim_sc not like", value, "loanAimSc");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceAimScIn(List<String> values) {
-            addCriterion("advance_aim_SC in", values, "advanceAimSc");
+        public Criteria andLoanAimScIn(List<String> values) {
+            addCriterion("loan_aim_sc in", values, "loanAimSc");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceAimScNotIn(List<String> values) {
-            addCriterion("advance_aim_SC not in", values, "advanceAimSc");
+        public Criteria andLoanAimScNotIn(List<String> values) {
+            addCriterion("loan_aim_sc not in", values, "loanAimSc");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceAimScBetween(String value1, String value2) {
-            addCriterion("advance_aim_SC between", value1, value2, "advanceAimSc");
+        public Criteria andLoanAimScBetween(String value1, String value2) {
+            addCriterion("loan_aim_sc between", value1, value2, "loanAimSc");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceAimScNotBetween(String value1, String value2) {
-            addCriterion("advance_aim_SC not between", value1, value2, "advanceAimSc");
+        public Criteria andLoanAimScNotBetween(String value1, String value2) {
+            addCriterion("loan_aim_sc not between", value1, value2, "loanAimSc");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceSumIsNull() {
-            addCriterion("advance_sum is null");
+        public Criteria andLoanSumIsNull() {
+            addCriterion("loan_sum is null");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceSumIsNotNull() {
-            addCriterion("advance_sum is not null");
+        public Criteria andLoanSumIsNotNull() {
+            addCriterion("loan_sum is not null");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceSumEqualTo(String value) {
-            addCriterion("advance_sum =", value, "advanceSum");
+        public Criteria andLoanSumEqualTo(String value) {
+            addCriterion("loan_sum =", value, "loanSum");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceSumNotEqualTo(String value) {
-            addCriterion("advance_sum <>", value, "advanceSum");
+        public Criteria andLoanSumNotEqualTo(String value) {
+            addCriterion("loan_sum <>", value, "loanSum");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceSumGreaterThan(String value) {
-            addCriterion("advance_sum >", value, "advanceSum");
+        public Criteria andLoanSumGreaterThan(String value) {
+            addCriterion("loan_sum >", value, "loanSum");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceSumGreaterThanOrEqualTo(String value) {
-            addCriterion("advance_sum >=", value, "advanceSum");
+        public Criteria andLoanSumGreaterThanOrEqualTo(String value) {
+            addCriterion("loan_sum >=", value, "loanSum");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceSumLessThan(String value) {
-            addCriterion("advance_sum <", value, "advanceSum");
+        public Criteria andLoanSumLessThan(String value) {
+            addCriterion("loan_sum <", value, "loanSum");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceSumLessThanOrEqualTo(String value) {
-            addCriterion("advance_sum <=", value, "advanceSum");
+        public Criteria andLoanSumLessThanOrEqualTo(String value) {
+            addCriterion("loan_sum <=", value, "loanSum");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceSumLike(String value) {
-            addCriterion("advance_sum like", value, "advanceSum");
+        public Criteria andLoanSumLike(String value) {
+            addCriterion("loan_sum like", value, "loanSum");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceSumNotLike(String value) {
-            addCriterion("advance_sum not like", value, "advanceSum");
+        public Criteria andLoanSumNotLike(String value) {
+            addCriterion("loan_sum not like", value, "loanSum");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceSumIn(List<String> values) {
-            addCriterion("advance_sum in", values, "advanceSum");
+        public Criteria andLoanSumIn(List<String> values) {
+            addCriterion("loan_sum in", values, "loanSum");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceSumNotIn(List<String> values) {
-            addCriterion("advance_sum not in", values, "advanceSum");
+        public Criteria andLoanSumNotIn(List<String> values) {
+            addCriterion("loan_sum not in", values, "loanSum");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceSumBetween(String value1, String value2) {
-            addCriterion("advance_sum between", value1, value2, "advanceSum");
+        public Criteria andLoanSumBetween(String value1, String value2) {
+            addCriterion("loan_sum between", value1, value2, "loanSum");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceSumNotBetween(String value1, String value2) {
-            addCriterion("advance_sum not between", value1, value2, "advanceSum");
+        public Criteria andLoanSumNotBetween(String value1, String value2) {
+            addCriterion("loan_sum not between", value1, value2, "loanSum");
             return (Criteria) this;
         }
 
-        public Criteria andAdvancePayeeIsNull() {
-            addCriterion("advance_payee is null");
+        public Criteria andLoanPayeeIsNull() {
+            addCriterion("loan_payee is null");
             return (Criteria) this;
         }
 
-        public Criteria andAdvancePayeeIsNotNull() {
-            addCriterion("advance_payee is not null");
+        public Criteria andLoanPayeeIsNotNull() {
+            addCriterion("loan_payee is not null");
             return (Criteria) this;
         }
 
-        public Criteria andAdvancePayeeEqualTo(String value) {
-            addCriterion("advance_payee =", value, "advancePayee");
+        public Criteria andLoanPayeeEqualTo(String value) {
+            addCriterion("loan_payee =", value, "loanPayee");
             return (Criteria) this;
         }
 
-        public Criteria andAdvancePayeeNotEqualTo(String value) {
-            addCriterion("advance_payee <>", value, "advancePayee");
+        public Criteria andLoanPayeeNotEqualTo(String value) {
+            addCriterion("loan_payee <>", value, "loanPayee");
             return (Criteria) this;
         }
 
-        public Criteria andAdvancePayeeGreaterThan(String value) {
-            addCriterion("advance_payee >", value, "advancePayee");
+        public Criteria andLoanPayeeGreaterThan(String value) {
+            addCriterion("loan_payee >", value, "loanPayee");
             return (Criteria) this;
         }
 
-        public Criteria andAdvancePayeeGreaterThanOrEqualTo(String value) {
-            addCriterion("advance_payee >=", value, "advancePayee");
+        public Criteria andLoanPayeeGreaterThanOrEqualTo(String value) {
+            addCriterion("loan_payee >=", value, "loanPayee");
             return (Criteria) this;
         }
 
-        public Criteria andAdvancePayeeLessThan(String value) {
-            addCriterion("advance_payee <", value, "advancePayee");
+        public Criteria andLoanPayeeLessThan(String value) {
+            addCriterion("loan_payee <", value, "loanPayee");
             return (Criteria) this;
         }
 
-        public Criteria andAdvancePayeeLessThanOrEqualTo(String value) {
-            addCriterion("advance_payee <=", value, "advancePayee");
+        public Criteria andLoanPayeeLessThanOrEqualTo(String value) {
+            addCriterion("loan_payee <=", value, "loanPayee");
             return (Criteria) this;
         }
 
-        public Criteria andAdvancePayeeLike(String value) {
-            addCriterion("advance_payee like", value, "advancePayee");
+        public Criteria andLoanPayeeLike(String value) {
+            addCriterion("loan_payee like", value, "loanPayee");
             return (Criteria) this;
         }
 
-        public Criteria andAdvancePayeeNotLike(String value) {
-            addCriterion("advance_payee not like", value, "advancePayee");
+        public Criteria andLoanPayeeNotLike(String value) {
+            addCriterion("loan_payee not like", value, "loanPayee");
             return (Criteria) this;
         }
 
-        public Criteria andAdvancePayeeIn(List<String> values) {
-            addCriterion("advance_payee in", values, "advancePayee");
+        public Criteria andLoanPayeeIn(List<String> values) {
+            addCriterion("loan_payee in", values, "loanPayee");
             return (Criteria) this;
         }
 
-        public Criteria andAdvancePayeeNotIn(List<String> values) {
-            addCriterion("advance_payee not in", values, "advancePayee");
+        public Criteria andLoanPayeeNotIn(List<String> values) {
+            addCriterion("loan_payee not in", values, "loanPayee");
             return (Criteria) this;
         }
 
-        public Criteria andAdvancePayeeBetween(String value1, String value2) {
-            addCriterion("advance_payee between", value1, value2, "advancePayee");
+        public Criteria andLoanPayeeBetween(String value1, String value2) {
+            addCriterion("loan_payee between", value1, value2, "loanPayee");
             return (Criteria) this;
         }
 
-        public Criteria andAdvancePayeeNotBetween(String value1, String value2) {
-            addCriterion("advance_payee not between", value1, value2, "advancePayee");
+        public Criteria andLoanPayeeNotBetween(String value1, String value2) {
+            addCriterion("loan_payee not between", value1, value2, "loanPayee");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceBankIsNull() {
-            addCriterion("advance_bank is null");
+        public Criteria andLoanBankIsNull() {
+            addCriterion("loan_bank is null");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceBankIsNotNull() {
-            addCriterion("advance_bank is not null");
+        public Criteria andLoanBankIsNotNull() {
+            addCriterion("loan_bank is not null");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceBankEqualTo(String value) {
-            addCriterion("advance_bank =", value, "advanceBank");
+        public Criteria andLoanBankEqualTo(String value) {
+            addCriterion("loan_bank =", value, "loanBank");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceBankNotEqualTo(String value) {
-            addCriterion("advance_bank <>", value, "advanceBank");
+        public Criteria andLoanBankNotEqualTo(String value) {
+            addCriterion("loan_bank <>", value, "loanBank");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceBankGreaterThan(String value) {
-            addCriterion("advance_bank >", value, "advanceBank");
+        public Criteria andLoanBankGreaterThan(String value) {
+            addCriterion("loan_bank >", value, "loanBank");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceBankGreaterThanOrEqualTo(String value) {
-            addCriterion("advance_bank >=", value, "advanceBank");
+        public Criteria andLoanBankGreaterThanOrEqualTo(String value) {
+            addCriterion("loan_bank >=", value, "loanBank");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceBankLessThan(String value) {
-            addCriterion("advance_bank <", value, "advanceBank");
+        public Criteria andLoanBankLessThan(String value) {
+            addCriterion("loan_bank <", value, "loanBank");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceBankLessThanOrEqualTo(String value) {
-            addCriterion("advance_bank <=", value, "advanceBank");
+        public Criteria andLoanBankLessThanOrEqualTo(String value) {
+            addCriterion("loan_bank <=", value, "loanBank");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceBankLike(String value) {
-            addCriterion("advance_bank like", value, "advanceBank");
+        public Criteria andLoanBankLike(String value) {
+            addCriterion("loan_bank like", value, "loanBank");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceBankNotLike(String value) {
-            addCriterion("advance_bank not like", value, "advanceBank");
+        public Criteria andLoanBankNotLike(String value) {
+            addCriterion("loan_bank not like", value, "loanBank");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceBankIn(List<String> values) {
-            addCriterion("advance_bank in", values, "advanceBank");
+        public Criteria andLoanBankIn(List<String> values) {
+            addCriterion("loan_bank in", values, "loanBank");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceBankNotIn(List<String> values) {
-            addCriterion("advance_bank not in", values, "advanceBank");
+        public Criteria andLoanBankNotIn(List<String> values) {
+            addCriterion("loan_bank not in", values, "loanBank");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceBankBetween(String value1, String value2) {
-            addCriterion("advance_bank between", value1, value2, "advanceBank");
+        public Criteria andLoanBankBetween(String value1, String value2) {
+            addCriterion("loan_bank between", value1, value2, "loanBank");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceBankNotBetween(String value1, String value2) {
-            addCriterion("advance_bank not between", value1, value2, "advanceBank");
+        public Criteria andLoanBankNotBetween(String value1, String value2) {
+            addCriterion("loan_bank not between", value1, value2, "loanBank");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceBranchIsNull() {
-            addCriterion("advance_branch is null");
+        public Criteria andLoanBranchIsNull() {
+            addCriterion("loan_branch is null");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceBranchIsNotNull() {
-            addCriterion("advance_branch is not null");
+        public Criteria andLoanBranchIsNotNull() {
+            addCriterion("loan_branch is not null");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceBranchEqualTo(String value) {
-            addCriterion("advance_branch =", value, "advanceBranch");
+        public Criteria andLoanBranchEqualTo(String value) {
+            addCriterion("loan_branch =", value, "loanBranch");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceBranchNotEqualTo(String value) {
-            addCriterion("advance_branch <>", value, "advanceBranch");
+        public Criteria andLoanBranchNotEqualTo(String value) {
+            addCriterion("loan_branch <>", value, "loanBranch");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceBranchGreaterThan(String value) {
-            addCriterion("advance_branch >", value, "advanceBranch");
+        public Criteria andLoanBranchGreaterThan(String value) {
+            addCriterion("loan_branch >", value, "loanBranch");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceBranchGreaterThanOrEqualTo(String value) {
-            addCriterion("advance_branch >=", value, "advanceBranch");
+        public Criteria andLoanBranchGreaterThanOrEqualTo(String value) {
+            addCriterion("loan_branch >=", value, "loanBranch");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceBranchLessThan(String value) {
-            addCriterion("advance_branch <", value, "advanceBranch");
+        public Criteria andLoanBranchLessThan(String value) {
+            addCriterion("loan_branch <", value, "loanBranch");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceBranchLessThanOrEqualTo(String value) {
-            addCriterion("advance_branch <=", value, "advanceBranch");
+        public Criteria andLoanBranchLessThanOrEqualTo(String value) {
+            addCriterion("loan_branch <=", value, "loanBranch");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceBranchLike(String value) {
-            addCriterion("advance_branch like", value, "advanceBranch");
+        public Criteria andLoanBranchLike(String value) {
+            addCriterion("loan_branch like", value, "loanBranch");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceBranchNotLike(String value) {
-            addCriterion("advance_branch not like", value, "advanceBranch");
+        public Criteria andLoanBranchNotLike(String value) {
+            addCriterion("loan_branch not like", value, "loanBranch");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceBranchIn(List<String> values) {
-            addCriterion("advance_branch in", values, "advanceBranch");
+        public Criteria andLoanBranchIn(List<String> values) {
+            addCriterion("loan_branch in", values, "loanBranch");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceBranchNotIn(List<String> values) {
-            addCriterion("advance_branch not in", values, "advanceBranch");
+        public Criteria andLoanBranchNotIn(List<String> values) {
+            addCriterion("loan_branch not in", values, "loanBranch");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceBranchBetween(String value1, String value2) {
-            addCriterion("advance_branch between", value1, value2, "advanceBranch");
+        public Criteria andLoanBranchBetween(String value1, String value2) {
+            addCriterion("loan_branch between", value1, value2, "loanBranch");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceBranchNotBetween(String value1, String value2) {
-            addCriterion("advance_branch not between", value1, value2, "advanceBranch");
+        public Criteria andLoanBranchNotBetween(String value1, String value2) {
+            addCriterion("loan_branch not between", value1, value2, "loanBranch");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceBankAccountIsNull() {
-            addCriterion("advance_bank_account is null");
+        public Criteria andLoanBankAccountIsNull() {
+            addCriterion("loan_bank_account is null");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceBankAccountIsNotNull() {
-            addCriterion("advance_bank_account is not null");
+        public Criteria andLoanBankAccountIsNotNull() {
+            addCriterion("loan_bank_account is not null");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceBankAccountEqualTo(String value) {
-            addCriterion("advance_bank_account =", value, "advanceBankAccount");
+        public Criteria andLoanBankAccountEqualTo(String value) {
+            addCriterion("loan_bank_account =", value, "loanBankAccount");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceBankAccountNotEqualTo(String value) {
-            addCriterion("advance_bank_account <>", value, "advanceBankAccount");
+        public Criteria andLoanBankAccountNotEqualTo(String value) {
+            addCriterion("loan_bank_account <>", value, "loanBankAccount");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceBankAccountGreaterThan(String value) {
-            addCriterion("advance_bank_account >", value, "advanceBankAccount");
+        public Criteria andLoanBankAccountGreaterThan(String value) {
+            addCriterion("loan_bank_account >", value, "loanBankAccount");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceBankAccountGreaterThanOrEqualTo(String value) {
-            addCriterion("advance_bank_account >=", value, "advanceBankAccount");
+        public Criteria andLoanBankAccountGreaterThanOrEqualTo(String value) {
+            addCriterion("loan_bank_account >=", value, "loanBankAccount");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceBankAccountLessThan(String value) {
-            addCriterion("advance_bank_account <", value, "advanceBankAccount");
+        public Criteria andLoanBankAccountLessThan(String value) {
+            addCriterion("loan_bank_account <", value, "loanBankAccount");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceBankAccountLessThanOrEqualTo(String value) {
-            addCriterion("advance_bank_account <=", value, "advanceBankAccount");
+        public Criteria andLoanBankAccountLessThanOrEqualTo(String value) {
+            addCriterion("loan_bank_account <=", value, "loanBankAccount");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceBankAccountLike(String value) {
-            addCriterion("advance_bank_account like", value, "advanceBankAccount");
+        public Criteria andLoanBankAccountLike(String value) {
+            addCriterion("loan_bank_account like", value, "loanBankAccount");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceBankAccountNotLike(String value) {
-            addCriterion("advance_bank_account not like", value, "advanceBankAccount");
+        public Criteria andLoanBankAccountNotLike(String value) {
+            addCriterion("loan_bank_account not like", value, "loanBankAccount");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceBankAccountIn(List<String> values) {
-            addCriterion("advance_bank_account in", values, "advanceBankAccount");
+        public Criteria andLoanBankAccountIn(List<String> values) {
+            addCriterion("loan_bank_account in", values, "loanBankAccount");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceBankAccountNotIn(List<String> values) {
-            addCriterion("advance_bank_account not in", values, "advanceBankAccount");
+        public Criteria andLoanBankAccountNotIn(List<String> values) {
+            addCriterion("loan_bank_account not in", values, "loanBankAccount");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceBankAccountBetween(String value1, String value2) {
-            addCriterion("advance_bank_account between", value1, value2, "advanceBankAccount");
+        public Criteria andLoanBankAccountBetween(String value1, String value2) {
+            addCriterion("loan_bank_account between", value1, value2, "loanBankAccount");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceBankAccountNotBetween(String value1, String value2) {
-            addCriterion("advance_bank_account not between", value1, value2, "advanceBankAccount");
+        public Criteria andLoanBankAccountNotBetween(String value1, String value2) {
+            addCriterion("loan_bank_account not between", value1, value2, "loanBankAccount");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceReasonIsNull() {
-            addCriterion("advance_reason is null");
+        public Criteria andLoanReasonIsNull() {
+            addCriterion("loan_reason is null");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceReasonIsNotNull() {
-            addCriterion("advance_reason is not null");
+        public Criteria andLoanReasonIsNotNull() {
+            addCriterion("loan_reason is not null");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceReasonEqualTo(String value) {
-            addCriterion("advance_reason =", value, "advanceReason");
+        public Criteria andLoanReasonEqualTo(String value) {
+            addCriterion("loan_reason =", value, "loanReason");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceReasonNotEqualTo(String value) {
-            addCriterion("advance_reason <>", value, "advanceReason");
+        public Criteria andLoanReasonNotEqualTo(String value) {
+            addCriterion("loan_reason <>", value, "loanReason");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceReasonGreaterThan(String value) {
-            addCriterion("advance_reason >", value, "advanceReason");
+        public Criteria andLoanReasonGreaterThan(String value) {
+            addCriterion("loan_reason >", value, "loanReason");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceReasonGreaterThanOrEqualTo(String value) {
-            addCriterion("advance_reason >=", value, "advanceReason");
+        public Criteria andLoanReasonGreaterThanOrEqualTo(String value) {
+            addCriterion("loan_reason >=", value, "loanReason");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceReasonLessThan(String value) {
-            addCriterion("advance_reason <", value, "advanceReason");
+        public Criteria andLoanReasonLessThan(String value) {
+            addCriterion("loan_reason <", value, "loanReason");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceReasonLessThanOrEqualTo(String value) {
-            addCriterion("advance_reason <=", value, "advanceReason");
+        public Criteria andLoanReasonLessThanOrEqualTo(String value) {
+            addCriterion("loan_reason <=", value, "loanReason");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceReasonLike(String value) {
-            addCriterion("advance_reason like", value, "advanceReason");
+        public Criteria andLoanReasonLike(String value) {
+            addCriterion("loan_reason like", value, "loanReason");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceReasonNotLike(String value) {
-            addCriterion("advance_reason not like", value, "advanceReason");
+        public Criteria andLoanReasonNotLike(String value) {
+            addCriterion("loan_reason not like", value, "loanReason");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceReasonIn(List<String> values) {
-            addCriterion("advance_reason in", values, "advanceReason");
+        public Criteria andLoanReasonIn(List<String> values) {
+            addCriterion("loan_reason in", values, "loanReason");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceReasonNotIn(List<String> values) {
-            addCriterion("advance_reason not in", values, "advanceReason");
+        public Criteria andLoanReasonNotIn(List<String> values) {
+            addCriterion("loan_reason not in", values, "loanReason");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceReasonBetween(String value1, String value2) {
-            addCriterion("advance_reason between", value1, value2, "advanceReason");
+        public Criteria andLoanReasonBetween(String value1, String value2) {
+            addCriterion("loan_reason between", value1, value2, "loanReason");
             return (Criteria) this;
         }
 
-        public Criteria andAdvanceReasonNotBetween(String value1, String value2) {
-            addCriterion("advance_reason not between", value1, value2, "advanceReason");
+        public Criteria andLoanReasonNotBetween(String value1, String value2) {
+            addCriterion("loan_reason not between", value1, value2, "loanReason");
             return (Criteria) this;
         }
 
@@ -1781,76 +1781,6 @@ public class YoAdvanceExample {
 
         public Criteria andExportStatusNotBetween(String value1, String value2) {
             addCriterion("export_status not between", value1, value2, "exportStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andOperationStatusIsNull() {
-            addCriterion("operation_status is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andOperationStatusIsNotNull() {
-            addCriterion("operation_status is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andOperationStatusEqualTo(String value) {
-            addCriterion("operation_status =", value, "operationStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andOperationStatusNotEqualTo(String value) {
-            addCriterion("operation_status <>", value, "operationStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andOperationStatusGreaterThan(String value) {
-            addCriterion("operation_status >", value, "operationStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andOperationStatusGreaterThanOrEqualTo(String value) {
-            addCriterion("operation_status >=", value, "operationStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andOperationStatusLessThan(String value) {
-            addCriterion("operation_status <", value, "operationStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andOperationStatusLessThanOrEqualTo(String value) {
-            addCriterion("operation_status <=", value, "operationStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andOperationStatusLike(String value) {
-            addCriterion("operation_status like", value, "operationStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andOperationStatusNotLike(String value) {
-            addCriterion("operation_status not like", value, "operationStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andOperationStatusIn(List<String> values) {
-            addCriterion("operation_status in", values, "operationStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andOperationStatusNotIn(List<String> values) {
-            addCriterion("operation_status not in", values, "operationStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andOperationStatusBetween(String value1, String value2) {
-            addCriterion("operation_status between", value1, value2, "operationStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andOperationStatusNotBetween(String value1, String value2) {
-            addCriterion("operation_status not between", value1, value2, "operationStatus");
             return (Criteria) this;
         }
     }

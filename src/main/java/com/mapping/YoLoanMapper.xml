@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.dao.YoAdvanceMapper" >
-  <resultMap id="BaseResultMap" type="com.model.YoAdvance" >
+<mapper namespace="com.dao.YoLoanMapper" >
+  <resultMap id="BaseResultMap" type="com.model.YoLoan" >
     <id column="approve_no" property="approveNo" jdbcType="VARCHAR" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="approve_status" property="approveStatus" jdbcType="VARCHAR" />
@@ -15,18 +15,17 @@
     <result column="approve_record" property="approveRecord" jdbcType="VARCHAR" />
     <result column="approver_now" property="approverNow" jdbcType="VARCHAR" />
     <result column="approve_cost" property="approveCost" jdbcType="VARCHAR" />
-    <result column="advance_start_time" property="advanceStartTime" jdbcType="VARCHAR" />
-    <result column="advance_aim_MC" property="advanceAimMc" jdbcType="VARCHAR" />
-    <result column="advance_aim_SC" property="advanceAimSc" jdbcType="VARCHAR" />
-    <result column="advance_sum" property="advanceSum" jdbcType="VARCHAR" />
-    <result column="advance_payee" property="advancePayee" jdbcType="VARCHAR" />
-    <result column="advance_bank" property="advanceBank" jdbcType="VARCHAR" />
-    <result column="advance_branch" property="advanceBranch" jdbcType="VARCHAR" />
-    <result column="advance_bank_account" property="advanceBankAccount" jdbcType="VARCHAR" />
-    <result column="advance_reason" property="advanceReason" jdbcType="VARCHAR" />
+    <result column="loan_start_time" property="loanStartTime" jdbcType="VARCHAR" />
+    <result column="loan_aim_mc" property="loanAimMc" jdbcType="VARCHAR" />
+    <result column="loan_aim_sc" property="loanAimSc" jdbcType="VARCHAR" />
+    <result column="loan_sum" property="loanSum" jdbcType="VARCHAR" />
+    <result column="loan_payee" property="loanPayee" jdbcType="VARCHAR" />
+    <result column="loan_bank" property="loanBank" jdbcType="VARCHAR" />
+    <result column="loan_branch" property="loanBranch" jdbcType="VARCHAR" />
+    <result column="loan_bank_account" property="loanBankAccount" jdbcType="VARCHAR" />
+    <result column="loan_reason" property="loanReason" jdbcType="VARCHAR" />
     <result column="other" property="other" jdbcType="VARCHAR" />
     <result column="export_status" property="exportStatus" jdbcType="VARCHAR" />
-    <result column="operation_status" property="operationStatus" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -60,17 +59,16 @@
   <sql id="Base_Column_List" >
     approve_no, title, approve_status, approve_result, ask_start_time, ask_end_time, 
     ask_staff_id, ask_staff_name, ask_staff_dep, approver_history, approve_record, approver_now, 
-    approve_cost, advance_start_time, advance_aim_MC, advance_aim_SC, advance_sum, advance_payee, 
-    advance_bank, advance_branch, advance_bank_account, advance_reason, other, export_status, 
-    operation_status
+    approve_cost, loan_start_time, loan_aim_mc, loan_aim_sc, loan_sum, loan_payee, loan_bank, 
+    loan_branch, loan_bank_account, loan_reason, other, export_status
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.model.YoAdvanceExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.model.YoLoanExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from yo_advance
+    from yo_loan
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -81,35 +79,35 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
-    from yo_advance
+    from yo_loan
     where approve_no = #{approveNo,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from yo_advance
+    delete from yo_loan
     where approve_no = #{approveNo,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.model.YoAdvance" >
-    insert into yo_advance (approve_no, title, approve_status, 
+  <insert id="insert" parameterType="com.model.YoLoan" >
+    insert into yo_loan (approve_no, title, approve_status, 
       approve_result, ask_start_time, ask_end_time, 
       ask_staff_id, ask_staff_name, ask_staff_dep, 
       approver_history, approve_record, approver_now, 
-      approve_cost, advance_start_time, advance_aim_MC, 
-      advance_aim_SC, advance_sum, advance_payee, 
-      advance_bank, advance_branch, advance_bank_account, 
-      advance_reason, other, export_status, 
-      operation_status)
+      approve_cost, loan_start_time, loan_aim_mc, 
+      loan_aim_sc, loan_sum, loan_payee, 
+      loan_bank, loan_branch, loan_bank_account, 
+      loan_reason, other, export_status
+      )
     values (#{approveNo,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{approveStatus,jdbcType=VARCHAR}, 
       #{approveResult,jdbcType=VARCHAR}, #{askStartTime,jdbcType=VARCHAR}, #{askEndTime,jdbcType=VARCHAR}, 
       #{askStaffId,jdbcType=VARCHAR}, #{askStaffName,jdbcType=VARCHAR}, #{askStaffDep,jdbcType=VARCHAR}, 
       #{approverHistory,jdbcType=VARCHAR}, #{approveRecord,jdbcType=VARCHAR}, #{approverNow,jdbcType=VARCHAR}, 
-      #{approveCost,jdbcType=VARCHAR}, #{advanceStartTime,jdbcType=VARCHAR}, #{advanceAimMc,jdbcType=VARCHAR}, 
-      #{advanceAimSc,jdbcType=VARCHAR}, #{advanceSum,jdbcType=VARCHAR}, #{advancePayee,jdbcType=VARCHAR}, 
-      #{advanceBank,jdbcType=VARCHAR}, #{advanceBranch,jdbcType=VARCHAR}, #{advanceBankAccount,jdbcType=VARCHAR}, 
-      #{advanceReason,jdbcType=VARCHAR}, #{other,jdbcType=VARCHAR}, #{exportStatus,jdbcType=VARCHAR}, 
-      #{operationStatus,jdbcType=VARCHAR})
+      #{approveCost,jdbcType=VARCHAR}, #{loanStartTime,jdbcType=VARCHAR}, #{loanAimMc,jdbcType=VARCHAR}, 
+      #{loanAimSc,jdbcType=VARCHAR}, #{loanSum,jdbcType=VARCHAR}, #{loanPayee,jdbcType=VARCHAR}, 
+      #{loanBank,jdbcType=VARCHAR}, #{loanBranch,jdbcType=VARCHAR}, #{loanBankAccount,jdbcType=VARCHAR}, 
+      #{loanReason,jdbcType=VARCHAR}, #{other,jdbcType=VARCHAR}, #{exportStatus,jdbcType=VARCHAR}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.model.YoAdvance" >
-    insert into yo_advance
+  <insert id="insertSelective" parameterType="com.model.YoLoan" >
+    insert into yo_loan
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="approveNo != null" >
         approve_no,
@@ -150,41 +148,38 @@
       <if test="approveCost != null" >
         approve_cost,
       </if>
-      <if test="advanceStartTime != null" >
-        advance_start_time,
+      <if test="loanStartTime != null" >
+        loan_start_time,
       </if>
-      <if test="advanceAimMc != null" >
-        advance_aim_MC,
+      <if test="loanAimMc != null" >
+        loan_aim_mc,
       </if>
-      <if test="advanceAimSc != null" >
-        advance_aim_SC,
+      <if test="loanAimSc != null" >
+        loan_aim_sc,
       </if>
-      <if test="advanceSum != null" >
-        advance_sum,
+      <if test="loanSum != null" >
+        loan_sum,
       </if>
-      <if test="advancePayee != null" >
-        advance_payee,
+      <if test="loanPayee != null" >
+        loan_payee,
       </if>
-      <if test="advanceBank != null" >
-        advance_bank,
+      <if test="loanBank != null" >
+        loan_bank,
       </if>
-      <if test="advanceBranch != null" >
-        advance_branch,
+      <if test="loanBranch != null" >
+        loan_branch,
       </if>
-      <if test="advanceBankAccount != null" >
-        advance_bank_account,
+      <if test="loanBankAccount != null" >
+        loan_bank_account,
       </if>
-      <if test="advanceReason != null" >
-        advance_reason,
+      <if test="loanReason != null" >
+        loan_reason,
       </if>
       <if test="other != null" >
         other,
       </if>
       <if test="exportStatus != null" >
         export_status,
-      </if>
-      <if test="operationStatus != null" >
-        operation_status,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -227,32 +222,32 @@
       <if test="approveCost != null" >
         #{approveCost,jdbcType=VARCHAR},
       </if>
-      <if test="advanceStartTime != null" >
-        #{advanceStartTime,jdbcType=VARCHAR},
+      <if test="loanStartTime != null" >
+        #{loanStartTime,jdbcType=VARCHAR},
       </if>
-      <if test="advanceAimMc != null" >
-        #{advanceAimMc,jdbcType=VARCHAR},
+      <if test="loanAimMc != null" >
+        #{loanAimMc,jdbcType=VARCHAR},
       </if>
-      <if test="advanceAimSc != null" >
-        #{advanceAimSc,jdbcType=VARCHAR},
+      <if test="loanAimSc != null" >
+        #{loanAimSc,jdbcType=VARCHAR},
       </if>
-      <if test="advanceSum != null" >
-        #{advanceSum,jdbcType=VARCHAR},
+      <if test="loanSum != null" >
+        #{loanSum,jdbcType=VARCHAR},
       </if>
-      <if test="advancePayee != null" >
-        #{advancePayee,jdbcType=VARCHAR},
+      <if test="loanPayee != null" >
+        #{loanPayee,jdbcType=VARCHAR},
       </if>
-      <if test="advanceBank != null" >
-        #{advanceBank,jdbcType=VARCHAR},
+      <if test="loanBank != null" >
+        #{loanBank,jdbcType=VARCHAR},
       </if>
-      <if test="advanceBranch != null" >
-        #{advanceBranch,jdbcType=VARCHAR},
+      <if test="loanBranch != null" >
+        #{loanBranch,jdbcType=VARCHAR},
       </if>
-      <if test="advanceBankAccount != null" >
-        #{advanceBankAccount,jdbcType=VARCHAR},
+      <if test="loanBankAccount != null" >
+        #{loanBankAccount,jdbcType=VARCHAR},
       </if>
-      <if test="advanceReason != null" >
-        #{advanceReason,jdbcType=VARCHAR},
+      <if test="loanReason != null" >
+        #{loanReason,jdbcType=VARCHAR},
       </if>
       <if test="other != null" >
         #{other,jdbcType=VARCHAR},
@@ -260,13 +255,10 @@
       <if test="exportStatus != null" >
         #{exportStatus,jdbcType=VARCHAR},
       </if>
-      <if test="operationStatus != null" >
-        #{operationStatus,jdbcType=VARCHAR},
-      </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.model.YoAdvance" >
-    update yo_advance
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.YoLoan" >
+    update yo_loan
     <set >
       <if test="title != null" >
         title = #{title,jdbcType=VARCHAR},
@@ -304,32 +296,32 @@
       <if test="approveCost != null" >
         approve_cost = #{approveCost,jdbcType=VARCHAR},
       </if>
-      <if test="advanceStartTime != null" >
-        advance_start_time = #{advanceStartTime,jdbcType=VARCHAR},
+      <if test="loanStartTime != null" >
+        loan_start_time = #{loanStartTime,jdbcType=VARCHAR},
       </if>
-      <if test="advanceAimMc != null" >
-        advance_aim_MC = #{advanceAimMc,jdbcType=VARCHAR},
+      <if test="loanAimMc != null" >
+        loan_aim_mc = #{loanAimMc,jdbcType=VARCHAR},
       </if>
-      <if test="advanceAimSc != null" >
-        advance_aim_SC = #{advanceAimSc,jdbcType=VARCHAR},
+      <if test="loanAimSc != null" >
+        loan_aim_sc = #{loanAimSc,jdbcType=VARCHAR},
       </if>
-      <if test="advanceSum != null" >
-        advance_sum = #{advanceSum,jdbcType=VARCHAR},
+      <if test="loanSum != null" >
+        loan_sum = #{loanSum,jdbcType=VARCHAR},
       </if>
-      <if test="advancePayee != null" >
-        advance_payee = #{advancePayee,jdbcType=VARCHAR},
+      <if test="loanPayee != null" >
+        loan_payee = #{loanPayee,jdbcType=VARCHAR},
       </if>
-      <if test="advanceBank != null" >
-        advance_bank = #{advanceBank,jdbcType=VARCHAR},
+      <if test="loanBank != null" >
+        loan_bank = #{loanBank,jdbcType=VARCHAR},
       </if>
-      <if test="advanceBranch != null" >
-        advance_branch = #{advanceBranch,jdbcType=VARCHAR},
+      <if test="loanBranch != null" >
+        loan_branch = #{loanBranch,jdbcType=VARCHAR},
       </if>
-      <if test="advanceBankAccount != null" >
-        advance_bank_account = #{advanceBankAccount,jdbcType=VARCHAR},
+      <if test="loanBankAccount != null" >
+        loan_bank_account = #{loanBankAccount,jdbcType=VARCHAR},
       </if>
-      <if test="advanceReason != null" >
-        advance_reason = #{advanceReason,jdbcType=VARCHAR},
+      <if test="loanReason != null" >
+        loan_reason = #{loanReason,jdbcType=VARCHAR},
       </if>
       <if test="other != null" >
         other = #{other,jdbcType=VARCHAR},
@@ -337,14 +329,11 @@
       <if test="exportStatus != null" >
         export_status = #{exportStatus,jdbcType=VARCHAR},
       </if>
-      <if test="operationStatus != null" >
-        operation_status = #{operationStatus,jdbcType=VARCHAR},
-      </if>
     </set>
     where approve_no = #{approveNo,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.model.YoAdvance" >
-    update yo_advance
+  <update id="updateByPrimaryKey" parameterType="com.model.YoLoan" >
+    update yo_loan
     set title = #{title,jdbcType=VARCHAR},
       approve_status = #{approveStatus,jdbcType=VARCHAR},
       approve_result = #{approveResult,jdbcType=VARCHAR},
@@ -357,18 +346,17 @@
       approve_record = #{approveRecord,jdbcType=VARCHAR},
       approver_now = #{approverNow,jdbcType=VARCHAR},
       approve_cost = #{approveCost,jdbcType=VARCHAR},
-      advance_start_time = #{advanceStartTime,jdbcType=VARCHAR},
-      advance_aim_MC = #{advanceAimMc,jdbcType=VARCHAR},
-      advance_aim_SC = #{advanceAimSc,jdbcType=VARCHAR},
-      advance_sum = #{advanceSum,jdbcType=VARCHAR},
-      advance_payee = #{advancePayee,jdbcType=VARCHAR},
-      advance_bank = #{advanceBank,jdbcType=VARCHAR},
-      advance_branch = #{advanceBranch,jdbcType=VARCHAR},
-      advance_bank_account = #{advanceBankAccount,jdbcType=VARCHAR},
-      advance_reason = #{advanceReason,jdbcType=VARCHAR},
+      loan_start_time = #{loanStartTime,jdbcType=VARCHAR},
+      loan_aim_mc = #{loanAimMc,jdbcType=VARCHAR},
+      loan_aim_sc = #{loanAimSc,jdbcType=VARCHAR},
+      loan_sum = #{loanSum,jdbcType=VARCHAR},
+      loan_payee = #{loanPayee,jdbcType=VARCHAR},
+      loan_bank = #{loanBank,jdbcType=VARCHAR},
+      loan_branch = #{loanBranch,jdbcType=VARCHAR},
+      loan_bank_account = #{loanBankAccount,jdbcType=VARCHAR},
+      loan_reason = #{loanReason,jdbcType=VARCHAR},
       other = #{other,jdbcType=VARCHAR},
-      export_status = #{exportStatus,jdbcType=VARCHAR},
-      operation_status = #{operationStatus,jdbcType=VARCHAR}
+      export_status = #{exportStatus,jdbcType=VARCHAR}
     where approve_no = #{approveNo,jdbcType=VARCHAR}
   </update>
 </mapper>
