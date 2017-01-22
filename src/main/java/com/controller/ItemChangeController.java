@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.service.IDepartmentService;
 import com.service.IItemChangeService;
 import com.service.IOrderChangeService;
+import com.service.IOrderService;
 import com.service.IStaffInfoService;
 import com.util.DDMessageUtil;
 import com.util.DDSendMessageUtil;
@@ -49,7 +50,8 @@ public class ItemChangeController {
 	@Autowired
     private YoOrderChangeMapper yoOrderChangeMapper;
 	
-	
+	@Autowired
+	private IOrderService iOrderService;
 	@Autowired
 	private  IOrderChangeService iOrderChangeService;
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -78,7 +80,7 @@ public class ItemChangeController {
 		return mav;
 	}
 
-
+   
 
 	/**
 	 * 获取申请人的所有项目审批列表
@@ -91,9 +93,6 @@ public class ItemChangeController {
 		List<YoItemChange> itemChangeList= itemChangeService.getItemChangeByStaffId(user_staffId);
 		return itemChangeList;
 	}
-
-
-
 
 	/**
 	 * 提交项目变更
@@ -147,7 +146,9 @@ public class ItemChangeController {
 		orderChange.setStaffId(user_staffId);
 		orderChange.setUsername(user_name);
         orderChange.setProject(project);
-		
+        orderChange.setOrderNumber( iOrderService.getOrderNumberByName(orderName));
+       
+       
 		
 		orderChange.setEffectTime(beginTime);
 		orderChange.setStaffId(user_staffId);

@@ -240,7 +240,8 @@
                 </div>
             </div>
         </div>
-
+        
+       
         <div class="weui_cell weui_vcode">
             <div class="weui_cell_hd"><label class="weui_label">备注 </label></div>
             <div class="weui_cell_bd weui_cell_primary">
@@ -251,6 +252,20 @@
                 </div>
             </div>
         </div>
+
+    <c:forEach items="${accessList}" var="access" varStatus="v" >    
+  <div class="weui_cell">
+    <div class="weui_cell_hd"><label  class="weui_label">${v.index+1}级负责人</label></div>
+    <div class="weui_cell_bd weui_cell_primary">
+       
+      <c:if test="${nowAccess == access }"><div class="assess" style ="color:red;">${fn:substring(access, 1,alength)}<div></c:if>
+      <c:if test="${nowAccess != access }"><div class="assess" >${fn:substring(access, 1,alength)}<div></c:if>
+    </div>
+  </div>
+  </div>
+</div>
+    </c:forEach>  
+
 
         <div class="weui_cell">
 

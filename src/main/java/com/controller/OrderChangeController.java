@@ -1,6 +1,7 @@
 package com.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -23,6 +24,7 @@ import com.model.YoOrderChange;
 import com.model.YoStaffCurrentOrder;
 import com.service.IDepartmentService;
 import com.service.IOrderChangeService;
+import com.service.IOrderService;
 import com.service.IStaffCurrentOrderService;
 import com.service.IStaffInfoService;
 import com.util.DDUtil;
@@ -34,10 +36,12 @@ public class OrderChangeController {
 
 	@Autowired
 	private  IOrderChangeService iOrderChangeService;
+	
 	@Autowired
 	private YoOrderChangeMapper yoOrderChangeMapper;
 	@Autowired
 	private  IStaffInfoService iStaffInfoService;
+	
 	@Autowired
 	private  YoStaffCurrentOrderMapper staffCurrentOrderMapper;
 	@Autowired
@@ -59,6 +63,37 @@ public class OrderChangeController {
 		System.out.println("当前界面的staffuserid"+staff_user_id);
 		YoOrderChange orderChange =yoOrderChangeMapper.selectByPrimaryKey(Integer.valueOf(id));
 		String approveId =orderChange.getStaffUserId();//根据项目申请中查找申请人的ID
+
+		//获取当前审批人 钉钉id
+		String nowAccess = orderChange.getNowAcess();
+
+		/*
+		 * 页面审批流处理
+		 */
+		//根据当前审批人的姓名
+		String nowAccessName = iStaffInfoService.selectStaffByID(nowAccess).getName();
+
+		//审批人列表字符串
+		String access  = orderChange.getAssess();
+
+		//切分成审批人列表
+		String [] strs =access.split("\\|");
+
+		//审批人姓名列表 
+		List<String> accessList = new ArrayList<String>();
+
+		for(int i =0;i <  strs.length;i++){
+			try{
+				String username = iStaffInfoService.selectStaffByID(strs[i]).getName();
+				accessList.add(username);
+			}catch (Exception e){
+				accessList.add("未知");
+			}
+
+
+		}
+		System.out.println("审批流："+accessList);
+
 		StaffInfo approve =iStaffInfoService.selectStaffByID(approveId); //根据申请人的ID查找审批人
 		List <StaffInfo> identifyList = staffInfoMapper.getAllIdentifyInStallInfo();
 		String approveName = approve.getName();//获取审批人的姓名
@@ -69,6 +104,12 @@ public class OrderChangeController {
 		mav.addObject("staff_user_id", staff_user_id);
 		mav.addObject("alength", approveName.length());
 		mav.setViewName("/order/approve_order");
+
+		/*
+		 * 审批流 和 当前审批  返回界面
+		 */
+		mav.addObject("nowAccess", nowAccessName);
+		mav.addObject("accessList", accessList);
 		return mav;
 
 	}
@@ -80,6 +121,38 @@ public class OrderChangeController {
 		ModelAndView mav = new ModelAndView();
 		System.out.println("当前界面的staffuserid"+staff_user_id);
 		YoOrderChange orderChange =yoOrderChangeMapper.selectByPrimaryKey(Integer.valueOf(id));
+
+
+
+		//获取当前审批人 钉钉id
+		String nowAccess = orderChange.getNowAcess();
+
+		/*
+		 * 页面审批流处理
+		 */
+		//根据当前审批人的姓名
+		String nowAccessName = iStaffInfoService.selectStaffByID(nowAccess).getName();
+
+		//审批人列表字符串
+		String access  = orderChange.getAssess();
+
+		//切分成审批人列表
+		String [] strs =access.split("\\|");
+
+		//审批人姓名列表 
+		List<String> accessList = new ArrayList<String>();
+
+		for(int i =0;i <  strs.length;i++){
+			try{
+				String username = iStaffInfoService.selectStaffByID(strs[i]).getName();
+				accessList.add(username);
+			}catch (Exception e){
+				accessList.add("未知");
+			}
+
+
+		}
+		System.out.println("审批流："+accessList);
 		String approveId =orderChange.getStaffUserId();//根据项目申请中查找申请人的ID
 		StaffInfo approve =iStaffInfoService.selectStaffByID(approveId); //根据申请人的ID查找审批人
 		List <StaffInfo> identifyList = staffInfoMapper.getAllIdentifyInStallInfo();
@@ -90,6 +163,13 @@ public class OrderChangeController {
 		mav.addObject("approveName", approveName);
 		mav.addObject("staff_user_id", staff_user_id);
 		mav.addObject("alength", approveName.length());
+
+		/*
+		 * 审批流 和 当前审批  返回界面
+		 */
+		mav.addObject("nowAccess", nowAccessName);
+		mav.addObject("accessList", accessList);
+
 		mav.setViewName("/order/approve_order2");
 		return mav;
 	}
@@ -152,41 +232,9 @@ public class OrderChangeController {
 						staffCurentOrder.setDepartment(Arrays.asList(s.getDepartment().split("\\|")).get(0));
 						staffCurentOrder.setScoProjectName(Arrays.asList(s.getDepartment().split("\\|")).get(1));
 					};
-					
+
 				}else{
-					//将当前订单表中的订单信息存入历史订单表中
-					/*System.out.println("保存到历史订单表");
-					YoStaffDailyOrder  dorder = new YoStaffDailyOrder();
-					String businessProperty2=staffCurentOrder.getBusinessProperty();
-					String department2= staffCurentOrder.getDepartment();
-					String orderCity2= staffCurentOrder.getOrderCity();
-					String orderProvince2 =staffCurentOrder.getOrderProvince();
-					String orderYear2=staffCurentOrder.getOrderYear();
-					String outdoorJob2= staffCurentOrder.getOutdoorJob();
-					String principal2 =staffCurentOrder.getPrincipal();
-					String scoContratType2=staffCurentOrder.getScoContratType();
-					String scoOrderName2=staffCurentOrder.getScoOrderName();
-					String scoOrderNo2=staffCurentOrder.getScoOrderNo();
-					String scoProjectName2= staffCurentOrder.getScoProjectName();
-					String yindaIdentify2=staffCurentOrder.getYindaIdentify();
-					String lte2  =staffCurentOrder.getLte();
-					String effectTime2=staffCurentOrder.getEffectTime();
-					String modifyTime2 =staffCurentOrder.getModifyTime();*/
-					//历史订单对象赋值
-					//					dorder.setStaffUserId(user_staff_id);
-					//					dorder.setBusinessProperty(businessProperty2);
-					//					dorder.setDepartment(department2);
-					//					dorder.setOrderCity(orderCity2);
-					//					dorder.setOrderProvince(orderProvince2);
-					//					dorder.setOrderYear(orderYear2);
-					//					dorder.setOutdoorJob(outdoorJob2);
-					//					dorder.setPrincipal(principal2);
-					//					dorder.setContractType(scoContratType2);
-					//					dorder.setOrderName(scoOrderName2);
-					//					dorder.setSdoDate(sdf.format(new Date()));
-					//					dorder.setProject(scoProjectName2);
-					//					dorder.setYindaIdentify(yindaIdentify2);
-					//					staffDailyOrderMapper.insert(dorder);
+
 				}
 				//第3步 当前订单信息表中 对象属性赋值
 				staffCurentOrder.setScoStaffId(staff_id);
@@ -200,16 +248,18 @@ public class OrderChangeController {
 				staffCurentOrder.setScoContratType(scoContratType);
 				staffCurentOrder.setScoOrderName(scoOrderName);
 				staffCurentOrder.setScoOrderNo(scoOrderNo);
-				String leader =staffInfoMapper.selectByPrimaryKey(staffCurentOrder.getStaffUserId()).getWhetherLeader();
 				
+				
+				String leader =staffInfoMapper.selectByPrimaryKey(staffCurentOrder.getStaffUserId()).getWhetherLeader();
+
 				if(projectList!=null&&projectList.size()>0 && !leader.contains("是")){//如果department表中有该项目 并且这个人不能是主管
 					staffCurentOrder.setScoProjectName(scoProjectName);// 则修改当前staff_info表中的项目 保留原先的项目
 					staffCurentOrder.setDepartment(department);
 				}
 				//如果department表中没有有该项目  则 部门项目都不改变，只改变订单 钉钉也是
 				else{
-				
-					
+
+
 				}
 
 				staffCurentOrder.setYindaIdentify(yindaIdentify);
@@ -235,14 +285,14 @@ public class OrderChangeController {
 					return "error";
 				}
 
-                
+
 				//第5步 同步staff_info 表中的信息		
 				if(staffCurentOrder.getScoProjectName()!=null){
 					staffInfo.setDepartment(staffCurentOrder.getDepartment()+"-"+staffCurentOrder.getScoProjectName());//数据库字段 格式为： 无线事业部-内蒙移动
 				}else{
 					staffInfo.setDepartment(staffCurentOrder.getDepartment());//数据库字段 格式为： 无线事业部
 				}
-				
+
 				staffInfo.setItem(scoOrderName);
 				staffInfo.setYoOrder(businessProp);			   
 				staffInfo.setContractType(scoContratType);
@@ -255,10 +305,10 @@ public class OrderChangeController {
 				}
 				//第6步 更新钉钉中人员信息 钉钉侧修改
 				DDUtil ddutil = new DDUtil(iStaffInfoService);
-//				if(projectList==null||projectList.size()==0){//如果department表中没有该项目 则同步钉钉时 项目为空 直属部门下
-//					System.out.println("department表中没有"+department);
-//					staffInfo.setDepartment(department);
-//				}
+				//				if(projectList==null||projectList.size()==0){//如果department表中没有该项目 则同步钉钉时 项目为空 直属部门下
+				//					System.out.println("department表中没有"+department);
+				//					staffInfo.setDepartment(department);
+				//				}
 				Map<String,Object> map = new HashMap<String,Object>();
 				String DDresult = ddutil.updateUser(staffInfo);
 				System.out.println("DDresult"+DDresult);
@@ -346,22 +396,22 @@ public class OrderChangeController {
 		mav.addObject("orderChangeList", orderChangeList);
 		return mav;
 	}
-	
-	
-//	/**
-//	 * PC端待审批列表界面
-//	 * @param request
-//	 * @return
-//	 */
-//	@RequestMapping("/get_approve_un.do")
-//	public  ModelAndView  PC_get_approve_un_page(HttpServletRequest request){
-//		ModelAndView mav = new ModelAndView();
-//		mav.setViewName("order/PC_approve_un");
-//		String user_staff_id= (String) request.getSession().getAttribute(GlobalConstant.user_staff_user_id);
-//		List<YoOrderChange> orderChangeList =iOrderChangeService.get_approve_un(user_staff_id);
-//		mav.addObject("orderChangeList", orderChangeList);
-//		return mav;
-//	}
-	
+
+
+	//	/**
+	//	 * PC端待审批列表界面
+	//	 * @param request
+	//	 * @return
+	//	 */
+	//	@RequestMapping("/get_approve_un.do")
+	//	public  ModelAndView  PC_get_approve_un_page(HttpServletRequest request){
+	//		ModelAndView mav = new ModelAndView();
+	//		mav.setViewName("order/PC_approve_un");
+	//		String user_staff_id= (String) request.getSession().getAttribute(GlobalConstant.user_staff_user_id);
+	//		List<YoOrderChange> orderChangeList =iOrderChangeService.get_approve_un(user_staff_id);
+	//		mav.addObject("orderChangeList", orderChangeList);
+	//		return mav;
+	//	}
+
 
 }
