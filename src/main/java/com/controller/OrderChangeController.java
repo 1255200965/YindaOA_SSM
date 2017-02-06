@@ -70,9 +70,15 @@ public class OrderChangeController {
 		/*
 		 * 页面审批流处理
 		 */
-		//根据当前审批人的姓名
-		String nowAccessName = iStaffInfoService.selectStaffByID(nowAccess).getName();
-
+		//根据当前审批人的姓名 
+		
+		StaffInfo staff= iStaffInfoService.selectStaffByID(nowAccess);
+		
+		String nowAccessName ="无";
+		if(staff!=null){
+			 nowAccessName = staff.getName();
+		}
+		
 		//审批人列表字符串
 		String access  = orderChange.getAssess();
 
@@ -131,8 +137,12 @@ public class OrderChangeController {
 		 * 页面审批流处理
 		 */
 		//根据当前审批人的姓名
-		String nowAccessName = iStaffInfoService.selectStaffByID(nowAccess).getName();
-
+	
+		StaffInfo staff= iStaffInfoService.selectStaffByID(nowAccess);
+		String nowAccessName ="无";
+		if(staff!=null){
+			 nowAccessName = staff.getName();
+		}
 		//审批人列表字符串
 		String access  = orderChange.getAssess();
 
@@ -398,20 +408,62 @@ public class OrderChangeController {
 	}
 
 
-	//	/**
-	//	 * PC端待审批列表界面
-	//	 * @param request
-	//	 * @return
-	//	 */
-	//	@RequestMapping("/get_approve_un.do")
-	//	public  ModelAndView  PC_get_approve_un_page(HttpServletRequest request){
-	//		ModelAndView mav = new ModelAndView();
-	//		mav.setViewName("order/PC_approve_un");
-	//		String user_staff_id= (String) request.getSession().getAttribute(GlobalConstant.user_staff_user_id);
-	//		List<YoOrderChange> orderChangeList =iOrderChangeService.get_approve_un(user_staff_id);
-	//		mav.addObject("orderChangeList", orderChangeList);
-	//		return mav;
-	//	}
+	 
+		/**
+		 * 用户通过申请记录查看详情界面 ， 并且可以重新提交
+		 */
+	@RequestMapping("/select_orderchage.do")
+	    public  ModelAndView select_orderchage_page(String id,String staff_user_id){
+	    	ModelAndView mav = new ModelAndView();
+	    	
+	    	YoOrderChange orderChange =yoOrderChangeMapper.selectByPrimaryKey(Integer.valueOf(id));
+	    	System.out.println("当前订单id:"+id);
+	    	mav.setViewName("order/select_orderchage");
+	        mav.addObject("orderChange", orderChange);
+	        try{
+	        	 //获取当前审批人 钉钉id
+				String nowAccess = orderChange.getNowAcess();
+				String nowAccessName =null;
+				/*
+				 * 页面审批流处理
+				 */
+				//根据当前审批人的姓名
+				if(nowAccess!=null&&!"".equals(nowAccess)){
+					 nowAccessName = iStaffInfoService.selectStaffByID(nowAccess).getName();
+				}
+			
+
+				//审批人列表字符串
+				String access  = orderChange.getAssess();
+
+				//切分成审批人列表
+				String [] strs =access.split("\\|");
+
+				//审批人姓名列表 
+				List<String> accessList = new ArrayList<String>();
+
+				for(int i =0;i <  strs.length;i++){
+					try{
+						String username = iStaffInfoService.selectStaffByID(strs[i]).getName();
+						accessList.add(username);
+					}catch (Exception e){
+						accessList.add("未知");
+					}
+
+
+				}	
+				mav.addObject("nowAccess", nowAccessName);
+				mav.addObject("accessList", accessList);
+	        }catch(Exception e){
+	        	System.out.println("获取审批流出错");
+	        }
+	       
+			/*
+			 * 审批流 和 当前审批  返回界面
+			 */
+			
+	    	return mav;
+	    }
 
 
 }

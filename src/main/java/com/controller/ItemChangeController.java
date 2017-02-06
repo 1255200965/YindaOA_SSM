@@ -166,7 +166,7 @@ public class ItemChangeController {
 		
 		if(i>0){
 			OrderMessage message = new OrderMessage();//正式服务器ip 121.40.29.241 //测试服务器ip yexianglei.ngrok.cc
-			message.setMessageUrl("http://yexianglei.ngrok.cc/YindaOA/orderChange/approve_order_page.do?id="+orderChange.getId()+"&staff_user_id="+orderChange.getNowAcess());
+			message.setMessageUrl("http://121.40.29.241/YindaOA/orderChange/approve_order_page.do?id="+orderChange.getId()+"&staff_user_id="+orderChange.getNowAcess());
 			message.setPicUrl("/cc");
 			System.out.println("第一次发送："+orderChange.getNowAcess());
 			message.setToUser(orderChange.getNowAcess());
