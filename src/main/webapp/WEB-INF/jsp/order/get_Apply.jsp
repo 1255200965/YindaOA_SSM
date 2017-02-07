@@ -32,8 +32,20 @@
  	<div class="weui-row">
   		<div class="weui-col-35" style="overflow: hidden;">${fn:substring(orderChange.modifyTime,0,10)}</div>
   		<div class="weui-col-25" style="overflow: hidden;">${orderChange.modifyUser}</div>
-  		<div class="weui-col-25" style="overflow: hidden;">${orderChange.orderStatus}</div>
   		
+  		<div class="weui-col-25" style="overflow: hidden;">
+  		<c:choose>
+
+   <c:when test="${orderChange.orderStatus eq '审核通过' && orderChange.orderResult eq null}"> 
+             审核中
+   </c:when>
+   
+   <c:otherwise>
+    ${orderChange.orderStatus}
+   
+   </c:otherwise>
+  
+</c:choose></div>
   		<div class="weui-col-15" style="overflow: hidden;"><a onclick="go_approve_page(${orderChange.id},${sessionScope.staff_user_id});">查看</a></div>
   		<!-- <a href="javascript:history.go(-1);">返回</a> -->
     </div>
@@ -42,7 +54,7 @@
     <script>
    function go_approve_page(id,userid){
     	
-    	window.location =  "<%=path%>/orderChange/approve_order_page.do?id="+id+"&staff_user_id="+userid;
+    	window.location =  "<%=path%>/orderChange/select_orderchage.do?id="+id+"&staff_user_id="+userid;
     	
     }
     </script>
