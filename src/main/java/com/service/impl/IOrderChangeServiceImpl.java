@@ -32,6 +32,9 @@ IOrderChangeService{
 	@Autowired
 	private OrderMessageUtil orderMessageUtil;
 
+	/**
+	 * 项目变更提交给下级管理员，修改项目变更审批流和当前审批人，并且推送消息
+	 */
 	@Override
 	public YoOrderChange sendTONextManager(YoOrderChange orderChange){
 		//获取待审批人列表
@@ -77,7 +80,55 @@ IOrderChangeService{
 		}
 		return orderChange;
 	}
+    
+	/**
+	 * 项目变更提交给下级管理员，修改项目变更审批流和当前审批人，但是不推送消息
+	 * @param orderChange
+	 * @return
+	 */
+	public YoOrderChange nextManager(YoOrderChange orderChange){
+		//获取待审批人列表
+		String approverOrder=orderChange.getAssess();
+		List<String> approverOrderList01 = Arrays.asList(approverOrder.split("\\|"));
+		List<String> approverOrderList = new ArrayList<String>(approverOrderList01);
+		//获取当前审批人信息
+		String approverNow = orderChange.getNowAcess();
+		//获取历史审批人信息
+		String approverHistory = orderChange.getHistoryAccess();
 
+		if(approverHistory == null){
+			approverHistory="";
+		}
+		List<String> approverHistoryList01= Arrays.asList(approverHistory.split("\\|"));
+		List<String> approverHistoryList = new ArrayList<String>(approverHistoryList01);
+		//待审批人列表信息
+		approverOrderList.removeAll(approverHistoryList);
+		//如果是最后一个审批人
+		if(approverOrderList.size()==1 || approverOrderList.size()==0){
+			orderChange.setOrderResult("审核结束");
+			if(approverHistory== null || "".equals(approverHistory) ){//只有一个审核人的情况
+				orderChange.setHistoryAccess(approverNow);
+			}else{//报销对应多个审核人，但是当前操作为最后一个审核人的操作
+				orderChange.setHistoryAccess(approverHistory+"|"+approverNow);
+			}
+			orderChange.setNowAcess("");
+
+		}else if(approverOrderList.size()>1){
+			String toUser = approverOrderList.get(1);
+			orderChange.setNowAcess(toUser);
+			orderChange.setModifyTime(sdf.format(new Date()));
+
+			if(approverHistory == null || "".equals(approverHistory))
+			{
+				orderChange.setHistoryAccess(approverNow);
+			}else{
+				orderChange.setHistoryAccess(approverHistory+"|"+approverNow);
+			}
+		
+
+		}
+		return orderChange;
+	}
 	@Override
 	public List<YoOrderChange> get_approve_history(String user_staff_id) {
 		// TODO Auto-generated method stub
@@ -95,7 +146,7 @@ IOrderChangeService{
 	}
 
 	@Override
-	public List<YoOrderChange> get_approve_un(String user_staff_id) {
+	public List<YoOrderChange> get_approve_un(String user_staff_id,String orderName) {
 		// TODO Auto-generated method stub
 		
 				YoOrderChangeExample orderChangeExample = new YoOrderChangeExample();
@@ -107,6 +158,9 @@ IOrderChangeService{
 						return null;
 					}
 				
+                 if(orderName!=null){
+                	 criteria.andOrderNameLike("%"+orderName+"%");
+				 }
 				List<YoOrderChange> expenseBusList=orderChangeMapper.selectByExample(orderChangeExample);  
 				return expenseBusList;
 	}
@@ -135,5 +189,8 @@ IOrderChangeService{
 		criteria.andIdBetween(1, 2000000);
 		return orderChangeMapper.selectByExample(example);
 	}
+
+
+	
 }
 

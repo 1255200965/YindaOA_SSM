@@ -251,6 +251,21 @@ public class OrderMessageUtil {
 		}
 		return managerDDId;
 	}
+	  /**
+	   * 推送普通提示信息
+	   * @param message
+	   * @param staff_user_id
+	   * @return
+	   * @throws OApiException
+	   */
+      public static JSONObject sendMessage(String message,String staff_user_id) throws OApiException{
+    	  
+    	  String  contentJson ="{'touser':'"+staff_user_id+"','toparty':'1','agentid':'56136978','msgtype':'text','text':{'content':'"+message+"'}}";
+    	  String  access_token = OrderMessageUtil.getAccess_token();
+    	  JSONObject json=HttpsUtil.httpPost("https://oapi.dingtalk.com/message/send?access_token="+access_token,contentJson);
+	      return json;
+	
+  }
 	public static void main(String []args) throws ClientProtocolException{
 	
        OrderMessage message = new OrderMessage();

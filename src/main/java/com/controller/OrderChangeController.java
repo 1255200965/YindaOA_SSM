@@ -387,7 +387,7 @@ public class OrderChangeController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("order/approve_un");
 		String user_staff_id= (String) request.getSession().getAttribute(GlobalConstant.user_staff_user_id);
-		List<YoOrderChange> orderChangeList =iOrderChangeService.get_approve_un(user_staff_id);
+		List<YoOrderChange> orderChangeList =iOrderChangeService.get_approve_un(user_staff_id,"");
 		mav.addObject("orderChangeList", orderChangeList);
 		return mav;
 	}
