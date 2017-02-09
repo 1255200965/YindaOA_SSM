@@ -414,10 +414,29 @@
         var changeCity =$("input[name='changeCity']").val();
         var  orderName =$("#orderName").val();
         if(beginTime==null || ""==beginTime){
-
+            
             $.alert("生效日期不能为空！");
             return;
         }
+        /*获取当前日期*/
+        var date = new Date();
+        var year = date.getFullYear();
+        var month = date.getMonth()+1;
+        var day = date.getDate();
+        if(month<10){
+        	month = "0"+month;
+        }
+        if(day<10){
+        	day = "0"+day;
+        }
+        var nowtime = year+"-"+month+"-"+day;
+	    if(nowtime>beginTime){
+	    	$.alert("生效日期必须大于或等于当前日期");
+		     return;
+	      }
+      
+        
+        return;
         if(changeCity==null || "" == changeCity){
             $.alert("变动城市不能为空！");
             return;
