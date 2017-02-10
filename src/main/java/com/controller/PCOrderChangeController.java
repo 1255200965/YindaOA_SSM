@@ -94,6 +94,9 @@ public class PCOrderChangeController {
 			@RequestParam("outdoorJob3s[]")List<String>  outdoorJob3s,
 			@RequestParam("lte3s[]")List<String>  lte3s, 
 			HttpServletRequest request){
+		
+	int success_count=0;
+	int error_count=0;
 	  /*
 	   *第一步，接收到前台传输的6个数组，数组的长度一致，以ids数组为基准 循环修改！ 
 	   */
@@ -125,8 +128,20 @@ public class PCOrderChangeController {
 			}catch(Exception e){
 				
 			}
+			String businessProp = null;
+			try{
+				businessProp = businessProps.get(i);
+			}catch(Exception e){
+				
+			}
 			
-			pass_approve(ids.get(i), identify, orderRemark, businessProps.get(i), outdoorJob3s.get(i), lte3);
+			try{
+				pass_approve(ids.get(i), identify, orderRemark, businessProp, outdoorJob3s.get(i), lte3);
+				success_count++;
+			}catch(Exception e){
+				error_count++;
+			}
+			
 			
 			
 		}
@@ -145,11 +160,12 @@ public class PCOrderChangeController {
 			} catch (OApiException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				return "发送消息失败";
 			}
 		}
 		
 		
-		return "success";
+		return "成功审批"+success_count;
 		
 	}
 	public static void main(String[] args) throws OApiException {
@@ -298,7 +314,7 @@ public class PCOrderChangeController {
 					staffInfo = iStaffInfoService.searchStaffInfoByEntity(staffInfo).get(0);
 				}catch(Exception e){
 					System.out.println("staff_info表没有工号"+staffInfo+"的人员信息");
-					return "error";
+					return "staff_info表没有工号"+staffInfo+"的人员信息";
 				}
 
 
@@ -317,7 +333,7 @@ public class PCOrderChangeController {
 				}catch(Exception e){
 					e.printStackTrace();
 					System.out.println("staff_info表中"+staffInfo+"更新失败");
-					return "error";
+					return "staff_info表中"+staffInfo+"更新失败";
 				}
 				//第6步 更新钉钉中人员信息 钉钉侧修改
 				DDUtil ddutil = new DDUtil(iStaffInfoService);
