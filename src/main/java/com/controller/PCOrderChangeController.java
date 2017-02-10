@@ -102,6 +102,14 @@ public class PCOrderChangeController {
 			/*
 			 * 审批通过
 			 */
+			String identify =null;
+			
+			try{
+				identify =identifys.get(i);
+			}catch(Exception e){
+				
+			}
+			
 			String orderRemark = null;
 			
 			try{
@@ -111,13 +119,14 @@ public class PCOrderChangeController {
 			}
 			
 			String lte3 = null;
+			
 			try{
 				lte3 = lte3s.get(i);
 			}catch(Exception e){
 				
 			}
 			
-			pass_approve(ids.get(i), identifys.get(i), orderRemark, businessProps.get(i), outdoorJob3s.get(i), lte3);
+			pass_approve(ids.get(i), identify, orderRemark, businessProps.get(i), outdoorJob3s.get(i), lte3);
 			
 			
 		}
@@ -132,7 +141,7 @@ public class PCOrderChangeController {
 		if(StringUtil.NotBlank(orederchanger.getNowAcess()) ){
 			try { 
 				OrderMessageUtil.sendMessage("您好！"
-						+ "您有"+ids.size()+"条新的项目变更申请需要审批，请尽快处理哦！如果数量较多请前往PC端项目审批后台处理！", orederchanger.getNowAcess());
+						+ "您有"+ids.size()+"条新的项目变更申请需要审批，请尽快处理哦！如果数量较多请前往PC端项目审批后台处理！"+msdf.format(new Date()), orederchanger.getNowAcess());
 			} catch (OApiException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -202,7 +211,7 @@ public class PCOrderChangeController {
 			yoOrderChangeMapper.updateByPrimaryKey(itemChange);
 			itemChange.setModifyTime(msdf.format(new Date()));
 			YoOrderChange OrderChange =iOrderChangeService.nextManager(itemChange);
-			if(OrderChange.getOrderResult()!=null&&!"".equalsIgnoreCase(OrderChange.getOrderResult())){
+			if(OrderChange.getOrderResult()!=null && !"".equalsIgnoreCase(OrderChange.getOrderResult())){
 				String user_staff_id = itemChange.getStaffUserId();//申请通过后 项目中声请人的钉钉号
 				String staff_id =itemChange.getStaffId();
 

@@ -133,7 +133,7 @@
 				<table width="100%" border="1" cellspacing="0" cellpadding="0"
 					class="table-1">
 					<thead class="table-1-tou">
-						<td class="text_center" width="5%">选择</td>
+						<td class="text_center" width="5%">选择<br /><input type="checkbox" style ="width:20px;height:20px;" name="all" onclick ="is_select();"></td>
 						<td class="text_center" width="5%">申请人</td>
 						<td class="text_center" width="6%">申请时间</td>
 						<td class="text_center" width="6%">目标部门</td>
@@ -155,7 +155,7 @@
 						<c:forEach items="${orderChangeList}" var="orderChange" >
 						          
 							<tr>
-								<td class="text_center" width="5%"><input type="checkbox" name="ids"><input name="id"   value="${orderChange.id}" type="hidden"></td>
+								<td class="text_center" width="5%"><input type="checkbox" name="ids" style ="width:20px;height:20px;"><input name="id"   value="${orderChange.id}" type="hidden"></td>
 								<td class="text_center" width="5%" name="username">${orderChange.username}</td>
 								<td class="text_center" width="6%" >${orderChange.modifyTime}</td>
 								<td class="text_center" width="6%" >${orderChange.department}</td>
@@ -247,7 +247,7 @@
  * 页面加载完毕之后， 获取每一行元素，开始加载每行的商务属性和商务等级
  */
 $(document).ready(function(){
-
+   
 	var ids =$(document).find("input[name='ids']");
 	
 	 /*遍历表格中所有行*/
@@ -323,12 +323,12 @@ function approve_order(){
 	}
 	
      /*提交*/
-     
+     if(confirm("审批后不可更改，确定要同意么？")){
      //{"ids":id,"identifys":identifys,"orderRemarks":orderRemark,"businessProps":businessProps,"outdoorJob3s":outdoorJob3s,"lte3s":lte3s}
 	 $.post("<%=path%>/PCOrderChange/pc_pass_approve.do",{"ids":id,"identifys":identifys,"orderRemarks":orderRemarks,"businessProps":businessProps,"outdoorJob3s":outdoorJob3s,"lte3s":lte3s},function(data){
 	         alert(data);
 	     });
-	
+     }
 }
 
 /**
@@ -360,12 +360,14 @@ function approve_order(){
 			id.push($(idss).val());
 		}
 		 /*提交*/
+	     if(confirm("拒绝后不可更改，确定要拒绝么？")){
+	    	 
 	     
 	     //{"ids":id,"identifys":identifys,"orderRemarks":orderRemark,"businessProps":businessProps,"outdoorJob3s":outdoorJob3s,"lte3s":lte3s}
 		 $.post("<%=path%>/PCOrderChange/pc_refuse_approve.do",{"ids":id},function(data){
 		         alert(data);
 		     });
-			
+	     }
 }
  
  
@@ -426,10 +428,19 @@ function getIdentify(item){
 	var identify =tr.find("select[name='identify']");
     	
 	/*获取当前行中订单的商务属性等级值*/
+    var identify2 =tr.find("input[name='identify2']").val();
 	
-	var identify2 =tr.find("input[name='identify2']").val();
+	
+	/*获取当前行中订单的商务属性的值*/
+	var businessProperty2 =tr.find("input[name='businessProperty2']").val();
 	
 	var remarkHTML ="";
+	
+	 if(businessProperty2=="TaskBase" && (identify2==null||identify2 == "" )){
+		 identify.html("");
+		 return;		 
+	 }
+	 
 	  $.post("<%=path%>/order/getRemarkByOrder.do",{'orderName':orderName},function (data){
           $.each(data, function (n, value) {
         	 
@@ -491,6 +502,39 @@ function yindaIdentifyRefresh(item){
  
 }
 
+var s = 0;
+function is_select(){
+	
+	/*找到全选按钮*/
+	var check_all = $("input[name='all']:checked");
+	if(s==0){
+		s=1;
+		
+	}else{
+	   s=0;
+	}
+	
+	
+	if(s==1){
+		
+		var ids =  $("input[name='ids']");
+
+		for(var i=0;i<ids.length;i++){
+			
+			ids[i].checked = true;
+		}
+	}
+	if(s==0){
+		
+		var ids =  $("input[name='ids']");
+
+		for(var i=0;i<ids.length;i++){
+			
+			ids[i].checked = false;
+		}
+	}
+
+}
 
 </script>
 </html> 

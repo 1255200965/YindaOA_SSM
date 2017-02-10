@@ -154,6 +154,7 @@
 							<ul class="dropdown-menu" style="background-color: #3792F2;">
 								<li style="-webkit-border-radius: 10; -moz-border-radius: 10; border-radius: 10;">
 								<a href="<%=basePath%>order/search_order_page.do" target="loadcontent">订单查询</a></li>
+								<a href="<%=basePath%>PCOrderChange/pc_get_approve_un.do" target="loadcontent">项目变更后台</a></li>
 							 <%--<li><a onclick="ajaxLoadPage('<%=basePath%>usersalary/search_salary_page.do')">工资查询</a></li>--%>
 							</ul>
 						</div>
