@@ -48,6 +48,7 @@ public class LoginController {
 		 request.getSession().setAttribute(GlobalConstant.user_department,staffInfo.getDepartment());
 		 request.getSession().setAttribute(GlobalConstant.user_name, staffInfo.getName());
 		 request.getSession().setAttribute(GlobalConstant.user_staffId,staffInfo.getStaffId());
+		 request.getSession().setAttribute(GlobalConstant.user_staff_user_id,staffInfo.getStaffUserId());
 		 List <YoUserRole> userRoleList =orgService.getAllUserRole();//(List<YoUserRole>) roleCache.get();
 		 List<String> strList  = new ArrayList<String>();
 		 for(YoUserRole userRole :userRoleList){
