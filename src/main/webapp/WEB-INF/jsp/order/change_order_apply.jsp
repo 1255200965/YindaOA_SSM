@@ -435,8 +435,6 @@
 		     return;
 	      }
       
-        
-        return;
         if(changeCity==null || "" == changeCity){
             $.alert("变动城市不能为空！");
             return;
