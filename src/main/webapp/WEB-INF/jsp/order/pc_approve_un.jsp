@@ -100,7 +100,7 @@
 				               <div style="float:left">
                   
                 </div>
-				
+				<div style="background-color:#00a1d6;width:20px;height:100px; position:fixed ;top:200px;left:0px;" border-radius:5px;><a style="color:white;" href="#">使用帮助</a></div>
 				<div class="caidan-tiku-s" style="margin-right: 5%">
 					<span>目标订单：</span>
 					<input id="orderName" name="orderName" class="riqi-xiala "
@@ -247,7 +247,7 @@
  * 页面加载完毕之后， 获取每一行元素，开始加载每行的商务属性和商务等级
  */
 $(document).ready(function(){
-   
+  
 	var ids =$(document).find("input[name='ids']");
 	
 	 /*遍历表格中所有行*/
