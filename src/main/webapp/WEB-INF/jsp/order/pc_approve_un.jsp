@@ -274,7 +274,7 @@ function approve_order(){
 		alert("你没有选择项目变更申请！");
 		return;
 	}
-	
+	debugger;
 	/*找到所有的被选中的按钮*/
 	var ids = $("input[name='ids']:checked");
 	
@@ -298,7 +298,13 @@ function approve_order(){
 		/*获取这行identify的值*/
 		var identify = tr.find("select[name='identify']");		
 		/*将identify的值添加数组中*/
-		identifys.push($(identify).val());
+		if(identify.val()==null){
+			identifys.push("");
+		}else{
+			identifys.push($(identify).val());
+		}
+		
+		
 		
 		/*获取这行orderRemark的值*/
 		var orderRemark = tr.find("input[name='orderRemark']");		
@@ -308,7 +314,12 @@ function approve_order(){
 		/*获取这行businessProperty的值*/
 		var businessProp = tr.find("select[name='businessProperty']");		
 		/*将orderRemark的值添加数组中*/
-		businessProps.push($(businessProp).val());
+		if(businessProp.val()==null){
+			businessProps.push("");
+		}else{
+			businessProps.push($(businessProp).val());
+		}
+		
 		
 		/*获取这行outdoorJob的值*/
 		var outdoorJob3 = tr.find("select[name='outdoorJob']");		
