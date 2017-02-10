@@ -338,6 +338,7 @@ function approve_order(){
      //{"ids":id,"identifys":identifys,"orderRemarks":orderRemark,"businessProps":businessProps,"outdoorJob3s":outdoorJob3s,"lte3s":lte3s}
 	 $.post("<%=path%>/PCOrderChange/pc_pass_approve.do",{"ids":id,"identifys":identifys,"orderRemarks":orderRemarks,"businessProps":businessProps,"outdoorJob3s":outdoorJob3s,"lte3s":lte3s},function(data){
 	         alert(data);
+	         location.reload();
 	     });
      }
 }
@@ -377,6 +378,7 @@ function approve_order(){
 	     //{"ids":id,"identifys":identifys,"orderRemarks":orderRemark,"businessProps":businessProps,"outdoorJob3s":outdoorJob3s,"lte3s":lte3s}
 		 $.post("<%=path%>/PCOrderChange/pc_refuse_approve.do",{"ids":id},function(data){
 		         alert(data);
+		         location.reload();
 		     });
 	     }
 }
