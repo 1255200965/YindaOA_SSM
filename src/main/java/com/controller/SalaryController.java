@@ -734,8 +734,8 @@ public class SalaryController {
         if (user.getStaffid()!=null) user.getStaffid();*/
         //generateSalary(2016,12);
         SalaryUtil salaryUtil = new SalaryUtil(userSalaryService,userAttendanceService,userSighInService,userStaffInfoService,userAskLeaveService,userinfoSalaryService);
-        salaryUtil.generateSalaryByMonth(2016,12);
-        salaryUtil.generateSalaryTotal(2016,12);
+//        salaryUtil.generateSalaryByMonth(2017,1);
+        salaryUtil.generateSalaryTotal(2017,1);
         //List<StaffInfo> ttt = staffInfoMapper.getAllIdentifyInStallInfo();
 
         if(true){

@@ -455,7 +455,12 @@ public class SalaryUtil {
     public YoSalary updateEvection(StaffInfo user, String workDate , YoSalary salaryItem) {
         //处理出差,签到地点与base地是否匹配,是否有打卡，是否要算加班费，是否是指定合同FDS
         String workaddress = salaryItem.getWorkAddress();
-        String address = user.getOrdinaryAddress().trim();
+        String address = user.getOrdinaryAddress();
+
+        // 地址如果为null先按上海处理（从长远来看肯定要干掉的）
+        if (null == address) address = "上海";
+        else address = address.trim();
+
         //if (!salaryItem.getRealityattendance().equals("0") && !user.getComment2().isEmpty() && !user.getComment2().equals("否") && checkContract(user.getContractType()) && !address.isEmpty() && !workaddress.isEmpty() && !workaddress.substring(0,2).contains(address)){
         if (!salaryItem.getRealityattendance().equals("0") && user.getComment2()!=null && !user.getComment2().equals("否") && checkContract(user.getContractType()) && address!=null && workaddress!=null && workaddress.length()>1 && !workaddress.substring(0,2).contains(address)){
 
@@ -465,7 +470,6 @@ public class SalaryUtil {
                 salaryItem.setEvection("0");
                 salaryItem.setAllowance(16.0);
             }
-
 
         return salaryItem;
     }
@@ -576,7 +580,10 @@ public class SalaryUtil {
         int e1 = Integer.parseInt(totalSum.getEffectiveattendance());
         int t1 = Integer.parseInt(totalSum.getDatetype());
         double b1 = getBaseSalary(user.getBaseSalary(),manDay);
-        double bt = user.getBaseSalary().isEmpty() ? 0.0 : Double.parseDouble(user.getBaseSalary());
+        // 得到基础月工资
+        String strBaseSalary = user.getBaseSalary();
+        if (null == strBaseSalary) strBaseSalary = "0.0";
+        double bt = strBaseSalary.isEmpty() ? 0.0 : Double.parseDouble(strBaseSalary);
         if (1.0*e1/t1>0.5){
             totalSum.setAttendancesalary(bt - (t1-e1)*b1);
         } else totalSum.setAttendancesalary(e1*b1);

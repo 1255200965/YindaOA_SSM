@@ -1402,6 +1402,266 @@ public class YoUserinfosalaryExample {
             return (Criteria) this;
         }
 
+        public Criteria andBranchCompanyIsNull() {
+            addCriterion("branch_company is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBranchCompanyIsNotNull() {
+            addCriterion("branch_company is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBranchCompanyEqualTo(String value) {
+            addCriterion("branch_company =", value, "branchCompany");
+            return (Criteria) this;
+        }
+
+        public Criteria andBranchCompanyNotEqualTo(String value) {
+            addCriterion("branch_company <>", value, "branchCompany");
+            return (Criteria) this;
+        }
+
+        public Criteria andBranchCompanyGreaterThan(String value) {
+            addCriterion("branch_company >", value, "branchCompany");
+            return (Criteria) this;
+        }
+
+        public Criteria andBranchCompanyGreaterThanOrEqualTo(String value) {
+            addCriterion("branch_company >=", value, "branchCompany");
+            return (Criteria) this;
+        }
+
+        public Criteria andBranchCompanyLessThan(String value) {
+            addCriterion("branch_company <", value, "branchCompany");
+            return (Criteria) this;
+        }
+
+        public Criteria andBranchCompanyLessThanOrEqualTo(String value) {
+            addCriterion("branch_company <=", value, "branchCompany");
+            return (Criteria) this;
+        }
+
+        public Criteria andBranchCompanyLike(String value) {
+            addCriterion("branch_company like", value, "branchCompany");
+            return (Criteria) this;
+        }
+
+        public Criteria andBranchCompanyNotLike(String value) {
+            addCriterion("branch_company not like", value, "branchCompany");
+            return (Criteria) this;
+        }
+
+        public Criteria andBranchCompanyIn(List<String> values) {
+            addCriterion("branch_company in", values, "branchCompany");
+            return (Criteria) this;
+        }
+
+        public Criteria andBranchCompanyNotIn(List<String> values) {
+            addCriterion("branch_company not in", values, "branchCompany");
+            return (Criteria) this;
+        }
+
+        public Criteria andBranchCompanyBetween(String value1, String value2) {
+            addCriterion("branch_company between", value1, value2, "branchCompany");
+            return (Criteria) this;
+        }
+
+        public Criteria andBranchCompanyNotBetween(String value1, String value2) {
+            addCriterion("branch_company not between", value1, value2, "branchCompany");
+            return (Criteria) this;
+        }
+
+        public Criteria andBaseSalaryIsNull() {
+            addCriterion("base_salary is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBaseSalaryIsNotNull() {
+            addCriterion("base_salary is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBaseSalaryEqualTo(Double value) {
+            addCriterion("base_salary =", value, "baseSalary");
+            return (Criteria) this;
+        }
+
+        public Criteria andBaseSalaryNotEqualTo(Double value) {
+            addCriterion("base_salary <>", value, "baseSalary");
+            return (Criteria) this;
+        }
+
+        public Criteria andBaseSalaryGreaterThan(Double value) {
+            addCriterion("base_salary >", value, "baseSalary");
+            return (Criteria) this;
+        }
+
+        public Criteria andBaseSalaryGreaterThanOrEqualTo(Double value) {
+            addCriterion("base_salary >=", value, "baseSalary");
+            return (Criteria) this;
+        }
+
+        public Criteria andBaseSalaryLessThan(Double value) {
+            addCriterion("base_salary <", value, "baseSalary");
+            return (Criteria) this;
+        }
+
+        public Criteria andBaseSalaryLessThanOrEqualTo(Double value) {
+            addCriterion("base_salary <=", value, "baseSalary");
+            return (Criteria) this;
+        }
+
+        public Criteria andBaseSalaryIn(List<Double> values) {
+            addCriterion("base_salary in", values, "baseSalary");
+            return (Criteria) this;
+        }
+
+        public Criteria andBaseSalaryNotIn(List<Double> values) {
+            addCriterion("base_salary not in", values, "baseSalary");
+            return (Criteria) this;
+        }
+
+        public Criteria andBaseSalaryBetween(Double value1, Double value2) {
+            addCriterion("base_salary between", value1, value2, "baseSalary");
+            return (Criteria) this;
+        }
+
+        public Criteria andBaseSalaryNotBetween(Double value1, Double value2) {
+            addCriterion("base_salary not between", value1, value2, "baseSalary");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtEffDaysIsNull() {
+            addCriterion("bt_eff_days is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtEffDaysIsNotNull() {
+            addCriterion("bt_eff_days is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtEffDaysEqualTo(String value) {
+            addCriterion("bt_eff_days =", value, "btEffDays");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtEffDaysNotEqualTo(String value) {
+            addCriterion("bt_eff_days <>", value, "btEffDays");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtEffDaysGreaterThan(String value) {
+            addCriterion("bt_eff_days >", value, "btEffDays");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtEffDaysGreaterThanOrEqualTo(String value) {
+            addCriterion("bt_eff_days >=", value, "btEffDays");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtEffDaysLessThan(String value) {
+            addCriterion("bt_eff_days <", value, "btEffDays");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtEffDaysLessThanOrEqualTo(String value) {
+            addCriterion("bt_eff_days <=", value, "btEffDays");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtEffDaysLike(String value) {
+            addCriterion("bt_eff_days like", value, "btEffDays");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtEffDaysNotLike(String value) {
+            addCriterion("bt_eff_days not like", value, "btEffDays");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtEffDaysIn(List<String> values) {
+            addCriterion("bt_eff_days in", values, "btEffDays");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtEffDaysNotIn(List<String> values) {
+            addCriterion("bt_eff_days not in", values, "btEffDays");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtEffDaysBetween(String value1, String value2) {
+            addCriterion("bt_eff_days between", value1, value2, "btEffDays");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtEffDaysNotBetween(String value1, String value2) {
+            addCriterion("bt_eff_days not between", value1, value2, "btEffDays");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAllowanceIsNull() {
+            addCriterion("bt_allowance is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAllowanceIsNotNull() {
+            addCriterion("bt_allowance is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAllowanceEqualTo(Double value) {
+            addCriterion("bt_allowance =", value, "btAllowance");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAllowanceNotEqualTo(Double value) {
+            addCriterion("bt_allowance <>", value, "btAllowance");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAllowanceGreaterThan(Double value) {
+            addCriterion("bt_allowance >", value, "btAllowance");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAllowanceGreaterThanOrEqualTo(Double value) {
+            addCriterion("bt_allowance >=", value, "btAllowance");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAllowanceLessThan(Double value) {
+            addCriterion("bt_allowance <", value, "btAllowance");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAllowanceLessThanOrEqualTo(Double value) {
+            addCriterion("bt_allowance <=", value, "btAllowance");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAllowanceIn(List<Double> values) {
+            addCriterion("bt_allowance in", values, "btAllowance");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAllowanceNotIn(List<Double> values) {
+            addCriterion("bt_allowance not in", values, "btAllowance");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAllowanceBetween(Double value1, Double value2) {
+            addCriterion("bt_allowance between", value1, value2, "btAllowance");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtAllowanceNotBetween(Double value1, Double value2) {
+            addCriterion("bt_allowance not between", value1, value2, "btAllowance");
+            return (Criteria) this;
+        }
+
         public Criteria andTimesalaryIsNull() {
             addCriterion("timesalary is null");
             return (Criteria) this;
@@ -1519,6 +1779,76 @@ public class YoUserinfosalaryExample {
 
         public Criteria andTimebaseaddNotBetween(Double value1, Double value2) {
             addCriterion("timebaseAdd not between", value1, value2, "timebaseadd");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskIsNull() {
+            addCriterion("task is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskIsNotNull() {
+            addCriterion("task is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskEqualTo(String value) {
+            addCriterion("task =", value, "task");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskNotEqualTo(String value) {
+            addCriterion("task <>", value, "task");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskGreaterThan(String value) {
+            addCriterion("task >", value, "task");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskGreaterThanOrEqualTo(String value) {
+            addCriterion("task >=", value, "task");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskLessThan(String value) {
+            addCriterion("task <", value, "task");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskLessThanOrEqualTo(String value) {
+            addCriterion("task <=", value, "task");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskLike(String value) {
+            addCriterion("task like", value, "task");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskNotLike(String value) {
+            addCriterion("task not like", value, "task");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskIn(List<String> values) {
+            addCriterion("task in", values, "task");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskNotIn(List<String> values) {
+            addCriterion("task not in", values, "task");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskBetween(String value1, String value2) {
+            addCriterion("task between", value1, value2, "task");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskNotBetween(String value1, String value2) {
+            addCriterion("task not between", value1, value2, "task");
             return (Criteria) this;
         }
 
@@ -1942,6 +2272,66 @@ public class YoUserinfosalaryExample {
             return (Criteria) this;
         }
 
+        public Criteria andMonthSalaryIsNull() {
+            addCriterion("month_salary is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonthSalaryIsNotNull() {
+            addCriterion("month_salary is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonthSalaryEqualTo(Double value) {
+            addCriterion("month_salary =", value, "monthSalary");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonthSalaryNotEqualTo(Double value) {
+            addCriterion("month_salary <>", value, "monthSalary");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonthSalaryGreaterThan(Double value) {
+            addCriterion("month_salary >", value, "monthSalary");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonthSalaryGreaterThanOrEqualTo(Double value) {
+            addCriterion("month_salary >=", value, "monthSalary");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonthSalaryLessThan(Double value) {
+            addCriterion("month_salary <", value, "monthSalary");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonthSalaryLessThanOrEqualTo(Double value) {
+            addCriterion("month_salary <=", value, "monthSalary");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonthSalaryIn(List<Double> values) {
+            addCriterion("month_salary in", values, "monthSalary");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonthSalaryNotIn(List<Double> values) {
+            addCriterion("month_salary not in", values, "monthSalary");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonthSalaryBetween(Double value1, Double value2) {
+            addCriterion("month_salary between", value1, value2, "monthSalary");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonthSalaryNotBetween(Double value1, Double value2) {
+            addCriterion("month_salary not between", value1, value2, "monthSalary");
+            return (Criteria) this;
+        }
+
         public Criteria andTaxIsNull() {
             addCriterion("tax is null");
             return (Criteria) this;
@@ -2059,6 +2449,186 @@ public class YoUserinfosalaryExample {
 
         public Criteria andRealsalaryNotBetween(Double value1, Double value2) {
             addCriterion("realsalary not between", value1, value2, "realsalary");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonthBonusIsNull() {
+            addCriterion("month_bonus is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonthBonusIsNotNull() {
+            addCriterion("month_bonus is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonthBonusEqualTo(Double value) {
+            addCriterion("month_bonus =", value, "monthBonus");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonthBonusNotEqualTo(Double value) {
+            addCriterion("month_bonus <>", value, "monthBonus");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonthBonusGreaterThan(Double value) {
+            addCriterion("month_bonus >", value, "monthBonus");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonthBonusGreaterThanOrEqualTo(Double value) {
+            addCriterion("month_bonus >=", value, "monthBonus");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonthBonusLessThan(Double value) {
+            addCriterion("month_bonus <", value, "monthBonus");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonthBonusLessThanOrEqualTo(Double value) {
+            addCriterion("month_bonus <=", value, "monthBonus");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonthBonusIn(List<Double> values) {
+            addCriterion("month_bonus in", values, "monthBonus");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonthBonusNotIn(List<Double> values) {
+            addCriterion("month_bonus not in", values, "monthBonus");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonthBonusBetween(Double value1, Double value2) {
+            addCriterion("month_bonus between", value1, value2, "monthBonus");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonthBonusNotBetween(Double value1, Double value2) {
+            addCriterion("month_bonus not between", value1, value2, "monthBonus");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonthBonusTaxIsNull() {
+            addCriterion("month_bonus_tax is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonthBonusTaxIsNotNull() {
+            addCriterion("month_bonus_tax is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonthBonusTaxEqualTo(Double value) {
+            addCriterion("month_bonus_tax =", value, "monthBonusTax");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonthBonusTaxNotEqualTo(Double value) {
+            addCriterion("month_bonus_tax <>", value, "monthBonusTax");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonthBonusTaxGreaterThan(Double value) {
+            addCriterion("month_bonus_tax >", value, "monthBonusTax");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonthBonusTaxGreaterThanOrEqualTo(Double value) {
+            addCriterion("month_bonus_tax >=", value, "monthBonusTax");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonthBonusTaxLessThan(Double value) {
+            addCriterion("month_bonus_tax <", value, "monthBonusTax");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonthBonusTaxLessThanOrEqualTo(Double value) {
+            addCriterion("month_bonus_tax <=", value, "monthBonusTax");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonthBonusTaxIn(List<Double> values) {
+            addCriterion("month_bonus_tax in", values, "monthBonusTax");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonthBonusTaxNotIn(List<Double> values) {
+            addCriterion("month_bonus_tax not in", values, "monthBonusTax");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonthBonusTaxBetween(Double value1, Double value2) {
+            addCriterion("month_bonus_tax between", value1, value2, "monthBonusTax");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonthBonusTaxNotBetween(Double value1, Double value2) {
+            addCriterion("month_bonus_tax not between", value1, value2, "monthBonusTax");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonthBonusRealIsNull() {
+            addCriterion("month_bonus_real is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonthBonusRealIsNotNull() {
+            addCriterion("month_bonus_real is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonthBonusRealEqualTo(Double value) {
+            addCriterion("month_bonus_real =", value, "monthBonusReal");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonthBonusRealNotEqualTo(Double value) {
+            addCriterion("month_bonus_real <>", value, "monthBonusReal");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonthBonusRealGreaterThan(Double value) {
+            addCriterion("month_bonus_real >", value, "monthBonusReal");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonthBonusRealGreaterThanOrEqualTo(Double value) {
+            addCriterion("month_bonus_real >=", value, "monthBonusReal");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonthBonusRealLessThan(Double value) {
+            addCriterion("month_bonus_real <", value, "monthBonusReal");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonthBonusRealLessThanOrEqualTo(Double value) {
+            addCriterion("month_bonus_real <=", value, "monthBonusReal");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonthBonusRealIn(List<Double> values) {
+            addCriterion("month_bonus_real in", values, "monthBonusReal");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonthBonusRealNotIn(List<Double> values) {
+            addCriterion("month_bonus_real not in", values, "monthBonusReal");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonthBonusRealBetween(Double value1, Double value2) {
+            addCriterion("month_bonus_real between", value1, value2, "monthBonusReal");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonthBonusRealNotBetween(Double value1, Double value2) {
+            addCriterion("month_bonus_real not between", value1, value2, "monthBonusReal");
             return (Criteria) this;
         }
     }

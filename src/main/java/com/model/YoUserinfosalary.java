@@ -41,9 +41,19 @@ public class YoUserinfosalary {
 
     private String contractType;
 
+    private String branchCompany;
+
+    private Double baseSalary;
+
+    private String btEffDays;
+
+    private Double btAllowance;
+
     private Double timesalary;
 
     private Double timebaseadd;
+
+    private String task;
 
     private Double tasksalary;
 
@@ -59,9 +69,17 @@ public class YoUserinfosalary {
 
     private Double totalsalary;
 
+    private Double monthSalary;
+
     private Double tax;
 
     private Double realsalary;
+
+    private Double monthBonus;
+
+    private Double monthBonusTax;
+
+    private Double monthBonusReal;
 
     public Integer getSid() {
         return sid;
@@ -215,6 +233,38 @@ public class YoUserinfosalary {
         this.contractType = contractType;
     }
 
+    public String getBranchCompany() {
+        return branchCompany;
+    }
+
+    public void setBranchCompany(String branchCompany) {
+        this.branchCompany = branchCompany;
+    }
+
+    public Double getBaseSalary() {
+        return baseSalary;
+    }
+
+    public void setBaseSalary(Double baseSalary) {
+        this.baseSalary = baseSalary;
+    }
+
+    public String getBtEffDays() {
+        return btEffDays;
+    }
+
+    public void setBtEffDays(String btEffDays) {
+        this.btEffDays = btEffDays;
+    }
+
+    public Double getBtAllowance() {
+        return btAllowance;
+    }
+
+    public void setBtAllowance(Double btAllowance) {
+        this.btAllowance = btAllowance;
+    }
+
     public Double getTimesalary() {
         return timesalary;
     }
@@ -229,6 +279,14 @@ public class YoUserinfosalary {
 
     public void setTimebaseadd(Double timebaseadd) {
         this.timebaseadd = timebaseadd;
+    }
+
+    public String getTask() {
+        return task;
+    }
+
+    public void setTask(String task) {
+        this.task = task;
     }
 
     public Double getTasksalary() {
@@ -287,6 +345,14 @@ public class YoUserinfosalary {
         this.totalsalary = totalsalary;
     }
 
+    public Double getMonthSalary() {
+        return monthSalary;
+    }
+
+    public void setMonthSalary(Double monthSalary) {
+        this.monthSalary = monthSalary;
+    }
+
     public Double getTax() {
         return tax;
     }
@@ -301,5 +367,29 @@ public class YoUserinfosalary {
 
     public void setRealsalary(Double realsalary) {
         this.realsalary = realsalary;
+    }
+
+    public Double getMonthBonus() {
+        return monthBonus;
+    }
+
+    public void setMonthBonus(Double monthBonus) {
+        this.monthBonus = monthBonus;
+    }
+
+    public Double getMonthBonusTax() {
+        return monthBonusTax;
+    }
+
+    public void setMonthBonusTax(Double monthBonusTax) {
+        this.monthBonusTax = monthBonusTax;
+    }
+
+    public Double getMonthBonusReal() {
+        return monthBonusReal;
+    }
+
+    public void setMonthBonusReal(Double monthBonusReal) {
+        this.monthBonusReal = monthBonusReal;
     }
 }
