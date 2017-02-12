@@ -134,16 +134,16 @@ public class ExcelStaffInfoServiceImpl implements IExcelStaffInfoService {
                 如果为空的话，实体对象直接进入失败列表并跳出循环
                 身份证号暂时允许为空，因为入职的人好鱼啊，可能连身份证号都木有
                  */
-                if (staffInfo.getDepartment() == null
-                        || staffInfo.getName() == null
-                        || staffInfo.getStaffId() == null
-                        || staffInfo.getCellphone() == null
-                        ) {
-                    Map<String, String> errorMap = new HashMap<String, String>();
-                    errorMap.put("errorReason", "该数据部门，姓名，工号，手机号这4个字段至少有一个为空。至于是哪一条数据请自己找！");
-                    listFail.add(errorMap);
-                    continue;
-                }
+//                if (staffInfo.getDepartment() == null
+//                        || staffInfo.getName() == null
+//                        || staffInfo.getStaffId() == null
+//                        || staffInfo.getCellphone() == null
+//                        ) {
+//                    Map<String, String> errorMap = new HashMap<String, String>();
+//                    errorMap.put("errorReason", "该数据部门，姓名，工号，手机号这4个字段至少有一个为空。至于是哪一条数据请自己找！");
+//                    listFail.add(errorMap);
+//                    continue;
+//                }
 
                 // 第5步，判断对象中的staffUserId是否为空。如果为空的话，就先插入钉钉并获得一个
                 if (staffInfo.getStaffUserId() == null || staffInfo.getStaffUserId().equals("")) {
@@ -209,16 +209,16 @@ public class ExcelStaffInfoServiceImpl implements IExcelStaffInfoService {
                 }
 
                 // 第8步，检查一下对应的工号之前是否有离职数据，如果有，就删掉
-                String staffId = staffInfo.getStaffId();
-                StaffInfoExample example = new StaffInfoExample();
-                example.createCriteria().andStaffIdEqualTo(staffId).andWorkStateEqualTo("离职");
-                List<StaffInfo> list = staffInfoMapper.selectByExample(example);
-                // 不可能有多条离职信息，故只删除第1条
-                if (list.size() > 0){
-                    // 由于不再需要读写该对象以及使用其进行更新，于是对之进行复用！
-                    staffInfo = list.get(0);
-                    staffInfoMapper.deleteByPrimaryKey(staffInfo.getStaffUserId());
-                }
+//                String staffId = staffInfo.getStaffId();
+//                StaffInfoExample example = new StaffInfoExample();
+//                example.createCriteria().andStaffIdEqualTo(staffId).andWorkStateEqualTo("离职");
+//                List<StaffInfo> list = staffInfoMapper.selectByExample(example);
+//                // 不可能有多条离职信息，故只删除第1条
+//                if (list.size() > 0){
+//                    // 由于不再需要读写该对象以及使用其进行更新，于是对之进行复用！
+//                    staffInfo = list.get(0);
+//                    staffInfoMapper.deleteByPrimaryKey(staffInfo.getStaffUserId());
+//                }
 
                 // 到了这一步，说明插入或更新成功，数目自加！
                 successAmount++;
