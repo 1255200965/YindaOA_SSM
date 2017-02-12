@@ -4,36 +4,36 @@
   <resultMap id="BaseResultMap" type="com.model.YoUserinfosalary" >
     <id column="sid" property="sid" jdbcType="INTEGER" />
     <result column="salarydate" property="salarydate" jdbcType="VARCHAR" />
+    <result column="salaryid" property="salaryid" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="department" property="department" jdbcType="VARCHAR" />
+    <result column="contract_type" property="contractType" jdbcType="VARCHAR" />
+    <result column="ordinary_address" property="ordinaryAddress" jdbcType="VARCHAR" />
+    <result column="branch_company" property="branchCompany" jdbcType="VARCHAR" />
     <result column="userid" property="userid" jdbcType="VARCHAR" />
-    <result column="salaryid" property="salaryid" jdbcType="VARCHAR" />
-    <result column="date" property="date" jdbcType="DATE" />
+    <result column="whether_bt_allowance" property="whetherBtAllowance" jdbcType="VARCHAR" />
+    <result column="base_salary" property="baseSalary" jdbcType="DOUBLE" />
     <result column="datetype" property="datetype" jdbcType="VARCHAR" />
     <result column="attendance" property="attendance" jdbcType="VARCHAR" />
-    <result column="realityattendance" property="realityattendance" jdbcType="VARCHAR" />
     <result column="effectiveAttendance" property="effectiveattendance" jdbcType="VARCHAR" />
+    <result column="realityattendance" property="realityattendance" jdbcType="VARCHAR" />
     <result column="attendancesalary" property="attendancesalary" jdbcType="DOUBLE" />
     <result column="leavetype" property="leavetype" jdbcType="VARCHAR" />
     <result column="leavesalary" property="leavesalary" jdbcType="DOUBLE" />
     <result column="workovertime" property="workovertime" jdbcType="VARCHAR" />
     <result column="worksalary" property="worksalary" jdbcType="DOUBLE" />
-    <result column="evection" property="evection" jdbcType="VARCHAR" />
-    <result column="allowance" property="allowance" jdbcType="DOUBLE" />
-    <result column="contract_type" property="contractType" jdbcType="VARCHAR" />
-    <result column="branch_company" property="branchCompany" jdbcType="VARCHAR" />
-    <result column="base_salary" property="baseSalary" jdbcType="DOUBLE" />
+    <result column="subtotal" property="subtotal" jdbcType="DOUBLE" />
     <result column="bt_eff_days" property="btEffDays" jdbcType="VARCHAR" />
-    <result column="bt_allowance" property="btAllowance" jdbcType="DOUBLE" />
+    <result column="allowance" property="allowance" jdbcType="DOUBLE" />
+    <result column="evection" property="evection" jdbcType="DOUBLE" />
+    <result column="trafficsalary" property="trafficsalary" jdbcType="DOUBLE" />
     <result column="timesalary" property="timesalary" jdbcType="DOUBLE" />
     <result column="timebaseAdd" property="timebaseadd" jdbcType="DOUBLE" />
     <result column="task" property="task" jdbcType="VARCHAR" />
     <result column="tasksalary" property="tasksalary" jdbcType="DOUBLE" />
     <result column="taskbaseAdd" property="taskbaseadd" jdbcType="DOUBLE" />
-    <result column="trafficsalary" property="trafficsalary" jdbcType="DOUBLE" />
-    <result column="socialDecase" property="socialdecase" jdbcType="DOUBLE" />
     <result column="userbonus" property="userbonus" jdbcType="DOUBLE" />
-    <result column="subtotal" property="subtotal" jdbcType="DOUBLE" />
+    <result column="socialDecase" property="socialdecase" jdbcType="DOUBLE" />
     <result column="totalsalary" property="totalsalary" jdbcType="DOUBLE" />
     <result column="month_salary" property="monthSalary" jdbcType="DOUBLE" />
     <result column="tax" property="tax" jdbcType="DOUBLE" />
@@ -72,12 +72,12 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    sid, salarydate, name, department, userid, salaryid, date, datetype, attendance, 
-    realityattendance, effectiveAttendance, attendancesalary, leavetype, leavesalary, 
-    workovertime, worksalary, evection, allowance, contract_type, branch_company, base_salary, 
-    bt_eff_days, bt_allowance, timesalary, timebaseAdd, task, tasksalary, taskbaseAdd, 
-    trafficsalary, socialDecase, userbonus, subtotal, totalsalary, month_salary, tax, 
-    realsalary, month_bonus, month_bonus_tax, month_bonus_real
+    sid, salarydate, salaryid, name, department, contract_type, ordinary_address, branch_company, 
+    userid, whether_bt_allowance, base_salary, datetype, attendance, effectiveAttendance, 
+    realityattendance, attendancesalary, leavetype, leavesalary, workovertime, worksalary, 
+    subtotal, bt_eff_days, allowance, evection, trafficsalary, timesalary, timebaseAdd, 
+    task, tasksalary, taskbaseAdd, userbonus, socialDecase, totalsalary, month_salary, 
+    tax, realsalary, month_bonus, month_bonus_tax, month_bonus_real
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.model.YoUserinfosalaryExample" >
     select
@@ -104,34 +104,34 @@
     where sid = #{sid,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.model.YoUserinfosalary" >
-    insert into yo_userinfosalary (sid, salarydate, name, 
-      department, userid, salaryid, 
-      date, datetype, attendance, 
-      realityattendance, effectiveAttendance, 
+    insert into yo_userinfosalary (sid, salarydate, salaryid, 
+      name, department, contract_type, 
+      ordinary_address, branch_company, userid, 
+      whether_bt_allowance, base_salary, datetype, 
+      attendance, effectiveAttendance, realityattendance, 
       attendancesalary, leavetype, leavesalary, 
-      workovertime, worksalary, evection, 
-      allowance, contract_type, branch_company, 
-      base_salary, bt_eff_days, bt_allowance, 
-      timesalary, timebaseAdd, task, 
-      tasksalary, taskbaseAdd, trafficsalary, 
-      socialDecase, userbonus, subtotal, 
-      totalsalary, month_salary, tax, 
-      realsalary, month_bonus, month_bonus_tax, 
-      month_bonus_real)
-    values (#{sid,jdbcType=INTEGER}, #{salarydate,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{department,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{salaryid,jdbcType=VARCHAR}, 
-      #{date,jdbcType=DATE}, #{datetype,jdbcType=VARCHAR}, #{attendance,jdbcType=VARCHAR}, 
-      #{realityattendance,jdbcType=VARCHAR}, #{effectiveattendance,jdbcType=VARCHAR}, 
+      workovertime, worksalary, subtotal, 
+      bt_eff_days, allowance, evection, 
+      trafficsalary, timesalary, timebaseAdd, 
+      task, tasksalary, taskbaseAdd, 
+      userbonus, socialDecase, totalsalary, 
+      month_salary, tax, realsalary, 
+      month_bonus, month_bonus_tax, month_bonus_real
+      )
+    values (#{sid,jdbcType=INTEGER}, #{salarydate,jdbcType=VARCHAR}, #{salaryid,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR}, #{contractType,jdbcType=VARCHAR}, 
+      #{ordinaryAddress,jdbcType=VARCHAR}, #{branchCompany,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, 
+      #{whetherBtAllowance,jdbcType=VARCHAR}, #{baseSalary,jdbcType=DOUBLE}, #{datetype,jdbcType=VARCHAR}, 
+      #{attendance,jdbcType=VARCHAR}, #{effectiveattendance,jdbcType=VARCHAR}, #{realityattendance,jdbcType=VARCHAR}, 
       #{attendancesalary,jdbcType=DOUBLE}, #{leavetype,jdbcType=VARCHAR}, #{leavesalary,jdbcType=DOUBLE}, 
-      #{workovertime,jdbcType=VARCHAR}, #{worksalary,jdbcType=DOUBLE}, #{evection,jdbcType=VARCHAR}, 
-      #{allowance,jdbcType=DOUBLE}, #{contractType,jdbcType=VARCHAR}, #{branchCompany,jdbcType=VARCHAR}, 
-      #{baseSalary,jdbcType=DOUBLE}, #{btEffDays,jdbcType=VARCHAR}, #{btAllowance,jdbcType=DOUBLE}, 
-      #{timesalary,jdbcType=DOUBLE}, #{timebaseadd,jdbcType=DOUBLE}, #{task,jdbcType=VARCHAR}, 
-      #{tasksalary,jdbcType=DOUBLE}, #{taskbaseadd,jdbcType=DOUBLE}, #{trafficsalary,jdbcType=DOUBLE}, 
-      #{socialdecase,jdbcType=DOUBLE}, #{userbonus,jdbcType=DOUBLE}, #{subtotal,jdbcType=DOUBLE}, 
-      #{totalsalary,jdbcType=DOUBLE}, #{monthSalary,jdbcType=DOUBLE}, #{tax,jdbcType=DOUBLE}, 
-      #{realsalary,jdbcType=DOUBLE}, #{monthBonus,jdbcType=DOUBLE}, #{monthBonusTax,jdbcType=DOUBLE}, 
-      #{monthBonusReal,jdbcType=DOUBLE})
+      #{workovertime,jdbcType=VARCHAR}, #{worksalary,jdbcType=DOUBLE}, #{subtotal,jdbcType=DOUBLE}, 
+      #{btEffDays,jdbcType=VARCHAR}, #{allowance,jdbcType=DOUBLE}, #{evection,jdbcType=DOUBLE}, 
+      #{trafficsalary,jdbcType=DOUBLE}, #{timesalary,jdbcType=DOUBLE}, #{timebaseadd,jdbcType=DOUBLE}, 
+      #{task,jdbcType=VARCHAR}, #{tasksalary,jdbcType=DOUBLE}, #{taskbaseadd,jdbcType=DOUBLE}, 
+      #{userbonus,jdbcType=DOUBLE}, #{socialdecase,jdbcType=DOUBLE}, #{totalsalary,jdbcType=DOUBLE}, 
+      #{monthSalary,jdbcType=DOUBLE}, #{tax,jdbcType=DOUBLE}, #{realsalary,jdbcType=DOUBLE}, 
+      #{monthBonus,jdbcType=DOUBLE}, #{monthBonusTax,jdbcType=DOUBLE}, #{monthBonusReal,jdbcType=DOUBLE}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.model.YoUserinfosalary" >
     insert into yo_userinfosalary
@@ -142,20 +142,32 @@
       <if test="salarydate != null" >
         salarydate,
       </if>
+      <if test="salaryid != null" >
+        salaryid,
+      </if>
       <if test="name != null" >
         name,
       </if>
       <if test="department != null" >
         department,
       </if>
+      <if test="contractType != null" >
+        contract_type,
+      </if>
+      <if test="ordinaryAddress != null" >
+        ordinary_address,
+      </if>
+      <if test="branchCompany != null" >
+        branch_company,
+      </if>
       <if test="userid != null" >
         userid,
       </if>
-      <if test="salaryid != null" >
-        salaryid,
+      <if test="whetherBtAllowance != null" >
+        whether_bt_allowance,
       </if>
-      <if test="date != null" >
-        date,
+      <if test="baseSalary != null" >
+        base_salary,
       </if>
       <if test="datetype != null" >
         datetype,
@@ -163,11 +175,11 @@
       <if test="attendance != null" >
         attendance,
       </if>
-      <if test="realityattendance != null" >
-        realityattendance,
-      </if>
       <if test="effectiveattendance != null" >
         effectiveAttendance,
+      </if>
+      <if test="realityattendance != null" >
+        realityattendance,
       </if>
       <if test="attendancesalary != null" >
         attendancesalary,
@@ -184,26 +196,20 @@
       <if test="worksalary != null" >
         worksalary,
       </if>
-      <if test="evection != null" >
-        evection,
-      </if>
-      <if test="allowance != null" >
-        allowance,
-      </if>
-      <if test="contractType != null" >
-        contract_type,
-      </if>
-      <if test="branchCompany != null" >
-        branch_company,
-      </if>
-      <if test="baseSalary != null" >
-        base_salary,
+      <if test="subtotal != null" >
+        subtotal,
       </if>
       <if test="btEffDays != null" >
         bt_eff_days,
       </if>
-      <if test="btAllowance != null" >
-        bt_allowance,
+      <if test="allowance != null" >
+        allowance,
+      </if>
+      <if test="evection != null" >
+        evection,
+      </if>
+      <if test="trafficsalary != null" >
+        trafficsalary,
       </if>
       <if test="timesalary != null" >
         timesalary,
@@ -220,17 +226,11 @@
       <if test="taskbaseadd != null" >
         taskbaseAdd,
       </if>
-      <if test="trafficsalary != null" >
-        trafficsalary,
-      </if>
-      <if test="socialdecase != null" >
-        socialDecase,
-      </if>
       <if test="userbonus != null" >
         userbonus,
       </if>
-      <if test="subtotal != null" >
-        subtotal,
+      <if test="socialdecase != null" >
+        socialDecase,
       </if>
       <if test="totalsalary != null" >
         totalsalary,
@@ -261,20 +261,32 @@
       <if test="salarydate != null" >
         #{salarydate,jdbcType=VARCHAR},
       </if>
+      <if test="salaryid != null" >
+        #{salaryid,jdbcType=VARCHAR},
+      </if>
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
       </if>
       <if test="department != null" >
         #{department,jdbcType=VARCHAR},
       </if>
+      <if test="contractType != null" >
+        #{contractType,jdbcType=VARCHAR},
+      </if>
+      <if test="ordinaryAddress != null" >
+        #{ordinaryAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="branchCompany != null" >
+        #{branchCompany,jdbcType=VARCHAR},
+      </if>
       <if test="userid != null" >
         #{userid,jdbcType=VARCHAR},
       </if>
-      <if test="salaryid != null" >
-        #{salaryid,jdbcType=VARCHAR},
+      <if test="whetherBtAllowance != null" >
+        #{whetherBtAllowance,jdbcType=VARCHAR},
       </if>
-      <if test="date != null" >
-        #{date,jdbcType=DATE},
+      <if test="baseSalary != null" >
+        #{baseSalary,jdbcType=DOUBLE},
       </if>
       <if test="datetype != null" >
         #{datetype,jdbcType=VARCHAR},
@@ -282,11 +294,11 @@
       <if test="attendance != null" >
         #{attendance,jdbcType=VARCHAR},
       </if>
-      <if test="realityattendance != null" >
-        #{realityattendance,jdbcType=VARCHAR},
-      </if>
       <if test="effectiveattendance != null" >
         #{effectiveattendance,jdbcType=VARCHAR},
+      </if>
+      <if test="realityattendance != null" >
+        #{realityattendance,jdbcType=VARCHAR},
       </if>
       <if test="attendancesalary != null" >
         #{attendancesalary,jdbcType=DOUBLE},
@@ -303,26 +315,20 @@
       <if test="worksalary != null" >
         #{worksalary,jdbcType=DOUBLE},
       </if>
-      <if test="evection != null" >
-        #{evection,jdbcType=VARCHAR},
-      </if>
-      <if test="allowance != null" >
-        #{allowance,jdbcType=DOUBLE},
-      </if>
-      <if test="contractType != null" >
-        #{contractType,jdbcType=VARCHAR},
-      </if>
-      <if test="branchCompany != null" >
-        #{branchCompany,jdbcType=VARCHAR},
-      </if>
-      <if test="baseSalary != null" >
-        #{baseSalary,jdbcType=DOUBLE},
+      <if test="subtotal != null" >
+        #{subtotal,jdbcType=DOUBLE},
       </if>
       <if test="btEffDays != null" >
         #{btEffDays,jdbcType=VARCHAR},
       </if>
-      <if test="btAllowance != null" >
-        #{btAllowance,jdbcType=DOUBLE},
+      <if test="allowance != null" >
+        #{allowance,jdbcType=DOUBLE},
+      </if>
+      <if test="evection != null" >
+        #{evection,jdbcType=DOUBLE},
+      </if>
+      <if test="trafficsalary != null" >
+        #{trafficsalary,jdbcType=DOUBLE},
       </if>
       <if test="timesalary != null" >
         #{timesalary,jdbcType=DOUBLE},
@@ -339,17 +345,11 @@
       <if test="taskbaseadd != null" >
         #{taskbaseadd,jdbcType=DOUBLE},
       </if>
-      <if test="trafficsalary != null" >
-        #{trafficsalary,jdbcType=DOUBLE},
-      </if>
-      <if test="socialdecase != null" >
-        #{socialdecase,jdbcType=DOUBLE},
-      </if>
       <if test="userbonus != null" >
         #{userbonus,jdbcType=DOUBLE},
       </if>
-      <if test="subtotal != null" >
-        #{subtotal,jdbcType=DOUBLE},
+      <if test="socialdecase != null" >
+        #{socialdecase,jdbcType=DOUBLE},
       </if>
       <if test="totalsalary != null" >
         #{totalsalary,jdbcType=DOUBLE},
@@ -380,20 +380,32 @@
       <if test="salarydate != null" >
         salarydate = #{salarydate,jdbcType=VARCHAR},
       </if>
+      <if test="salaryid != null" >
+        salaryid = #{salaryid,jdbcType=VARCHAR},
+      </if>
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
       </if>
       <if test="department != null" >
         department = #{department,jdbcType=VARCHAR},
       </if>
+      <if test="contractType != null" >
+        contract_type = #{contractType,jdbcType=VARCHAR},
+      </if>
+      <if test="ordinaryAddress != null" >
+        ordinary_address = #{ordinaryAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="branchCompany != null" >
+        branch_company = #{branchCompany,jdbcType=VARCHAR},
+      </if>
       <if test="userid != null" >
         userid = #{userid,jdbcType=VARCHAR},
       </if>
-      <if test="salaryid != null" >
-        salaryid = #{salaryid,jdbcType=VARCHAR},
+      <if test="whetherBtAllowance != null" >
+        whether_bt_allowance = #{whetherBtAllowance,jdbcType=VARCHAR},
       </if>
-      <if test="date != null" >
-        date = #{date,jdbcType=DATE},
+      <if test="baseSalary != null" >
+        base_salary = #{baseSalary,jdbcType=DOUBLE},
       </if>
       <if test="datetype != null" >
         datetype = #{datetype,jdbcType=VARCHAR},
@@ -401,11 +413,11 @@
       <if test="attendance != null" >
         attendance = #{attendance,jdbcType=VARCHAR},
       </if>
-      <if test="realityattendance != null" >
-        realityattendance = #{realityattendance,jdbcType=VARCHAR},
-      </if>
       <if test="effectiveattendance != null" >
         effectiveAttendance = #{effectiveattendance,jdbcType=VARCHAR},
+      </if>
+      <if test="realityattendance != null" >
+        realityattendance = #{realityattendance,jdbcType=VARCHAR},
       </if>
       <if test="attendancesalary != null" >
         attendancesalary = #{attendancesalary,jdbcType=DOUBLE},
@@ -422,26 +434,20 @@
       <if test="worksalary != null" >
         worksalary = #{worksalary,jdbcType=DOUBLE},
       </if>
-      <if test="evection != null" >
-        evection = #{evection,jdbcType=VARCHAR},
-      </if>
-      <if test="allowance != null" >
-        allowance = #{allowance,jdbcType=DOUBLE},
-      </if>
-      <if test="contractType != null" >
-        contract_type = #{contractType,jdbcType=VARCHAR},
-      </if>
-      <if test="branchCompany != null" >
-        branch_company = #{branchCompany,jdbcType=VARCHAR},
-      </if>
-      <if test="baseSalary != null" >
-        base_salary = #{baseSalary,jdbcType=DOUBLE},
+      <if test="subtotal != null" >
+        subtotal = #{subtotal,jdbcType=DOUBLE},
       </if>
       <if test="btEffDays != null" >
         bt_eff_days = #{btEffDays,jdbcType=VARCHAR},
       </if>
-      <if test="btAllowance != null" >
-        bt_allowance = #{btAllowance,jdbcType=DOUBLE},
+      <if test="allowance != null" >
+        allowance = #{allowance,jdbcType=DOUBLE},
+      </if>
+      <if test="evection != null" >
+        evection = #{evection,jdbcType=DOUBLE},
+      </if>
+      <if test="trafficsalary != null" >
+        trafficsalary = #{trafficsalary,jdbcType=DOUBLE},
       </if>
       <if test="timesalary != null" >
         timesalary = #{timesalary,jdbcType=DOUBLE},
@@ -458,17 +464,11 @@
       <if test="taskbaseadd != null" >
         taskbaseAdd = #{taskbaseadd,jdbcType=DOUBLE},
       </if>
-      <if test="trafficsalary != null" >
-        trafficsalary = #{trafficsalary,jdbcType=DOUBLE},
-      </if>
-      <if test="socialdecase != null" >
-        socialDecase = #{socialdecase,jdbcType=DOUBLE},
-      </if>
       <if test="userbonus != null" >
         userbonus = #{userbonus,jdbcType=DOUBLE},
       </if>
-      <if test="subtotal != null" >
-        subtotal = #{subtotal,jdbcType=DOUBLE},
+      <if test="socialdecase != null" >
+        socialDecase = #{socialdecase,jdbcType=DOUBLE},
       </if>
       <if test="totalsalary != null" >
         totalsalary = #{totalsalary,jdbcType=DOUBLE},
@@ -497,36 +497,36 @@
   <update id="updateByPrimaryKey" parameterType="com.model.YoUserinfosalary" >
     update yo_userinfosalary
     set salarydate = #{salarydate,jdbcType=VARCHAR},
+      salaryid = #{salaryid,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},
       department = #{department,jdbcType=VARCHAR},
+      contract_type = #{contractType,jdbcType=VARCHAR},
+      ordinary_address = #{ordinaryAddress,jdbcType=VARCHAR},
+      branch_company = #{branchCompany,jdbcType=VARCHAR},
       userid = #{userid,jdbcType=VARCHAR},
-      salaryid = #{salaryid,jdbcType=VARCHAR},
-      date = #{date,jdbcType=DATE},
+      whether_bt_allowance = #{whetherBtAllowance,jdbcType=VARCHAR},
+      base_salary = #{baseSalary,jdbcType=DOUBLE},
       datetype = #{datetype,jdbcType=VARCHAR},
       attendance = #{attendance,jdbcType=VARCHAR},
-      realityattendance = #{realityattendance,jdbcType=VARCHAR},
       effectiveAttendance = #{effectiveattendance,jdbcType=VARCHAR},
+      realityattendance = #{realityattendance,jdbcType=VARCHAR},
       attendancesalary = #{attendancesalary,jdbcType=DOUBLE},
       leavetype = #{leavetype,jdbcType=VARCHAR},
       leavesalary = #{leavesalary,jdbcType=DOUBLE},
       workovertime = #{workovertime,jdbcType=VARCHAR},
       worksalary = #{worksalary,jdbcType=DOUBLE},
-      evection = #{evection,jdbcType=VARCHAR},
-      allowance = #{allowance,jdbcType=DOUBLE},
-      contract_type = #{contractType,jdbcType=VARCHAR},
-      branch_company = #{branchCompany,jdbcType=VARCHAR},
-      base_salary = #{baseSalary,jdbcType=DOUBLE},
+      subtotal = #{subtotal,jdbcType=DOUBLE},
       bt_eff_days = #{btEffDays,jdbcType=VARCHAR},
-      bt_allowance = #{btAllowance,jdbcType=DOUBLE},
+      allowance = #{allowance,jdbcType=DOUBLE},
+      evection = #{evection,jdbcType=DOUBLE},
+      trafficsalary = #{trafficsalary,jdbcType=DOUBLE},
       timesalary = #{timesalary,jdbcType=DOUBLE},
       timebaseAdd = #{timebaseadd,jdbcType=DOUBLE},
       task = #{task,jdbcType=VARCHAR},
       tasksalary = #{tasksalary,jdbcType=DOUBLE},
       taskbaseAdd = #{taskbaseadd,jdbcType=DOUBLE},
-      trafficsalary = #{trafficsalary,jdbcType=DOUBLE},
-      socialDecase = #{socialdecase,jdbcType=DOUBLE},
       userbonus = #{userbonus,jdbcType=DOUBLE},
-      subtotal = #{subtotal,jdbcType=DOUBLE},
+      socialDecase = #{socialdecase,jdbcType=DOUBLE},
       totalsalary = #{totalsalary,jdbcType=DOUBLE},
       month_salary = #{monthSalary,jdbcType=DOUBLE},
       tax = #{tax,jdbcType=DOUBLE},

@@ -1,29 +1,35 @@
 package com.model;
 
-import java.util.Date;
-
 public class YoUserinfosalary {
     private Integer sid;
 
     private String salarydate;
 
+    private String salaryid;
+
     private String name;
 
     private String department;
 
+    private String contractType;
+
+    private String ordinaryAddress;
+
+    private String branchCompany;
+
     private String userid;
 
-    private String salaryid;
+    private String whetherBtAllowance;
 
-    private Date date;
+    private Double baseSalary;
 
     private String datetype;
 
     private String attendance;
 
-    private String realityattendance;
-
     private String effectiveattendance;
+
+    private String realityattendance;
 
     private Double attendancesalary;
 
@@ -35,19 +41,15 @@ public class YoUserinfosalary {
 
     private Double worksalary;
 
-    private String evection;
-
-    private Double allowance;
-
-    private String contractType;
-
-    private String branchCompany;
-
-    private Double baseSalary;
+    private Double subtotal;
 
     private String btEffDays;
 
-    private Double btAllowance;
+    private Double allowance;
+
+    private Double evection;
+
+    private Double trafficsalary;
 
     private Double timesalary;
 
@@ -59,13 +61,9 @@ public class YoUserinfosalary {
 
     private Double taskbaseadd;
 
-    private Double trafficsalary;
-
-    private Double socialdecase;
-
     private Double userbonus;
 
-    private Double subtotal;
+    private Double socialdecase;
 
     private Double totalsalary;
 
@@ -97,6 +95,14 @@ public class YoUserinfosalary {
         this.salarydate = salarydate;
     }
 
+    public String getSalaryid() {
+        return salaryid;
+    }
+
+    public void setSalaryid(String salaryid) {
+        this.salaryid = salaryid;
+    }
+
     public String getName() {
         return name;
     }
@@ -113,6 +119,30 @@ public class YoUserinfosalary {
         this.department = department;
     }
 
+    public String getContractType() {
+        return contractType;
+    }
+
+    public void setContractType(String contractType) {
+        this.contractType = contractType;
+    }
+
+    public String getOrdinaryAddress() {
+        return ordinaryAddress;
+    }
+
+    public void setOrdinaryAddress(String ordinaryAddress) {
+        this.ordinaryAddress = ordinaryAddress;
+    }
+
+    public String getBranchCompany() {
+        return branchCompany;
+    }
+
+    public void setBranchCompany(String branchCompany) {
+        this.branchCompany = branchCompany;
+    }
+
     public String getUserid() {
         return userid;
     }
@@ -121,20 +151,20 @@ public class YoUserinfosalary {
         this.userid = userid;
     }
 
-    public String getSalaryid() {
-        return salaryid;
+    public String getWhetherBtAllowance() {
+        return whetherBtAllowance;
     }
 
-    public void setSalaryid(String salaryid) {
-        this.salaryid = salaryid;
+    public void setWhetherBtAllowance(String whetherBtAllowance) {
+        this.whetherBtAllowance = whetherBtAllowance;
     }
 
-    public Date getDate() {
-        return date;
+    public Double getBaseSalary() {
+        return baseSalary;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setBaseSalary(Double baseSalary) {
+        this.baseSalary = baseSalary;
     }
 
     public String getDatetype() {
@@ -153,20 +183,20 @@ public class YoUserinfosalary {
         this.attendance = attendance;
     }
 
-    public String getRealityattendance() {
-        return realityattendance;
-    }
-
-    public void setRealityattendance(String realityattendance) {
-        this.realityattendance = realityattendance;
-    }
-
     public String getEffectiveattendance() {
         return effectiveattendance;
     }
 
     public void setEffectiveattendance(String effectiveattendance) {
         this.effectiveattendance = effectiveattendance;
+    }
+
+    public String getRealityattendance() {
+        return realityattendance;
+    }
+
+    public void setRealityattendance(String realityattendance) {
+        this.realityattendance = realityattendance;
     }
 
     public Double getAttendancesalary() {
@@ -209,44 +239,12 @@ public class YoUserinfosalary {
         this.worksalary = worksalary;
     }
 
-    public String getEvection() {
-        return evection;
+    public Double getSubtotal() {
+        return subtotal;
     }
 
-    public void setEvection(String evection) {
-        this.evection = evection;
-    }
-
-    public Double getAllowance() {
-        return allowance;
-    }
-
-    public void setAllowance(Double allowance) {
-        this.allowance = allowance;
-    }
-
-    public String getContractType() {
-        return contractType;
-    }
-
-    public void setContractType(String contractType) {
-        this.contractType = contractType;
-    }
-
-    public String getBranchCompany() {
-        return branchCompany;
-    }
-
-    public void setBranchCompany(String branchCompany) {
-        this.branchCompany = branchCompany;
-    }
-
-    public Double getBaseSalary() {
-        return baseSalary;
-    }
-
-    public void setBaseSalary(Double baseSalary) {
-        this.baseSalary = baseSalary;
+    public void setSubtotal(Double subtotal) {
+        this.subtotal = subtotal;
     }
 
     public String getBtEffDays() {
@@ -257,12 +255,28 @@ public class YoUserinfosalary {
         this.btEffDays = btEffDays;
     }
 
-    public Double getBtAllowance() {
-        return btAllowance;
+    public Double getAllowance() {
+        return allowance;
     }
 
-    public void setBtAllowance(Double btAllowance) {
-        this.btAllowance = btAllowance;
+    public void setAllowance(Double allowance) {
+        this.allowance = allowance;
+    }
+
+    public Double getEvection() {
+        return evection;
+    }
+
+    public void setEvection(Double evection) {
+        this.evection = evection;
+    }
+
+    public Double getTrafficsalary() {
+        return trafficsalary;
+    }
+
+    public void setTrafficsalary(Double trafficsalary) {
+        this.trafficsalary = trafficsalary;
     }
 
     public Double getTimesalary() {
@@ -305,22 +319,6 @@ public class YoUserinfosalary {
         this.taskbaseadd = taskbaseadd;
     }
 
-    public Double getTrafficsalary() {
-        return trafficsalary;
-    }
-
-    public void setTrafficsalary(Double trafficsalary) {
-        this.trafficsalary = trafficsalary;
-    }
-
-    public Double getSocialdecase() {
-        return socialdecase;
-    }
-
-    public void setSocialdecase(Double socialdecase) {
-        this.socialdecase = socialdecase;
-    }
-
     public Double getUserbonus() {
         return userbonus;
     }
@@ -329,12 +327,12 @@ public class YoUserinfosalary {
         this.userbonus = userbonus;
     }
 
-    public Double getSubtotal() {
-        return subtotal;
+    public Double getSocialdecase() {
+        return socialdecase;
     }
 
-    public void setSubtotal(Double subtotal) {
-        this.subtotal = subtotal;
+    public void setSocialdecase(Double socialdecase) {
+        this.socialdecase = socialdecase;
     }
 
     public Double getTotalsalary() {
