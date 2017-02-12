@@ -24,8 +24,9 @@
     <result column="worksalary" property="worksalary" jdbcType="DOUBLE" />
     <result column="subtotal" property="subtotal" jdbcType="DOUBLE" />
     <result column="bt_eff_days" property="btEffDays" jdbcType="VARCHAR" />
+    <result column="evection" property="evection" jdbcType="VARCHAR" />
     <result column="allowance" property="allowance" jdbcType="DOUBLE" />
-    <result column="evection" property="evection" jdbcType="DOUBLE" />
+    <result column="heating_allowance" property="heatingAllowance" jdbcType="DOUBLE" />
     <result column="trafficsalary" property="trafficsalary" jdbcType="DOUBLE" />
     <result column="timesalary" property="timesalary" jdbcType="DOUBLE" />
     <result column="timebaseAdd" property="timebaseadd" jdbcType="DOUBLE" />
@@ -75,9 +76,9 @@
     sid, salarydate, salaryid, name, department, contract_type, ordinary_address, branch_company, 
     userid, whether_bt_allowance, base_salary, datetype, attendance, effectiveAttendance, 
     realityattendance, attendancesalary, leavetype, leavesalary, workovertime, worksalary, 
-    subtotal, bt_eff_days, allowance, evection, trafficsalary, timesalary, timebaseAdd, 
-    task, tasksalary, taskbaseAdd, userbonus, socialDecase, totalsalary, month_salary, 
-    tax, realsalary, month_bonus, month_bonus_tax, month_bonus_real
+    subtotal, bt_eff_days, evection, allowance, heating_allowance, trafficsalary, timesalary, 
+    timebaseAdd, task, tasksalary, taskbaseAdd, userbonus, socialDecase, totalsalary, 
+    month_salary, tax, realsalary, month_bonus, month_bonus_tax, month_bonus_real
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.model.YoUserinfosalaryExample" >
     select
@@ -111,13 +112,13 @@
       attendance, effectiveAttendance, realityattendance, 
       attendancesalary, leavetype, leavesalary, 
       workovertime, worksalary, subtotal, 
-      bt_eff_days, allowance, evection, 
-      trafficsalary, timesalary, timebaseAdd, 
-      task, tasksalary, taskbaseAdd, 
-      userbonus, socialDecase, totalsalary, 
-      month_salary, tax, realsalary, 
-      month_bonus, month_bonus_tax, month_bonus_real
-      )
+      bt_eff_days, evection, allowance, 
+      heating_allowance, trafficsalary, timesalary, 
+      timebaseAdd, task, tasksalary, 
+      taskbaseAdd, userbonus, socialDecase, 
+      totalsalary, month_salary, tax, 
+      realsalary, month_bonus, month_bonus_tax, 
+      month_bonus_real)
     values (#{sid,jdbcType=INTEGER}, #{salarydate,jdbcType=VARCHAR}, #{salaryid,jdbcType=VARCHAR}, 
       #{name,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR}, #{contractType,jdbcType=VARCHAR}, 
       #{ordinaryAddress,jdbcType=VARCHAR}, #{branchCompany,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, 
@@ -125,13 +126,13 @@
       #{attendance,jdbcType=VARCHAR}, #{effectiveattendance,jdbcType=VARCHAR}, #{realityattendance,jdbcType=VARCHAR}, 
       #{attendancesalary,jdbcType=DOUBLE}, #{leavetype,jdbcType=VARCHAR}, #{leavesalary,jdbcType=DOUBLE}, 
       #{workovertime,jdbcType=VARCHAR}, #{worksalary,jdbcType=DOUBLE}, #{subtotal,jdbcType=DOUBLE}, 
-      #{btEffDays,jdbcType=VARCHAR}, #{allowance,jdbcType=DOUBLE}, #{evection,jdbcType=DOUBLE}, 
-      #{trafficsalary,jdbcType=DOUBLE}, #{timesalary,jdbcType=DOUBLE}, #{timebaseadd,jdbcType=DOUBLE}, 
-      #{task,jdbcType=VARCHAR}, #{tasksalary,jdbcType=DOUBLE}, #{taskbaseadd,jdbcType=DOUBLE}, 
-      #{userbonus,jdbcType=DOUBLE}, #{socialdecase,jdbcType=DOUBLE}, #{totalsalary,jdbcType=DOUBLE}, 
-      #{monthSalary,jdbcType=DOUBLE}, #{tax,jdbcType=DOUBLE}, #{realsalary,jdbcType=DOUBLE}, 
-      #{monthBonus,jdbcType=DOUBLE}, #{monthBonusTax,jdbcType=DOUBLE}, #{monthBonusReal,jdbcType=DOUBLE}
-      )
+      #{btEffDays,jdbcType=VARCHAR}, #{evection,jdbcType=VARCHAR}, #{allowance,jdbcType=DOUBLE}, 
+      #{heatingAllowance,jdbcType=DOUBLE}, #{trafficsalary,jdbcType=DOUBLE}, #{timesalary,jdbcType=DOUBLE}, 
+      #{timebaseadd,jdbcType=DOUBLE}, #{task,jdbcType=VARCHAR}, #{tasksalary,jdbcType=DOUBLE}, 
+      #{taskbaseadd,jdbcType=DOUBLE}, #{userbonus,jdbcType=DOUBLE}, #{socialdecase,jdbcType=DOUBLE}, 
+      #{totalsalary,jdbcType=DOUBLE}, #{monthSalary,jdbcType=DOUBLE}, #{tax,jdbcType=DOUBLE}, 
+      #{realsalary,jdbcType=DOUBLE}, #{monthBonus,jdbcType=DOUBLE}, #{monthBonusTax,jdbcType=DOUBLE}, 
+      #{monthBonusReal,jdbcType=DOUBLE})
   </insert>
   <insert id="insertSelective" parameterType="com.model.YoUserinfosalary" >
     insert into yo_userinfosalary
@@ -202,11 +203,14 @@
       <if test="btEffDays != null" >
         bt_eff_days,
       </if>
+      <if test="evection != null" >
+        evection,
+      </if>
       <if test="allowance != null" >
         allowance,
       </if>
-      <if test="evection != null" >
-        evection,
+      <if test="heatingAllowance != null" >
+        heating_allowance,
       </if>
       <if test="trafficsalary != null" >
         trafficsalary,
@@ -321,11 +325,14 @@
       <if test="btEffDays != null" >
         #{btEffDays,jdbcType=VARCHAR},
       </if>
+      <if test="evection != null" >
+        #{evection,jdbcType=VARCHAR},
+      </if>
       <if test="allowance != null" >
         #{allowance,jdbcType=DOUBLE},
       </if>
-      <if test="evection != null" >
-        #{evection,jdbcType=DOUBLE},
+      <if test="heatingAllowance != null" >
+        #{heatingAllowance,jdbcType=DOUBLE},
       </if>
       <if test="trafficsalary != null" >
         #{trafficsalary,jdbcType=DOUBLE},
@@ -440,11 +447,14 @@
       <if test="btEffDays != null" >
         bt_eff_days = #{btEffDays,jdbcType=VARCHAR},
       </if>
+      <if test="evection != null" >
+        evection = #{evection,jdbcType=VARCHAR},
+      </if>
       <if test="allowance != null" >
         allowance = #{allowance,jdbcType=DOUBLE},
       </if>
-      <if test="evection != null" >
-        evection = #{evection,jdbcType=DOUBLE},
+      <if test="heatingAllowance != null" >
+        heating_allowance = #{heatingAllowance,jdbcType=DOUBLE},
       </if>
       <if test="trafficsalary != null" >
         trafficsalary = #{trafficsalary,jdbcType=DOUBLE},
@@ -517,8 +527,9 @@
       worksalary = #{worksalary,jdbcType=DOUBLE},
       subtotal = #{subtotal,jdbcType=DOUBLE},
       bt_eff_days = #{btEffDays,jdbcType=VARCHAR},
+      evection = #{evection,jdbcType=VARCHAR},
       allowance = #{allowance,jdbcType=DOUBLE},
-      evection = #{evection,jdbcType=DOUBLE},
+      heating_allowance = #{heatingAllowance,jdbcType=DOUBLE},
       trafficsalary = #{trafficsalary,jdbcType=DOUBLE},
       timesalary = #{timesalary,jdbcType=DOUBLE},
       timebaseAdd = #{timebaseadd,jdbcType=DOUBLE},

@@ -45,9 +45,11 @@ public class YoUserinfosalary {
 
     private String btEffDays;
 
+    private String evection;
+
     private Double allowance;
 
-    private Double evection;
+    private Double heatingAllowance;
 
     private Double trafficsalary;
 
@@ -255,6 +257,14 @@ public class YoUserinfosalary {
         this.btEffDays = btEffDays;
     }
 
+    public String getEvection() {
+        return evection;
+    }
+
+    public void setEvection(String evection) {
+        this.evection = evection;
+    }
+
     public Double getAllowance() {
         return allowance;
     }
@@ -263,12 +273,12 @@ public class YoUserinfosalary {
         this.allowance = allowance;
     }
 
-    public Double getEvection() {
-        return evection;
+    public Double getHeatingAllowance() {
+        return heatingAllowance;
     }
 
-    public void setEvection(Double evection) {
-        this.evection = evection;
+    public void setHeatingAllowance(Double heatingAllowance) {
+        this.heatingAllowance = heatingAllowance;
     }
 
     public Double getTrafficsalary() {

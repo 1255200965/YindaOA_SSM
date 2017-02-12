@@ -1584,6 +1584,76 @@ public class YoUserinfosalaryExample {
             return (Criteria) this;
         }
 
+        public Criteria andEvectionIsNull() {
+            addCriterion("evection is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEvectionIsNotNull() {
+            addCriterion("evection is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEvectionEqualTo(String value) {
+            addCriterion("evection =", value, "evection");
+            return (Criteria) this;
+        }
+
+        public Criteria andEvectionNotEqualTo(String value) {
+            addCriterion("evection <>", value, "evection");
+            return (Criteria) this;
+        }
+
+        public Criteria andEvectionGreaterThan(String value) {
+            addCriterion("evection >", value, "evection");
+            return (Criteria) this;
+        }
+
+        public Criteria andEvectionGreaterThanOrEqualTo(String value) {
+            addCriterion("evection >=", value, "evection");
+            return (Criteria) this;
+        }
+
+        public Criteria andEvectionLessThan(String value) {
+            addCriterion("evection <", value, "evection");
+            return (Criteria) this;
+        }
+
+        public Criteria andEvectionLessThanOrEqualTo(String value) {
+            addCriterion("evection <=", value, "evection");
+            return (Criteria) this;
+        }
+
+        public Criteria andEvectionLike(String value) {
+            addCriterion("evection like", value, "evection");
+            return (Criteria) this;
+        }
+
+        public Criteria andEvectionNotLike(String value) {
+            addCriterion("evection not like", value, "evection");
+            return (Criteria) this;
+        }
+
+        public Criteria andEvectionIn(List<String> values) {
+            addCriterion("evection in", values, "evection");
+            return (Criteria) this;
+        }
+
+        public Criteria andEvectionNotIn(List<String> values) {
+            addCriterion("evection not in", values, "evection");
+            return (Criteria) this;
+        }
+
+        public Criteria andEvectionBetween(String value1, String value2) {
+            addCriterion("evection between", value1, value2, "evection");
+            return (Criteria) this;
+        }
+
+        public Criteria andEvectionNotBetween(String value1, String value2) {
+            addCriterion("evection not between", value1, value2, "evection");
+            return (Criteria) this;
+        }
+
         public Criteria andAllowanceIsNull() {
             addCriterion("allowance is null");
             return (Criteria) this;
@@ -1644,63 +1714,63 @@ public class YoUserinfosalaryExample {
             return (Criteria) this;
         }
 
-        public Criteria andEvectionIsNull() {
-            addCriterion("evection is null");
+        public Criteria andHeatingAllowanceIsNull() {
+            addCriterion("heating_allowance is null");
             return (Criteria) this;
         }
 
-        public Criteria andEvectionIsNotNull() {
-            addCriterion("evection is not null");
+        public Criteria andHeatingAllowanceIsNotNull() {
+            addCriterion("heating_allowance is not null");
             return (Criteria) this;
         }
 
-        public Criteria andEvectionEqualTo(Double value) {
-            addCriterion("evection =", value, "evection");
+        public Criteria andHeatingAllowanceEqualTo(Double value) {
+            addCriterion("heating_allowance =", value, "heatingAllowance");
             return (Criteria) this;
         }
 
-        public Criteria andEvectionNotEqualTo(Double value) {
-            addCriterion("evection <>", value, "evection");
+        public Criteria andHeatingAllowanceNotEqualTo(Double value) {
+            addCriterion("heating_allowance <>", value, "heatingAllowance");
             return (Criteria) this;
         }
 
-        public Criteria andEvectionGreaterThan(Double value) {
-            addCriterion("evection >", value, "evection");
+        public Criteria andHeatingAllowanceGreaterThan(Double value) {
+            addCriterion("heating_allowance >", value, "heatingAllowance");
             return (Criteria) this;
         }
 
-        public Criteria andEvectionGreaterThanOrEqualTo(Double value) {
-            addCriterion("evection >=", value, "evection");
+        public Criteria andHeatingAllowanceGreaterThanOrEqualTo(Double value) {
+            addCriterion("heating_allowance >=", value, "heatingAllowance");
             return (Criteria) this;
         }
 
-        public Criteria andEvectionLessThan(Double value) {
-            addCriterion("evection <", value, "evection");
+        public Criteria andHeatingAllowanceLessThan(Double value) {
+            addCriterion("heating_allowance <", value, "heatingAllowance");
             return (Criteria) this;
         }
 
-        public Criteria andEvectionLessThanOrEqualTo(Double value) {
-            addCriterion("evection <=", value, "evection");
+        public Criteria andHeatingAllowanceLessThanOrEqualTo(Double value) {
+            addCriterion("heating_allowance <=", value, "heatingAllowance");
             return (Criteria) this;
         }
 
-        public Criteria andEvectionIn(List<Double> values) {
-            addCriterion("evection in", values, "evection");
+        public Criteria andHeatingAllowanceIn(List<Double> values) {
+            addCriterion("heating_allowance in", values, "heatingAllowance");
             return (Criteria) this;
         }
 
-        public Criteria andEvectionNotIn(List<Double> values) {
-            addCriterion("evection not in", values, "evection");
+        public Criteria andHeatingAllowanceNotIn(List<Double> values) {
+            addCriterion("heating_allowance not in", values, "heatingAllowance");
             return (Criteria) this;
         }
 
-        public Criteria andEvectionBetween(Double value1, Double value2) {
-            addCriterion("evection between", value1, value2, "evection");
+        public Criteria andHeatingAllowanceBetween(Double value1, Double value2) {
+            addCriterion("heating_allowance between", value1, value2, "heatingAllowance");
             return (Criteria) this;
         }
 
-        public Criteria andEvectionNotBetween(Double value1, Double value2) {
-            addCriterion("evection not between", value1, value2, "evection");
+        public Criteria andHeatingAllowanceNotBetween(Double value1, Double value2) {
+            addCriterion("heating_allowance not between", value1, value2, "heatingAllowance");
             return (Criteria) this;
         }
 
