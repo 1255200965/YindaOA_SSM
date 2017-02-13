@@ -27,6 +27,7 @@ import com.service.IExpenseApplySubwayService;
 import com.service.IStaffInfoService;
 import com.util.DDSendMessageUtil;
 import com.util.DDUtil;
+import com.util.ExpenseApplyResources;
 import com.util.FileUploadUtil;
 import com.util.GlobalConstant;
 
@@ -62,6 +63,7 @@ public class ExpenseController {
 	public void loginJudge(HttpServletRequest request,String code){
 		//根据code获取用员工钉钉ID
 		String staffUserId=DDUtil.getUserID(code);
+		System.out.println("staffUserId==="+staffUserId);
 		//从数据库中获得该员工的所有信息
 		StaffInfo staffInfo= staffInfoService.selectStaffByID(staffUserId);
 		//在当前回话session中存储相关信息
@@ -80,6 +82,7 @@ public class ExpenseController {
 	public ModelAndView toExpense_history_train(HttpServletRequest request){
 		ModelAndView mav = new ModelAndView();
 		String staffId=(String) request.getSession().getAttribute(GlobalConstant.user_staffId);
+		System.out.println("staffId======="+staffId);
 		List<ExpenseApplayTrain> expenseApplayTrainList = expenseApplayTrainService.selectByStaffId(staffId);
 		mav.addObject("expenseApplayTrainList", expenseApplayTrainList);
 		mav.setViewName("expense/expense_history_train");
@@ -156,7 +159,7 @@ public class ExpenseController {
 		    expenseApplayTrain.setApproverNow(toUser);
     		id = expenseApplayTrainService.saveOrUpdate(expenseApplayTrain);
         	//用户新增的申请需要给管理员推送审批消息
-    		DDSendMessageUtil.sendMessageTrain(expenseApplayTrain, id, toUser);
+//    		DDSendMessageUtil.sendMessageTrain(expenseApplayTrain, id, toUser);
             //操作成功,重定向到历史信息查看界面
     		return "redirect:toExpense_history_train.do";
     	}catch(Exception e){
@@ -230,7 +233,8 @@ public class ExpenseController {
 			//对于挂职在一级部门的员工
 			if(approverList.size() >1){
 			toUser=approverList.get(1);
-			expenseApplayBus.setApproverOrder(approverList.get(1)+"|"+approverList.get(0));
+			expenseApplayBus.setApproverOrder(approverList.get(1)+"|"+approverList.get(0)+"|");
+			
 			expenseApplayBus.setApproverNow(approverList.get(1));
 			}else{//对于挂职在二级部门下的员工
 				toUser=approverList.get(0);
@@ -242,7 +246,7 @@ public class ExpenseController {
 			id=expenseBusService.saveOrUpdate(expenseApplayBus); 
         	//用户新增的申请需要给管理员推送审批消息
 //			toUser="07022352451246847";
-        	DDSendMessageUtil.sendMessageBus(expenseApplayBus, id, toUser);
+//        	DDSendMessageUtil.sendMessageBus(expenseApplayBus, id, toUser);
 	    	return "redirect:toExpense_history_bus.do";
 	    	
 		} catch (Exception e) {
@@ -269,6 +273,7 @@ public class ExpenseController {
     	mav.setViewName("expense/expense_view_bus");
     	return mav;
     }
+  
     //大巴车报销审核
     @RequestMapping("/to_approve_bus.do")
     public ModelAndView toApprove_bus(HttpServletRequest request,int id,String manager){
@@ -362,7 +367,7 @@ public class ExpenseController {
 			/****被报销人的各级审批人****/
     		id =expenseApplayHotelService.saveOrUpdate(expenseApplayHotel);
             //推送消息
-    		DDSendMessageUtil.sendMessageHotel(expenseApplayHotel, id, toUser);
+//    		DDSendMessageUtil.sendMessageHotel(expenseApplayHotel, id, toUser);
            
     		return "redirect:toExpense_history_hotel.do";
     	}catch(Exception e){
@@ -398,6 +403,7 @@ public class ExpenseController {
     	}
     	return expenseApplayHotelService.saveOrUpdate(expenseApplayHotel);
     }
+    
     /**
      * 公交地铁费用报销
      * @return
@@ -409,6 +415,7 @@ public class ExpenseController {
     	mav.setViewName("expense/expense_subway");
     	return mav;
     }
+    //公交地铁报销申请信息保存
     @RequestMapping("/toExpense_subway_save.do")
     public @ResponseBody String toExpense_subway_save(HttpServletRequest request,ExpenseApplySubway subwayApply){
     /******添加当前报销人信息*****/
@@ -434,7 +441,7 @@ try{ subwayApply.setAskStaffId((String) request.getSession().getAttribute(Global
 	/****被报销人的各级审批人****/
 	int id = expenseApplySubwayService.saveOrUpdate(subwayApply);
 	 //推送消息
-	DDSendMessageUtil.sendMessageSubway(subwayApply, id, toUser);
+//	DDSendMessageUtil.sendMessageSubway(subwayApply, id, toUser);
 	return "success";
   }catch(Exception e){
 	 return "fail";
@@ -448,7 +455,6 @@ try{ subwayApply.setAskStaffId((String) request.getSession().getAttribute(Global
     //地铁公交报销审批界面跳转
     @RequestMapping("/toExpense_subway_approve.do")
     public ModelAndView toExpense_subway_approve(int id , String manager){
-    	System.out.println("进来了");
     	ModelAndView mav = new ModelAndView();
     	//找出该条报销记录
     	ExpenseApplySubway subwayApply=expenseApplySubwayService.selectByPrimarykey(id);
@@ -478,6 +484,7 @@ try{ subwayApply.setAskStaffId((String) request.getSession().getAttribute(Global
     		return "fail";
     	}
     }
+    //地铁公交报销历史信息查看
     @RequestMapping("/toSubwayHistory.do")
     public ModelAndView subwayHistory(HttpServletRequest request){
     	ModelAndView mav = new ModelAndView();
@@ -488,15 +495,30 @@ try{ subwayApply.setAskStaffId((String) request.getSession().getAttribute(Global
     	mav.setViewName("expense/expense_history_subway");
     	return mav;
     }
-    //历史审批信息查看
-    @RequestMapping("/goApprove_history_view.do")
+    
+    
+    
+    
+    
+    /***审批信息查看相关代码***/
+    
+    /**
+     * 钉钉微应用内审批界面跳转
+     * @return
+     */
+    @RequestMapping("/goApprove_record.do")
     public ModelAndView goApprove_history_view(){
     	ModelAndView mav = new ModelAndView();
-    	mav.setViewName("expense/approve_history");
+    	mav.setViewName("expense/approveInMicroApp/approve_record");
     	return mav;
     }
-    //已审批信息汇总
-    @RequestMapping("/approved.do")
+    /**
+     * 钉钉微应用内已审批信息查看
+     * @param request
+     * @param type
+     * @return
+     */
+    @RequestMapping("approved.do")
     public ModelAndView approved(HttpServletRequest request,String type){
     	ModelAndView mav = new ModelAndView();
     	String approverStaffUserId = (String) request.getSession().getAttribute(GlobalConstant.user_staff_user_id);
@@ -514,18 +536,23 @@ try{ subwayApply.setAskStaffId((String) request.getSession().getAttribute(Global
     		approvedList = expenseApplySubwayService.selectApproved(approverStaffUserId);
     		mav.addObject("approvedList", approvedList);
     		mav.addObject("type","subway");
-    		mav.setViewName("expense/approved_history_subway");
+    		mav.setViewName("expense/approveInMicroApp/approved_history_subway");
         	return mav;
     	}else if("hotel".equals(type)){
     		approvedList = expenseApplayHotelService.selectApproved(approverStaffUserId);
     		mav.addObject("approvedList", approvedList);
     		mav.addObject("type","hotel");
     	}
-    	mav.setViewName("expense/approved_history_bus");
+    	mav.setViewName("expense/approveInMicroApp/approved_history_bus");
     	return mav;
     }
-    //待审批信息汇总
-    @RequestMapping("/approval.do")
+    /**
+     * 钉钉微应用内待审批信息查看
+     * @param request
+     * @param type
+     * @return
+     */
+    @RequestMapping("approval.do")
     public ModelAndView approval(HttpServletRequest request ,String type){
     	ModelAndView mav = new ModelAndView();
     	String approverStaffUserId = (String) request.getSession().getAttribute(GlobalConstant.user_staff_user_id);
@@ -543,14 +570,99 @@ try{ subwayApply.setAskStaffId((String) request.getSession().getAttribute(Global
     		approvalList = expenseApplySubwayService.selectApproval(approverStaffUserId);
     		mav.addObject("approvalList", approvalList);
     		mav.addObject("type","subway");
-    		mav.setViewName("expense/approval_history_subway");
+    		mav.setViewName("expense/approveInMicroApp/approval_history_subway");
         	return mav;
     	}else if("hotel".equals(type)){
     		approvalList = expenseApplayHotelService.selectApproval(approverStaffUserId);
     		mav.addObject("approvalList", approvalList);
     		mav.addObject("type","hotel");
     	}
-    	mav.setViewName("expense/approval_history_bus");
+    	mav.setViewName("expense/approveInMicroApp/approval_history_bus");
+    	return mav;
+    }
+    
+    /**
+     * 钉钉微应用内住宿审核界面跳转
+     * @param request
+     * @param id--该条记录的数据库ID
+     * @param manager--当前审批人钉钉ID
+     * @return
+     */
+    @RequestMapping("go_approve_hotel.do")
+    public ModelAndView goApproveHotelInMicroApp(HttpServletRequest request,int id,String manager){
+    	ModelAndView mav = new ModelAndView();
+    	ExpenseApplayHotel expenseApplayHotel =expenseApplayHotelService.selectById(id);
+    	String flag=null;
+    	
+    	if(!manager.equals(expenseApplayHotel.getApproverNow())){
+    		flag="hide";
+    	}
+    	mav.addObject("flag", flag);
+    	mav.addObject("expenseApplayHotel",expenseApplayHotel);
+    	mav.setViewName("expense/approveInMicroApp/approve_hotel");
+    	return mav;
+    }
+    /**
+     * 钉钉微应用内大巴车审核界面跳转
+     * @param request
+     * @param id--该条记录的数据库ID
+     * @param manager--当前审批人钉钉ID
+     * @return
+     */
+    @RequestMapping("/go_approve_bus.do")
+    public ModelAndView goApproveBusInMicroApp(HttpServletRequest request,int id,String manager){
+    	ModelAndView mav = new ModelAndView();
+    	ExpenseApplayBus expenseApplayBus = expenseBusService.selectById(id);
+    	String flag=null;
+    	//如果不是当前审批人查看审批消息隐藏通过按钮
+    	if(!manager.equals(expenseApplayBus.getApproverNow())){
+    		flag="hide";
+    	}
+    	mav.addObject("flag", flag);
+    	mav.addObject("expenseApplayBus",expenseApplayBus );
+    	mav.setViewName("expense/approveInMicroApp/approve_bus");
+    	return mav;
+    }
+    /**
+     * 钉钉微应用内火车票报销审核界面跳转
+     * @param request
+     * @param id--该条记录的数据库ID
+     * @param manager--当前审批人钉钉ID
+     * @return
+     */
+    @RequestMapping("go_approve_train.do")
+    public ModelAndView goApproveTrainInMicroApp(HttpServletRequest request,int id,String manager){
+    	ModelAndView mav = new ModelAndView();
+    	ExpenseApplayTrain  expenseApplayTrain = expenseApplayTrainService.selectById(id);
+    	String flag=null;
+    	//1.只有当前审批人才有资格审批这条报销消息
+    	if(!manager.equals(expenseApplayTrain.getApproverNow())){
+    		flag="hide";
+    	}
+    	mav.addObject("flag", flag);
+    	mav.addObject("expenseApplayTrain", expenseApplayTrain);
+    	mav.setViewName("expense/approveInMicroApp/approve_train");
+    	return mav;
+    }
+    /**
+     * 钉钉微应用内地铁公交报销审核界面跳转
+     * @param request
+     * @param id--该条记录的数据库ID
+     * @param manager--当前审批人钉钉ID
+     * @return
+     */
+    @RequestMapping("/go_approve_subway.do")
+    public ModelAndView goApproveSubwayInMicroApp(int id , String manager){
+    	ModelAndView mav = new ModelAndView();
+    	//找出该条报销记录
+    	ExpenseApplySubway subwayApply=expenseApplySubwayService.selectByPrimarykey(id);
+    	String flag=null;
+    	if(! manager.equals(subwayApply.getApproverNow())){
+    		flag="hide";
+    	}
+    	mav.addObject("flag", flag);
+    	mav.addObject("subwayApply", subwayApply);
+    	mav.setViewName("expense/approveInMicroApp/approve_subway");
     	return mav;
     }
     @RequestMapping("/subwayDetailView.do")
@@ -558,9 +670,179 @@ try{ subwayApply.setAskStaffId((String) request.getSession().getAttribute(Global
     	ModelAndView mav = new ModelAndView();
     	ExpenseApplySubway subwayApply = expenseApplySubwayService.selectByPrimarykey(id);
     	mav.addObject("subwayApply", subwayApply);
-    	mav.setViewName("expense/expense_view_subway");
+    	mav.setViewName("expense/approveInMicroApp/expense_view_subway");
     	return mav;
     }
+    /**
+     * 钉钉微应用内地铁公交报销详情查看
+     * @param request
+     * @param id
+     * @return
+     */
+    @RequestMapping("/go_expense_view_subway.do")
+    public ModelAndView viewSubwayInMicroApp(HttpServletRequest request,int id){
+    	ModelAndView mav = new ModelAndView();
+    	ExpenseApplySubway subwayApply = expenseApplySubwayService.selectByPrimarykey(id);
+    	mav.addObject("subwayApply", subwayApply);
+    	mav.setViewName("expense/approveInMicroApp/expense_view_subway");
+    	return mav;
+    }
+    /**
+     * 钉钉微应用内旅店报销详情查看
+     * @param request
+     * @param id
+     * @return
+     */
+    @RequestMapping("/go_expense_view_hotel.do")
+    public ModelAndView viewhotelInMicroApp(HttpServletRequest request,int id){
+    	ModelAndView mav = new ModelAndView();
+    	ExpenseApplayHotel expenseApplayHotel=expenseApplayHotelService.selectById(id);
+    	mav.addObject("expenseApplayHotel", expenseApplayHotel);
+    	mav.setViewName("expense/approveInMicroApp/expense_view_hotel");
+    	return mav;
+    }
+    /**
+     * 钉钉微应用大巴报销详情查看
+     * @param request
+     * @param id
+     * @return
+     */
+    @RequestMapping("/go_expense_view_bus.do")
+    public ModelAndView viewBusInMicroApp(HttpServletRequest request,int id){
+    	ModelAndView mav = new ModelAndView();
+    	ExpenseApplayBus expenseApplayBus = expenseBusService.selectById(id);
+		mav.addObject("expenseApplayBus", expenseApplayBus);
+    	mav.setViewName("expense/approveInMicroApp/expense_view_bus");
+    	return mav;
+    }
+    /**
+     * 钉钉微应用内火车票报销详情查看
+     * @param request
+     * @param id
+     * @return
+     */
+  	@RequestMapping("/go_expense_view_train.do")
+  	public ModelAndView viewTrainInMicroApp(HttpServletRequest request,int id){
+  		ModelAndView mav = new ModelAndView();
+  		ExpenseApplayTrain expenseApplayTrain = expenseApplayTrainService.selectById(id);
+  		mav.addObject("expenseApplayTrain", expenseApplayTrain);
+  		mav.setViewName("expense/approveInMicroApp/expense_view_train");
+  		return mav;
+  	}
+  	/**
+  	 * 火车票报销批量审批
+  	 * @param request
+  	 * @param id
+  	 * @param result
+  	 * @return
+  	 */
+  	@RequestMapping("/approve_train_updates.do")
+    @ResponseBody
+    public String approve_train_updates(HttpServletRequest request,String ids,String result){
+  		String ids01[] = ids.split(",");
+  		try{
+  		  for(String id : ids01){
+  			//找出这条审批记录
+  			ExpenseApplayTrain expenseApplayTrain=expenseApplayTrainService.selectById(Integer.parseInt(id));
+    		if("agree".equals(result)){
+    		//进行下一步的处理,发消息或者只更新审批状态
+    		expenseApplayTrain = expenseApplayTrainService.sendTONextManager(expenseApplayTrain);
+    		}else if("disagree".equals(result)){
+    			expenseApplayTrain = expenseApplayTrainService.refuseOption(expenseApplayTrain);
+    		}
+        	expenseApplayTrainService.saveOrUpdate(expenseApplayTrain);  
+        	
+  		  }   
+  		  return "success";
+  		}catch(Exception e){
+  			return "fail";
+  		}
+    }
+  	 /**
+  	  * 地铁公交报销批量审批
+  	  * @param id
+  	  * @param result
+  	  * @return
+  	  */
+    @RequestMapping("/approve_subway_updates.do")
+    public @ResponseBody String  expense_subway_approve_updates(String ids,String result){
+    	String ids01[] = ids.split(",");
+    	
+    	//根据ID找到这条报销记录
+    	try{	
+    		for(String id : ids01){
+    			ExpenseApplySubway subwayApply=expenseApplySubwayService.selectByPrimarykey(Integer.parseInt(id));
+    			if("agree".equals(result)){//审批同意操作
+    				subwayApply=expenseApplySubwayService.sendTONextManager(subwayApply);
+    			}else if("disagree".equals(result)){//驳回操作
+    				subwayApply=expenseApplySubwayService.refuseOption(subwayApply);
+    			}
+    			expenseApplySubwayService.saveOrUpdate(subwayApply);
+    			}
+    		return "success";
+    	}catch(Exception e){
+    		return "fail";
+    	}
+    }
+    /**
+     * 大巴报销批量审批
+     * @param request
+     * @param id
+     * @param result
+     * @return
+     */
+    @RequestMapping("/approve_bus_updates.do")
+    @ResponseBody
+    public String to_approve_bus_updates(HttpServletRequest request,String ids,String result){
+        System.out.println(ids);
+    	System.out.println(result);
+    	String ids01[] = ids.split(",");
+    try{
+    	for(String id : ids01){
+    			//找出这条审批记录
+    		ExpenseApplayBus expenseApplayBus = expenseBusService.selectById(Integer.parseInt(id));
+    		if("agree".equals(result)){
+    				//报销审批处理流程具体实现
+    			expenseApplayBus= expenseBusService.sendTONextManager(expenseApplayBus);
+    		}else if("disagree".equals(result)){
+    			expenseApplayBus=expenseBusService.refuseOption(expenseApplayBus);
+    		}	
+    		expenseBusService.saveOrUpdate(expenseApplayBus);
+    	}
+       	return "success";
+     }catch(Exception e){
+    	 return "fail";
+     }
+    }
+    /**
+     * 旅店报销批量审批
+     * @param request
+     * @param id
+     * @param result
+     * @return
+     */
+    @RequestMapping("/approve_hotel_updates.do")
+    @ResponseBody
+    public String approve_hotel_updates(HttpServletRequest request,String ids,String result){
+    	String ids01[] = ids.split(",");
+    	try{
+    		for(String id :ids01){
+    			//查询该条报销记录
+    			ExpenseApplayHotel expenseApplayHotel = expenseApplayHotelService.selectById(Integer.parseInt(id));
+    			if("agree".equals(result)){
+    				//各级管理员审核报销
+    				expenseApplayHotel = expenseApplayHotelService.sendTONextManager(expenseApplayHotel);
+    			}else if("disagree".equals(result)){
+    				expenseApplayHotel= expenseApplayHotelService.refuseOption(expenseApplayHotel);
+    			}
+    			expenseApplayHotelService.saveOrUpdate(expenseApplayHotel);
+    			}
+    		return "success";
+    	}catch(Exception e){
+    			return "fail";
+    	}
+    }
+    
 //    /** 
 //     * 出租车报销
 //     */

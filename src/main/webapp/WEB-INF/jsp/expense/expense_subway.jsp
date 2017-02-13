@@ -45,13 +45,21 @@
     <script>
    
    $(document).ready(function(){
+	   var curMonth;
+	  if( new Date().getDate()>=20){
 	   //获取当前月份
-	   var curMonth=new Date().getMonth()+1;
+	   curMonth=new Date().getMonth()+1;
+	  }else{
+		  curMonth=new Date().getMonth();
+	  }
+	   if(curMonth<10){
+		   curMonth="0"+curMonth;
+	   }
 	   //获取当前年份
 	   var year = new Date().getFullYear();
 	   var date = year+"-"+curMonth;
 	   //重置报销日期只能是当前月份
-	   $("input[name='askMonth']").val(date);
+	   $("input[name='askMonth']").val(date);   
    });
    function toExpense_subway_save(){
 	   if($("input[name='askMoney']").val()==null || $("input[name='askMoney']").val()==""){

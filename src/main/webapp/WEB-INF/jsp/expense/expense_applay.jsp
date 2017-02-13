@@ -4,6 +4,7 @@
 <%
 	String path = request.getContextPath();/*获得当前项目的根路径 */
 %>
+<!-- 报销申请入口 -->
 <!DOCTYPE html>
 <html lang="en">
 <meta charset="utf-8">
@@ -46,7 +47,7 @@
       <img src="<%=path%>/images/taxi.png" alt="">
     </div>
     <p class="weui_grid_label">
-           地铁公交费报销
+           地铁公交报销
     </p>
   </a> 
    <a href="javascript:;" class="weui_grid js_grid" data-id="toast" onclick="goApprove_history_view();">
@@ -54,17 +55,10 @@
       <img src="<%=path%>/images/taxi.png" alt="">
     </div>
     <p class="weui_grid_label">
-            我的审批历史信息查看
+         	审批信息查看   
     </p>
   </a> 
-  <%-- <a href="javascript:;" class="weui_grid js_grid" data-id="toast">
-    <div class="weui_grid_icon">
-       <img src="<%=path%>/images/icon_nav_actionSheet.png" alt="">
-    </div>
-    <p class="weui_grid_label">
-     &nbsp;
-    </p>
-  </a>   --%>
+ 
 </div>
   	<script src="<%=path%>/javascripts/jquery-2.1.4.js"></script>
     <script src="<%=path%>/javascripts/jquery-weui.js"></script>
@@ -86,8 +80,9 @@
      function goExpense_subway(){
     	 location="toSubwayHistory.do";
      }
+     
      function goApprove_history_view(){
-    	 location="goApprove_history_view.do";
+    	 location="goApprove_record.do";
     	
      }
      /*权限验证配置所需的信息 */
@@ -119,8 +114,8 @@
              corpId : config.corpId,
              onSuccess : function(info) {
                 //存储用户信息
-                $.post("loginJudge.do",{"code":info.code});
-                
+              $.post("loginJudge.do",{"code":info.code});
+               
              },
              onFail : function(err) {
                  alert('fail: ' + JSON.stringify(err));

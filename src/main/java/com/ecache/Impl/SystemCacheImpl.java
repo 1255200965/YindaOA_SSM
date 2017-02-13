@@ -70,8 +70,7 @@ public class SystemCacheImpl  implements SystemCache{
     	//获取所有项目
     	List<YoOrder> projectList = yoOrderMapper.getAllProject();
     	System.out.println(projectList.size());
-    	
-    	
+
     	//第2步 处理需要缓存的数据
     	//部门 字符串列表
     	List<String> departmentList1 = new ArrayList<String>();
@@ -129,7 +128,7 @@ public class SystemCacheImpl  implements SystemCache{
    	   List<StaffInfo> staffInfoList = staffInfoService.selectStaffInWork();
    	   Map<String,String> staffMap = new HashMap<String,String>();
    	   for(StaffInfo staff : staffInfoList){
-   		  staffMap.put(staff.getName(), staff.getStaffId());
+   		  staffMap.put( staff.getStaffId(),staff.getName());
 
    	   }
    	  System.out.println(staffMap.toString());

@@ -69,4 +69,10 @@ public class UserInfoSalaryServiceImpl implements IUserInfoSalaryService {
         // TODO Auto-generated method stub
         return userMapper.search_salary(company, salarydate);
     }
+
+    @Override
+    public List<YoUserinfosalary> search_Jan_salary(String userid, String salarydate) {
+        // TODO Auto-generated method stub
+        return userMapper.search_Jan_salary(userid, salarydate);
+    }
 }

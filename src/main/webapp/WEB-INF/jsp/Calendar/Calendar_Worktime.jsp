@@ -68,9 +68,11 @@ $(document).ready(function() {
     			 ,
     			events:function(start, end, callback){
     				 var d =$('#calendar').fullCalendar('getDate');
-    				  
-    				var d2= d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
-    				//alert(d2);
+
+					//var d2= d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+					var s = d.getMonth() + 1;
+					//if (s < 10) s = '0'+s;
+					var d2= d.getFullYear() + '-' + (s) ;
     				 
     				 $.post("<%=path%>/Calendar/select_BY_Worktime.do",{"userid":"${userid}","date": d2 },function(data){
     					 	

@@ -109,6 +109,9 @@ public class SalaryController {
         if (user.getSalarydate()!=null) criteria1.andSalarydateEqualTo(user.getSalarydate());
         if (user.getUserid()!=null) criteria1.andUseridEqualTo(user.getUserid());
         List<YoUserinfosalary> query = userinfoSalaryService.selectByExample(example);
+        if ("2017-01".equals(user.getSalarydate())){
+            query = userinfoSalaryService.search_Jan_salary(user.getUserid(),user.getSalarydate());
+        }
         if (query.size()>0){
             map.put("total",query.get(0));
             map.put("msg", "成功");
@@ -716,9 +719,9 @@ public class SalaryController {
     //生成工资方法
     @RequestMapping("/test.do")
     public String testc(HttpServletRequest request) throws IOException {
-        //generateSalary(2016,12);
+        //generateSalary(2017,1);
         //generateSalary3(2016,12);
-        //System.out.print(DDUtil.testShow());
+       // System.out.print(DDUtil.testShow());
 
 
         System.out.print("OK!");
@@ -734,6 +737,8 @@ public class SalaryController {
         if (user.getStaffid()!=null) user.getStaffid();*/
         //generateSalary(2016,12);
         SalaryUtil salaryUtil = new SalaryUtil(userSalaryService,userAttendanceService,userSighInService,userStaffInfoService,userAskLeaveService,userinfoSalaryService);
+        salaryUtil.generateSalaryByMonth(2017,1);
+        salaryUtil.generateSalaryTotal(2017,1);
 //        salaryUtil.generateSalaryByMonth(2017,1);
         salaryUtil.generateSalaryTotal(2017,1);
         //List<StaffInfo> ttt = staffInfoMapper.getAllIdentifyInStallInfo();

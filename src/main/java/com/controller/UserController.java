@@ -6,6 +6,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ddSdk.auth.AuthHelper;
+import com.model.YoUserinfosalary;
+import com.model.YoUserinfosalaryExample;
+import com.service.ISalaryService;
+import com.service.IUserInfoSalaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.service.IUserService;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 /**
  * Created by ma on 2016/10/13.
@@ -20,7 +27,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
     @Controller
     @RequestMapping("/user")
     public class UserController {
-
+        @Autowired
+        private IUserInfoSalaryService salaryService;
         @Resource
         private IUserService userService;
 
@@ -77,11 +85,30 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
             return "/dd/kaoqin";
         }
-
+    //工资明细
         @RequestMapping("/phone-details.do")
-        public String PhoneDetails(HttpServletRequest request){
+        public ModelAndView PhoneDetails(String userid, String date){
+            ModelAndView mav = new ModelAndView();
+            YoUserinfosalaryExample example = new YoUserinfosalaryExample();
+            YoUserinfosalaryExample.Criteria criteria1 = example.createCriteria();
+            if (date!=null) criteria1.andSalarydateEqualTo(date);
+            if (userid!=null) criteria1.andUseridEqualTo(userid);
+            List<YoUserinfosalary> query = salaryService.selectByExample(example);
 
-            return "/dd/details";
+            if ("2017-01".equals(date)){
+               query = salaryService.search_Jan_salary(userid,date);
+            }
+            if (query.size()>0){
+                mav.addObject("list", query.get(0));
+            } else {
+                mav.addObject("list", new YoUserinfosalary());
+            }
+
+            mav.setViewName("phone/phone-details");
+            mav.addObject("userid", userid);
+            mav.addObject("date",date);
+            mav.setViewName("/dd/details");
+            return mav;
         }
 
 

@@ -4,6 +4,7 @@
 <%
 	String path = request.getContextPath();/*获得当前项目的根路径 */
 %>
+<!-- 火车票报销管理员审核界面 -->
 <!DOCTYPE html>
 <html lang="en">
 <meta charset="utf-8">
@@ -112,6 +113,7 @@
     		    	//审核通过隐藏审批按钮
     				$.alert("操作成功");	
     				$("#flag").hide();
+    				window.history.go(-2);
     			}
     			
     		});

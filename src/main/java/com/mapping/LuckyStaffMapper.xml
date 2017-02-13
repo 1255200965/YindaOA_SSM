@@ -5,6 +5,7 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="staff_name" property="staffName" jdbcType="VARCHAR" />
     <result column="staff_id" property="staffId" jdbcType="VARCHAR" />
+    <result column="staff_user_id" property="staffUserId" jdbcType="VARCHAR" />
     <result column="draw_type" property="drawType" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -37,7 +38,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, staff_name, staff_id, draw_type
+    id, staff_name, staff_id, staff_user_id, draw_type
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.model.LuckyStaffExample" >
     select
@@ -65,9 +66,9 @@
   </delete>
   <insert id="insert" parameterType="com.model.LuckyStaff" >
     insert into lucky_staff (id, staff_name, staff_id, 
-      draw_type)
+      staff_user_id, draw_type)
     values (#{id,jdbcType=INTEGER}, #{staffName,jdbcType=VARCHAR}, #{staffId,jdbcType=VARCHAR}, 
-      #{drawType,jdbcType=VARCHAR})
+      #{staffUserId,jdbcType=VARCHAR}, #{drawType,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.model.LuckyStaff" >
     insert into lucky_staff
@@ -80,6 +81,9 @@
       </if>
       <if test="staffId != null" >
         staff_id,
+      </if>
+      <if test="staffUserId != null" >
+        staff_user_id,
       </if>
       <if test="drawType != null" >
         draw_type,
@@ -95,6 +99,9 @@
       <if test="staffId != null" >
         #{staffId,jdbcType=VARCHAR},
       </if>
+      <if test="staffUserId != null" >
+        #{staffUserId,jdbcType=VARCHAR},
+      </if>
       <if test="drawType != null" >
         #{drawType,jdbcType=VARCHAR},
       </if>
@@ -109,6 +116,9 @@
       <if test="staffId != null" >
         staff_id = #{staffId,jdbcType=VARCHAR},
       </if>
+      <if test="staffUserId != null" >
+        staff_user_id = #{staffUserId,jdbcType=VARCHAR},
+      </if>
       <if test="drawType != null" >
         draw_type = #{drawType,jdbcType=VARCHAR},
       </if>
@@ -119,6 +129,7 @@
     update lucky_staff
     set staff_name = #{staffName,jdbcType=VARCHAR},
       staff_id = #{staffId,jdbcType=VARCHAR},
+      staff_user_id = #{staffUserId,jdbcType=VARCHAR},
       draw_type = #{drawType,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>

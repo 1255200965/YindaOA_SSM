@@ -304,6 +304,76 @@ public class LuckyStaffExample {
             return (Criteria) this;
         }
 
+        public Criteria andStaffUserIdIsNull() {
+            addCriterion("staff_user_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffUserIdIsNotNull() {
+            addCriterion("staff_user_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffUserIdEqualTo(String value) {
+            addCriterion("staff_user_id =", value, "staffUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffUserIdNotEqualTo(String value) {
+            addCriterion("staff_user_id <>", value, "staffUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffUserIdGreaterThan(String value) {
+            addCriterion("staff_user_id >", value, "staffUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffUserIdGreaterThanOrEqualTo(String value) {
+            addCriterion("staff_user_id >=", value, "staffUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffUserIdLessThan(String value) {
+            addCriterion("staff_user_id <", value, "staffUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffUserIdLessThanOrEqualTo(String value) {
+            addCriterion("staff_user_id <=", value, "staffUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffUserIdLike(String value) {
+            addCriterion("staff_user_id like", value, "staffUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffUserIdNotLike(String value) {
+            addCriterion("staff_user_id not like", value, "staffUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffUserIdIn(List<String> values) {
+            addCriterion("staff_user_id in", values, "staffUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffUserIdNotIn(List<String> values) {
+            addCriterion("staff_user_id not in", values, "staffUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffUserIdBetween(String value1, String value2) {
+            addCriterion("staff_user_id between", value1, value2, "staffUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffUserIdNotBetween(String value1, String value2) {
+            addCriterion("staff_user_id not between", value1, value2, "staffUserId");
+            return (Criteria) this;
+        }
+
         public Criteria andDrawTypeIsNull() {
             addCriterion("draw_type is null");
             return (Criteria) this;

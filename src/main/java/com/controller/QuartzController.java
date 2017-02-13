@@ -14,7 +14,9 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import javax.swing.text.Document;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,54 +24,54 @@ import java.util.List;
  */
 @Component
 public class QuartzController {
-    //星期一早上打开
-    @Scheduled(cron = "0 30 21 ? * SUN")
+    //考勤工作日每天早上8点打开
+    @Scheduled(cron = "0 00 07 ? * MON-FRI")
     public  void start(){
-        System.out.println("考勤任务正在执行中。。。。星期一早上01:30打开考勤");
-        System.out.println("考勤星期一到星期五可见");
+        //如果是放假时间，不开考勤
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String now =dateFormat.format(new Date());
+        //if (now.compareTo("2017-01-26")>0 && now.compareTo("2017-02-03")<0) return;
+        System.out.println("考勤任务正在执行中。。。。每天早上8：00打开考勤");
+        System.out.println("考勤工作日每天早上8点打开");
         AttendanceShow();
     }
-    //星期五晚上关闭
-    @Scheduled(cron = "0 30 01 ? * SAT")
+    //考勤工作日每天下午7点30关闭
+    @Scheduled(cron = "0 30 19 ? * MON-FRI")
     public void one() {
-        System.out.println("考勤任务正在执行中。。。。星期五晚上23:50关闭考勤");
-        System.out.println("考勤星期一到星期五可见");
+
+        System.out.println("考勤任务正在执行中。。。。每天下午19：00关闭考勤");
+        System.out.println("考勤工作日下午19：00关闭考勤");
         AttendanceStop();
     }
 
-    //星期六签到打开，
-    @Scheduled(cron = "0 30 21 ? * FRI")
+    //签到每天19点30打开，
+    @Scheduled(cron = "0 30 19 ? * MON-FRI")
     public void two() {
-        System.out.println("考勤任务正在执行中。。。。星期六早上01:10打开签到");
+        System.out.println("考勤任务正在执行中。。。。每天晚上7点30打开签到");
         System.out.println("签到星期六到星期天可见");
         SignShow();
     }
 
-    //    星期天晚上23：50---签到关闭
-    @Scheduled(cron = "0 30 01 ? * MON")
+    // 签到每天早上8点关闭
+    @Scheduled(cron = "0 00 07 ? * MON-FRI")
     public void job2() {
-        System.out.println("签到任务正在执行中。。。。星期天的晚上23：50关闭签到");
+        //如果是放假时间，不关签到
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String now =dateFormat.format(new Date());
+        //if (now.compareTo("2017-01-26")>0 && now.compareTo("2017-02-03")<0) return;
+
+        System.out.println("签到任务正在执行中。。。。每天早上8点关闭签到");
         System.out.println("签到星期六到星期天可见");
         SignStop();
     }
-    //    星期天晚上23：30---签到关闭
-    @Scheduled(cron = "0 30 21 ? * SAT")
+    //    签到周六周日早上8点30打开
+    @Scheduled(cron = "0 30 08 ? * SUN,SAT")
     public void job3() {
         System.out.println("签到任务正在执行中。。。。星期天的晚上23：50关闭签到");
         System.out.println("签到星期六到星期天可见");
 
+        SignShow();
 
-        JSONObject json = new JSONObject();
-        List<String> userid=new ArrayList<String>();
-        json.put("agentId", 46157387);
-        json.put("isHidden",true);
-        JSONObject reponseJson = null;
-        try {
-            String url = "https://oapi.dingtalk.com/microapp/set_visible_scopes?access_token=" +  AuthHelper.getAccessToken();
-            reponseJson = HttpHelper.httpPost(url, json);
-        } catch (OApiException e) {
-            e.printStackTrace();
-        }
     }
 
     //考勤打开

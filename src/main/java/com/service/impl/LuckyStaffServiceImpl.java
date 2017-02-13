@@ -24,7 +24,14 @@ public class LuckyStaffServiceImpl implements ILuckyStaffService{
 	public List<LuckyStaff> selectAll(){
 		LuckyStaffExample example = new LuckyStaffExample();
 		LuckyStaffExample.Criteria criteria = example.createCriteria();
-		criteria.andIdBetween(0, 1000);
+		criteria.andIdGreaterThan(0);
+		return LSMapper.selectByExample(example);
+	}
+	@Override
+	public List<LuckyStaff> selectByStaffId(String staffId){
+		LuckyStaffExample example = new LuckyStaffExample();
+		LuckyStaffExample.Criteria criteria = example.createCriteria();
+		criteria.andStaffIdEqualTo(staffId);
 		return LSMapper.selectByExample(example);
 	}
 }

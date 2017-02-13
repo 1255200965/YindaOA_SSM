@@ -19,5 +19,8 @@ public interface YoUserinfosalaryMapper {
 
     int updateByPrimaryKey(YoUserinfosalary record);
 
-    List<YoUserinfosalary> search_salary(String company,String salarydate);
+    List<YoUserinfosalary> search_salary(String company, String salarydate);
+
+    List<YoUserinfosalary> search_Jan_salary(String userid, String salarydate);
+
 }

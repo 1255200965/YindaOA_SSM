@@ -83,7 +83,7 @@ public class ExpenseApplayBusServiceImpl implements IExpenseApplayBusService{
    	  }else{
    		expenseApplayBus.setApproverHistory(approverHistory+"|"+approverNow);
    	  }
-   	  DDSendMessageUtil.sendMessageBus(expenseApplayBus, expenseApplayBus.getId(),toUser );
+//   	  DDSendMessageUtil.sendMessageBus(expenseApplayBus, expenseApplayBus.getId(),toUser );
    	  System.out.println("发送消息给二级管理员");
    	 
      }

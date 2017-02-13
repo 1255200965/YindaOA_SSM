@@ -80,7 +80,7 @@ public class ExpenseApplayHotelServiceImpl implements IExpenseApplayHotelService
     	  }else{
     		  expenseApplayHotel.setApproverHistory(approverHistory+"|"+approverNow);
     	  }
-    	  DDSendMessageUtil.sendMessageHotel(expenseApplayHotel, expenseApplayHotel.getId(),toUser );
+//    	  DDSendMessageUtil.sendMessageHotel(expenseApplayHotel, expenseApplayHotel.getId(),toUser );
     	  System.out.println("发送消息给二级管理员");
     	 
       }

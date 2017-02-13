@@ -118,6 +118,7 @@
     	 if(data==1){
     		 $.alert("操作成功");
     		 $("#flag").hide();
+    		
     	 }else if(data == 0){
     		 $.alert("系统繁忙,请稍后重试");
     	 }

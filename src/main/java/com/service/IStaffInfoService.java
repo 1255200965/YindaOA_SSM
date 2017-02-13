@@ -61,5 +61,6 @@ public interface IStaffInfoService {
      * @return
      */
     List<StaffInfo> selectStaffInWork();
-    
+    //查询单个用户 List<StaffInfo>
+    List<StaffInfo> selectByStaffId(String staffId);
 }

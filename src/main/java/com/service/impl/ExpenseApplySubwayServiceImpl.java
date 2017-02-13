@@ -70,7 +70,7 @@ public class ExpenseApplySubwayServiceImpl implements IExpenseApplySubwayService
 	    	  }else{
 	    		  expenseApplySubway.setApproverHistory(approverHistory+"|"+approverNow);
 	    	  }
-	    	  DDSendMessageUtil.sendMessageSubway(expenseApplySubway, expenseApplySubway.getId(),toUser );
+//	    	  DDSendMessageUtil.sendMessageSubway(expenseApplySubway, expenseApplySubway.getId(),toUser );
 	    	  System.out.println("发送消息给二级管理员");
 	    	 
 	      }

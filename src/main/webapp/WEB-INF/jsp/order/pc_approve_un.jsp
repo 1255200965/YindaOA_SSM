@@ -377,7 +377,8 @@ function approve_order(){
 	     
 	     //{"ids":id,"identifys":identifys,"orderRemarks":orderRemark,"businessProps":businessProps,"outdoorJob3s":outdoorJob3s,"lte3s":lte3s}
 		 $.post("<%=path%>/PCOrderChange/pc_refuse_approve.do",{"ids":id},function(data){
-		         alert(data);
+		         //alert(data);
+			     alert("驳回成功！");
 		         location.reload();
 		     });
 	     }

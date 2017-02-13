@@ -7,6 +7,8 @@ public class LuckyStaff {
 
     private String staffId;
 
+    private String staffUserId;
+
     private String drawType;
 
     public Integer getId() {
@@ -33,6 +35,14 @@ public class LuckyStaff {
         this.staffId = staffId;
     }
 
+    public String getStaffUserId() {
+        return staffUserId;
+    }
+
+    public void setStaffUserId(String staffUserId) {
+        this.staffUserId = staffUserId;
+    }
+
     public String getDrawType() {
         return drawType;
     }
@@ -40,11 +50,4 @@ public class LuckyStaff {
     public void setDrawType(String drawType) {
         this.drawType = drawType;
     }
-
-	@Override
-	public String toString() {
-		return "LuckyStaff [id=" + id + ", staffName=" + staffName
-				+ ", staffId=" + staffId + ", drawType=" + drawType + "]";
-	}
-    
 }

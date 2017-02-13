@@ -92,25 +92,25 @@
 </head>
 <body>
 <div class="box">
-    <header>
+<%--    <header>
         <div class="head-ico fl"><i class="iconfont">&#xe82f;</i></div>
         <div class="head-msg fl">上海音达科技实业有限公司</div>
         <div class="head-ser fr">帮助</div>
-    </header>
+    </header>--%>
     <div class="content">
         <div class="content-top" data-bind="with:changeItem">
             <div class="affair-msg">
-                <p id="date" data-bind="text:salarydate"></p><p>总收入（元）</p>
-                <p id = "total"data-bind="text:totalsalary">0.00</p>
-                <%--<p><a href="<%=basePath%>user/phone-details.do">点击查看详情</a></p>--%>
+                <p id="date" data-bind="text:salarydate"></p><p>收入</p>
+                <p id = "total"data-bind="text:realsalary">0.00</p>
+                <p><a href=javascript:getAll("user/phone-details.do")>点击查看详情</a></p>
             </div>
             <div class="other">
                 <a href=javascript:getQuery("Calendar_Attendance.do")>考勤打卡<p id="kq"data-bind="text:attendance"></p></a>
-                <a href=javascript:getQuery("Calendar_Worktime.do")>加班日历<p id="jb"data-bind="text:workovertime"></p></a>
-                <a href=javascript:getQuery("Calendar_Leavetype.do")>请假天数<p id="qj"data-bind="text:leavetype"></p></a>
+                <a href=javascript:getQuery("Calendar_RealAttendance.do")>签到<p id="jb"data-bind="text:realityattendance"></p></a>
+                <a href=javascript:getQuery("Calendar_EffectAttendance.do")>日报<p id="qj"data-bind="text:effectiveattendance"></p></a>
                 <a href=javascript:getQuery("Calendar_Evenctime.do")>出差<p id="cc"data-bind="text:evection"></p></a>
-                <a >真实考勤<p id="zs"data-bind="text:realityattendance"></p></a>
-                <a >计薪考勤<p id="yx"data-bind="text:effectiveattendance"></p></a>
+                <a href=javascript:getQuery("Calendar_Leavetype.do")>请假<p id="zs"data-bind="text:leavetype"></p></a>
+                <a href=javascript:getQuery("Calendar_Worktime.do")>加班<p id="yx"data-bind="text:workovertime"></p></a>
             </div>
         </div>
 
@@ -132,12 +132,39 @@
 </div>
 
 <script>
+    function getPreMonth(date) {
+        var arr = date.split('-');
+        var year = arr[0]; //获取当前日期的年份
+        var month = arr[1]; //获取当前日期的月份
+        var day = arr[2]; //获取当前日期的日
+        var days = new Date(year, month, 0);
+        days = days.getDate(); //获取当前日期中月的天数
+        var year2 = year;
+        var month2 = parseInt(month) - 1;
+        if (month2 == 0) {
+            year2 = parseInt(year2) - 1;
+            month2 = 12;
+        }
+        var day2 = day;
+        var days2 = new Date(year2, month2, 0);
+        days2 = days2.getDate();
+        if (day2 > days2) {
+            day2 = days2;
+        }
+        if (month2 < 10) {
+            month2 = '0' + month2;
+        }
+        var t2 = year2 + '-' + month2;  //+ '-' + day2;
+        return t2;
+    }
 //  日期插件代码开始
 $(function(){
     $("#scroller").mobiscroll().date();
 
-    var currYear = (new Date()).getFullYear();
 
+    var currDate =  (new Date());
+    var currYear = currDate.getFullYear();
+    var curr = currDate.getFullYear() +'-' + (currDate.getMonth()+1) + '-' + (currDate.getDay());
     //初始化日期控件
     var opt = {
         preset: 'date', //日期，可选：date\datetime\time\tree_list\image_text\select
@@ -153,10 +180,10 @@ $(function(){
         showNow: false,
         nowText: "今",
         startYear:currYear, //开始年份
-        endYear:currYear + 100 //结束年份
+        endYear:currYear  //结束年份
         //endYear:2099 //结束年份
     };
-    $("#scroller").mobiscroll(opt).scroller('setDate', new Date(), true);
+    $("#scroller").mobiscroll(opt).scroller('setDate', new Date(getPreMonth(curr)), true);
 });
 //  日期插件代码结束
 
@@ -171,130 +198,6 @@ $(function(){
     var code = null;//用户授权码
 
 
-    //配置钉钉jsapi
-    dd.config({
-        agentId : "38433641",
-        corpId : _config.corpId,
-        timeStamp : _config.timeStamp,
-        nonceStr : _config.nonceStr,
-        signature : _config.signature,
-        jsApiList : [ 'runtime.info', 'biz.contact.choose',
-            'device.notification.confirm', 'device.notification.alert',
-            'device.notification.prompt', 'biz.ding.post',
-            'biz.util.openLink' ]
-    });
-
-
-    dd.ready(function() {
-        dd.biz.navigation.setTitle({
-            title: '工资单',
-            onSuccess: function(data) {
-            },
-            onFail: function(err) {
-                log.e(JSON.stringify(err));
-            }
-        });
-	 //alert('dd.ready rocks!');
-
-        dd.runtime.info({
-            onSuccess : function(info) {
-                logger.e('runtime info: ' + JSON.stringify(info));
-            },
-            onFail : function(err) {
-                logger.e('fail: ' + JSON.stringify(err));
-            }
-        });
-        dd.ui.pullToRefresh.enable({
-            onSuccess: function() {
-            },
-            onFail: function() {
-            }
-        })
-
-        /*dd.biz.navigation.setMenu({
-            backgroundColor : "#ADD8E6",
-            items : [
-                {
-                    id:"此处可以设置帮助",//字符串
-                    // "iconId":"file",//字符串，图标命名
-                    text:"帮助"
-                }
-                ,
-                {
-                    "id":"2",
-                    "iconId":"photo",
-                    "text":"我们"
-                }
-                ,
-                {
-                    "id":"3",
-                    "iconId":"file",
-                    "text":"你们"
-                }
-                ,
-                {
-                    "id":"4",
-                    "iconId":"time",
-                    "text":"他们"
-                }
-            ],
-            onSuccess: function(data) {
-                alert(JSON.stringify(data));
-
-            },
-            onFail: function(err) {
-                alert(JSON.stringify(err));
-            }
-        });*/
-
-
-        dd.runtime.permission.requestAuthCode({
-            corpId : _config.corpId,
-            onSuccess : function(info) {
-			    //alert('authcode: ' + info.code);
-                $("#code").val(info.code);
-                $.ajax({
-                    data:$("#code").val(),
-                    type:"post",
-                    headers: { 'Content-Type': 'application/json' },
-                    dataType: 'json',
-                    url:"../usersalary/queryUserid.do",
-                    error:function(data){
-                        alert("出错了！！:"+data.msg);
-                    },
-                    success:function(data){
-                        result = data.userid;
-                        $("#userid").val(result);
-                        //alert(result);
-                    }
-                });
-
-            },
-            onFail : function(err) {
-                alert('fail: ' + JSON.stringify(err));
-            }
-        });
-    });
-
-    dd.error(function(err) {
-        //alert('dd error: ' + JSON.stringify(err));
-    });
-    //获取个人信息
-    function getUserInfo(){
-        dd.biz.user.get({
-            onSuccess: function (info) {
-                logger.e('userGet success: ' + JSON.stringify(info));
-                //{id:staff_user_id,nickName:name}
-                $("#userid").val(info.id);
-                nowUser = info.id;
-                alert(JSON.stringify(info));
-            },
-            onFail: function (err) {
-                logger.e('userGet fail: ' + JSON.stringify(err));
-                alert(JSON.stringify(err));
-            }
-        });
-    }
     //打开链接
     function openLink(url) {
         dd.biz.util.openLink({
@@ -321,29 +224,68 @@ $(function(){
             }
         });
     }
-    function initSalary(){
-        //输入用户id，日期,返回工资对象
-        nowTime = $("#scroller").val();
-        nowUser =  $("#userid").val();
-        //alert("当前用户是:"+nowUser + "\n当前日期是:" + nowTime);
-        $.ajax({
-            data:JSON.stringify(new UserModel(nowUser,nowTime)),
-            type:"post",
-            headers: { 'Content-Type': 'application/json' },
-            dataType: 'json',
-            url:"../usersalary/querySalary.do",
-            error:function(data){
-                alert("出错了！！:"+data.msg);
-            },
-            success:function(data){
-
-            }
-        });
-
-    }
 
     $(document).ready(function () {
+        //配置钉钉jsapi
+        dd.config({
+            agentId : "38433641",
+            corpId : _config.corpId,
+            timeStamp : _config.timeStamp,
+            nonceStr : _config.nonceStr,
+            signature : _config.signature,
+            jsApiList : [ 'runtime.info', 'biz.contact.choose',
+                'device.notification.confirm', 'device.notification.alert',
+                'device.notification.prompt', 'biz.ding.post',
+                'biz.util.openLink' ]
+        });
+        dd.ready(function() {
+            dd.biz.navigation.setTitle({
+                title: '工资单',
+                onSuccess: function(data) {
+                },
+                onFail: function(err) {
+                    log.e(JSON.stringify(err));
+                }
+            });
+            dd.ui.pullToRefresh.enable({
+                onSuccess: function() {
+                },
+                onFail: function() {
+                }
+            });
 
+            dd.runtime.permission.requestAuthCode({
+                corpId : _config.corpId,
+                onSuccess : function(info) {
+                    //alert('authcode: ' + info.code);
+                    $("#code").val(info.code);
+                    $.ajax({
+                        data:$("#code").val(),
+                        type:"post",
+                        headers: { 'Content-Type': 'application/json' },
+                        dataType: 'json',
+                        async:'false',
+                        url:"../usersalary/queryUserid.do",
+                        error:function(data){
+                            alert("出错了！！:"+data.msg);
+                        },
+                        success:function(data){
+                            result = data.userid;
+                            $("#userid").val(result);
+                            nowUser = result;
+                            //alert(result);
+                        }
+                    });
+
+                },
+                onFail : function(err) {
+                    alert('fail: ' + JSON.stringify(err));
+                }
+            });
+        });
+        dd.error(function(err) {
+            //alert('dd error: ' + JSON.stringify(err));
+        });
         var ViewModel = function () {
             var self = this;
             //变量区
@@ -370,6 +312,7 @@ $(function(){
             //ko初始化数据加载
             $(function () {
                 self.GetSalaryByQuery();
+
             });
 
 
@@ -396,46 +339,12 @@ $(function(){
                 });
 
             }
-            self.GetUserid = function(){
-                $.ajax({
-                    data:$("#code").val(),
-                    type:"post",
-                    headers: { 'Content-Type': 'application/json' },
-                    dataType: 'json',
-                    url:"../usersalary/queryUserid.do",
-                    error:function(data){
-                        alert("出错了！！:"+data.msg);
-                    },
-                    success:function(data){
-                        result = data.userid;
-                        $("#userid").val(result);
-                        alert(result);
-                    }
-                });
-            }
 
             //点击事件-点击添加用户按钮
             self.ClickQuery = function(){
-                //self.GetUserid();
                 self.GetSalaryByQuery();
             };
 
-
-            //点击事件-点击更新用户按钮
-            self.ClickUpdate = function(item){
-                self.changeItem(item);
-                self.rootid(0);
-                $("#model1").click();
-            };
-
-            //点击事件-点击删除用户按钮
-            self.ClickDelete = function(item){
-                if (!confirm("确认要删除？")) {
-                    window.event.returnValue = false;
-                }else{
-                    self.DeleteUser(item);
-                }
-            };
 
 
             //点击事件-点击搜索
@@ -463,6 +372,11 @@ $(function(){
 
     function getQuery(queryName){
         var queryString = "<%=basePath%>Calendar/"+queryName + "?userid="+nowUser + "&date="+nowTime;
+        window.location = queryString;
+    }
+    function getAll(queryName){
+        //alert("?userid="+nowUser + "&date="+nowTime);
+        var queryString = "<%=basePath%>user/phone-details.do"+"?userid="+nowUser + "&date="+nowTime;
         window.location = queryString;
     }
 </script>

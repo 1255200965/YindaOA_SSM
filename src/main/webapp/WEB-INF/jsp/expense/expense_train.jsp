@@ -28,7 +28,7 @@
    			 </div>
     	 <div class="weui_cell_ft weui_cell_primary">
      		<!-- <input class="weui_input" type="date" placeholder=""  name="startTime"> -->
-     		<select class="weui_select" name="btSequenceNo" onchange="getDetail();" id="btSequenceNo">
+     		<select class="weui_select" name="btSequenceNo" onchange="getDetail();" id="btSequenceNo" placeholder="点击选择车次">
   	 		   <c:forEach items="${businessTripList}" var="businessTrip">
   	 		   			<option value=""></option>
   	   					<option value="${businessTrip.btSequenceNo }">${businessTrip.btAskBeginTime}----${businessTrip.btStartCity}---->${businessTrip.btAddress }</option>

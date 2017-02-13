@@ -187,4 +187,12 @@ public class StaffInfoServiceImpl implements IStaffInfoService {
         criteria.andContractTypeNotEqualTo("S");
         return staffInfoMapper.selectByExample(example);
     }
+    @Override
+    public List<StaffInfo> selectByStaffId(String staffId){
+
+        StaffInfoExample example = new StaffInfoExample();
+        StaffInfoExample.Criteria criteria = example.createCriteria();
+        criteria.andStaffIdEqualTo(staffId);
+        return staffInfoMapper.selectByExample(example);
+    }
 }
