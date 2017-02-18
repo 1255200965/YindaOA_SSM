@@ -23,9 +23,9 @@ public class YoUserinfosalary {
 
     private Double baseSalary;
 
-    private String datetype;
+    private String yindaIdentify;
 
-    private String attendance;
+    private String datetype;
 
     private String effectiveattendance;
 
@@ -42,8 +42,6 @@ public class YoUserinfosalary {
     private Double worksalary;
 
     private Double subtotal;
-
-    private String btEffDays;
 
     private String evection;
 
@@ -65,11 +63,11 @@ public class YoUserinfosalary {
 
     private Double userbonus;
 
-    private Double socialdecase;
-
     private Double totalsalary;
 
     private Double monthSalary;
+
+    private Double socialdecase;
 
     private Double tax;
 
@@ -80,6 +78,10 @@ public class YoUserinfosalary {
     private Double monthBonusTax;
 
     private Double monthBonusReal;
+
+    private Double preBonusStore;
+
+    private Double overBonusStore;
 
     public Integer getSid() {
         return sid;
@@ -169,20 +171,20 @@ public class YoUserinfosalary {
         this.baseSalary = baseSalary;
     }
 
+    public String getYindaIdentify() {
+        return yindaIdentify;
+    }
+
+    public void setYindaIdentify(String yindaIdentify) {
+        this.yindaIdentify = yindaIdentify;
+    }
+
     public String getDatetype() {
         return datetype;
     }
 
     public void setDatetype(String datetype) {
         this.datetype = datetype;
-    }
-
-    public String getAttendance() {
-        return attendance;
-    }
-
-    public void setAttendance(String attendance) {
-        this.attendance = attendance;
     }
 
     public String getEffectiveattendance() {
@@ -247,14 +249,6 @@ public class YoUserinfosalary {
 
     public void setSubtotal(Double subtotal) {
         this.subtotal = subtotal;
-    }
-
-    public String getBtEffDays() {
-        return btEffDays;
-    }
-
-    public void setBtEffDays(String btEffDays) {
-        this.btEffDays = btEffDays;
     }
 
     public String getEvection() {
@@ -337,14 +331,6 @@ public class YoUserinfosalary {
         this.userbonus = userbonus;
     }
 
-    public Double getSocialdecase() {
-        return socialdecase;
-    }
-
-    public void setSocialdecase(Double socialdecase) {
-        this.socialdecase = socialdecase;
-    }
-
     public Double getTotalsalary() {
         return totalsalary;
     }
@@ -359,6 +345,14 @@ public class YoUserinfosalary {
 
     public void setMonthSalary(Double monthSalary) {
         this.monthSalary = monthSalary;
+    }
+
+    public Double getSocialdecase() {
+        return socialdecase;
+    }
+
+    public void setSocialdecase(Double socialdecase) {
+        this.socialdecase = socialdecase;
     }
 
     public Double getTax() {
@@ -399,5 +393,21 @@ public class YoUserinfosalary {
 
     public void setMonthBonusReal(Double monthBonusReal) {
         this.monthBonusReal = monthBonusReal;
+    }
+
+    public Double getPreBonusStore() {
+        return preBonusStore;
+    }
+
+    public void setPreBonusStore(Double preBonusStore) {
+        this.preBonusStore = preBonusStore;
+    }
+
+    public Double getOverBonusStore() {
+        return overBonusStore;
+    }
+
+    public void setOverBonusStore(Double overBonusStore) {
+        this.overBonusStore = overBonusStore;
     }
 }

@@ -854,6 +854,76 @@ public class YoUserinfosalaryExample {
             return (Criteria) this;
         }
 
+        public Criteria andYindaIdentifyIsNull() {
+            addCriterion("yinda_identify is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andYindaIdentifyIsNotNull() {
+            addCriterion("yinda_identify is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andYindaIdentifyEqualTo(String value) {
+            addCriterion("yinda_identify =", value, "yindaIdentify");
+            return (Criteria) this;
+        }
+
+        public Criteria andYindaIdentifyNotEqualTo(String value) {
+            addCriterion("yinda_identify <>", value, "yindaIdentify");
+            return (Criteria) this;
+        }
+
+        public Criteria andYindaIdentifyGreaterThan(String value) {
+            addCriterion("yinda_identify >", value, "yindaIdentify");
+            return (Criteria) this;
+        }
+
+        public Criteria andYindaIdentifyGreaterThanOrEqualTo(String value) {
+            addCriterion("yinda_identify >=", value, "yindaIdentify");
+            return (Criteria) this;
+        }
+
+        public Criteria andYindaIdentifyLessThan(String value) {
+            addCriterion("yinda_identify <", value, "yindaIdentify");
+            return (Criteria) this;
+        }
+
+        public Criteria andYindaIdentifyLessThanOrEqualTo(String value) {
+            addCriterion("yinda_identify <=", value, "yindaIdentify");
+            return (Criteria) this;
+        }
+
+        public Criteria andYindaIdentifyLike(String value) {
+            addCriterion("yinda_identify like", value, "yindaIdentify");
+            return (Criteria) this;
+        }
+
+        public Criteria andYindaIdentifyNotLike(String value) {
+            addCriterion("yinda_identify not like", value, "yindaIdentify");
+            return (Criteria) this;
+        }
+
+        public Criteria andYindaIdentifyIn(List<String> values) {
+            addCriterion("yinda_identify in", values, "yindaIdentify");
+            return (Criteria) this;
+        }
+
+        public Criteria andYindaIdentifyNotIn(List<String> values) {
+            addCriterion("yinda_identify not in", values, "yindaIdentify");
+            return (Criteria) this;
+        }
+
+        public Criteria andYindaIdentifyBetween(String value1, String value2) {
+            addCriterion("yinda_identify between", value1, value2, "yindaIdentify");
+            return (Criteria) this;
+        }
+
+        public Criteria andYindaIdentifyNotBetween(String value1, String value2) {
+            addCriterion("yinda_identify not between", value1, value2, "yindaIdentify");
+            return (Criteria) this;
+        }
+
         public Criteria andDatetypeIsNull() {
             addCriterion("datetype is null");
             return (Criteria) this;
@@ -921,76 +991,6 @@ public class YoUserinfosalaryExample {
 
         public Criteria andDatetypeNotBetween(String value1, String value2) {
             addCriterion("datetype not between", value1, value2, "datetype");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttendanceIsNull() {
-            addCriterion("attendance is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttendanceIsNotNull() {
-            addCriterion("attendance is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttendanceEqualTo(String value) {
-            addCriterion("attendance =", value, "attendance");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttendanceNotEqualTo(String value) {
-            addCriterion("attendance <>", value, "attendance");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttendanceGreaterThan(String value) {
-            addCriterion("attendance >", value, "attendance");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttendanceGreaterThanOrEqualTo(String value) {
-            addCriterion("attendance >=", value, "attendance");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttendanceLessThan(String value) {
-            addCriterion("attendance <", value, "attendance");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttendanceLessThanOrEqualTo(String value) {
-            addCriterion("attendance <=", value, "attendance");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttendanceLike(String value) {
-            addCriterion("attendance like", value, "attendance");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttendanceNotLike(String value) {
-            addCriterion("attendance not like", value, "attendance");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttendanceIn(List<String> values) {
-            addCriterion("attendance in", values, "attendance");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttendanceNotIn(List<String> values) {
-            addCriterion("attendance not in", values, "attendance");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttendanceBetween(String value1, String value2) {
-            addCriterion("attendance between", value1, value2, "attendance");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttendanceNotBetween(String value1, String value2) {
-            addCriterion("attendance not between", value1, value2, "attendance");
             return (Criteria) this;
         }
 
@@ -1511,76 +1511,6 @@ public class YoUserinfosalaryExample {
 
         public Criteria andSubtotalNotBetween(Double value1, Double value2) {
             addCriterion("subtotal not between", value1, value2, "subtotal");
-            return (Criteria) this;
-        }
-
-        public Criteria andBtEffDaysIsNull() {
-            addCriterion("bt_eff_days is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andBtEffDaysIsNotNull() {
-            addCriterion("bt_eff_days is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andBtEffDaysEqualTo(String value) {
-            addCriterion("bt_eff_days =", value, "btEffDays");
-            return (Criteria) this;
-        }
-
-        public Criteria andBtEffDaysNotEqualTo(String value) {
-            addCriterion("bt_eff_days <>", value, "btEffDays");
-            return (Criteria) this;
-        }
-
-        public Criteria andBtEffDaysGreaterThan(String value) {
-            addCriterion("bt_eff_days >", value, "btEffDays");
-            return (Criteria) this;
-        }
-
-        public Criteria andBtEffDaysGreaterThanOrEqualTo(String value) {
-            addCriterion("bt_eff_days >=", value, "btEffDays");
-            return (Criteria) this;
-        }
-
-        public Criteria andBtEffDaysLessThan(String value) {
-            addCriterion("bt_eff_days <", value, "btEffDays");
-            return (Criteria) this;
-        }
-
-        public Criteria andBtEffDaysLessThanOrEqualTo(String value) {
-            addCriterion("bt_eff_days <=", value, "btEffDays");
-            return (Criteria) this;
-        }
-
-        public Criteria andBtEffDaysLike(String value) {
-            addCriterion("bt_eff_days like", value, "btEffDays");
-            return (Criteria) this;
-        }
-
-        public Criteria andBtEffDaysNotLike(String value) {
-            addCriterion("bt_eff_days not like", value, "btEffDays");
-            return (Criteria) this;
-        }
-
-        public Criteria andBtEffDaysIn(List<String> values) {
-            addCriterion("bt_eff_days in", values, "btEffDays");
-            return (Criteria) this;
-        }
-
-        public Criteria andBtEffDaysNotIn(List<String> values) {
-            addCriterion("bt_eff_days not in", values, "btEffDays");
-            return (Criteria) this;
-        }
-
-        public Criteria andBtEffDaysBetween(String value1, String value2) {
-            addCriterion("bt_eff_days between", value1, value2, "btEffDays");
-            return (Criteria) this;
-        }
-
-        public Criteria andBtEffDaysNotBetween(String value1, String value2) {
-            addCriterion("bt_eff_days not between", value1, value2, "btEffDays");
             return (Criteria) this;
         }
 
@@ -2204,66 +2134,6 @@ public class YoUserinfosalaryExample {
             return (Criteria) this;
         }
 
-        public Criteria andSocialdecaseIsNull() {
-            addCriterion("socialDecase is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSocialdecaseIsNotNull() {
-            addCriterion("socialDecase is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSocialdecaseEqualTo(Double value) {
-            addCriterion("socialDecase =", value, "socialdecase");
-            return (Criteria) this;
-        }
-
-        public Criteria andSocialdecaseNotEqualTo(Double value) {
-            addCriterion("socialDecase <>", value, "socialdecase");
-            return (Criteria) this;
-        }
-
-        public Criteria andSocialdecaseGreaterThan(Double value) {
-            addCriterion("socialDecase >", value, "socialdecase");
-            return (Criteria) this;
-        }
-
-        public Criteria andSocialdecaseGreaterThanOrEqualTo(Double value) {
-            addCriterion("socialDecase >=", value, "socialdecase");
-            return (Criteria) this;
-        }
-
-        public Criteria andSocialdecaseLessThan(Double value) {
-            addCriterion("socialDecase <", value, "socialdecase");
-            return (Criteria) this;
-        }
-
-        public Criteria andSocialdecaseLessThanOrEqualTo(Double value) {
-            addCriterion("socialDecase <=", value, "socialdecase");
-            return (Criteria) this;
-        }
-
-        public Criteria andSocialdecaseIn(List<Double> values) {
-            addCriterion("socialDecase in", values, "socialdecase");
-            return (Criteria) this;
-        }
-
-        public Criteria andSocialdecaseNotIn(List<Double> values) {
-            addCriterion("socialDecase not in", values, "socialdecase");
-            return (Criteria) this;
-        }
-
-        public Criteria andSocialdecaseBetween(Double value1, Double value2) {
-            addCriterion("socialDecase between", value1, value2, "socialdecase");
-            return (Criteria) this;
-        }
-
-        public Criteria andSocialdecaseNotBetween(Double value1, Double value2) {
-            addCriterion("socialDecase not between", value1, value2, "socialdecase");
-            return (Criteria) this;
-        }
-
         public Criteria andTotalsalaryIsNull() {
             addCriterion("totalsalary is null");
             return (Criteria) this;
@@ -2381,6 +2251,66 @@ public class YoUserinfosalaryExample {
 
         public Criteria andMonthSalaryNotBetween(Double value1, Double value2) {
             addCriterion("month_salary not between", value1, value2, "monthSalary");
+            return (Criteria) this;
+        }
+
+        public Criteria andSocialdecaseIsNull() {
+            addCriterion("socialDecase is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSocialdecaseIsNotNull() {
+            addCriterion("socialDecase is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSocialdecaseEqualTo(Double value) {
+            addCriterion("socialDecase =", value, "socialdecase");
+            return (Criteria) this;
+        }
+
+        public Criteria andSocialdecaseNotEqualTo(Double value) {
+            addCriterion("socialDecase <>", value, "socialdecase");
+            return (Criteria) this;
+        }
+
+        public Criteria andSocialdecaseGreaterThan(Double value) {
+            addCriterion("socialDecase >", value, "socialdecase");
+            return (Criteria) this;
+        }
+
+        public Criteria andSocialdecaseGreaterThanOrEqualTo(Double value) {
+            addCriterion("socialDecase >=", value, "socialdecase");
+            return (Criteria) this;
+        }
+
+        public Criteria andSocialdecaseLessThan(Double value) {
+            addCriterion("socialDecase <", value, "socialdecase");
+            return (Criteria) this;
+        }
+
+        public Criteria andSocialdecaseLessThanOrEqualTo(Double value) {
+            addCriterion("socialDecase <=", value, "socialdecase");
+            return (Criteria) this;
+        }
+
+        public Criteria andSocialdecaseIn(List<Double> values) {
+            addCriterion("socialDecase in", values, "socialdecase");
+            return (Criteria) this;
+        }
+
+        public Criteria andSocialdecaseNotIn(List<Double> values) {
+            addCriterion("socialDecase not in", values, "socialdecase");
+            return (Criteria) this;
+        }
+
+        public Criteria andSocialdecaseBetween(Double value1, Double value2) {
+            addCriterion("socialDecase between", value1, value2, "socialdecase");
+            return (Criteria) this;
+        }
+
+        public Criteria andSocialdecaseNotBetween(Double value1, Double value2) {
+            addCriterion("socialDecase not between", value1, value2, "socialdecase");
             return (Criteria) this;
         }
 
@@ -2681,6 +2611,126 @@ public class YoUserinfosalaryExample {
 
         public Criteria andMonthBonusRealNotBetween(Double value1, Double value2) {
             addCriterion("month_bonus_real not between", value1, value2, "monthBonusReal");
+            return (Criteria) this;
+        }
+
+        public Criteria andPreBonusStoreIsNull() {
+            addCriterion("pre_bonus_store is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPreBonusStoreIsNotNull() {
+            addCriterion("pre_bonus_store is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPreBonusStoreEqualTo(Double value) {
+            addCriterion("pre_bonus_store =", value, "preBonusStore");
+            return (Criteria) this;
+        }
+
+        public Criteria andPreBonusStoreNotEqualTo(Double value) {
+            addCriterion("pre_bonus_store <>", value, "preBonusStore");
+            return (Criteria) this;
+        }
+
+        public Criteria andPreBonusStoreGreaterThan(Double value) {
+            addCriterion("pre_bonus_store >", value, "preBonusStore");
+            return (Criteria) this;
+        }
+
+        public Criteria andPreBonusStoreGreaterThanOrEqualTo(Double value) {
+            addCriterion("pre_bonus_store >=", value, "preBonusStore");
+            return (Criteria) this;
+        }
+
+        public Criteria andPreBonusStoreLessThan(Double value) {
+            addCriterion("pre_bonus_store <", value, "preBonusStore");
+            return (Criteria) this;
+        }
+
+        public Criteria andPreBonusStoreLessThanOrEqualTo(Double value) {
+            addCriterion("pre_bonus_store <=", value, "preBonusStore");
+            return (Criteria) this;
+        }
+
+        public Criteria andPreBonusStoreIn(List<Double> values) {
+            addCriterion("pre_bonus_store in", values, "preBonusStore");
+            return (Criteria) this;
+        }
+
+        public Criteria andPreBonusStoreNotIn(List<Double> values) {
+            addCriterion("pre_bonus_store not in", values, "preBonusStore");
+            return (Criteria) this;
+        }
+
+        public Criteria andPreBonusStoreBetween(Double value1, Double value2) {
+            addCriterion("pre_bonus_store between", value1, value2, "preBonusStore");
+            return (Criteria) this;
+        }
+
+        public Criteria andPreBonusStoreNotBetween(Double value1, Double value2) {
+            addCriterion("pre_bonus_store not between", value1, value2, "preBonusStore");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverBonusStoreIsNull() {
+            addCriterion("over_bonus_store is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverBonusStoreIsNotNull() {
+            addCriterion("over_bonus_store is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverBonusStoreEqualTo(Double value) {
+            addCriterion("over_bonus_store =", value, "overBonusStore");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverBonusStoreNotEqualTo(Double value) {
+            addCriterion("over_bonus_store <>", value, "overBonusStore");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverBonusStoreGreaterThan(Double value) {
+            addCriterion("over_bonus_store >", value, "overBonusStore");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverBonusStoreGreaterThanOrEqualTo(Double value) {
+            addCriterion("over_bonus_store >=", value, "overBonusStore");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverBonusStoreLessThan(Double value) {
+            addCriterion("over_bonus_store <", value, "overBonusStore");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverBonusStoreLessThanOrEqualTo(Double value) {
+            addCriterion("over_bonus_store <=", value, "overBonusStore");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverBonusStoreIn(List<Double> values) {
+            addCriterion("over_bonus_store in", values, "overBonusStore");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverBonusStoreNotIn(List<Double> values) {
+            addCriterion("over_bonus_store not in", values, "overBonusStore");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverBonusStoreBetween(Double value1, Double value2) {
+            addCriterion("over_bonus_store between", value1, value2, "overBonusStore");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverBonusStoreNotBetween(Double value1, Double value2) {
+            addCriterion("over_bonus_store not between", value1, value2, "overBonusStore");
             return (Criteria) this;
         }
     }
