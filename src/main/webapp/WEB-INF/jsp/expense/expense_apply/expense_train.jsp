@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="<%=path%>/stylesheets/weui.css"/>
   <link rel="stylesheet" href="<%=path%>/stylesheets/jquery-weui.css"/>
   <link rel="stylesheet" href="<%=path%>/stylesheets/projectcss.css"/>
-  <title>添加火车票</title>
+  <title>省外火车票报销</title>
  </head>
  <body >
  
@@ -27,11 +27,10 @@
       			<label class="weui_label"><b>车次选择</b></label>
    			 </div>
     	 <div class="weui_cell_ft weui_cell_primary">
-     		<!-- <input class="weui_input" type="date" placeholder=""  name="startTime"> -->
-     		<select class="weui_select" name="btSequenceNo" onchange="getDetail();" id="btSequenceNo" placeholder="点击选择车次">
+     		<select class="weui_select" name="btSequenceNo" onchange="getDetail();" id="btSequenceNo" >
+  	 		   <option value="" disabled selected style="display:none;">点击选择车次</option>
   	 		   <c:forEach items="${businessTripList}" var="businessTrip">
-  	 		   			<option value=""></option>
-  	   					<option value="${businessTrip.btSequenceNo }">${businessTrip.btAskBeginTime}----${businessTrip.btStartCity}---->${businessTrip.btAddress }</option>
+  	   					<option value="${businessTrip.btSequenceNo }" style="color:#03b2eb;">${businessTrip.btAskBeginTime}--${businessTrip.btStartCity}-->${businessTrip.btAddress }</option>
   	  			</c:forEach>
   			</select>
    		 </div>
@@ -39,7 +38,7 @@
      	 <div class="weui_cell ">
   		    <div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>上车时间</b></label></div>
     		<div class="weui_cell_ft weui_cell_primary">
-     		   <input class="weui_input" type="date" placeholder=""  name="startTime"  id="startTime" readonly>
+     		   <input class="weui_input" type="text" placeholder="请填写上车时间(必填)"  name="startTime"  id="startTime" onfocus="(this.type='date')">
    		    </div>
   		 </div>
   	
@@ -48,7 +47,7 @@
       			<label class="weui_label"><b>上车地点</b></label>
    			 </div>
     	<div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder=""  name="startAddress" value="" id="startAddress" readonly>
+     		<input class="weui_input" type="text" placeholder="请填写上车地点(必填)"  name="startAddress" value="" id="startAddress" >
    		 </div>
    		 
      	</div>		
@@ -56,14 +55,14 @@
   		 <div class="weui_cell ">
   		    <div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>下车时间</b></label></div>
     		<div class="weui_cell_ft weui_cell_primary">
-     		   <input class="weui_input" type="date" placeholder=""  name="endTime"  id="endTime" readonly>
+     		   <input class="weui_input" type="text"   name="endTime"  id="endTime" placeholder="请填写下车时间(必填)" onfocus="(this.type='date')">
    		    </div>
   		 </div>
   	
   		 <div class="weui_cell"> 
     		<div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>下车地点</b></label></div>
     	     <div class="weui_cell_ft weui_cell_primary">
-     	        <input class="weui_input" type="text"   name="endAddress"  id="endAddress" readonly>
+     	        <input class="weui_input" type="text"   name="endAddress"  placeholder="请填写下车地点(必填)" id="endAddress" >
    		     </div>
   	     </div> 
   	     
@@ -72,7 +71,7 @@
       			<label class="weui_label"><b>订票方式</b></label>
    			 </div>
     	<div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder=""   value="自购" readonly>
+     		<input class="weui_input" type="text" placeholder=""   value="自购" disabled>
    		 </div>
    		 
      	</div>
@@ -81,7 +80,7 @@
       			<label class="weui_label"><b>车次</b></label>
    			 </div>
     	 <div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder=""   value="" name="trainNum">	
+     		<input class="weui_input" type="text" placeholder="请填写车次(必填)"   value="" name="trainNum">	
    		 </div>
      	</div>	
      	<div class="weui_cell">
@@ -89,7 +88,7 @@
       			<label class="weui_label"><b>金&nbsp;额</b></label>
    			 </div>
     	<div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder=""  name="moneyCost" value="" id="moneyCost">
+     		<input class="weui_input" type="text" placeholder="请填写金额(必填)"  name="moneyCost" value="" id="moneyCost" onchange="checkFormat(this);">
    		 </div>
    		 
      	</div>
@@ -98,24 +97,31 @@
       			<label class="weui_label"><b>说&nbsp;明</b></label>
    			 </div>
     	<div class="weui_cell_ft weui_cell_primary">
-     		<input class="weui_input" type="text" placeholder=""  name="reason"  id="reason" readonly>
+     		<input class="weui_input" type="text" placeholder="请填写说明(可选)"  name="reason"  id="reason" readonly>
    		 </div>
    		 
      	</div>	
   	     <hr/>
   	     <div class="weui-row">
   	     <div class="weui_uploader_input_wrp">
-            <input class="weui_uploader_input" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" multiple="" name="image"  onchange="showInfo();">
-            <p id="picInfo"></p>
+            <input class="weui_uploader_input" type="file" id='image' accept="image/jpg,image/jpeg,image/png,image/gif" multiple="" name="image"  onchange="showInfo('image','picInfo');">
+            <img src="" height="80" width="80" id="picInfo"/>
   	     </div>
+  	     <p style="color:red;">注：对于往返的火车票报销,请合拍两张火车票图片,并且金额填写两张火车票之和即可</p>
   	     </div>
-        <div class="weui-row">
+        
+  	 	<div class="weui-row ">
 			<div class="weui-col-10"></div>
-			<div class="weui-col-40"><input type="submit" class="weui_btn weui_btn_mini weui_btn_primary"  value="提交"></div>
-			<div class="weui-col-20"><a href="javascript:history.go(-1);" class="weui_btn weui_btn_mini weui_btn_default">返回</a></div>
+			<div class="weui-col-40"><input type="submit" class="weui_btn  weui_btn_primary"  value="提交"></div>
+			<div class="weui-col-40"><a href="javascript:history.go(-1);" class="weui_btn  weui_btn_default">返回</a></div>
 			<div class="weui-col-10"></div>
-	    </div> 
-  	 <!-- </div> -->
+		</div>	
+		<br/>
+		<div class="weui-row ">
+		<div class="weui-col-10"></div>
+		<div class="weui-col-80"><a href="<%=path%>/toExpense_history_train.do" class="weui_btn  weui_btn_warn">历史报销信息查看</a></div>
+		<div class="weui-col-10"></div>
+		</div>	
   	</form>
   	
   	
@@ -140,11 +146,20 @@
         
     	return true;
     }
-    function showInfo(){
-    	if($("input[name='image']").val()!=null && $("input[name='image']").val()!=""){
-    	  $("#picInfo").text("图片一");   
-    	} 
-   	 }
+    //图片预览
+   	function showInfo(fileid,target){
+   		var preview = document.querySelector('#'+target);//获取img元素,显示图片位置，根据el表达式('#'+target)
+   		var file = document.querySelector('#'+fileid).files[0];//根据id拿到文件选择框里面的文件，
+   		var reader = new FileReader();//创建FileReader接口（把文件放到图片预览框里面）
+   		reader.onloadend = function () {
+   		preview.src = reader.result;
+   		}
+   		if (file) {
+   		reader.readAsDataURL(file);
+   		} else {
+   		preview.src = "";
+   		}
+   	}
     function getDetail(){
     	$.post("getDetail.do",{"btSequenceNo":$("select[name='btSequenceNo']").val()},function(data){
     		$("#startAddress").val(data.btStartCity);
@@ -191,7 +206,17 @@
 	   }else if(data=="fail"){
 		   $.alert("系统繁忙,请稍后重试");
 	   }
-	});		
+	});	
+	//金额格式检查
+	   function checkFormat(e){
+	   	var s = /^(([1-9]\d*)|\d)(\.\d{1,2})?$/;
+	   	if(s.test($(e).val())){
+	   		
+	   	}else{
+	   		$.alert("金额必须为数字,请重新填写");
+	   		$(e).val("");
+	   	}
+	   }
     </script>
  </body> 
 </html>

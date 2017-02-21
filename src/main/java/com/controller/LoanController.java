@@ -63,7 +63,7 @@ public class LoanController {
 				//根据审批编号找到对应的预付款记录
 			YoAdvance advance = advanceService.selectByapproveNo(approveNo);
 				//更新预付款冲借款状态记录为已做冲借款
-			advance.setOperationStatus("已做冲借款");
+			//advance.setOperationStatus("已做冲借款");
 			advanceService.updateSelective(advance);
 				//根据预付款记录生成对应的冲借款信息
 			YoLoan loan = loanService.construct(advance);

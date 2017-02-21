@@ -67,7 +67,7 @@
             <td data-bind="text:date"></td>
 
             <td data-bind="text:datetype">日期类型</td>
-            <td data-bind="text:attendance">知识树编号</td>
+            <td data-bind="text:effectiveAttendance">知识树编号</td>
             <%-- <td data-bind="text:attendanceSalary">所属知识</td>--%>
             <td data-bind="text:leavetype">修改者</td>
             <%--<td data-bind="text:leavesalary">审核状态</td>--%>
@@ -89,7 +89,7 @@
             <td data-bind="text:name"></td>
             <td data-bind="text:date"></td>
             <td data-bind="text:datetype"></td>
-            <td data-bind="text:attendance"></td>
+            <td data-bind="text:effectiveAttendance"></td>
             <td data-bind="text:leavetype"></td>
             <td data-bind="text:workovertime"></td>
             <td data-bind="text:worksalary"></td>

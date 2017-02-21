@@ -2,6 +2,8 @@ package com.dao;
 
 import com.model.ExpenseApplayBus;
 import com.model.ExpenseApplayBusExample;
+import com.model.ToolsForselectApproval;
+
 import java.util.List;
 
 public interface ExpenseApplayBusMapper {
@@ -18,8 +20,14 @@ public interface ExpenseApplayBusMapper {
     int updateByPrimaryKeySelective(ExpenseApplayBus record);
 
     int updateByPrimaryKey(ExpenseApplayBus record);
-    //查询当前管理员一个月之前的已审批信息
-    public List<ExpenseApplayBus> selectApproved(String staffId);
-    //查询当前管理员一个月之前的待审批信息
-    public List<ExpenseApplayBus> selectApproval(String staffId);
+    //根据用户钉钉ID查询用户的待审批记录
+    public List<ExpenseApplayBus> selectApproval(ToolsForselectApproval tools);
+    //根据用户钉钉ID查询用户的已审批记录
+    public List<ExpenseApplayBus> selectApproved(String staffUserId);
+    //根据用户钉钉ID查询用户的待审批员工有那些
+    public List<ExpenseApplayBus> selectApprovalStaff(String staffUserId);
+    //查询当前用户上周的待审批条数
+    public int selectApprovalCount(String staffUserId);
+    //查询出上周管理员未审核的报销并进行驳回
+    public void updateDelayApproval(String staffUserId);
 }

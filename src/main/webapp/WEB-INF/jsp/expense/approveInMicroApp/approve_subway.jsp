@@ -48,8 +48,8 @@
      	<br/>
         <div class="weui-row" id="approveOption">
 			<div class="weui-col-10"></div>
-			<div class="weui-col-40"><input type="button" onclick="approveResult('agree');" class="weui_btn weui_btn_mini weui_btn_primary"  value="同意"></div>
-			<div class="weui-col-20"><a onclick="approveResult('disagree');" class="weui_btn weui_btn_mini weui_btn_default">驳回</a></div>
+			<div class="weui-col-40"><input type="button" onclick="approveResult('agree');" class="weui_btn  weui_btn_primary"  value="同意"></div>
+			<div class="weui-col-40"><a onclick="approveResult('disagree');" class="weui_btn  weui_btn_default">驳回</a></div>
 			<div class="weui-col-10"></div>
 	    </div> 
   	 <!-- </div> -->

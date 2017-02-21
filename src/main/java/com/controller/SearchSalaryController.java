@@ -75,7 +75,7 @@ public class SearchSalaryController {
             totalSum.setTimebaseadd(totalSum.getTimesalary());
         }
         //totalSum.setSubtotal(totalSum.getAttendancesalary() + totalSum.getLeavesalary() + totalSum.getAllowance() + totalSum.getWorksalary() + totalSum.getTrafficsalary());
-        totalSum.setTotalsalary(totalSum.getSubtotal() - totalSum.getSocialdecase()  + totalSum.getUserbonus() + totalSum.getTimebaseadd() + totalSum.getTaskbaseadd());
+        totalSum.setTotalsalary(totalSum.getSubtotal() + totalSum.getWorksalary() + totalSum.getAllowance() + totalSum.getHeatingAllowance() + totalSum.getTrafficsalary() - totalSum.getSocialdecase()  + totalSum.getUserbonus() + totalSum.getTimebaseadd() + totalSum.getTaskbaseadd());
         totalSum.setRealsalary(totalSum.getTotalsalary() - totalSum.getTax());
 
         int result = userInfoService.updateByUserSalary(totalSum);

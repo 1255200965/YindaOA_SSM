@@ -39,6 +39,10 @@ public class ExpenseApplayTrain {
 
     private String approverNow;
 
+    private String refuseReason;
+
+    private String submitTime;
+
     public Integer getId() {
         return id;
     }
@@ -190,4 +194,37 @@ public class ExpenseApplayTrain {
     public void setApproverNow(String approverNow) {
         this.approverNow = approverNow;
     }
+
+    public String getRefuseReason() {
+        return refuseReason;
+    }
+
+    public void setRefuseReason(String refuseReason) {
+        this.refuseReason = refuseReason;
+    }
+
+    public String getSubmitTime() {
+        return submitTime;
+    }
+
+    public void setSubmitTime(String submitTime) {
+        this.submitTime = submitTime;
+    }
+
+	@Override
+	public String toString() {
+		return "ExpenseApplayTrain [id=" + id + ", staffName=" + staffName
+				+ ", staffId=" + staffId + ", staffDepart=" + staffDepart
+				+ ", startTime=" + startTime + ", endTime=" + endTime
+				+ ", trainNum=" + trainNum + ", startAddress=" + startAddress
+				+ ", endAddress=" + endAddress + ", moneyCost=" + moneyCost
+				+ ", detailExplain=" + detailExplain + ", staffUserId="
+				+ staffUserId + ", tripId=" + tripId + ", applayStatus="
+				+ applayStatus + ", reason=" + reason + ", imageUrl="
+				+ imageUrl + ", approverOrder=" + approverOrder
+				+ ", approverHistory=" + approverHistory + ", approverNow="
+				+ approverNow + ", refuseReason=" + refuseReason
+				+ ", submitTime=" + submitTime + "]";
+	}
+    
 }

@@ -8,15 +8,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dao.ExpenseApplayHotelMapper;
+import com.model.ExpenseApplayBus;
 import com.model.ExpenseApplayHotel;
 import com.model.ExpenseApplayHotelExample;
 import com.model.ExpenseApplySubway;
+import com.model.ToolsForselectApproval;
 import com.service.IExpenseApplayHotelService;
+import com.service.IStaffInfoService;
 import com.util.DDSendMessageUtil;
 @Service
 public class ExpenseApplayHotelServiceImpl implements IExpenseApplayHotelService{
     @Autowired
     private ExpenseApplayHotelMapper expenseApplayHotelMapper;
+    @Autowired
+    private IStaffInfoService staffInfoService;
     @Override
     public List<ExpenseApplayHotel> selectByStaffId(String staffId){
     	ExpenseApplayHotelExample example = new ExpenseApplayHotelExample();
@@ -34,8 +39,8 @@ public class ExpenseApplayHotelServiceImpl implements IExpenseApplayHotelService
     	Integer id = expenseApplayHotel.getId();
     	if(id == null || id == 0){//新增
     		expenseApplayHotelMapper.insert(expenseApplayHotel);
-    		id = expenseApplayHotel.getId();
-    		return id;
+//    		id = expenseApplayHotel.getId();
+    		return 0;
     	}else{//更新
     		return expenseApplayHotelMapper.updateByPrimaryKeySelective(expenseApplayHotel);
     	}
@@ -103,12 +108,71 @@ public class ExpenseApplayHotelServiceImpl implements IExpenseApplayHotelService
 	}
     @Override
   //根据用户钉钉Id查询其当前30天内的审批记录
-    public List<ExpenseApplayHotel> selectApproved(String userStaffId){
-    	return expenseApplayHotelMapper.selectApproved(userStaffId);
+    public List<ExpenseApplayHotel> selectApproved(String staffUserId){
+    	
+    	return expenseApplayHotelMapper.selectApproved(staffUserId);
     }
     @Override
     //根据用户钉钉Id查询其当前30天内的审批记录
-      public List<ExpenseApplayHotel> selectApproval(String userStaffId){
-      	return expenseApplayHotelMapper.selectApproval(userStaffId);
+      public List<ExpenseApplayHotel> selectApproval(String staffUserId,String staffId){
+    	ToolsForselectApproval tools = new ToolsForselectApproval();
+   		tools.setStaffId(staffId);
+   		tools.setStaffUserId(staffUserId);
+    	return expenseApplayHotelMapper.selectApproval(tools);
       }
+    @Override
+    public ExpenseApplayHotel constructApprovers(ExpenseApplayHotel expenseApplayHotel){
+    	 String approverOrders="";
+  	   String approverNow=null;
+  	   try{
+     			String []approverOrderArray=expenseApplayHotel.getApproverOrder().split("\\|");
+     			
+     				for(String approverOrder : approverOrderArray){
+     					approverOrders +=staffInfoService.selectStaffByID(approverOrder).getName()+",";	
+     				}
+     			
+     		}catch(Exception e ){
+     			approverOrders="error,请联系管理员";
+     		
+     		}
+  	   try{
+  		   String approverNow01=expenseApplayHotel.getApproverNow();
+  		   if(approverNow01 !=null && !"".equals(approverNow01)){
+  			   approverNow = staffInfoService.selectStaffByID(approverNow01).getName();
+  		   }else{
+  			 approverNow=""; 
+  		   }
+  	   }catch(Exception e){
+  		   approverNow="error,请联系管理员";
+  	   }
+  	 expenseApplayHotel.setApproverOrder(approverOrders);
+  	 expenseApplayHotel.setApproverNow(approverNow);
+    		return expenseApplayHotel;
+    }
+    @Override
+    public int UpdateByPrimaryKey(ExpenseApplayHotel expenseApplayHotel){
+    	return expenseApplayHotelMapper.updateByPrimaryKey(expenseApplayHotel);
+    }
+    @Override
+    public String delete(int id){
+ 	   try{
+ 		  expenseApplayHotelMapper.deleteByPrimaryKey(id);
+ 		   return "success";
+ 	   }catch(Exception e){
+ 		   e.printStackTrace();
+ 		   return "fail";
+ 	   }
+    }
+    @Override
+    public List<ExpenseApplayHotel> selectApprovalStaff(String staffUserId){
+    	return expenseApplayHotelMapper.selectApprovalStaff(staffUserId);
+    }
+    @Override
+    public int selectApprovalCount(String staffUserId){
+ 	   return expenseApplayHotelMapper.selectApprovalCount(staffUserId);
+ 	   }
+  //查询出上周管理员未审核的报销并进行驳回
+    public void updateDelayApproval(String staffUserId){
+    	expenseApplayHotelMapper.updateDelayApproval(staffUserId);
+    }
 }

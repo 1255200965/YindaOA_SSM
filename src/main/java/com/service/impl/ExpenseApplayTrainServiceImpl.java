@@ -8,15 +8,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dao.ExpenseApplayTrainMapper;
+import com.model.ExpenseApplayBus;
 import com.model.ExpenseApplayTrain;
 import com.model.ExpenseApplayTrainExample;
 import com.model.ExpenseApplySubway;
+import com.model.ToolsForselectApproval;
 import com.service.IExpenseApplayTrainService;
+import com.service.IStaffInfoService;
 import com.util.DDSendMessageUtil;
 @Service
 public class ExpenseApplayTrainServiceImpl implements IExpenseApplayTrainService {
    @Autowired
    private ExpenseApplayTrainMapper expenseApplayTrainMapper;
+   @Autowired
+   private IStaffInfoService staffInfoService;
    @Override
    public List<ExpenseApplayTrain> selectByStaffId(String staffId){
 	   ExpenseApplayTrainExample example = new ExpenseApplayTrainExample();
@@ -34,8 +39,8 @@ public class ExpenseApplayTrainServiceImpl implements IExpenseApplayTrainService
 	   Integer id = expenseApplayTrain.getId();
 	   if(id == null || id == 0){//新增并返回主键值
 		  expenseApplayTrainMapper.insert(expenseApplayTrain);
-		  id=expenseApplayTrain.getId();
-		   return id;
+//		  id=expenseApplayTrain.getId();
+		   return 0;
 	   }else{//更新
 		 return  expenseApplayTrainMapper.updateByPrimaryKeySelective(expenseApplayTrain); 
 	   }
@@ -81,7 +86,7 @@ public class ExpenseApplayTrainServiceImpl implements IExpenseApplayTrainService
     	  }else{
     		  expenseApplayTrain.setApproverHistory(approverHistory+"|"+approverNow);
     	  }
-    	  DDSendMessageUtil.sendMessageTrain(expenseApplayTrain, expenseApplayTrain.getId(),toUser );
+    	 /* DDSendMessageUtil.sendMessageTrain(expenseApplayTrain, expenseApplayTrain.getId(),toUser );*/
     	  System.out.println("发送消息给二级管理员");
     	 
       }
@@ -102,14 +107,75 @@ public class ExpenseApplayTrainServiceImpl implements IExpenseApplayTrainService
 	  expenseApplayTrain.setApproverNow("");
   	  return expenseApplayTrain;
 	}
-   @Override
-	  //根据用户钉钉Id查询其当前30天内的审批记录
-	    public List<ExpenseApplayTrain> selectApproved(String userStaffId){
-	    	return expenseApplayTrainMapper.selectApproved(userStaffId);
+   		@Override
+   		
+	   public List<ExpenseApplayTrain> selectApproved(String staffUserId){
+	   
+	    return expenseApplayTrainMapper.selectApproved(staffUserId);
 	    }
-   @Override
-	  //根据用户钉钉Id查询其当前30天内的审批记录
-	    public List<ExpenseApplayTrain> selectApproval(String userStaffId){
-	    	return expenseApplayTrainMapper.selectApproval(userStaffId);
+   		
+   		@SuppressWarnings("unchecked")
+		@Override
+	    public List<ExpenseApplayTrain> selectApproval(String staffUserId,String staffId){
+	   		ToolsForselectApproval tools = new ToolsForselectApproval();
+	   		tools.setStaffId(staffId);
+	   		tools.setStaffUserId(staffUserId);
+	    	return expenseApplayTrainMapper.selectApproval(tools);
 	    }
+   		@Override
+   		public ExpenseApplayTrain constructApprovers(ExpenseApplayTrain expenseApplayTrain){
+   		 String approverOrders="";
+  	   String approverNow=null;
+  	   try{
+     			String []approverOrderArray=expenseApplayTrain.getApproverOrder().split("\\|");
+     			
+     				for(String approverOrder : approverOrderArray){
+     					approverOrders +=staffInfoService.selectStaffByID(approverOrder).getName()+",";	
+     				}
+     			
+     		}catch(Exception e ){
+     			approverOrders="error,请联系管理员";
+     		
+     		}
+  	   try{
+  		   String approverNow01=expenseApplayTrain.getApproverNow();
+  		   if(approverNow01 !=null && !"".equals(approverNow01)){
+  			   approverNow = staffInfoService.selectStaffByID(approverNow01).getName();
+  		   }else{
+  			 approverNow=""; 
+  		   }
+  	   }catch(Exception e){
+  		   approverNow="error,请联系管理员";
+  	   }
+  	   	expenseApplayTrain.setApproverOrder(approverOrders);
+  	  	expenseApplayTrain.setApproverNow(approverNow);
+    	return expenseApplayTrain;
+   		}
+   		@Override
+   		public int UpdateByPrimaryKey(ExpenseApplayTrain expenseApplayTrain){
+   			return expenseApplayTrainMapper.updateByPrimaryKey(expenseApplayTrain);
+   		}
+   		@Override
+   		public String delete(int id){
+   			try{
+   				expenseApplayTrainMapper.deleteByPrimaryKey(id);
+   			   return "success";
+   		   }catch(Exception e){
+   			   e.printStackTrace();
+   			   return "fail";
+   		   }
+   		}
+   		@Override
+   	    public List<ExpenseApplayTrain> selectApprovalStaff(String staffUserId){
+   	    	return expenseApplayTrainMapper.selectApprovalStaff(staffUserId);
+   	    }
+   		@Override
+   	    public int selectApprovalCount(String staffUserId){
+   	 	   return expenseApplayTrainMapper.selectApprovalCount(staffUserId);
+   	 	   }
+   		@Override
+   		//查询出上周管理员未审核的报销并进行驳回
+   	    public void updateDelayApproval(String staffUserId){
+   			expenseApplayTrainMapper.updateDelayApproval(staffUserId);
+   		}
 }

@@ -65,20 +65,16 @@
     <script type="text/javascript" src="http://g.alicdn.com/ilw/ding/0.7.3/scripts/dingtalk.js"></script>
     <script>
      function goExpense_train(){
-    	 location="toExpense_history_train.do";
+    	 location="toExpense_train.do";
      }
      function goExpense_history_bus(){
-    	 location="toExpense_history_bus.do";
-     }
-     function goExpense_taxi(){
-    	 /* location="toExpense_history_taxi.do"; */
-    	 $.alert("依公司规定,该功能暂未开放");
+    	 location="toExpense_bus.do";
      }
      function goExpense_hotel(){
-    	 location="toExpense_history_hotel.do";
+    	 location="toExpense_hotel.do";
      }
      function goExpense_subway(){
-    	 location="toSubwayHistory.do";
+    	 location="toExpense_subway.do";
      }
      
      function goApprove_history_view(){

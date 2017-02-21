@@ -29,7 +29,47 @@ public class DDMessageUtil {
 	private String endAddress;
 	//旅馆名称
 	private String hotelName;
+	//火车票待审批条数
+	private int trainCount;
+	//大巴票待审批条数
+	private int busCount;
+	//地铁公交待审批条数
+	private int subwayCount;
+	//住宿费待审批条数
+	private int hotelCount;
+	//报销异常通知
+	private String notice;
 	
+	public String getNotice() {
+		return notice;
+	}
+	public void setNotice(String notice) {
+		this.notice = notice;
+	}
+	public int getTrainCount() {
+		return trainCount;
+	}
+	public void setTrainCount(int trainCount) {
+		this.trainCount = trainCount;
+	}
+	public int getBusCount() {
+		return busCount;
+	}
+	public void setBusCount(int busCount) {
+		this.busCount = busCount;
+	}
+	public int getSubwayCount() {
+		return subwayCount;
+	}
+	public void setSubwayCount(int subwayCount) {
+		this.subwayCount = subwayCount;
+	}
+	public int getHotelCount() {
+		return hotelCount;
+	}
+	public void setHotelCount(int hotelCount) {
+		this.hotelCount = hotelCount;
+	}
 	public String getHotelName() {
 		return hotelName;
 	}

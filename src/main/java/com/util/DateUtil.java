@@ -2,6 +2,7 @@ package com.util;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -19,4 +20,12 @@ public class DateUtil {
         String time=format.format(date);
         return time;
     }
+    public static String getCurrentDate() {
+    	Date date=new Date();
+        DateFormat format=new SimpleDateFormat("yyyy-MM-dd");
+        String time=format.format(date);
+        return time;
+    }
+    
+
 }

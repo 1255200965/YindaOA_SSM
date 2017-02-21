@@ -37,6 +37,10 @@ public class ExpenseApplayHotel {
 
     private String approverNow;
 
+    private String refuseReason;
+
+    private String submitTime;
+
     public Integer getId() {
         return id;
     }
@@ -179,5 +183,21 @@ public class ExpenseApplayHotel {
 
     public void setApproverNow(String approverNow) {
         this.approverNow = approverNow;
+    }
+
+    public String getRefuseReason() {
+        return refuseReason;
+    }
+
+    public void setRefuseReason(String refuseReason) {
+        this.refuseReason = refuseReason;
+    }
+
+    public String getSubmitTime() {
+        return submitTime;
+    }
+
+    public void setSubmitTime(String submitTime) {
+        this.submitTime = submitTime;
     }
 }

@@ -34,8 +34,8 @@ public class ExpenseApplayTaxiServiceImpl implements IExpenseApplayTaxiService{
 	   Integer id = expenseApplayTaxi.getId();
 	   if(id == null || id == 0){//插入
 		    expenseApplayTaxiMapper.insert(expenseApplayTaxi);
-		    id=expenseApplayTaxi.getId();
-		    return id;
+//		    id=expenseApplayTaxi.getId();
+		    return 0;
 	   }else{
 		  return expenseApplayTaxiMapper.updateByPrimaryKey(expenseApplayTaxi);
 		   }

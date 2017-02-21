@@ -18,6 +18,18 @@ public interface IExpenseApplayHotelService {
 	public ExpenseApplayHotel refuseOption(ExpenseApplayHotel expenseApplayHotel);
 	//根据用户钉钉Id查询其当前30天内的审批记录
     public List<ExpenseApplayHotel> selectApproved(String userStaffId); 
-  //根据用户钉钉Id查询其当前30天内的待审批记录
-    public List<ExpenseApplayHotel> selectApproval(String userStaffId); 
+    //根据用户钉钉Id查询其当前30天内的待审批记录
+    public List<ExpenseApplayHotel> selectApproval(String userStaffId,String staffId);
+    //获取审批人列表-当前审批人姓名
+  	public ExpenseApplayHotel constructApprovers(ExpenseApplayHotel expenseApplayHotel);
+  	//更新所有报销信息-返回ID
+  	 public int UpdateByPrimaryKey(ExpenseApplayHotel expenseApplayHotel);
+  	//根据ID删除对应的报销记录
+  	 public String delete(int id);
+  	 //根据用户钉钉ID查询用户的待审批员工有那些
+     public List<ExpenseApplayHotel> selectApprovalStaff(String staffUserId);
+     //查询当前用户上周的待审批条数
+     public int selectApprovalCount(String staffUserId);
+   //查询出上周管理员未审核的报销并进行驳回
+     public void updateDelayApproval(String staffUserId);
 }

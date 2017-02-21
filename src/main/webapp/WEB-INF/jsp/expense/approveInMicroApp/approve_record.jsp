@@ -18,7 +18,7 @@
  </head>
  <body >
  <div class="weui_grids">
-  <a  class="weui_grid js_grid" onclick="jump('approved.do');">
+  <a  class="weui_grid js_grid" onclick="jump2('approved.do');">
     <div class="weui_grid_icon">
       <img src="<%=path%>/images/train.png" alt="">
     </div>
@@ -26,7 +26,7 @@
                    已审批
     </p>
   </a>
-  <a  class="weui_grid js_grid" onclick="jump('approval.do');">
+  <a  class="weui_grid js_grid" onclick="jump('goApprovalSum.do');">
     <div class="weui_grid_icon">
       <img src="<%=path%>/images/train.png" alt="">
     </div>
@@ -38,6 +38,9 @@
 <script>
     //页面加载
 	function jump(data){
+		location=data;	
+	};
+ 	function jump2(data){
     	
     	$.modal({
     		title:"",
@@ -51,7 +54,6 @@
     	});
 		
 	};
-	 
 </script>
     <script src="<%=path%>/javascripts/jquery-2.1.4.js"></script>
     <script src="<%=path%>/javascripts/jquery-weui.js"></script>

@@ -49,8 +49,6 @@ public class YoAdvance {
 
     private String exportStatus;
 
-    private String operationStatus;
-
     public String getApproveNo() {
         return approveNo;
     }
@@ -241,13 +239,5 @@ public class YoAdvance {
 
     public void setExportStatus(String exportStatus) {
         this.exportStatus = exportStatus;
-    }
-
-    public String getOperationStatus() {
-        return operationStatus;
-    }
-
-    public void setOperationStatus(String operationStatus) {
-        this.operationStatus = operationStatus;
     }
 }

@@ -1333,6 +1333,146 @@ public class ExpenseApplayHotelExample {
             addCriterion("approver_now not between", value1, value2, "approverNow");
             return (Criteria) this;
         }
+
+        public Criteria andRefuseReasonIsNull() {
+            addCriterion("refuse_reason is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefuseReasonIsNotNull() {
+            addCriterion("refuse_reason is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefuseReasonEqualTo(String value) {
+            addCriterion("refuse_reason =", value, "refuseReason");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefuseReasonNotEqualTo(String value) {
+            addCriterion("refuse_reason <>", value, "refuseReason");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefuseReasonGreaterThan(String value) {
+            addCriterion("refuse_reason >", value, "refuseReason");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefuseReasonGreaterThanOrEqualTo(String value) {
+            addCriterion("refuse_reason >=", value, "refuseReason");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefuseReasonLessThan(String value) {
+            addCriterion("refuse_reason <", value, "refuseReason");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefuseReasonLessThanOrEqualTo(String value) {
+            addCriterion("refuse_reason <=", value, "refuseReason");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefuseReasonLike(String value) {
+            addCriterion("refuse_reason like", value, "refuseReason");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefuseReasonNotLike(String value) {
+            addCriterion("refuse_reason not like", value, "refuseReason");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefuseReasonIn(List<String> values) {
+            addCriterion("refuse_reason in", values, "refuseReason");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefuseReasonNotIn(List<String> values) {
+            addCriterion("refuse_reason not in", values, "refuseReason");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefuseReasonBetween(String value1, String value2) {
+            addCriterion("refuse_reason between", value1, value2, "refuseReason");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefuseReasonNotBetween(String value1, String value2) {
+            addCriterion("refuse_reason not between", value1, value2, "refuseReason");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubmitTimeIsNull() {
+            addCriterion("submit_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubmitTimeIsNotNull() {
+            addCriterion("submit_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubmitTimeEqualTo(String value) {
+            addCriterion("submit_time =", value, "submitTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubmitTimeNotEqualTo(String value) {
+            addCriterion("submit_time <>", value, "submitTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubmitTimeGreaterThan(String value) {
+            addCriterion("submit_time >", value, "submitTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubmitTimeGreaterThanOrEqualTo(String value) {
+            addCriterion("submit_time >=", value, "submitTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubmitTimeLessThan(String value) {
+            addCriterion("submit_time <", value, "submitTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubmitTimeLessThanOrEqualTo(String value) {
+            addCriterion("submit_time <=", value, "submitTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubmitTimeLike(String value) {
+            addCriterion("submit_time like", value, "submitTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubmitTimeNotLike(String value) {
+            addCriterion("submit_time not like", value, "submitTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubmitTimeIn(List<String> values) {
+            addCriterion("submit_time in", values, "submitTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubmitTimeNotIn(List<String> values) {
+            addCriterion("submit_time not in", values, "submitTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubmitTimeBetween(String value1, String value2) {
+            addCriterion("submit_time between", value1, value2, "submitTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubmitTimeNotBetween(String value1, String value2) {
+            addCriterion("submit_time not between", value1, value2, "submitTime");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

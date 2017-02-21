@@ -12,17 +12,22 @@ import com.model.ExpenseApplayHotel;
 import com.model.ExpenseApplayTrain;
 import com.model.ExpenseApplySubway;
 import com.model.ExpenseApplySubwayExample;
+import com.model.ToolsForselectApproval;
 import com.service.IExpenseApplySubwayService;
+import com.service.IStaffInfoService;
 import com.util.DDSendMessageUtil;
 @Service
 public class ExpenseApplySubwayServiceImpl implements IExpenseApplySubwayService{
 	@Autowired
 	private ExpenseApplySubwayMapper subwayMapper;
+	@Autowired
+    private IStaffInfoService staffInfoService;
 	@Override
 	public int saveOrUpdate(ExpenseApplySubway expenseSubway){
 		if(expenseSubway.getId() == null || "".equals(expenseSubway.getId())){//id为空进行插入
 			subwayMapper.insert(expenseSubway);
-			return expenseSubway.getId();//返回主键ID
+//			expenseSubway.getId();
+			return 0;//返回主键ID
 		}else{//ID不为空进行更新
 			return subwayMapper.updateByPrimaryKeySelective(expenseSubway);//返回插入成功与否 0-失败  1成功
 		}
@@ -94,8 +99,9 @@ public class ExpenseApplySubwayServiceImpl implements IExpenseApplySubwayService
 	}
 	  @Override
 	  //根据用户钉钉Id查询其当前30天内的审批记录
-	    public List<ExpenseApplySubway> selectApproved(String userStaffId){
-	    	return subwayMapper.selectApproved(userStaffId);
+	    public List<ExpenseApplySubway> selectApproved(String staffUserId){
+		  
+		  return subwayMapper.selectApproved(staffUserId);
 	    }
 	  @Override
 	  public  List<ExpenseApplySubway> selectByStaffId(String staffId){
@@ -105,8 +111,68 @@ public class ExpenseApplySubwayServiceImpl implements IExpenseApplySubwayService
 		  return subwayMapper.selectByExample(example);
 	  }
 	  @Override
-	  //根据用户钉钉Id查询其当前30天内的审批记录
-	    public List<ExpenseApplySubway> selectApproval(String userStaffId){
-	    	return subwayMapper.selectApproval(userStaffId);
+	    //根据用户钉钉Id查询其
+	    public List<ExpenseApplySubway> selectApproval(String staffUserId,String staffId){
+		  	ToolsForselectApproval tools = new ToolsForselectApproval();
+	  		tools.setStaffId(staffId);
+	  		tools.setStaffUserId(staffUserId);
+		  return subwayMapper.selectApproval(tools);
 	    }
+	  @Override
+	  public ExpenseApplySubway constructApprovers(ExpenseApplySubway expenseApplySubway){
+		  String approverOrders="";
+	  	   String approverNow=null;
+	  	   try{
+	     			String []approverOrderArray=expenseApplySubway.getApproverOrder().split("\\|");
+	     			
+	     				for(String approverOrder : approverOrderArray){
+	     					approverOrders +=staffInfoService.selectStaffByID(approverOrder).getName()+",";	
+	     				}
+	     			
+	     		}catch(Exception e ){
+	     			approverOrders="error,请联系管理员";
+	     		
+	     		}
+	  	   try{
+	  		   String approverNow01=expenseApplySubway.getApproverNow();
+	  		   if(approverNow01 !=null && !"".equals(approverNow01)){
+	  			   approverNow = staffInfoService.selectStaffByID(approverNow01).getName();
+	  		   }else{
+	  			 approverNow=""; 
+	  		   }
+	  	   }catch(Exception e){
+	  		   approverNow="error,请联系管理员";
+	  	   }
+	  	 expenseApplySubway.setApproverOrder(approverOrders);
+	  	expenseApplySubway.setApproverNow(approverNow);
+	    		return expenseApplySubway;
+	  }
+	  @Override
+	  public int UpdateByPrimaryKey(ExpenseApplySubway expenseApplySubway){
+	    	return subwayMapper.updateByPrimaryKey(expenseApplySubway);
+	  }
+	  @Override
+	  public String delete(int id){
+		  try{
+			  subwayMapper.deleteByPrimaryKey(id);
+	 		   return "success";
+	 	   }catch(Exception e){
+	 		   e.printStackTrace();
+	 		   return "fail";
+	 	   }
+	   }
+	  @Override
+ 	    public List<ExpenseApplySubway> selectApprovalStaff(String staffUserId){
+ 	    	return subwayMapper.selectApprovalStaff(staffUserId);
+ 	    }
+	  @Override
+ 	    public int selectApprovalCount(String staffUserId){
+ 	 	   return subwayMapper.selectApprovalCount(staffUserId);
+ 	 	   }
+	  @Override
+	//查询出上周管理员未审核的报销并进行驳回
+	    public void updateDelayApproval(String staffUserId){
+		  subwayMapper.updateDelayApproval(staffUserId);
+	  }
 }
+

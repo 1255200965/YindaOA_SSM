@@ -19,9 +19,9 @@
  </head>
  <body >
   	<div class="weui-row">
-  		<div class="weui-col-40" style="overflow: hidden;"><b>日期</b></div>
+  		<div class="weui-col-40" style="overflow: hidden;"><b>上车日期</b></div>
   		<div class="weui-col-40" style="overflow: hidden;"><b>报销状态</b></div>
-  		<a  onclick="goExpense_bus();" style="color:red;"><b >新增</b></a>
+  		<div><b>操作</b></div>
   		<a></a>
   		<!-- <a></a> -->
     </div>
@@ -30,13 +30,23 @@
  	<div class="weui-row">
   		<div class="weui-col-40" style="overflow: hidden;">${expenseApplayBus.beginTime }</div>
   		<div class="weui-col-40" style="overflow: hidden;">${expenseApplayBus.applayStatus}</div>
-  		<a onclick="goExpense_bus_view(${expenseApplayBus.id});">查看</a>
+  		<button type="button" onclick="goExpense_bus_view(${expenseApplayBus.id});" style="background-color:#32CD32;">查看</button>
   		<a></a>
   		<!-- <a href="javascript:history.go(-1);">返回</a> -->
     </div>
     <hr/>
     </c:forEach>
+    <br/>
+    <div class="weui-row" id="flag">
+			<div class="weui-col-10"></div>
+			<div class="weui-col-40" ><a onclick="reloadHtml();" class="weui_btn  weui_btn_primary">刷新</a></div>
+			<div class="weui-col-40" ><a href="javascript:history.go(-1);" class="weui_btn   weui_btn_default">返回</a></div>
+			<div class="weui-col-10"></div>
+	</div> 
     <script>
+    	function reloadHtml(){
+    		window.location.reload();
+    	}
     	function goExpense_bus(){
     		location="toExpense_bus.do";
     	};

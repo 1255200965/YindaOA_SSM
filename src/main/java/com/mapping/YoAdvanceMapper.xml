@@ -26,7 +26,6 @@
     <result column="advance_reason" property="advanceReason" jdbcType="VARCHAR" />
     <result column="other" property="other" jdbcType="VARCHAR" />
     <result column="export_status" property="exportStatus" jdbcType="VARCHAR" />
-    <result column="operation_status" property="operationStatus" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -61,8 +60,7 @@
     approve_no, title, approve_status, approve_result, ask_start_time, ask_end_time, 
     ask_staff_id, ask_staff_name, ask_staff_dep, approver_history, approve_record, approver_now, 
     approve_cost, advance_start_time, advance_aim_MC, advance_aim_SC, advance_sum, advance_payee, 
-    advance_bank, advance_branch, advance_bank_account, advance_reason, other, export_status, 
-    operation_status
+    advance_bank, advance_branch, advance_bank_account, advance_reason, other, export_status
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.model.YoAdvanceExample" >
     select
@@ -96,8 +94,8 @@
       approve_cost, advance_start_time, advance_aim_MC, 
       advance_aim_SC, advance_sum, advance_payee, 
       advance_bank, advance_branch, advance_bank_account, 
-      advance_reason, other, export_status, 
-      operation_status)
+      advance_reason, other, export_status
+      )
     values (#{approveNo,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{approveStatus,jdbcType=VARCHAR}, 
       #{approveResult,jdbcType=VARCHAR}, #{askStartTime,jdbcType=VARCHAR}, #{askEndTime,jdbcType=VARCHAR}, 
       #{askStaffId,jdbcType=VARCHAR}, #{askStaffName,jdbcType=VARCHAR}, #{askStaffDep,jdbcType=VARCHAR}, 
@@ -105,8 +103,8 @@
       #{approveCost,jdbcType=VARCHAR}, #{advanceStartTime,jdbcType=VARCHAR}, #{advanceAimMc,jdbcType=VARCHAR}, 
       #{advanceAimSc,jdbcType=VARCHAR}, #{advanceSum,jdbcType=VARCHAR}, #{advancePayee,jdbcType=VARCHAR}, 
       #{advanceBank,jdbcType=VARCHAR}, #{advanceBranch,jdbcType=VARCHAR}, #{advanceBankAccount,jdbcType=VARCHAR}, 
-      #{advanceReason,jdbcType=VARCHAR}, #{other,jdbcType=VARCHAR}, #{exportStatus,jdbcType=VARCHAR}, 
-      #{operationStatus,jdbcType=VARCHAR})
+      #{advanceReason,jdbcType=VARCHAR}, #{other,jdbcType=VARCHAR}, #{exportStatus,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.model.YoAdvance" >
     insert into yo_advance
@@ -183,9 +181,6 @@
       <if test="exportStatus != null" >
         export_status,
       </if>
-      <if test="operationStatus != null" >
-        operation_status,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="approveNo != null" >
@@ -259,9 +254,6 @@
       </if>
       <if test="exportStatus != null" >
         #{exportStatus,jdbcType=VARCHAR},
-      </if>
-      <if test="operationStatus != null" >
-        #{operationStatus,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -337,9 +329,6 @@
       <if test="exportStatus != null" >
         export_status = #{exportStatus,jdbcType=VARCHAR},
       </if>
-      <if test="operationStatus != null" >
-        operation_status = #{operationStatus,jdbcType=VARCHAR},
-      </if>
     </set>
     where approve_no = #{approveNo,jdbcType=VARCHAR}
   </update>
@@ -367,8 +356,7 @@
       advance_bank_account = #{advanceBankAccount,jdbcType=VARCHAR},
       advance_reason = #{advanceReason,jdbcType=VARCHAR},
       other = #{other,jdbcType=VARCHAR},
-      export_status = #{exportStatus,jdbcType=VARCHAR},
-      operation_status = #{operationStatus,jdbcType=VARCHAR}
+      export_status = #{exportStatus,jdbcType=VARCHAR}
     where approve_no = #{approveNo,jdbcType=VARCHAR}
   </update>
 </mapper>

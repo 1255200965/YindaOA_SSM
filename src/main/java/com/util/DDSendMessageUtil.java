@@ -79,8 +79,9 @@ public class DDSendMessageUtil {
     public static String getText(String expenseApplyType,String staffName,String startAddress,String endAddress){
     	return staffName+"的"+expenseApplyType+"\n ;"+"从"+startAddress+"至"+endAddress;
     }
+    
     /**
-     * 推送消息
+     * 推送消息--大巴\火车\公交\地铁报销-即时推送
      * @param message
      */
     public static void sendMessage(DDMessageUtil message,String type){
@@ -200,6 +201,61 @@ public class DDSendMessageUtil {
 				+"}" 
 				+"}" 
 				+"}";
+    	String contentJsonWeekCount = "{"
+				+"touser:"+"'"+message.getToUser()+"'"+","
+				+"toparty:"+"'"+message.getToParty()+"'"+","
+				+"agentid:"+"'"+message.getAgentId()+"'"+","
+				+"msgtype:" +"'oa',"
+				+"oa: "+"{"
+//				+  "message_url:"+ "'"+message.getMessageUrl()+"',"
+				+ "head:" +"{"
+				+    "bgcolor:"+ "'FF0000FF',"
+				+     "text: "+"'"+message.getText()+"'"
+				+ "},"
+				+  "body:{" 
+				+      "title:" +"'"+message.getTitle()+"',"
+				+     "form:" +"["
+				+         " {"
+				+            "key: "+"'大巴费报销:',"
+				+            "value:"+ "'"+message.getBusCount()+"条待审批'"				+"},"			
+				+         " {"
+				+            "key: "+"'火车票报销:',"
+				+            "value:"+ "'"+message.getTrainCount()+"条待审批'"
+				+      "}," 
+				+         " {"
+				+            "key: "+"'旅店费报销待:',"
+				+            "value:"+ "'"+message.getHotelCount()+"条待审批'"
+				+      "},"
+				+         " {"
+				+            "key: "+"'地铁公交费报销:',"
+				+            "value:"+ "'"+message.getSubwayCount()+"条待审批'"
+				+      "},"
+				+" ],"   	          
+				+"}" 
+				+"}" 
+				+"}";
+    	String contentJsonException = "{"
+				+"touser:"+"'"+message.getToUser()+"'"+","
+				+"toparty:"+"'"+message.getToParty()+"'"+","
+				+"agentid:"+"'"+message.getAgentId()+"'"+","
+				+"msgtype:" +"'oa',"
+				+"oa: "+"{"
+//				+  "message_url:"+ "'"+message.getMessageUrl()+"',"
+				+ "head:" +"{"
+				+    "bgcolor:"+ "'FF0000FF',"
+				+     "text: "+"'"+message.getText()+"'"
+				+ "},"
+				+  "body:{" 
+				+      "title:" +"'"+message.getTitle()+"',"
+				+     "form:" +"["        
+				+         " {"
+				+            "key: "+"'异常内容:',"
+				+            "value:"+ "'"+message.getNotice()+"'"
+				+      "},"
+				+" ],"   	          
+				+"}" 
+				+"}" 
+				+"}";
         String contentJson=null;
     	if("subway".equals(type)){
     		contentJson=contentJsonSubway;
@@ -207,6 +263,10 @@ public class DDSendMessageUtil {
     		contentJson = contentJsonBus;
     	}else if("hotel".equals(type)){
     		contentJson=contentJsonHotel;
+    	}else if("weekCount".equals(type)){
+    		contentJson=contentJsonWeekCount;
+    	}else if("exception".equals(type)){
+    		contentJson=contentJsonException;
     	}else{
     		contentJson=contentJson1;
     	}

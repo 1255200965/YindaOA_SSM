@@ -98,7 +98,7 @@
                 //获取部门成员
                 self.GetUserListByDep = function(depddid){
                     $.ajax({
-                        data:JSON.stringify(new UserModel(depddid,null,null,null)),
+                        data:JSON.stringify(new UserModel(depddid,null,null,getNowDate())),
                         type:"post",
                         headers: { 'Content-Type': 'application/json' },
                         dataType: 'json',
@@ -122,7 +122,7 @@
                 self.GetUserByQuery = function(){
                     if (nowDep != null){var depid = nowDep.name;} else {depid = null;}
                     $.ajax({
-                        data:JSON.stringify(new UserModel(depid,$("#search_name").val(),$("#search_salaryid").val(),$("#search_salarydate").val())),
+                        data:JSON.stringify(new UserModel(depid,$("#search_name").val(),$("#search_salaryid").val(),getNowDate())),
                         type:"post",
                         async: false,
                         headers: { 'Content-Type': 'application/json' },
@@ -268,7 +268,14 @@
             this.salaryid = salaryid;
             return this;
         }
-
+        function getNowDate() {
+            var d = new Date();
+            if (d.getMonth()<10) {
+                return d.getFullYear() + '-0'+ (d.getMonth()+1);
+            } else {
+                return d.getFullYear() + '-' + (d.getMonth()+1);
+            }
+        }
     </script>
 </head>
 <body>
@@ -288,30 +295,31 @@
             <div class="caidan-tiku-s" style="margin-right:5%"> <span>工号：</span>
                 <input id="search_salaryid" type="text" name="salaryid" class="shuruk-a2" placeholder="">
             </div>
-            <div class="caidan-tiku-s" style="margin-right:5%"> <span>日期：</span>
+<%--            <div class="caidan-tiku-s" style="margin-right:5%"> <span>日期：</span>
                 <input id="search_salarydate" type="text" name="salarydate" class="shuruk-a2" placeholder="">
-            </div>
+            </div>--%>
             <div style="float:right;margin-right:15px;padding-bottom:10px;" >
                 <input data-bind="click:$root.ClickSearch" type="button" value="查询"  class="chaxun">
                 <%--<input  data-bind="click:$root.ClickClear" type="button" value="清空"  class="chaxun" style="background:#fd9162">--%>
             </div>
         </div>
-
-        <div style="width:100%; height:700px;padding-top: 5px;overflow:auto;border:0 solid #000000;">
+            <div style="width:100%; height:700px;padding-top: 5px;overflow:auto;border:0 solid #000000;">
 
             <table  width="100%" border="1" cellspacing="0" cellpadding="0" class="table-1">
-                <thead class="table-1-tou">
-                <td class="text_center" width="5%">姓名</td>
+                <thead class="table-1-tou" >
+                <td class="text_center" width="5%"  >姓名</td>
                 <td class="text_center" width="9%">部门</td>
                 <td class="text_center" width="5%">工号</td>
                 <td class="text_center" width="6%">日期</td>
                 <td class="text_center" width="5%">出勤天数</td>
                 <td class="text_center" width="6%">出勤工资</td>
                 <td class="text_center" width="5%">请假补款</td>
+                <td class="text_center" width="5%">加班费</td>
+                <%--<td class="text_center" width="6%">小计</td>--%>
                 <td class="text_center" width="6%">出差费</td>
                 <td class="text_center" width="4%">交通费</td>
-                <td class="text_center" width="6%">小计</td>
                 <td class="text_center" width="5%">合同类型</td>
+                <td class="text_center" width="5%">签到天数</td>
                 <td class="text_center" width="6%">timebase奖金</td>
                 <td class="text_center" width="6%">timebase调整项</td>
                 <td class="text_center" width="6%">taskbase奖金</td>
@@ -327,13 +335,15 @@
                     <td data-bind="text:department">编号</td>
                     <td data-bind="text:salaryid">编号</td>
                     <td data-bind="text:salarydate">编号</td>
-                    <td data-bind="text:attendance">编号</td>
+                    <td data-bind="text:effectiveattendance">编号</td>
                     <td data-bind="text:attendancesalary">编号</td>
                     <td data-bind="text:leavesalary">编号</td>
+                    <td data-bind="text:worksalary">编号</td>
+                    <%--<td data-bind="text:subtotal">编号</td>--%>
                     <td data-bind="text:allowance">编号</td>
                     <td data-bind="text:trafficsalary">编号</td>
-                    <td data-bind="text:subtotal">编号</td>
                     <td data-bind="text:contractType"></td>
+                    <td data-bind="text:realityattendance">编号</td>
                     <td data-bind="text:timesalary">编号</td>
                     <td ><input  class="c_ding_input" style="width:50%" data-bind="textinput:timebaseadd"/></td>
                     <td data-bind="text:tasksalary">编号</td>
@@ -406,16 +416,10 @@
 </div>
 <script>
     // 日期插件开始
-    $('#monthpicker').monthpicker({
-        years: [2017,2016,2015, 2014, 2013, 2012, 2011,2010,2009],
-        topOffset: 6,
-        onMonthSelect: function(m, y) {
-            console.log('Month: ' + m + ', year: ' + y);
-        }
-    });
+
     $('#search_salarydate').monthpicker({
         years: [2017,2016,2015, 2014, 2013, 2012, 2011,2010,2009],
-        topOffset: 6
+        topOffset: 10,
     });
     //日期插件结束
 

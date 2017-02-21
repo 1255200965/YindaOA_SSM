@@ -41,7 +41,7 @@
   		 <div class="weui_cell ">
   		    <div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>时间</b></label></div>
     		<div class="weui_cell_ft weui_cell_primary">
-     		   <input class="weui_input" type="text" placeholder=""  name="startTime" value="${expenseApplayTaxi.startTime }" readonly>
+     		   <input class="weui_input" type="text" placeholder=""  name="startTime" value="${expenseApplayTaxi.startTime }" onfocus="(thi.type='date')" readonly>
    		    </div>
   		 </div>
   	

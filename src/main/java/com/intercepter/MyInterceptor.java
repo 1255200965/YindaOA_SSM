@@ -60,6 +60,7 @@ public class MyInterceptor extends HandlerInterceptorAdapter {
 		System.out.println("用户可访问的url:" +urlList.size());
 		try{
 			url = subUrl(url);
+			System.out.println("subUrl");
 		}catch(Exception e){
 			System.out.println("当前链接："+url+",myinterceptor 67 ,出错");
 			response.sendRedirect(request.getContextPath()+"/error.jsp");
@@ -69,6 +70,7 @@ public class MyInterceptor extends HandlerInterceptorAdapter {
 
 		for(String str :urlList){
 			if(url.equals(str)){
+				System.out.println("judge");
 				return true;
 			}
 		}

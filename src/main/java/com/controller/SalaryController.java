@@ -264,7 +264,6 @@ public class SalaryController {
                 totalSum.setUserid(user.getStaffUserId());
                 totalSum.setSalaryid(user.getStaffId());
                 totalSum.setDatetype("0");
-                totalSum.setAttendance("0");
                 totalSum.setAttendancesalary(0.0);
                 totalSum.setLeavetype("0");
                 totalSum.setLeavesalary(0.0);
@@ -288,7 +287,6 @@ public class SalaryController {
                     if (today.getDatetype().equals("工")) {
                         totalSum.setDatetype(Integer.parseInt(totalSum.getDatetype())+1+"");
                     }
-                    totalSum.setAttendance(Integer.parseInt(totalSum.getAttendance())+Integer.parseInt(today.getAttendance())+"");
                     totalSum.setAttendancesalary(totalSum.getAttendancesalary() + today.getAttendanceSalary());
                     if (!today.getLeavetype().equals("0")) {
                         totalSum.setLeavetype(Integer.parseInt(totalSum.getLeavetype())+1+"");
@@ -408,7 +406,6 @@ public class SalaryController {
                 totalSum.setUserid(user.getStaffUserId());
                 totalSum.setSalaryid(user.getStaffId());
                 totalSum.setDatetype("0");
-                totalSum.setAttendance("0");
                 totalSum.setAttendancesalary(0.0);
                 totalSum.setLeavetype("0");
                 totalSum.setLeavesalary(0.0);
@@ -513,7 +510,6 @@ public class SalaryController {
                     if (today.getDatetype().equals("工")) {
                         totalSum.setDatetype(Integer.parseInt(totalSum.getDatetype())+1+"");
                     }
-                    totalSum.setAttendance(Integer.parseInt(totalSum.getAttendance())+Integer.parseInt(today.getAttendance())+"");
                     totalSum.setAttendancesalary(totalSum.getAttendancesalary() + today.getAttendanceSalary());
                     if (!today.getLeavetype().equals("0")) {
                         totalSum.setLeavetype(Integer.parseInt(totalSum.getLeavetype())+1+"");
@@ -567,7 +563,6 @@ public class SalaryController {
                 totalSum.setUserid(user.getStaffUserId());
                 totalSum.setSalaryid(user.getStaffId());
                 totalSum.setDatetype("0");
-                totalSum.setAttendance("0");
                 totalSum.setAttendancesalary(0.0);
                 totalSum.setLeavetype("0");
                 totalSum.setLeavesalary(0.0);
@@ -684,7 +679,6 @@ public class SalaryController {
                     if (today.getDatetype().equals("工")) {
                         totalSum.setDatetype(Integer.parseInt(totalSum.getDatetype())+1+"");
                     }
-                    totalSum.setAttendance(Integer.parseInt(totalSum.getAttendance())+Integer.parseInt(today.getAttendance())+"");
                     totalSum.setAttendancesalary(totalSum.getAttendancesalary() + today.getAttendanceSalary());
                     if (!today.getLeavetype().equals("0")) {
                         totalSum.setLeavetype(Integer.parseInt(totalSum.getLeavetype())+1+"");
@@ -877,12 +871,7 @@ public class SalaryController {
             }else{
             	 row.createCell(4).setCellValue("");//计薪天数
             }
-          
-            if(list.get(i).getAttendance()!=null){
-            	  row.createCell(5).setCellValue(list.get(i).getAttendance());//出勤
-            }else{
-            	  row.createCell(5).setCellValue("");//出勤
-            }
+
            
             if(list.get(i).getRealityattendance()!=null){
             	 row.createCell(6).setCellValue(list.get(i).getRealityattendance());//实际出勤

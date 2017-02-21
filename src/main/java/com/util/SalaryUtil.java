@@ -534,7 +534,6 @@ public class SalaryUtil {
         totalSum.setSalaryid(user.getStaffId());
         totalSum.setSalarydate(workMonth);
         totalSum.setDatetype("0");
-        totalSum.setAttendance("0");
         totalSum.setAttendancesalary(0.0);
         totalSum.setLeavetype("0");
         totalSum.setLeavesalary(0.0);
@@ -562,7 +561,6 @@ public class SalaryUtil {
             if (today.getDatetype().equals("工")) {
                 totalSum.setDatetype(Integer.parseInt(totalSum.getDatetype())+1+"");
             }
-            totalSum.setAttendance(Integer.parseInt(totalSum.getAttendance())+Integer.parseInt(today.getAttendance())+"");
             totalSum.setAttendancesalary(totalSum.getAttendancesalary() + today.getAttendanceSalary());
             if (!today.getLeavetype().equals("0")) {
                 totalSum.setLeavetype(Integer.parseInt(totalSum.getLeavetype())+1+"");

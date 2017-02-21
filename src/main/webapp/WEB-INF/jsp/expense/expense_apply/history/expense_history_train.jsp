@@ -15,33 +15,39 @@
   <link rel="stylesheet" href="<%=path%>/stylesheets/projectcss.css"/>
   <script src="<%=path%>/javascripts/jquery-2.1.4.js"></script>
   <script src="<%=path%>/javascripts/jquery-weui.js"></script>
-  <title>我的住宿费报销记录</title>
+  <title>我的火车票报销记录</title>
  </head>
  <body >
   	<div class="weui-row">
   		<div class="weui-col-40" style="overflow: hidden;"><b>日期</b></div>
   		<div class="weui-col-40" style="overflow: hidden;"><b>报销状态</b></div>
-  		<a onclick="goExpense_hotel();" style="color:red;"><b>新增</b></a>
+  		<div><b>操作</b></div>
   		<a></a>
     </div>
     <hr/>
-    <c:forEach items="${expenseApplayHotelList }" var="expenseApplayHotel">
+    <c:forEach items="${expenseApplayTrainList }" var="expenseApplayTrain">
  	<div class="weui-row">
-  		<div class="weui-col-40" style="overflow: hidden;">${expenseApplayHotel.startTime }</div>
-  		<div class="weui-col-40" style="overflow: hidden;">${expenseApplayHotel.applayStatus }</div>
-  		<a onclick="goExpense_view_hotel(${expenseApplayHotel.id})">查看</a>
+  		<div class="weui-col-40" style="overflow: hidden;">${expenseApplayTrain.startTime}</div>
+  		<div class="weui-col-40" style="overflow: hidden;">${expenseApplayTrain.applayStatus}</div>
+  		<button type="button"   style="background-color:#32CD32;" onclick="goExpense_view_train(${expenseApplayTrain.id});">查看</button>
   		<a></a>
     </div>
     <hr/>
     </c:forEach>
+    <div class="weui-row" id="flag">
+			<div class="weui-col-10"></div>
+			<div class="weui-col-40" ><a onclick="reloadHtml();" class="weui_btn  weui_btn_primary">刷新</a></div>
+			<div class="weui-col-40" ><a href="javascript:history.go(-1);" class="weui_btn   weui_btn_default">返回</a></div>
+			<div class="weui-col-10"></div>
+	</div> 
     <script>
-    	function goExpense_hotel(){
-    		location="toExpense_hotel.do";
+    	//查看单条报销记录
+    	function goExpense_view_train(data){
+    		location="toExpense_view_train.do?id="+data;
     	};
-    	function goExpense_view_hotel(data){
-    		location="toExpense_view_hotel.do?id="+data;
+    	function reloadHtml(){
+    		window.location.reload();
     	};
     </script>
-    <hr/>
  </body> 
 </html>

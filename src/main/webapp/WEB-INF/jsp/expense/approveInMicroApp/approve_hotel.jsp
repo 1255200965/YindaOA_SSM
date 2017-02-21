@@ -85,7 +85,7 @@
      	
   	     <hr/>
   	     <div class="weui_row">
-     	<img src="http://121.40.29.241/YindaOAImageUpload/${expenseApplayHotel.imageUrl }" style="width:30%;height:10%"/>
+     	<img src="http://121.40.29.241/YindaOAImageUpload/${expenseApplayHotel.imageUrl }" style="width:30%;height:10%" style="width:100px;height:100px" onclick="imageView(this);"/>
      	
      	</div>	
   	     <!-- <div class="weui-row">
@@ -95,8 +95,8 @@
   	     </div> -->
         <div class="weui-row" id="flag">
 			<div class="weui-col-10"></div>
-			<div class="weui-col-40" ><a onclick="approve_hotel_update('agree');" class="weui_btn weui_btn_mini weui_btn_primary" >通过</a></div>
-			<div class="weui-col-20" ><a onclick="approve_hotel_update('disagree');" class="weui_btn  weui_btn_mini weui_btn_default" >驳回</a></div>
+			<div class="weui-col-40" ><a onclick="approve_hotel_update('agree');" class="weui_btn  weui_btn_primary" >通过</a></div>
+			<div class="weui-col-40" ><a onclick="approve_hotel_update('disagree');" class="weui_btn   weui_btn_default" >驳回</a></div>
 			<div class="weui-col-10"></div>
 	    </div> 
 	    
@@ -121,6 +121,16 @@
     			 $.alert("系统繁忙,请稍后重试");
     		 }
     	 });
+     }
+   //图片放大缩小
+     function imageView(e){
+     	if($(e).css("width")=="100px"){
+     		$(e).css("width","300px");
+     		$(e).css("height","300px");
+     	}else if($(e).css("width")=="300px"){
+     		$(e).css("width","100px");
+     		$(e).css("height","100px");
+     	}
      }
     </script>
  </body> 

@@ -114,6 +114,7 @@ public class ExcelAtteninfoExportController {
     @RequestMapping("/loadProjectName.do")
     public @ResponseBody List<String> loadDep(String department){
     	List<String>  proList = orderService.selectProjectOfDepartment(department);
+		System.out.println("PROlIST"+proList.toString());
     	return  proList;
     }
     /**
@@ -124,6 +125,7 @@ public class ExcelAtteninfoExportController {
     @RequestMapping("/loadOrderName.do")
     public @ResponseBody List<String> lodaOrderName(String projectName){
     	List<String> orderList = orderService.selectOrderofProject(projectName);
+		System.out.println("ORDERlST"+orderList.toString());
     	return orderList;
     }
 }

@@ -77,11 +77,11 @@ public class IOrderServiceImpl implements IOrderService{
 	@Override
 	public String getOrderNumberByName(String orderName) {
 		// TODO Auto-generated method stub
-		
+
 		YoOrderExample example = new YoOrderExample();
 		YoOrderExample.Criteria criteria = example.createCriteria();
 		if(StringUtil.NotBlank(orderName)) {criteria.andOrderNameEqualTo(orderName);}else{return null;}
-		 	
+
     	List<YoOrder> orderList=yoOrderMapper.selectByExample(example);
     	if(orderList!=null&&orderList.size()>0){
     		return  orderList.get(0).getOrderNumber();

@@ -22,7 +22,7 @@
   	<div class="weui-row">
   		<div class="weui-col-40" style="overflow: hidden;"><b>月份</b></div>
   		<div class="weui-col-40" style="overflow: hidden;"><b>报销状态</b></div>
-  		<a  onclick="subwayAdd();" style="color:red;"><b >新增</b></a>
+  		<div><b>操作</b></div>
   		<a></a>
   		<!-- <a></a> -->
     </div>
@@ -31,17 +31,24 @@
  	<div class="weui-row">
   		<div class="weui-col-40" style="overflow: hidden;">${subway.askMonth }</div>
   		<div class="weui-col-40" style="overflow: hidden;">${subway.approveStatus}</div>
-  		<a onclick="detailView(${subway.id});">查看</a>
+  		<button type="button"   style="background-color:#32CD32;" onclick="detailView(${subway.id});">查看</button>
   		<a></a>
     </div>
     <hr/>
     </c:forEach>
+    <div class="weui-row" id="flag">
+			<div class="weui-col-10"></div>
+			<div class="weui-col-40" ><a onclick="reloadHtml();" class="weui_btn  weui_btn_primary">刷新</a></div>
+			<div class="weui-col-40" ><a href="javascript:history.go(-1);" class="weui_btn   weui_btn_default">返回</a></div>
+			<div class="weui-col-10"></div>
+	</div> 
     <script>
+    	//地铁公交报销详情查看
     	function detailView(id){
-    	  location = "subwayDetailView.do?id="+id;
+    	  location = "toExpense_view_subway.do?id="+id;
     	};
-    	function subwayAdd(){
-    		location="toExpense_subway.do";
+    	function reloadHtml(){
+    		window.location.reload();
     	};
     </script>
  </body> 

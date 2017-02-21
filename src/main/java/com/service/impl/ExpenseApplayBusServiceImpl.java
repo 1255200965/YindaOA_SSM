@@ -10,13 +10,16 @@ import org.springframework.stereotype.Service;
 import com.dao.ExpenseApplayBusMapper;
 import com.model.ExpenseApplayBus;
 import com.model.ExpenseApplayBusExample;
+import com.model.ToolsForselectApproval;
 import com.service.IExpenseApplayBusService;
-import com.util.DDSendMessageUtil;
-import com.util.DateUtil;
+import com.service.IStaffInfoService;
+
 @Service
 public class ExpenseApplayBusServiceImpl implements IExpenseApplayBusService{
   @Autowired
   private ExpenseApplayBusMapper expenseBusMapper;
+  @Autowired
+  private IStaffInfoService staffInfoService;
   @Override
   public List<ExpenseApplayBus> selectAllByStaffId(String staffId){
 	  ExpenseApplayBusExample expenseApplayBusExample = new ExpenseApplayBusExample();
@@ -37,11 +40,16 @@ public class ExpenseApplayBusServiceImpl implements IExpenseApplayBusService{
 	  Integer id =expenseApplayBus.getId();
 	  if(id==null || id==0){//save
 		 expenseBusMapper.insert(expenseApplayBus);
-		 id=expenseApplayBus.getId();
-		 return id;
+//		 id=expenseApplayBus.getId();
+		 return 0;
 	  }else{//update
+		  
 		 return expenseBusMapper.updateByPrimaryKeySelective(expenseApplayBus);
 		  }
+  }
+  @Override
+  public int UpdateByPrimaryKey(ExpenseApplayBus expenseApplayBus){
+	  return expenseBusMapper.updateByPrimaryKey(expenseApplayBus);
   }
   @Override
   public ExpenseApplayBus sendTONextManager(ExpenseApplayBus expenseApplayBus){
@@ -84,8 +92,7 @@ public class ExpenseApplayBusServiceImpl implements IExpenseApplayBusService{
    		expenseApplayBus.setApproverHistory(approverHistory+"|"+approverNow);
    	  }
 //   	  DDSendMessageUtil.sendMessageBus(expenseApplayBus, expenseApplayBus.getId(),toUser );
-   	  System.out.println("发送消息给二级管理员");
-   	 
+   	  
      }
      return expenseApplayBus;
   }
@@ -106,12 +113,67 @@ public class ExpenseApplayBusServiceImpl implements IExpenseApplayBusService{
 	}
    @Override
    public List<ExpenseApplayBus> selectByApproveHistory(String approverStaffId){
+	   
 	   List<ExpenseApplayBus> expenseBusList = expenseBusMapper.selectApproved(approverStaffId);
 	   return expenseBusList;  
    }
    @Override
-   public List<ExpenseApplayBus> selectApproval(String approverStaffId){
-	   List<ExpenseApplayBus> expenseBusList = expenseBusMapper.selectApproval(approverStaffId);
+   public List<ExpenseApplayBus> selectApproval(String staffUserId,String staffId){
+	   	ToolsForselectApproval tools = new ToolsForselectApproval();
+  		tools.setStaffId(staffId);
+  		tools.setStaffUserId(staffUserId);
+	   List<ExpenseApplayBus> expenseBusList = expenseBusMapper.selectApproval(tools);
 	   return expenseBusList;  
+   }
+   @Override
+   public ExpenseApplayBus constructApprovers(ExpenseApplayBus expenseApplayBus){
+	   String approverOrders="";
+	   String approverNow=null;
+	   try{
+   			String []approverOrderArray=expenseApplayBus.getApproverOrder().split("\\|");
+   			
+   				for(String approverOrder : approverOrderArray){
+   					approverOrders +=staffInfoService.selectStaffByID(approverOrder).getName()+",";	
+   				}
+   			
+   		}catch(Exception e ){
+   			approverOrders="error,请联系管理员";
+   		
+   		}
+	   try{
+		   String approverNow01=expenseApplayBus.getApproverNow();
+		   if(approverNow01 !=null && !"".equals(approverNow01)){
+			   approverNow = staffInfoService.selectStaffByID(approverNow01).getName();
+		   }else{
+			 approverNow=""; 
+		   }
+	   }catch(Exception e){
+		   approverNow="error,请联系管理员";
+	   }
+	    expenseApplayBus.setApproverOrder(approverOrders);
+  		expenseApplayBus.setApproverNow(approverNow);
+  		return expenseApplayBus;
+   }
+   @Override
+   public String delete(int id){
+	   try{
+		   expenseBusMapper.deleteByPrimaryKey(id);
+		   return "success";
+	   }catch(Exception e){
+		   e.printStackTrace();
+		   return "fail";
+	   }
+   }
+   @Override
+   public List<ExpenseApplayBus> selectApprovalStaff(String staffUserId){
+	   return expenseBusMapper.selectApprovalStaff(staffUserId);
+   }
+   @Override
+   public int selectApprovalCount(String staffUserId){
+	   return expenseBusMapper.selectApprovalCount(staffUserId);
+	   }
+ //查询出上周管理员未审核的报销并进行驳回
+   public void updateDelayApproval(String staffUserId){
+	   expenseBusMapper.updateDelayApproval(staffUserId);
    }
 }

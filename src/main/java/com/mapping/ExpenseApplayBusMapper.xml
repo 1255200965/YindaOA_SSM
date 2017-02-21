@@ -21,6 +21,8 @@
     <result column="approver_order" property="approverOrder" jdbcType="VARCHAR" />
     <result column="approver_history" property="approverHistory" jdbcType="VARCHAR" />
     <result column="approver_now" property="approverNow" jdbcType="VARCHAR" />
+    <result column="refuse_reason" property="refuseReason" jdbcType="VARCHAR" />
+    <result column="submit_time" property="submitTime" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -54,7 +56,7 @@
   <sql id="Base_Column_List" >
     id, staff_name, staff_id, staff_user_id, staff_depart, begin_time, end_time, reason, 
     start_address, destination, money_cost, detail_explain, trip_id, applay_status, start_city, 
-    image_url, approver_order, approver_history, approver_now
+    image_url, approver_order, approver_history, approver_now, refuse_reason, submit_time
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.model.ExpenseApplayBusExample" >
     select
@@ -76,29 +78,27 @@
     from expense_applay_bus
     where id = #{id,jdbcType=INTEGER}
   </select>
-  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from expense_applay_bus
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.model.ExpenseApplayBus" >
-   <selectKey resultType="int" order="AFTER" keyProperty="id">
-     SELECT LAST_INSERT_ID() AS id
-   </selectKey>
     insert into expense_applay_bus (id, staff_name, staff_id, 
       staff_user_id, staff_depart, begin_time, 
       end_time, reason, start_address, 
       destination, money_cost, detail_explain, 
       trip_id, applay_status, start_city, 
       image_url, approver_order, approver_history, 
-      approver_now)
+      approver_now, refuse_reason, submit_time
+      )
     values (#{id,jdbcType=INTEGER}, #{staffName,jdbcType=VARCHAR}, #{staffId,jdbcType=VARCHAR}, 
       #{staffUserId,jdbcType=VARCHAR}, #{staffDepart,jdbcType=VARCHAR}, #{beginTime,jdbcType=VARCHAR}, 
       #{endTime,jdbcType=VARCHAR}, #{reason,jdbcType=VARCHAR}, #{startAddress,jdbcType=VARCHAR}, 
       #{destination,jdbcType=VARCHAR}, #{moneyCost,jdbcType=DOUBLE}, #{detailExplain,jdbcType=VARCHAR}, 
       #{tripId,jdbcType=INTEGER}, #{applayStatus,jdbcType=VARCHAR}, #{startCity,jdbcType=VARCHAR}, 
       #{imageUrl,jdbcType=VARCHAR}, #{approverOrder,jdbcType=VARCHAR}, #{approverHistory,jdbcType=VARCHAR}, 
-      #{approverNow,jdbcType=VARCHAR})
+      #{approverNow,jdbcType=VARCHAR}, #{refuseReason,jdbcType=VARCHAR}, #{submitTime,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.model.ExpenseApplayBus" >
     insert into expense_applay_bus
@@ -160,6 +160,12 @@
       <if test="approverNow != null" >
         approver_now,
       </if>
+      <if test="refuseReason != null" >
+        refuse_reason,
+      </if>
+      <if test="submitTime != null" >
+        submit_time,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -218,6 +224,12 @@
       </if>
       <if test="approverNow != null" >
         #{approverNow,jdbcType=VARCHAR},
+      </if>
+      <if test="refuseReason != null" >
+        #{refuseReason,jdbcType=VARCHAR},
+      </if>
+      <if test="submitTime != null" >
+        #{submitTime,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -278,9 +290,16 @@
       <if test="approverNow != null" >
         approver_now = #{approverNow,jdbcType=VARCHAR},
       </if>
+      <if test="refuseReason != null" >
+        refuse_reason = #{refuseReason,jdbcType=VARCHAR},
+      </if>
+      <if test="submitTime != null" >
+        submit_time = #{submitTime,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
   <update id="updateByPrimaryKey" parameterType="com.model.ExpenseApplayBus" >
     update expense_applay_bus
     set staff_name = #{staffName,jdbcType=VARCHAR},
@@ -300,23 +319,57 @@
       image_url = #{imageUrl,jdbcType=VARCHAR},
       approver_order = #{approverOrder,jdbcType=VARCHAR},
       approver_history = #{approverHistory,jdbcType=VARCHAR},
-      approver_now = #{approverNow,jdbcType=VARCHAR}
+      approver_now = #{approverNow,jdbcType=VARCHAR},
+      refuse_reason = #{refuseReason,jdbcType=VARCHAR},
+      submit_time = #{submitTime,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <!-- 查询当前时间一个月已审批的报销信息 -->
-  <select id="selectApproved" resultMap="BaseResultMap"  parameterType="java.lang.String">
-    select 
-    <include refid="Base_Column_List" />
-    from expense_applay_bus
-    where  <![CDATA[ DATE_SUB(CURDATE(),INTERVAL 4 MONTH) <= date(begin_time)]]>
-    and approver_history like CONCAT('%',#{staffId,jdbcType=VARCHAR},'%')
+  
+  <!-- 根据用户的钉钉ID查询用户的待审批报销 -->
+  <select	id="selectApproval" resultMap="BaseResultMap" parameterType="com.model.ToolsForselectApproval">
+  		select 
+  		<include refid="Base_Column_List" />
+  		from expense_applay_bus where approver_now = #{staffUserId,jdbcType=VARCHAR}
+  		and staff_Id =#{staffId,jdbcType=VARCHAR}
+  		 and applay_status = '待审核'
+  		and WEEK(submit_time,1) = (WEEK(CURDATE(),1)-1)
+  		order by staff_name
   </select>
-  <!-- 查询当前时间一个月待审批的报销信息 -->
-  <select id="selectApproval" resultMap="BaseResultMap"  parameterType="java.lang.String">
-    select 
-    <include refid="Base_Column_List" />
-    from expense_applay_bus
-    where  <![CDATA[ DATE_SUB(CURDATE(),INTERVAL 4 MONTH) <= date(begin_time)]]>
-    and approver_now = #{staffId,jdbcType=VARCHAR}  order by staff_name
+   <!-- 更新延迟未审批的报销数据-->
+  <update	id="updateDelayApproval"  parameterType="java.lang.String">
+  		update expense_applay_bus
+  		set applay_status = '驳回' ,refuse_reason = '当前审批人未及时审批,系统自动驳回,请重新提交'
+  	    where approver_now = #{staffUserId,jdbcType=VARCHAR}
+  		and applay_status = '待审核'
+  		and WEEK(submit_time,1) = (WEEK(CURDATE(),1)-1)
+  		order by staff_name
+  </update>
+  <!-- 根据用户的钉钉ID查询用户的待审批报销 -->
+  <select	id="selectApproved" resultMap="BaseResultMap" parameterType="java.lang.String">
+  		select 
+  		<include refid="Base_Column_List" />
+  		from expense_applay_bus where approver_history like
+  		CONCAT('%', #{staffUserId,jdbcType=VARCHAR},'%')
+  		order by staff_name
   </select>
+  
+  
+  	<!-- 查询当前待审批用户的姓名-工号 -->
+  <select	id="selectApprovalStaff" resultMap="BaseResultMap" parameterType="java.lang.String">
+  		select 
+  		staff_name,staff_id,SUM(money_cost) as money_cost
+  		from expense_applay_bus where approver_now = #{staffUserId,jdbcType=VARCHAR}
+  		and applay_status = '待审核'
+  		and WEEK(submit_time,1) = (WEEK(CURDATE(),1)-1)
+  		group by staff_id
+  </select>
+  <!-- 查询上周当前用户待审批的条数 -->
+  <select	id="selectApprovalCount" resultType="java.lang.Integer" parameterType="java.lang.String">
+  		select 
+  		COUNT(staff_id)
+  		from expense_applay_bus where approver_now = #{staffUserId,jdbcType=VARCHAR}
+  		and applay_status = '待审核'
+  		and WEEK(submit_time,1) = (WEEK(CURDATE(),1)-1)
+  </select>
+  
 </mapper>

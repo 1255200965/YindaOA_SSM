@@ -52,13 +52,14 @@ public class UserInfoSalaryServiceImpl implements IUserInfoSalaryService {
         String staffid = yo.getSalaryid();
         String name = yo.getName();
         String depart = yo.getDepartment();
+        String date = yo.getSalarydate();
 
         YoUserinfosalaryExample staffInfoExample = new YoUserinfosalaryExample();
         YoUserinfosalaryExample.Criteria criteria = staffInfoExample.createCriteria();
         if (staffid!=null) criteria.andSalaryidEqualTo(staffid);
         if (name!=null) criteria.andNameEqualTo(name);
         if (depart!=null) criteria.andDepartmentEqualTo(depart);
-
+        if (date!=null) criteria.andSalarydateEqualTo(date);
 
         List<YoUserinfosalary> list = userMapper.selectByExample(staffInfoExample);
         return list;

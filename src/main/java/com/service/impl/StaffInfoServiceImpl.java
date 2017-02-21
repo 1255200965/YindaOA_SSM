@@ -178,21 +178,34 @@ public class StaffInfoServiceImpl implements IStaffInfoService {
 	public List<StaffInfo> selectAllUserName(){
 		return staffInfoMapper.selectAllUser();
 	}
-
-    @Override
-    public List<StaffInfo> selectStaffInWork(){
-        StaffInfoExample example = new StaffInfoExample();
-        StaffInfoExample.Criteria criteria = example.createCriteria();
-        criteria.andWorkStateEqualTo("在职");
-        criteria.andContractTypeNotEqualTo("S");
-        return staffInfoMapper.selectByExample(example);
-    }
-    @Override
-    public List<StaffInfo> selectByStaffId(String staffId){
-
-        StaffInfoExample example = new StaffInfoExample();
-        StaffInfoExample.Criteria criteria = example.createCriteria();
-        criteria.andStaffIdEqualTo(staffId);
-        return staffInfoMapper.selectByExample(example);
-    }
+	@Override
+	public List<StaffInfo> selectStaffInWork(){
+		StaffInfoExample example = new StaffInfoExample();
+		StaffInfoExample.Criteria criteria = example.createCriteria();
+		criteria.andWorkStateEqualTo("在职");
+		criteria.andContractTypeNotEqualTo("S");
+		return staffInfoMapper.selectByExample(example);
+	}
+	@Override
+	public List<StaffInfo> selectByStaffId(String staffId){
+		
+		StaffInfoExample example = new StaffInfoExample();
+		StaffInfoExample.Criteria criteria = example.createCriteria();
+		criteria.andStaffIdEqualTo(staffId);
+		return staffInfoMapper.selectByExample(example);
+	}
+	@Override
+	
+	//查询所有的部门领导
+	public List<String> selectLeaders(){
+		StaffInfoExample example = new StaffInfoExample();
+		StaffInfoExample.Criteria criteria = example.createCriteria();
+		criteria.andWhetherLeaderLike("是");
+		List<StaffInfo> staffInfoList = staffInfoMapper.selectByExample(example);
+		List<String> leaders = new ArrayList<String>();
+		for(StaffInfo  staffInfo : staffInfoList){
+			leaders.add(staffInfo.getStaffUserId());
+		}
+		return leaders;
+	}
 }

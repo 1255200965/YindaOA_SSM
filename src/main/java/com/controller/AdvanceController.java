@@ -97,7 +97,7 @@ public class AdvanceController {
 			YoAdvance advance){
 		
 		List<YoAdvance> advanceList = advanceService.searchForExport(advance);
-		
+		System.out.println(advanceList);
 		System.out.println("导出信息"+advanceList.toString()+"=="+advanceList.size());
 		String []excelHeader={"审批编号","标题","审批状态","审批结果","审批发起时间","审批完成时间","发起人工号",
 				"发起人姓名","发起人部门","历史审批人姓名","审批记录","当前处理人姓名","审批耗时","借款时间",

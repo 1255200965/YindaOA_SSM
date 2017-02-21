@@ -23,6 +23,10 @@ public class ExpenseApplySubway {
 
     private String approveStatus;
 
+    private String refuseReason;
+
+    private String submitTime;
+
     public Integer getId() {
         return id;
     }
@@ -111,15 +115,19 @@ public class ExpenseApplySubway {
         this.approveStatus = approveStatus;
     }
 
-	@Override
-	public String toString() {
-		return "ExpenseApplySubway [id=" + id + ", askStaffName="
-				+ askStaffName + ", askStaffUserId=" + askStaffUserId
-				+ ", askStaffId=" + askStaffId + ", askStaffDepart="
-				+ askStaffDepart + ", askMonth=" + askMonth + ", askMoney="
-				+ askMoney + ", approverOrder=" + approverOrder
-				+ ", approverHistory=" + approverHistory + ", approverNow="
-				+ approverNow + ", approveStatus=" + approveStatus + "]";
-	}
-    
+    public String getRefuseReason() {
+        return refuseReason;
+    }
+
+    public void setRefuseReason(String refuseReason) {
+        this.refuseReason = refuseReason;
+    }
+
+    public String getSubmitTime() {
+        return submitTime;
+    }
+
+    public void setSubmitTime(String submitTime) {
+        this.submitTime = submitTime;
+    }
 }

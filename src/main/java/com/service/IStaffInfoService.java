@@ -22,7 +22,8 @@ public interface IStaffInfoService {
     List<StaffInfo> selectStaffByQuery(List StaffInfo, int index, int pages);
     //查询单个用户 List<StaffInfo>
     StaffInfo selectStaffByID(String staffUserId);
-
+  //查询单个用户 List<StaffInfo>
+    List<StaffInfo> selectByStaffId(String staffId);
     //查询所有用户id
     //StaffInfo selectAll();
     List<StaffInfo> selectAllUser();
@@ -61,6 +62,6 @@ public interface IStaffInfoService {
      * @return
      */
     List<StaffInfo> selectStaffInWork();
-    //查询单个用户 List<StaffInfo>
-    List<StaffInfo> selectByStaffId(String staffId);
+    //查询所有的部门领导
+    List<String> selectLeaders();
 }
