@@ -40,7 +40,7 @@ public class ExpenseApplayTrainServiceImpl implements IExpenseApplayTrainService
 	   if(id == null || id == 0){//新增并返回主键值
 		  expenseApplayTrainMapper.insert(expenseApplayTrain);
 //		  id=expenseApplayTrain.getId();
-		   return 0;
+		   return -1;
 	   }else{//更新
 		 return  expenseApplayTrainMapper.updateByPrimaryKeySelective(expenseApplayTrain); 
 	   }

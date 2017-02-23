@@ -15,12 +15,17 @@
   <link rel="stylesheet" href="<%=path%>/stylesheets/weui.css"/>
   <link rel="stylesheet" href="<%=path%>/stylesheets/jquery-weui.css"/>
   <link rel="stylesheet" href="<%=path%>/stylesheets/projectcss.css"/>
-  <title>周报销汇总</title>
+  <title>月报销汇总</title>
  </head>
  <body >
+ <div style="text-align:center;">
+    <input type="text"  placeholder="请输入工号进行查询(默认查询所有人)"  value="" id="param" style="height:20px;"/><input style="background-color:#32CD32;height:20px;" type="button" onclick="search();" style="color:#DCDCDC;" value="查询"/>  
+  </div>
+  <br/>
   	<div class="weui-row">
   		<button type="button" style="background-color:#32CD32;" onclick="selectAll();" id="selectAll">全选</button>
   		<div class="weui-col-20" style="overflow: hidden;"><b>报销人</b></div>
+  		<div class="weui-col-20" style="overflow: hidden;"><b>工号</b></div>
   		<div class="weui-col-20" style="overflow: hidden;"><b>总金额</b></div> 
   		<!-- <div class="weui-col-20" style="overflow: hidden;"><b>申请周次</b></div> -->
   		<a><b style="color:#696969;">操作</b></a>
@@ -29,15 +34,17 @@
     </div>
     <br/>
     <div data-bind="foreach:ShowList">
-    <div class="weui-row" >
+    <div class="weui-row" style = "padding-top: 10px;font-size: 18px">
  		<input type="checkbox" name="ids" data-bind="textinput:staffId"/> 
-  		<div class="weui-col-20" style="overflow: hidden;" data-bind="text:staffName"></div>
+  		<div class="weui-col-20 " style="overflow: hidden;" data-bind="text:staffName"></div>
+  		<div class="weui-col-20 staff_name" style="overflow: hidden;" data-bind="text:staffId"></div>
   		 <div class="weui-col-20" style="overflow: hidden;" data-bind="text:cost"></div> 
   		<!-- <div class="weui-col-20" style="overflow: hidden;" data-bind="text:sumTime"></div> -->
-  		<input type="button" style="background-color:#32CD32;" data-bind="click:$root.approvalOption" value="明细">
+  		<input type="button" style="background-color:#32CD32;font-size: 18px" data-bind="click:$root.approvalOption" value="明细">
   		<a></a>
+
     </div>
-    <br/>
+
     </div>
     <div><a onclick="approvalOptions('agree');" class="weui_btn weui_btn_primary" >一键审批</a></div>
     <br/>
@@ -59,7 +66,7 @@
                     type:"post",
                     headers: { 'Content-Type': 'application/json' },
                     dataType: 'json',
-                    url:"<%=path%>/getStaffs.do",
+                    url:"<%=path%>/expenseApplyApprove/getStaffs.do",
                     error:function(data){
                         alert("出错了！！:"+data.msg);
                     },
@@ -119,6 +126,7 @@
   }  
 	//获取复选框的值
   function getValues(){
+		alert(123);
 	  var checkboxes=document.getElementsByName("ids");
 	  var str = "";
 	  for(var i=0;i<checkboxes.length;i++){
@@ -148,8 +156,25 @@
 		  });
 	  }
   }
-		
-	
+	function search(){
+		var staffNames = document.getElementsByClassName("staff_name");
+		var str=$("#param").val();
+		if(str != null && str != ""){
+		for(var i=0 ;i<staffNames.length;i++){
+			if(str != staffNames[i].innerHTML){
+				//alert(staffNames[i].innerHTML);
+				staffNames[i].parentNode.style.display="none";
+			}
+			
+		}
+		}else{
+			for(var i=0 ;i<staffNames.length;i++){
+					
+					staffNames[i].parentNode.style.display="";
+				
+		}
+		}
+	}
     </script>
  </body> 
 </html>

@@ -23,6 +23,7 @@ import com.util.GlobalConstant;
  *
  */
 @Controller
+@RequestMapping("/expenseApplyApprove")
 public class ExpenseBusController {
 	
 	@Autowired
@@ -114,12 +115,12 @@ public class ExpenseBusController {
 			//对于挂职在一级部门的员工
 			if(approverList.size() >1){
 			toUser=approverList.get(1);
-			expenseApplayBus.setApproverOrder(approverList.get(1)+"|"+approverList.get(0)+"|");
+			expenseApplayBus.setApproverOrder(approverList.get(1)+"|"+approverList.get(0)+"|10548"+"|31017"+"|10272");
 			
 			expenseApplayBus.setApproverNow(approverList.get(1));
 			}else{//对于挂职在二级部门下的员工
 				toUser=approverList.get(0);
-				expenseApplayBus.setApproverOrder(approverList.get(0));
+				expenseApplayBus.setApproverOrder(approverList.get(0)+"|10548"+"|31017"+"|10272");
 				expenseApplayBus.setApproverNow(approverList.get(0));
 			}
 			/*被报销人的各级审批人*/
@@ -191,10 +192,16 @@ public class ExpenseBusController {
     	mav.setViewName("expense/approve_bus");
     	return mav;
     }
-    //审核通过信息保存
+    /**
+     * 管理员审核相关信息保存
+     * @param request
+     * @param id
+     * @param result
+     * @return
+     */
     @RequestMapping("/to_approve_bus_update.do")
     @ResponseBody
-    public int to_approve_bus_update(HttpServletRequest request,int id,String result){
+    public int to_approve_bus_update(HttpServletRequest request,int id,String result,String refuseReason){
     	//找出这条审批记录
     	ExpenseApplayBus expenseApplayBus = expenseBusService.selectById(id);
     	if("agree".equals(result)){
@@ -202,6 +209,7 @@ public class ExpenseBusController {
     	    expenseApplayBus= expenseBusService.sendTONextManager(expenseApplayBus);
     	}else if("disagree".equals(result)){
     		expenseApplayBus=expenseBusService.refuseOption(expenseApplayBus);
+    		expenseApplayBus.setRefuseReason(refuseReason);
     	}	
        return	expenseBusService.saveOrUpdate(expenseApplayBus);
     }

@@ -105,18 +105,43 @@
     	}
     });
     	function approve_train_update(data2){
-    		$.post("approve_train_update.do",{"id":$("input[name='id']").val(),"result":data2},function(data){
-    			if(data == 0){
-    				$.alert("系统繁忙,请稍后重试");
-    				
-    			}else if(data ==1){
-    		    	//审核通过隐藏审批按钮
-    				$.alert("操作成功");	
-    				$("#flag").hide();
-    				 window.history.back(-1);
-    			}
-    			
-    		});
+    	 if(data2 == 'disagree'){
+    		 $.prompt({
+				  title: '',
+				  text: '请输入驳回原因',
+				  input: '',
+				  empty: false, // 是否允许为空
+				  onOK: function (input) {
+					  $.post("approve_train_update.do",{id:$("input[name='id']").val(),result:data2,refuseReason:input},function(data){
+			    			if(data == 0){
+			    				$.alert("系统繁忙,请稍后重试");
+			    				
+			    			}else if(data ==1){
+			    		    	//审核通过隐藏审批按钮
+			    				$.alert("操作成功");	
+			    				$("#flag").hide();
+			    				 window.history.back(-1);
+			    			}	
+			    		});
+				  },
+				  onCancel: function () {
+				    //点击取消
+				  }
+				});
+    		
+    	 }else{
+    		 $.post("approve_train_update.do",{id:$("input[name='id']").val(),result:data2,refuseReason:""},function(data){
+	    			if(data == 0){
+	    				$.alert("系统繁忙,请稍后重试");
+	    				
+	    			}else if(data ==1){
+	    		    	//审核通过隐藏审批按钮
+	    				$.alert("操作成功");	
+	    				$("#flag").hide();
+	    				 window.history.back(-1);
+	    			}	
+	    		});
+    	 }
     	}
     	//图片放大缩小
         function imageView(e){

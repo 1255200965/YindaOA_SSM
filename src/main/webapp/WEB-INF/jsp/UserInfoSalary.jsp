@@ -13,7 +13,7 @@
 %>
 <html>
 <head>
-    <title>通讯录查看</title>
+    <title>奖金生成</title>
     <%--<link type="text/css" rel="stylesheet" href="../stylesheets/style.css" />--%>
     <link rel="stylesheet" href="../stylesheets/reset.css">
 
@@ -43,9 +43,20 @@
         .c_box .c_left_box{height:850px;}
         .c_box .c_right_box {min-width:1056.7px;width:79%;}
         .table-1 tbody td{font-size:12px;}
+        thead.locktop{
+            position:relative;
+            top:expression((this.offsetParent.scrollTop>this.parentElement.parentElement.offsetTop?this.offsetParent.scrollTop-this.parentElement.parentElement.offsetTop-1:0)-1);
+        }
     </style>
 
     <script type="text/javascript">
+        //======用户信息缓存============================
+        var role  = "<%=request.getAttribute("userRole")%>";
+        var StaffName  ="<%=request.getAttribute("StaffName")%>";
+        var Department  ="<%=request.getAttribute("Department")%>";
+        var StaffID  ="<%=request.getAttribute("StaffID")%>";
+        var StaffUserID  ="<%=request.getAttribute("StaffUserID")%>";
+        //=============================================
         var result = null;
 
         //============================================
@@ -63,7 +74,6 @@
         var showpage = 20;
 
         $(document).ready(function () {
-
             var ViewModel = function () {
                 var self = this;
                 //变量区
@@ -73,14 +83,12 @@
                 self.rootid = ko.observable();
                 //搜索的知识树编号
                 self.classid = ko.observable();
+                //==========================
+                self.role = ko.observable(role);
 
-                //待修改题目
-                self.overItem = ko.observable(0);
-                self.allItem = ko.observable(0);
-                self.allCount = ko.observable(0);
                 //==============================
-                self.AllList = ko.observableArray();
-                //绑定题目列表对象
+
+
 
                 //当前被修改的用户信息
                 self.changeItem = ko.observable();
@@ -97,77 +105,99 @@
                 //===============================
                 //获取部门成员
                 self.GetUserListByDep = function(depddid){
-                    $.ajax({
-                        data:JSON.stringify(new UserModel(depddid,null,null,getNowDate())),
-                        type:"post",
-                        headers: { 'Content-Type': 'application/json' },
-                        dataType: 'json',
-                        url:"../userinfosalary/querys.do",
-                        error:function(data){
-                            alert("出错了！！:"+data.msg);
-                        },
-                        success:function(data){
-                            result = eval(data.usertest);
-                            self.ShowList.removeAll();
-                            //清空viewmodel
-                            for (var i = 0; i < result.length; i++) {
-                                self.ShowList.push(result[i]);
-                                //加入每行题目信息
+                    //如果查询的部门不对，不显示数据
+                    //alert(Department +' '+ depddid);
+                    if (role=="项目经理" && (Department.lastIndexOf(depddid)==-1 || depddid=="无线事业部") ){
+                        //alert(depddid.lastIndexOf(Department));
+                        self.ShowList.removeAll();
+                        return ;
+                    } else  if (role=="部门经理" && depddid.lastIndexOf(Department)==-1){
+                        //alert(depddid.lastIndexOf(Department));
+                        self.ShowList.removeAll();
+                        return ;
+                    } else
+                    {
+                        $.ajax({
+                            data: JSON.stringify(new UserModel(depddid, null, null, getNowDate())),
+                            type: "post",
+                            headers: {'Content-Type': 'application/json'},
+                            dataType: 'json',
+                            url: "../userinfosalary/querys.do",
+                            error: function (data) {
+                                alert("出错了！！:" + data.msg);
+                            },
+                            success: function (data) {
+                                result = eval(data.usertest);
+                                self.ShowList.removeAll();
+                                //清空viewmodel
+                                for (var i = 0; i < result.length; i++) {
+                                    self.ShowList.push(result[i]);
+                                    //加入每行题目信息
+                                }
                             }
-                        }
-                    });
-
+                        });
+                    }
                 }
                 //查询成员列表（部门，姓名，电话，工号）
                 self.GetUserByQuery = function(){
-                    if (nowDep != null){var depid = nowDep.name;} else {depid = null;}
-                    $.ajax({
-                        data:JSON.stringify(new UserModel(depid,$("#search_name").val(),$("#search_salaryid").val(),getNowDate())),
-                        type:"post",
-                        async: false,
-                        headers: { 'Content-Type': 'application/json' },
-                        dataType: 'json',
-                        url:"../userinfosalary/select.do",
-                        error:function(data){
-                            alert("出错了！！:"+data.msg);
-                        },
-                        success:function(data){
-                            result = eval(data.usertest);
-                            self.ShowList.removeAll();
-                            for (var i = 0; i < result.length; i++) {
-                                self.ShowList.push(result[i]);
-                            }
-                        }
-                    });
-
-                }
-
-                //修改工资
-                self.UpdateSalary = function(){
-                    $.ajax({
-                        data:JSON.stringify(self.changeItem()),
-                        type:"post",
-                        headers: { 'Content-Type': 'application/json' },
-                        dataType: 'json',
-                        url:"../userinfosalary/updatesalary.do",
-                        error:function(data){
-                            alert("出错了！！:"+data.msg);
-                        },
-                        success:function(data){
-                            alert("修改结果:"+data.msg);
-                            if (data.ok == "ok") {
-                                for (var i = 0; i < self.ShowList().length; i++) {
-                                    if (self.ShowList()[i].sid == self.changeItem().sid) {
-                                        self.ShowList.splice(i, 1);
-                                        self.ShowList.splice(i, 0, self.changeItem());
-                                        break;
-                                    }
+                    if (nowDep != null){var depid = nowDep.name;} else {depid = Department;}
+                    if  ($("#search_name").val() == "" && $("#search_salaryid").val()=="") {
+                        alert("请输入名字或工号！");
+                    } else {
+                        $.ajax({
+                            data: JSON.stringify(new UserModel(depid, $("#search_name").val(), $("#search_salaryid").val(), getNowDate())),
+                            type: "post",
+                            async: false,
+                            headers: {'Content-Type': 'application/json'},
+                            dataType: 'json',
+                            url: "../userinfosalary/select.do",
+                            error: function (data) {
+                                alert("出错了！！:" + data.msg);
+                            },
+                            success: function (data) {
+                                result = eval(data.usertest);
+                                self.ShowList.removeAll();
+                                for (var i = 0; i < result.length; i++) {
+                                    self.ShowList.push(result[i]);
                                 }
                             }
-                        }
-                    });
-                    //关闭模态框，更新前端
-                    self.ClickModelNo();
+                        });
+                    }
+                }
+
+                //修改工资,增加总计变化
+                self.UpdateSalary = function(type){
+                    if (role=='项目经理' && (self.changeItem().timesalary<self.changeItem().timebaseadd || self.changeItem().tasksalary<self.changeItem().taskbaseadd)){
+                        //调整不合法
+                        alert(self.changeItem().name + "的调整项超出了界限！");
+
+                    } else {
+                        $.ajax({
+                            data: JSON.stringify(self.changeItem()),
+                            type: "post",
+                            headers: {'Content-Type': 'application/json'},
+                            dataType: 'json',
+                            url: "../userinfosalary/updatesalary.do",
+                            error: function (data) {
+                                alert("出错了！！:" + data.msg);
+
+                            },
+                            success: function (data) {
+                                if (type == 1) alert("修改结果:"+data.msg);
+                                if (data.ok == "ok") {
+                                    for (var i = 0; i < self.ShowList().length; i++) {
+                                        if (self.ShowList()[i].sid == self.changeItem().sid) {
+                                            //self.changeItem().totalsalary = self.changeItem().subtotal + self.changeItem().worksalary + self.changeItem().allowance + self.changeItem().heatingAllowance + self.changeItem().trafficsalary - self.changeItem().socialdecase  + self.changeItem().userbonus + self.changeItem().timebaseadd + self.changeItem().taskbaseadd;
+                                            self.ShowList.splice(i, 1);
+                                            self.ShowList.splice(i, 0, self.changeItem());
+                                            break;
+                                        }
+                                    }
+                                }
+
+                            }
+                        });
+                    }
                 }
 
                 //点击事件-点击更新用户按钮
@@ -182,6 +212,19 @@
                 self.ClickSearch = function () {
                     self.GetUserByQuery();
                 }
+                self.ClickAllSearch = function () {
+                    if (!confirm("确认要全部审批通过？")) {
+                        window.event.returnValue = false;
+                    }else{
+                        //逐条审批
+                        for (var i = 0; i < self.ShowList().length; i++) {
+                            self.changeItem(self.ShowList()[i]);
+                            self.UpdateSalary(0);
+                        }
+                        alert("全部审批完成！");
+                        return true;
+                    }
+                }
                 //点击事件-点击清空搜索项
                 self.ClickClear = function() {
                     $("#search_name").val("");
@@ -193,14 +236,12 @@
                             if (!confirm("确认要修改？")) {
                                 window.event.returnValue = false;
                             }else{
-                                self.UpdateSalary();
+                                self.UpdateSalary(1);
                                 return true;
                             }
                 };
                 //点击事件-模态框关闭
-                self.ClickModelNo = function(){
-                    $("#close1").click();
-                };
+
                 //==========部门列表方法==============
                 //获取部门列表
                 self.GetDepartment = function () {
@@ -302,59 +343,66 @@
                 <input data-bind="click:$root.ClickSearch" type="button" value="查询"  class="chaxun">
                 <%--<input  data-bind="click:$root.ClickClear" type="button" value="清空"  class="chaxun" style="background:#fd9162">--%>
             </div>
+
+            <div style="float:right;margin-right:15px;padding-bottom:10px;" >
+                <input data-bind="click:$root.ClickAllSearch" type="button" value="一键审批"  class="chaxun">
+                <%--<input  data-bind="click:$root.ClickClear" type="button" value="清空"  class="chaxun" style="background:#fd9162">--%>
+            </div>
         </div>
+
             <div style="width:100%; height:700px;padding-top: 5px;overflow:auto;border:0 solid #000000;">
 
             <table  width="100%" border="1" cellspacing="0" cellpadding="0" class="table-1">
-                <thead class="table-1-tou" >
-                <td class="text_center" width="5%"  >姓名</td>
-                <td class="text_center" width="9%">部门</td>
+                <thead class="table-1-tou locktop" >
+                <td class="text_center" width="5%">姓名</td>
+               <%-- <td class="text_center" width="5%">部门</td>--%>
                 <td class="text_center" width="5%">工号</td>
-                <td class="text_center" width="6%">日期</td>
-                <td class="text_center" width="5%">出勤天数</td>
-                <td class="text_center" width="6%">出勤工资</td>
-                <td class="text_center" width="5%">请假补款</td>
+                <td class="text_center" width="5%">月份</td>
+                <td class="text_center" width="5%">计薪天数</td>
+                <td class="text_center" width="5%">出勤工资</td>
+                <td class="text_center" width="5%">请假天数</td>
                 <td class="text_center" width="5%">加班费</td>
-                <%--<td class="text_center" width="6%">小计</td>--%>
-                <td class="text_center" width="6%">出差费</td>
-                <td class="text_center" width="4%">交通费</td>
+                <td class="text_center" width="5%">出差费</td>
+                <td class="text_center" width="5%">公交费</td>
                 <td class="text_center" width="5%">合同类型</td>
-                <td class="text_center" width="5%">签到天数</td>
-                <td class="text_center" width="6%">timebase奖金</td>
-                <td class="text_center" width="6%">timebase调整项</td>
-                <td class="text_center" width="6%">taskbase奖金</td>
-                <td class="text_center" width="6%">taskbase调整项</td>
-                <td class="text_center" width="6%">奖金调整项</td>
-                <td class="text_center" width="6%">合计工资</td>
+                <td class="text_center" width="5%">日报天数</td>
+                <td class="text_center" width="5%">timebase</td>
+                <td class="text_center" width="5%">timebase调整</td>
+                <td class="text_center" width="5%">taskbase</td>
+                <td class="text_center" width="5%">taskbase调整</td>
+                <td class="text_center" width="5%" >部门奖金</td>
+<%--                <td class="text_center" width="5%" >合计工资</td>--%>
                 <td class="text_center" width="5%">操作</td>
                 </thead>
 
-                <tbody data-bind="foreach:ShowList">
+                <tbody data-bind="foreach:ShowList" >
                 <tr >
                     <td data-bind="text:name">编号</td>
-                    <td data-bind="text:department">编号</td>
+                    <%--<td data-bind="text:department">编号</td>--%>
                     <td data-bind="text:salaryid">编号</td>
                     <td data-bind="text:salarydate">编号</td>
                     <td data-bind="text:effectiveattendance">编号</td>
                     <td data-bind="text:attendancesalary">编号</td>
-                    <td data-bind="text:leavesalary">编号</td>
+                    <td data-bind="text:leavetype">编号</td>
                     <td data-bind="text:worksalary">编号</td>
-                    <%--<td data-bind="text:subtotal">编号</td>--%>
                     <td data-bind="text:allowance">编号</td>
                     <td data-bind="text:trafficsalary">编号</td>
                     <td data-bind="text:contractType"></td>
                     <td data-bind="text:realityattendance">编号</td>
                     <td data-bind="text:timesalary">编号</td>
-                    <td ><input  class="c_ding_input" style="width:50%" data-bind="textinput:timebaseadd"/></td>
+                    <td ><input  class="c_ding_input" style="width:60px" data-bind="textinput:timebaseadd,attr:{readonly:role=='项目经理'}"/></td>
                     <td data-bind="text:tasksalary">编号</td>
-                    <td ><input  class="c_ding_input" style="width:50%" data-bind="textinput:taskbaseadd"/></td>
-                    <td ><input  class="c_ding_input" style="width:50%" data-bind="textinput:userbonus"/></td>
-                    <td data-bind="text:totalsalary">编号</td>
+                    <td ><input  class="c_ding_input" style="width:60px" data-bind="textinput:taskbaseadd,attr:{readonly:role=='项目经理'}"/></td>
+
+                    <td ><input  class="c_ding_input" style="width:60px" data-bind="textinput:userbonus,attr:{readonly:role=='项目经理'}"/></td>
+
+                   <%-- <td data-bind="text:totalsalary">编号</td>--%>
                     <td>
-                        <input data-bind="click:$root.ClickUpdate" type="button" value="保存修改" class="gx-btn_large"/>
+                        <input data-bind="click:$root.ClickUpdate" type="button" value="审批" class="gx-btn_large"/>
                     </td>
                 </tr>
                 </tbody>
+
             </table></div>
     </div>
 </div>

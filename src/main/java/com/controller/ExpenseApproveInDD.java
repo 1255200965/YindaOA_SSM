@@ -28,14 +28,16 @@ import com.service.IExpenseApplySubwayService;
 import com.service.IStaffInfoService;
 import com.util.DDSendMessageUtil;
 import com.util.DDUtil;
+import com.util.DateUtil;
 import com.util.GlobalConstant;
 /**
- * 报销审批+报销入口相关代码
+ * 报销审批+报销入口相关代码---钉钉审批
  * @author mawei
  *
  */
 @Controller
-public class ExpenseApproveController {
+@RequestMapping("/expenseApplyApprove")
+public class ExpenseApproveInDD {
 	@Autowired
 	private IExpenseApplayBusService expenseBusService;
 	@Autowired
@@ -52,7 +54,8 @@ public class ExpenseApproveController {
 	private IBusinessTripService businessTripService;
 	@Autowired
 	private IExpenseApplySubwayService expenseApplySubwayService;
-	
+	@Autowired
+	private ExpenseQuartz quartz;
 	
 	
 	/**
@@ -95,7 +98,7 @@ public class ExpenseApproveController {
      * @return
      */
     @RequestMapping("/goApprove_record.do")
-    public ModelAndView goApprove_history_view(){
+    public ModelAndView goApprove_history_view(HttpServletRequest request){
     	ModelAndView mav = new ModelAndView();
     	mav.setViewName("expense/approveInMicroApp/approve_record");
     	return mav;
@@ -123,7 +126,6 @@ public class ExpenseApproveController {
     		mav.addObject("type","bus");
     	}else if("subway".equals(type)){
     		approvedList = expenseApplySubwayService.selectApproved(approverStaffUserId);
-    		
     		mav.addObject("approvedList", approvedList);
     		mav.addObject("type","subway");
     		mav.setViewName("expense/approveInMicroApp/approved_history_subway");
@@ -140,6 +142,7 @@ public class ExpenseApproveController {
     /**
      * 跳转进入-报销每周明细
      * @param request
+     * @param staffId
      * @return
      */
     @RequestMapping("/goApprovalDetail.do")
@@ -182,12 +185,63 @@ public class ExpenseApproveController {
      * @return
      */
     @RequestMapping("/goApprovalSum.do")
-    public String approval(){
-    	return "expense/approveInMicroApp/approval_sum";
+    public ModelAndView approval(HttpServletRequest request){
+    	ModelAndView mav = new ModelAndView();
+    	/*String staffUserId = (String) request.getSession().getAttribute(GlobalConstant.user_staff_user_id);
+    	List<String> leaders = quartz.getLeaders();
+    	System.out.println("staffUserId"+staffUserId);
+    	int currentDay = DateUtil.getCurrentDay();
+    	 if(leaders.contains(staffUserId)){
+    	       //1-5号项目经理部门经理进行审批
+    		if(currentDay >=1 && currentDay <=5 ){
+    			if( !"10548".equals(staffUserId) && !"31017".equals(staffUserId) && !"10272".equals(staffUserId)){
+    				mav.setViewName("expense/approveInMicroApp/approval_sum");
+    				return mav;
+    			}else{
+    				mav.setViewName("expense/approveInMicroApp/log");
+    				mav.addObject("log", "每月1-5号只运行项目经理部门经理进行审批,财务请于每月6-10号再进行审批");
+    				return mav;
+    			}
+    		}
+    			//6-10号陈萍、钱忠瑛进行审批
+    		if(currentDay >=6 && currentDay <=10){
+    		if(currentDay >=22){
+    			//6-10财务进行审批
+    			if( "10548".equals(staffUserId) || "31017".equals(staffUserId)){
+    				mav.setViewName("expense/approveInMicroApp/approval_sum");
+    				return mav;
+    			}else{
+    				mav.setViewName("expense/approveInMicroApp/log");
+    				mav.addObject("log", "6-10号只允许财务进行审批,项目经理请于每月1-5号进行审批");
+    				return mav;
+    			}
+    		}
+    			//11-15号钱忠诚进行审批
+    		if(currentDay >=11 && currentDay <=15){
+    			if("10272".equals(staffUserId)){
+    				mav.setViewName("expense/approveInMicroApp/approval_sum");
+    				return mav;
+    			}else{
+    				mav.setViewName("expense/approveInMicroApp/log");
+    				mav.addObject("log", "项目经理请于每月1-5号进行审批,财务请于每月6-10号进行审批,超时未审批的数据系统将自动驳回");
+    				return mav;
+    			}
+    		}
+    		    mav.setViewName("expense/approveInMicroApp/log");
+    		    mav.addObject("log", "每月15之后为财务打款时间,请于每月1-15号及时进行审批,超时未审批的数据系统将自动驳回");
+    			return mav;
+    	 }else{
+    		 mav.setViewName("expense/approveInMicroApp/log");
+    		 mav.addObject("log", "当前用户无权限访问该页面,如需开通权限请联系管理员");
+    		 return mav;
+    	 }*/
+    	mav.setViewName("expense/approveInMicroApp/approval_sum");
+    	return mav;
     }
     /**
      * 异步获取待审批员工信息
      * @param request
+     * @param type
      * @return
      */
     @RequestMapping("/getStaffs.do")
@@ -199,6 +253,7 @@ public class ExpenseApproveController {
     	@SuppressWarnings("rawtypes")
 		List<ExpenseApplayTrain> trainList = expenseApplayTrainService.selectApprovalStaff(approverStaffUserId);
     	List<ExpenseApplayBus> busList = expenseBusService.selectApprovalStaff(approverStaffUserId);
+    	System.out.println("大巴报销条数"+busList.size());
     	List<ExpenseApplayHotel> hotelList = expenseApplayHotelService.selectApprovalStaff(approverStaffUserId);
     	List<ExpenseApplySubway> subwayList = expenseApplySubwayService.selectApprovalStaff(approverStaffUserId);
     	if(trainList != null && trainList.size() >0){	
@@ -252,6 +307,7 @@ public class ExpenseApproveController {
     /**
      * 判断集合中某个对象是否已存在
      * @param list
+     * @param staffId
      * @return --true包含  false不包含
      */
     private boolean isContains(List<ApprovalStaff> list,ApprovalStaff approvalStaff){
@@ -352,6 +408,7 @@ public class ExpenseApproveController {
      * 钉钉微应用内住宿审核界面跳转
      * @param request
      * @param id--该条记录的数据库ID
+     * @param manager--当前审批人钉钉ID
      * @return
      */
     @RequestMapping("go_approve_hotel.do")
@@ -372,6 +429,7 @@ public class ExpenseApproveController {
      * 钉钉微应用内大巴车审核界面跳转
      * @param request
      * @param id--该条记录的数据库ID
+     * @param manager--当前审批人钉钉ID
      * @return
      */
     @RequestMapping("/go_approve_bus.do")
@@ -393,6 +451,7 @@ public class ExpenseApproveController {
      * 钉钉微应用内火车票报销审核界面跳转
      * @param request
      * @param id--该条记录的数据库ID
+     * @param manager--当前审批人钉钉ID
      * @return
      */
     @RequestMapping("go_approve_train.do")
@@ -414,6 +473,7 @@ public class ExpenseApproveController {
      * 钉钉微应用内地铁公交报销审核界面跳转
      * @param request
      * @param id--该条记录的数据库ID
+     * @param manager--当前审批人钉钉ID
      * @return
      */
     @RequestMapping("/go_approve_subway.do")
@@ -498,6 +558,7 @@ public class ExpenseApproveController {
   	/**
   	 * 火车票报销批量审批
   	 * @param request
+  	 * @param id
   	 * @param result
   	 * @return
   	 */
@@ -553,6 +614,7 @@ public class ExpenseApproveController {
     /**
      * 大巴报销批量审批
      * @param request
+     * @param id
      * @param result
      * @return
      */
@@ -583,6 +645,7 @@ public class ExpenseApproveController {
     /**
      * 旅店报销批量审批
      * @param request
+     * @param id
      * @param result
      * @return
      */

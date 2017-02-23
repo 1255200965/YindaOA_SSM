@@ -112,15 +112,42 @@
     	}
     });
      function approve_hotel_update(data2){
-    	 $.post("approve_hotel_update.do",{"result":data2,"id":$("input[name='id']").val()},function(data){
-    		 if(data ==1 ){
-    			 $.alert("操作成功");
-    			 $("#flag").hide();
-    			 window.history.back(-1);
-    		 }else if(data == 0){
-    			 $.alert("系统繁忙,请稍后重试");
-    		 }
-    	 });
+    	if(data2 == 'disagree'){
+    		$.prompt({
+				  title: '',
+				  text: '请输入驳回原因',
+				  input: '',
+				  empty: false, // 是否允许为空
+				  onOK: function (input) {
+				    //点击确认
+					  $.post("approve_hotel_update.do",{"result":data2,"id":$("input[name='id']").val(),refuseReason:input},function(data){
+				    		 if(data ==1 ){
+				    			 $.alert("操作成功");
+				    			 $("#flag").hide();
+				    			 window.history.back(-1);
+				    		 }else if(data == 0){
+				    			 $.alert("系统繁忙,请稍后重试");
+				    		 }
+				    	 });
+				    	
+				  },
+				  onCancel: function () {
+				    //点击取消
+				  }
+				});
+    	}else{
+    		//点击确认
+			  $.post("approve_hotel_update.do",{"result":data2,"id":$("input[name='id']").val(),refuseReason:""},function(data){
+		    		 if(data ==1 ){
+		    			 $.alert("操作成功");
+		    			 $("#flag").hide();
+		    			 window.history.back(-1);
+		    		 }else if(data == 0){
+		    			 $.alert("系统繁忙,请稍后重试");
+		    		 }
+		    	 });
+    	}
+    	
      }
    //图片放大缩小
      function imageView(e){

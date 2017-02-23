@@ -59,16 +59,41 @@
     <script>
      var flag='${flag}';
       function approveResult(data){
-    	 
-    	  $.post("expense_subway_approve_update.do",{"result":data,"id":$("input[name='id']").val()},function(data2){
-    		 if(data2=="success"){
-    			 $("#approveOption").hide();
-    			 $.alert("操作成功");
-    			 window.history.back(-1);
-    		 } else{
-    			 $.alert("系统繁忙,请重新操作");
-    		 }
-    	  });
+    	 if(data == 'disagree'){
+    		 $.prompt({
+				  title: '',
+				  text: '请输入驳回原因',
+				  input: '',
+				  empty: false, // 是否允许为空
+				  onOK: function (input) {
+				    //点击确认
+					  $.post("expense_subway_approve_update.do",{"result":data,"id":$("input[name='id']").val(),refuseReason:input},function(data2){
+				    		 if(data2=="success"){
+				    			 $("#approveOption").hide();
+				    			 $.alert("操作成功");
+				    			 window.history.back(-1);
+				    		 } else{
+				    			 $.alert("系统繁忙,请重新操作");
+				    		 }
+				    	  });
+				  },
+				  onCancel: function () {
+				    //点击取消
+				  }
+				});
+    		 
+    	 }else{
+    		 $.post("expense_subway_approve_update.do",{"result":data,"id":$("input[name='id']").val(),refuseReason:""},function(data2){
+        		 if(data2=="success"){
+        			 $("#approveOption").hide();
+        			 $.alert("操作成功");
+        			 window.history.back(-1);
+        		 } else{
+        			 $.alert("系统繁忙,请重新操作");
+        		 }
+        	  });
+    	 }
+    	  
     	  
       }
       $(document).ready(function(){

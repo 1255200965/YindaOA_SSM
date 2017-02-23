@@ -17,6 +17,7 @@ import com.util.DateUtil;
 import com.util.GlobalConstant;
 
 @Controller
+@RequestMapping("/expenseApplyApprove")
 public class ExpenseSubwayController {
 	@Autowired
 	private IExpenseApplySubwayService expenseApplySubwayService;
@@ -55,11 +56,11 @@ try{ subwayApply.setAskStaffId((String) request.getSession().getAttribute(Global
 	//对于挂职在一级部门的员工
 	if(approverList.size() >1){
 	toUser=approverList.get(1);
-	subwayApply.setApproverOrder(approverList.get(1)+"|"+approverList.get(0)+"|10548"+"|31017"+"|10272");
+	subwayApply.setApproverOrder(approverList.get(1)+"|"+approverList.get(0));
 	subwayApply.setApproverNow(approverList.get(1));
 	}else{//对于挂职在二级部门下的员工
 		toUser=approverList.get(0);
-		subwayApply.setApproverOrder(approverList.get(0)+"|10548"+"|31017"+"|10272");
+		subwayApply.setApproverOrder(approverList.get(0));
 		subwayApply.setApproverNow(approverList.get(0));
 	}
 	/****被报销人的各级审批人****/
@@ -117,7 +118,7 @@ try{ subwayApply.setAskStaffId((String) request.getSession().getAttribute(Global
     }
     //审核后数据的保存
     @RequestMapping("/expense_subway_approve_update.do")
-    public @ResponseBody String  expense_subway_approve_update(int id,String result){
+    public @ResponseBody String  expense_subway_approve_update(int id,String result,String refuseReason){
     	//根据ID找到这条报销记录
     	try{	
     		ExpenseApplySubway subwayApply=expenseApplySubwayService.selectByPrimarykey(id);
@@ -125,6 +126,7 @@ try{ subwayApply.setAskStaffId((String) request.getSession().getAttribute(Global
     			subwayApply=expenseApplySubwayService.sendTONextManager(subwayApply);
     		}else if("disagree".equals(result)){//驳回操作
     			subwayApply=expenseApplySubwayService.refuseOption(subwayApply);
+    			subwayApply.setRefuseReason(refuseReason);
     		}
     		expenseApplySubwayService.saveOrUpdate(subwayApply);
     		return "success";

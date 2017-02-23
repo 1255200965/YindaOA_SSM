@@ -54,6 +54,7 @@ public class LoginController {
 		 for(YoUserRole userRole :userRoleList){
 			 if(staffInfo.getStaffId().equals(userRole.getStaffId())){				
 				 strList.add(userRole.getRole());
+				 request.getSession().setAttribute("user_role",userRole.getRole());
 			 }
 		 }
 		

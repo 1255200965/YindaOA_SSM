@@ -14,32 +14,31 @@
   <link rel="stylesheet" href="<%=path%>/stylesheets/weui.css"/>
   <link rel="stylesheet" href="<%=path%>/stylesheets/jquery-weui.css"/>
   <link rel="stylesheet" href="<%=path%>/stylesheets/projectcss.css"/>
-  <title>周报销明细</title>
+  <title>月报销明细</title>
   <style>
-  	.header{
-  		background-color:#E0FFFF;
-  	}
+  	
   </style>
  </head>
  <body >
  <body >
  <div class="weui-row">
   		<button type="button" style="background-color:#32CD32;" onclick="selectAll();" id="selectAll">全选</button>
-  		<div class="weui-col-40" style="overflow: hidden;"><b>姓名:${approvalStaff.staffName }</b></div>
+  		<div class="weui-col-40" style="overflow: hidden;"><b>报销人:${approvalStaff.staffName }</b></div>
   		<%-- <div class="weui-col-20" style="overflow: hidden;"><b>工号:${approvalStaff.staffId}</b></div> --%>
   		<div class="weui-col-40" style="overflow: hidden;"><b>总金额:${approvalStaff.cost}</b></div>
   		<a></a>
   		<!-- <a></a> -->
   </div>
+  <br/>
   <div id="bus">
-  <div class="header"  ><b>大巴</b></div>
+  
   	<div class="weui-row header">
   		<a></a>
   		<!-- <button type="button"  onclick="selectAll();" id="selectAll">全选</button> -->
-  		<a></a>
-  		<div class="weui-col-20" style="overflow: hidden;"><b>报销人</b></div>
-  		<div class="weui-col-20" style="overflow: hidden;"><b>报销金额</b></div>
+  		<!-- <div class="weui-col-20" style="overflow: hidden;"><b>报销人</b></div> -->
+  		<div class="weui-col-15" style="overflow: hidden;"><b>金额</b></div>
   		<div class="weui-col-20" style="overflow: hidden;"><b>提交日期</b></div>
+  		<div class="weui-col-20" style="overflow: hidden;"><b>类别</b></div>
   		<a><b style="color:#696969;">操作</b></a>
   		<a></a>
   		<!-- <a></a> -->
@@ -49,84 +48,54 @@
  	<div data-bind="foreach:ShowListBus">
     <div class="weui-row" >
  		 <input type="checkbox" name="busIds" data-bind="textinput:id" class="ids"/> 
-  		<div class="weui-col-20" style="overflow: hidden;" data-bind="text:staffName"></div>
-  		 <div class="weui-col-20" style="overflow: hidden;" data-bind="text:moneyCost"></div> 
+  		 <div class="weui-col-15" style="overflow: hidden;" data-bind="text:moneyCost"></div> 
   		<div class="weui-col-20" style="overflow: hidden;" data-bind="text:submitTime"></div>
+  		<div class="weui-col-20" style="overflow: hidden;">大巴</div>
   		<input type="button" style="background-color:#32CD32;" data-bind="click:$root.approvalOptionBus" value="审批">
-  		<a></a>
+  		<input type="button" style="background-color:#FF3333;" data-bind="click:$root.refuseOptionBus" value="驳回">
     </div>
     <br/>
     </div>
    </div>
    <div id="train">
-   <div class="header" ><b>火车</b></div>
-   <div class="weui-row header">
-   		<a></a>
-  		<!-- <button type="button"  onclick="selectAll();" id="selectAll">全选</button> -->
-  		<div class="weui-col-20" style="overflow: hidden;"><b>报销人</b></div>
-  		<div class="weui-col-20" style="overflow: hidden;"><b>报销金额</b></div>
-  		<div class="weui-col-20" style="overflow: hidden;"><b>提交日期</b></div>
-  		<a><b style="color:#696969;">操作</b></a>
-  		<a></a>
-  		<!-- <a></a> -->
-    </div>
     <div data-bind="foreach:ShowListTrain">
     <div class="weui-row" >
  		<input type="checkbox" name="trainIds" data-bind="textinput:id" class="ids"/> 
-  		<div class="weui-col-20" style="overflow: hidden;" data-bind="text:staffName"></div>
-  		 <div class="weui-col-20" style="overflow: hidden;" data-bind="text:moneyCost"></div> 
+  		<!-- <div class="weui-col-20" style="overflow: hidden;" data-bind="text:staffName"></div> -->
+  		 <div class="weui-col-15" style="overflow: hidden;" data-bind="text:moneyCost"></div> 
   		 <div class="weui-col-20" style="overflow: hidden;" data-bind="text:submitTime"></div>
-  		<input type="button" style="background-color:#32CD32;" data-bind="click:$root.approvalOptionTrain" value="审批">
-  		<a></a>
+  		 <div class="weui-col-20" style="overflow: hidden;" >火车</div>
+  		 <input type="button" style="background-color:#32CD32;" data-bind="click:$root.approvalOptionTrain" value="审批">
+  		 <input type="button" style="background-color:#FF3333;" data-bind="click:$root.refuseOptionTrain" value="驳回">
     </div>
     <br/>
     </div>
     </div>
    <div id="hotel">
-   <div class="header" ><b>旅店</b></div>
-   <div class="weui-row header">
-   		<a></a>
-  		<!-- <button type="button"  onclick="selectAll();" id="selectAll">全选</button> -->
-  		<div class="weui-col-20" style="overflow: hidden;"><b>报销人</b></div>
-  		<div class="weui-col-20" style="overflow: hidden;"><b>报销金额</b></div>
-  		<div class="weui-col-20" style="overflow: hidden;"><b>提交日期</b></div>
-  		<a><b style="color:#696969;">操作</b></a>
-  		<a></a>
-  		<!-- <a></a> -->
-    </div>
     <div data-bind="foreach:ShowListHotel">
      
     <div class="weui-row" >
  		<input type="checkbox" name="hotelIds" data-bind="textinput:id" class="ids"/> 
-  		<div class="weui-col-20" style="overflow: hidden;" data-bind="text:staffName"></div>
-  		 <div class="weui-col-20" style="overflow: hidden;" data-bind="text:moneyCost"></div> 
+  		<!-- <div class="weui-col-20" style="overflow: hidden;" data-bind="text:staffName"></div> -->
+  		 <div class="weui-col-15" style="overflow: hidden;" data-bind="text:moneyCost"></div> 
   		<div class="weui-col-20" style="overflow: hidden;" data-bind="text:submitTime"></div> 
+  		<div class="weui-col-20" style="overflow: hidden;" >住宿费</div> 
   		<input type="button" style="background-color:#32CD32;" data-bind="click:$root.approvalOptionHotel" value="审批">
-  		<a></a>
+  		<input type="button" style="background-color:#FF3333;" data-bind="click:$root.refuseOptionHotel" value="驳回">
     </div>
     <br/>
     </div>
     </div>
     <div id="subWay">
-   <div class="header" ><b>公交地铁</b></div>
-     <div class="weui-row header">
-     	<a></a>
-  		<!-- <button type="button"  onclick="selectAll();" id="selectAll">全选</button> -->
-  		<div class="weui-col-20" style="overflow: hidden;"><b>报销人</b></div>
-  		<div class="weui-col-20" style="overflow: hidden;"><b>报销金额</b></div>
-  		<div class="weui-col-20" style="overflow: hidden;"><b>提交日期</b></div>
-  		<a><b style="color:#696969;">操作</b></a>
-  		<a></a>
-  		<!-- <a></a> -->
-    </div>
     <div data-bind="foreach:ShowListSubway">
     <div class="weui-row" >
  		<input type="checkbox" name="subwayIds" data-bind="textinput:id" class="ids"/> 
-  		<div class="weui-col-20" style="overflow: hidden;" data-bind="text:askStaffName"></div>
-  		 <div class="weui-col-20" style="overflow: hidden;" data-bind="text:askMoney"></div> 
-  		<div class="weui-col-20" style="overflow: hidden;" data-bind="text:submitTime"></div>
+  		<!-- <div class="weui-col-20" style="overflow: hidden;" data-bind="text:askStaffName"></div> -->
+  		 <div class="weui-col-15" style="overflow: hidden;" data-bind="text:askMoney"></div> 
+  		<div class="weui-col-15" style="overflow: hidden;" data-bind="text:submitTime"></div>
+  		<div class="weui-col-20" style="overflow: hidden;" >公交地铁</div>
   		<input type="button" style="background-color:#32CD32;" data-bind="click:$root.approvalOptionSubway" value="审批">
-  		<a></a>
+  		<input type="button" style="background-color:#FF3333;" data-bind="click:$root.refuseOptionSubway" value="驳回">
     </div>
     <br/>
     </div>
@@ -198,6 +167,7 @@
     			});
     			
     		}
+    		//查看明细
     		self.approvalOptionBus = function(item){
     			window.location.href="go_approve_bus.do?id="+item.id;
     		}
@@ -209,6 +179,94 @@
     		}
 			self.approvalOptionSubway = function(item){
 				window.location.href="go_approve_subway.do?id="+item.id;
+			}
+			//审批拒绝操作
+			self.refuseOptionBus = function(item){
+				$.prompt({
+					  title: '',
+					  text: '请输入驳回原因',
+					  input: '',
+					  empty: false, // 是否允许为空
+					  onOK: function (input) {
+					    //点击确认
+						  $.post("to_approve_bus_update.do",{id:item.id,result:"disagree",refuseReason:input},function(data){
+								if(data == 1){
+									window.location.reload();
+								}else{
+									 $.alert("驳回操作失败"); 
+								}
+							});
+					  },
+					  onCancel: function () {
+					    //点击取消
+					  }
+					});
+				
+    		}
+    		self.refuseOptionTrain = function(item){
+    			$.prompt({
+					  title: '',
+					  text: '请输入驳回原因',
+					  input: '',
+					  empty: false, // 是否允许为空
+					  onOK: function (input) {
+					    //点击确认
+						  $.post("approve_train_update.do",{id:item.id,result:"disagree",refuseReason:input},function(data){
+								if(data== 1){
+									window.location.reload();
+								}else{
+									$.alert("驳回操作失败");
+								}
+							});
+					  },
+					  onCancel: function () {
+					    //点击取消
+					  }
+					});
+    		}
+			self.refuseOptionHotel = function(item){
+				$.prompt({
+					  title: '',
+					  text: '请输入驳回原因',
+					  input: '',
+					  empty: false, // 是否允许为空
+					  onOK: function (input) {
+					    //点击确认
+						  $.post("approve_hotel_update.do",{id:item.id,result:"disagree",refuseReason:input},function(data){
+								if(data== 1){
+									window.location.reload();
+								}else{
+									$.alert("驳回操作失败");
+								}
+							});
+					  },
+					  onCancel: function () {
+					    //点击取消
+					  }
+					});
+				
+    		}
+			self.refuseOptionSubway = function(item){
+				$.prompt({
+					  title: '',
+					  text: '请输入驳回原因',
+					  input: '',
+					  empty: false, // 是否允许为空
+					  onOK: function (input) {
+					    //点击确认
+						  $.post("expense_subway_approve_update.do",{id:item.id,result:"disagree",refuseReason:input},function(data){
+								if(data== "success"){
+									window.location.reload();
+								}else{
+									$.alert("驳回操作失败");
+								}
+							});
+					  },
+					  onCancel: function () {
+					    //点击取消
+					  }
+					});
+				
 			}
     		
     	};

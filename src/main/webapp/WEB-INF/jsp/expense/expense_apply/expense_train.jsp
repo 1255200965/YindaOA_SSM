@@ -119,7 +119,7 @@
 		<br/>
 		<div class="weui-row ">
 		<div class="weui-col-10"></div>
-		<div class="weui-col-80"><a href="<%=path%>/toExpense_history_train.do" class="weui_btn  weui_btn_warn">历史报销信息查看</a></div>
+		<div class="weui-col-80"><a href="<%=path%>/expenseApplyApprove/toExpense_history_train.do" class="weui_btn  weui_btn_warn">历史报销信息查看</a></div>
 		<div class="weui-col-10"></div>
 		</div>	
   	</form>

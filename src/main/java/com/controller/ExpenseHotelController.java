@@ -22,6 +22,7 @@ import com.util.GlobalConstant;
  *
  */
 @Controller
+@RequestMapping("/expenseApplyApprove")
 public class ExpenseHotelController {
 	@Autowired
 	private IExpenseApplayHotelService expenseApplayHotelService;
@@ -147,7 +148,7 @@ public class ExpenseHotelController {
     }
     @RequestMapping("/approve_hotel_update.do")
     @ResponseBody
-    public int approve_hotel_update(HttpServletRequest request,int id,String result){
+    public int approve_hotel_update(HttpServletRequest request,int id,String result,String refuseReason){
     	//查询该条报销记录
     	ExpenseApplayHotel expenseApplayHotel = expenseApplayHotelService.selectById(id);
     	if("agree".equals(result)){
@@ -155,6 +156,7 @@ public class ExpenseHotelController {
     		expenseApplayHotel = expenseApplayHotelService.sendTONextManager(expenseApplayHotel);
     	}else if("disagree".equals(result)){
     		expenseApplayHotel= expenseApplayHotelService.refuseOption(expenseApplayHotel);
+    		expenseApplayHotel.setRefuseReason(refuseReason);   	
     	}
     	return expenseApplayHotelService.saveOrUpdate(expenseApplayHotel);
     }
@@ -193,11 +195,11 @@ public class ExpenseHotelController {
 			//对于挂职在一级部门的员工
 			if(approverList.size() >1){
 			toUser=approverList.get(1);
-			expenseApplayHotel.setApproverOrder(approverList.get(1)+"|"+approverList.get(0));
+			expenseApplayHotel.setApproverOrder(approverList.get(1)+"|"+approverList.get(0)+"|10548"+"|31017"+"|10272");
 			expenseApplayHotel.setApproverNow(approverList.get(1));
 			}else{//对于挂职在二级部门下的员工
 				toUser=approverList.get(0);
-				expenseApplayHotel.setApproverOrder(approverList.get(0));
+				expenseApplayHotel.setApproverOrder(approverList.get(0)+"|10548"+"|31017"+"|10272");
 				expenseApplayHotel.setApproverNow(approverList.get(0));
 			}
 			/****被报销人的各级审批人****/

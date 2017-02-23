@@ -27,7 +27,7 @@ public class ExpenseApplySubwayServiceImpl implements IExpenseApplySubwayService
 		if(expenseSubway.getId() == null || "".equals(expenseSubway.getId())){//id为空进行插入
 			subwayMapper.insert(expenseSubway);
 //			expenseSubway.getId();
-			return 0;//返回主键ID
+			return -1;//返回主键ID
 		}else{//ID不为空进行更新
 			return subwayMapper.updateByPrimaryKeySelective(expenseSubway);//返回插入成功与否 0-失败  1成功
 		}

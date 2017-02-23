@@ -7,10 +7,7 @@ import com.model.StaffInfo;
 import com.model.YoAttendance;
 import com.service.IAttendanceService;
 import com.service.IStaffInfoService;
-import com.util.AttendanceWork;
-import com.util.DDUtil;
-import com.util.DateUtil;
-import com.util.ExcelToMysql;
+import com.util.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -149,7 +146,18 @@ public class StaffInfoController {
     @RequestMapping("/querys.do")
     public String querys(Map<String,Object> map,HttpServletRequest request){
         List<StaffInfo> userDtoList = new ArrayList<StaffInfo>();
-        map.put("listUser", userDtoList);
+        String userRole = (String) request.getSession().getAttribute("user_role");
+        String Department = (String) request.getSession().getAttribute(GlobalConstant.user_department);
+        String StaffID = (String) request.getSession().getAttribute(GlobalConstant.user_staffId);
+        String StaffUserID = (String) request.getSession().getAttribute(GlobalConstant.user_staff_user_id);
+        String StaffName =(String) request.getSession().getAttribute(GlobalConstant.user_name);
+
+        map.put("userRole", userRole);
+        map.put("Department", Department);
+        map.put("StaffName", StaffName);
+        map.put("StaffID", StaffID);
+        map.put("StaffUserID", StaffUserID);
+        System.out.print(userRole);
         return "/UserInfoSalary";
     }
 

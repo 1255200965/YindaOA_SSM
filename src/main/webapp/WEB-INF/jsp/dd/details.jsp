@@ -92,7 +92,7 @@
                 <p class="details-r">${list.workovertime }</p>
             </li>
             <li>
-                <p class="details-l">加班补贴</p>
+                <p class="details-l">加班费</p>
                 <p class="details-r">${list.worksalary }</p>
             </li>
             <li>

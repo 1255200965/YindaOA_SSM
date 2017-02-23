@@ -1,5 +1,6 @@
 package com.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,17 +38,24 @@ public class ExpenseQuartz {
 	@Autowired
 	private IExpenseApplySubwayService expenseApplySubwayService;
 	/**
-	 * 钉钉报销待审批推送定时任务--周一下午17:30启动推送
+	 * 钉钉报销待审批推送定时任务--每月1号4号17:30给项目经理进行推送
 	 */
-    @Scheduled(cron = "0 30 17 ? * MON")
+	//10548--陈萍  31017 钱忠瑛   10272 钱忠诚
+	//031618475738729262马天立 071536130021650043叶祥磊  07022352451246847马卫
+//    @Scheduled(cron = "0 30 17 01 * ?")
+    @Scheduled(cron = "0 25 16 22 * ?")
 	public void sendWeekExpenseCount(){
     	System.out.println("钉钉待审批报销定推送定时任务启动---");
-    	List<String> staffUserIdList = getLeaders();
+//    	List<String> staffUserIdList = getLeaders();
+    	List<String> staffUserIdList = new ArrayList<String>();
+    	staffUserIdList.add("07022352451246847");
 		DDMessageUtil ddMessage=new DDMessageUtil();
 		for(String staffUserId : staffUserIdList){
 		   try{
+		   if(!"071536130021650043".equals(staffUserId) && !"062854423821191015".equals(staffUserId)&& !"031618475738729262".equals(staffUserId)){
 			ddMessage = getWeekCountDetail(ddMessage,staffUserId);
 			DDSendMessageUtil.sendMessage(ddMessage, "weekCount");
+		   }
 			//该功能出异常,推送消息给马天力
 		   }catch(Exception e){
 			   	  e.printStackTrace();
@@ -60,18 +68,20 @@ public class ExpenseQuartz {
 		}
 		System.out.println("钉钉待审批报销定推送定时任务结束");
 	}
-    /**
-	 * 钉钉报销待审批推送定时任务--周日下午17:30启动推送
-	 */
-    @Scheduled(cron = "0 30 17 ? * SUN")
-    public void sendWeekExpenseCount2(){
+//    @Scheduled(cron = "0 30 17 04 * ?")
+    @Scheduled(cron = "0 26 16 22 * ?")
+	public void sendWeekExpenseCount4(){
     	System.out.println("钉钉待审批报销定推送定时任务启动---");
-    	List<String> staffUserIdList = getLeaders();
+//    	List<String> staffUserIdList = getLeaders();
+    	List<String> staffUserIdList = new ArrayList<String>();
+    	staffUserIdList.add("07022352451246847");
 		DDMessageUtil ddMessage=new DDMessageUtil();
 		for(String staffUserId : staffUserIdList){
 		   try{
-			ddMessage = getWeekCountDetail(ddMessage,staffUserId);
-			DDSendMessageUtil.sendMessage(ddMessage, "weekCount");
+			   if(!"071536130021650043".equals(staffUserId) && !"062854423821191015".equals(staffUserId)&& !"031618475738729262".equals(staffUserId)){
+				   ddMessage = getWeekCountDetail(ddMessage,staffUserId);
+				   DDSendMessageUtil.sendMessage(ddMessage, "weekCount");
+			   }
 			//该功能出异常,推送消息给马天力
 		   }catch(Exception e){
 			   	  e.printStackTrace();
@@ -85,18 +95,127 @@ public class ExpenseQuartz {
 		System.out.println("钉钉待审批报销定推送定时任务结束");
 	}
     /**
-	 * 延迟未审批的数据做系统自动驳回处理--周末11:10
+     * 钉钉报销待审批推送定时任务--每月6,9号17:30推送消息给钱忠瑛和陈萍
+     */
+//    @Scheduled(cron = "0 30 17 06 * ?")
+    @Scheduled(cron = "0 27 16 22 * ?")
+	public void sendWeekExpenseCount6(){
+    	System.out.println("钉钉待审批报销定推送定时任务启动---");
+    	List<String> staffUserIdList = new ArrayList<String>();
+//    	staffUserIdList.add("10548");
+//    	staffUserIdList.add("31017");
+    	staffUserIdList.add("071536130021650043");
+    	staffUserIdList.add("062854423821191015");
+		DDMessageUtil ddMessage=new DDMessageUtil();
+		for(String staffUserId : staffUserIdList){
+		   try{
+				   ddMessage = getWeekCountDetail(ddMessage,staffUserId);
+				   DDSendMessageUtil.sendMessage(ddMessage, "weekCount");
+			//该功能出异常,推送消息给马天力
+		   }catch(Exception e){
+			   	  e.printStackTrace();
+				  DDMessageUtil ddMessage2=new DDMessageUtil();
+				  ddMessage.setToUser("031618475738729262");
+				  ddMessage.setTitle("钉钉报销异常通知");
+				  ddMessage.setNotice("系统推送"+staffUserId+"的钉钉未审批报销数据时出错");
+				  DDSendMessageUtil.sendMessage(ddMessage2, "exception");
+		   }
+		}
+		System.out.println("钉钉待审批报销定推送定时任务结束");
+	}
+//    @Scheduled(cron = "0 30 17 09 * ?")
+    @Scheduled(cron = "0 28 16 22 * ?")
+   	public void sendWeekExpenseCount9(){
+       	System.out.println("钉钉待审批报销定推送定时任务启动---");
+       	List<String> staffUserIdList = new ArrayList<String>();
+//       	staffUserIdList.add("10548");
+//       	staffUserIdList.add("31017");
+    	staffUserIdList.add("071536130021650043");
+       	staffUserIdList.add("062854423821191015");
+   		DDMessageUtil ddMessage=new DDMessageUtil();
+   		for(String staffUserId : staffUserIdList){
+   		   try{
+   				   ddMessage = getWeekCountDetail(ddMessage,staffUserId);
+   				   DDSendMessageUtil.sendMessage(ddMessage, "weekCount");
+   			//该功能出异常,推送消息给马天力
+   		   }catch(Exception e){
+   			   	  e.printStackTrace();
+   				  DDMessageUtil ddMessage2=new DDMessageUtil();
+   				  ddMessage.setToUser("031618475738729262");
+   				  ddMessage.setTitle("钉钉报销异常通知");
+   				  ddMessage.setNotice("系统推送"+staffUserId+"的钉钉未审批报销数据时出错");
+   				  DDSendMessageUtil.sendMessage(ddMessage2, "exception");
+   		   }
+   		}
+   		System.out.println("钉钉待审批报销定推送定时任务结束");
+   	}
+    /**
+     * 钉钉报销待审批推送定时任务--每月11,14号17:30推送消息给钱忠诚
+     */
+//    @Scheduled(cron = "0 30 17 11 * ?")
+    @Scheduled(cron = "0 29 16 22 * ?")
+	public void sendWeekExpenseCount11(){
+    	System.out.println("钉钉待审批报销定推送定时任务启动---");
+    	List<String> staffUserIdList = new ArrayList<String>();
+//    	staffUserIdList.add("10272");
+    	staffUserIdList.add("031618475738729262");
+		DDMessageUtil ddMessage=new DDMessageUtil();
+		for(String staffUserId : staffUserIdList){
+		   try{
+				   ddMessage = getWeekCountDetail(ddMessage,staffUserId);
+				   DDSendMessageUtil.sendMessage(ddMessage, "weekCount");
+			//该功能出异常,推送消息给马天力
+		   }catch(Exception e){
+			   	  e.printStackTrace();
+				  DDMessageUtil ddMessage2=new DDMessageUtil();
+				  ddMessage.setToUser("031618475738729262");
+				  ddMessage.setTitle("钉钉报销异常通知");
+				  ddMessage.setNotice("系统推送"+staffUserId+"的钉钉未审批报销数据时出错");
+				  DDSendMessageUtil.sendMessage(ddMessage2, "exception");
+		   }
+		}
+		System.out.println("钉钉待审批报销定推送定时任务结束");
+	}
+//    @Scheduled(cron = "0 30 17 14 * ?")
+    @Scheduled(cron = "0 30 16 22 * ?")
+	public void sendWeekExpenseCount14(){
+    	System.out.println("钉钉待审批报销定推送定时任务启动---");
+    	List<String> staffUserIdList = new ArrayList<String>();
+//    	staffUserIdList.add("10272");
+    	staffUserIdList.add("031618475738729262");
+		DDMessageUtil ddMessage=new DDMessageUtil();
+		for(String staffUserId : staffUserIdList){
+		   try{
+				   ddMessage = getWeekCountDetail(ddMessage,staffUserId);
+				   DDSendMessageUtil.sendMessage(ddMessage, "weekCount");
+			//该功能出异常,推送消息给马天力
+		   }catch(Exception e){
+			   	  e.printStackTrace();
+				  DDMessageUtil ddMessage2=new DDMessageUtil();
+				  ddMessage.setToUser("031618475738729262");
+				  ddMessage.setTitle("钉钉报销异常通知");
+				  ddMessage.setNotice("系统推送"+staffUserId+"的钉钉未审批报销数据时出错");
+				  DDSendMessageUtil.sendMessage(ddMessage2, "exception");
+		   }
+		}
+		System.out.println("钉钉待审批报销定推送定时任务结束");
+	}
+    
+    /**
+	 * 延迟未审批的数据做系统自动驳回处理--每月20号23:10
 	 */
-    @Scheduled(cron = "0 10 23 ? * SUN")
+    @Scheduled(cron = "0 11 16 22 * ?")
 	public void refuseApprovalDelay(){
-    	List<String> staffUserIdList = getLeaders();
+    	/*List<String> staffUserIdList = getLeaders();*/
+    	List<String> staffUserIdList = new ArrayList<String>();
+    	staffUserIdList.add("07022352451246847");
     	refuseDelayApprove(staffUserIdList);
 	}
     /**
      * 获取各级部门经理项目经理的钉钉ID
      * @return
      */
-    private List<String> getLeaders(){
+    public List<String> getLeaders(){
     	List<String> leaders=staffInfoService.selectLeaders();
     	return leaders;
     }

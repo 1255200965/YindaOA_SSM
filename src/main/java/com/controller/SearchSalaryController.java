@@ -50,6 +50,7 @@ public class SearchSalaryController {
         if (user.getName()!="") criteria1.andNameEqualTo(user.getName());
         if (user.getSalarydate()!="") criteria1.andSalarydateEqualTo(user.getSalarydate());
         if (user.getSalaryid()!="") criteria1.andSalaryidEqualTo(user.getSalaryid());
+        if (user.getDepartment()!=null) criteria1.andDepartmentLike(user.getDepartment());
         List<YoUserinfosalary> list = userInfoService.selectByExample(example);
 
         Map<String,Object> map = new HashMap<String,Object>();

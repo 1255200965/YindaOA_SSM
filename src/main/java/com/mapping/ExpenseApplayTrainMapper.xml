@@ -330,7 +330,7 @@
   		from expense_applay_train where approver_now = #{staffUserId,jdbcType=VARCHAR}
   		and applay_status = '待审核'
   		and staff_Id =#{staffId,jdbcType=VARCHAR}
-  		and WEEK(submit_time,1) = (WEEK(CURDATE(),1)-1)
+  		and MONTH(submit_time) = (MONTH(CURDATE())-1)
   	
   </select>
   <!-- 根据用户的钉钉ID查询用户的待审批报销 -->
@@ -347,7 +347,7 @@
   		staff_name,staff_id,SUM(money_cost) as money_cost
   		from expense_applay_train where approver_now = #{staffUserId,jdbcType=VARCHAR}
   		and applay_status = '待审核'
-  		and WEEK(submit_time,1) = (WEEK(CURDATE(),1)-1)
+  		and MONTH(submit_time) = (MONTH(CURDATE())-1)
   		group by staff_id
   </select>
   <!-- 查询上周当前用户待审批的条数 -->
@@ -356,7 +356,7 @@
   		COUNT(staff_id)
   		from expense_applay_train where approver_now = #{staffUserId,jdbcType=VARCHAR}
   		and applay_status = '待审核'
-  		and WEEK(submit_time,1) = (WEEK(CURDATE(),1)-1)
+  		and MONTH(submit_time) = (MONTH(CURDATE())-1)
   </select>
   <!-- 更新延迟未审批的报销数据-->
   <update	id="updateDelayApproval"  parameterType="java.lang.String">
@@ -364,7 +364,7 @@
   		set applay_status = '驳回' ,refuse_reason = '当前审批人未及时审批,系统自动驳回,请重新提交'
   	    where approver_now = #{staffUserId,jdbcType=VARCHAR}
   		and applay_status = '待审核'
-  		and WEEK(submit_time,1) = (WEEK(CURDATE(),1)-1)
+  		and MONTH(submit_time) = (MONTH(CURDATE())-1)
   		order by staff_name
   </update>
 </mapper>

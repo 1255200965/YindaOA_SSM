@@ -26,6 +26,15 @@ public class DateUtil {
         String time=format.format(date);
         return time;
     }
-    
+    public static int getCurrentDay(){
+    	Date date = new Date();
+    	DateFormat format = new SimpleDateFormat("dd");
+    	String time = format.format(date);
+    	int month = Integer.parseInt(time);
+    	return month;
+    }
+    public static void main(String []args){
+    	System.out.println(DateUtil.getCurrentDay());
+    }
 
 }

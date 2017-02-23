@@ -20,7 +20,7 @@
  <div class="weui_grids">
   <a  class="weui_grid js_grid" onclick="jump2('approved.do');">
     <div class="weui_grid_icon">
-      <img src="<%=path%>/images/train.png" alt="">
+      <img src="<%=path%>/images/expenseApply/approved.png" alt="">
     </div>
     <p class="weui_grid_label">
                    已审批
@@ -28,7 +28,7 @@
   </a>
   <a  class="weui_grid js_grid" onclick="jump('goApprovalSum.do');">
     <div class="weui_grid_icon">
-      <img src="<%=path%>/images/train.png" alt="">
+      <img src="<%=path%>/images/expenseApply/approval.png" alt="">
     </div>
     <p class="weui_grid_label">
                  待审批

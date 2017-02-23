@@ -41,7 +41,7 @@ public class ExpenseApplayBusServiceImpl implements IExpenseApplayBusService{
 	  if(id==null || id==0){//save
 		 expenseBusMapper.insert(expenseApplayBus);
 //		 id=expenseApplayBus.getId();
-		 return 0;
+		 return -1;
 	  }else{//update
 		  
 		 return expenseBusMapper.updateByPrimaryKeySelective(expenseApplayBus);

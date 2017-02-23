@@ -20,7 +20,7 @@
  <div class="weui_grids">
   <a  class="weui_grid js_grid" onclick="goExpense_train();">
     <div class="weui_grid_icon">
-      <img src="<%=path%>/images/train.png" alt="">
+      <img src="<%=path%>/images/expenseApply/train.png" alt="">
     </div>
     <p class="weui_grid_label">
                    火车票报销
@@ -28,7 +28,7 @@
   </a>
   <a  class="weui_grid js_grid" data-id="cell" onclick="goExpense_history_bus();">
     <div class="weui_grid_icon">
-      <img src="<%=path%>/images/bus.png" alt="">
+      <img src="<%=path%>/images/expenseApply/bus.png" alt="">
     </div>
     <p class="weui_grid_label">
               大巴费报销
@@ -36,7 +36,7 @@
   </a>
   <a href="javascript:;" class="weui_grid js_grid" data-id="toast" onclick="goExpense_hotel();">
     <div class="weui_grid_icon">
-      <img src="<%=path%>/images/hotel.png" alt="">
+      <img src="<%=path%>/images/expenseApply/hotel.png" alt="">
     </div>
     <p class="weui_grid_label">
          住宿费报销
@@ -44,7 +44,7 @@
   </a>
    <a href="javascript:;" class="weui_grid js_grid" data-id="toast" onclick="goExpense_subway();">
     <div class="weui_grid_icon">
-      <img src="<%=path%>/images/taxi.png" alt="">
+      <img src="<%=path%>/images/expenseApply/subway.png" alt="">
     </div>
     <p class="weui_grid_label">
            地铁公交报销
@@ -52,7 +52,7 @@
   </a> 
    <a href="javascript:;" class="weui_grid js_grid" data-id="toast" onclick="goApprove_history_view();">
     <div class="weui_grid_icon">
-      <img src="<%=path%>/images/taxi.png" alt="">
+      <img src="<%=path%>/images/expenseApply/approveRecord.png" alt="">
     </div>
     <p class="weui_grid_label">
          	审批信息查看   

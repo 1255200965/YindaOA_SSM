@@ -142,6 +142,8 @@
 								<li><a href="<%=basePath%>expenseWork/expenseWork_page.do" target="loadcontent">办事处报销发文</a></li>
 								<li><a href="<%=basePath%>loan/toLoan_operation.do" target="loadcontent">冲借款提交</a></li>
 								<li><a href="<%=basePath%>loan/toLoan_getList.do" target="loadcontent">冲借款发文</a></li>
+								<li><a href="<%=basePath%>expenseApplyApprove/goApproveInPC.do" target="loadcontent">报销审批</a></li>
+								
 							</ul>
 						</div>
 					</li>

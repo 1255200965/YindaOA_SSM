@@ -40,7 +40,7 @@ public class ExpenseApplayHotelServiceImpl implements IExpenseApplayHotelService
     	if(id == null || id == 0){//新增
     		expenseApplayHotelMapper.insert(expenseApplayHotel);
 //    		id = expenseApplayHotel.getId();
-    		return 0;
+    		return -1;
     	}else{//更新
     		return expenseApplayHotelMapper.updateByPrimaryKeySelective(expenseApplayHotel);
     	}
