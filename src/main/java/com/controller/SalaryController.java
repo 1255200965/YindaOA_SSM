@@ -816,7 +816,17 @@ public class SalaryController {
         sheet.setColumnWidth(21,(int)(20+0.72)*256);
         sheet.setColumnWidth(22,(int)(20+0.72)*256);
         sheet.setColumnWidth(23,(int)(20+0.72)*256);
-
+        sheet.setColumnWidth(24,(int)(20+0.72)*256);
+        sheet.setColumnWidth(25,(int)(20+0.72)*256);
+        sheet.setColumnWidth(26,(int)(20+0.72)*256);
+        sheet.setColumnWidth(27,(int)(20+0.72)*256);
+        sheet.setColumnWidth(28,(int)(20+0.72)*256);
+        sheet.setColumnWidth(29,(int)(30+0.72)*256);
+        sheet.setColumnWidth(30,(int)(20+0.72)*256);
+        sheet.setColumnWidth(31,(int)(20+0.72)*256);
+        sheet.setColumnWidth(32,(int)(20+0.72)*256);
+        sheet.setColumnWidth(33,(int)(20+0.72)*256);
+        sheet.setColumnWidth(34,(int)(20+0.72)*256);
         //创建行
         HSSFRow row = sheet.createRow(0);
         //设置表头样式
@@ -847,143 +857,199 @@ public class SalaryController {
             }else{
             	row.createCell(0).setCellValue("");//月份
             }
-           
-            if(list.get(i).getName()!=null){
-            	 row.createCell(1).setCellValue(list.get(i).getName());//姓名
+            if(list.get(i).getBranchCompany()!=null){
+                row.createCell(1).setCellValue(list.get(i).getBranchCompany());//分公司
             }else{
-            	row.createCell(1).setCellValue("");
+                row.createCell(1).setCellValue("");//分公司
+            }
+            if(list.get(i).getName()!=null){
+            	 row.createCell(2).setCellValue(list.get(i).getName());//姓名
+            }else{
+            	row.createCell(2).setCellValue("");
             }
            
             if(list.get(i).getDepartment()!=null){
-            	 row.createCell(2).setCellValue(list.get(i).getDepartment());//部门
+            	 row.createCell(3).setCellValue(list.get(i).getDepartment());//部门
             }else{
-            	 row.createCell(2).setCellValue("");//部门
+            	 row.createCell(3).setCellValue("");//部门
             }
            
             if(list.get(i).getSalaryid()!=null){
-            	  row.createCell(3).setCellValue(list.get(i).getSalaryid());//工号
+            	  row.createCell(4).setCellValue(list.get(i).getSalaryid());//工号
             }else{
-            	 row.createCell(3).setCellValue("");//工号
+            	 row.createCell(4).setCellValue("");//工号
             }
-          
-            if(list.get(i).getDatetype()!=null){
-            	  row.createCell(4).setCellValue(list.get(i).getDatetype());//计薪天数
+            if(list.get(i).getContractType()!=null){
+                row.createCell(5).setCellValue(list.get(i).getContractType());//合同类型
             }else{
-            	 row.createCell(4).setCellValue("");//计薪天数
+                row.createCell(5).setCellValue("");//合同类型
+            }
+            if(list.get(i).getYindaIdentify()!=null){
+                row.createCell(6).setCellValue(list.get(i).getYindaIdentify());//技术等级
+            }else{
+                row.createCell(6).setCellValue("");//技术等级
+            }
+            if(list.get(i).getBaseSalary()!=null){
+                row.createCell(7).setCellValue(list.get(i).getBaseSalary());//基本工资
+            }else{
+                row.createCell(7).setCellValue("");//基本工资
+            }
+            if(list.get(i).getDatetype()!=null){
+            	  row.createCell(8).setCellValue(list.get(i).getDatetype());//满勤天数
+            }else{
+            	 row.createCell(8).setCellValue("");//满勤天数
             }
 
            
-            if(list.get(i).getRealityattendance()!=null){
-            	 row.createCell(6).setCellValue(list.get(i).getRealityattendance());//实际出勤
-            }else{
-            	 row.createCell(6).setCellValue("");//实际出勤
-            }
-           
            if(list.get(i).getEffectiveattendance()!=null){
-        	   row.createCell(7).setCellValue(list.get(i).getEffectiveattendance());//有效出勤
+        	   row.createCell(9).setCellValue(list.get(i).getEffectiveattendance());//有效出勤
            }else{
-        	   row.createCell(7).setCellValue("");//有效出勤
+        	   row.createCell(9).setCellValue("");//有效出勤
            }
-           
-           if(list.get(i).getAttendancesalary()!=null){
-        	   row.createCell(8).setCellValue(list.get(i).getAttendancesalary());//出勤工资
-           }else{
-        	   row.createCell(8).setCellValue("");//出勤工资
-           }
+
            
           if(list.get(i).getLeavetype()!=null){
-        	  row.createCell(9).setCellValue(list.get(i).getLeavetype());//请假天数
+        	  row.createCell(10).setCellValue(list.get(i).getLeavetype());//请假天数
           }else{
-        	  row.createCell(9).setCellValue("");//请假天数
+        	  row.createCell(10).setCellValue("");//请假天数
           }
           
           if(list.get(i).getLeavesalary()!=null){
-        	  row.createCell(10).setCellValue(list.get(i).getLeavesalary());//请假补款
+        	  row.createCell(11).setCellValue(list.get(i).getLeavesalary());//请假扣款
           }else{
-        	  row.createCell(10).setCellValue("");//请假补款
+        	  row.createCell(11).setCellValue("");//请假扣款
           }
-          
+            if(list.get(i).getAttendancesalary()!=null){
+                row.createCell(12).setCellValue(list.get(i).getAttendancesalary());//出勤工资
+            }else{
+                row.createCell(12).setCellValue("");//出勤工资
+            }
+
           if(list.get(i).getWorkovertime()!=null){
-        	  row.createCell(11).setCellValue(list.get(i).getWorkovertime());//加班时间  
+        	  row.createCell(13).setCellValue(list.get(i).getWorkovertime());//加班天数
           }else{
-        	  row.createCell(11).setCellValue("");//加班时间  
+        	  row.createCell(13).setCellValue("");//加班天数
           }
             
           if(list.get(i).getWorksalary()!=null){
-        	  row.createCell(12).setCellValue(list.get(i).getWorksalary());//加班补款
+        	  row.createCell(14).setCellValue(list.get(i).getWorksalary());//加班费
           }else{
-        	  row.createCell(12).setCellValue("");//加班补款
+        	  row.createCell(14).setCellValue("");//加班费
           }
-           
+
+            if(list.get(i).getSubtotal()!=null){
+                row.createCell(15).setCellValue(list.get(i).getSubtotal());//小计
+            }else{
+                row.createCell(15).setCellValue("");//小计
+            }
+
           if(list.get(i).getEvection()!=null){
-        	  row.createCell(13).setCellValue(list.get(i).getEvection());//出差 
+        	  row.createCell(16).setCellValue(list.get(i).getEvection());//出差天数
           }else{
-        	  row.createCell(13).setCellValue("");//出差 
+        	  row.createCell(16).setCellValue("");//出差天数
         	  
           }
            
           if(list.get(i).getAllowance()!=null){
-        	  row.createCell(14).setCellValue(list.get(i).getAllowance());//出差费
+        	  row.createCell(17).setCellValue(list.get(i).getAllowance());//出差费
           }else{
-        	  row.createCell(14).setCellValue("");//出差费
+        	  row.createCell(17).setCellValue("");//出差费
           }
-           
-          if(list.get(i).getTimesalary()!=null){
-        	   row.createCell(15).setCellValue(list.get(i).getTimesalary());//timebase奖金
+
+            if( list.get(i).getHeatingAllowance()!=null){
+                row.createCell(18).setCellValue(list.get(i).getHeatingAllowance());//高温补贴
+            }else{
+                row.createCell(18).setCellValue("");
+            }
+            if( list.get(i).getTrafficsalary()!=null){
+                row.createCell(19).setCellValue(list.get(i).getTrafficsalary());//交通费
+            }else{
+                row.createCell(19).setCellValue("");
+            }
+
+            if(list.get(i).getRealityattendance()!=null){
+                row.createCell(20).setCellValue(list.get(i).getRealityattendance());//奖金天数
+            }else{
+                row.createCell(20).setCellValue("");//奖金天数
+            }
+          if(list.get(i).getTimebaseadd()!=null){
+        	   row.createCell(21).setCellValue(list.get(i).getTimebaseadd());//timebase奖金
           }else{
-        	  row.createCell(15).setCellValue("");//timebase奖金
+        	  row.createCell(21).setCellValue("");//timebase奖金
           }
          
-          if(list.get(i).getTasksalary()!=null){
-        	  row.createCell(16).setCellValue(list.get(i).getTasksalary());//taskbase奖金
+          if(list.get(i).getTaskbaseadd()!=null){
+        	  row.createCell(22).setCellValue(list.get(i).getTaskbaseadd());//taskbase奖金
           }else{
-        	  row.createCell(16).setCellValue("");//taskbase奖金
+        	  row.createCell(22).setCellValue("");//taskbase奖金
           }
-           
-            if( list.get(i).getTrafficsalary()!=null){row.createCell(17).setCellValue(list.get(i).getTrafficsalary());//交通费
-            }else{
-            	row.createCell(17).setCellValue("");
-            }
-           
-            if(list.get(i).getSocialdecase()!=null){
-            	  row.createCell(18).setCellValue(list.get(i).getSocialdecase());//社保扣款
-            }else{
-            	 row.createCell(18).setCellValue("");//社保扣款
-            }
-          
+
             if(list.get(i).getUserbonus()!=null){
-            	  row.createCell(19).setCellValue(list.get(i).getUserbonus());//额外奖金
+                row.createCell(23).setCellValue(list.get(i).getUserbonus());//额外奖金
             }else{
-            	row.createCell(19).setCellValue("");//额外奖金
+                row.createCell(23).setCellValue("");//额外奖金
             }
-            
-            if(list.get(i).getSubtotal()!=null){
-            	 row.createCell(20).setCellValue(list.get(i).getSubtotal());//小计
+            if(list.get(i).getTotalsalary()!=null){
+                row.createCell(24).setCellValue(list.get(i).getTotalsalary());//税前应发
             }else{
-            	 row.createCell(20).setCellValue("");//小计
+                row.createCell(24).setCellValue("");//税前应发
             }
-          
-           if(list.get(i).getTotalsalary()!=null){
-        	   row.createCell(21).setCellValue(list.get(i).getTotalsalary());//税前应发
-           }else{
-        	   row.createCell(21).setCellValue("");//税前应发
-           }
+
+            if(list.get(i).getTotalsalary()!=null){
+                row.createCell(25).setCellValue(list.get(i).getTotalsalary());//当月应发
+            }else{
+                row.createCell(25).setCellValue("");//当月应发
+            }
+            if(list.get(i).getSocialdecase()!=null){
+            	  row.createCell(26).setCellValue(list.get(i).getSocialdecase());//社保扣款
+            }else{
+            	 row.createCell(26).setCellValue("");//社保扣款
+            }
+
            if(list.get(i).getTax()!=null){
-        	   row.createCell(22).setCellValue(list.get(i).getTax());//个税
+        	   row.createCell(27).setCellValue(list.get(i).getTax());//个税
            }else{
-        	   row.createCell(22).setCellValue("");//个税
+        	   row.createCell(27).setCellValue("");//个税
            }
-            
-            //row.createCell(23).setCellValue(list.get(i).getRealsalary());//实际应发
+            if(list.get(i).getRealsalary()!=null){
+                row.createCell(28).setCellValue(list.get(i).getRealsalary());//当月实发
+            }else{
+                row.createCell(28).setCellValue("");//当月实发
+            }
+
+
+            if(list.get(i).getMonthBonus()!=null){
+                row.createCell(29).setCellValue(list.get(i).getMonthBonus());//预发奖金
+            }else{
+                row.createCell(29).setCellValue("");//预发奖金
+            }
+
+
+            if(list.get(i).getMonthBonusTax()!=null){
+                row.createCell(30).setCellValue(list.get(i).getMonthBonusTax());//预发个税
+            }else{
+                row.createCell(30).setCellValue("");//预发个税
+            }
+            if(list.get(i).getMonthBonusTax()!=null){
+                row.createCell(31).setCellValue(list.get(i).getMonthBonusTax());//当月预发奖金实发
+            }else{
+                row.createCell(31).setCellValue("");//当月预发实发
+            }
+
+            if(list.get(i).getPreBonusStore()!=null){
+                row.createCell(32).setCellValue(list.get(i).getPreBonusStore());//储备
+            }else{
+                row.createCell(32).setCellValue("");//储备
+            }
         }
         return wb;
     }
 
 
 
-    String []excelHeader = {"月份","姓名","部门","工号","记薪天数","出勤","实际出勤","有效出勤","出勤工资",
-            "请假天数","请假补款","加班时间","加班补款","出差","出差费用","timebase奖金","taskbase奖金","交通费用",
-            "社保扣款","额外奖金","小计","税前应发","个税","实际应发"};
+    String []excelHeader = {"月份","分公司","姓名","部门","工号","合同类型","技术等级","基本工资","满勤天数","有效出勤天数","请假天数","缺勤扣款","出勤工资","加班天数",
+            "加班费","小计","出差天数","出差费","高温补贴","地铁公交费","奖金天数","timebase奖金","taskbase奖金",
+            "部门奖金调整项","税前工资","当月应发","社保代扣","个税代扣","当月实发","当月预发奖金","预发奖金扣税","当月实发预发奖金","当月储备"};
     public static void exportYoUserinfosalary(List<YoUserinfosalary> list,String[] excelHeader,HttpServletResponse response){
         HSSFWorkbook wb = getHSSFWorkbook(list,excelHeader);
         response.setContentType("application/vnd.ms-excel");

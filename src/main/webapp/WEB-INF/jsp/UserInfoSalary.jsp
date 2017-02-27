@@ -88,6 +88,9 @@
 
                 //==============================
 
+                //当前部门信息
+                self.dateCount = ko.observable();
+                self.nowDep = ko.observable();
 
 
                 //当前被修改的用户信息
@@ -134,6 +137,7 @@
                                     self.ShowList.push(result[i]);
                                     //加入每行题目信息
                                 }
+                                if (result.length>0) self.dateCount(result[0].datetype);
                             }
                         });
                     }
@@ -160,52 +164,77 @@
                                 for (var i = 0; i < result.length; i++) {
                                     self.ShowList.push(result[i]);
                                 }
+
                             }
                         });
                     }
                 }
 
                 //修改工资,增加总计变化
-                self.UpdateSalary = function(type){
-                    if (role=='项目经理' && (self.changeItem().timesalary<self.changeItem().timebaseadd || self.changeItem().tasksalary<self.changeItem().taskbaseadd)){
+                self.UpdateSalary = function(type,item){
+                    if (role=='项目经理' && (item.timesalary<item.timebaseadd || item.tasksalary<item.taskbaseadd)){
                         //调整不合法
-                        alert(self.changeItem().name + "的调整项超出了界限！");
+                        alert(item.name + "的调整项超出了界限！");
 
                     } else {
-                        $.ajax({
-                            data: JSON.stringify(self.changeItem()),
-                            type: "post",
-                            headers: {'Content-Type': 'application/json'},
-                            dataType: 'json',
-                            url: "../userinfosalary/updatesalary.do",
-                            error: function (data) {
-                                alert("出错了！！:" + data.msg);
 
-                            },
-                            success: function (data) {
-                                if (type == 1) alert("修改结果:"+data.msg);
-                                if (data.ok == "ok") {
-                                    for (var i = 0; i < self.ShowList().length; i++) {
-                                        if (self.ShowList()[i].sid == self.changeItem().sid) {
-                                            //self.changeItem().totalsalary = self.changeItem().subtotal + self.changeItem().worksalary + self.changeItem().allowance + self.changeItem().heatingAllowance + self.changeItem().trafficsalary - self.changeItem().socialdecase  + self.changeItem().userbonus + self.changeItem().timebaseadd + self.changeItem().taskbaseadd;
-                                            self.ShowList.splice(i, 1);
-                                            self.ShowList.splice(i, 0, self.changeItem());
-                                            break;
+                            if (role=='项目经理')
+                            {
+                                item.task = '1';
+                            }
+                            else
+                            {
+                                item.task = '2';
+                            }
+
+                            $.ajax({
+                                data: JSON.stringify(item),
+                                type: "post",
+                                headers: {'Content-Type': 'application/json'},
+                                dataType: 'json',
+                                async:'false',
+                                url: "../userinfosalary/updatesalary.do",
+                                error: function (data) {
+                                    alert("出错了！！:" + data.msg);
+
+                                },
+                                success: function (data) {
+                                    if (type == 1) alert("提交结果:"+data.msg);
+                                    if (data.ok == "ok") {
+                                        for (var i = 0; i < self.ShowList().length; i++) {
+                                            if (self.ShowList()[i].sid == item.sid) {
+                                                item.totalsalary = parseFloat(item.subtotal) + parseFloat(item.allowance) + parseFloat(item.heatingAllowance) + parseFloat(item.trafficsalary)  + parseFloat(item.userbonus) + parseFloat(item.timebaseadd) + parseFloat(item.taskbaseadd);
+                                                self.ShowList.splice(i, 1);
+                                                self.ShowList.splice(i, 0, item);
+                                                break;
+                                            }
                                         }
                                     }
-                                }
 
-                            }
-                        });
-                    }
+                                }
+                            });
+                        }
+
                 }
+
+
 
                 //点击事件-点击更新用户按钮
                 self.ClickUpdate = function(item){
                     self.changeItem(item);
-                    self.rootid(0);
-                    //$("#model1").click();
-                    self.ClickModelYes();
+                    //单条审批，如果是项目经理没批，部门经理不能批
+                    //如果项目经理批完，项目经理不能提交
+                    //如果部门经理批完，部门经理不能批，项目经理也不能批
+                    if (role=='项目经理' && item.task >0 ){
+                        //项目经理不能审批已经被部门经理审批过的条目
+                        alert(item.name + "已经被项目经理提交，不能提交!");
+
+                    }  else if (role=='部门经理' && item.task >1){
+                        //项目经理不能审批已经被部门经理审批过的条目
+                        alert(item.name + "已经被部门经理提交，不能提交!");
+                    } else{
+                        self.ClickModelYes();
+                    }
 
                 };
                 //点击事件-点击搜索
@@ -217,11 +246,22 @@
                         window.event.returnValue = false;
                     }else{
                         //逐条审批
-                        for (var i = 0; i < self.ShowList().length; i++) {
-                            self.changeItem(self.ShowList()[i]);
-                            self.UpdateSalary(0);
+                        for (var j = 0; j < self.ShowList().length; j++) {
+                            self.changeItem(self.ShowList()[j]);
+                            var item = self.changeItem();
+                            if (role=='项目经理' && item.task >0 ){
+                                //项目经理不能审批已经被部门经理审批过的条目
+                                alert(item.name + "已经被项目经理提交，不能提交!");
+
+                            }  else if (role=='部门经理' && item.task >1){
+                                //项目经理不能审批已经被部门经理审批过的条目
+                                alert(item.name + "已经被部门经理提交，不能提交!");
+                            } else{
+                                self.UpdateSalary(0,item);
+                            }
+
                         }
-                        alert("全部审批完成！");
+                        alert("全部处理完成！");
                         return true;
                     }
                 }
@@ -233,15 +273,44 @@
                 }
                 //点击事件-模态框确定
                 self.ClickModelYes = function() {
-                            if (!confirm("确认要修改？")) {
+                            if (!confirm("确认要提交？")) {
                                 window.event.returnValue = false;
                             }else{
-                                self.UpdateSalary(1);
+
+                                self.UpdateSalary(1,self.changeItem());
                                 return true;
                             }
                 };
                 //点击事件-模态框关闭
+                self.changeValue = function(item){
+                    item.totalsalary = parseFloat(item.subtotal) + parseFloat(item.allowance) + parseFloat(item.heatingAllowance) + parseFloat(item.trafficsalary)  + parseFloat(item.userbonus) + parseFloat(item.timebaseadd) + parseFloat(item.taskbaseadd);
+                    //如果项目经理已经审批了，不能修改
+                    $.ajax({
+                        data: JSON.stringify(item),
+                        type: "post",
+                        headers: {'Content-Type': 'application/json'},
+                        dataType: 'json',
+                        url: "../userinfosalary/updatesalary.do",
+                        error: function (data) {
+                            alert("出错了！！:" + data.msg);
 
+                        },
+                        success: function (data) {
+                            if (data.ok == "ok") {
+                                for (var i = 0; i < self.ShowList().length; i++) {
+                                    if (self.ShowList()[i].sid == item.sid) {
+                                        item.totalsalary = parseFloat(item.subtotal) + parseFloat(item.allowance) + parseFloat(item.heatingAllowance) + parseFloat(item.trafficsalary)  + parseFloat(item.userbonus) + parseFloat(item.timebaseadd) + parseFloat(item.taskbaseadd);
+                                        self.ShowList.splice(i, 1);
+                                        self.ShowList.splice(i, 0, item);
+                                        break;
+                                    }
+                                }
+                            }
+
+                        }
+                    });
+
+                }
                 //==========部门列表方法==============
                 //获取部门列表
                 self.GetDepartment = function () {
@@ -291,6 +360,7 @@
                     var id = "";
                     if (nowDep != null) {
                         id = nowDep.name;
+                        self.nowDep(id);
                     }
                     //获取部门用户
                     self.GetUserListByDep(id);
@@ -336,16 +406,23 @@
             <div class="caidan-tiku-s" style="margin-right:5%"> <span>工号：</span>
                 <input id="search_salaryid" type="text" name="salaryid" class="shuruk-a2" placeholder="">
             </div>
-<%--            <div class="caidan-tiku-s" style="margin-right:5%"> <span>日期：</span>
+<%--           <div class="caidan-tiku-s" style="margin-right:5%"> <span>日期：</span>
                 <input id="search_salarydate" type="text" name="salarydate" class="shuruk-a2" placeholder="">
             </div>--%>
+
+            <div class="caidan-tiku-s" style="margin-right:5%"> <span>当月满勤天数：</span>
+                <span id="nowaday"  data-bind="text:$root.dateCount"> </span>
+            </div>
+            <div class="caidan-tiku-s" style="margin-right:5%"> <span>当前部门：</span>
+                <span id="nowdepartment"  data-bind="text:$root.nowDep"> </span>
+            </div>
             <div style="float:right;margin-right:15px;padding-bottom:10px;" >
                 <input data-bind="click:$root.ClickSearch" type="button" value="查询"  class="chaxun">
                 <%--<input  data-bind="click:$root.ClickClear" type="button" value="清空"  class="chaxun" style="background:#fd9162">--%>
             </div>
 
             <div style="float:right;margin-right:15px;padding-bottom:10px;" >
-                <input data-bind="click:$root.ClickAllSearch" type="button" value="一键审批"  class="chaxun">
+                <input data-bind="click:$root.ClickAllSearch" type="button" value="一键提交"  class="chaxun">
                 <%--<input  data-bind="click:$root.ClickClear" type="button" value="清空"  class="chaxun" style="background:#fd9162">--%>
             </div>
         </div>
@@ -354,51 +431,57 @@
 
             <table  width="100%" border="1" cellspacing="0" cellpadding="0" class="table-1">
                 <thead class="table-1-tou locktop" >
+                <td class="text_center" width="5%">编号</td>
                 <td class="text_center" width="5%">姓名</td>
                <%-- <td class="text_center" width="5%">部门</td>--%>
                 <td class="text_center" width="5%">工号</td>
+                <td class="text_center" width="5%">合同类型</td>
+                <td class="text_center" width="5%">技术等级</td>
                 <td class="text_center" width="5%">月份</td>
+                <td class="text_center" width="5%">基本工资</td>
+                <td class="text_center" width="5%">请假天数</td>
                 <td class="text_center" width="5%">计薪天数</td>
                 <td class="text_center" width="5%">出勤工资</td>
-                <td class="text_center" width="5%">请假天数</td>
                 <td class="text_center" width="5%">加班费</td>
                 <td class="text_center" width="5%">出差费</td>
                 <td class="text_center" width="5%">公交费</td>
-                <td class="text_center" width="5%">合同类型</td>
-                <td class="text_center" width="5%">日报天数</td>
+                <td class="text_center" width="5%">奖金天数</td>
                 <td class="text_center" width="5%">timebase</td>
-                <td class="text_center" width="5%">timebase调整</td>
+                <td class="text_center" width="5%">timebase调整后</td>
                 <td class="text_center" width="5%">taskbase</td>
-                <td class="text_center" width="5%">taskbase调整</td>
-                <td class="text_center" width="5%" >部门奖金</td>
-<%--                <td class="text_center" width="5%" >合计工资</td>--%>
+                <td class="text_center" width="5%">taskbase调整后</td>
+                <td class="text_center" width="5%" >调整项</td>
+                <td class="text_center" width="5%" >税前工资</td>
                 <td class="text_center" width="5%">操作</td>
                 </thead>
 
                 <tbody data-bind="foreach:ShowList" >
-                <tr >
+                <tr data-bind="style: { backgroundColor: task > 0 ? (task>1 ? 'cyan' : 'orange' ) : 'white' ,fontWeight:'bold' }">
+                    <td data-bind="text:$index()+1">编号</td>
                     <td data-bind="text:name">编号</td>
                     <%--<td data-bind="text:department">编号</td>--%>
                     <td data-bind="text:salaryid">编号</td>
+                    <td data-bind="text:contractType"></td>
+                    <td data-bind="text:yindaIdentify"></td>
                     <td data-bind="text:salarydate">编号</td>
+                    <td data-bind="text:baseSalary"></td>
+                    <td data-bind="text:leavetype">编号</td>
                     <td data-bind="text:effectiveattendance">编号</td>
                     <td data-bind="text:attendancesalary">编号</td>
-                    <td data-bind="text:leavetype">编号</td>
                     <td data-bind="text:worksalary">编号</td>
                     <td data-bind="text:allowance">编号</td>
                     <td data-bind="text:trafficsalary">编号</td>
-                    <td data-bind="text:contractType"></td>
                     <td data-bind="text:realityattendance">编号</td>
                     <td data-bind="text:timesalary">编号</td>
-                    <td ><input  class="c_ding_input" style="width:60px" data-bind="textinput:timebaseadd,attr:{readonly:role=='项目经理'}"/></td>
+                    <td ><input  class="c_ding_input" style="width:60px" data-bind="textinput:timebaseadd,attr:{readonly:role=='项目经理' ||  task>'1'},event:{ change: $root.changeValue } "/></td>
                     <td data-bind="text:tasksalary">编号</td>
-                    <td ><input  class="c_ding_input" style="width:60px" data-bind="textinput:taskbaseadd,attr:{readonly:role=='项目经理'}"/></td>
+                    <td ><input  class="c_ding_input" style="width:60px" data-bind="textinput:taskbaseadd,attr:{readonly:role=='项目经理' ||  task>'1'},event:{ change: $root.changeValue }"/></td>
 
-                    <td ><input  class="c_ding_input" style="width:60px" data-bind="textinput:userbonus,attr:{readonly:role=='项目经理'}"/></td>
+                    <td ><input  class="c_ding_input" style="width:60px" data-bind="textinput:userbonus,attr:{readonly:role=='项目经理' ||  task>'1'},event:{ change: $root.changeValue }" /></td>
 
-                   <%-- <td data-bind="text:totalsalary">编号</td>--%>
+                    <td data-bind="text:totalsalary">编号</td>
                     <td>
-                        <input data-bind="click:$root.ClickUpdate" type="button" value="审批" class="gx-btn_large"/>
+                        <input data-bind="click:$root.ClickUpdate" type="button" value="提交" class="gx-btn_large"/>
                     </td>
                 </tr>
                 </tbody>

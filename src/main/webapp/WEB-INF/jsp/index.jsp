@@ -172,7 +172,7 @@
 	</header>
 
 	<div>
-             <iframe class="weui_tab_bd " height="1000px"; frameborder="no" src="<%=basePath%>userinfo/testMethod.do" name="loadcontent" style="width:100%;">
+             <iframe class="weui_tab_bd " height="1000px"; frameborder="no" src="<%=basePath%>userinfo/querys.do" name="loadcontent" style="width:100%;">
 			 
 			 
 			 </iframe>

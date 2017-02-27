@@ -135,12 +135,20 @@
 				<table width="100%" border="1" cellspacing="0" cellpadding="0"
 					class="table-1">
 					<thead class="table-1-tou">
-						<td class="text_center" width="13%">分公司</td>
-						<td class="text_center" width="6%">月份</td>
-						<td class="text_center" width="15%">姓名</td>
-						<td class="text_center" width="14%">出差薪资</td>
-						
-						<td class="text_center" width="9%">总工资</td>
+						<td class="text_center" width="5%">分公司</td>
+						<td class="text_center" width="5%">月份</td>
+						<td class="text_center" width="5%">姓名</td>
+						<td class="text_center" width="5%">工号</td>
+						<td class="text_center" width="5%">部门</td>
+						<td class="text_center" width="4%">技术等级</td>
+						<td class="text_center" width="4%">基础工资</td>
+						<td class="text_center" width="4%">小计</td>
+						<td class="text_center" width="4%">奖金调整项</td>
+						<td class="text_center" width="5%">税前工资</td>
+						<td class="text_center" width="5%">当月应发</td>
+						<td class="text_center" width="5%">社保代扣</td>
+						<td class="text_center" width="5%">个税代扣</td>
+						<td class="text_center" width="5%">当月实发</td>
 					</thead>
 
 					<tbody id="tbody">
@@ -201,11 +209,20 @@ function search_List(){
 	   tbody="";
 		$.each(json, function (n, value) {
            tbody = tbody+"<tr>"+
-            "<td class='text_center' width='13%'>"+value.department+"</td>"+
-            "<td class='text_center' width='13%'>"+value.salarydate+"</td>"+
-			"<td class='text_center' width='13%'>"+value.name+"</td>"+
-			"<td class='text_center' width='13%'>"+value.attendancesalary+"</td>"+
-			"<td class='text_center' width='13%'>"+value.totalsalary+"</td>"+
+            "<td class='text_center' width='5%'>"+value.department+"</td>"+
+            "<td class='text_center' width='5%'>"+value.salarydate+"</td>"+
+			"<td class='text_center' width='5%'>"+value.name+"</td>"+
+				   "<td class='text_center' width='5%'>"+value.salaryid+"</td>"+
+				   "<td class='text_center' width='5%'>"+value.department+"</td>"+
+				   "<td class='text_center' width='5%'>"+value.yindaIdentify+"</td>"+
+				   "<td class='text_center' width='5%'>"+value.baseSalary+"</td>"+
+				   "<td class='text_center' width='5%'>"+value.subtotal+"</td>"+
+				   "<td class='text_center' width='5%'>"+value.userbonus+"</td>"+
+				   "<td class='text_center' width='5%'>"+value.totalsalary+"</td>"+
+				   "<td class='text_center' width='5%'>"+value.monthSalary+"</td>"+
+				   "<td class='text_center' width='5%'>"+value.socialdecase+"</td>"+
+				   "<td class='text_center' width='5%'>"+value.tax+"</td>"+
+			"<td class='text_center' width='5%'>"+value.realsalary+"</td>"+
         
 			"</tr>";
         });
