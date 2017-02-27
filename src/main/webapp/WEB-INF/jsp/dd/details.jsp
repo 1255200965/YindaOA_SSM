@@ -45,7 +45,7 @@
         .content .cont-tit{background:#F2F2F2;font-size:16px;padding:3% 0;}
         .content .cont-details ul li{overflow: hidden;padding:3% 0;border-bottom:1px solid #E4E4E4;background:#fff;}
         .content .cont-details ul li .details-l{float:left;text-align:left;margin-left: 10px;}
-        .content .cont-details ul li .details-r{float:right;text-align:right;margin-right: 10px;}
+        .content .cont-details ul li .details-r{float:right;text-align:right;margin-right: 10px;font-weight: bold;}
     </style>
 </head>
 <script>
@@ -55,35 +55,36 @@
 <body>
 <header>
    <%-- <a href="<%=basePath%>user/phone-salary.do"><i class="iconfont">&#xe82f;</i></a>--%>
-    工资详情
+    工资明细
 </header>
 <div class="content">
-    <div class="cont-tit">
+<%--    <div class="cont-tit">
         详细数据
-    </div>
+    </div>--%>
     <div class="cont-details">
         <ul>
             <li>
-                <p class="details-l">工资月份</p>
-                <p class="details-r">${list.salarydate }</p>
+                <p class="details-l" >工资月份</p>
+                <p class="details-r" >${list.salarydate }</p>
+            </li>
+            <li style="background-color:#DDDDDD">
+                <p class="details-l " >基本工资</p>
+                <p class="details-r " >${list.baseSalary }</p>
             </li>
             <li>
-                <p class="details-l">基本工资</p>
-                <p class="details-r">${list.baseSalary }</p>
-            </li>
-            <li>
-                <p class="details-l">当月满勤天数</p>
+                <p class="details-l" >当月满勤天数</p>
                 <p class="details-r">${list.datetype }</p>
             </li>
-            <li>
-                <p class="details-l">当月实际考勤天数</p>
-                <p class="details-r">${list.realityattendance }</p>
-            </li>
-            <li>
+
+            <li >
                 <p class="details-l">当月有效打卡天数</p>
                 <p class="details-r">${list.effectiveattendance }</p>
             </li>
-            <li>
+            <li style="background-color:#DDDDDD">
+                <p class="details-l">当月出勤工资</p>
+                <p class="details-r">${list.attendancesalary }</p>
+            </li>
+            <li >
                 <p class="details-l">请假天数</p>
                 <p class="details-r">${list.leavetype }</p>
             </li>
@@ -91,15 +92,15 @@
                 <p class="details-l">有效加班天数</p>
                 <p class="details-r">${list.workovertime }</p>
             </li>
-            <li>
+            <li >
                 <p class="details-l">加班费</p>
                 <p class="details-r">${list.worksalary }</p>
             </li>
-            <li>
+            <li style="background-color:#DDDDDD">
                 <p class="details-l">小计</p>
                 <p class="details-r">${list.subtotal }</p>
             </li>
-            <li>
+            <li >
                 <p class="details-l">有效出差天数</p>
                 <p class="details-r">${list.evection }</p>
             </li>
@@ -107,7 +108,7 @@
                 <p class="details-l">出差补贴</p>
                 <p class="details-r">${list.allowance }</p>
             </li>
-            <li>
+            <li >
                 <p class="details-l">高温补贴</p>
                 <p class="details-r">${list.heatingAllowance }</p>
             </li>
@@ -115,23 +116,23 @@
                 <p class="details-l">公交地铁费</p>
                 <p class="details-r">${list.trafficsalary }</p>
             </li>
+            <li >
+                <p class="details-l">当月奖金天数</p>
+                <p class="details-r">${list.realityattendance }</p>
+            </li>
             <li>
                 <p class="details-l">timebase奖金</p>
-                <p class="details-r">${list.timesalary }</p>
+                <p class="details-r">${list.timebaseadd }</p>
             </li>
-            <li>
+            <li >
                 <p class="details-l">taskbase奖金</p>
-                <p class="details-r">${list.tasksalary }</p>
+                <p class="details-r">${list.taskbaseadd }</p>
             </li>
             <li>
-                <p class="details-l">部门奖金</p>
+                <p class="details-l">奖金调整项</p>
                 <p class="details-r">${list.userbonus }</p>
             </li>
-            <li>
-                <p class="details-l">社保代扣</p>
-                <p class="details-r">${list.socialdecase }</p>
-            </li>
-            <li>
+            <li style="background-color:#DDDDDD">
                 <p class="details-l">税前收入总计</p>
                 <p class="details-r">${list.totalsalary }</p>
             </li>
@@ -139,11 +140,15 @@
                 <p class="details-l">当月工资</p>
                 <p class="details-r">${list.monthSalary }</p>
             </li>
-            <li>
-                <p class="details-l">当月工资所得税</p>
-                <p class="details-r">${list.tax }</p>
+            <li >
+                <p class="details-l">社保代扣</p>
+                <p class="details-r">${list.socialdecase }</p>
             </li>
             <li>
+                <p class="details-l">当月个税代扣</p>
+                <p class="details-r">${list.tax }</p>
+            </li>
+            <li style="background-color:#DDDDDD">
                 <p class="details-l">当月工资实发</p>
                 <p class="details-r">${list.realsalary }</p>
             </li>
@@ -151,11 +156,11 @@
                 <p class="details-l">当月预发奖金</p>
                 <p class="details-r">${list.monthBonus }</p>
             </li>
-            <li>
-                <p class="details-l">当月预发奖金所得税</p>
+            <li >
+                <p class="details-l">当月预发奖金个税代扣</p>
                 <p class="details-r">${list.monthBonusTax }</p>
             </li>
-            <li>
+            <li style="background-color:#DDDDDD">
                 <p class="details-l">当月预发奖金实发</p>
                 <p class="details-r">${list.monthBonusReal }</p>
             </li>

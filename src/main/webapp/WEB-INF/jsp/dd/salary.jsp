@@ -92,25 +92,26 @@
 </head>
 <body>
 <div class="box">
-<%--    <header>
-        <div class="head-ico fl"><i class="iconfont">&#xe82f;</i></div>
+   <header>
+       <%-- <div class="head-ico fl"><i class="iconfont">&#xe82f;</i></div>--%>
         <div class="head-msg fl">上海音达科技实业有限公司</div>
-        <div class="head-ser fr">帮助</div>
-    </header>--%>
+        <%--<div class="head-ser fr">帮助</div>--%>
+    </header>
     <div class="content">
         <div class="content-top" data-bind="with:changeItem">
             <div class="affair-msg">
-                <p id="date" data-bind="text:salarydate"></p><p>收入</p>
-                <p id = "total"data-bind="text:realsalary">0.00</p>
+                <p style="font-size:24px" id="date" data-bind="text:salarydate"></p><p style="font-size:24px">月收入</p>
+                <p style="font-size:34px" id = "total"data-bind="text:realsalary">0.00</p>
+                <br>
                 <p><a href=javascript:getAll("user/phone-details.do")>点击查看详情</a></p>
             </div>
             <div class="other">
-                <a href=javascript:getQuery("Calendar_Attendance.do")>考勤打卡<p id="kq"data-bind="text:attendance"></p></a>
-                <a href=javascript:getQuery("Calendar_RealAttendance.do")>签到<p id="jb"data-bind="text:realityattendance"></p></a>
-                <a href=javascript:getQuery("Calendar_EffectAttendance.do")>日报<p id="qj"data-bind="text:effectiveattendance"></p></a>
-                <a href=javascript:getQuery("Calendar_Evenctime.do")>出差<p id="cc"data-bind="text:evection"></p></a>
-                <a href=javascript:getQuery("Calendar_Leavetype.do")>请假<p id="zs"data-bind="text:leavetype"></p></a>
-                <a href=javascript:getQuery("Calendar_Worktime.do")>加班<p id="yx"data-bind="text:workovertime"></p></a>
+                <a href=javascript:getQuery("Calendar_EffectAttendance.do")>有效出勤<p id="kq"></p></a>
+                <a href=javascript:getQuery("Calendar_RealAttendance.do")>奖金天数<p id="jb"></p></a>
+                <a >日报<p id="qj"></p></a>
+                <a href=javascript:getQuery("Calendar_Evenctime.do")>出差<p id="cc"></p></a>
+                <a href=javascript:getQuery("Calendar_Leavetype.do")>请假<p id="zs"></p></a>
+                <a href=javascript:getQuery("Calendar_Worktime.do")>加班<p id="yx"></p></a>
             </div>
         </div>
 
@@ -141,6 +142,9 @@
         days = days.getDate(); //获取当前日期中月的天数
         var year2 = year;
         var month2 = parseInt(month) - 1;
+        if (day <= 20) {
+            month2 = month;
+        }
         if (month2 == 0) {
             year2 = parseInt(year2) - 1;
             month2 = 12;
@@ -155,6 +159,7 @@
             month2 = '0' + month2;
         }
         var t2 = year2 + '-' + month2;  //+ '-' + day2;
+
         return t2;
     }
 //  日期插件代码开始
