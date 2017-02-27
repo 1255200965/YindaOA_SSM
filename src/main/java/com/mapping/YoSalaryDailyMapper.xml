@@ -1,0 +1,504 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.YoSalaryDailyMapper" >
+  <resultMap id="BaseResultMap" type="com.model.YoSalaryDaily" >
+    <id column="seq_no" property="seqNo" jdbcType="INTEGER" />
+    <result column="staffid" property="staffid" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="contract_type" property="contractType" jdbcType="VARCHAR" />
+    <result column="ordinary_address" property="ordinaryAddress" jdbcType="VARCHAR" />
+    <result column="whether_bt_allowance" property="whetherBtAllowance" jdbcType="VARCHAR" />
+    <result column="base_salary" property="baseSalary" jdbcType="VARCHAR" />
+    <result column="date" property="date" jdbcType="VARCHAR" />
+    <result column="date_type" property="dateType" jdbcType="VARCHAR" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="ord_depart" property="ordDepart" jdbcType="VARCHAR" />
+    <result column="project" property="project" jdbcType="VARCHAR" />
+    <result column="order_name" property="orderName" jdbcType="VARCHAR" />
+    <result column="order_procity" property="orderProcity" jdbcType="VARCHAR" />
+    <result column="business_attribute" property="businessAttribute" jdbcType="VARCHAR" />
+    <result column="business_level" property="businessLevel" jdbcType="VARCHAR" />
+    <result column="outdoor_work" property="outdoorWork" jdbcType="VARCHAR" />
+    <result column="whether_att" property="whetherAtt" jdbcType="VARCHAR" />
+    <result column="att_procity" property="attProcity" jdbcType="VARCHAR" />
+    <result column="att_type" property="attType" jdbcType="VARCHAR" />
+    <result column="whether_sign" property="whetherSign" jdbcType="VARCHAR" />
+    <result column="sign_procity" property="signProcity" jdbcType="VARCHAR" />
+    <result column="ask_leave_type" property="askLeaveType" jdbcType="VARCHAR" />
+    <result column="ask_leave_allowance" property="askLeaveAllowance" jdbcType="VARCHAR" />
+    <result column="whether_bt" property="whetherBt" jdbcType="VARCHAR" />
+    <result column="bt_procity" property="btProcity" jdbcType="VARCHAR" />
+    <result column="whether_eff_att" property="whetherEffAtt" jdbcType="VARCHAR" />
+    <result column="whether_ot" property="whetherOt" jdbcType="VARCHAR" />
+    <result column="ot_procity" property="otProcity" jdbcType="VARCHAR" />
+    <result column="whether_eff_sign" property="whetherEffSign" jdbcType="VARCHAR" />
+    <result column="whether_eff_bt" property="whetherEffBt" jdbcType="VARCHAR" />
+    <result column="bt_allowance" property="btAllowance" jdbcType="VARCHAR" />
+    <result column="whether_eff_ot" property="whetherEffOt" jdbcType="VARCHAR" />
+    <result column="ot_allowance" property="otAllowance" jdbcType="VARCHAR" />
+    <result column="heating_allowance" property="heatingAllowance" jdbcType="VARCHAR" />
+    <result column="timebase" property="timebase" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    seq_no, staffid, name, contract_type, ordinary_address, whether_bt_allowance, base_salary, 
+    date, date_type, order_no, ord_depart, project, order_name, order_procity, business_attribute, 
+    business_level, outdoor_work, whether_att, att_procity, att_type, whether_sign, sign_procity, 
+    ask_leave_type, ask_leave_allowance, whether_bt, bt_procity, whether_eff_att, whether_ot, 
+    ot_procity, whether_eff_sign, whether_eff_bt, bt_allowance, whether_eff_ot, ot_allowance, 
+    heating_allowance, timebase
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.model.YoSalaryDailyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from yo_salary_daily
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yo_salary_daily
+    where seq_no = #{seqNo,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yo_salary_daily
+    where seq_no = #{seqNo,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.model.YoSalaryDaily" >
+    insert into yo_salary_daily (seq_no, staffid, name, 
+      contract_type, ordinary_address, whether_bt_allowance, 
+      base_salary, date, date_type, 
+      order_no, ord_depart, project, 
+      order_name, order_procity, business_attribute, 
+      business_level, outdoor_work, whether_att, 
+      att_procity, att_type, whether_sign, 
+      sign_procity, ask_leave_type, ask_leave_allowance, 
+      whether_bt, bt_procity, whether_eff_att, 
+      whether_ot, ot_procity, whether_eff_sign, 
+      whether_eff_bt, bt_allowance, whether_eff_ot, 
+      ot_allowance, heating_allowance, timebase
+      )
+    values (#{seqNo,jdbcType=INTEGER}, #{staffid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{contractType,jdbcType=VARCHAR}, #{ordinaryAddress,jdbcType=VARCHAR}, #{whetherBtAllowance,jdbcType=VARCHAR}, 
+      #{baseSalary,jdbcType=VARCHAR}, #{date,jdbcType=VARCHAR}, #{dateType,jdbcType=VARCHAR}, 
+      #{orderNo,jdbcType=VARCHAR}, #{ordDepart,jdbcType=VARCHAR}, #{project,jdbcType=VARCHAR}, 
+      #{orderName,jdbcType=VARCHAR}, #{orderProcity,jdbcType=VARCHAR}, #{businessAttribute,jdbcType=VARCHAR}, 
+      #{businessLevel,jdbcType=VARCHAR}, #{outdoorWork,jdbcType=VARCHAR}, #{whetherAtt,jdbcType=VARCHAR}, 
+      #{attProcity,jdbcType=VARCHAR}, #{attType,jdbcType=VARCHAR}, #{whetherSign,jdbcType=VARCHAR}, 
+      #{signProcity,jdbcType=VARCHAR}, #{askLeaveType,jdbcType=VARCHAR}, #{askLeaveAllowance,jdbcType=VARCHAR}, 
+      #{whetherBt,jdbcType=VARCHAR}, #{btProcity,jdbcType=VARCHAR}, #{whetherEffAtt,jdbcType=VARCHAR}, 
+      #{whetherOt,jdbcType=VARCHAR}, #{otProcity,jdbcType=VARCHAR}, #{whetherEffSign,jdbcType=VARCHAR}, 
+      #{whetherEffBt,jdbcType=VARCHAR}, #{btAllowance,jdbcType=VARCHAR}, #{whetherEffOt,jdbcType=VARCHAR}, 
+      #{otAllowance,jdbcType=VARCHAR}, #{heatingAllowance,jdbcType=VARCHAR}, #{timebase,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.YoSalaryDaily" >
+    insert into yo_salary_daily
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="seqNo != null" >
+        seq_no,
+      </if>
+      <if test="staffid != null" >
+        staffid,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="contractType != null" >
+        contract_type,
+      </if>
+      <if test="ordinaryAddress != null" >
+        ordinary_address,
+      </if>
+      <if test="whetherBtAllowance != null" >
+        whether_bt_allowance,
+      </if>
+      <if test="baseSalary != null" >
+        base_salary,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="dateType != null" >
+        date_type,
+      </if>
+      <if test="orderNo != null" >
+        order_no,
+      </if>
+      <if test="ordDepart != null" >
+        ord_depart,
+      </if>
+      <if test="project != null" >
+        project,
+      </if>
+      <if test="orderName != null" >
+        order_name,
+      </if>
+      <if test="orderProcity != null" >
+        order_procity,
+      </if>
+      <if test="businessAttribute != null" >
+        business_attribute,
+      </if>
+      <if test="businessLevel != null" >
+        business_level,
+      </if>
+      <if test="outdoorWork != null" >
+        outdoor_work,
+      </if>
+      <if test="whetherAtt != null" >
+        whether_att,
+      </if>
+      <if test="attProcity != null" >
+        att_procity,
+      </if>
+      <if test="attType != null" >
+        att_type,
+      </if>
+      <if test="whetherSign != null" >
+        whether_sign,
+      </if>
+      <if test="signProcity != null" >
+        sign_procity,
+      </if>
+      <if test="askLeaveType != null" >
+        ask_leave_type,
+      </if>
+      <if test="askLeaveAllowance != null" >
+        ask_leave_allowance,
+      </if>
+      <if test="whetherBt != null" >
+        whether_bt,
+      </if>
+      <if test="btProcity != null" >
+        bt_procity,
+      </if>
+      <if test="whetherEffAtt != null" >
+        whether_eff_att,
+      </if>
+      <if test="whetherOt != null" >
+        whether_ot,
+      </if>
+      <if test="otProcity != null" >
+        ot_procity,
+      </if>
+      <if test="whetherEffSign != null" >
+        whether_eff_sign,
+      </if>
+      <if test="whetherEffBt != null" >
+        whether_eff_bt,
+      </if>
+      <if test="btAllowance != null" >
+        bt_allowance,
+      </if>
+      <if test="whetherEffOt != null" >
+        whether_eff_ot,
+      </if>
+      <if test="otAllowance != null" >
+        ot_allowance,
+      </if>
+      <if test="heatingAllowance != null" >
+        heating_allowance,
+      </if>
+      <if test="timebase != null" >
+        timebase,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="seqNo != null" >
+        #{seqNo,jdbcType=INTEGER},
+      </if>
+      <if test="staffid != null" >
+        #{staffid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="contractType != null" >
+        #{contractType,jdbcType=VARCHAR},
+      </if>
+      <if test="ordinaryAddress != null" >
+        #{ordinaryAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="whetherBtAllowance != null" >
+        #{whetherBtAllowance,jdbcType=VARCHAR},
+      </if>
+      <if test="baseSalary != null" >
+        #{baseSalary,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="dateType != null" >
+        #{dateType,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="ordDepart != null" >
+        #{ordDepart,jdbcType=VARCHAR},
+      </if>
+      <if test="project != null" >
+        #{project,jdbcType=VARCHAR},
+      </if>
+      <if test="orderName != null" >
+        #{orderName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderProcity != null" >
+        #{orderProcity,jdbcType=VARCHAR},
+      </if>
+      <if test="businessAttribute != null" >
+        #{businessAttribute,jdbcType=VARCHAR},
+      </if>
+      <if test="businessLevel != null" >
+        #{businessLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="outdoorWork != null" >
+        #{outdoorWork,jdbcType=VARCHAR},
+      </if>
+      <if test="whetherAtt != null" >
+        #{whetherAtt,jdbcType=VARCHAR},
+      </if>
+      <if test="attProcity != null" >
+        #{attProcity,jdbcType=VARCHAR},
+      </if>
+      <if test="attType != null" >
+        #{attType,jdbcType=VARCHAR},
+      </if>
+      <if test="whetherSign != null" >
+        #{whetherSign,jdbcType=VARCHAR},
+      </if>
+      <if test="signProcity != null" >
+        #{signProcity,jdbcType=VARCHAR},
+      </if>
+      <if test="askLeaveType != null" >
+        #{askLeaveType,jdbcType=VARCHAR},
+      </if>
+      <if test="askLeaveAllowance != null" >
+        #{askLeaveAllowance,jdbcType=VARCHAR},
+      </if>
+      <if test="whetherBt != null" >
+        #{whetherBt,jdbcType=VARCHAR},
+      </if>
+      <if test="btProcity != null" >
+        #{btProcity,jdbcType=VARCHAR},
+      </if>
+      <if test="whetherEffAtt != null" >
+        #{whetherEffAtt,jdbcType=VARCHAR},
+      </if>
+      <if test="whetherOt != null" >
+        #{whetherOt,jdbcType=VARCHAR},
+      </if>
+      <if test="otProcity != null" >
+        #{otProcity,jdbcType=VARCHAR},
+      </if>
+      <if test="whetherEffSign != null" >
+        #{whetherEffSign,jdbcType=VARCHAR},
+      </if>
+      <if test="whetherEffBt != null" >
+        #{whetherEffBt,jdbcType=VARCHAR},
+      </if>
+      <if test="btAllowance != null" >
+        #{btAllowance,jdbcType=VARCHAR},
+      </if>
+      <if test="whetherEffOt != null" >
+        #{whetherEffOt,jdbcType=VARCHAR},
+      </if>
+      <if test="otAllowance != null" >
+        #{otAllowance,jdbcType=VARCHAR},
+      </if>
+      <if test="heatingAllowance != null" >
+        #{heatingAllowance,jdbcType=VARCHAR},
+      </if>
+      <if test="timebase != null" >
+        #{timebase,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.YoSalaryDaily" >
+    update yo_salary_daily
+    <set >
+      <if test="staffid != null" >
+        staffid = #{staffid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="contractType != null" >
+        contract_type = #{contractType,jdbcType=VARCHAR},
+      </if>
+      <if test="ordinaryAddress != null" >
+        ordinary_address = #{ordinaryAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="whetherBtAllowance != null" >
+        whether_bt_allowance = #{whetherBtAllowance,jdbcType=VARCHAR},
+      </if>
+      <if test="baseSalary != null" >
+        base_salary = #{baseSalary,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        date = #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="dateType != null" >
+        date_type = #{dateType,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="ordDepart != null" >
+        ord_depart = #{ordDepart,jdbcType=VARCHAR},
+      </if>
+      <if test="project != null" >
+        project = #{project,jdbcType=VARCHAR},
+      </if>
+      <if test="orderName != null" >
+        order_name = #{orderName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderProcity != null" >
+        order_procity = #{orderProcity,jdbcType=VARCHAR},
+      </if>
+      <if test="businessAttribute != null" >
+        business_attribute = #{businessAttribute,jdbcType=VARCHAR},
+      </if>
+      <if test="businessLevel != null" >
+        business_level = #{businessLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="outdoorWork != null" >
+        outdoor_work = #{outdoorWork,jdbcType=VARCHAR},
+      </if>
+      <if test="whetherAtt != null" >
+        whether_att = #{whetherAtt,jdbcType=VARCHAR},
+      </if>
+      <if test="attProcity != null" >
+        att_procity = #{attProcity,jdbcType=VARCHAR},
+      </if>
+      <if test="attType != null" >
+        att_type = #{attType,jdbcType=VARCHAR},
+      </if>
+      <if test="whetherSign != null" >
+        whether_sign = #{whetherSign,jdbcType=VARCHAR},
+      </if>
+      <if test="signProcity != null" >
+        sign_procity = #{signProcity,jdbcType=VARCHAR},
+      </if>
+      <if test="askLeaveType != null" >
+        ask_leave_type = #{askLeaveType,jdbcType=VARCHAR},
+      </if>
+      <if test="askLeaveAllowance != null" >
+        ask_leave_allowance = #{askLeaveAllowance,jdbcType=VARCHAR},
+      </if>
+      <if test="whetherBt != null" >
+        whether_bt = #{whetherBt,jdbcType=VARCHAR},
+      </if>
+      <if test="btProcity != null" >
+        bt_procity = #{btProcity,jdbcType=VARCHAR},
+      </if>
+      <if test="whetherEffAtt != null" >
+        whether_eff_att = #{whetherEffAtt,jdbcType=VARCHAR},
+      </if>
+      <if test="whetherOt != null" >
+        whether_ot = #{whetherOt,jdbcType=VARCHAR},
+      </if>
+      <if test="otProcity != null" >
+        ot_procity = #{otProcity,jdbcType=VARCHAR},
+      </if>
+      <if test="whetherEffSign != null" >
+        whether_eff_sign = #{whetherEffSign,jdbcType=VARCHAR},
+      </if>
+      <if test="whetherEffBt != null" >
+        whether_eff_bt = #{whetherEffBt,jdbcType=VARCHAR},
+      </if>
+      <if test="btAllowance != null" >
+        bt_allowance = #{btAllowance,jdbcType=VARCHAR},
+      </if>
+      <if test="whetherEffOt != null" >
+        whether_eff_ot = #{whetherEffOt,jdbcType=VARCHAR},
+      </if>
+      <if test="otAllowance != null" >
+        ot_allowance = #{otAllowance,jdbcType=VARCHAR},
+      </if>
+      <if test="heatingAllowance != null" >
+        heating_allowance = #{heatingAllowance,jdbcType=VARCHAR},
+      </if>
+      <if test="timebase != null" >
+        timebase = #{timebase,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where seq_no = #{seqNo,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.YoSalaryDaily" >
+    update yo_salary_daily
+    set staffid = #{staffid,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      contract_type = #{contractType,jdbcType=VARCHAR},
+      ordinary_address = #{ordinaryAddress,jdbcType=VARCHAR},
+      whether_bt_allowance = #{whetherBtAllowance,jdbcType=VARCHAR},
+      base_salary = #{baseSalary,jdbcType=VARCHAR},
+      date = #{date,jdbcType=VARCHAR},
+      date_type = #{dateType,jdbcType=VARCHAR},
+      order_no = #{orderNo,jdbcType=VARCHAR},
+      ord_depart = #{ordDepart,jdbcType=VARCHAR},
+      project = #{project,jdbcType=VARCHAR},
+      order_name = #{orderName,jdbcType=VARCHAR},
+      order_procity = #{orderProcity,jdbcType=VARCHAR},
+      business_attribute = #{businessAttribute,jdbcType=VARCHAR},
+      business_level = #{businessLevel,jdbcType=VARCHAR},
+      outdoor_work = #{outdoorWork,jdbcType=VARCHAR},
+      whether_att = #{whetherAtt,jdbcType=VARCHAR},
+      att_procity = #{attProcity,jdbcType=VARCHAR},
+      att_type = #{attType,jdbcType=VARCHAR},
+      whether_sign = #{whetherSign,jdbcType=VARCHAR},
+      sign_procity = #{signProcity,jdbcType=VARCHAR},
+      ask_leave_type = #{askLeaveType,jdbcType=VARCHAR},
+      ask_leave_allowance = #{askLeaveAllowance,jdbcType=VARCHAR},
+      whether_bt = #{whetherBt,jdbcType=VARCHAR},
+      bt_procity = #{btProcity,jdbcType=VARCHAR},
+      whether_eff_att = #{whetherEffAtt,jdbcType=VARCHAR},
+      whether_ot = #{whetherOt,jdbcType=VARCHAR},
+      ot_procity = #{otProcity,jdbcType=VARCHAR},
+      whether_eff_sign = #{whetherEffSign,jdbcType=VARCHAR},
+      whether_eff_bt = #{whetherEffBt,jdbcType=VARCHAR},
+      bt_allowance = #{btAllowance,jdbcType=VARCHAR},
+      whether_eff_ot = #{whetherEffOt,jdbcType=VARCHAR},
+      ot_allowance = #{otAllowance,jdbcType=VARCHAR},
+      heating_allowance = #{heatingAllowance,jdbcType=VARCHAR},
+      timebase = #{timebase,jdbcType=VARCHAR}
+    where seq_no = #{seqNo,jdbcType=INTEGER}
+  </update>
+</mapper>
