@@ -100,7 +100,7 @@ margin-bottom:3px;
 					<label class="weui_label">已报名人数：</label>
 				</div>
 				<div class="weui_cell_bd weui_cell_primary" style ="font-size:10px;">
-					${list.meetingCount}人
+					未知
 				</div>
 			</div>
 	</div>
