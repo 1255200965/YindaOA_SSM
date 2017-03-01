@@ -42,7 +42,7 @@ public class OrderMessageUtil {
 	 * 获取access_token
 	 * @return
 	 */
-	private static String getAccess_token(){
+	public static String getAccess_token(){
 		String access_token=null;
 		try {
 			//根据corpid跟corpsecrect获取accesstoken
