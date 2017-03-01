@@ -42,7 +42,7 @@
     <script>
    /*权限验证配置所需的信息 */
      var config =<%=request.getAttribute("config")%>;
-     debugger;
+     
      //当前用户
      var nowUser=null;
      //用户授权码
@@ -69,7 +69,7 @@
          dd.runtime.permission.requestAuthCode({
              corpId : config.corpId,
              onSuccess : function(info) {
-            	 $.alert(info.code);
+            	
                 //存储用户信息
                 $.post("<%=path%>/order/login.do",{"code":info.code});
                  

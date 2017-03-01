@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.WebexMapper" >
+  <resultMap id="BaseResultMap" type="com.model.Webex" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="meeting_count" property="meetingCount" jdbcType="VARCHAR" />
+    <result column="meeting_desc" property="meetingDesc" jdbcType="VARCHAR" />
+    <result column="meeting_length" property="meetingLength" jdbcType="VARCHAR" />
+    <result column="meeting_name" property="meetingName" jdbcType="VARCHAR" />
+    <result column="meeting_password" property="meetingPassword" jdbcType="VARCHAR" />
+    <result column="meeting_time" property="meetingTime" jdbcType="VARCHAR" />
+    <result column="session_key" property="sessionKey" jdbcType="VARCHAR" />
+    <result column="train_now_number" property="trainNowNumber" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, meeting_count, meeting_desc, meeting_length, meeting_name, meeting_password, 
+    meeting_time, session_key, train_now_number
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.model.WebexExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from webex
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from webex
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from webex
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.model.Webex" >
+    insert into webex (id, meeting_count, meeting_desc, 
+      meeting_length, meeting_name, meeting_password, 
+      meeting_time, session_key, train_now_number
+      )
+    values (#{id,jdbcType=INTEGER}, #{meetingCount,jdbcType=VARCHAR}, #{meetingDesc,jdbcType=VARCHAR}, 
+      #{meetingLength,jdbcType=VARCHAR}, #{meetingName,jdbcType=VARCHAR}, #{meetingPassword,jdbcType=VARCHAR}, 
+      #{meetingTime,jdbcType=VARCHAR}, #{sessionKey,jdbcType=VARCHAR}, #{trainNowNumber,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.Webex" >
+    insert into webex
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="meetingCount != null" >
+        meeting_count,
+      </if>
+      <if test="meetingDesc != null" >
+        meeting_desc,
+      </if>
+      <if test="meetingLength != null" >
+        meeting_length,
+      </if>
+      <if test="meetingName != null" >
+        meeting_name,
+      </if>
+      <if test="meetingPassword != null" >
+        meeting_password,
+      </if>
+      <if test="meetingTime != null" >
+        meeting_time,
+      </if>
+      <if test="sessionKey != null" >
+        session_key,
+      </if>
+      <if test="trainNowNumber != null" >
+        train_now_number,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="meetingCount != null" >
+        #{meetingCount,jdbcType=VARCHAR},
+      </if>
+      <if test="meetingDesc != null" >
+        #{meetingDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="meetingLength != null" >
+        #{meetingLength,jdbcType=VARCHAR},
+      </if>
+      <if test="meetingName != null" >
+        #{meetingName,jdbcType=VARCHAR},
+      </if>
+      <if test="meetingPassword != null" >
+        #{meetingPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="meetingTime != null" >
+        #{meetingTime,jdbcType=VARCHAR},
+      </if>
+      <if test="sessionKey != null" >
+        #{sessionKey,jdbcType=VARCHAR},
+      </if>
+      <if test="trainNowNumber != null" >
+        #{trainNowNumber,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.Webex" >
+    update webex
+    <set >
+      <if test="meetingCount != null" >
+        meeting_count = #{meetingCount,jdbcType=VARCHAR},
+      </if>
+      <if test="meetingDesc != null" >
+        meeting_desc = #{meetingDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="meetingLength != null" >
+        meeting_length = #{meetingLength,jdbcType=VARCHAR},
+      </if>
+      <if test="meetingName != null" >
+        meeting_name = #{meetingName,jdbcType=VARCHAR},
+      </if>
+      <if test="meetingPassword != null" >
+        meeting_password = #{meetingPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="meetingTime != null" >
+        meeting_time = #{meetingTime,jdbcType=VARCHAR},
+      </if>
+      <if test="sessionKey != null" >
+        session_key = #{sessionKey,jdbcType=VARCHAR},
+      </if>
+      <if test="trainNowNumber != null" >
+        train_now_number = #{trainNowNumber,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.Webex" >
+    update webex
+    set meeting_count = #{meetingCount,jdbcType=VARCHAR},
+      meeting_desc = #{meetingDesc,jdbcType=VARCHAR},
+      meeting_length = #{meetingLength,jdbcType=VARCHAR},
+      meeting_name = #{meetingName,jdbcType=VARCHAR},
+      meeting_password = #{meetingPassword,jdbcType=VARCHAR},
+      meeting_time = #{meetingTime,jdbcType=VARCHAR},
+      session_key = #{sessionKey,jdbcType=VARCHAR},
+      train_now_number = #{trainNowNumber,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
