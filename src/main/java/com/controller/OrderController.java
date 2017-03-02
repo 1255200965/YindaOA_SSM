@@ -112,7 +112,12 @@ public class OrderController {
 		request.getSession().setAttribute(GlobalConstant.user_staff_user_id,staffInfo.getStaffUserId());
 		request.getSession().setAttribute(GlobalConstant.user_name,staffInfo.getName());
 		request.getSession().setAttribute("contractType",staffInfo.getContractType());
-		
+		System.out.println("当前是否为leader"+staffInfo.getWhetherLeader());
+		String leader = staffInfo.getWhetherLeader();
+		if("".equals(leader)||leader ==null){ 
+			leader="否";
+		}
+		request.getSession().setAttribute("leader",leader);
 	}
 	
 

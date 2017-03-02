@@ -139,8 +139,8 @@ margin-bottom:3px;
             var meeting_password = tr.find("input[name='meeting_password']").val();
             
             $.prompt({
-            	  title: '邮箱',
-            	  text: 'webex邮箱一致',
+            	  title: 'webex绑定邮箱',
+            	  text: '',
             	  input: '',
             	  empty: false, // 是否允许为空
             	  onOK: function (input) {

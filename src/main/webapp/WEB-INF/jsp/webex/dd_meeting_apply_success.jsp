@@ -62,12 +62,14 @@ margin-bottom:3px;
   <div class="weui-msg__icon-area"><i class="weui-icon-success weui-icon_msg"></i></div>
   <div class="weui-msg__text-area">
     <h2 class="weui-msg__title">成功!</h2>
-    <p class="weui-msg__desc"> 会议名称：${webex.meetingName}<br />
-      活动号：  ${webex.sessionKey}<br />
-      会议密码：${webex.meetingPassword}<br />
-
-      会议时间:${webex.meetingTime}<br />
-   <a  class="weui_btn weui_btn_primary " href="${meeting_url}" style="background:#2789d6; ">点此进入</a></p>
+   <p class="weui-msg__desc"> 
+      会议名称： ${webex.meetingName}<br />
+      活动号：     ${webex.sessionKey}<br />
+      会议密码： ${webex.meetingPassword}<br />
+      会议时间: ${webex.meetingTime}<br />
+      请安心等待会议的开始哦！
+  <%--  <a  class="weui_btn weui_btn_primary " href="${meeting_url}" style="background:#2789d6; ">点此进入</a> --%>
+  </p>
   </div>
   <div class="weui-msg__opr-area">
     <p class="weui-btn-area">

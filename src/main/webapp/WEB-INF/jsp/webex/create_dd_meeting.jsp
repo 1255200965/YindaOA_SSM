@@ -35,18 +35,7 @@
 }
 </style>
 <body>
-	<div class="weui-pull-to-refresh-layer">
-		<div class="pull-to-refresh-arrow"></div>
-		<!-- 上下拉动的时候显示的箭头 -->
-		<div class="pull-to-refresh-preloader"></div>
-		<!-- 正在刷新的菊花 -->
-		<div class="down">下拉刷新</div>
-		<!-- 下拉过程显示的文案 -->
-		<div class="up">释放刷新</div>
-		<!-- 下拉超过50px显示的文案 -->
-		<div class="refresh">正在刷新...</div>
-		<!-- 正在刷新时显示的文案 -->
-	</div>
+
 <h3 style="text-align:center">您好，欢迎使用音达培训</h3>
 	<form id="divform">
 		<div class="weui_cells weui_cells_form ">
@@ -81,7 +70,7 @@
 					<label class="weui_label">会议密码</label>
 				</div>
 				<div class="weui_cell_bd weui_cell_primary">
-					<input class="weui_input" type="text" placeholder="请输入会议密码 (123456)"
+					<input class="weui_input" type="number" placeholder="请输入会议密码 (123456)"
 						name ="meeting_password" id="meeting_password">
 						<input name="session_key" id="session_key" type="hidden">
 				</div>
@@ -148,15 +137,7 @@
 		
 	</form>
 	<script>
-    /** 页面下拉刷新**/
-    $(document.body).pullToRefresh();
-    $(document.body).on("pull-to-refresh", function() {
-        window.location.reload();
-        $(document.body).pullToRefreshDone();
-        
-        
-        
-    });
+ 
   
 
  	
@@ -213,14 +194,29 @@
     		return;
     	}
     	
+    	if(meeting_name.length<5){
+    		$.alert("会议名称至少5个字！");
+    		return;
+    	}
+    	
     	if(meeting_desc ==null || meeting_desc == ""){
     		$.alert("会议描述不可为空！");
+    		return;
+    	}
+    	if(meeting_desc.length<5){
+    		$.alert("会议描述至少5个字！");
     		return;
     	}
     	if(meeting_password ==null || meeting_password == ""){
     		$.alert("会议密码不可为空！");
     		return;
     	}
+    	
+    	if(meeting_password.length<6){
+    		$.alert("会议密码不可少于6位！");
+    		return;
+    	}
+    	
     	if(meeting_count ==null || meeting_count == ""){
     		$.alert("会议人数不可为空！");
     		return;

@@ -60,6 +60,11 @@ import com.util.WebExUtil;
 import bsh.ParseException;
 import net.sf.json.JSONObject;
 
+/**
+ * create date:2017-03-01
+ * @author yexianglei
+ *
+ */
 @Controller
 @RequestMapping("WebEx")
 public class WebExController {
@@ -218,8 +223,8 @@ public class WebExController {
 				" </accessControl>"+
 				" <schedule>"+
 				"  <startDate>"+meeting_time+"</startDate>"+
-				"  <duration>"+meeting_count+"</duration>"+
-				"  <timeZoneID>"+meeting_length+"</timeZoneID>"+
+				"  <duration>"+meeting_length+"</duration>"+
+				"  <timeZoneID>"+45+"</timeZoneID>"+
 				"   <entryExitTone>NOTONE</entryExitTone>"+
 				" </schedule>"+
 				" <enrollment>"+

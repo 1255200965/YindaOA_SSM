@@ -17,20 +17,23 @@
  </head>
  <body >
  <div class="weui_grids">
-  <a  class="weui_grid js_grid" href="<%=path%>/WebEx/create_dd_meeting_page.do">
+ 
+
+  <a  class="weui_grid js_grid" href="<%=path%>/WebEx/create_dd_meeting_page.do" style ="display:none;" id ="apply_meeting">
     <div class="weui_grid_icon">
       <img src="<%=path%>/images/train.png" alt="">
     </div>
     <p class="weui_grid_label">
-               音达会议
+              申请会议
     </p>
   </a>
+  
   <a  class="weui_grid js_grid" data-id="cell" href="<%=path%>/WebEx/meeting_list.do">
     <div class="weui_grid_icon">
       <img src="<%=path%>/images/bus.png" alt="">
     </div>
     <p class="weui_grid_label">
-                申请会议         
+                加入会议 
     </p>
   </a>
 
@@ -42,7 +45,7 @@
     <script>
    /*权限验证配置所需的信息 */
      var config =<%=request.getAttribute("config")%>;
-     
+    
      //当前用户
      var nowUser=null;
      //用户授权码
@@ -69,10 +72,18 @@
          dd.runtime.permission.requestAuthCode({
              corpId : config.corpId,
              onSuccess : function(info) {
-            	
+            	 
                 //存储用户信息
                 $.post("<%=path%>/order/login.do",{"code":info.code});
-                 
+                var leader = '${sessionScope.leader}';
+               
+                if(leader == null|| leader ==""){
+                	location.reload();
+                }
+                if(leader == "是"){
+                	$("#apply_meeting").css('display','block'); 
+                }
+                
              },
              onFail : function(err) {
                  alert('fail: ' + JSON.stringify(err));
