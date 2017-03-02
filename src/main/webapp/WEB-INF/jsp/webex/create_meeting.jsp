@@ -94,7 +94,7 @@
 					<label class="weui_label">会议密码</label>
 				</div>
 				<div class="weui_cell_bd weui_cell_primary">
-					<input class="weui_input" type="text" placeholder="请输入会议密码 (123456)"
+					<input class="weui_input" type="number" placeholder="请输入会议密码 (123456)"
 						name ="meeting_password" id="meeting_password">
 						<input name="session_key" id="session_key" type="hidden">
 				</div>
@@ -242,13 +242,25 @@
     		$.alert("会议名称不可为空！");
     		return;
     	}
-    	
+    	if(meeting_name.length<5){
+    		$.alert("会议名称至少5个字！");
+    		return;
+    	}
+    	if(meeting_desc.length<5){
+    		$.alert("会议描述至少5个字！");
+    		return;
+    	}
     	if(meeting_desc ==null || meeting_desc == ""){
     		$.alert("会议描述不可为空！");
     		return;
     	}
     	if(meeting_password ==null || meeting_password == ""){
     		$.alert("会议密码不可为空！");
+    		return;
+    	}
+
+    	if(meeting_password.length<6){
+    		$.alert("会议密码不可少于6位！");
     		return;
     	}
     	if(meeting_count ==null || meeting_count == ""){
