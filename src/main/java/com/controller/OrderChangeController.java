@@ -164,6 +164,7 @@ public class OrderChangeController {
 		}
 		System.out.println("审批流："+accessList);
 		String approveId =orderChange.getStaffUserId();//根据项目申请中查找申请人的ID
+		System.out.println(Integer.valueOf(approveId));
 		StaffInfo approve =iStaffInfoService.selectStaffByID(approveId); //根据申请人的ID查找审批人
 		List <StaffInfo> identifyList = staffInfoMapper.getAllIdentifyInStallInfo();
 		String approveName = approve.getName();//获取审批人的姓名
@@ -261,7 +262,9 @@ public class OrderChangeController {
 				
 				
 				String leader =staffInfoMapper.selectByPrimaryKey(staffCurentOrder.getStaffUserId()).getWhetherLeader();
-
+                if(leader==null){
+                	leader="否";
+                }
 				if(projectList!=null&&projectList.size()>0 && !leader.contains("是")){//如果department表中有该项目 并且这个人不能是主管
 					staffCurentOrder.setScoProjectName(scoProjectName);// 则修改当前staff_info表中的项目 保留原先的项目
 					staffCurentOrder.setDepartment(department);
