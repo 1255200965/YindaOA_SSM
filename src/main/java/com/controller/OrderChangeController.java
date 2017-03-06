@@ -162,9 +162,9 @@ public class OrderChangeController {
 
 
 		}
-		System.out.println("审批流："+accessList);
+		
 		String approveId =orderChange.getStaffUserId();//根据项目申请中查找申请人的ID
-		System.out.println(Integer.valueOf(approveId));
+
 		StaffInfo approve =iStaffInfoService.selectStaffByID(approveId); //根据申请人的ID查找审批人
 		List <StaffInfo> identifyList = staffInfoMapper.getAllIdentifyInStallInfo();
 		String approveName = approve.getName();//获取审批人的姓名
