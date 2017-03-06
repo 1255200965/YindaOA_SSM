@@ -84,7 +84,7 @@ public class PCOrderChangeController {
 	 * 项目变更审批通过
 	 * @return
 	 */
-	@RequestMapping(value ="pc_pass_approve.do")
+	@RequestMapping(value ="pc_pass_approve.do", produces = "text/plain; charset=utf-8")
 	@ResponseBody
 	public String pc_pass_approve(
 			@RequestParam("ids[]") List<String> ids ,
@@ -165,7 +165,7 @@ public class PCOrderChangeController {
 		}
 		
 		
-		return "成功审批"+success_count;
+		return "成功审批"+success_count+"条";
 		
 	}
 	public static void main(String[] args) throws OApiException {
@@ -176,7 +176,7 @@ public class PCOrderChangeController {
 	 * 项目变更单条审批拒绝
 	 * @return
 	 */
-	@RequestMapping("pc_refuse_approve.do")
+	@RequestMapping(value ="pc_refuse_approve.do", produces = "text/plain; charset=utf-8")
 	@ResponseBody
 	public String pc_refuse_approve(@RequestParam("ids[]") List<String> ids){
 		/*
