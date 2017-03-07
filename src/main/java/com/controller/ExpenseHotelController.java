@@ -107,11 +107,11 @@ public class ExpenseHotelController {
 			//对于挂职在一级部门的员工
 			if(approverList.size() >1){
 			toUser=approverList.get(1);
-			expenseApplayHotel.setApproverOrder(approverList.get(1)+"|"+approverList.get(0)+"|10548"+"|31017"+"|10272");
+			expenseApplayHotel.setApproverOrder(approverList.get(1)+"|"+approverList.get(0)+"|31017"+"|10272");
 			expenseApplayHotel.setApproverNow(approverList.get(1));
 			}else{//对于挂职在二级部门下的员工
 				toUser=approverList.get(0);
-				expenseApplayHotel.setApproverOrder(approverList.get(0)+"|10548"+"|31017"+"|10272");
+				expenseApplayHotel.setApproverOrder(approverList.get(0)+"|31017"+"|10272");
 				expenseApplayHotel.setApproverNow(approverList.get(0));
 			}
 			/****被报销人的各级审批人****/
@@ -195,11 +195,11 @@ public class ExpenseHotelController {
 			//对于挂职在一级部门的员工
 			if(approverList.size() >1){
 			toUser=approverList.get(1);
-			expenseApplayHotel.setApproverOrder(approverList.get(1)+"|"+approverList.get(0)+"|10548"+"|31017"+"|10272");
+			expenseApplayHotel.setApproverOrder(approverList.get(1)+"|"+approverList.get(0)+"|31017"+"|10272");
 			expenseApplayHotel.setApproverNow(approverList.get(1));
 			}else{//对于挂职在二级部门下的员工
 				toUser=approverList.get(0);
-				expenseApplayHotel.setApproverOrder(approverList.get(0)+"|10548"+"|31017"+"|10272");
+				expenseApplayHotel.setApproverOrder(approverList.get(0)+"|31017"+"|10272");
 				expenseApplayHotel.setApproverNow(approverList.get(0));
 			}
 			/****被报销人的各级审批人****/

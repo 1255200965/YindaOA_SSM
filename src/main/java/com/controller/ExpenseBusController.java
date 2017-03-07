@@ -68,13 +68,13 @@ public class ExpenseBusController {
 			String toUser=null;
 			//对于挂职在一级部门的员工
 			if(approverList.size() >1){
-			toUser=approverList.get(1);
-			expenseApplayBus.setApproverOrder(approverList.get(1)+"|"+approverList.get(0)+"|10548"+"|31017"+"|10272");
-			
-			expenseApplayBus.setApproverNow(approverList.get(1));
+				toUser=approverList.get(1);
+				expenseApplayBus.setApproverOrder(approverList.get(1)+"|"+approverList.get(0)+"|31017"+"|10272");
+
+				expenseApplayBus.setApproverNow(approverList.get(1));
 			}else{//对于挂职在二级部门下的员工
 				toUser=approverList.get(0);
-				expenseApplayBus.setApproverOrder(approverList.get(0)+"|10548"+"|31017"+"|10272");
+				expenseApplayBus.setApproverOrder(approverList.get(0)+"|31017"+"|10272");
 				expenseApplayBus.setApproverNow(approverList.get(0));
 			}
 			/*被报销人的各级审批人*/
@@ -115,12 +115,12 @@ public class ExpenseBusController {
 			//对于挂职在一级部门的员工
 			if(approverList.size() >1){
 			toUser=approverList.get(1);
-			expenseApplayBus.setApproverOrder(approverList.get(1)+"|"+approverList.get(0)+"|10548"+"|31017"+"|10272");
+			expenseApplayBus.setApproverOrder(approverList.get(1)+"|"+approverList.get(0)+"|31017"+"|10272");
 			
 			expenseApplayBus.setApproverNow(approverList.get(1));
 			}else{//对于挂职在二级部门下的员工
 				toUser=approverList.get(0);
-				expenseApplayBus.setApproverOrder(approverList.get(0)+"|10548"+"|31017"+"|10272");
+				expenseApplayBus.setApproverOrder(approverList.get(0)+"|31017"+"|10272");
 				expenseApplayBus.setApproverNow(approverList.get(0));
 			}
 			/*被报销人的各级审批人*/
