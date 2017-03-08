@@ -47,7 +47,17 @@ public class YoLoan {
 
     private String other;
 
+    private String operationStatus;
+
     private String exportStatus;
+
+    private String approveRepayment;
+
+    private String approveInvoice;
+
+    private String imageUrl;
+
+    private String approveAdvice;
 
     public String getApproveNo() {
         return approveNo;
@@ -233,11 +243,51 @@ public class YoLoan {
         this.other = other;
     }
 
+    public String getOperationStatus() {
+        return operationStatus;
+    }
+
+    public void setOperationStatus(String operationStatus) {
+        this.operationStatus = operationStatus;
+    }
+
     public String getExportStatus() {
         return exportStatus;
     }
 
     public void setExportStatus(String exportStatus) {
         this.exportStatus = exportStatus;
+    }
+
+    public String getApproveRepayment() {
+        return approveRepayment;
+    }
+
+    public void setApproveRepayment(String approveRepayment) {
+        this.approveRepayment = approveRepayment;
+    }
+
+    public String getApproveInvoice() {
+        return approveInvoice;
+    }
+
+    public void setApproveInvoice(String approveInvoice) {
+        this.approveInvoice = approveInvoice;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getApproveAdvice() {
+        return approveAdvice;
+    }
+
+    public void setApproveAdvice(String approveAdvice) {
+        this.approveAdvice = approveAdvice;
     }
 }

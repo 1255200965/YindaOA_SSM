@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="<%=path%>/stylesheets/weui.css"/>
   <link rel="stylesheet" href="<%=path%>/stylesheets/jquery-weui.css"/>
   <link rel="stylesheet" href="<%=path%>/stylesheets/projectcss.css"/>
+  <link rel="stylesheet" href="<%=path%>/stylesheets/expense.css"/>
   <title>火车票报销详细信息查看</title>
  </head>
  <body >
@@ -22,95 +23,95 @@
   	   
   	   
   	     <div class="weui_cell">
-    		<div class="weui_cell_bd weui_cell_primary">
+    		<div class="weui_cell_bd weui_cell_primary font_title">
       			<label class="weui_label"><b>上车地点</b></label>
    			 </div>
-    	<div class="weui_cell_ft weui_cell_primary">
+    	<div class="weui_cell_ft weui_cell_primary font_content">
      		<input class="weui_input" type="text" placeholder=""  name="startAddress" value="${expenseApplayTrain.startAddress }"  readonly>
    		 </div>
    		 
      	</div>	
      	 <div class="weui_cell"> 
-    		<div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>下车地点</b></label></div>
-    	     <div class="weui_cell_ft weui_cell_primary">
+    		<div class="weui_cell_bd weui_cell_primary font_title"><label class="weui_label"><b>下车地点</b></label></div>
+    	     <div class="weui_cell_ft weui_cell_primary font_content">
      	        <input class="weui_input" type="text" placeholder=""  name="endAddress" value="${expenseApplayTrain.endAddress }" onfocus="(this.type='date')" readonly>
    		     </div>
   	     </div> 
      	<div class="weui_cell">
-    		<div class="weui_cell_bd weui_cell_primary">
+    		<div class="weui_cell_bd weui_cell_primary font_title">
       			<label class="weui_label"><b>上车时间</b></label>
    			 </div>
-    	 <div class="weui_cell_ft weui_cell_primary">
+    	 <div class="weui_cell_ft weui_cell_primary font_content">
      		<input class="weui_input" type="text" placeholder=""  name="startTime" value="${expenseApplayTrain.startTime }" onfocus="(this.type='date')" readonly>
    		 </div>
      	</div>		
      	
   		 <div class="weui_cell ">
-  		    <div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>下车时间</b></label></div>
-    		<div class="weui_cell_ft weui_cell_primary">
+  		    <div class="weui_cell_bd weui_cell_primary font_title"><label class="weui_label"><b>下车时间</b></label></div>
+    		<div class="weui_cell_ft weui_cell_primary font_content">
      		   <input class="weui_input" type="text" placeholder=""  name="endTime" value="${expenseApplayTrain.endTime }" onfocus="(this.type='date')" readonly>
    		    </div>
   		 </div>
   	
   		
   	     <div class="weui_cell">
-    		<div class="weui_cell_bd weui_cell_primary">
+    		<div class="weui_cell_bd weui_cell_primary font_title">
       			<label class="weui_label"><b>订票方式</b></label>
    			 </div>
-    	<div class="weui_cell_ft weui_cell_primary">
+    	<div class="weui_cell_ft weui_cell_primary font_content">
      		<input class="weui_input" type="text" placeholder=""  name="" value="自购" readonly>
    		 </div>
    		 
      	</div>
      	<div class="weui_cell">
-    		<div class="weui_cell_bd weui_cell_primary">
+    		<div class="weui_cell_bd weui_cell_primary font_title">
       			<label class="weui_label"><b>车次</b></label>
    			 </div>
-    	 <div class="weui_cell_ft weui_cell_primary">
+    	 <div class="weui_cell_ft weui_cell_primary font_content">
      		<input class="weui_input" type="text" placeholder=""  name="trainNum" value="${expenseApplayTrain.trainNum }" readonly>	
    		 </div>
      	</div>	
      	<div class="weui_cell">
-    		<div class="weui_cell_bd weui_cell_primary">
+    		<div class="weui_cell_bd weui_cell_primary font_title">
       			<label class="weui_label"><b>金&nbsp;额</b></label>
    			 </div>
-    	<div class="weui_cell_ft weui_cell_primary">
+    	<div class="weui_cell_ft weui_cell_primary font_content">
      		<input class="weui_input" type="text" placeholder=""  name="moneyCost" value="${expenseApplayTrain.moneyCost }" onchange="checkFormat(this);" readonly>
    		 </div>
    		 
      	</div>
      	<div class="weui_cell">
-    		<div class="weui_cell_bd weui_cell_primary">
+    		<div class="weui_cell_bd weui_cell_primary font_title">
       			<label class="weui_label"><b>说&nbsp;明</b></label>
    			 </div>
-    	<div class="weui_cell_ft weui_cell_primary">
+    	<div class="weui_cell_ft weui_cell_primary font_content">
      		<input class="weui_input" type="text" placeholder=""  name="reason" value="${expenseApplayTrain.reason }" readonly>
    		 </div>
    		 
      	</div>	
      	<div class="weui_cell ">
-    		<div class="weui_cell_bd weui_cell_primary">
+    		<div class="weui_cell_bd weui_cell_primary font_title">
       			<label class="weui_label"><b>审批顺序</b></label>
    			 </div>
-    	<div class="weui_cell_ft weui_cell_primary">
+    	<div class="weui_cell_ft weui_cell_primary font_content">
      		<input class="weui_input" type="text" placeholder=""  name="" value="${expenseApplayTrain.approverOrder }" disabled>
    		 </div>
    		 
      	</div>	
      	<div class="weui_cell ">
-    		<div class="weui_cell_bd weui_cell_primary">
+    		<div class="weui_cell_bd weui_cell_primary font_title">
       			<label class="weui_label"><b>当前审批人</b></label>
    			 </div>
-    	<div class="weui_cell_ft weui_cell_primary">
+    	<div class="weui_cell_ft weui_cell_primary font_content">
      		<input class="weui_input" type="text" placeholder=""  name="" value="${expenseApplayTrain.approverNow }" disabled>
    		 </div>
    		 
      	</div>	
      	<div class="weui_cell refuse">
-    		<div class="weui_cell_bd weui_cell_primary">
+    		<div class="weui_cell_bd weui_cell_primary font_title">
       			<label class="weui_label"><b>驳回原因</b></label>
    			 </div>
-    	<div class="weui_cell_ft weui_cell_primary">
+    	<div class="weui_cell_ft weui_cell_primary font_content">
      		<input class="weui_input" type="text" placeholder=""  name="" value="${expenseApplayTrain.refuseReason }" disabled>
    		 </div>
    		 

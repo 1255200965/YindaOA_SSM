@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="<%=path%>/stylesheets/weui.css"/>
   <link rel="stylesheet" href="<%=path%>/stylesheets/jquery-weui.css"/>
   <link rel="stylesheet" href="<%=path%>/stylesheets/projectcss.css"/>
+   <link rel="stylesheet" href="<%=path%>/stylesheets/expense.css"/>
   <title>月报销明细</title>
   <style>
   	
@@ -21,35 +22,35 @@
  </head>
  <body >
  <body >
- <div class="weui-row">
+ <div class="weui-row table-header">
   		<button type="button" style="background-color:#32CD32;" onclick="selectAll();" id="selectAll">全选</button>
-  		<div class="weui-col-40" style="overflow: hidden;"><b>报销人:${approvalStaff.staffName }</b></div>
+  		<div class="weui-col-40 font_title" style="overflow: hidden;" ><b>报销人:${approvalStaff.staffName }</b></div>
   		<%-- <div class="weui-col-20" style="overflow: hidden;"><b>工号:${approvalStaff.staffId}</b></div> --%>
-  		<div class="weui-col-40" style="overflow: hidden;"><b>总金额:${approvalStaff.cost}</b></div>
+  		<div class="weui-col-40 font_title" style="overflow: hidden;"><b>总金额:${approvalStaff.cost}</b></div>
   		<a></a>
   		<!-- <a></a> -->
   </div>
   <br/>
   <div id="bus">
   
-  	<div class="weui-row header">
+  	<div class="weui-row header table-header">
   		<a></a>
   		<!-- <button type="button"  onclick="selectAll();" id="selectAll">全选</button> -->
   		<!-- <div class="weui-col-20" style="overflow: hidden;"><b>报销人</b></div> -->
-  		<div class="weui-col-15" style="overflow: hidden;"><b>金额</b></div>
-  		<div class="weui-col-20" style="overflow: hidden;"><b>提交日期</b></div>
-  		<div class="weui-col-20" style="overflow: hidden;"><b>类别</b></div>
+  		<div class="weui-col-15 font_title" style="overflow: hidden;"><b>金额</b></div>
+  		<div class="weui-col-20 font_title" style="overflow: hidden;"><b>日期</b></div>
+  		<div class="weui-col-20 font_title" style="overflow: hidden;"><b>类别</b></div>
   		<a><b style="color:#696969;">操作</b></a>
   		<a></a>
   		<!-- <a></a> -->
     </div>
     <hr/>
     
- 	<div data-bind="foreach:ShowListBus">
-    <div class="weui-row" >
+ 	<div data-bind="foreach:ShowListBus ">
+    <div class="weui-row font_content" >
  		 <input type="checkbox" name="busIds" data-bind="textinput:id" class="ids"/> 
   		 <div class="weui-col-15" style="overflow: hidden;" data-bind="text:moneyCost"></div> 
-  		<div class="weui-col-20" style="overflow: hidden;" data-bind="text:submitTime"></div>
+  		<div class="weui-col-20" style="overflow: hidden;" data-bind="text:beginTime"></div>
   		<div class="weui-col-20" style="overflow: hidden;">大巴</div>
   		<input type="button" style="background-color:#32CD32;" data-bind="click:$root.approvalOptionBus" value="审批">
   		<input type="button" style="background-color:#FF3333;" data-bind="click:$root.refuseOptionBus" value="驳回">
@@ -59,11 +60,11 @@
    </div>
    <div id="train">
     <div data-bind="foreach:ShowListTrain">
-    <div class="weui-row" >
+    <div class="weui-row font_content" >
  		<input type="checkbox" name="trainIds" data-bind="textinput:id" class="ids"/> 
   		<!-- <div class="weui-col-20" style="overflow: hidden;" data-bind="text:staffName"></div> -->
   		 <div class="weui-col-15" style="overflow: hidden;" data-bind="text:moneyCost"></div> 
-  		 <div class="weui-col-20" style="overflow: hidden;" data-bind="text:submitTime"></div>
+  		 <div class="weui-col-20" style="overflow: hidden;" data-bind="text:startTime"></div>
   		 <div class="weui-col-20" style="overflow: hidden;" >火车</div>
   		 <input type="button" style="background-color:#32CD32;" data-bind="click:$root.approvalOptionTrain" value="审批">
   		 <input type="button" style="background-color:#FF3333;" data-bind="click:$root.refuseOptionTrain" value="驳回">
@@ -74,11 +75,11 @@
    <div id="hotel">
     <div data-bind="foreach:ShowListHotel">
      
-    <div class="weui-row" >
+    <div class="weui-row font_content" >
  		<input type="checkbox" name="hotelIds" data-bind="textinput:id" class="ids"/> 
   		<!-- <div class="weui-col-20" style="overflow: hidden;" data-bind="text:staffName"></div> -->
   		 <div class="weui-col-15" style="overflow: hidden;" data-bind="text:moneyCost"></div> 
-  		<div class="weui-col-20" style="overflow: hidden;" data-bind="text:submitTime"></div> 
+  		<div class="weui-col-20" style="overflow: hidden;" data-bind="text:startTime"></div> 
   		<div class="weui-col-20" style="overflow: hidden;" >住宿费</div> 
   		<input type="button" style="background-color:#32CD32;" data-bind="click:$root.approvalOptionHotel" value="审批">
   		<input type="button" style="background-color:#FF3333;" data-bind="click:$root.refuseOptionHotel" value="驳回">
@@ -88,11 +89,11 @@
     </div>
     <div id="subWay">
     <div data-bind="foreach:ShowListSubway">
-    <div class="weui-row" >
+    <div class="weui-row font_content" >
  		<input type="checkbox" name="subwayIds" data-bind="textinput:id" class="ids"/> 
   		<!-- <div class="weui-col-20" style="overflow: hidden;" data-bind="text:askStaffName"></div> -->
   		 <div class="weui-col-15" style="overflow: hidden;" data-bind="text:askMoney"></div> 
-  		<div class="weui-col-15" style="overflow: hidden;" data-bind="text:submitTime"></div>
+  		<div class="weui-col-15" style="overflow: hidden;" data-bind="text:askMonth"></div>
   		<div class="weui-col-20" style="overflow: hidden;" >公交地铁</div>
   		<input type="button" style="background-color:#32CD32;" data-bind="click:$root.approvalOptionSubway" value="审批">
   		<input type="button" style="background-color:#FF3333;" data-bind="click:$root.refuseOptionSubway" value="驳回">
@@ -101,7 +102,7 @@
     </div>
    </div>
     
-    <div><a onclick="approvalOptions('${type}','agree');" class="weui_btn weui_btn_primary" >一键审批</a></div>
+    <div><a onclick="approvalOptions();" class="weui_btn weui_btn_primary" >一键审批</a></div>
     <br/>
     <div><a href="javascript:history.go(-1);" class="weui_btn weui_btn_plain_default" >返回</a></div>
     <script src="<%=path%>/javascripts//knockout-3.4.0rc.js"></script>
@@ -280,10 +281,16 @@
     	 var hotelStr=getValues("hotelIds");
     	 var subwayStr=getValues("subwayIds");  
     	var result="agree";
+    	
     			//批量火车票审批
 		   if(trainStr ==""){
+			   
 		   }else{
+			  
 			$.post("approve_train_updates.do",{ids:trainStr,result:result},function(data){
+				if(data == "success"){
+					window.location.reload(); 
+				}
 			}); 
 		   }
 		 		//批量大巴审批
@@ -291,7 +298,9 @@
 				  
 			   }else{
 				$.post("approve_bus_updates.do",{ids:busStr,result:result},function(data){
-					
+					if(data == "success"){
+						window.location.reload(); 
+					}
 			     }); 
 			   }
 		
@@ -300,7 +309,9 @@
 				   
 			   }else{
 				$.post("approve_hotel_updates.do",{ids:hotelStr,result:result},function(data){
-					
+					if(data == "success"){
+						window.location.reload(); 
+					}
 				}); 
 			   }
 				//地铁公交批量审批
@@ -308,10 +319,12 @@
 				   
 			   }else{
 				$.post("approve_subway_updates.do",{ids:subwayStr,result:result},function(data){
-					
+					if(data == "success"){
+						window.location.reload(); 
+					}
 				}); 
 			   }
-			 window.location.reload(); 
+			 
     }
    
    //获取复选框的值

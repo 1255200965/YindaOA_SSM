@@ -14,12 +14,13 @@
   <link rel="stylesheet" href="<%=path%>/stylesheets/weui.css"/>
   <link rel="stylesheet" href="<%=path%>/stylesheets/jquery-weui.css"/>
   <link rel="stylesheet" href="<%=path%>/stylesheets/projectcss.css"/>
+  <link rel="stylesheet" href="<%=path%>/stylesheets/expense.css"/>
   <script src="<%=path%>/javascripts/jquery-2.1.4.js"></script>
   <script src="<%=path%>/javascripts/jquery-weui.js"></script>
   <title>我的地铁公交费用报销记录</title>
  </head>
  <body >
-  	<div class="weui-row">
+  	<div class="weui-row table-header">
   		<div class="weui-col-40" style="overflow: hidden;"><b>月份</b></div>
   		<div class="weui-col-40" style="overflow: hidden;"><b>报销状态</b></div>
   		<div><b>操作</b></div>
@@ -28,7 +29,7 @@
     </div>
     <hr/>
     <c:forEach items="${subwayList }" var="subway">
- 	<div class="weui-row">
+ 	<div class="weui-row font_content">
   		<div class="weui-col-40" style="overflow: hidden;">${subway.askMonth }</div>
   		<div class="weui-col-40" style="overflow: hidden;">${subway.approveStatus}</div>
   		<button type="button"   style="background-color:#32CD32;" onclick="detailView(${subway.id});">查看</button>

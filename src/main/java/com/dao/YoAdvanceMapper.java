@@ -18,4 +18,6 @@ public interface YoAdvanceMapper {
     int updateByPrimaryKeySelective(YoAdvance record);
 
     int updateByPrimaryKey(YoAdvance record);
+    
+    int updateLoanStatus(YoAdvance record);
 }

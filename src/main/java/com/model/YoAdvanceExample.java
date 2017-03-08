@@ -1783,6 +1783,76 @@ public class YoAdvanceExample {
             addCriterion("export_status not between", value1, value2, "exportStatus");
             return (Criteria) this;
         }
+
+        public Criteria andLoanStatusIsNull() {
+            addCriterion("loan_status is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoanStatusIsNotNull() {
+            addCriterion("loan_status is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoanStatusEqualTo(String value) {
+            addCriterion("loan_status =", value, "loanStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoanStatusNotEqualTo(String value) {
+            addCriterion("loan_status <>", value, "loanStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoanStatusGreaterThan(String value) {
+            addCriterion("loan_status >", value, "loanStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoanStatusGreaterThanOrEqualTo(String value) {
+            addCriterion("loan_status >=", value, "loanStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoanStatusLessThan(String value) {
+            addCriterion("loan_status <", value, "loanStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoanStatusLessThanOrEqualTo(String value) {
+            addCriterion("loan_status <=", value, "loanStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoanStatusLike(String value) {
+            addCriterion("loan_status like", value, "loanStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoanStatusNotLike(String value) {
+            addCriterion("loan_status not like", value, "loanStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoanStatusIn(List<String> values) {
+            addCriterion("loan_status in", values, "loanStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoanStatusNotIn(List<String> values) {
+            addCriterion("loan_status not in", values, "loanStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoanStatusBetween(String value1, String value2) {
+            addCriterion("loan_status between", value1, value2, "loanStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoanStatusNotBetween(String value1, String value2) {
+            addCriterion("loan_status not between", value1, value2, "loanStatus");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

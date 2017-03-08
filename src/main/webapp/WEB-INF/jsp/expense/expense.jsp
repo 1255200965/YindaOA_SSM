@@ -110,7 +110,14 @@
              corpId : config.corpId,
              onSuccess : function(info) {
                 //存储用户信息
-              $.post("loginJudge.do",{"code":info.code});
+              $.post("loginJudge.do",{"code":info.code},function(data){
+            	  if(data == 'success'){
+            		  
+            	  }else{
+            		  $.alert("请勿随意变动钉钉账号,变动前必须通知管理员进行后台人员信息同步"
+          					+ ",否则将导致无法正常报销(数据库中查无此人,OA后台钉钉ID与阿里钉钉ID不一致)");
+            	  }
+              });
                
              },
              onFail : function(err) {

@@ -445,8 +445,27 @@ public class AdvanceServiceImpl implements IAdvanceService{
       }
       
       @Override
-      public void updateSelective(YoAdvance advance){
-    	  
-    	  advanceMapper.updateByPrimaryKeySelective(advance);
+      public void updateLoanStatus(YoAdvance advance){
+    	  advanceMapper.updateLoanStatus(advance);
+      }
+      @Override
+      public List<YoAdvance> selectExported(String staffName,String staffId,String startTime,
+    		  String endTime){
+    	  YoAdvanceExample example = new YoAdvanceExample();
+    	  YoAdvanceExample.Criteria criteria = example.createCriteria();
+    	  if(staffName !=null && !"".equals(staffName)){
+    		  criteria.andAskStaffNameLike("%"+staffName+"%");
+    	  }
+    	  if(staffId !=null && !"".equals(staffId)){
+    	  criteria.andAskStaffIdEqualTo(staffId);
+    	  }
+    	  if(startTime !=null && !"".equals(startTime)){
+    		  criteria.andAdvanceStartTimeGreaterThanOrEqualTo(startTime);
+    	  }
+    	  if(endTime !=null && !"".equals(endTime)){
+    		  criteria.andAdvanceStartTimeLessThanOrEqualTo(endTime);
+    	  }
+    	  criteria.andExportStatusEqualTo("已下载");
+    	  return advanceMapper.selectByExample(example);
       }
 }

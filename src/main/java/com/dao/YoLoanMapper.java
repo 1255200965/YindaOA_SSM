@@ -18,4 +18,6 @@ public interface YoLoanMapper {
     int updateByPrimaryKeySelective(YoLoan record);
 
     int updateByPrimaryKey(YoLoan record);
+    //更新冲借款审批信息--审批结果,审批建议
+    int updateApproveMessage(YoLoan record);
 }

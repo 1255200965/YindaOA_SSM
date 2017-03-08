@@ -1714,6 +1714,76 @@ public class YoLoanExample {
             return (Criteria) this;
         }
 
+        public Criteria andOperationStatusIsNull() {
+            addCriterion("operation_status is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperationStatusIsNotNull() {
+            addCriterion("operation_status is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperationStatusEqualTo(String value) {
+            addCriterion("operation_status =", value, "operationStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperationStatusNotEqualTo(String value) {
+            addCriterion("operation_status <>", value, "operationStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperationStatusGreaterThan(String value) {
+            addCriterion("operation_status >", value, "operationStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperationStatusGreaterThanOrEqualTo(String value) {
+            addCriterion("operation_status >=", value, "operationStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperationStatusLessThan(String value) {
+            addCriterion("operation_status <", value, "operationStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperationStatusLessThanOrEqualTo(String value) {
+            addCriterion("operation_status <=", value, "operationStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperationStatusLike(String value) {
+            addCriterion("operation_status like", value, "operationStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperationStatusNotLike(String value) {
+            addCriterion("operation_status not like", value, "operationStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperationStatusIn(List<String> values) {
+            addCriterion("operation_status in", values, "operationStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperationStatusNotIn(List<String> values) {
+            addCriterion("operation_status not in", values, "operationStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperationStatusBetween(String value1, String value2) {
+            addCriterion("operation_status between", value1, value2, "operationStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperationStatusNotBetween(String value1, String value2) {
+            addCriterion("operation_status not between", value1, value2, "operationStatus");
+            return (Criteria) this;
+        }
+
         public Criteria andExportStatusIsNull() {
             addCriterion("export_status is null");
             return (Criteria) this;
@@ -1781,6 +1851,286 @@ public class YoLoanExample {
 
         public Criteria andExportStatusNotBetween(String value1, String value2) {
             addCriterion("export_status not between", value1, value2, "exportStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproveRepaymentIsNull() {
+            addCriterion("approve_repayment is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproveRepaymentIsNotNull() {
+            addCriterion("approve_repayment is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproveRepaymentEqualTo(String value) {
+            addCriterion("approve_repayment =", value, "approveRepayment");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproveRepaymentNotEqualTo(String value) {
+            addCriterion("approve_repayment <>", value, "approveRepayment");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproveRepaymentGreaterThan(String value) {
+            addCriterion("approve_repayment >", value, "approveRepayment");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproveRepaymentGreaterThanOrEqualTo(String value) {
+            addCriterion("approve_repayment >=", value, "approveRepayment");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproveRepaymentLessThan(String value) {
+            addCriterion("approve_repayment <", value, "approveRepayment");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproveRepaymentLessThanOrEqualTo(String value) {
+            addCriterion("approve_repayment <=", value, "approveRepayment");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproveRepaymentLike(String value) {
+            addCriterion("approve_repayment like", value, "approveRepayment");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproveRepaymentNotLike(String value) {
+            addCriterion("approve_repayment not like", value, "approveRepayment");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproveRepaymentIn(List<String> values) {
+            addCriterion("approve_repayment in", values, "approveRepayment");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproveRepaymentNotIn(List<String> values) {
+            addCriterion("approve_repayment not in", values, "approveRepayment");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproveRepaymentBetween(String value1, String value2) {
+            addCriterion("approve_repayment between", value1, value2, "approveRepayment");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproveRepaymentNotBetween(String value1, String value2) {
+            addCriterion("approve_repayment not between", value1, value2, "approveRepayment");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproveInvoiceIsNull() {
+            addCriterion("approve_invoice is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproveInvoiceIsNotNull() {
+            addCriterion("approve_invoice is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproveInvoiceEqualTo(String value) {
+            addCriterion("approve_invoice =", value, "approveInvoice");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproveInvoiceNotEqualTo(String value) {
+            addCriterion("approve_invoice <>", value, "approveInvoice");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproveInvoiceGreaterThan(String value) {
+            addCriterion("approve_invoice >", value, "approveInvoice");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproveInvoiceGreaterThanOrEqualTo(String value) {
+            addCriterion("approve_invoice >=", value, "approveInvoice");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproveInvoiceLessThan(String value) {
+            addCriterion("approve_invoice <", value, "approveInvoice");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproveInvoiceLessThanOrEqualTo(String value) {
+            addCriterion("approve_invoice <=", value, "approveInvoice");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproveInvoiceLike(String value) {
+            addCriterion("approve_invoice like", value, "approveInvoice");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproveInvoiceNotLike(String value) {
+            addCriterion("approve_invoice not like", value, "approveInvoice");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproveInvoiceIn(List<String> values) {
+            addCriterion("approve_invoice in", values, "approveInvoice");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproveInvoiceNotIn(List<String> values) {
+            addCriterion("approve_invoice not in", values, "approveInvoice");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproveInvoiceBetween(String value1, String value2) {
+            addCriterion("approve_invoice between", value1, value2, "approveInvoice");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproveInvoiceNotBetween(String value1, String value2) {
+            addCriterion("approve_invoice not between", value1, value2, "approveInvoice");
+            return (Criteria) this;
+        }
+
+        public Criteria andImageUrlIsNull() {
+            addCriterion("image_url is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andImageUrlIsNotNull() {
+            addCriterion("image_url is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andImageUrlEqualTo(String value) {
+            addCriterion("image_url =", value, "imageUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andImageUrlNotEqualTo(String value) {
+            addCriterion("image_url <>", value, "imageUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andImageUrlGreaterThan(String value) {
+            addCriterion("image_url >", value, "imageUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andImageUrlGreaterThanOrEqualTo(String value) {
+            addCriterion("image_url >=", value, "imageUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andImageUrlLessThan(String value) {
+            addCriterion("image_url <", value, "imageUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andImageUrlLessThanOrEqualTo(String value) {
+            addCriterion("image_url <=", value, "imageUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andImageUrlLike(String value) {
+            addCriterion("image_url like", value, "imageUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andImageUrlNotLike(String value) {
+            addCriterion("image_url not like", value, "imageUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andImageUrlIn(List<String> values) {
+            addCriterion("image_url in", values, "imageUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andImageUrlNotIn(List<String> values) {
+            addCriterion("image_url not in", values, "imageUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andImageUrlBetween(String value1, String value2) {
+            addCriterion("image_url between", value1, value2, "imageUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andImageUrlNotBetween(String value1, String value2) {
+            addCriterion("image_url not between", value1, value2, "imageUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproveAdviceIsNull() {
+            addCriterion("approve_advice is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproveAdviceIsNotNull() {
+            addCriterion("approve_advice is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproveAdviceEqualTo(String value) {
+            addCriterion("approve_advice =", value, "approveAdvice");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproveAdviceNotEqualTo(String value) {
+            addCriterion("approve_advice <>", value, "approveAdvice");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproveAdviceGreaterThan(String value) {
+            addCriterion("approve_advice >", value, "approveAdvice");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproveAdviceGreaterThanOrEqualTo(String value) {
+            addCriterion("approve_advice >=", value, "approveAdvice");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproveAdviceLessThan(String value) {
+            addCriterion("approve_advice <", value, "approveAdvice");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproveAdviceLessThanOrEqualTo(String value) {
+            addCriterion("approve_advice <=", value, "approveAdvice");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproveAdviceLike(String value) {
+            addCriterion("approve_advice like", value, "approveAdvice");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproveAdviceNotLike(String value) {
+            addCriterion("approve_advice not like", value, "approveAdvice");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproveAdviceIn(List<String> values) {
+            addCriterion("approve_advice in", values, "approveAdvice");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproveAdviceNotIn(List<String> values) {
+            addCriterion("approve_advice not in", values, "approveAdvice");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproveAdviceBetween(String value1, String value2) {
+            addCriterion("approve_advice between", value1, value2, "approveAdvice");
+            return (Criteria) this;
+        }
+
+        public Criteria andApproveAdviceNotBetween(String value1, String value2) {
+            addCriterion("approve_advice not between", value1, value2, "approveAdvice");
             return (Criteria) this;
         }
     }

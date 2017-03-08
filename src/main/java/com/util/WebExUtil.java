@@ -1,5 +1,12 @@
 package com.util;
 
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpException;
+import org.apache.commons.httpclient.NameValuePair;
+import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.params.HttpMethodParams;
+
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -9,14 +16,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import org.apache.commons.httpclient.Header;
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.HttpStatus;
-import org.apache.commons.httpclient.NameValuePair;
-import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.httpclient.params.HttpMethodParams;
 
 
 public class WebExUtil {
@@ -43,13 +42,12 @@ public class WebExUtil {
     /**
      * 模拟表单提交
      *@param url
-     *@param data
      *@return
      * @throws UnsupportedEncodingException 
      *@since 2016-6-27 
      */
     public static String methodPost(String url, Map<String, Object> map) throws UnsupportedEncodingException{  
-    	 List<NameValuePair> pairList = new ArrayList<>(map.size());
+    	 List<NameValuePair> pairList = new ArrayList<NameValuePair>(map.size());
     	  
     	  for (Map.Entry<String, Object> entry : map.entrySet()) {
               NameValuePair pair = new NameValuePair(entry.getKey(),
@@ -59,8 +57,8 @@ public class WebExUtil {
               pairList.add(pair);
           }
         String response= "";//要返回的response信息  
-        HttpClient httpClient = new HttpClient();  
-        PostMethod postMethod = new PostMethod(url);  
+        HttpClient httpClient = new HttpClient();
+        PostMethod postMethod = new PostMethod(url);
         //设置编码
         postMethod.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "UTF-8");
         // 将表单的值放入postMethod中  
@@ -70,7 +68,7 @@ public class WebExUtil {
         int statusCode = 0;  
         try {  
             statusCode = httpClient.executeMethod(postMethod);  
-        } catch (HttpException e) {  
+        } catch (HttpException e) {
             e.printStackTrace();  
         } catch (IOException e) {  
             e.printStackTrace();  

@@ -51,5 +51,10 @@ public interface IAdvanceService {
     /**
      * 选择性更新预付款记录
      */
-    public void updateSelective(YoAdvance advance);
+    public void updateLoanStatus(YoAdvance advance);
+    /**
+     * 1.staffId为空查询所有已打款的预付款信息
+     * 2.staffId不为空查询工号为staffId的用户的打款信息
+     */
+    public List<YoAdvance> selectExported(String staffName,String staffId,String startTime,String endTime);
 }

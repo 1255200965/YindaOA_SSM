@@ -600,7 +600,7 @@ public class WebExController {
 	   try {
 		   
 		   String staff_user_id = (String) request.getSession().getAttribute(GlobalConstant.user_staff_user_id);
-		   sendMessage("您好！您刚刚申请的音达的会议。会议名称："+meeting_name+";活动号："+session_key+";密码："+meeting_password +";/n会议地址(pc地址)："+meeting_url+";  "+sdf.format(new Date()),staff_user_id );
+		   sendMessage("您好！您刚刚申请的音达的会议。会议名称："+meeting_name+";活动号："+session_key+";密码："+meeting_password +";\n会议地址(pc地址)："+meeting_url+" ;  "+sdf.format(new Date()),staff_user_id );
 		 
 	} catch (OApiException e) {
 		// TODO Auto-generated catch block

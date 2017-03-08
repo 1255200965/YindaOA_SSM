@@ -22,6 +22,7 @@ import com.model.YoAdvanceExample;
 import com.model.YoLoan;
 import com.model.YoLoanExample;
 import com.service.ILoanService;
+import com.util.DateUtil;
 
 @Service
 public class LoanServiceImpl implements ILoanService{
@@ -32,21 +33,21 @@ public class LoanServiceImpl implements ILoanService{
 	YoLoan loan2 =new YoLoan();
 	
 	@Override
-	public YoLoan construct(YoAdvance advance){
-		
+	public YoLoan construct(YoAdvance advance,String approveRepayment,
+			String approveInvoice,String imageUrl){
 		YoLoan loan = new YoLoan();
-		loan.setApproveCost(advance.getApproveCost());
+//		loan.setApproveCost(advance.getApproveCost());
 		loan.setApproveNo(advance.getApproveNo());
-		loan.setApproveRecord(advance.getApproveRecord());
-		loan.setApproveResult(advance.getApproveResult());
-		loan.setApproverHistory(advance.getApproverHistory());
-		loan.setApproverNow(advance.getApproverNow());
-		loan.setApproveStatus(advance.getApproveStatus());
-		loan.setAskEndTime(advance.getAskEndTime());
+//		loan.setApproveRecord(advance.getApproveRecord());
+		loan.setApproveStatus("待审核");
+//		loan.setApproverHistory(advance.getApproverHistory());
+//		loan.setApproverNow(advance.getApproverNow());
+//		loan.setApproveStatus(advance.getApproveStatus());
+//		loan.setAskEndTime(advance.getAskEndTime());
 		loan.setAskStaffDep(advance.getAskStaffDep());
 		loan.setAskStaffName(advance.getAskStaffName());
 		loan.setAskStaffId(advance.getAskStaffId());
-		loan.setAskStartTime(advance.getAskStartTime());
+		/*loan.setAskStartTime(DateUtil.getCurrentTimeDate());*/
 		loan.setLoanAimMc(advance.getAdvanceAimMc());
 		loan.setLoanAimSc(advance.getAdvanceAimSc());
 		loan.setLoanBank(advance.getAdvanceBank());
@@ -58,7 +59,8 @@ public class LoanServiceImpl implements ILoanService{
 		loan.setLoanSum(advance.getAdvanceSum());
 		loan.setOther(advance.getOther());
 		loan.setTitle(advance.getTitle());
-		
+		loan.setApproveInvoice(approveInvoice);
+		loan.setApproveRepayment(approveRepayment);
 		return loan;
 		
 	}
@@ -250,4 +252,16 @@ public class LoanServiceImpl implements ILoanService{
   		
   		return loanMapper.selectByExample(example);	
   	}
+      @Override
+      public void updateApproveMessage(YoLoan loan){
+    	   loanMapper.updateApproveMessage(loan);
+      }
+      @Override
+      public YoLoan selectByApproveNo(String approveNo){
+    	  return loanMapper.selectByPrimaryKey(approveNo);
+      }
+      @Override
+      public void updateByPrimarykey(YoLoan loan){
+    	  loanMapper.updateByPrimaryKey(loan);
+      }
 }

@@ -49,6 +49,8 @@ public class YoAdvance {
 
     private String exportStatus;
 
+    private String loanStatus;
+
     public String getApproveNo() {
         return approveNo;
     }
@@ -239,5 +241,13 @@ public class YoAdvance {
 
     public void setExportStatus(String exportStatus) {
         this.exportStatus = exportStatus;
+    }
+
+    public String getLoanStatus() {
+        return loanStatus;
+    }
+
+    public void setLoanStatus(String loanStatus) {
+        this.loanStatus = loanStatus;
     }
 }

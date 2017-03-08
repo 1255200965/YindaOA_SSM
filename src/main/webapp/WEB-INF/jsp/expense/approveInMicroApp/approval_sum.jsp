@@ -10,19 +10,28 @@
 <html lang="en">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
  <head>
   <link rel="stylesheet" href="<%=path%>/stylesheets/weui.css"/>
   <link rel="stylesheet" href="<%=path%>/stylesheets/jquery-weui.css"/>
   <link rel="stylesheet" href="<%=path%>/stylesheets/projectcss.css"/>
+  <link rel="stylesheet" href="<%=path%>/stylesheets/expense.css"/>
   <title>月报销汇总</title>
  </head>
  <body >
- <div style="text-align:center;">
-    <input type="text"  placeholder="请输入工号进行查询(默认查询所有人)"  value="" id="param" style="height:20px;"/><input style="background-color:#32CD32;height:20px;" type="button" onclick="search();" style="color:#DCDCDC;" value="查询"/>  
+ <!-- <div class="weui-row"> -->
+  <div class="weui-col-50">
+    <input type="text"    value="" id="param" style="height:20px;"/>
+    <button  type="button" onclick="searchById();" style="color:#00FF00;" >工号查询</button> 
+    <button  type="button" onclick="searchByName();" style="color:#00FF00;">姓名查询</button>  
+    
   </div>
+  
   <br/>
-  	<div class="weui-row">
+  	<div class="weui-row table-header">
   		<button type="button" style="background-color:#32CD32;" onclick="selectAll();" id="selectAll">全选</button>
   		<div class="weui-col-20" style="overflow: hidden;"><b>报销人</b></div>
   		<div class="weui-col-20" style="overflow: hidden;"><b>工号</b></div>
@@ -34,10 +43,10 @@
     </div>
     <br/>
     <div data-bind="foreach:ShowList">
-    <div class="weui-row" style = "padding-top: 10px;font-size: 18px">
+    <div class="weui-row font_content" style = "padding-top: 10px;font-size: 18px">
  		<input type="checkbox" name="ids" data-bind="textinput:staffId"/> 
-  		<div class="weui-col-20 " style="overflow: hidden;" data-bind="text:staffName"></div>
-  		<div class="weui-col-20 staff_name" style="overflow: hidden;" data-bind="text:staffId"></div>
+  		<div class="weui-col-20 staff_name" style="overflow: hidden;" data-bind="text:staffName"></div>
+  		<div class="weui-col-20 staff_id" style="overflow: hidden;" data-bind="text:staffId"></div>
   		 <div class="weui-col-20" style="overflow: hidden;" data-bind="text:cost"></div> 
   		<!-- <div class="weui-col-20" style="overflow: hidden;" data-bind="text:sumTime"></div> -->
   		<input type="button" style="background-color:#32CD32;font-size: 18px" data-bind="click:$root.approvalOption" value="明细">
@@ -126,7 +135,6 @@
   }  
 	//获取复选框的值
   function getValues(){
-		alert(123);
 	  var checkboxes=document.getElementsByName("ids");
 	  var str = "";
 	  for(var i=0;i<checkboxes.length;i++){
@@ -143,6 +151,7 @@
 	//审批
   function approvalOptions(data){
 	  var str=getValues();
+	 
 	  if(str==""){
 		   alert("请选择一键审批报销数据");
 	  }else{
@@ -156,7 +165,27 @@
 		  });
 	  }
   }
-	function search(){
+	function searchById(){
+		var staffNames = document.getElementsByClassName("staff_id");
+		var str=$("#param").val();
+		if(str != null && str != ""){
+		for(var i=0 ;i<staffNames.length;i++){
+			if(str != staffNames[i].innerHTML){
+				//alert(staffNames[i].innerHTML);
+				staffNames[i].parentNode.style.display="none";
+			}
+			
+		}
+		}else{
+			for(var i=0 ;i<staffNames.length;i++){
+					
+					staffNames[i].parentNode.style.display="";
+				
+		}
+		}
+	}
+	
+	function searchByName(){
 		var staffNames = document.getElementsByClassName("staff_name");
 		var str=$("#param").val();
 		if(str != null && str != ""){
@@ -175,6 +204,7 @@
 		}
 		}
 	}
+	
     </script>
  </body> 
 </html>

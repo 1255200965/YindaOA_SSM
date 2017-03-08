@@ -1,10 +1,13 @@
 package com.controller;
 
 
+import java.io.IOException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -75,20 +78,28 @@ public class ExpenseApproveInDD {
 	 * 报销免登--用户信息Session记录
 	 * @param request
 	 * @param code
+	 * @throws IOException 
 	 */
 	@RequestMapping("/loginJudge.do")
-	public void loginJudge(HttpServletRequest request,String code){
+	public @ResponseBody String loginJudge(HttpServletRequest request,String code) {
 		//根据code获取用员工钉钉ID
 		String staffUserId=DDUtil.getUserID(code);
-		System.out.println("staffUserId==="+staffUserId);
+		System.out.println("当前用户staffUserId==="+staffUserId);
+//		staffUserId="19561";
 		//从数据库中获得该员工的所有信息
 		StaffInfo staffInfo= staffInfoService.selectStaffByID(staffUserId);
+		try{
 		//在当前回话session中存储相关信息
-		request.getSession().setAttribute(GlobalConstant.user_staffId, staffInfo.getStaffId());
-		request.getSession().setAttribute(GlobalConstant.user_department, staffInfo.getDepartment());
-		request.getSession().setAttribute(GlobalConstant.user_staff_user_id,staffInfo.getStaffUserId());
-		request.getSession().setAttribute(GlobalConstant.user_name,staffInfo.getName());
+			request.getSession().setAttribute(GlobalConstant.user_staffId, staffInfo.getStaffId());
+			request.getSession().setAttribute(GlobalConstant.user_department, staffInfo.getDepartment());
+			request.getSession().setAttribute(GlobalConstant.user_staff_user_id,staffInfo.getStaffUserId());
+			request.getSession().setAttribute(GlobalConstant.user_name,staffInfo.getName());
+			return "success";
+		}catch(Exception e){
+			e.printStackTrace();
+			return "fail";
 		
+		}
 	}
 	
     /***审批信息查看相关代码***/
@@ -100,6 +111,7 @@ public class ExpenseApproveInDD {
     @RequestMapping("/goApprove_record.do")
     public ModelAndView goApprove_history_view(HttpServletRequest request){
     	ModelAndView mav = new ModelAndView();
+   	//request.getSession().setAttribute(GlobalConstant.user_staff_user_id, "015045384968");
     	mav.setViewName("expense/approveInMicroApp/approve_record");
     	return mav;
     }
@@ -334,16 +346,17 @@ public class ExpenseApproveInDD {
     }
     @RequestMapping("/approves.do")
     public @ResponseBody String approves(HttpServletRequest request, String ids,String type){
-    	
+    	System.out.println(ids+"===="+type);
     	String staffUserId = (String) request.getSession().getAttribute(GlobalConstant.user_staff_user_id);
     	String [] idsArr=null;
     	if(ids != null && !"".equals(ids)){
-    		idsArr = ids.split("/,");
+    		idsArr = ids.split(",");
     	}
     	
   		try{
   		  for(String staffId : idsArr){
   			  	//找出工号是staffId的员工一周内的数据进行审批
+  			System.out.println("工号"+staffId);
   			  	List<ExpenseApplayTrain> expenseApplayTrains=expenseApplayTrainService.selectApproval(staffUserId, staffId);
   				System.out.println("火车报销"+"--条数"+expenseApplayTrains.size()+"---"+expenseApplayTrains.toString());
   				  if(expenseApplayTrains != null && expenseApplayTrains.size() > 0){
@@ -367,12 +380,13 @@ public class ExpenseApproveInDD {
 		    				}else if("disagree".equals(type)){
 		    					bus = expenseBusService.refuseOption(bus);
 		    				}
+				        System.out.println("agree");
 						expenseBusService.saveOrUpdate(bus); 
 						}
 				  }
   			
   			List<ExpenseApplayHotel> expenseApplayHotels=expenseApplayHotelService.selectApproval(staffUserId, staffId);
-  			System.out.println("大巴车报销"+"--条数"+expenseApplayHotels.size()+"---"+expenseApplayHotels.toString());
+  			System.out.println("旅店报销"+"--条数"+expenseApplayHotels.size()+"---"+expenseApplayHotels.toString());
   			if(expenseApplayHotels != null && expenseApplayHotels.size() > 0){
 				for(ExpenseApplayHotel hotel : expenseApplayHotels){
 					if("agree".equals(type)){
@@ -385,8 +399,8 @@ public class ExpenseApproveInDD {
 					}
 			  }
   			List<ExpenseApplySubway> expenseApplaySubways=expenseApplySubwayService.selectApproval(staffUserId, staffId);
-  			System.out.println("大巴车报销"+"--条数"+expenseApplaySubways.size()+"---"+expenseApplaySubways.toString());
-  			if(expenseApplayHotels != null && expenseApplayHotels.size() > 0){
+  			System.out.println("地铁公交报销"+"--条数"+expenseApplaySubways.size()+"---"+expenseApplaySubways.toString());
+  			if(expenseApplaySubways != null && expenseApplaySubways.size() > 0){
 				for(ExpenseApplySubway subway : expenseApplaySubways){
 					if("agree".equals(type)){
 								//进行下一步的处理,发消息或者只更新审批状态
@@ -395,6 +409,7 @@ public class ExpenseApproveInDD {
 	    					subway = expenseApplySubwayService.refuseOption(subway);
 	    				}
 					expenseApplySubwayService.saveOrUpdate(subway); 
+					System.out.println("agree");
 					}
 			  }
   		  }

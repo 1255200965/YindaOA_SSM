@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="<%=path%>/stylesheets/weui.css"/>
   <link rel="stylesheet" href="<%=path%>/stylesheets/jquery-weui.css"/>
   <link rel="stylesheet" href="<%=path%>/stylesheets/projectcss.css"/>
+   <link rel="stylesheet" href="<%=path%>/stylesheets/expense.css"/>
   <title>大巴票报销详细信息查看</title>
  </head>
  <body >
@@ -21,93 +22,93 @@
   	     <br/>
   	     <input class="weui_input" type="text" placeholder=""  name="id" value="${expenseApplayBus.id}" hidden>
   		<div class="weui_cell">
-    		<div class="weui_cell_bd weui_cell_primary">
+    		<div class="weui_cell_bd weui_cell_primary font_title">
       			<label class="weui_label"><b>市/县</b></label>
    			 </div>
-    	 <div class="weui_cell_ft weui_cell_primary">
+    	 <div class="weui_cell_ft weui_cell_primary font_content">
      		<input class="weui_input" type="text" placeholder=""  name="startCity" value="${expenseApplayBus.startCity}" readonly>
    		 </div>
      	</div>	
   	     <div class="weui_cell">
-    		<div class="weui_cell_bd weui_cell_primary">
+    		<div class="weui_cell_bd weui_cell_primary font_title">
       			<label class="weui_label"><b>上车地点</b></label>
    			 </div>
-    	<div class="weui_cell_ft weui_cell_primary">
+    	<div class="weui_cell_ft weui_cell_primary font_content">
      		<input class="weui_input" type="text" placeholder=""  name="startAddress" value="${expenseApplayBus.startAddress }" readonly>
    		 </div>
    		 
      	</div>		
   	     <div class="weui_cell">
-    		<div class="weui_cell_bd weui_cell_primary">
+    		<div class="weui_cell_bd weui_cell_primary font_title">
       			<label class="weui_label"><b>下车地点</b></label>
    			 </div>
-    	 <div class="weui_cell_ft weui_cell_primary">
+    	 <div class="weui_cell_ft weui_cell_primary font_content">
      		<input class="weui_input" type="text" placeholder=""  name="destination" value="${expenseApplayBus.destination }" readonly>
    		 </div>
    		 
      	</div>
      	<div class="weui_cell ">
-  		    <div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>上车时间</b></label></div>
-    		<div class="weui_cell_ft weui_cell_primary">
+  		    <div class="weui_cell_bd weui_cell_primary font_title"><label class="weui_label"><b>上车时间</b></label></div>
+    		<div class="weui_cell_ft weui_cell_primary font_content">
      		   <input class="weui_input" type="text" placeholder=""  name="beginTime" value="${expenseApplayBus.beginTime }" onfocus="(this.type='date')" readonly>
    		    </div>
   		 </div>
      	<div class="weui_cell">
-    		<div class="weui_cell_bd weui_cell_primary">
+    		<div class="weui_cell_bd weui_cell_primary font_title">
       			<label class="weui_label"><b>下车时间</b></label>
    			 </div>
-    	 <div class="weui_cell_ft weui_cell_primary">
+    	 <div class="weui_cell_ft weui_cell_primary font_content">
      		<input class="weui_input" type="text" placeholder=""  name="endTime" value="${expenseApplayBus.endTime }" onfocus="(this.type='date')" readonly>
    		 </div>
    		 
      	</div>
      	<div class="weui_cell">
-    		<div class="weui_cell_bd weui_cell_primary">
+    		<div class="weui_cell_bd weui_cell_primary font_title">
       			<label class="weui_label"><b>金&nbsp;额</b></label>
    			 </div>
-    	<div class="weui_cell_ft weui_cell_primary">
+    	<div class="weui_cell_ft weui_cell_primary font_content">
      		<input class="weui_input" type="text" placeholder=""  name="moneyCost" value="${expenseApplayBus.moneyCost }" onchange="checkFormat(this);" readonly>
    		 </div>
    		 
      	</div>
      	<div class="weui_cell"> 
-    		<div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>用车事由</b></label></div>
-    	     <div class="weui_cell_ft weui_cell_primary">
+    		<div class="weui_cell_bd weui_cell_primary font_title"><label class="weui_label"><b>用车事由</b></label></div>
+    	     <div class="weui_cell_ft weui_cell_primary font_content">
      	        <input class="weui_input" type="text"   name="reason" value="${expenseApplayBus.reason}" readonly>
    		     </div>
   	     </div> 
      	<div class="weui_cell">
-    		<div class="weui_cell_bd weui_cell_primary">
+    		<div class="weui_cell_bd weui_cell_primary font_title">
       			<label class="weui_label"><b>说&nbsp;明</b></label>
    			 </div>
-    	<div class="weui_cell_ft weui_cell_primary">
+    	<div class="weui_cell_ft weui_cell_primary font_content">
      		<input class="weui_input" type="text" placeholder=""  name="detailExplain" value="${expenseApplayBus.detailExplain }" readonly>
    		 </div>
    		 
      	</div>
      	<div class="weui_cell ">
-    		<div class="weui_cell_bd weui_cell_primary">
-      			<label class="weui_label"><b>审批顺序</b></label>
+    		<div class="weui_cell_bd weui_cell_primary font_title">
+      			<label class="weui_label"><b>审批人顺序</b></label>
    			 </div>
-    	<div class="weui_cell_ft weui_cell_primary">
+    	<div class="weui_cell_ft weui_cell_primary font_content">
      		<input class="weui_input" type="text" placeholder=""  name="" value="${expenseApplayBus.approverOrder }" disabled>
    		 </div>
    		 
      	</div>	
      	<div class="weui_cell ">
-    		<div class="weui_cell_bd weui_cell_primary">
+    		<div class="weui_cell_bd weui_cell_primary font_title">
       			<label class="weui_label"><b>当前审批人</b></label>
    			 </div>
-    	<div class="weui_cell_ft weui_cell_primary">
+    	<div class="weui_cell_ft weui_cell_primary font_content">
      		<input class="weui_input" type="text" placeholder=""  name="" value="${expenseApplayBus.approverNow }" disabled>
    		 </div>
    		 
      	</div>	
      	<div class="weui_cell refuse">
-    		<div class="weui_cell_bd weui_cell_primary">
+    		<div class="weui_cell_bd weui_cell_primary font_title">
       			<label class="weui_label"><b>驳回原因</b></label>
    			 </div>
-    	<div class="weui_cell_ft weui_cell_primary">
+    	<div class="weui_cell_ft weui_cell_primary font_content">
      		<input class="weui_input" type="text" placeholder=""  name="" value="${expenseApplayBus.refuseReason }" readonly>
    		 </div>
    		 

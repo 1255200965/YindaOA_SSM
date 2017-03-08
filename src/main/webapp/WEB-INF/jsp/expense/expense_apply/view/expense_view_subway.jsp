@@ -14,46 +14,49 @@
   <link rel="stylesheet" href="<%=path%>/stylesheets/weui.css"/>
   <link rel="stylesheet" href="<%=path%>/stylesheets/jquery-weui.css"/>
   <link rel="stylesheet" href="<%=path%>/stylesheets/projectcss.css"/>
+  <link rel="stylesheet" href="<%=path%>/stylesheets/expense.css"/>
   <title>地铁公交报销详情查看</title>
  </head>
  <body >
   <form id="form" >	
   <input class="weui_input" type="text" placeholder=""  name="id" value="${subwayApply.id }"  style="display:none;">
   		 <div class="weui_cell ">
-  		    <div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>月份</b></label></div>
-    		<div class="weui_cell_ft weui_cell_primary">
+  		    <div class="weui_cell_bd weui_cell_primary table-header">
+  		    	<label class="weui_label"><b>月份</b></label>
+  		    </div>
+    		<div class="weui_cell_ft weui_cell_primary font_content">
      		    <input class="weui_input" type="text" placeholder=""  name="askMonth" value="${subwayApply.askMonth }" disabled>
    		    </div>
   		 </div>
   		
   	     <div class="weui_cell ">
-  		    <div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>金额</b></label></div>
-    		<div class="weui_cell_ft weui_cell_primary">
+  		    <div class="weui_cell_bd weui_cell_primary table-header"><label class="weui_label"><b>金额</b></label></div>
+    		<div class="weui_cell_ft weui_cell_primary font_content">
      		  <input class="weui_input" type="text" placeholder=""  name="askMoney" value="${subwayApply.askMoney}" onchange="checkFormat(this);"readonly>
    		    </div>
   		 </div>
   		 <div class="weui_cell ">
-    		<div class="weui_cell_bd weui_cell_primary">
+    		<div class="weui_cell_bd weui_cell_primary table-header">
       			<label class="weui_label"><b>审批顺序</b></label>
    			 </div>
-    	<div class="weui_cell_ft weui_cell_primary">
+    	<div class="weui_cell_ft weui_cell_primary font_content">
      		<input class="weui_input" type="text" placeholder=""  name="" value="${subwayApply.approverOrder }" disabled>
    		 </div>
    		 
      	</div>	
      	<div class="weui_cell ">
-    		<div class="weui_cell_bd weui_cell_primary">
+    		<div class="weui_cell_bd weui_cell_primary table-header">
       			<label class="weui_label"><b>当前审批人</b></label>
    			 </div>
-    	<div class="weui_cell_ft weui_cell_primary">
+    	<div class="weui_cell_ft weui_cell_primary font_content">
      		<input class="weui_input" type="text" placeholder=""  name="" value="${subwayApply.approverNow }" disabled>
    		 </div>
      	</div>	
      	<div class="weui_cell refuse">
-    		<div class="weui_cell_bd weui_cell_primary">
+    		<div class="weui_cell_bd weui_cell_primary table-header">
       			<label class="weui_label"><b>驳回原因</b></label>
    			 </div>
-    	<div class="weui_cell_ft weui_cell_primary">
+    	<div class="weui_cell_ft weui_cell_primary font_content">
      		<input class="weui_input" type="text" placeholder=""  name="" value="${expenseApplay.refuseReason }" readonly>
    		 </div>
    		 

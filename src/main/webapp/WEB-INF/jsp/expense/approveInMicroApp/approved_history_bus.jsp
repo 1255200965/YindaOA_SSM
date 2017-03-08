@@ -14,11 +14,12 @@
   <link rel="stylesheet" href="<%=path%>/stylesheets/weui.css"/>
   <link rel="stylesheet" href="<%=path%>/stylesheets/jquery-weui.css"/>
   <link rel="stylesheet" href="<%=path%>/stylesheets/projectcss.css"/>
+  <link rel="stylesheet" href="<%=path%>/stylesheets/expense.css"/>
   <title>已审批报销列表展示</title>
  </head>
  <body >
  <body >
-  	<div class="weui-row">
+  	<div class="weui-row table-header">
   		<div class="weui-col-20" style="overflow: hidden;"><b>报销人</b></div>
   		<div class="weui-col-20" style="overflow: hidden;"><b>报销金额</b></div>
   		<div class="weui-col-20" style="overflow: hidden;"><b>报销状态</b></div>
@@ -28,7 +29,7 @@
     </div>
     <hr/>
     <c:forEach items="${approvedList }" var="approved">
- 	<div class="weui-row">
+ 	<div class="weui-row font_content">
   		<div class="weui-col-20" style="overflow: hidden;">${approved.staffName}</div>
   		<div class="weui-col-20" style="overflow: hidden;">${approved.moneyCost}</div>
   		<div class="weui-col-20" style="overflow: hidden;">${approved.applayStatus}</div>

@@ -6,7 +6,7 @@
 %>
 <!DOCTYPE html>
 <html lang="en">
- <!--  冲借款生成界面 -->
+ <!--  员工个人冲借款展示界面 -->
 <head>
 <meta charset="utf-8" />
     <title>预付款列表 </title>
@@ -53,47 +53,32 @@
 
 <br/>
 <form id="form" method="post" > 
- <%--  <div class="caidan-tiku" style="margin-bottom:3%">              
-              <div class="caidan-tiku-s" style="margin-right:5%"> <span>姓名：</span>
-                    <input id="askStaffName" type="text" name="askStaffName" class="shuruk-a2" placeholder="" value="${advance2.askStaffName }">
-                </div>
-                <div class="caidan-tiku-s" style="margin-right:5%"> <span>工号：</span>
-                    <input id="askStaffId" type="text" name="askStaffId" class="shuruk-a2" placeholder="" value="${advance2.askStaffId }">
-                </div>
-                <div class="caidan-tiku-s" style="margin-right:5%"> <span>部门：</span>
-                    <select id="askStaffDep" type="text" name="askStaffDep" class="shuruk-a2" placeholder="" >
-                    	<option value=""></option>
-                    	<c:forEach items="${depList }" var="dep">
-                    	 	<option value="${dep }"	<c:if test="${dep eq  advance2.askStaffDep}">selected="selected"</c:if>>${dep}</option>
-                    	</c:forEach>
-                    </select>
-                </div>
-                <div class="caidan-tiku-s" style="margin-right:5%"> <span>审批状态：</span>
-                    <select id="approveResult" type="text" name="approveResult" class="shuruk-a2" placeholder="" >
-                        <option value="同意" <c:if test="${advance2.approveResult eq '同意' }">selected="selected"</c:if>>已同意</option>
-                    	<option value="" <c:if test="${advance2.approveResult eq '' }">selected="selected"</c:if>>全部</option>
-                    </select>
+  <div class="caidan-tiku" style="margin-bottom:3%">    
+  				<div class="caidan-tiku-s" style="margin-right:5%" id="staffNameDiv"> <span>姓名：</span>
+                    <input id="staffName" type="text" name="staffName" class="shuruk-a2" placeholder="" value="${staffName }">
+                </div>     
+                <div class="caidan-tiku-s" style="margin-right:5%" id="staffIdDiv"> <span>工号：</span>
+                    <input id="staffId" type="text" name="staffId" class="shuruk-a2" placeholder="" value="${staffId }">
                 </div>
                 <div class="caidan-tiku-s" style="margin-right:5%"> <span>时间：</span>
-                    <input id="askStartTime" type="text" name="askStartTime" class="laydate-icon shuruk-a2 form_date" placeholder="" value="${advance2.askStartTime }">
-                    <input id="askEndTime" type="text" name="askEndTime" class="shuruk-a2 form_date" placeholder=""  value="${advance2.askEndTime }">
+                    <input id="startTime" type="text" name="startTime" class="laydate-icon shuruk-a2 form_date" placeholder="" value="${startTime }">
+                    <input id="endTime" type="text" name="endTime" class="shuruk-a2 form_date" placeholder=""  value="${endTime}">
                 </div>
                  <div style="float:right;margin-right:15px;padding-bottom:10px;" >
-                    <input  type="button" value="查询"  class="btn btn-success" onclick="subForm();">
-                    <!-- <input   type="button" value="下载"  class="btn btn-default" style="background:#fd9162" onclick="downLoad();"> -->
+                    <input  type="button" value="查询"  class="btn btn-success" onclick="search();">
                     <input   type="button" value="清空"  class="btn btn-default" style="background:#fd9162" onclick="clearPropertities();">
-                </div>         
-    </div> --%>
+                </div>  
+          </div>       
 </form>
     <div style="width:100%; height:700px;padding-top: 5px;overflow:scroll;border:0 solid #000000;">
             <table  width="100%" border="1" cellspacing="0" cellpadding="0" class="table-1">
                 <thead class="table-1-tou">
                 <th class="text_center" >审批编号</th>
                 <th class="text_center" >姓名</th>
-                <!-- <th class="text_center" >部门</th>
-                <th class="text_center">工号</th> -->
-                <th class="text_center">审批状态</th>
-                <th class="text_center">审批结果</th>
+               <th class="text_center" >部门</th> 
+                 <th class="text_center">工号</th>
+              <!--  <th class="text_center">审批状态</th>
+                <th class="text_center">审批结果</th> -->
                <!--  <th class="text_center">审批发起时间</th> -->
                <!--  <th class="text_center">审批完成时间</th> -->
                 <!-- <th class="text_center" >历史审批人</th>
@@ -102,13 +87,16 @@
                 <th class="text_center">借款用途大类</th>
                 <th class="text_center">借款用途小类</th>
                 <th class="text_center" >借款金额</th>
+                <!-- <th class="text_center" >还款金额</th>
+                <th class="text_center" >发票金额</th> -->
                 <th class="text_center" >收款人</th>
                 <!-- <th class="text_center">开户银行</th> -->
-                <th class="text_center" >开户支行</th>
+               <!--  <th class="text_center" >开户支行</th> -->
                 <th class="text_center" >银行账号</th>
+               
                 <!-- <th class="text_center" >借款原因</th> -->
                 <!-- <th class="text_center" >其他</th> -->
-                <th class="text_center">状态</th>
+                <th class="text_center">冲借款状态</th>
                 <th class="text_center" >操作</th>
                 </thead>
                 <tbody >
@@ -119,13 +107,13 @@
                  	<!-- 姓名 -->
                 <td class="text_center" width="6%">${advance.askStaffName }</td>
                		 <!-- 部门-->
-                <%-- <td class="text_center" width="9%">${advance.askStaffDep }</td>
+                 <td class="text_center" width="9%">${advance.askStaffDep }</td>
                 	<!-- 工号 -->
-                <td class="text_center" width="6%">${advance.askStaffId}</td> --%>
+                <td class="text_center" width="6%">${advance.askStaffId}</td>
                 	<!-- 审批状态 -->
-                <td class="text_center" width="6%">${advance.approveStatus }</td>
+                <%-- <td class="text_center" width="6%">${advance.approveStatus }</td>
                 	<!-- 审批结果 -->
-                <td class="text_center" width="6%">${advance.approveResult}</td>
+                <td class="text_center" width="6%">${advance.approveResult}</td> --%>
                 	<!-- 审批发起时间 -->
                <%--  <td class="text_center" width="6%">${advance.askStartTime }</td>
                 	<!-- 审批完成时间 -->
@@ -142,24 +130,27 @@
                 <td class="text_center" width="6%">${advance.advanceAimSc }</td>
                 		 <!-- 借款金额-->
                 <td class="text_center" width="6%">${advance.advanceSum }</td>
+                 		<!-- 还款金额 -->
+                <%-- <td class="text_center" width="3%"><input type="text"  class="shuruk-a2" name="approveRepayment"  value="${advance.approveRepayment }" /></td> --%>
+                		<!-- 发票金额 -->
+               <%--  <td class="text_center" width="3%"><input  type="text"  class="shuruk-a2" name="approveInvoice" value="${advance.approveInvoice }"/></td> --%>
                  		<!-- 收款人-->
                 <td class="text_center" width="6%">${advance.advancePayee }</td>
                  		<!-- 开户银行-->
                <%--  <td class="text_center" width="6%">${advance.advanceBank }</td> --%>
                 		 <!-- 开户支行-->
-                <td class="text_center" width="">${advance.advanceBranch }</td>
+              <%--   <td class="text_center" width="">${advance.advanceBranch }</td> --%>
                  		<!-- 银行账号-->
-                <td class="text_center" width="">${advance.advanceBankAccount }</td>
+                <td class="text_center" width="">${advance.advanceBankAccount }</td> 
                	  		<!-- 借款原因-->
                <%--  <td class="text_center" width="">${advance.advanceReason }</td>
                 		<!-- 其他 -->
                 <td class="text_center" width="">${advance.other }</td> --%>
-                <th class="text_center">${advance.operationStatus }</th>
-                <th class="text_center">
-                <a  <c:if test="${advance.operationStatus eq '已做冲借款' }">onclick="Info();" </c:if> 
-                	<c:if test="${ empty advance.operationStatus}"> onclick="startALoan('${advance.approveNo}');"</c:if>>
-                		<span class="glyphicon glyphicon-edit"></span></a>
-                </th>
+                <td class="text_center">${advance.loanStatus }</td>
+                <td class="text_center"> 
+                	<input type="button" class="btn btn-success" onclick="startAloan('${advance.approveNo}','${advance.loanStatus }');" value="冲预付"/>
+                	<input type="button" class="btn btn-info" onclick="view('${advance.approveNo}','${advance.loanStatus}');" value="详情"/>
+                </td>
                 </tr>
                </c:forEach>
                 </tbody>
@@ -177,33 +168,47 @@ $('.form_date').datetimepicker({
 	format:'yyyy-mm-dd',
 	minView: "month",
 });
-	function subForm(){
-		$("#form").submit();
-	}
-	function clearPropertities(){
-		$("input[name='askStaffName']").val("");
-		$("input[name='askStaffId']").val("");
-		$("select[name='askStaffDep']").val("");
-		$("input[name='askStartTime']").val("");
-		$("input[name='askEndTime']").val("");	
+function startAloan(data1,data2){
+	if(data2=="驳回" || data2=="" || data2==null){
+		window.location.href="goStartALoan.do?approveNo="+data1;
 		
+	}else{
+		alert("已做冲借款,请稍后重试");
 	}
-	//发起冲借款
-	function startALoan(e){
-	
-		$.post("startALoan.do",{"approveNo":e},function(data){
-			if(data=="success"){
-				alert("成功发起一笔冲借款");
-				location="toLoan_operation.do";
-			}else{
-				alert("发起冲借款失败");
-			}
-		});
+};
+	//查询
+function search(){
+	window.location.href="toLoan_operation.do?staffName="+$("#staffName").val()
+			+"&staffId="+$("#staffId").val()+"&startTime="+$("#startTime").val()
+			+"&endTime="+$("#endTime").val();
+};
+ //清空
+function clearPropertities(){
+	$("#staffName").val("");
+	$("#staffId").val("");
+	$("#startTime").val("");
+	$("#endTime").val("");
+}
+		//判空
+	function isNull(data){
+		return (data == "" || data == undefined || data == null) ? 0 : data; 
 	};
-	//重复操作提示
-	function Info(){
-		alert("已做冲借款,请勿重复操作");
+		//冲预付详情查看
+	function view(data,data2){
+		if(data2=="" || data2==null){
+			alert("当前预付款未做冲预付,无法查看冲预付详情");
+		}else{
+			window.location.href="toLoanView.do?approveNo="+data;
+		}
 	};
+	var staffId = '${staffId}';
+	//给马天立流个接口有权限发起所有的冲借款
+$("#document").ready(function(){
+	 if(isNull(staffId) != 0){
+		$("#staffNameDiv").hide();
+		$("#staffIdDiv").hide();
+	} 
+});
 </script>
 </body>
 </html>

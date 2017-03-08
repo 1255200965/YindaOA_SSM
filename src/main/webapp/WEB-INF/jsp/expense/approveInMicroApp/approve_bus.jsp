@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="<%=path%>/stylesheets/weui.css"/>
   <link rel="stylesheet" href="<%=path%>/stylesheets/jquery-weui.css"/>
   <link rel="stylesheet" href="<%=path%>/stylesheets/projectcss.css"/>
+  <link rel="stylesheet" href="<%=path%>/stylesheets/expense.css"/>
   <title>大巴车报销审批</title>
  </head>
  <body >
@@ -22,68 +23,68 @@
   	<!-- <div class="weui_cells" style="border:none;"> -->
   	     <br/>
   	     
-  		<div class="weui_cell">
-    		<div class="weui_cell_bd weui_cell_primary">
+  		<div class="weui_cell font_title">
+    		<div class="weui_cell_bd weui_cell_primary font_title">
       			<label class="weui_label"><b>市/县</b></label>
    			 </div>
-    	 <div class="weui_cell_ft weui_cell_primary">
+    	 <div class="weui_cell_ft weui_cell_primary font_content">
      		<span>${expenseApplayBus.startCity}</span>
      		<input class="weui_input" type="text" placeholder=""  name="id" value="${expenseApplayBus.id}" readonly style="display:none;">
    		 </div>
      	</div>	
   	     <div class="weui_cell">
-    		<div class="weui_cell_bd weui_cell_primary">
+    		<div class="weui_cell_bd weui_cell_primary font_title">
       			<label class="weui_label"><b>上车地址</b></label>
    			 </div>
-    	<div class="weui_cell_ft weui_cell_primary">
+    	<div class="weui_cell_ft weui_cell_primary font_content">
      		<span>${expenseApplayBus.startAddress }</span>
    		 </div>
    		 
      	</div>		
   	     <div class="weui_cell">
-    		<div class="weui_cell_bd weui_cell_primary">
+    		<div class="weui_cell_bd weui_cell_primary font_title">
       			<label class="weui_label"><b>下车地址</b></label>
    			 </div>
-    	 <div class="weui_cell_ft weui_cell_primary">
+    	 <div class="weui_cell_ft weui_cell_primary font_content">
      		<span>${expenseApplayBus.destination }</span>
    		 </div>
    		 
      	</div>
   		 
      	<div class="weui_cell">
-    		<div class="weui_cell_bd weui_cell_primary">
+    		<div class="weui_cell_bd weui_cell_primary font_title">
       			<label class="weui_label"><b>下车时间</b></label>
    			 </div>
-    	 <div class="weui_cell_ft weui_cell_primary">
+    	 <div class="weui_cell_ft weui_cell_primary font_content">
      		<p>${expenseApplayBus.endTime }</p>
    		 </div>
    		 
      	</div>
      	 <div class="weui_cell ">
-  		    <div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>上车时间</b></label></div>
-    		<div class="weui_cell_ft weui_cell_primary">
+  		    <div class="weui_cell_bd weui_cell_primary font_title"><label class="weui_label"><b>上车时间</b></label></div>
+    		<div class="weui_cell_ft weui_cell_primary font_content">
      		   <span>${expenseApplayBus.beginTime }</span>
    		    </div>
   		 </div>
      	<div class="weui_cell">
-    		<div class="weui_cell_bd weui_cell_primary">
+    		<div class="weui_cell_bd weui_cell_primary font_title">
       			<label class="weui_label"><b>金&nbsp;额</b></label>
    			 </div>
-    	   <div class="weui_cell_ft weui_cell_primary">
+    	   <div class="weui_cell_ft weui_cell_primary font_content">
      		<span>${expenseApplayBus.moneyCost }</span>
    		   </div> 
      	</div>
      	<div class="weui_cell"> 
-    		<div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>用车事由</b></label></div>
-    	     <div class="weui_cell_ft weui_cell_primary">
+    		<div class="weui_cell_bd weui_cell_primary font_title"><label class="weui_label"><b>用车事由</b></label></div>
+    	     <div class="weui_cell_ft weui_cell_primary font_content">
      	        <span>${expenseApplayBus.reason}</span>
    		     </div>
   	     </div> 
      	<div class="weui_cell">
-    		<div class="weui_cell_bd weui_cell_primary">
+    		<div class="weui_cell_bd weui_cell_primary font_title">
       			<label class="weui_label"><b>说&nbsp;明</b></label>
    			 </div>
-    	<div class="weui_cell_ft weui_cell_primary">
+    	<div class="weui_cell_ft weui_cell_primary font_content ">
      		<span>${expenseApplayBus.detailExplain }</span>
    		 </div>
    		 

@@ -25,7 +25,12 @@
     <result column="loan_bank_account" property="loanBankAccount" jdbcType="VARCHAR" />
     <result column="loan_reason" property="loanReason" jdbcType="VARCHAR" />
     <result column="other" property="other" jdbcType="VARCHAR" />
+    <result column="operation_status" property="operationStatus" jdbcType="VARCHAR" />
     <result column="export_status" property="exportStatus" jdbcType="VARCHAR" />
+    <result column="approve_repayment" property="approveRepayment" jdbcType="VARCHAR" />
+    <result column="approve_invoice" property="approveInvoice" jdbcType="VARCHAR" />
+    <result column="image_url" property="imageUrl" jdbcType="VARCHAR" />
+    <result column="approve_advice" property="approveAdvice" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -60,7 +65,8 @@
     approve_no, title, approve_status, approve_result, ask_start_time, ask_end_time, 
     ask_staff_id, ask_staff_name, ask_staff_dep, approver_history, approve_record, approver_now, 
     approve_cost, loan_start_time, loan_aim_mc, loan_aim_sc, loan_sum, loan_payee, loan_bank, 
-    loan_branch, loan_bank_account, loan_reason, other, export_status
+    loan_branch, loan_bank_account, loan_reason, other, operation_status, export_status, 
+    approve_repayment, approve_invoice, image_url, approve_advice
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.model.YoLoanExample" >
     select
@@ -94,8 +100,9 @@
       approve_cost, loan_start_time, loan_aim_mc, 
       loan_aim_sc, loan_sum, loan_payee, 
       loan_bank, loan_branch, loan_bank_account, 
-      loan_reason, other, export_status
-      )
+      loan_reason, other, operation_status, 
+      export_status, approve_repayment, approve_invoice, 
+      image_url, approve_advice)
     values (#{approveNo,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{approveStatus,jdbcType=VARCHAR}, 
       #{approveResult,jdbcType=VARCHAR}, #{askStartTime,jdbcType=VARCHAR}, #{askEndTime,jdbcType=VARCHAR}, 
       #{askStaffId,jdbcType=VARCHAR}, #{askStaffName,jdbcType=VARCHAR}, #{askStaffDep,jdbcType=VARCHAR}, 
@@ -103,8 +110,9 @@
       #{approveCost,jdbcType=VARCHAR}, #{loanStartTime,jdbcType=VARCHAR}, #{loanAimMc,jdbcType=VARCHAR}, 
       #{loanAimSc,jdbcType=VARCHAR}, #{loanSum,jdbcType=VARCHAR}, #{loanPayee,jdbcType=VARCHAR}, 
       #{loanBank,jdbcType=VARCHAR}, #{loanBranch,jdbcType=VARCHAR}, #{loanBankAccount,jdbcType=VARCHAR}, 
-      #{loanReason,jdbcType=VARCHAR}, #{other,jdbcType=VARCHAR}, #{exportStatus,jdbcType=VARCHAR}
-      )
+      #{loanReason,jdbcType=VARCHAR}, #{other,jdbcType=VARCHAR}, #{operationStatus,jdbcType=VARCHAR}, 
+      #{exportStatus,jdbcType=VARCHAR}, #{approveRepayment,jdbcType=VARCHAR}, #{approveInvoice,jdbcType=VARCHAR}, 
+      #{imageUrl,jdbcType=VARCHAR}, #{approveAdvice,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.model.YoLoan" >
     insert into yo_loan
@@ -178,8 +186,23 @@
       <if test="other != null" >
         other,
       </if>
+      <if test="operationStatus != null" >
+        operation_status,
+      </if>
       <if test="exportStatus != null" >
         export_status,
+      </if>
+      <if test="approveRepayment != null" >
+        approve_repayment,
+      </if>
+      <if test="approveInvoice != null" >
+        approve_invoice,
+      </if>
+      <if test="imageUrl != null" >
+        image_url,
+      </if>
+      <if test="approveAdvice != null" >
+        approve_advice,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -252,8 +275,23 @@
       <if test="other != null" >
         #{other,jdbcType=VARCHAR},
       </if>
+      <if test="operationStatus != null" >
+        #{operationStatus,jdbcType=VARCHAR},
+      </if>
       <if test="exportStatus != null" >
         #{exportStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="approveRepayment != null" >
+        #{approveRepayment,jdbcType=VARCHAR},
+      </if>
+      <if test="approveInvoice != null" >
+        #{approveInvoice,jdbcType=VARCHAR},
+      </if>
+      <if test="imageUrl != null" >
+        #{imageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="approveAdvice != null" >
+        #{approveAdvice,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -326,8 +364,23 @@
       <if test="other != null" >
         other = #{other,jdbcType=VARCHAR},
       </if>
+      <if test="operationStatus != null" >
+        operation_status = #{operationStatus,jdbcType=VARCHAR},
+      </if>
       <if test="exportStatus != null" >
         export_status = #{exportStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="approveRepayment != null" >
+        approve_repayment = #{approveRepayment,jdbcType=VARCHAR},
+      </if>
+      <if test="approveInvoice != null" >
+        approve_invoice = #{approveInvoice,jdbcType=VARCHAR},
+      </if>
+      <if test="imageUrl != null" >
+        image_url = #{imageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="approveAdvice != null" >
+        approve_advice = #{approveAdvice,jdbcType=VARCHAR},
       </if>
     </set>
     where approve_no = #{approveNo,jdbcType=VARCHAR}
@@ -356,7 +409,20 @@
       loan_bank_account = #{loanBankAccount,jdbcType=VARCHAR},
       loan_reason = #{loanReason,jdbcType=VARCHAR},
       other = #{other,jdbcType=VARCHAR},
-      export_status = #{exportStatus,jdbcType=VARCHAR}
+      operation_status = #{operationStatus,jdbcType=VARCHAR},
+      export_status = #{exportStatus,jdbcType=VARCHAR},
+      approve_repayment = #{approveRepayment,jdbcType=VARCHAR},
+      approve_invoice = #{approveInvoice,jdbcType=VARCHAR},
+      image_url = #{imageUrl,jdbcType=VARCHAR},
+      approve_advice = #{approveAdvice,jdbcType=VARCHAR}
+    where approve_no = #{approveNo,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateApproveMessage" parameterType="com.model.YoLoan" >
+    update yo_loan
+    set 
+      approve_status = #{approveStatus,jdbcType=VARCHAR},
+      approve_advice = #{approveAdvice,jdbcType=VARCHAR}
     where approve_no = #{approveNo,jdbcType=VARCHAR}
   </update>
 </mapper>
