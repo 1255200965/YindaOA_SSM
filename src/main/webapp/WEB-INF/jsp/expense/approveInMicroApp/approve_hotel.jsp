@@ -15,69 +15,70 @@
   <link rel="stylesheet" href="<%=path%>/stylesheets/weui.css"/>
   <link rel="stylesheet" href="<%=path%>/stylesheets/jquery-weui.css"/>
   <link rel="stylesheet" href="<%=path%>/stylesheets/projectcss.css"/>
+  <link rel="stylesheet" href="<%=path%>/stylesheets/expense.css"/>
   <title>住宿报销审核</title>
  </head>
  <body >
  <form id="form">
   	<!-- <div class="weui_cells" style="border:none;"> -->
   		<div class="weui_cell">
-    		<div class="weui_cell_bd weui_cell_primary">
+    		<div class="weui_cell_bd weui_cell_primary font_title">
       			<label class="weui_label"><b>住宿原因</b></label>
    			 </div>
-    	 <div class="weui_cell_ft weui_cell_primary">
+    	 <div class="weui_cell_ft weui_cell_primary font_content">
      		<span>${expenseApplayHotel.reason }</span>
      		<input class="weui_input" type="text" placeholder=""  name="id" value="${expenseApplayHotel.id }"  readonly style="display:none;">
    		 </div>
      	</div>
      		
   	     <div class="weui_cell">
-    		<div class="weui_cell_bd weui_cell_primary">
+    		<div class="weui_cell_bd weui_cell_primary font_title">
       			<label class="weui_label"><b>旅馆名称</b></label>
    			 </div>
-    	<div class="weui_cell_ft weui_cell_primary">
+    	<div class="weui_cell_ft weui_cell_primary font_content">
      		<span>${expenseApplayHotel.hotelName }</span>
    		 </div>
    		 
      	</div>		
   		 <div class="weui_cell ">
-  		    <div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>住宿日期</b></label></div>
-    		<div class="weui_cell_ft weui_cell_primary">
+  		    <div class="weui_cell_bd weui_cell_primary font_title"><label class="weui_label"><b>住宿日期</b></label></div>
+    		<div class="weui_cell_ft weui_cell_primary font_content">
      		   <span>${expenseApplayHotel.startTime }</span>
    		    </div>
   		 </div>
   		
   	    <div class="weui_cell ">
-  		    <div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>离店日期</b></label></div>
-    		<div class="weui_cell_ft weui_cell_primary">
+  		    <div class="weui_cell_bd weui_cell_primary font_title"><label class="weui_label"><b>离店日期</b></label></div>
+    		<div class="weui_cell_ft weui_cell_primary font_content">
      		   <span>${expenseApplayHotel.endTime }</span>
    		    </div>
   		 </div>
   			
      	<div class="weui_cell">
-    		<div class="weui_cell_bd weui_cell_primary">
+    		<div class="weui_cell_bd weui_cell_primary font_title">
       			<label class="weui_label"><b>金&nbsp;额</b></label>
    			 </div>
-    	<div class="weui_cell_ft weui_cell_primary">
+    	<div class="weui_cell_ft weui_cell_primary font_content">
      		<span>${expenseApplayHotel.moneyCost }</span>
    		 </div>
    		 
      	</div>
      	
      	<div class="weui_cell">
-    		<div class="weui_cell_bd weui_cell_primary">
+    		<div class="weui_cell_bd weui_cell_primary font_title">
       			<label class="weui_label"><b>天&nbsp;数</b></label>
    			 </div>
-    	<div class="weui_cell_ft weui_cell_primary">
+    	<div class="weui_cell_ft weui_cell_primary font_content">
      		<span>${expenseApplayHotel.daysCost }</span>
    		 </div>
    		 
      	</div>
      		
      	<div class="weui_cell">
-    		<div class="weui_cell_bd weui_cell_primary">
+    		<div class="weui_cell_bd weui_cell_primary font_title">
       			<label class="weui_label"><b>说&nbsp;明</b></label>
    			 </div>
-    	<div class="weui_cell_ft weui_cell_primary">
+    	<div class="weui_cell_ft weui_cell_primary font_content">
      		<span>${expenseApplayHotel.detailExplain}</span>	
    		 </div>
    		 
@@ -85,7 +86,7 @@
      	
   	     <hr/>
   	     <div class="weui_row">
-     	<img src="http://121.40.29.241/YindaOAImageUpload/${expenseApplayHotel.imageUrl }" style="width:30%;height:10%" style="width:100px;height:100px" onclick="imageView(this);"/>
+     	<img src="http://121.40.29.241/YindaOAImageUpload/${expenseApplayHotel.imageUrl }"  style="width:100px;height:100px" onclick="imageView(this);"/>
      	
      	</div>	
   	     <!-- <div class="weui-row">

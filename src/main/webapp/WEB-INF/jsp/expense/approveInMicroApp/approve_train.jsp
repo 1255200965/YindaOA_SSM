@@ -14,66 +14,67 @@
   <link rel="stylesheet" href="<%=path%>/stylesheets/weui.css"/>
   <link rel="stylesheet" href="<%=path%>/stylesheets/jquery-weui.css"/>
   <link rel="stylesheet" href="<%=path%>/stylesheets/projectcss.css"/>
+  <link rel="stylesheet" href="<%=path%>/stylesheets/expense.css"/>
   <title>火车票报销审核</title>
  </head>
  <body >
 
   	<form id="form">
   	<div class="weui_cell">
-    		<div class="weui_cell_bd weui_cell_primary">
+    		<div class="weui_cell_bd weui_cell_primary font_title">
       			<label class="weui_label"><b>上车时间</b></label>
    			 </div>
-    	 <div class="weui_cell_ft weui_cell_primary">
+    	 <div class="weui_cell_ft weui_cell_primary font_content">
      		<span>${expenseApplayTrain.startTime }</span>
      		<input class="weui_input" type="text" placeholder=""  name="id" value="${expenseApplayTrain.id }" readonly style="display:none;">
    		 </div>
      	</div>	
   	     <div class="weui_cell">
-    		<div class="weui_cell_bd weui_cell_primary">
+    		<div class="weui_cell_bd weui_cell_primary font_title">
       			<label class="weui_label"><b>上车地点</b></label>
    			 </div>
-    	<div class="weui_cell_ft weui_cell_primary">
+    	<div class="weui_cell_ft weui_cell_primary font_content">
      		<span>${expenseApplayTrain.startAddress }</span>
    		 </div>
    		 
      	</div>		
      	
   		 <div class="weui_cell ">
-  		    <div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>下车时间</b></label></div>
-    		<div class="weui_cell_ft weui_cell_primary">
+  		    <div class="weui_cell_bd weui_cell_primary font_title"><label class="weui_label"><b>下车时间</b></label></div>
+    		<div class="weui_cell_ft weui_cell_primary font_content">
      		   <span>${expenseApplayTrain.endTime }</span>
    		    </div>
   		 </div>
   	
   		 <div class="weui_cell"> 
-    		<div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>下车地点</b></label></div>
-    	     <div class="weui_cell_ft weui_cell_primary">
+    		<div class="weui_cell_bd weui_cell_primary font_title"><label class="weui_label"><b>下车地点</b></label></div>
+    	     <div class="weui_cell_ft weui_cell_primary font_content">
      	        <span>${expenseApplayTrain.endAddress }</span>
    		     </div>
   	     </div> 
   	     <div class="weui_cell">
-    		<div class="weui_cell_bd weui_cell_primary">
+    		<div class="weui_cell_bd weui_cell_primary font_title">
       			<label class="weui_label"><b>订票方式</b></label>
    			 </div>
-    	<div class="weui_cell_ft weui_cell_primary">
+    	<div class="weui_cell_ft weui_cell_primary font_content">
      		<span>自购</span>
    		 </div>
    		 
      	</div>
      	<div class="weui_cell">
-    		<div class="weui_cell_bd weui_cell_primary">
+    		<div class="weui_cell_bd weui_cell_primary font_title">
       			<label class="weui_label"><b>金&nbsp;额</b></label>
    			 </div>
-    	<div class="weui_cell_ft weui_cell_primary">
+    	<div class="weui_cell_ft weui_cell_primary font_content">
      		<span>${expenseApplayTrain.moneyCost }</span>
    		 </div>
    		 
      	</div>
      	<div class="weui_cell">
-    		<div class="weui_cell_bd weui_cell_primary">
+    		<div class="weui_cell_bd weui_cell_primary font_title">
       			<label class="weui_label"><b>说&nbsp;明</b></label>
    			 </div>
-    	<div class="weui_cell_ft weui_cell_primary">
+    	<div class="weui_cell_ft weui_cell_primary font_content">
      		<span>${expenseApplayTrain.reason }</span>
    		 </div>
    		 

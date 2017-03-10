@@ -210,10 +210,8 @@ public class PCOrderChangeController {
 	/**
 	 * 审批通过
 	 * @param id 项目信息变更的Id
-	 * @param request
 	 * @return
 	 */
-	
 	public String pass_approve(String id,String identify,String orderRemark,String businessProp,String outdoorJob3,String lte3){
 
 		YoOrderChange itemChange =yoOrderChangeMapper.selectByPrimaryKey(Integer.valueOf(id));

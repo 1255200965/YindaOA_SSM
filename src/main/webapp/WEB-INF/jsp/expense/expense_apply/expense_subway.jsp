@@ -14,20 +14,21 @@
   <link rel="stylesheet" href="<%=path%>/stylesheets/weui.css"/>
   <link rel="stylesheet" href="<%=path%>/stylesheets/jquery-weui.css"/>
   <link rel="stylesheet" href="<%=path%>/stylesheets/projectcss.css"/>
+  <link rel="stylesheet" href="<%=path%>/stylesheets/expense.css"/>
   <title>地铁公交票报销</title>
  </head>
  <body >
   <form id="form">	
   		 <div class="weui_cell ">
-  		    <div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>月份</b></label></div>
-    		<div class="weui_cell_ft weui_cell_primary">
+  		    <div class="weui_cell_bd weui_cell_primary font_title"><label class="weui_label"><b>月份</b></label></div>
+    		<div class="weui_cell_ft weui_cell_primary font_content">
      		   <input class="weui_input" type="text" placeholder=""  name="askMonth" readonly>
    		    </div>
   		 </div>
   		
   	     <div class="weui_cell ">
-  		    <div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>金额</b></label></div>
-    		<div class="weui_cell_ft weui_cell_primary">
+  		    <div class="weui_cell_bd weui_cell_primary font_title"><label class="weui_label"><b>金额</b></label></div>
+    		<div class="weui_cell_ft weui_cell_primary font_content">
      		   <input class="weui_input" type="text" placeholder="请填写金额(必填,金额小写)"  name="askMoney" onchange="checkFormat(this);">
    		    </div>
   		 </div>
