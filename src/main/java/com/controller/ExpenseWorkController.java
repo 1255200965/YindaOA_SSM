@@ -35,7 +35,7 @@ import com.service.ExpenseWorkSerivce;
 /**
  * 办事处报销 导出，导出，查看
  * @author yexianglei
- *
+ *  create date:2017-03-09
  */
 @Controller
 @RequestMapping("/expenseWork")
@@ -106,7 +106,7 @@ public class ExpenseWorkController {
 		// Java的规定，有了输入流才能按照格式读取excel文件
 		HSSFWorkbook hssfWorkbook = null;
 		try {
-			// 猜想：有可能文件太大会爆掉，所以要try
+			// 
 			hssfWorkbook = new HSSFWorkbook(inputStream);
 			System.out.println("成功转为excel！");
 			
@@ -150,7 +150,14 @@ public class ExpenseWorkController {
 
 
 
-    
+    /**
+     * 办事处报销导出
+     * @param expenseWork  办事处报销对象
+     * @param request
+     * @param response
+     * @param endTime1 结束时间范围
+     * @param endTime2 结束时间范围
+     */
 	@RequestMapping("expenseWork_export.do")
 	public void expenseWork_export(ExpenseWork expenseWork,HttpServletRequest request,HttpServletResponse response,String endTime1,String endTime2){
 		    //按条件查询
@@ -178,7 +185,12 @@ public class ExpenseWorkController {
 	        
 	}
 	
-	
+	/**
+	 * 
+	 * @param expenseWorkList  办事处报销的List
+	 * @param excelHeader Excel的报销
+	 * @param response  返回
+	 */
 	public static void export( List<ExpenseWork> expenseWorkList,String[] excelHeader,HttpServletResponse response){
 	        HSSFWorkbook wb = getHSSFWorkbook(expenseWorkList,excelHeader);
 	        response.setContentType("application/vnd.ms-excel");
