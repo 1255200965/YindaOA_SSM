@@ -46,18 +46,7 @@ margin-bottom:3px;
 
 </style>
 <body>
-	<div class="weui-pull-to-refresh-layer">
-		<div class="pull-to-refresh-arrow"></div>
-		<!-- 上下拉动的时候显示的箭头 -->
-		<div class="pull-to-refresh-preloader"></div>
-		<!-- 正在刷新的菊花 -->
-		<div class="down">下拉刷新</div>
-		<!-- 下拉过程显示的文案 -->
-		<div class="up">释放刷新</div>
-		<!-- 下拉超过50px显示的文案 -->
-		<div class="refresh">正在刷新...</div>
-		<!-- 正在刷新时显示的文案 -->
-	</div>
+
 	<div class="weui-msg">
   <div class="weui-msg__icon-area"><i class="weui-icon-success weui-icon_msg"></i></div>
   <div class="weui-msg__text-area">
