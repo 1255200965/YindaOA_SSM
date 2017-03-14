@@ -82,13 +82,24 @@
      	
   	     <hr/>
   	    <div class="weui-row">
-             <img src="http://121.40.29.241/YindaOAImageUpload/${expenseApplayHotel.imageUrl}" style="height:10%;width:30%;"/>
+             <img src="http://121.40.29.241/YindaOAImageUpload/${expenseApplayHotel.imageUrl}" style="width:100px;height:100px" onclick="imageView(this);"/>
   	     </div>
         <div><a href="javascript:history.go(-1);" class="weui_btn weui_btn_plain_default" >返回</a></div>
   	 <!-- </div> -->
   	</form>	
   	<script src="<%=path%>/javascripts/jquery-2.1.4.js"></script>
     <script src="<%=path%>/javascripts/jquery-weui.js"></script>
-    
+    <script type="text/javascript">
+  		//图片放大缩小
+    function imageView(e){
+    	if($(e).css("width")=="100px"){
+    		$(e).css("width","300px");
+    		$(e).css("height","300px");
+    	}else if($(e).css("width")=="300px"){
+    		$(e).css("width","100px");
+    		$(e).css("height","100px");
+    	}
+    }
+    </script>
  </body> 
 </html>

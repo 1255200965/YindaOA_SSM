@@ -50,8 +50,6 @@
   	</form>	
   	<script src="<%=path%>/javascripts/jquery-2.1.4.js"></script>
     <script src="<%=path%>/javascripts/jquery-weui.js"></script>
-    <script>
     
-    </script>
  </body> 
 </html>

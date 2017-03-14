@@ -485,9 +485,9 @@ public class WebExController {
 	}
 
 	@RequestMapping("create_dd_meeting.do")
-	@ResponseBody
-	public String create_dd_meeting(String meeting_name,String meeting_desc,String meeting_time,String meeting_count,String meeting_password,String meeting_length){
+	public ModelAndView create_dd_meeting(String meeting_name,String meeting_desc,String meeting_time,String meeting_count,String meeting_password,String meeting_length){
 		ModelAndView mav = new ModelAndView();
+		mav.setViewName("webex/create_dd_meeting_success");
 		/*
 		 *日期格式 
 		 */
@@ -514,15 +514,15 @@ public class WebExController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 
-				return "success";
+				return mav;
 			}
 
 			/*
 			 *判断是否创建成功 
 			 */
 			if(!res.contains("SUCCESS")){
-
-				return "error";            	
+				mav.setViewName("webex/create_dd_meeting_error");
+				return mav;            	
 			}
 			/*
 			 *创建成功后 保存到数据库 
@@ -544,18 +544,29 @@ public class WebExController {
 
 
 			mav.setViewName("webex/create_dd_meeting_success");
-			return "success";
+			return mav;
 
 		} catch (java.text.ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			mav.setViewName("webex/create_dd_meeting_error");
-			return "error";
+			return mav;
 		}  
 
 
 	}
-
+	@RequestMapping("create_dd_meeting_success.do")
+	public ModelAndView create_dd_meeting_success(){
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("webex/create_dd_meeting_success");
+		return mav;
+	}
+	@RequestMapping("create_dd_meeting_error.do")
+	public ModelAndView create_dd_meeting_error(){
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("webex/create_dd_meeting_error");
+		return mav;
+	}
 	@RequestMapping("add_dd_meeting")
 	public ModelAndView add_dd_meeting(String id,String session_key,String meeting_name,String meeting_time,String meeting_password,String user_email,HttpServletRequest request){
 		ModelAndView mav = new ModelAndView();
@@ -600,7 +611,7 @@ public class WebExController {
 	   try {
 		   
 		   String staff_user_id = (String) request.getSession().getAttribute(GlobalConstant.user_staff_user_id);
-		   sendMessage("您好！您刚刚申请的音达的会议。会议名称："+meeting_name+";活动号："+session_key+";密码："+meeting_password +";\n会议地址(pc地址)："+meeting_url+" ;  "+sdf.format(new Date()),staff_user_id );
+		   sendMessage("您好！您刚刚申请的音达的会议;\n会议名称："+meeting_name+";\n活动号："+session_key+";\n密码："+meeting_password +";\n会议地址(pc地址)："+meeting_url+" ; \n "+sdf.format(new Date()),staff_user_id );
 		 
 	} catch (OApiException e) {
 		// TODO Auto-generated catch block

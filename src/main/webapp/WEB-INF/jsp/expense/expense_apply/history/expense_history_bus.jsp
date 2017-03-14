@@ -13,12 +13,13 @@
   <link rel="stylesheet" href="<%=path%>/stylesheets/weui.css"/>
   <link rel="stylesheet" href="<%=path%>/stylesheets/jquery-weui.css"/>
   <link rel="stylesheet" href="<%=path%>/stylesheets/projectcss.css"/>
+  <link rel="stylesheet" href="<%=path%>/stylesheets/expense.css"/>
   <script src="<%=path%>/javascripts/jquery-2.1.4.js"></script>
   <script src="<%=path%>/javascripts/jquery-weui.js"></script>
   <title>我的大巴车报销记录</title>
  </head>
  <body >
-  	<div class="weui-row">
+  	<div class="weui-row table-header">
   		<div class="weui-col-40" style="overflow: hidden;"><b>上车日期</b></div>
   		<div class="weui-col-40" style="overflow: hidden;"><b>报销状态</b></div>
   		<div><b>操作</b></div>
@@ -27,7 +28,7 @@
     </div>
     <hr/>
     <c:forEach items="${expenseApplayBusList }" var="expenseApplayBus">
- 	<div class="weui-row">
+ 	<div class="weui-row font_content">
   		<div class="weui-col-40" style="overflow: hidden;">${expenseApplayBus.beginTime }</div>
   		<div class="weui-col-40" style="overflow: hidden;">${expenseApplayBus.applayStatus}</div>
   		<button type="button" onclick="goExpense_bus_view(${expenseApplayBus.id});" style="background-color:#32CD32;">查看</button>

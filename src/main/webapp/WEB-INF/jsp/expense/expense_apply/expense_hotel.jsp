@@ -14,67 +14,68 @@
   <link rel="stylesheet" href="<%=path%>/stylesheets/weui.css"/>
   <link rel="stylesheet" href="<%=path%>/stylesheets/jquery-weui.css"/>
   <link rel="stylesheet" href="<%=path%>/stylesheets/projectcss.css"/>
+  <link rel="stylesheet" href="<%=path%>/stylesheets/expense.css"/>
   <title>发起住宿费用报销</title>
  </head>
  <body >
   <form id="form" action="toExpense_hotel_save.do" method="post" enctype="multipart/form-data" onsubmit="return check();">
   	<!-- <div class="weui_cells" style="border:none;"> -->
   		<div class="weui_cell">
-    		<div class="weui_cell_bd weui_cell_primary">
+    		<div class="weui_cell_bd weui_cell_primary font_title">
       			<label class="weui_label"><b>住宿原因</b></label>
    			 </div>
-    	 <div class="weui_cell_ft weui_cell_primary">
+    	 <div class="weui_cell_ft weui_cell_primary font_content">
      		<input class="weui_input" type="text" placeholder="请输入住宿原因(必填)"  name="reason">
    		 </div>
      	</div>
      		
   	     <div class="weui_cell">
     		<div class="weui_cell_bd weui_cell_primary">
-      			<label class="weui_label"><b>旅馆名称</b></label>
+      			<label class="weui_label font_title"><b>旅馆名称</b></label>
    			 </div>
-    	<div class="weui_cell_ft weui_cell_primary">
+    	<div class="weui_cell_ft weui_cell_primary font_content">
      		<input class="weui_input" type="text" placeholder="请输入旅馆名称(必填)"  name="hotelName" >
    		 </div>
    		 
      	</div>		
   		 <div class="weui_cell ">
-  		    <div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>住宿日期</b></label></div>
-    		<div class="weui_cell_ft weui_cell_primary">
+  		    <div class="weui_cell_bd weui_cell_primary font_title"><label class="weui_label"><b>住宿日期</b></label></div>
+    		<div class="weui_cell_ft weui_cell_primary font_content">
      		   <input class="weui_input" type="text" placeholder="请输入住宿日期(必填)"  name="startTime" onfocus="(this.type='date')">
    		    </div>
   		 </div>
   		
   	    <div class="weui_cell ">
-  		    <div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>离店日期</b></label></div>
-    		<div class="weui_cell_ft weui_cell_primary">
+  		    <div class="weui_cell_bd weui_cell_primary font_title"><label class="weui_label"><b>离店日期</b></label></div>
+    		<div class="weui_cell_ft weui_cell_primary font_content">
      		   <input class="weui_input" type="text" placeholder="请输入离店日期(必填)"  name="endTime" onfocus="(this.type='date')">
    		    </div>
   		 </div>
      	
      	<div class="weui_cell">
-    		<div class="weui_cell_bd weui_cell_primary">
+    		<div class="weui_cell_bd weui_cell_primary font_title">
       			<label class="weui_label"><b>天&nbsp;数</b></label>
    			 </div>
-    	<div class="weui_cell_ft weui_cell_primary">
+    	<div class="weui_cell_ft weui_cell_primary font_content">
      		<input class="weui_input" type="text" placeholder="请输入住宿天数(必填)"  name="daysCost" value="" onchange="checkFormat(this);">
    		 </div>
    		 
      	</div>
      	<div class="weui_cell">
-    		<div class="weui_cell_bd weui_cell_primary">
+    		<div class="weui_cell_bd weui_cell_primary font_title">
       			<label class="weui_label"><b>金&nbsp;额</b></label>
    			 </div>
-    	<div class="weui_cell_ft weui_cell_primary">
+    	<div class="weui_cell_ft weui_cell_primary font_content">
      		<input class="weui_input" type="text" placeholder="请输入金额(必填)"  name="moneyCost" value="" onchange="checkFormat2(this);">
    		 </div>
    		 
      	</div>
      		
      	<div class="weui_cell">
-    		<div class="weui_cell_bd weui_cell_primary">
+    		<div class="weui_cell_bd weui_cell_primary font_title">
       			<label class="weui_label"><b>说&nbsp;明</b></label>
    			 </div>
-    	<div class="weui_cell_ft weui_cell_primary">
+    	<div class="weui_cell_ft weui_cell_primary font_content">
      		<input class="weui_input" type="text" placeholder="请输入说明(可选)"  name="detailExplain" value="" >
    		 </div>
    		 

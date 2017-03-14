@@ -19,6 +19,8 @@
 <link rel="stylesheet" href="<%=path%>/stylesheets/projectcss.css?v=<%=SystemConfig.version%>" />
 <script src="<%=path%>/javascripts/jquery-2.1.4.js?v=<%=SystemConfig.version%>"></script>
 <script src="<%=path%>/javascripts/jquery-weui.js?v=<%=SystemConfig.version%>"></script>
+<script src="<%=path%>/javascripts/jquery.validate.min.js?v=<%=SystemConfig.version%>"></script>
+
 <script type="text/javascript"
 	src="http://g.alicdn.com/ilw/ding/0.7.3/scripts/dingtalk.js?v=<%=SystemConfig.version%>"></script>
 <title>创建培训会议</title>
@@ -37,7 +39,7 @@
 <body>
 
 <h3 style="text-align:center">您好，欢迎使用音达培训</h3>
-	<form id="divform">
+	<form id="divform" action="<%=path%>/WebEx/create_dd_meeting.do">
 		<div class="weui_cells weui_cells_form ">
  
             
@@ -48,7 +50,7 @@
 					<label class="weui_label">会议名称</label>
 				</div>
 				<div class="weui_cell_bd weui_cell_primary">
-					<input class="weui_input" type="text" placeholder="请输入会议名称  (到学习培训会议)"
+					<input class="weui_input" type="text" placeholder=""
 						name ="meeting_name" id="meeting_name">
 				</div>
 			</div>
@@ -59,7 +61,7 @@
 					<label class="weui_label">会议描述</label>
 				</div>
 				<div class="weui_cell_bd weui_cell_primary">
-					<input class="weui_input" type="text" placeholder="请输入会议描述 (到学习培训会议)"
+					<input class="weui_input" type="text" placeholder=""
 						name ="meeting_desc" id="meeting_desc">
 				</div>
 			</div>
@@ -70,7 +72,7 @@
 					<label class="weui_label">会议密码</label>
 				</div>
 				<div class="weui_cell_bd weui_cell_primary">
-					<input class="weui_input" type="number" placeholder="请输入会议密码 (123456)"
+					<input class="weui_input" type="number" placeholder=""
 						name ="meeting_password" id="meeting_password">
 						<input name="session_key" id="session_key" type="hidden">
 				</div>
@@ -82,8 +84,7 @@
 					<label class="weui_label">会议人数</label>
 				</div>
 				<div class="weui_cell_bd weui_cell_primary">
-					<!-- <input class="weui_input" type="text" placeholder="请输入会议人数"
-						name ="meeting_count" id="meeting_count"> -->
+					
 						<select class="weui_select" name="meeting_count" id="meeting_count">
 								<option >请选择</option>
 								<option value="20">20</option>
@@ -130,7 +131,8 @@
 		<div class="weui_cell">
 
 			<div class="weui_cell_bd weui_cell_primary"  style="color:blue" >
-				<a href="javascript:subForm();" class="weui_btn weui_btn_primary">提交</a>
+				<input href="#" class="weui_btn weui_btn_primary" type="submit" />
+				
 			</div>
 		</div>
 		
@@ -177,8 +179,14 @@
           console.log(values);
         }
       });
-    
-    function subForm(){
+
+   
+  	// 邮政编码验证   
+  	jQuery.validator.addMethod("IsChinese", function(value, element) {   
+  	    var tel = /^[\u4E00-\u9FA5]+$/;
+  	    return this.optional(element) || (tel.test(value));
+  	}, "请填写汉字");
+   function subForm(){
     	
     	var meeting_name = $("#meeting_name").val();
     	var meeting_desc = $("#meeting_desc").val();
@@ -189,7 +197,7 @@
     	
     	
     	
-    	if(meeting_name ==null || meeting_name == ""){
+/*     	if(meeting_name ==null || meeting_name == ""){
     		$.alert("会议名称不可为空！");
     		return;
     	}
@@ -228,19 +236,77 @@
     	if(meeting_length ==null || meeting_length == ""){
     		$.alert("会议时长不可为空！");
     		return;
-    	}
+    	} */
     	
     	 $.post("<%=path%>/WebEx/create_dd_meeting.do",$("#divform").serialize(),function(data){
 
              
-                 $.alert(data);
+                if(data == "success"){
+                	window.location = "<%=path%>/WebEx/create_dd_meeting_success.do";
+                }else{
+                	window.location = "<%=path%>/WebEx/create_dd_meeting_error.do";
+                }
              
          });
     	
     }
-    </script>
+    </script> 
+    
+<script>
 
+$().ready(function() {
+	// 在键盘按下并释放及提交后验证提交表单
+		
+    	var meeting_name = $("#meeting_name").val();
+    	var meeting_desc = $("#meeting_desc").val();
+    	var meeting_password = $("#meeting_password").val();
+    	var meeting_count = $("#meeting_count").val();
+    	var meeting_length = $("#meeting_length").val();
+    	var meeting_time = $("input[name='meeting_time']").val();
+    	
+	  $("#divform").validate({
+	    rules: {
+	      meeting_name: "required",
+	      meeting_password:"required",
+	      meeting_desc: "required",
+	      meeting_name: {
+	        required: true,
+	        minlength: 6,
+	        IsChinese: ""
+	   
+	      },
+	      meeting_password: {
+	        required: true,
+	        minlength: 6,
+	      
+	      },
+	      meeting_desc: {
+		        required: true,
+		        minlength: 6,
+		        IsChinese: ""
+		      }
+	    
+	    },
+	    messages: {
+	      meeting_name: {
+	        required: "请输入会议名称",
+	        minlength: "长度不能小于6 个汉字"
+	      },
+	      meeting_password: {
+	        required: "请输入密码",
+	        minlength: "密码长度不能小于 6"
+	      },
+	      meeting_desc: {
+	        required: "请输入会议描述",
+	        minlength: "长度不能小于6 个汉字",
+	       
+	      }
+	     
+	    }
+	})
+	})
 
+</script>
 
   
 </body>

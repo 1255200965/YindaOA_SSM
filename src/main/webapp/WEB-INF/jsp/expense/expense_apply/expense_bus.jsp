@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="<%=path%>/stylesheets/weui.css"/>
   <link rel="stylesheet" href="<%=path%>/stylesheets/jquery-weui.css"/>
   <link rel="stylesheet" href="<%=path%>/stylesheets/projectcss.css"/>
+  <link rel="stylesheet" href="<%=path%>/stylesheets/expense.css"/>
   <title>发起大巴车报销</title>
  </head>
  <body >
@@ -21,68 +22,68 @@
   	<!-- <div class="weui_cells" style="border:none;"> -->
   	    
   	     
-  		<div class="weui_cell">
-    		<div class="weui_cell_bd weui_cell_primary">
-      			<label class="weui_label"><b>市/县</b></label>
+  		<div class="weui_cell ">
+    		<div class="weui_cell_bd weui_cell_primary font_title">
+      			<label class="weui_label"><b class="font_title">市/县</b></label>
    			 </div>
-    	 <div class="weui_cell_ft weui_cell_primary">
+    	 <div class="weui_cell_ft weui_cell_primary font_content">
      		<input class="weui_input" type="text" placeholder="请填写所在市/县(必填)"  name="startCity" >
    		 </div>
      	</div>	
   	     <div class="weui_cell">
     		<div class="weui_cell_bd weui_cell_primary">
-      			<label class="weui_label"><b>上车地址</b></label>
+      			<label class="weui_label font_title"><b>上车地址</b></label>
    			 </div>
-    	<div class="weui_cell_ft weui_cell_primary">
+    	<div class="weui_cell_ft weui_cell_primary font_content">
      		<input class="weui_input" type="text" placeholder="请填写上车地址(必填)"  name="startAddress" >
    		 </div> 
      	</div>		
    
   	     <div class="weui_cell">
     		<div class="weui_cell_bd weui_cell_primary">
-      			<label class="weui_label"><b>下车地址</b></label>
+      			<label class="weui_label font_title"><b>下车地址</b></label>
    			 </div>
-    	 <div class="weui_cell_ft weui_cell_primary">
+    	 <div class="weui_cell_ft weui_cell_primary font_content">
      		<input class="weui_input" type="text" placeholder="请填写下车地址(必填)"  name="destination" >
    		 </div>
    		 
      	</div>
      	<div class="weui_cell ">
-  		    <div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>上车时间</b></label></div>
-    		<div class="weui_cell_ft weui_cell_primary">
+  		    <div class="weui_cell_bd weui_cell_primary"><label class="weui_label font_title"><b>上车时间</b></label></div>
+    		<div class="weui_cell_ft weui_cell_primary font_content">
      		   <input class="weui_input" type="text" placeholder="请填写上车时间(必填)"  name="beginTime" onfocus="(this.type='date')" >
    		    </div>
   		 </div>
   	    
      	<div class="weui_cell">
-    		<div class="weui_cell_bd weui_cell_primary">
-      			<label class="weui_label"><b>下车时间</b></label>
+    		<div class="weui_cell_bd weui_cell_primary font_content">
+      			<label class="weui_label font_title"><b>下车时间</b></label>
    			 </div>
-    	 <div class="weui_cell_ft weui_cell_primary">
+    	 <div class="weui_cell_ft weui_cell_primary font_content">
      		<input class="weui_input" type="text" placeholder="请填写下车时间(必填)"  name="endTime" onfocus="(this.type='date')" >
    		 </div>
    		 
      	</div>
      	<div class="weui_cell">
     		<div class="weui_cell_bd weui_cell_primary">
-      			<label class="weui_label"><b>金&nbsp;额</b></label>
+      			<label class="weui_label font_title"><b>金&nbsp;额</b></label>
    			 </div>
-    	<div class="weui_cell_ft weui_cell_primary">
+    	<div class="weui_cell_ft weui_cell_primary font_content">
      		<input class="weui_input" type="text" placeholder="请填写报销金额(必填)"  name="moneyCost" onchange="checkFormat(this);">
    		 </div>
    		 
      	</div>
      	 <div class="weui_cell"> 
-    		<div class="weui_cell_bd weui_cell_primary"><label class="weui_label"><b>用车事由</b></label></div>
-    	     <div class="weui_cell_ft weui_cell_primary">
+    		<div class="weui_cell_bd weui_cell_primary"><label class="weui_label font_title"><b>用车事由</b></label></div>
+    	     <div class="weui_cell_ft weui_cell_primary font_content ">
      	        <input class="weui_input" type="text"   name="reason" placeholder="请填写用车事由(可选)">
    		     </div>
   	     </div> 
      	<div class="weui_cell">
     		<div class="weui_cell_bd weui_cell_primary">
-      			<label class="weui_label"><b>说&nbsp;明</b></label>
+      			<label class="weui_label font_title"><b>说&nbsp;明</b></label>
    			 </div>
-    	<div class="weui_cell_ft weui_cell_primary">
+    	<div class="weui_cell_ft weui_cell_primary font_content">
      		<input class="weui_input" type="text" placeholder="请填写说明(可选)"  name="detailExplain" >
    		 </div>
    		 
