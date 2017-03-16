@@ -1,22 +1,12 @@
 package com.controller;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.model.StaffInfo;
-import com.model.YoAttendance;
+import com.model.YoSalaryDaily;
 import com.model.YoUserinfosalary;
 import com.model.YoUserinfosalaryExample;
-import com.service.IAttendanceService;
-import com.service.IStaffInfoService;
 import com.service.IUserInfoSalaryService;
-import com.util.AttendanceWork;
-import com.util.DDUtil;
-import com.util.DateUtil;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -105,5 +95,20 @@ public class SearchSalaryController {
             map.put("msg", "查询结果为空");
         }
         return map;
+    }
+
+    /*
+    查询员工当月日报。点击每一个员工都会触发
+    工号通过读取jsp的nama属性加RequestParam注解得到。注意写了注解就必须有对应的name，否则就报错了
+    返回一个实体类列表
+    @RequestParam("staffid") String staffid,
+     */
+    @RequestMapping(value = "journal.do")
+    public String journal( Model m) {
+        // 在测试阶段，就直接查我的日报吧
+        List<YoSalaryDaily> list = userInfoService.getJournal("16462");
+        // 在页面中扒开这个列表，就是实体类了
+        m.addAttribute("journal", list);
+        return "/salary/journal";
     }
 }

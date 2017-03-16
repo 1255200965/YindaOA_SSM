@@ -29,7 +29,6 @@
 <link rel="stylesheet" href="<%=path%>/stylesheets/ace-fonts.css" />
 <link rel="stylesheet" href="<%=path%>/stylesheets/ace.min.css" />
 <link rel="stylesheet" href="<%=path%>/stylesheets/ace-rtl.min.css" />
-
 </head>
 
 <body class="login-layout" style="background:#6fb3e0">
@@ -206,24 +205,25 @@
 			<!-- /.row -->
 		</div>
 	</div>
+
 <script src="<%=path%>/javascripts/jquery.min.js"></script>
- <script>
-	function subForm(){
-		if($("#name").val() == ""){
-			alert("请输入用户名");
-		}else if($("#password").val()==""){
-			   alert("请输入密码");
-		}else{
-			$.post("login.do",$("#form").serialize(),function(data){
-				if(data=="success"){
-//					alert("登录成功");
-					window.location.href="loginSuccess.do";
-				}else if(data ="fail"){
-					alert("该账户尚未注册,无法登录!")
-				}
-			}); 
-		}
-	}		
- </script>
+<script>
+function subForm(){
+//	登录成功之后调用loginSuccess.do方法。这个方法在LoginController里面
+	if($("#name").val() == ""){
+		alert("请输入用户名");
+	}else if($("#password").val()==""){
+		   alert("请输入密码");
+	}else{
+		$.post("login.do",$("#form").serialize(),function(data){
+			if(data=="success"){
+				window.location.href="loginSuccess.do";
+			}else if(data=="fail"){
+				alert("该账户尚未注册,无法登录!")
+			}
+		});
+	}
+}
+</script>
 </body>
 </html>
