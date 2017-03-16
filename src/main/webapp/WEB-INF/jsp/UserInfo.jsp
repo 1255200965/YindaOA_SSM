@@ -388,11 +388,13 @@
                 <thead class="table-1-tou">
                     <td class="text_center" width="6%">工号</td>
                     <td class="text_center" width="5%">姓名</td>
-                    <td class="text_center" width="14%">部门</td>
+                    <td class="text_center" width="10%">部门</td>
                     <td class="text_center" width="10%">手机号</td>
-                    <td class="text_center" width="18%">邮箱</td>
+                    <td class="text_center" width="14%">邮箱</td>
                     <td class="text_center" width="6%">合同类型</td>
-                    <td class="text_center" width="10%">音达认证</td>
+                    <td class="text_center" width="8%">音达认证</td>
+                    <td class="text_center" width="8%">当前订单</td>
+                    <td class="text_center" width="8%">商务属性</td>
                     <td class="text_center" width="12%">身份证号</td>
                     <td class="text_center" width="8%">在职状态</td>
                     <td class="text_center" width="9%">操作</td>
@@ -407,6 +409,8 @@
                     <td data-bind="text:email"></td>
                     <td data-bind="text:contractType"></td>
                     <td data-bind="text:yindaIdentify"></td>
+                    <td data-bind="text:scoOrderName"></td>
+                    <td data-bind="text:businessProperty"></td>
                     <td data-bind="text:idNo"></td>
                     <td data-bind="text:workState"></td>
                     <td>

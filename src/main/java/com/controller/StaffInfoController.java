@@ -61,7 +61,8 @@ public class StaffInfoController {
     @RequestMapping(value = "/login.do", method = RequestMethod.POST)
     public @ResponseBody Map<String,Object> login1(@RequestBody StaffInfo user, HttpServletRequest request, HttpServletResponse response) throws IOException {
         //查询指定id，填充进map
-        List<StaffInfo> list = userInfoService.searchStaffInfoByEntity(user);
+        //List<StaffInfo> list = userInfoService.searchStaffInfoByEntity(user);
+        List<StaffInfo> list = userInfoService.selectStaffInfo(user);
         Map<String,Object> map = new HashMap<String,Object>();
         map.put("usertest",list);
         if(list.size() != 0){
@@ -74,7 +75,9 @@ public class StaffInfoController {
     //根据条件查询所有员工信息
     @RequestMapping(value = "/query.do", method = RequestMethod.POST)
     public @ResponseBody Map<String,Object> query1(@RequestBody StaffInfo stu, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        List<StaffInfo> list = userInfoService.searchStaffInfoByEntity(stu);//改！
+        //List<StaffInfo> list = userInfoService.searchStaffInfoByEntity(stu);//改！
+        //更换天国的遗产
+        List<StaffInfo> list = userInfoService.selectStaffInfo(stu);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("userlist", list);
         if (list.size() != 0) {

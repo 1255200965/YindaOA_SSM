@@ -115,10 +115,9 @@ public class StaffInfoServiceImpl implements IStaffInfoService {
     }
 
     //根据名称，工号，电话好吗查询所有
+    //天国的遗产，现在增加了订单和商务属性的查询
     public List<StaffInfo> selectStaffInfo(StaffInfo staffInfo) {
-//        String name = staffInfo.getName();
-//        String cellphone = staffInfo.getCellphone();
-//        String idNo = staffInfo.getIdNo();
+
         return staffInfoMapper.selectAllUser(staffInfo);
     }
 

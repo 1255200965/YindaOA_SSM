@@ -43,6 +43,8 @@
     <result column="staff_state" property="staffState" jdbcType="VARCHAR" />
     <result column="work_state" property="workState" jdbcType="VARCHAR" />
     <result column="leave_date" property="leaveDate" jdbcType="VARCHAR" />
+    <result column="business_property" property="businessProperty" jdbcType="VARCHAR" />
+    <result column="sco_order_name" property="scoOrderName" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="YIResultMap" type="com.model.StaffInfo" >
       <result column="name" property="yindaIdentify" jdbcType="VARCHAR" />
@@ -131,19 +133,23 @@
 
     <!--根据条件查询用户信息-->
     <select id="selectAllUser" resultMap="BaseResultMap" parameterType="com.model.StaffInfo">
-      select
+      select  a.staff_user_id, a.department, a.position, a.name, a.sex, a.staff_id, a.whether_leader, a.cellphone,
+      a.email, a.branch_phone, a.work_address, a.comment1, a.contract_type, a.yinda_identify, a.net_unit,
+      a.comment2, a.id_no, a.household_address, a.branch_company, a.social_security_address, a.ordinary_address,
+      a.rso_identify, a.base_salary, a.item_salary, a.nation, a.age, a.last_contract, a.last_contract_begin,
+      a.last_contract_end, a.enter_time, a.work_year, a.salary_card, a.graduate_school, a.school_record,
+      a.graduate_date, a.expense_card, a.item, a.yo_order, a.staff_state, a.work_state, a.leave_date,b.business_property,b.sco_order_name
 
-      <include refid="Base_Column_List" />
-      from staff_info
+      from staff_info a LEFT JOIN yo_staff_current_order b on a.staff_id = b.sco_staff_id
       <where>
           <if test="name!=null">
-            name like CONCAT('%','${name}','%' )
+            a.name like CONCAT('%','${name}','%' )
           </if>
-          <if test="cellphone!=null">
-            and cellphone like CONCAT('%','${cellphone}','%' )
+          <if test="department!=null">
+            and a.department ='${department}'
           </if>
           <if test="staffId!=null">
-            and staff_id like CONCAT('%','${staffId}','%' )
+            and a.staff_id like CONCAT('%','${staffId}','%' )
           </if>
       </where>
     </select>
@@ -842,4 +848,16 @@
 
 
   </select>
+
+<!--  <select id="getIdentifyInStallInfo"  resultMap="BaseResultMap" parameterType="java.lang.String">
+
+    select  a.staff_user_id, a.department, a.position, a.name, a.sex, a.staff_id, a.whether_leader, a.cellphone,
+    a.email, a.branch_phone, a.work_address, a.comment1, a.contract_type, a.yinda_identify, a.net_unit,
+    a.comment2, a.id_no, a.household_address, a.branch_company, a.social_security_address, a.ordinary_address,
+    a.rso_identify, a.base_salary, a.item_salary, a.nation, a.age, a.last_contract, a.last_contract_begin,
+    a.last_contract_end, a.enter_time, a.work_year, a.salary_card, a.graduate_school, a.school_record,
+    a.graduate_date, a.expense_card, a.item, a.yo_order, a.staff_state, a.work_state, a.leave_date,b.business_property,b.sco_order_name from staff_info a LEFT JOIN yo_staff_current_order b on a.staff_id = b.sco_staff_id
+    where  a.staff_Id = #{user_staffId} and
+
+  </select>-->
 </mapper>

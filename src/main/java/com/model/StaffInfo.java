@@ -82,6 +82,26 @@ public class StaffInfo {
     private String workState;
 
     private String leaveDate;
+    //商务属性
+    private String businessProperty;
+    //订单名
+    private String scoOrderName;
+
+    public String getBusinessProperty() {
+        return businessProperty;
+    }
+
+    public void setBusinessProperty(String business_property) {
+        this.businessProperty = business_property;
+    }
+
+    public String getScoOrderName() {
+        return scoOrderName;
+    }
+
+    public void setScoOrderName(String sco_order_name) {
+        this.scoOrderName = sco_order_name;
+    }
 
     public String getStaffUserId() {
         return staffUserId;
