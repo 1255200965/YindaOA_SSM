@@ -14,13 +14,9 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no">
 <head>
-<link rel="stylesheet" href="/exam/jquery-weui/stylesheets/weui.css?" />
-<link rel="stylesheet" href="/exam/jquery-weui/stylesheets/jquery-weui.css" />
-<link rel="stylesheet" href="/exam/jquery-weui/stylesheets/projectcss.css" />
-<script src="/exam/jquery-weui/javascripts/jquery-2.1.4.js"></script>
-<script src="/exam/jquery-weui/javascripts/jquery-weui.js"></script>
 
-	
+
+	<script src="<%=path%>/javascripts/jquery-2.1.4.js"></script>
 	
 	
 
@@ -51,9 +47,7 @@ margin-bottom:3px;
   <div class="weui-msg__icon-area"><i class="weui-icon-success weui-icon_msg"></i></div>
   <div class="weui-msg__text-area">
     <h2 class="weui-msg__title">成功!</h2>
-   
-      <%-- <a href="<%=path%>/findAll_WebEx;" class="weui-btn weui-btn_primary">会议列表</a> --%>
-     <!--  <a href="javascript:;" class="weui-btn weui-btn_default">辅助操作</a> -->
+
     
   </div>
   <div class="weui-msg__extra-area">
@@ -68,15 +62,7 @@ margin-bottom:3px;
 	
 	
 	<script>
-    /** 页面下拉刷新**/
-    $(document.body).pullToRefresh();
-    $(document.body).on("pull-to-refresh", function() {
-        window.location.reload();
-        $(document.body).pullToRefreshDone();
-        
-        
-        
-    });
+  
   
 
 
