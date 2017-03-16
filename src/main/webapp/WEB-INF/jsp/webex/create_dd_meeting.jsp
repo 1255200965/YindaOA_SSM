@@ -78,7 +78,16 @@
 				</div>
 				
 			</div>
-			
+				<div class="weui_cell">
+				<div class="weui_cell_hd">
+					<label class="weui_label">会议时间</label>
+				</div>
+				<div class="weui_cell_bd weui_cell_primary">
+					<input class="weui_input"  id='datetime-picker'
+						name ="meeting_time" type="text"  readonly>
+						
+				</div>
+			</div>
 			 <div class="weui_cell">
 				<div class="weui_cell_hd">
 					<label class="weui_label">会议人数</label>
@@ -86,7 +95,7 @@
 				<div class="weui_cell_bd weui_cell_primary">
 					
 						<select class="weui_select" name="meeting_count" id="meeting_count">
-								<option >请选择</option>
+								<option value>请选择</option>
 								<option value="20">20</option>
 								<option value="50">50</option>
 								<option value="100">100</option>
@@ -102,7 +111,7 @@
 					<!-- <input class="weui_input" type="text" placeholder="单位：分钟"
 						name ="meeting_length" id="meeting_length"> -->
 							<select class="weui_select" name="meeting_length" id="meeting_length">
-								<option >请选择</option>
+								<option value>请选择</option>
 								<option value="30">30</option>
 								<option value="60">60</option>
 								<option value="90">90</option>
@@ -111,16 +120,7 @@
 				</div>
 			</div>
      
-			<div class="weui_cell">
-				<div class="weui_cell_hd">
-					<label class="weui_label">会议时间</label>
-				</div>
-				<div class="weui_cell_bd weui_cell_primary">
-					<input class="weui_input"  id='datetime-picker'
-						name ="meeting_time" type="text"  readonly>
-						
-				</div>
-			</div>
+		
 
 		</div>
 		</div>
@@ -186,74 +186,7 @@
   	    var tel = /^[\u4E00-\u9FA5]+$/;
   	    return this.optional(element) || (tel.test(value));
   	}, "请填写汉字");
-function sub_form(){
-    	
-    	var meeting_name = $("#meeting_name").val();
-    	var meeting_desc = $("#meeting_desc").val();
-    	var meeting_password = $("#meeting_password").val();
-    	var meeting_count = $("#meeting_count").val();
-    	var meeting_length = $("#meeting_length").val();
-    	var meeting_time = $("input[name='meeting_time']").val();
-    	
-    	
-    	
-     	if(meeting_name ==null || meeting_name == ""){
-    		$.alert("会议名称不可为空！");
-    		return;
-    	}
-    	
-    	if(meeting_name.length<5){
-    		$.alert("会议名称至少5个字！");
-    		return;
-    	}
-    	
-    	if(meeting_desc ==null || meeting_desc == ""){
-    		$.alert("会议描述不可为空！");
-    		return;
-    	}
-    	if(meeting_desc.length<5){
-    		$.alert("会议描述至少5个字！");
-    		return;
-    	}
-    	if(meeting_password ==null || meeting_password == ""){
-    		$.alert("会议密码不可为空！");
-    		return;
-    	}
-    	
-    	if(meeting_password.length<6){
-    		$.alert("会议密码不可少于6位！");
-    		return;
-    	}
-    	
-    	if(meeting_count ==null || meeting_count == ""){
-    		$.alert("会议人数不可为空！");
-    		return;
-    	}
-    	if(meeting_time ==null || meeting_time == ""){
-    		$.alert("会议时间不可为空！");
-    		return;
-    	}
-    	if(meeting_length ==null || meeting_length == ""){
-    		$.alert("会议时长不可为空！");
-    		return;
-    	} 
-    	
-    	 $.post("<%=path%>/WebEx/create_dd_meeting.do",$("#divform").serialize(),function(data){
 
-             
-                if(data == "success"){
-                	
-                	$.post("<%=path%>/WebEx/create_dd_meeting_success.do",function(data){
-                		
-                		$("#bb").html(data);
-                	})
-                }else{
-                	window.location = "<%=path%>/WebEx/create_dd_meeting_error.do";
-                }
-             
-         });
-    	
-    } 
     </script> 
     
 <script>
@@ -266,11 +199,34 @@ $().ready(function() {
     	var meeting_password = $("#meeting_password").val();
     	var meeting_count = $("#meeting_count").val();
     	var meeting_length = $("#meeting_length").val();
-    	var meeting_time = $("input[name='meeting_time']").val();
+    
+    	
     	
 	  $("#divform").validate({
 		  submitHandler : function() {  //验证通过后的执行方法
 	            //当前的form通过ajax方式提交（用到jQuery.Form文件）
+	          
+		  debugger;
+		  /*获取当前日期*/
+	        var date = new Date();
+	        var year = date.getFullYear();
+	        var month = date.getMonth()+1;
+	        var day = date.getDate();
+	        var hh = date.getHours(); //截取小时 
+	        var mm = date.getMinutes()+10; //截取分钟
+	        if(month<10){
+	        	month = "0"+month;
+	        }
+	        if(day<10){
+	        	day = "0"+day;
+	        }
+	        var nowtime = year+"-"+month+"-"+day+" "+hh+":"+mm;
+	        var meeting_time = $("input[name='meeting_time']").val();
+	        
+	            if(nowtime>meeting_time){
+	            	$.alert("会议时间必须为10分钟之后时间段");
+	            	return;
+	            }
 				 $.post("<%=path%>/WebEx/create_dd_meeting.do",$("#divform").serialize(),function(data){
 
 		             
@@ -306,9 +262,23 @@ $().ready(function() {
 		        required: true,
 		        minlength: 6,
 		        IsChinese: ""
-		      }
+		      },
+	      meeting_time: {
+		        required: true,		      
+		      },
+		   meeting_length: {
+			        required: true,    
+			      },			      
+		  meeting_count: {
+				        required: true,    
+				      }
 	    
 	    },
+	   
+	   
+    
+    
+	    
 	    messages: {
 	      meeting_name: {
 	        required: "请输入会议名称",
@@ -322,7 +292,22 @@ $().ready(function() {
 	        required: "请输入会议描述",
 	        minlength: "长度不能小于6 个汉字",
 	       
-	      }
+	      },
+	      meeting_length: {
+		        required: "请选择会议时长",
+		       
+		       
+		      },
+		 meeting_time: {
+			        required: "请选择会议时间",
+			       
+			       
+			      },
+		meeting_count: {
+				     required: "请选择会议人数"
+				       
+				      }
+	      
 	     
 	    }
 	})
