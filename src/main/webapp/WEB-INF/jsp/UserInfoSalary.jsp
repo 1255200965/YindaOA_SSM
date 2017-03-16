@@ -51,6 +51,7 @@
 
     <script type="text/javascript">
         //======用户信息缓存============================
+        // 进入页面时读session，得到role
         var role  = "<%=request.getAttribute("userRole")%>";
         var StaffName  ="<%=request.getAttribute("StaffName")%>";
         var Department  ="<%=request.getAttribute("Department")%>";
@@ -104,7 +105,6 @@
 
                 });
 
-
                 //===============================
                 //获取部门成员
                 self.GetUserListByDep = function(depddid){
@@ -142,6 +142,7 @@
                         });
                     }
                 }
+
                 //查询成员列表（部门，姓名，电话，工号）
                 self.GetUserByQuery = function(){
                     if (nowDep != null){var depid = nowDep.name;} else {depid = Department;}
@@ -149,7 +150,7 @@
                         alert("请输入名字或工号！");
                     } else {
                         $.ajax({
-                            data: JSON.stringify(new UserModel(depid, $("#search_name").val(), $("#search_salaryid").val(), getNowDate())),
+                            data: JSON.stringify(new UserModel(depid, $("#search_name").val(), $("#search_salaryid").val(), $("#search_salarydate").val())),
                             type: "post",
                             async: false,
                             headers: {'Content-Type': 'application/json'},
@@ -170,7 +171,7 @@
                     }
                 }
 
-                //修改工资,增加总计变化
+                // 修改工资,增加总计变化
                 self.UpdateSalary = function(type,item){
                     if (role=='项目经理' && (item.timesalary<item.timebaseadd || item.tasksalary<item.taskbaseadd)){
                         //调整不合法
@@ -214,12 +215,9 @@
                                 }
                             });
                         }
-
                 }
 
-
-
-                //点击事件-点击更新用户按钮
+                // 点击事件-点击更新用户按钮
                 self.ClickUpdate = function(item){
                     self.changeItem(item);
                     //单条审批，如果是项目经理没批，部门经理不能批
@@ -271,6 +269,7 @@
                     $("#search_salaryid").val("");
 
                 }
+
                 //点击事件-模态框确定
                 self.ClickModelYes = function() {
                             if (!confirm("确认要提交？")) {
@@ -281,7 +280,9 @@
                                 return true;
                             }
                 };
+
                 //点击事件-模态框关闭
+                // self是一个全局变量，是一个handler，类似于this
                 self.changeValue = function(item){
                     item.totalsalary = parseFloat(item.subtotal) + parseFloat(item.allowance) + parseFloat(item.heatingAllowance) + parseFloat(item.trafficsalary)  + parseFloat(item.userbonus) + parseFloat(item.timebaseadd) + parseFloat(item.taskbaseadd);
                     //如果项目经理已经审批了，不能修改
@@ -295,6 +296,7 @@
                             alert("出错了！！:" + data.msg);
 
                         },
+                        // 玩杂技，return并不返回数据，只返回状态，更新的值是从JS中算出来的。
                         success: function (data) {
                             if (data.ok == "ok") {
                                 for (var i = 0; i < self.ShowList().length; i++) {
@@ -369,7 +371,6 @@
             ko.applyBindings(new ViewModel);
         });
 
-
         function UserModel(depid,name,salaryid,salarydate) {
             this.sid = null;
             this.salarydate=salarydate;
@@ -406,9 +407,9 @@
             <div class="caidan-tiku-s" style="margin-right:5%"> <span>工号：</span>
                 <input id="search_salaryid" type="text" name="salaryid" class="shuruk-a2" placeholder="">
             </div>
-<%--           <div class="caidan-tiku-s" style="margin-right:5%"> <span>日期：</span>
+            <div class="caidan-tiku-s" style="margin-right:5%"> <span>日期：</span>
                 <input id="search_salarydate" type="text" name="salarydate" class="shuruk-a2" placeholder="">
-            </div>--%>
+            </div>
 
             <div class="caidan-tiku-s" style="margin-right:5%"> <span>当月满勤天数：</span>
                 <span id="nowaday"  data-bind="text:$root.dateCount"> </span>
@@ -473,6 +474,7 @@
                     <td data-bind="text:trafficsalary">编号</td>
                     <td data-bind="text:realityattendance">编号</td>
                     <td data-bind="text:timesalary">编号</td>
+                    <%--如果这个人的角色是PM，触发readonly--%>
                     <td ><input  class="c_ding_input" style="width:60px" data-bind="textinput:timebaseadd,attr:{readonly:role=='项目经理' ||  task>'1'},event:{ change: $root.changeValue } "/></td>
                     <td data-bind="text:tasksalary">编号</td>
                     <td ><input  class="c_ding_input" style="width:60px" data-bind="textinput:taskbaseadd,attr:{readonly:role=='项目经理' ||  task>'1'},event:{ change: $root.changeValue }"/></td>
@@ -546,8 +548,8 @@
     </div>
 </div>
 <script>
-    // 日期插件开始
 
+    // 日期插件开始
     $('#search_salarydate').monthpicker({
         years: [2017,2016,2015, 2014, 2013, 2012, 2011,2010,2009],
         topOffset: 10,

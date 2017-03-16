@@ -26,8 +26,10 @@ public class LoginController {
   public IStaffInfoService staffInfoService;
   @Autowired
   private OrgService orgService;
-  ValueWrapper roleCache =SystemCacheImpl.cache.get("user_role");
-  ValueWrapper moduleCache =SystemCacheImpl.cache.get("role_module");
+
+	ValueWrapper roleCache =SystemCacheImpl.cache.get("user_role");
+  	ValueWrapper moduleCache =SystemCacheImpl.cache.get("role_module");
+
   /**
    * 登录验证
    * @param request
@@ -82,12 +84,15 @@ public class LoginController {
   }
   /**
    * 登录成功界面跳转
+   * 170315注意这里的index是jsp里面的而不是和jsp同级的
    * @return
    */
   @RequestMapping("/loginSuccess.do")
   public ModelAndView loginSuccess(){
+//	  就返回一个页面还mav，真的是鱼得一B
 	  ModelAndView mav =new ModelAndView();
 	  mav.setViewName("index");
 	  return mav;
   }
+
 }

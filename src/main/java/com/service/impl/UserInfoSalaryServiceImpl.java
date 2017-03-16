@@ -1,6 +1,9 @@
 package com.service.impl;
 
+import com.dao.YoSalaryDailyMapper;
 import com.dao.YoUserinfosalaryMapper;
+import com.model.YoSalaryDaily;
+import com.model.YoSalaryDailyExample;
 import com.model.YoUserinfosalary;
 import com.model.YoUserinfosalaryExample;
 import com.service.IUserInfoSalaryService;
@@ -18,6 +21,8 @@ import java.util.List;
 public class UserInfoSalaryServiceImpl implements IUserInfoSalaryService {
     @Autowired
     public YoUserinfosalaryMapper userMapper;
+    @Autowired
+    public YoSalaryDailyMapper yoSalaryDailyMapper;
 
     @Override
     public List<YoUserinfosalary> selectSalary(YoUserinfosalaryExample record) {
@@ -86,5 +91,16 @@ public class UserInfoSalaryServiceImpl implements IUserInfoSalaryService {
     public List<YoUserinfosalary> search_Jan_salary(String userid, String salarydate) {
         // TODO Auto-generated method stub
         return userMapper.search_Jan_salary(userid, salarydate);
+    }
+
+    /*
+    170316，接收工号，返回2月份日报。日报有31条
+     */
+    public List<YoSalaryDaily> getJournal(String staffid) {
+        // 得到2月份的例子，注意要选择日期区间
+        YoSalaryDailyExample example = new YoSalaryDailyExample();
+        example.or().andStaffidEqualTo(staffid).andDateGreaterThanOrEqualTo("2017-01-21");
+        List<YoSalaryDaily> list = yoSalaryDailyMapper.selectByExample(example);
+        return list;
     }
 }
