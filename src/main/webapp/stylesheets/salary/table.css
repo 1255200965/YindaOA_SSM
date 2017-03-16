@@ -1,0 +1,48 @@
+.daily {
+	/*上下边界为0，左右则根据宽度自适应*/
+	margin: 0 auto;
+	/*设定table内的边框全部折叠收缩为一条*/
+	border-collapse: collapse;
+	border: 1px solid blue;
+	width: 1200px;
+}
+
+.daily th {
+	border: 1px solid blue;
+	height: 50px;
+}
+
+.daily td {
+	border: 1px solid blue;
+	height: 30px;
+	text-align: center;
+}
+
+.daily input {
+	width: 50px;
+	height: 25px;
+}
+
+.btn-update {
+	width: 50px;
+	height: 25px;
+}
+
+.btn-submit {
+	/*上下边界为0，左右则根据宽度自适应*/
+	margin: 0 auto;
+	/*根据调试，长宽比2.5比较靠谱*/
+	width: 100px;
+	height: 40px;
+	/*这里如果使用padding会挂掉，再者里面的元素就算出界了也属于元素之内*/
+	/*margin的结果为上下margin之和*/
+	margin-top: 30px;
+	text-align: center;
+	font-size: large;
+	font-weight: bold;
+	color: red;
+}
+
+.p-middle {
+	text-align: center;
+}

@@ -56,9 +56,6 @@ public class SearchSalaryController {
 
     /**
      * 更新工资
-     * @param totalSum
-     * @return
-     * @throws IOException
      */
     @RequestMapping(value = "/updatesalary.do", method = RequestMethod.POST)
     public @ResponseBody Map<String,Object> updateuser(@RequestBody YoUserinfosalary totalSum) throws IOException {
