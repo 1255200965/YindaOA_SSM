@@ -107,7 +107,7 @@ public class StaffInfoServiceImpl implements IStaffInfoService {
         StaffInfoExample staffInfoExample = new StaffInfoExample();
         StaffInfoExample.Criteria criteria = staffInfoExample.createCriteria();
         if (staffId!=null && staffId!="") criteria.andStaffIdEqualTo(staffId);
-        if (name!=null && name!="") criteria.andNameEqualTo(name);
+        if (name!=null && name!="") criteria.andNameLike("%"+name+"%");
         if (depart!=null && depart !="") criteria.andDepartmentEqualTo(depart);
 
         List<StaffInfo> list = staffInfoMapper.selectByExample(staffInfoExample);

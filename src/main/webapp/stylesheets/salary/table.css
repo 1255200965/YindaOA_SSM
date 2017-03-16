@@ -3,17 +3,20 @@
 	margin: 0 auto;
 	/*设定table内的边框全部折叠收缩为一条*/
 	border-collapse: collapse;
-	border: 1px solid blue;
+	border: 1px solid #e9eaf0;
 	width: 1200px;
+	background-color: white;
 }
 
 .daily th {
-	border: 1px solid blue;
+	border: 1px solid #e9eaf0;
 	height: 50px;
+	text-align: center;
+	background-color: #f5f5f5;
 }
 
 .daily td {
-	border: 1px solid blue;
+	border: 1px solid #e9eaf0;
 	height: 30px;
 	text-align: center;
 }
@@ -32,7 +35,7 @@
 	/*上下边界为0，左右则根据宽度自适应*/
 	margin: 0 auto;
 	/*根据调试，长宽比2.5比较靠谱*/
-	width: 100px;
+	width: 120px;
 	height: 40px;
 	/*这里如果使用padding会挂掉，再者里面的元素就算出界了也属于元素之内*/
 	/*margin的结果为上下margin之和*/

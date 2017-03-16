@@ -13,6 +13,15 @@
     <title>journal</title>
     <!-- head中的必要声明 -->
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="../stylesheets/reset.css">
+
+    <link href="${ctx}/stylesheets/bootstrap.min.css" rel="stylesheet" />
+    <link href="${ctx}/stylesheets/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="${ctx}/stylesheets/bootstrap-treeview.min.css" rel="stylesheet" />
+    <link href="${ctx}/stylesheets/shujutongji.css" rel="stylesheet" />
+    <link href="${ctx}/stylesheets/ddcss.css" rel="stylesheet" />
+    <link rel="stylesheet" href="${ctx}/stylesheets/header.css">
+
     <%--加载table样式文件--%>
     <link rel="stylesheet" type="text/css" href="${ctx}/stylesheets/salary/table.css" />
 </head>
@@ -20,9 +29,9 @@
     <p class="p-middle">这个页面是每个人的日报，更改数据后再次提交可以回到总表。</p>
     <br>
 
-    <table class="daily">
-        <tr>
-            <th style="width: 7%">工号</th>
+    <table  width="100%" border="1" cellspacing="0" cellpadding="0" class="daily table-1">
+        <thead class="table-1-tou " >
+            <th  style="width: 7%">工号</th>
             <th style="width: 7%">姓名</th>
             <th style="width: 7%">日期</th>
             <th style="width: 7%">项目</th>
@@ -35,7 +44,7 @@
             <th style="width: 7%">是否有效签到</th>
             <th style="width: 7%">是否有效加班</th>
             <th style="width: 7%">是否有效出差</th>
-        </tr>
+        </thead>
 
         <c:forEach var="entity" items="${journal}">
             <tr>
@@ -47,17 +56,17 @@
                 <td>${entity.orderProcity}</td>
                 <td>${entity.askLeaveType}</td>
                 <td>${entity.attProcity}</td>
-                <td><input value=${entity.whetherEffAtt}></td>
+                <td><input class="c_ding_input" value=${entity.whetherEffAtt}></td>
                 <td>${entity.signProcity}</td>
-                <td><input value=${entity.whetherEffSign}></td>
-                <td><input value=${entity.whetherEffOt}></td>
-                <td><input value=${entity.whetherEffBt}></td>
+                <td>${entity.whetherEffSign}</td>
+                <td>${entity.whetherEffOt}</td>
+                <td>${entity.whetherEffBt}</td>
             </tr>
         </c:forEach>
     </table>
 
     <p class="p-middle">
-        <a href="${ctx}/loginSuccess.do"><button class="btn-submit">一键提交</button></a>
+        <a href="javascript:history.go(-1)"><button class="btn-submit">返回上一页</button></a>
     </p>
 </body>
 </html>

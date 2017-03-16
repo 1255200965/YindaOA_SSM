@@ -128,7 +128,7 @@ public class WebExController {
 	@RequestMapping("create_meeting_error.do")
 	public ModelAndView create_meeting_error(){
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("webex/create_meeting_error");		
+		mav.setViewName("webex/create_dd_meeting_error");
 		return mav;
 	}
 	/**

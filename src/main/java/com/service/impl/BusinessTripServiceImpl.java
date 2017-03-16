@@ -75,35 +75,76 @@ public class BusinessTripServiceImpl implements IBusinessTripService{
         	    //从第1列读入,不读第0列
         	    int j=1;
         	    //审批单号
-        	    businessTrip.setBtApproveNo(row.getCell(j++).getStringCellValue().toString());
-        		//出差目的
+        	    if(row.getCell(j) !=null){
+        	    	row.getCell(j).setCellType(Cell.CELL_TYPE_STRING);
+        	    	businessTrip.setBtApproveNo(row.getCell(j++).getStringCellValue().toString());
+        	    }
+        	    //出差目的
         		businessTrip.setBtAskReason(row.getCell(j++).getStringCellValue().toString());
         		//交通工具
-        		businessTrip.setBtVehicle(row.getCell(j++).getStringCellValue().toString());
-        		//审批状态
-        		businessTrip.setBtApproveState(row.getCell(j++).getStringCellValue().toString());
+        		if(row.getCell(j) !=null){
+        			row.getCell(j).setCellType(Cell.CELL_TYPE_STRING);
+        			businessTrip.setBtVehicle(row.getCell(j++).getStringCellValue().toString());
+        		}
+        			//审批状态
+        		if(row.getCell(j) !=null){
+        			row.getCell(j).setCellType(Cell.CELL_TYPE_STRING);
+        			businessTrip.setBtApproveState(row.getCell(j++).getStringCellValue().toString());
+        		}
         		//审批发起时间
-        		businessTrip.setBtApproveBegin(row.getCell(j++).getStringCellValue().toString());
-        	    //审批处理时间
-        		businessTrip.setBtApproveEnd(row.getCell(j++).getStringCellValue().toString());
+        		if(row.getCell(j) !=null){
+        			row.getCell(j).setCellType(Cell.CELL_TYPE_STRING);
+        			businessTrip.setBtApproveBegin(row.getCell(j++).getStringCellValue().toString());
+        		}
+        		//审批处理时间
+        		if(row.getCell(j) !=null){
+        			row.getCell(j).setCellType(Cell.CELL_TYPE_STRING);
+        			businessTrip.setBtApproveEnd(row.getCell(j++).getStringCellValue().toString());
+        		}
         		//用户钉钉ID
-        		businessTrip.setBtAskStaffUserId(row.getCell(j++).getStringCellValue().toString());
-        		//用户工号
-        		businessTrip.setBtAskStaffId(staffInfoMapper.selectByPrimaryKey(businessTrip.getBtAskStaffUserId()).getStaffId());
+        		if(row.getCell(j) !=null){
+        			row.getCell(j).setCellType(Cell.CELL_TYPE_STRING);
+        			businessTrip.setBtAskStaffUserId(row.getCell(j++).getStringCellValue().toString());
+        		}
+        			//用户工号
+        			/*System.out.println(row.getCell(j).getStringCellValue().toString());*/
+        			businessTrip.setBtAskStaffId(staffInfoMapper.selectByPrimaryKey(businessTrip.getBtAskStaffUserId()).getStaffId());
+        	
         		//申请人名称
-        		businessTrip.setBtAskStaffName(row.getCell(j++).getStringCellValue().toString());
-        		//部门名称
-        		businessTrip.setBtAskStaffDepart(row.getCell(j++).getStringCellValue().toString());
-        		//部门id
-        		businessTrip.setBtAskStaffDepartId(row.getCell(j++).getStringCellValue().toString());
-        		//历史审批人
-        		businessTrip.setBtHistoryApproveName(row.getCell(j++).getStringCellValue().toString());
-        		//审批人意见
-        		businessTrip.setBtApproveRecord(row.getCell(j++).getStringCellValue().toString());
-        		//审批耗时
-        		businessTrip.setBtCost(row.getCell(j++).getStringCellValue().toString());
-        		//出差行程 
-        		businessTrip.setBtTrip(row.getCell(j++).getStringCellValue().toString());
+        		if(row.getCell(j) !=null){
+        			row.getCell(j).setCellType(Cell.CELL_TYPE_STRING);
+        			businessTrip.setBtAskStaffName(row.getCell(j++).getStringCellValue().toString());
+        		}
+        			//部门名称
+        		if(row.getCell(j) !=null){
+        			row.getCell(j).setCellType(Cell.CELL_TYPE_STRING);
+        			businessTrip.setBtAskStaffDepart(row.getCell(j++).getStringCellValue().toString());
+        		}
+        			//部门id
+        		if(row.getCell(j) !=null){
+        			row.getCell(j).setCellType(Cell.CELL_TYPE_STRING);
+        			businessTrip.setBtAskStaffDepartId(row.getCell(j++).getStringCellValue().toString());
+        		}
+        			//历史审批人
+        		if(row.getCell(j) !=null){
+        			row.getCell(j).setCellType(Cell.CELL_TYPE_STRING);
+        			businessTrip.setBtHistoryApproveName(row.getCell(j++).getStringCellValue().toString());
+        		}
+        			//审批人意见
+        		if(row.getCell(j) !=null){
+        			row.getCell(j).setCellType(Cell.CELL_TYPE_STRING);
+        			businessTrip.setBtApproveRecord(row.getCell(j++).getStringCellValue().toString());
+        		}
+        			//审批耗时
+        		if(row.getCell(j) !=null){
+        			row.getCell(j).setCellType(Cell.CELL_TYPE_STRING);
+        			businessTrip.setBtCost(row.getCell(j++).getStringCellValue().toString());
+        		}
+        			//出差行程 
+        		if(row.getCell(j) !=null){
+        			row.getCell(j).setCellType(Cell.CELL_TYPE_STRING);
+        			businessTrip.setBtTrip(row.getCell(j++).getStringCellValue().toString());
+        		}
         		tripList=Arrays.asList(businessTrip.getBtTrip().split("\\-"));
         		    /**出差开始城市**/
         		businessTrip.setBtStartCity(tripList.get(0));
@@ -112,10 +153,16 @@ public class BusinessTripServiceImpl implements IBusinessTripService{
         		//发起人工号
         		j++;
         		//出差开始日期
-        		businessTrip.setBtAskBeginTime(row.getCell(j++).getStringCellValue().toString());
-        		//出差结束日期
-        		businessTrip.setBtAskEndTime(row.getCell(j++).getStringCellValue().toString());
-        		if(isExistRecord(businessTrip.getBtApproveNo())){//已存在的出差订单，执行更新操作
+        		if(row.getCell(j) !=null){
+        			row.getCell(j).setCellType(Cell.CELL_TYPE_STRING);
+        			businessTrip.setBtAskBeginTime(row.getCell(j++).getStringCellValue().toString());
+        		}
+        			//出差结束日期
+        		if(row.getCell(j) !=null){
+        			row.getCell(j).setCellType(Cell.CELL_TYPE_STRING);
+        			businessTrip.setBtAskEndTime(row.getCell(j++).getStringCellValue().toString());
+        		}
+        			if(isExistRecord(businessTrip.getBtApproveNo())){//已存在的出差订单，执行更新操作
         			businessTripMapper.updateByPrimaryKeySelective(businessTrip);
         		}else{//不在数据库中的出差订单,执行插入操作
         		    businessTripMapper.insertSelective(businessTrip);

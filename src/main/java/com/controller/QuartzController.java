@@ -24,43 +24,43 @@ import java.util.List;
  */
 @Component
 public class QuartzController {
-    //考勤工作日每天早上8点打开
-    @Scheduled(cron = "0 00 07 ? * MON-FRI")
+    //考勤工作日每天早上8点30打开
+    @Scheduled(cron = "0 30 08 ? * MON-FRI")
     public  void start(){
         //如果是放假时间，不开考勤
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String now =dateFormat.format(new Date());
         //if (now.compareTo("2017-01-26")>0 && now.compareTo("2017-02-03")<0) return;
-        System.out.println("考勤任务正在执行中。。。。每天早上8：00打开考勤");
-        System.out.println("考勤工作日每天早上8点打开");
+        System.out.println("考勤任务正在执行中。。。。每天早上8：30打开考勤");
+        System.out.println("考勤工作日每天早上8点30打开");
         AttendanceShow();
     }
-    //考勤工作日每天下午7点30关闭
-    @Scheduled(cron = "0 30 19 ? * MON-FRI")
+    //考勤工作日每天下午6点关闭
+    @Scheduled(cron = "0 00 18 ? * MON-FRI")
     public void one() {
 
-        System.out.println("考勤任务正在执行中。。。。每天下午19：00关闭考勤");
-        System.out.println("考勤工作日下午19：00关闭考勤");
+        System.out.println("考勤任务正在执行中。。。。每天下午18：00关闭考勤");
+        System.out.println("考勤工作日下午18：00关闭考勤");
         AttendanceStop();
     }
 
     //签到每天19点30打开，
-    @Scheduled(cron = "0 30 19 ? * MON-FRI")
+    @Scheduled(cron = "0 00 18 ? * MON-FRI")
     public void two() {
-        System.out.println("考勤任务正在执行中。。。。每天晚上7点30打开签到");
+        System.out.println("考勤任务正在执行中。。。。每天晚上6点打开签到");
         System.out.println("签到星期六到星期天可见");
         SignShow();
     }
 
-    // 签到每天早上8点关闭
-    @Scheduled(cron = "0 00 07 ? * MON-FRI")
+    // 签到每天早上8点30关闭
+    @Scheduled(cron = "0 30 08 ? * MON-FRI")
     public void job2() {
         //如果是放假时间，不关签到
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String now =dateFormat.format(new Date());
         //if (now.compareTo("2017-01-26")>0 && now.compareTo("2017-02-03")<0) return;
 
-        System.out.println("签到任务正在执行中。。。。每天早上8点关闭签到");
+        System.out.println("签到任务正在执行中。。。。每天早上8点30关闭签到");
         System.out.println("签到星期六到星期天可见");
         SignStop();
     }

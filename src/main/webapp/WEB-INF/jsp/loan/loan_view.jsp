@@ -33,9 +33,39 @@
                           </div>
                        </div>
                        <div class="form-group">
-                          <label class="col-sm-2 control-label" for="ds_username"><b>预付款金额</b></label>
+                          <label class="col-sm-2 control-label" for="ds_host"><b>部门</b></label>
                           <div class="col-sm-4">
-                             <input class="form-control" id="ds_username" value="${loan.loanSum}" readonly/>
+                             <input class="form-control" id="ds_host"  readonly value="${loan.askStaffDep }"/>
+                          </div>
+                          <label class="col-sm-2 control-label" for="ds_name"><b>借款时间</b></label>
+                          <div class="col-sm-4">
+                             <input class="form-control" id="ds_name"  value="${loan.askStartTime }" readonly/>
+                          </div>
+                       </div>
+                        <div class="form-group">
+                          <label class="col-sm-2 control-label" for="ds_host"><b>借款用途大类</b></label>
+                          <div class="col-sm-4">
+                             <input class="form-control" id="ds_host"  readonly value="${loan.loanAimMc }"/>
+                          </div>
+                          <label class="col-sm-2 control-label" for="ds_name"><b>借款用途小类</b></label>
+                          <div class="col-sm-4">
+                             <input class="form-control" id="ds_name"  value="${loan.loanAimSc }" readonly/>
+                          </div>
+                       </div>
+                        <div class="form-group">
+                           <label class="col-sm-2 control-label" for="ds_username"><b>预付款金额</b></label>
+                          <div class="col-sm-4">
+                             <input class="form-control" id="advanceSum" value="${loan.loanSum }" readonly/>
+                          </div>
+                          <label class="col-sm-2 control-label" for="ds_name"><b>收款人</b></label>
+                          <div class="col-sm-4">
+                             <input class="form-control" id="ds_name"  value="${loan.loanPayee }" readonly/>
+                          </div>
+                       </div>
+                       <div class="form-group">
+                          <label class="col-sm-2 control-label" for="ds_username"><b>发票金额</b></label>
+                          <div class="col-sm-4">
+                             <input class="form-control" id="ds_username"  value="${loan.approveInvoice }" readonly/>
                           </div>
                           <label class="col-sm-2 control-label" for="ds_password"><b>返还金额</b></label>
                           <div class="col-sm-4">
@@ -43,10 +73,7 @@
                           </div>
                        </div>
                         <div class="form-group">
-                          <label class="col-sm-2 control-label" for="ds_username"><b>发票金额</b></label>
-                          <div class="col-sm-4">
-                             <input class="form-control" id="ds_username"  value="${loan.approveInvoice }" readonly/>
-                          </div>
+                          
                           <label class="col-sm-2 control-label" for="ds_password"><b>驳回原因</b></label>
                           <div class="col-sm-4">
                              <input class="form-control" name="approveAdvice" id="approveAdvice" value="${loan.approveAdvice }" readonly>

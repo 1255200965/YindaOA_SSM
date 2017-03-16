@@ -37,9 +37,10 @@ public class SearchSalaryController {
     public @ResponseBody Map<String,Object> select(@RequestBody YoUserinfosalary user) throws IOException {
         YoUserinfosalaryExample example = new YoUserinfosalaryExample();
         YoUserinfosalaryExample.Criteria criteria1 = example.createCriteria();
-        if (user.getName()!="") criteria1.andNameEqualTo(user.getName());
-        if (user.getSalarydate()!="") criteria1.andSalarydateEqualTo(user.getSalarydate());
-        if (user.getSalaryid()!="") criteria1.andSalaryidEqualTo(user.getSalaryid());
+        //姓名模糊查询
+        if (user.getName()!=null) criteria1.andNameLike("%"+user.getName()+"%");
+        if (user.getSalarydate()!=null) criteria1.andSalarydateEqualTo(user.getSalarydate());
+        if (user.getSalaryid()!= null) criteria1.andSalaryidEqualTo(user.getSalaryid());
         if (user.getDepartment()!=null) criteria1.andDepartmentLike(user.getDepartment());
         List<YoUserinfosalary> list = userInfoService.selectByExample(example);
 
@@ -98,12 +99,12 @@ public class SearchSalaryController {
     查询员工当月日报。点击每一个员工都会触发
     工号通过读取jsp的nama属性加RequestParam注解得到。注意写了注解就必须有对应的name，否则就报错了
     返回一个实体类列表
-    @RequestParam("staffid") String staffid,
+
      */
     @RequestMapping(value = "journal.do")
-    public String journal( Model m) {
+    public String journal( @RequestParam("staffid") String staffid, Model m) {
         // 在测试阶段，就直接查我的日报吧
-        List<YoSalaryDaily> list = userInfoService.getJournal("16462");
+        List<YoSalaryDaily> list = userInfoService.getJournal(staffid);
         // 在页面中扒开这个列表，就是实体类了
         m.addAttribute("journal", list);
         return "/salary/journal";

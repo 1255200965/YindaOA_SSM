@@ -33,33 +33,54 @@
                              <input class="form-control" id="ds_name"  value="${advance.askStaffId }" readonly/>
                           </div>
                        </div>
-                       <div class="form-group">
-                          <label class="col-sm-2 control-label" for="ds_username"><b>预付款金额</b></label>
+                        <div class="form-group">
+                          <label class="col-sm-2 control-label" for="ds_host"><b>部门</b></label>
+                          <div class="col-sm-4">
+                             <input class="form-control" id="ds_host"  readonly value="${advance.askStaffDep }"/>
+                          </div>
+                          <label class="col-sm-2 control-label" for="ds_name"><b>借款时间</b></label>
+                          <div class="col-sm-4">
+                             <input class="form-control" id="ds_name"  value="${advance.askStartTime }" readonly/>
+                          </div>
+                       </div>
+                        <div class="form-group">
+                          <label class="col-sm-2 control-label" for="ds_host"><b>借款用途大类</b></label>
+                          <div class="col-sm-4">
+                             <input class="form-control" id="ds_host"  readonly value="${advance.advanceAimMc }"/>
+                          </div>
+                          <label class="col-sm-2 control-label" for="ds_name"><b>借款用途小类</b></label>
+                          <div class="col-sm-4">
+                             <input class="form-control" id="ds_name"  value="${advance.advanceAimSc }" readonly/>
+                          </div>
+                       </div>
+                        <div class="form-group">
+                           <label class="col-sm-2 control-label" for="ds_username"><b>预付款金额</b></label>
                           <div class="col-sm-4">
                              <input class="form-control" id="advanceSum" value="${advance.advanceSum }" readonly/>
+                          </div>
+                          <label class="col-sm-2 control-label" for="ds_name"><b>收款人</b></label>
+                          <div class="col-sm-4">
+                             <input class="form-control" id="ds_name"  value="${advance.advancePayee }" readonly/>
+                          </div>
+                       </div>
+                       <div class="form-group">
+                         <label class="col-sm-2 control-label" for="ds_username"><b>发票金额</b></label>
+                          <div class="col-sm-4">
+                             <input class="form-control" id="approveInvoice"  value="" name="approveInvoice"/>
                           </div>
                           <label class="col-sm-2 control-label" for="ds_password"><b>返还金额</b></label>
                           <div class="col-sm-4">
                              <input class="form-control" id="approveRepayment"  value="" name="approveRepayment"/>
                           </div>
                        </div>
-                        <div class="form-group">
-                          <label class="col-sm-2 control-label" for="ds_username"><b>发票金额</b></label>
-                          <div class="col-sm-4">
-                             <input class="form-control" id="approveInvoice"  value="" name="approveInvoice"/>
-                          </div>
-                          <!-- <label class="col-sm-2 control-label" for="ds_password"><b>发起时间</b></label>
-                          <div class="col-sm-4">
-                              <input  class="form-control form_date" placeholder="" >
-                          </div> -->
-                       </div>
+                        
                        <div class="form-group">
-    <label class="col-sm-2 control-label" for="ds_host"><b>发票照片</b></label>
-    <div class="col-sm-4">
-         <input id="file"  type="file"  name ="mFiles"  class="file-loading"><!-- multiple表示可以提交多张 -->
-         <p class="help-block">支持jpg、jpeg、png、gif格式,大小不超过2.0M</p>
-    </div>
-    </div>
+    						<label class="col-sm-2 control-label" for="ds_host"><b>发票照片</b></label>
+   						 <div class="col-sm-4">
+        					<input id="file"  type="file"  name ="mFiles"  class="file-loading"><!-- multiple表示可以提交多张 -->
+         				<p class="help-block">支持jpg、jpeg、png、gif格式,大小不超过2.0M</p>
+   					 </div>
+    				</div>
   </fieldset>  
 </form>
  <div class="row" >
