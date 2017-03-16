@@ -25,7 +25,11 @@ public class OrderPropertyController {
 	private IOrderPropertyService iOrderPropertyService;
 	
 	
-	
+	/**
+	 * 根据订单名获得省份
+	 * @param orderName 订单名
+	 * @return
+	 */
 	@RequestMapping(value="getOrderProvince.do",produces="text/html;charset=UTF-8")
 	@ResponseBody
 	public String getOrderProvince(String orderName){
@@ -38,8 +42,8 @@ public class OrderPropertyController {
 	}
 	
 	/**
-	 * 从orderproperty中获取当前
-	 * @param orderName
+	 * 根据订单名中获取当前城市
+	 * @param orderName 订单名
 	 * @return
 	 */
 	@RequestMapping("getOrderCity.do")
@@ -61,7 +65,11 @@ public class OrderPropertyController {
 		return strList;
 	}
 	
-	
+	/**
+	 * 根据订单名获取商务属性
+	 * @param orderName
+	 * @return
+	 */
 	@RequestMapping("getBusinessProperty.do")
 	@ResponseBody
 	public List<String> getBusinessProperty(String orderName){

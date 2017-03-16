@@ -64,7 +64,12 @@ public class SearchSalaryController {
         return map;
     }
 
-
+    /**
+     * 更新工资
+     * @param totalSum
+     * @return
+     * @throws IOException
+     */
     @RequestMapping(value = "/updatesalary.do", method = RequestMethod.POST)
     public @ResponseBody Map<String,Object> updateuser(@RequestBody YoUserinfosalary totalSum) throws IOException {
         Map<String,Object> map = new HashMap<String,Object>();
@@ -88,7 +93,7 @@ public class SearchSalaryController {
         }
         return map;
     }
-
+  
     @RequestMapping(value = "/querys.do", method = RequestMethod.POST)
     public @ResponseBody Map<String,Object> querys(@RequestBody YoUserinfosalary user, HttpServletRequest request, HttpServletResponse response) throws IOException {
         List<YoUserinfosalary> list = userInfoService.searchUserInfoByEntity(user);

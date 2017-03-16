@@ -56,7 +56,13 @@ public class OrderChangeController {
 
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	SimpleDateFormat msdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
+ /**
+  * 审批通过（顶顶消息点击进入的审批界面）
+  * @param id
+  * @param request
+  * @param staff_user_id
+  * @return
+  */
 	@RequestMapping("/approve_order_page.do")
 	public ModelAndView approve_order_page(String id,HttpServletRequest request,String staff_user_id){
 		ModelAndView mav = new ModelAndView();
@@ -121,7 +127,13 @@ public class OrderChangeController {
 	}
 
 
-
+    /**
+     * 审批通过
+     * @param id
+     * @param request
+     * @param staff_user_id
+     * @return
+     */
 	@RequestMapping("/approve_order_page_in.do")
 	public ModelAndView approve_order_page_in(String id,HttpServletRequest request,String staff_user_id){
 		ModelAndView mav = new ModelAndView();
