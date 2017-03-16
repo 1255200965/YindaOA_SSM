@@ -81,7 +81,7 @@ public class SearchSalaryController {
         }
         return map;
     }
-  
+
     @RequestMapping(value = "/querys.do", method = RequestMethod.POST)
     public @ResponseBody Map<String,Object> querys(@RequestBody YoUserinfosalary user, HttpServletRequest request, HttpServletResponse response) throws IOException {
         List<YoUserinfosalary> list = userInfoService.searchUserInfoByEntity(user);

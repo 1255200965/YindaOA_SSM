@@ -38,6 +38,8 @@
     <result column="ot_allowance" property="otAllowance" jdbcType="VARCHAR" />
     <result column="heating_allowance" property="heatingAllowance" jdbcType="VARCHAR" />
     <result column="timebase" property="timebase" jdbcType="VARCHAR" />
+    <result column="journal_state" property="journalState" jdbcType="VARCHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -74,7 +76,7 @@
     business_level, outdoor_work, whether_att, att_procity, att_type, whether_sign, sign_procity, 
     ask_leave_type, ask_leave_allowance, whether_bt, bt_procity, whether_eff_att, whether_ot, 
     ot_procity, whether_eff_sign, whether_eff_bt, bt_allowance, whether_eff_ot, ot_allowance, 
-    heating_allowance, timebase
+    heating_allowance, timebase, journal_state, comment
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.model.YoSalaryDailyExample" >
     select
@@ -112,8 +114,8 @@
       whether_bt, bt_procity, whether_eff_att, 
       whether_ot, ot_procity, whether_eff_sign, 
       whether_eff_bt, bt_allowance, whether_eff_ot, 
-      ot_allowance, heating_allowance, timebase
-      )
+      ot_allowance, heating_allowance, timebase, 
+      journal_state, comment)
     values (#{seqNo,jdbcType=INTEGER}, #{staffid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{contractType,jdbcType=VARCHAR}, #{ordinaryAddress,jdbcType=VARCHAR}, #{whetherBtAllowance,jdbcType=VARCHAR}, 
       #{baseSalary,jdbcType=VARCHAR}, #{date,jdbcType=VARCHAR}, #{dateType,jdbcType=VARCHAR}, 
@@ -125,8 +127,8 @@
       #{whetherBt,jdbcType=VARCHAR}, #{btProcity,jdbcType=VARCHAR}, #{whetherEffAtt,jdbcType=VARCHAR}, 
       #{whetherOt,jdbcType=VARCHAR}, #{otProcity,jdbcType=VARCHAR}, #{whetherEffSign,jdbcType=VARCHAR}, 
       #{whetherEffBt,jdbcType=VARCHAR}, #{btAllowance,jdbcType=VARCHAR}, #{whetherEffOt,jdbcType=VARCHAR}, 
-      #{otAllowance,jdbcType=VARCHAR}, #{heatingAllowance,jdbcType=VARCHAR}, #{timebase,jdbcType=VARCHAR}
-      )
+      #{otAllowance,jdbcType=VARCHAR}, #{heatingAllowance,jdbcType=VARCHAR}, #{timebase,jdbcType=VARCHAR}, 
+      #{journalState,jdbcType=VARCHAR}, #{comment,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.model.YoSalaryDaily" >
     insert into yo_salary_daily
@@ -239,6 +241,12 @@
       <if test="timebase != null" >
         timebase,
       </if>
+      <if test="journalState != null" >
+        journal_state,
+      </if>
+      <if test="comment != null" >
+        comment,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="seqNo != null" >
@@ -348,6 +356,12 @@
       </if>
       <if test="timebase != null" >
         #{timebase,jdbcType=VARCHAR},
+      </if>
+      <if test="journalState != null" >
+        #{journalState,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -459,6 +473,12 @@
       <if test="timebase != null" >
         timebase = #{timebase,jdbcType=VARCHAR},
       </if>
+      <if test="journalState != null" >
+        journal_state = #{journalState,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
     </set>
     where seq_no = #{seqNo,jdbcType=INTEGER}
   </update>
@@ -498,7 +518,9 @@
       whether_eff_ot = #{whetherEffOt,jdbcType=VARCHAR},
       ot_allowance = #{otAllowance,jdbcType=VARCHAR},
       heating_allowance = #{heatingAllowance,jdbcType=VARCHAR},
-      timebase = #{timebase,jdbcType=VARCHAR}
+      timebase = #{timebase,jdbcType=VARCHAR},
+      journal_state = #{journalState,jdbcType=VARCHAR},
+      comment = #{comment,jdbcType=VARCHAR}
     where seq_no = #{seqNo,jdbcType=INTEGER}
   </update>
 </mapper>

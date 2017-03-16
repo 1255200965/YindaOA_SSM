@@ -2613,6 +2613,146 @@ public class YoSalaryDailyExample {
             addCriterion("timebase not between", value1, value2, "timebase");
             return (Criteria) this;
         }
+
+        public Criteria andJournalStateIsNull() {
+            addCriterion("journal_state is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andJournalStateIsNotNull() {
+            addCriterion("journal_state is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andJournalStateEqualTo(String value) {
+            addCriterion("journal_state =", value, "journalState");
+            return (Criteria) this;
+        }
+
+        public Criteria andJournalStateNotEqualTo(String value) {
+            addCriterion("journal_state <>", value, "journalState");
+            return (Criteria) this;
+        }
+
+        public Criteria andJournalStateGreaterThan(String value) {
+            addCriterion("journal_state >", value, "journalState");
+            return (Criteria) this;
+        }
+
+        public Criteria andJournalStateGreaterThanOrEqualTo(String value) {
+            addCriterion("journal_state >=", value, "journalState");
+            return (Criteria) this;
+        }
+
+        public Criteria andJournalStateLessThan(String value) {
+            addCriterion("journal_state <", value, "journalState");
+            return (Criteria) this;
+        }
+
+        public Criteria andJournalStateLessThanOrEqualTo(String value) {
+            addCriterion("journal_state <=", value, "journalState");
+            return (Criteria) this;
+        }
+
+        public Criteria andJournalStateLike(String value) {
+            addCriterion("journal_state like", value, "journalState");
+            return (Criteria) this;
+        }
+
+        public Criteria andJournalStateNotLike(String value) {
+            addCriterion("journal_state not like", value, "journalState");
+            return (Criteria) this;
+        }
+
+        public Criteria andJournalStateIn(List<String> values) {
+            addCriterion("journal_state in", values, "journalState");
+            return (Criteria) this;
+        }
+
+        public Criteria andJournalStateNotIn(List<String> values) {
+            addCriterion("journal_state not in", values, "journalState");
+            return (Criteria) this;
+        }
+
+        public Criteria andJournalStateBetween(String value1, String value2) {
+            addCriterion("journal_state between", value1, value2, "journalState");
+            return (Criteria) this;
+        }
+
+        public Criteria andJournalStateNotBetween(String value1, String value2) {
+            addCriterion("journal_state not between", value1, value2, "journalState");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentIsNull() {
+            addCriterion("comment is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentIsNotNull() {
+            addCriterion("comment is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentEqualTo(String value) {
+            addCriterion("comment =", value, "comment");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentNotEqualTo(String value) {
+            addCriterion("comment <>", value, "comment");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentGreaterThan(String value) {
+            addCriterion("comment >", value, "comment");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentGreaterThanOrEqualTo(String value) {
+            addCriterion("comment >=", value, "comment");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentLessThan(String value) {
+            addCriterion("comment <", value, "comment");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentLessThanOrEqualTo(String value) {
+            addCriterion("comment <=", value, "comment");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentLike(String value) {
+            addCriterion("comment like", value, "comment");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentNotLike(String value) {
+            addCriterion("comment not like", value, "comment");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentIn(List<String> values) {
+            addCriterion("comment in", values, "comment");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentNotIn(List<String> values) {
+            addCriterion("comment not in", values, "comment");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentBetween(String value1, String value2) {
+            addCriterion("comment between", value1, value2, "comment");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentNotBetween(String value1, String value2) {
+            addCriterion("comment not between", value1, value2, "comment");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

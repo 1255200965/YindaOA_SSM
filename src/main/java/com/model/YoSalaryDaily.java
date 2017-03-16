@@ -73,6 +73,10 @@ public class YoSalaryDaily {
 
     private String timebase;
 
+    private String journalState;
+
+    private String comment;
+
     public Integer getSeqNo() {
         return seqNo;
     }
@@ -359,5 +363,21 @@ public class YoSalaryDaily {
 
     public void setTimebase(String timebase) {
         this.timebase = timebase;
+    }
+
+    public String getJournalState() {
+        return journalState;
+    }
+
+    public void setJournalState(String journalState) {
+        this.journalState = journalState;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 }
