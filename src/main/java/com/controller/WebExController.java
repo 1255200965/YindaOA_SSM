@@ -476,16 +476,30 @@ public class WebExController {
 		WebexExample example = new WebexExample();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		WebexExample.Criteria criteria = example.createCriteria();    	
-		criteria.andMeetingTimeGreaterThan(sdf.format(new Date()).toString());
+		
 		List<Webex> webexList = webexMapper.selectByExample(example);
-
-		mav.addObject("webexList", webexList);
+		List<Webex> reList = new ArrayList<Webex>();
+        for(Webex w :webexList){
+        	try {
+				Date d =sdf.parse(w.getMeetingTime());
+				d.setMinutes(d.getMinutes()+Integer.valueOf(w.getMeetingLength()));
+				
+				if(new Date().before(d)){
+				     reList.add(w);
+				}
+			} catch (java.text.ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
+		mav.addObject("webexList", reList);
 		mav.setViewName("webex/dd_meeting_list");
 		return mav;
 	}
 
 	@RequestMapping("create_dd_meeting.do")
-	public ModelAndView create_dd_meeting(String meeting_name,String meeting_desc,String meeting_time,String meeting_count,String meeting_password,String meeting_length){
+	@ResponseBody
+	public String create_dd_meeting(String meeting_name,String meeting_desc,String meeting_time,String meeting_count,String meeting_password,String meeting_length){
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("webex/create_dd_meeting_success");
 		/*
@@ -514,7 +528,7 @@ public class WebExController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 
-				return mav;
+				return "error";
 			}
 
 			/*
@@ -522,7 +536,7 @@ public class WebExController {
 			 */
 			if(!res.contains("SUCCESS")){
 				mav.setViewName("webex/create_dd_meeting_error");
-				return mav;            	
+				return "error";            	
 			}
 			/*
 			 *创建成功后 保存到数据库 
@@ -544,13 +558,13 @@ public class WebExController {
 
 
 			mav.setViewName("webex/create_dd_meeting_success");
-			return mav;
+			return "success";
 
 		} catch (java.text.ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			mav.setViewName("webex/create_dd_meeting_error");
-			return mav;
+			return "error";
 		}  
 
 

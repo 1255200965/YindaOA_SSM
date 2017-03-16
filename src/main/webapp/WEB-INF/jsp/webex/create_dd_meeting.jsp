@@ -36,7 +36,7 @@
 	line-height: 40px;
 }
 </style>
-<body>
+<body  id="bb">
 
 <h3 style="text-align:center">您好，欢迎使用音达培训</h3>
 	<form id="divform" action="<%=path%>/WebEx/create_dd_meeting.do">
@@ -186,7 +186,7 @@
   	    var tel = /^[\u4E00-\u9FA5]+$/;
   	    return this.optional(element) || (tel.test(value));
   	}, "请填写汉字");
-   function subForm(){
+function sub_form(){
     	
     	var meeting_name = $("#meeting_name").val();
     	var meeting_desc = $("#meeting_desc").val();
@@ -197,7 +197,7 @@
     	
     	
     	
-/*     	if(meeting_name ==null || meeting_name == ""){
+     	if(meeting_name ==null || meeting_name == ""){
     		$.alert("会议名称不可为空！");
     		return;
     	}
@@ -236,20 +236,24 @@
     	if(meeting_length ==null || meeting_length == ""){
     		$.alert("会议时长不可为空！");
     		return;
-    	} */
+    	} 
     	
     	 $.post("<%=path%>/WebEx/create_dd_meeting.do",$("#divform").serialize(),function(data){
 
              
                 if(data == "success"){
-                	window.location = "<%=path%>/WebEx/create_dd_meeting_success.do";
+                	
+                	$.post("<%=path%>/WebEx/create_dd_meeting_success.do",function(data){
+                		
+                		$("#bb").html(data);
+                	})
                 }else{
                 	window.location = "<%=path%>/WebEx/create_dd_meeting_error.do";
                 }
              
          });
     	
-    }
+    } 
     </script> 
     
 <script>
@@ -265,6 +269,24 @@ $().ready(function() {
     	var meeting_time = $("input[name='meeting_time']").val();
     	
 	  $("#divform").validate({
+		  submitHandler : function() {  //验证通过后的执行方法
+	            //当前的form通过ajax方式提交（用到jQuery.Form文件）
+				 $.post("<%=path%>/WebEx/create_dd_meeting.do",$("#divform").serialize(),function(data){
+
+		             
+		                if(data == "success"){
+		                	
+		                	$.post("<%=path%>/WebEx/create_dd_meeting_success.do",function(data){
+		                		
+		                		$("#bb").html(data);
+		                	})
+		                }else{
+		                	window.location = "<%=path%>/WebEx/create_dd_meeting_error.do";
+		                }
+		             
+		         });
+	        } ,
+		  
 	    rules: {
 	      meeting_name: "required",
 	      meeting_password:"required",
@@ -304,7 +326,7 @@ $().ready(function() {
 	     
 	    }
 	})
-	})
+	});
 
 </script>
 
