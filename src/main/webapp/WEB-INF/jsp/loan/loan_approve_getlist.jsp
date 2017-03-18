@@ -202,7 +202,7 @@ $('.form_date').datetimepicker({
 	function view(e){
 		window.location.href="toLoanApprove.do?approveNo="+e;
 	}
-	
+	//审批拒绝操作
 	function refuse(e,approveStatus){
 		
 		if(approveStatus != "待审核")
@@ -210,11 +210,13 @@ $('.form_date').datetimepicker({
 				alert("当前信息已审批,请勿重复审批");
 			}else{
 				$.post("approve.do",{"approveNo":e,"approveStatus":"驳回","approveAdvice":$("#approveAdvice").val()},function(data){
-					if(data="success"){
+					if(data=="success"){
 						alert("操作成功");
 						window.location.reload();
-					}else{
+					}else if(data == "fail"){
 						alert("系统繁忙,请稍后重试");
+					}else{
+						alert("当前用户无权限审批,如需开放权限请联系创新部研发人员");
 					}
 				});
 			}	
@@ -247,11 +249,14 @@ $('.form_date').datetimepicker({
 		for(var i=0;i<checkboxes.length;i++){
 			  if(checkboxes[i].checked){ 
 				  $.post("approve.do",{"approveNo":checkboxes[i].value,"approveStatus":'同意',"approveAdvice":$("#approveAdvice").val()},function(data){
-			 			if(data="success"){
+			 			if(data=="success"){
 			 				window.location.href="toLoan_approveGetList.do";
-			 			}else{
+			 			}else if(data == "fail"){
 			 				alert("系统繁忙,请稍后重试");
 			 				return false;
+			 			}else{
+			 				alert("当前用户无权限审批,如需开放权限请联系创新部研发人员");
+			 				break;
 			 			}
 			 		});
 			  }

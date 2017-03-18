@@ -72,7 +72,8 @@ public class LoanController {
 	/**
 	 * 发起冲借款--单条--界面跳转
 	 * @param approveNo 审批编号
-
+	 * @param approveRepayment 返还金额
+	 * @param approveInvoice 发票金额
 	 * @return
 	 */
 	@RequestMapping("/goStartALoan.do")
@@ -94,7 +95,7 @@ public class LoanController {
 	@RequestMapping("/startALoan.do")
 	public @ResponseBody String startALoan2(HttpServletRequest request , String approveNo,String approveRepayment,
 			String approveInvoice,String imageUrl){
-		System.out.println("发起冲预付");
+		System.out.println("发起冲预付===发票金额"+approveInvoice+"===返还金额"+approveRepayment);
 		try{
 				//根据审批编号找到对应的预付款记录
 			YoAdvance advance = advanceService.selectByapproveNo(approveNo);
@@ -105,7 +106,7 @@ public class LoanController {
 				//更行预付款信息
 			advanceService.updateLoanStatus(advance);
 				//根据预付款记录生成对应的冲借款信息--置冲借款审批结果为待审批
-			YoLoan loan = loanService.construct(advance,approveRepayment,approveInvoice,imageUrl);
+			YoLoan loan = loanService.construct(advance,approveInvoice,approveRepayment,imageUrl);
 			loan.setImageUrl(imageUrl);
 				//如果是驳回重新提交的数据--此处缺少一个删除原先图片的方法
 			if("驳回".equals(loanStatus)){
@@ -141,9 +142,8 @@ public class LoanController {
 		   	String originalName=mFile.getOriginalFilename();
 		   	System.out.println("上传的文件名为"+originalName+mFile.getSize());
 		   	  		//图片存储的物理根路径
-			String basePath ="/alidata/server/tomcat-7.0.54/webapps/YindaOAImageUpload/LoanImage/";
-				//String basePath ="E:\\Temp\\";
-		   	/*String basePath="E://";*/
+			//String basePath ="/alidata/server/tomcat-7.0.54/webapps/YindaOAImageUpload/LoanImage/";
+		   	String basePath="E://";
 				  //新的图片名称--命名形式为 姓名+_+年月日+图片原来的名称
 			String newFileName=request.getSession().getAttribute(GlobalConstant.user_name)+"_"
 					+getDatePath()+originalName;
@@ -217,12 +217,15 @@ public class LoanController {
 	/**
 	 * 财务审核操作
 	 * @param approveNo
-
+	 * @param operationStatus
+	 * @param operationReason
 	 * @return
 	 */
 	@RequestMapping("/approve.do")
-	public @ResponseBody String loanOperation(String approveNo,String approveStatus
+	public @ResponseBody String loanOperation(HttpServletRequest request,String approveNo,String approveStatus
 			,String approveAdvice){
+		String staffId=(String) request.getSession().getAttribute(GlobalConstant.user_staffId);
+		if("10548".equals(staffId)){
 		try{
 			YoAdvance advance = new YoAdvance();
 			advance.setLoanStatus(approveStatus);
@@ -236,6 +239,9 @@ public class LoanController {
 			return "success";
 		}catch(Exception e){
 			return "fail";
+		}
+		}else{
+			return "noPermission";
 		}
 	}
 	/**

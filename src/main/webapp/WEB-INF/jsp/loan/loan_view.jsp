@@ -39,7 +39,7 @@
                           </div>
                           <label class="col-sm-2 control-label" for="ds_name"><b>借款时间</b></label>
                           <div class="col-sm-4">
-                             <input class="form-control" id="ds_name"  value="${loan.askStartTime }" readonly/>
+                             <input class="form-control" id="ds_name"  value="${loan.loanStartTime  }" readonly/>
                           </div>
                        </div>
                         <div class="form-group">
@@ -82,7 +82,7 @@
                        <div class="form-group">
     <label class="col-sm-2 control-label" for="ds_host"><b>发票照片</b></label>
     <div class="col-sm-4">
-         <img src="http://121.40.29.241/YindaOAImageUpload/LoanImage/${loan.imageUrl}" style="height:300px;width:200px;" onclick="changeSize(this);">
+         <img src="http://121.40.29.241/YindaOAImageUpload/LoanImage/${loan.imageUrl}" style="height:200px;width:400px;" onclick="changeSize(this);">
     </div>
     </div>
   </fieldset>  
@@ -100,12 +100,12 @@
  	//图片预览
 function changeSize(e){
 	var width=$(e).css("width");
-	if(width == "200px"){
-		$(e).css("width","300px");
-		$(e).css("height","500px");
-	}else{
-		$(e).css("width","200px");
+	if(width == "400px"){
+		$(e).css("width","600px");
 		$(e).css("height","300px");
+	}else{
+		$(e).css("width","400px");
+		$(e).css("height","200px");
 	}
 	
 };

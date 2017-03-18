@@ -40,7 +40,7 @@
                           </div>
                           <label class="col-sm-2 control-label" for="ds_name"><b>借款时间</b></label>
                           <div class="col-sm-4">
-                             <input class="form-control" id="ds_name"  value="${advance.askStartTime }" readonly/>
+                             <input class="form-control" id="ds_name"  value="${advance.advanceStartTime }" readonly/>
                           </div>
                        </div>
                         <div class="form-group">

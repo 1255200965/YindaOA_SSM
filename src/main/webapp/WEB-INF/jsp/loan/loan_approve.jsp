@@ -39,7 +39,7 @@
                           </div>
                           <label class="col-sm-2 control-label" for="ds_name"><b>借款时间</b></label>
                           <div class="col-sm-4">
-                             <input class="form-control" id="ds_name"  value="${loan.askStartTime }" readonly/>
+                             <input class="form-control" id="ds_name"  value="${loan.loanStartTime  }" readonly/>
                           </div>
                        </div>
                        <div class="form-group">
@@ -74,7 +74,7 @@
                        </div>
                         <div class="form-group">
                           
-                          <label class="col-sm-2 control-label" for="ds_password"><b>建议</b></label>
+                          <label class="col-sm-2 control-label" for="ds_password"><b>驳回理由</b></label>
                           <div class="col-sm-4">
                              <input class="form-control" name="approveAdvice" id="approveAdvice" value="${loan.approveAdvice }" readonly>
                           </div>
@@ -82,7 +82,7 @@
                        <div class="form-group">
     <label class="col-sm-2 control-label" for="ds_host"><b>发票照片</b></label>
     <div class="col-sm-4">
-         <img src="http://121.40.29.241/YindaOAImageUpload/LoanImage/${loan.imageUrl}" style="height:300px;width:200px;" onclick="changeSize(this);">
+         <img src="http://121.40.29.241/YindaOAImageUpload/LoanImage/${loan.imageUrl}" style="height:200px;width:400px;" onclick="changeSize(this);">
     </div>
     </div>
   </fieldset>  
@@ -110,11 +110,13 @@ $("document").ready(function(){
 function agree(e){
 		
  		$.post("approve.do",{"approveNo":e,"approveStatus":'同意',"approveAdvice":$("#approveAdvice").val()},function(data){
- 			if(data="success"){
+ 			if(data=="success"){
  				alert("操作成功");
  				window.location.href="toLoan_approveGetList.do";
- 			}else{
+ 			}else if(data == "fail"){
  				alert("系统繁忙,请稍后重试");
+ 			}else {
+ 				alert("当前用户无权限审批,如需开放权限请联系创新部研发人员");
  			}
  		});
  	};
@@ -122,23 +124,25 @@ function agree(e){
 function disAgree(e){
  		
 	$.post("approve.do",{"approveNo":e,"approveStatus":"驳回","approveAdvice":$("#approveAdvice").val()},function(data){
-			if(data="success"){
+			if(data=="success"){
 				alert("操作成功");
 				window.location.href="toLoan_approveGetList.do";
-			}else{
+			}else if(data == "fail"){
 				alert("系统繁忙,请稍后重试");
+			}else{
+				alert("当前用户无权限审批,如需开放权限请联系创新部研发人员");
 			}
 		});
 }
  	//图片预览
 function changeSize(e){
 	var width=$(e).css("width");
-	if(width == "200px"){
-		$(e).css("width","300px");
-		$(e).css("height","500px");
-	}else{
-		$(e).css("width","200px");
+	if(width == "400px"){
+		$(e).css("width","600px");
 		$(e).css("height","300px");
+	}else{
+		$(e).css("width","400px");
+		$(e).css("height","200px");
 	}
 	
 }

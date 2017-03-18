@@ -54,9 +54,10 @@ public class LoginController {
 		 List <YoUserRole> userRoleList =orgService.getAllUserRole();//(List<YoUserRole>) roleCache.get();
 		 List<String> strList  = new ArrayList<String>();
 		 for(YoUserRole userRole :userRoleList){
-			 if(staffInfo.getStaffId().equals(userRole.getStaffId())){				
+			 if(staffInfo.getStaffId().equals(userRole.getStaffId()) && password.equals(userRole.getPassword())){			//同时验证用户名密码
 				 strList.add(userRole.getRole());
 				 request.getSession().setAttribute("user_role",userRole.getRole());
+				 break;
 			 }
 		 }
 		
