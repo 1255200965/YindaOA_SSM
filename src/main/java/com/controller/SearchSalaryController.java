@@ -4,14 +4,20 @@ import com.model.YoSalaryDaily;
 import com.model.YoUserinfosalary;
 import com.model.YoUserinfosalaryExample;
 import com.service.IUserInfoSalaryService;
+import com.service.impl.ExcelStaffInfoServiceImpl;
+import com.util.GlobalConstant;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,8 +32,7 @@ import java.util.Map;
 public class SearchSalaryController {
     @Resource
     private IUserInfoSalaryService userInfoService;
-
-    /**
+/**
      * 点击查询按钮后，根据输入框产生的实体类进行查询，页面不跳转
      * @param user
      * @return
@@ -96,17 +101,155 @@ public class SearchSalaryController {
     }
 
     /*
-    查询员工当月日报。点击每一个员工都会触发
+    日报页面，点击工资后触发
     工号通过读取jsp的nama属性加RequestParam注解得到。注意写了注解就必须有对应的name，否则就报错了
     返回一个实体类列表
-
      */
     @RequestMapping(value = "journal.do")
-    public String journal( @RequestParam("staffid") String staffid, Model m) {
-        // 在测试阶段，就直接查我的日报吧
+    // 接收两个参数，用注解还可以忍的。3个参数如果同在一个实体类那还是传类进来吧
+    public String journal( @RequestParam("staffid") String staffid, @RequestParam("salaryState") String salaryState, Model m, HttpServletRequest request) {
+        // 第1步，操作者是9大PM，状态设为1，否则为2
+        String operator;
+        // 如果session过期打开日报审批会报404，不知用try能不能解决
+        try {
+            // 170317，不会用注解的方法只能先这么鱼了
+            operator = request.getSession().getAttribute(GlobalConstant.user_name).toString();
+        } catch (Exception e) {
+            // 170317，如有异常回到首页。先看能不能解决问题，如不能，再研究怎么回到登录页
+            return "index";
+        }
+        List<String> staffidList = new ArrayList<>();
+        staffidList.add("王龙");
+        staffidList.add("岳韶斌");
+        staffidList.add("周靓");
+        staffidList.add("韩永林");
+        staffidList.add("方舒");
+        staffidList.add("魏群");
+        staffidList.add("孙华武");
+        staffidList.add("丁希林");
+        staffidList.add("吴成勇");
+        String operatorState;
+        if (staffidList.contains(operator)) {
+            operatorState = "1";
+        } else {
+            operatorState = "2";
+        }
+
         List<YoSalaryDaily> list = userInfoService.getJournal(staffid);
         // 在页面中扒开这个列表，就是实体类了
         m.addAttribute("journal", list);
+        m.addAttribute("salaryState", salaryState);
+        m.addAttribute("operatorState", operatorState);
         return "/salary/journal";
     }
+
+    /*
+    考勤设为有效
+    操作成功之后重定向到日报页面
+     */
+    @RequestMapping(value = "attEffective.do")
+    public String attEffective(int seqNo, String staffid, String salaryState, RedirectAttributes ra) {
+        userInfoService.attEffective(seqNo);
+        ra.addAttribute("staffid", staffid);
+        ra.addAttribute("salaryState", salaryState);
+        return "redirect:/userinfosalary/journal.do";
+    }
+
+    /*
+    考勤设为无效
+    操作成功之后重定向到日报页面
+     */
+    @RequestMapping(value = "attInvalid.do")
+    public String attInvalid(int seqNo, String staffid, String salaryState, RedirectAttributes ra) {
+        userInfoService.attInvalid(seqNo);
+        ra.addAttribute("staffid", staffid);
+        ra.addAttribute("salaryState", salaryState);
+        return "redirect:/userinfosalary/journal.do";
+    }
+
+    /*
+    170319,提交改为有效考勤的审批，PM一级要用到
+    操作成功之后重定向到日报页面
+    表单上的几个name都在同一个entity中，提交之后一次传过来
+     */
+    @RequestMapping(value = "submitApprove.do")
+    public String submitApprove( @RequestParam("salaryState") String salaryState, YoSalaryDaily yoSalaryDaily, RedirectAttributes ra) {
+        userInfoService.submitApprove(yoSalaryDaily);
+        String staffid = yoSalaryDaily.getStaffid();
+        ra.addAttribute("staffid", staffid);
+        ra.addAttribute("salaryState", salaryState);
+        return "redirect:/userinfosalary/journal.do";
+    }
+
+    /*
+    审批列表页面，只有我和黄照香能进入
+     */
+    @RequestMapping(value = "checkJournal.do")
+    public String checkJournal(Model m, HttpServletRequest request) {
+        String staffid;
+        // 第1步，在转发之前得到工号
+        // 如果session过期打开日报审批会报404，不知用try能不能解决
+        try {
+            // 170317，不会用注解的方法只能先这么鱼了
+            staffid = request.getSession().getAttribute(GlobalConstant.user_staffId).toString();
+        } catch (Exception e) {
+            // 170317，如有异常回到首页。先看能不能解决问题，如不能，再研究怎么回到登录页
+            return "index";
+        }
+
+        // 第2步，如果工号为指定的人，就跳到正常页面。否则就跳到无权限页面
+        // 就算强行输入地址，也同样只有我和黄照香可以进入页面
+        if (staffid.equals("16462") || staffid.equals("19119")) {
+            // 在测试阶段，查看日报状态为1的人的日报
+            List<YoSalaryDaily> list = userInfoService.getJournalOnCheck();
+            // 在页面中扒开这个列表，就是实体类了
+            m.addAttribute("journal", list);
+            return "/salary/check_journal";
+        } else {
+            return "error2";
+        }
+    }
+
+    /*
+    通过日报审批
+    只要能进入页面的人都可以做这个操作，日报状态设为2
+    直接用链接的方法不带参传进来，结束后重定向审批页面
+     */
+    @RequestMapping(value = "approveJournal.do")
+    public String approveJournal(int seqNo) {
+        userInfoService.approveJournal(seqNo);
+        return "redirect:/userinfosalary/checkJournal.do";
+    }
+
+    /*
+    拒绝日报的审批，和通过类似
+     */
+    @RequestMapping(value = "rejectJournal.do")
+    public String rejectJournal(int seqNo) {
+        userInfoService.rejectJournal(seqNo);
+        return "redirect:/userinfosalary/checkJournal.do";
+    }
+
+    /*
+    这一首简单的歌，并没有什么独特
+     */
+    @RequestMapping("easySong.do")
+    public String easySong() {
+        String command = "python C:\\workspace\\pythonPlay\\oa\\lab.py";
+        try {
+            Process p = Runtime.getRuntime().exec(command);
+            InputStream is = p.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+            String s = null;
+            while ((s = reader.readLine()) != null) {
+                System.out.println(s);
+            }
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+
+        // 跳到主页
+        return "index";
+    }
+
 }

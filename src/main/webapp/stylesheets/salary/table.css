@@ -4,7 +4,7 @@
 	/*设定table内的边框全部折叠收缩为一条*/
 	border-collapse: collapse;
 	border: 1px solid #e9eaf0;
-	width: 1200px;
+	width: 1400px;
 	background-color: white;
 }
 
@@ -19,6 +19,7 @@
 	border: 1px solid #e9eaf0;
 	height: 30px;
 	text-align: center;
+	font-size: xx-small;
 }
 
 .daily input {
@@ -48,4 +49,23 @@
 
 .p-middle {
 	text-align: center;
+}
+
+.btn1 {
+	display: none;
+	margin: 0 auto;
+	background-color: #00AA00;
+	color: #FFFFFF;
+}
+
+.btn2 {
+	margin: 0 auto;
+	background-color: #FF3333;
+	color: #FFFFFF;
+}
+
+.btn3 {
+	margin: 0 auto;
+	background-color: #FFFF33;
+	color: #FFFFFF;
 }

@@ -7,6 +7,8 @@ public class YoSalaryDaily {
 
     private String name;
 
+    private String department;
+
     private String contractType;
 
     private String ordinaryAddress;
@@ -31,7 +33,7 @@ public class YoSalaryDaily {
 
     private String businessAttribute;
 
-    private String businessLevel;
+    private String outsideWork;
 
     private String outdoorWork;
 
@@ -47,35 +49,29 @@ public class YoSalaryDaily {
 
     private String askLeaveType;
 
-    private String askLeaveAllowance;
-
     private String whetherBt;
 
     private String btProcity;
 
-    private String whetherEffAtt;
-
     private String whetherOt;
 
-    private String otProcity;
+    private String whetherOtAllowance;
 
-    private String whetherEffSign;
+    private String whetherEffAtt;
 
     private String whetherEffBt;
 
-    private String btAllowance;
-
     private String whetherEffOt;
-
-    private String otAllowance;
-
-    private String heatingAllowance;
 
     private String timebase;
 
     private String journalState;
 
-    private String comment;
+    private String salaryState;
+
+    private String effectReason;
+
+    private String applyPerson;
 
     public Integer getSeqNo() {
         return seqNo;
@@ -99,6 +95,14 @@ public class YoSalaryDaily {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
     }
 
     public String getContractType() {
@@ -197,12 +201,12 @@ public class YoSalaryDaily {
         this.businessAttribute = businessAttribute;
     }
 
-    public String getBusinessLevel() {
-        return businessLevel;
+    public String getOutsideWork() {
+        return outsideWork;
     }
 
-    public void setBusinessLevel(String businessLevel) {
-        this.businessLevel = businessLevel;
+    public void setOutsideWork(String outsideWork) {
+        this.outsideWork = outsideWork;
     }
 
     public String getOutdoorWork() {
@@ -261,14 +265,6 @@ public class YoSalaryDaily {
         this.askLeaveType = askLeaveType;
     }
 
-    public String getAskLeaveAllowance() {
-        return askLeaveAllowance;
-    }
-
-    public void setAskLeaveAllowance(String askLeaveAllowance) {
-        this.askLeaveAllowance = askLeaveAllowance;
-    }
-
     public String getWhetherBt() {
         return whetherBt;
     }
@@ -285,14 +281,6 @@ public class YoSalaryDaily {
         this.btProcity = btProcity;
     }
 
-    public String getWhetherEffAtt() {
-        return whetherEffAtt;
-    }
-
-    public void setWhetherEffAtt(String whetherEffAtt) {
-        this.whetherEffAtt = whetherEffAtt;
-    }
-
     public String getWhetherOt() {
         return whetherOt;
     }
@@ -301,20 +289,20 @@ public class YoSalaryDaily {
         this.whetherOt = whetherOt;
     }
 
-    public String getOtProcity() {
-        return otProcity;
+    public String getWhetherOtAllowance() {
+        return whetherOtAllowance;
     }
 
-    public void setOtProcity(String otProcity) {
-        this.otProcity = otProcity;
+    public void setWhetherOtAllowance(String whetherOtAllowance) {
+        this.whetherOtAllowance = whetherOtAllowance;
     }
 
-    public String getWhetherEffSign() {
-        return whetherEffSign;
+    public String getWhetherEffAtt() {
+        return whetherEffAtt;
     }
 
-    public void setWhetherEffSign(String whetherEffSign) {
-        this.whetherEffSign = whetherEffSign;
+    public void setWhetherEffAtt(String whetherEffAtt) {
+        this.whetherEffAtt = whetherEffAtt;
     }
 
     public String getWhetherEffBt() {
@@ -325,36 +313,12 @@ public class YoSalaryDaily {
         this.whetherEffBt = whetherEffBt;
     }
 
-    public String getBtAllowance() {
-        return btAllowance;
-    }
-
-    public void setBtAllowance(String btAllowance) {
-        this.btAllowance = btAllowance;
-    }
-
     public String getWhetherEffOt() {
         return whetherEffOt;
     }
 
     public void setWhetherEffOt(String whetherEffOt) {
         this.whetherEffOt = whetherEffOt;
-    }
-
-    public String getOtAllowance() {
-        return otAllowance;
-    }
-
-    public void setOtAllowance(String otAllowance) {
-        this.otAllowance = otAllowance;
-    }
-
-    public String getHeatingAllowance() {
-        return heatingAllowance;
-    }
-
-    public void setHeatingAllowance(String heatingAllowance) {
-        this.heatingAllowance = heatingAllowance;
     }
 
     public String getTimebase() {
@@ -373,11 +337,27 @@ public class YoSalaryDaily {
         this.journalState = journalState;
     }
 
-    public String getComment() {
-        return comment;
+    public String getSalaryState() {
+        return salaryState;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setSalaryState(String salaryState) {
+        this.salaryState = salaryState;
+    }
+
+    public String getEffectReason() {
+        return effectReason;
+    }
+
+    public void setEffectReason(String effectReason) {
+        this.effectReason = effectReason;
+    }
+
+    public String getApplyPerson() {
+        return applyPerson;
+    }
+
+    public void setApplyPerson(String applyPerson) {
+        this.applyPerson = applyPerson;
     }
 }

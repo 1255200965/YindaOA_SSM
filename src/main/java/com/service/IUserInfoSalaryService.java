@@ -21,8 +21,6 @@ public interface IUserInfoSalaryService {
     //添加工资
     int insert(YoUserinfosalary record);
 
-//    YoUserinfosalary selectByPrimaryKey(Integer sid);
-
     int updateByUserSalary(YoUserinfosalary record);
     /**
      * 根据分公司，月份去查询薪资
@@ -35,4 +33,23 @@ public interface IUserInfoSalaryService {
 
     // 得到员工日报
     List<YoSalaryDaily> getJournal(String staffid);
+
+    // 无效改为有效
+    void attEffective(int seqNo);
+
+    // 有效改为无效
+    void attInvalid(int seqNo);
+
+    // 提交改为有效考勤的审批，PM一级要用到
+    void submitApprove(YoSalaryDaily yoSalaryDaily);
+
+    // 得到待审批的日报，只有我和黄照香才能看到
+    List<YoSalaryDaily> getJournalOnCheck();
+
+    // 点击同意后，日报状态从1改为2
+    void approveJournal(int seqNo);
+
+    // 点击拒绝后，日报状态从1改为0
+    void rejectJournal(int seqNo);
+
 }
