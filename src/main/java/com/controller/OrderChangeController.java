@@ -56,13 +56,7 @@ public class OrderChangeController {
 
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	SimpleDateFormat msdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
- /**
-  * 审批通过（顶顶消息点击进入的审批界面）
-  * @param id
-  * @param request
-  * @param staff_user_id
-  * @return
-  */
+
 	@RequestMapping("/approve_order_page.do")
 	public ModelAndView approve_order_page(String id,HttpServletRequest request,String staff_user_id){
 		ModelAndView mav = new ModelAndView();
@@ -104,7 +98,7 @@ public class OrderChangeController {
 
 
 		}
-		System.out.println("审批流："+accessList);
+		
 
 		StaffInfo approve =iStaffInfoService.selectStaffByID(approveId); //根据申请人的ID查找审批人
 		List <StaffInfo> identifyList = staffInfoMapper.getAllIdentifyInStallInfo();
@@ -115,6 +109,7 @@ public class OrderChangeController {
 		mav.addObject("approveName", approveName);
 		mav.addObject("staff_user_id", staff_user_id);
 		mav.addObject("alength", approveName.length());
+		mav.addObject("principal",orderChange.getPrincipal());
 		mav.setViewName("/order/approve_order");
 
 		/*
@@ -127,13 +122,7 @@ public class OrderChangeController {
 	}
 
 
-    /**
-     * 审批通过
-     * @param id
-     * @param request
-     * @param staff_user_id
-     * @return
-     */
+
 	@RequestMapping("/approve_order_page_in.do")
 	public ModelAndView approve_order_page_in(String id,HttpServletRequest request,String staff_user_id){
 		ModelAndView mav = new ModelAndView();
@@ -205,7 +194,7 @@ public class OrderChangeController {
 	 */
 	@RequestMapping("/pass_approve.do")
 	@ResponseBody
-	public String pass_approve(String id,HttpServletRequest request,String identify,String orderRemark,String businessProp,String outdoorJob3,String lte3){
+	public String pass_approve(String id,HttpServletRequest request,String identify,String orderRemark,String businessProp,String outdoorJob3,String lte3,String principal3){
 
 		YoOrderChange itemChange =yoOrderChangeMapper.selectByPrimaryKey(Integer.valueOf(id));
 		itemChange.setOrderStatus("审核通过");
@@ -214,6 +203,8 @@ public class OrderChangeController {
 		itemChange.setOrderRemark(orderRemark);
 		itemChange.setOutdoorJob(outdoorJob3);
 		itemChange.setLte(lte3);
+		itemChange.setPrincipal(principal3);
+		
 		try{
 			yoOrderChangeMapper.updateByPrimaryKey(itemChange);
 			itemChange.setModifyTime(msdf.format(new Date()));
@@ -271,7 +262,7 @@ public class OrderChangeController {
 				staffCurentOrder.setScoContratType(scoContratType);
 				staffCurentOrder.setScoOrderName(scoOrderName);
 				staffCurentOrder.setScoOrderNo(scoOrderNo);
-				
+				staffCurentOrder.setPrincipal(principal);
 				
 				String leader =staffInfoMapper.selectByPrimaryKey(staffCurentOrder.getStaffUserId()).getWhetherLeader();
                 if(leader==null){

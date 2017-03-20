@@ -111,7 +111,8 @@ public class ItemChangeController {
 			String yindaIdentify,
 			String contractType,
 			String remark,
-			String lte,			
+			String lte,	
+			String principal,
 			HttpServletRequest request){
 
 		String user_staffId =(String) request.getSession().getAttribute(GlobalConstant.user_staffId);
@@ -140,6 +141,7 @@ public class ItemChangeController {
 		orderChange.setOrderName(orderName);
 		orderChange.setOrderRemark(remark);
 		orderChange.setOutdoorJob(outdoor);
+		orderChange.setPrincipal(principal);
 		orderChange.setModifyTime(msdf.format(new Date())+"");
 		orderChange.setYindaIdentify(yindaIdentify);
 		orderChange.setStaffUserId(staff_user_id);

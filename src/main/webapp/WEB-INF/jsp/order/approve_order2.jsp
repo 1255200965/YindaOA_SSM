@@ -226,6 +226,19 @@
    </div>
   </div>
   
+  <div class="weui_cell weui_vcode">
+            <div class="weui_cell_hd"><label class="weui_label">外场工作</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <div class="weui_cell weui_cell_select">
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <select class="weui_select" name="principal" id="principal">
+                            <option value="是" <c:if test="${itemChange.principal eq '是'}">selected="selected"</c:if>>是</option>
+                            <option value="否" <c:if test="${itemChange.principal eq '否'}">selected="selected"</c:if>>否</option> 
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
     <div class="weui_cell">
     <div class="weui_cell_hd"><label  class="weui_label">生效日期</label></div>
     <div class="weui_cell_bd weui_cell_primary">

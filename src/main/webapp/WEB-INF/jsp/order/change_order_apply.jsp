@@ -131,21 +131,23 @@
 				</div>
 			</div>
 
-			<div class="weui_cell weui_vcode">
+			<%-- <div class="weui_cell weui_vcode">
 				<div class="weui_cell_hd">
 					<label class="weui_label">合同类型</label>
 				</div>
 				<div class="weui_cell_bd weui_cell_primary">
 					<div class="weui_cell weui_cell_select">
 						<div class="weui_cell_bd weui_cell_primary">
-							<select class="weui_select" name="contractType" id="contractType">
+							<select class="weui_select" name="contractType" id="contractType" readonly="readonly">
                              <option value="${sessionScope.contractType}">${sessionScope.contractType}</option>
                        
-							</select>
+							</select >
+							<input class="weui_input" type="text" 
+						id="contractType" name="contractType" value="${sessionScope.contractType}" readonly="readonly">
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> --%>
 
 <%--			<div class="weui_cell weui_vcode">
 				<div class="weui_cell_hd">
@@ -169,6 +171,15 @@
 				</div>
 			</div>--%>
 
+         <div class="weui_cell">
+				<div class="weui_cell_hd">
+					<label class="weui_label">合同类型</label>
+				</div>
+				<div class="weui_cell_bd weui_cell_primary">
+					<input class="weui_input" type="text"  value="${sessionScope.contractType}"
+						id="contractType" name="contractType" readonly="readonly">
+				</div>
+			</div>
 			<div class="weui_cell">
 				<div class="weui_cell_hd">
 					<label class="weui_label">变动省份</label>
@@ -179,22 +190,40 @@
 				</div>
 			</div>
 
-			<div class="weui_cell">
+
+
+
+
+<div class="weui_cell weui_vcode">
 				<div class="weui_cell_hd">
 					<label class="weui_label">变动城市</label>
 				</div>
 				<div class="weui_cell_bd weui_cell_primary">
-
-					 <!--  <select class="weui_select" name="changeCity" placeholder="请输入城市" id="changeCity">
-
-
-                  </select>  -->
-					 <input class="weui_input" type="text" placeholder="请输入城市"
-						name="changeCity">
+					<div class="weui_cell weui_cell_select">
+						<div class="weui_cell_bd weui_cell_primary">
+							<select class="weui_select" name="changeCity" id="changeCity">
+								
+							</select>
+						</div>
+					</div>
 				</div>
 			</div>
-
-
+     
+			<div class="weui_cell weui_vcode">
+				<div class="weui_cell_hd">
+					<label class="weui_label">外场工作</label>
+				</div>
+				<div class="weui_cell_bd weui_cell_primary">
+					<div class="weui_cell weui_cell_select">
+						<div class="weui_cell_bd weui_cell_primary">
+							<select class="weui_select" name="principal">
+								<option value="否">否</option>
+								<option value="是">是</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
 
 			<div class="weui_cell weui_vcode">
 				<div class="weui_cell_hd">
@@ -211,7 +240,8 @@
 					</div>
 				</div>
 			</div>
-
+           
+      
 			<div class="weui_cell">
 				<div class="weui_cell_hd">
 					<label class="weui_label">生效日期</label>
@@ -366,7 +396,7 @@
 
         $("#orderName").change(function (){
             var orderName = $("#orderName").val();
-            var  changeCityHTML ="<option>请选择</option>";
+            var  changeCityHTML ="<option value = ''>请选择</option>";
             $.post("<%=path%>/orderProperty/getOrderProvince.do",{'orderName':orderName},function (data){
 
                 $("#changeProvince").val(data);
@@ -411,7 +441,8 @@
     function subForm()
     {
         var beginTime = $("#datetime-picker").val();
-        var changeCity =$("input[name='changeCity']").val();
+        var changeCity =$("select[name='changeCity']").val();
+       
         var  orderName =$("#orderName").val();
         if(beginTime==null || ""==beginTime){
             
