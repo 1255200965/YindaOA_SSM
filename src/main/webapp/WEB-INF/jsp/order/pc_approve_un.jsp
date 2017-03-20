@@ -145,6 +145,7 @@
 						<td class="text_center" width="6%">商务等级</td>
 						<td class="text_center" width="6%">合同类型</td>
 						<td class="text_center" width="6%">LTE认证</td>
+						<td class="text_center" width="6%">场外工作</td>
 						<td class="text_center" width="6%">室外工作</td>
 						<td class="text_center" width="6%">生效日期</td>
 						<td class="text_center" width="6%">备注</td>
@@ -213,10 +214,15 @@
 										</div>
 									</td>
 								<%-- </c:if> --%>
-
-								<td class="text_center" width="6%"><select name="outdoorJob" >								
-								        <option value="是">是</option>
-										<option value="否">否</option></select>
+                                <td class="text_center" width="6%"><select name="principal" >                               								
+								       <option value="是"   <c:if test="${orderChange.principal eq '是'}">selected='selected'</c:if>>是</option>
+									  <option value="否" <c:if test="${orderChange.principal  eq '否'}">selected='selected'</c:if>>否</option></select>
+								</td>
+								<td class="text_center" width="6%">
+								        <select name="outdoorJob" >								
+								        <option value="是"  <c:if test="${orderChange.outdoorJob eq '是'}">selected='selected'</c:if>>是</option>
+										<option value="否"  <c:if test="${orderChange.outdoorJob eq '否'}">selected='selected'</c:if>>否</option>
+										</select>
 								</td>
 								<td class="text_center" width="6%">${orderChange.effectTime}</td>
 								<td class="text_center" width="6%"><input name="orderRemark"/></td>
@@ -285,6 +291,7 @@ function approve_order(){
 	var orderRemarks = [];
 	var businessProps =[];
 	var outdoorJob3s = [];
+	var principal3s = [];
 	var lte3s = [];
 	for(var i =0 ;i<ids.length;i++){
 		/*找到该按钮所在的那一行元素*/
@@ -320,6 +327,11 @@ function approve_order(){
 			businessProps.push($(businessProp).val());
 		}
 		
+		/*获取这行principal的值*/
+		var principal3 = tr.find("select[name='principal']");		
+		/*将principal3的值添加数组中*/
+		principal3s.push($(principal3).val());
+		
 		
 		/*获取这行outdoorJob的值*/
 		var outdoorJob3 = tr.find("select[name='outdoorJob']");		
@@ -336,7 +348,7 @@ function approve_order(){
      /*提交*/
      if(confirm("审批后不可更改，确定要同意么？")){
      //{"ids":id,"identifys":identifys,"orderRemarks":orderRemark,"businessProps":businessProps,"outdoorJob3s":outdoorJob3s,"lte3s":lte3s}
-	 $.post("<%=path%>/PCOrderChange/pc_pass_approve.do",{"ids":id,"identifys":identifys,"orderRemarks":orderRemarks,"businessProps":businessProps,"outdoorJob3s":outdoorJob3s,"lte3s":lte3s},function(data){
+	 $.post("<%=path%>/PCOrderChange/pc_pass_approve.do",{"ids":id,"identifys":identifys,"orderRemarks":orderRemarks,"businessProps":businessProps,"outdoorJob3s":outdoorJob3s,"principal3s":principal3s,"lte3s":lte3s},function(data){
 	         alert(data);
 	         location.reload();
 	     });
@@ -377,8 +389,7 @@ function approve_order(){
 	     
 	     //{"ids":id,"identifys":identifys,"orderRemarks":orderRemark,"businessProps":businessProps,"outdoorJob3s":outdoorJob3s,"lte3s":lte3s}
 		 $.post("<%=path%>/PCOrderChange/pc_refuse_approve.do",{"ids":id},function(data){
-		         //alert(data);
-			     alert("驳回成功！");
+		         alert(data);
 		         location.reload();
 		     });
 	     }

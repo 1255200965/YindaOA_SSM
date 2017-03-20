@@ -93,6 +93,7 @@ public class PCOrderChangeController {
 			@RequestParam("businessProps[]")List<String>  businessProps,
 			@RequestParam("outdoorJob3s[]")List<String>  outdoorJob3s,
 			@RequestParam("lte3s[]")List<String>  lte3s, 
+			@RequestParam("principal3s[]")List<String>  principal3s, 
 			HttpServletRequest request){
 		
 	int success_count=0;
@@ -136,7 +137,7 @@ public class PCOrderChangeController {
 			}
 			
 			try{
-				pass_approve(ids.get(i), identify, orderRemark, businessProp, outdoorJob3s.get(i), lte3);
+				pass_approve(ids.get(i), identify, orderRemark, businessProp, outdoorJob3s.get(i), lte3,principal3s.get(i));
 				success_count++;
 			}catch(Exception e){
 				error_count++;
@@ -210,9 +211,11 @@ public class PCOrderChangeController {
 	/**
 	 * 审批通过
 	 * @param id 项目信息变更的Id
+	 * @param request
 	 * @return
 	 */
-	public String pass_approve(String id,String identify,String orderRemark,String businessProp,String outdoorJob3,String lte3){
+	
+	public String pass_approve(String id,String identify,String orderRemark,String businessProp,String outdoorJob3,String lte3,String principal3){
 
 		YoOrderChange itemChange =yoOrderChangeMapper.selectByPrimaryKey(Integer.valueOf(id));
 		itemChange.setOrderStatus("审核通过");
@@ -221,6 +224,7 @@ public class PCOrderChangeController {
 		itemChange.setOrderRemark(orderRemark);
 		itemChange.setOutdoorJob(outdoorJob3);
 		itemChange.setLte(lte3);
+		itemChange.setPrincipal(principal3);
 		try{
 			yoOrderChangeMapper.updateByPrimaryKey(itemChange);
 			itemChange.setModifyTime(msdf.format(new Date()));
@@ -252,6 +256,7 @@ public class PCOrderChangeController {
 				String scoOrderNo=itemChange.getOrderNumber();				
 				String scoProjectName= itemChange.getProject();
 				String yindaIdentify=itemChange.getYindaIdentify();
+				
 				if (staffCurentOrder==null){
 					//如果当前订单表中中没有 该订单信息 创建新的当前订单信息表 那么当前订单表中没有部门和项目信息 
 					staffCurentOrder = new YoStaffCurrentOrder();
@@ -278,7 +283,7 @@ public class PCOrderChangeController {
 				staffCurentOrder.setScoContratType(scoContratType);
 				staffCurentOrder.setScoOrderName(scoOrderName);
 				staffCurentOrder.setScoOrderNo(scoOrderNo);
-				
+				staffCurentOrder.setPrincipal(principal);
 				
 				String leader =staffInfoMapper.selectByPrimaryKey(staffCurentOrder.getStaffUserId()).getWhetherLeader();
 
