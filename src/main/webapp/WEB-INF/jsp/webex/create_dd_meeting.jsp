@@ -185,7 +185,7 @@
   	jQuery.validator.addMethod("IsChinese", function(value, element) {   
   	    var tel = /^([a-zA-Z0-9]|[._]){4,10}$/;
   	    return this.optional(element) || (tel.test(value));
-  	}, "请填写汉字");
+  	}, "不能包含特殊字符");
 
     </script> 
     
