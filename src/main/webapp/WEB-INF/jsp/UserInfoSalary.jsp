@@ -463,7 +463,7 @@
                 </thead>
 
                 <tbody data-bind="foreach:ShowList" >
-                <tr data-bind="style: { backgroundColor: task > 0 ? (task>1 ? 'cyan' : 'orange' ) : 'white' ,fontWeight:'bold' },clickBubble: false">
+                <tr data-bind="style: { backgroundColor: task > 0 ? (task>1 ? 'blue' : 'yellow' ) : 'white' ,fontWeight:'bold' },clickBubble: false">
                     <td data-bind="text:$index()+1,click:$root.ClickJump">编号</td>
                     <td data-bind="text:name,click:$root.ClickJump">编号</td>
                     <%--<td data-bind="text:department">编号</td>--%>

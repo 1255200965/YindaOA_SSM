@@ -119,7 +119,12 @@ public class ExpenseTrainController {
     	Integer id =expenseApplayTrain.getId();
     	//添加报销信息状态为待审核
     	expenseApplayTrain.setApplayStatus("待审核");
-    	expenseApplayTrain.setSubmitTime(DateUtil.getCurrentDate());
+    		//乘车开始月份较当前月份小则重置提交时间为上一个月
+    	/*if(DateUtil.compare( expenseApplayTrain.getStartTime(),DateUtil.getCurrentDate())){
+    		expenseApplayTrain.setSubmitTime(DateUtil.getLastMonthDate());
+    	}else{*/
+    		expenseApplayTrain.setSubmitTime(DateUtil.getCurrentDate());
+    	/*}*/
     	/**添加当前报销人信息**/
     	expenseApplayTrain.setStaffId((String) request.getSession().getAttribute(GlobalConstant.user_staffId));
     	expenseApplayTrain.setStaffName((String) request.getSession().getAttribute(GlobalConstant.user_name));
@@ -139,11 +144,11 @@ public class ExpenseTrainController {
 			//对于挂职在一级部门的员工
 			if(approverList.size() >1){
 			toUser=approverList.get(1);//先发送给一级部门的管理员
-			expenseApplayTrain.setApproverOrder(approverList.get(1)+"|"+approverList.get(0)+"|31017"+"|10272");
+			expenseApplayTrain.setApproverOrder(approverList.get(1)+"|"+approverList.get(0)+"|10548"+"|31017"+"|10272");
 			expenseApplayTrain.setApproverNow(toUser);
 			}else{//对于挂职在二级部门下的员工
 				toUser=approverList.get(0);//直接发送给二级部门的管理员
-				expenseApplayTrain.setApproverOrder(approverList.get(0)+"|31017"+"|10272");
+				expenseApplayTrain.setApproverOrder(approverList.get(0)+"|10548"+"|31017"+"|10272");
 				expenseApplayTrain.setApproverNow(toUser);
 			}	
 			/*****用户对应报销管理员查询******/
@@ -152,11 +157,14 @@ public class ExpenseTrainController {
     		id = expenseApplayTrainService.saveOrUpdate(expenseApplayTrain);
         	//用户新增的申请需要给管理员推送审批消息
 //    		DDSendMessageUtil.sendMessageTrain(expenseApplayTrain, id, toUser);
+    		//设置对应的出差申请记录的bt_status状态为已提交
+    		expenseApplayTrainService.updateBtData(expenseApplayTrain.getTripId());
             //操作成功,重定向到历史信息查看界面
     		return "redirect:toExpense_history_train.do";
     	}catch(Exception e){
+    		e.printStackTrace();
     		//返回操作状态信息
-    		return "redirect:toExpense_train?data=fail";
+    		return "redirect:toExpense_train.do?data=fail";
     	}
     	/**保存当前报销信息**/
     	
@@ -239,11 +247,11 @@ public class ExpenseTrainController {
 			//对于挂职在一级部门的员工
 			if(approverList.size() >1){
 			toUser=approverList.get(1);//先发送给一级部门的管理员
-			expenseApplayTrain.setApproverOrder(approverList.get(1)+"|"+approverList.get(0)+"|31017"+"|10272");
+			expenseApplayTrain.setApproverOrder(approverList.get(1)+"|"+approverList.get(0)+"|10548"+"|31017"+"|10272");
 			expenseApplayTrain.setApproverNow(toUser);
 			}else{//对于挂职在二级部门下的员工
 				toUser=approverList.get(0);//直接发送给二级部门的管理员
-				expenseApplayTrain.setApproverOrder(approverList.get(0)+"|31017"+"|10272");
+				expenseApplayTrain.setApproverOrder(approverList.get(0)+"|10548"+"|31017"+"|10272");
 				expenseApplayTrain.setApproverNow(toUser);
 			}	
 			/*****用户对应报销管理员查询******/

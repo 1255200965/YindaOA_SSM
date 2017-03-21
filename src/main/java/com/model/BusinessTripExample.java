@@ -1913,6 +1913,76 @@ public class BusinessTripExample {
             addCriterion("bt_trip not between", value1, value2, "btTrip");
             return (Criteria) this;
         }
+
+        public Criteria andBtStatusIsNull() {
+            addCriterion("bt_status is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtStatusIsNotNull() {
+            addCriterion("bt_status is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtStatusEqualTo(String value) {
+            addCriterion("bt_status =", value, "btStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtStatusNotEqualTo(String value) {
+            addCriterion("bt_status <>", value, "btStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtStatusGreaterThan(String value) {
+            addCriterion("bt_status >", value, "btStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtStatusGreaterThanOrEqualTo(String value) {
+            addCriterion("bt_status >=", value, "btStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtStatusLessThan(String value) {
+            addCriterion("bt_status <", value, "btStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtStatusLessThanOrEqualTo(String value) {
+            addCriterion("bt_status <=", value, "btStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtStatusLike(String value) {
+            addCriterion("bt_status like", value, "btStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtStatusNotLike(String value) {
+            addCriterion("bt_status not like", value, "btStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtStatusIn(List<String> values) {
+            addCriterion("bt_status in", values, "btStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtStatusNotIn(List<String> values) {
+            addCriterion("bt_status not in", values, "btStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtStatusBetween(String value1, String value2) {
+            addCriterion("bt_status between", value1, value2, "btStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andBtStatusNotBetween(String value1, String value2) {
+            addCriterion("bt_status not between", value1, value2, "btStatus");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

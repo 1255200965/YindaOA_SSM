@@ -72,8 +72,6 @@ public class LoanController {
 	/**
 	 * 发起冲借款--单条--界面跳转
 	 * @param approveNo 审批编号
-	 * @param approveRepayment 返还金额
-	 * @param approveInvoice 发票金额
 	 * @return
 	 */
 	@RequestMapping("/goStartALoan.do")
@@ -142,8 +140,8 @@ public class LoanController {
 		   	String originalName=mFile.getOriginalFilename();
 		   	System.out.println("上传的文件名为"+originalName+mFile.getSize());
 		   	  		//图片存储的物理根路径
-			//String basePath ="/alidata/server/tomcat-7.0.54/webapps/YindaOAImageUpload/LoanImage/";
-		   	String basePath="E://";
+			String basePath ="/alidata/server/tomcat-7.0.54/webapps/YindaOAImageUpload/LoanImage/";
+		   	//String basePath="E://";
 				  //新的图片名称--命名形式为 姓名+_+年月日+图片原来的名称
 			String newFileName=request.getSession().getAttribute(GlobalConstant.user_name)+"_"
 					+getDatePath()+originalName;

@@ -465,6 +465,7 @@ public class AdvanceServiceImpl implements IAdvanceService{
     	  if(endTime !=null && !"".equals(endTime)){
     		  criteria.andAdvanceStartTimeLessThanOrEqualTo(endTime);
     	  }
+    	  criteria.andApproveResultEqualTo("同意");
     	  criteria.andExportStatusEqualTo("已下载");
     	  return advanceMapper.selectByExample(example);
       }

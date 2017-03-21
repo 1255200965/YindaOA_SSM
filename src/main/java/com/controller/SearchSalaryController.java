@@ -100,6 +100,50 @@ public class SearchSalaryController {
         return map;
     }
 
+    /**
+     * 查询日报
+     */
+    @RequestMapping(value = "/RBquerys.do", method = RequestMethod.POST)
+    public @ResponseBody Map<String,Object> RBquerys(@RequestBody YoSalaryDaily user, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        List<YoSalaryDaily> list = userInfoService.selectDailyByExample(user);
+        Map<String,Object> map = new HashMap<String,Object>();
+        map.put("usertest",list);
+        if(list.size() != 0){
+            map.put("msg", "成功");
+        }else{
+            map.put("msg", "查询结果为空");
+        }
+        return map;
+    }
+
+    /**
+     * 更新日报
+     */
+    @RequestMapping(value = "/RBupdate.do", method = RequestMethod.POST)
+    public @ResponseBody Map<String,Object> RBupdate(@RequestBody YoSalaryDaily totalSum) throws IOException {
+        Map<String,Object> map = new HashMap<String,Object>();
+
+        int result = userInfoService.updateDailyByUserSalary(totalSum);
+
+        if(result != 0){
+            map.put("msg", "更新成功");
+            map.put("ok", "ok");
+        }else{
+            map.put("msg", "更新失败");
+        }
+        return map;
+    }
+
+
+
+
+
+
+
+
+
+
+
     /*
     日报页面，点击工资后触发
     工号通过读取jsp的nama属性加RequestParam注解得到。注意写了注解就必须有对应的name，否则就报错了
@@ -108,6 +152,19 @@ public class SearchSalaryController {
     @RequestMapping(value = "journal.do")
     // 接收两个参数，用注解还可以忍的。3个参数如果同在一个实体类那还是传类进来吧
     public String journal( @RequestParam("staffid") String staffid, @RequestParam("salaryState") String salaryState, Model m, HttpServletRequest request) {
+        //写session 啊，统统干掉
+        String userRole = (String) request.getSession().getAttribute("user_role");
+        String Department = (String) request.getSession().getAttribute(GlobalConstant.user_department);
+        String StaffID = (String) request.getSession().getAttribute(GlobalConstant.user_staffId);
+        String StaffUserID = (String) request.getSession().getAttribute(GlobalConstant.user_staff_user_id);
+        String StaffName =(String) request.getSession().getAttribute(GlobalConstant.user_name);
+
+        m.addAttribute("userRole", userRole);
+        m.addAttribute("Department", Department);
+        m.addAttribute("StaffName", StaffName);
+        m.addAttribute("StaffID", StaffID);
+        m.addAttribute("StaffUserID", StaffUserID);
+
         // 第1步，操作者是9大PM，状态设为1，否则为2
         String operator;
         // 如果session过期打开日报审批会报404，不知用try能不能解决

@@ -1,6 +1,7 @@
 package com.service;
 
 import com.model.YoSalaryDaily;
+import com.model.YoSalaryDailyExample;
 import com.model.YoUserinfosalary;
 import com.model.YoUserinfosalaryExample;
 
@@ -30,6 +31,8 @@ public interface IUserInfoSalaryService {
      */
     List<YoUserinfosalary> search_salary(String company,String salarydate);
     List<YoUserinfosalary> search_Jan_salary(String userid,String salarydate);
+    List<YoSalaryDaily> selectDailyByExample(YoSalaryDaily example);
+    int updateDailyByUserSalary(YoSalaryDaily record);
 
     // 得到员工日报
     List<YoSalaryDaily> getJournal(String staffid);

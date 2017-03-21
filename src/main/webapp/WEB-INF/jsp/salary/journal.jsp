@@ -25,12 +25,15 @@
     <link href="${ctx}/stylesheets/shujutongji.css" rel="stylesheet" />
     <link href="${ctx}/stylesheets/ddcss.css" rel="stylesheet" />
     <link rel="stylesheet" href="${ctx}/stylesheets/header.css">
+    <link href="${ctx}/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
     <%--加载table样式文件--%>
     <link rel="stylesheet" type="text/css" href="${ctx}/stylesheets/salary/table.css" />
 
     <script type="text/javascript" src="${ctx}/javascripts/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="${ctx}/javascripts/bootstrap.min.js"></script>
     <script type="text/javascript" src="${ctx}/javascripts/bootstrap-treeview.min.js"></script>
+    <script type="text/javascript" src="${ctx}/datetimepicker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="${ctx}/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
     <script src="${ctx}/datePlug/jquery.monthpicker.js"></script>
     <script src="${ctx}/javascripts//knockout-3.4.0rc.js"></script>
 
@@ -60,6 +63,13 @@
         var showpage = 20;
 
         $(document).ready(function () {
+            $('.form_date').datetimepicker({
+                language:  'zh-CN',
+                todayBtn:  1,
+                autoclose: 1,
+                format:'yyyy-mm-dd',
+                minView: "month",
+            });
             var ViewModel = function () {
                 var self = this;
                 //变量区
@@ -106,11 +116,11 @@
                     } else
                     {
                         $.ajax({
-                            data: JSON.stringify(new UserModel(depddid, null, null, "2017-02")),
+                            data: JSON.stringify(new UserModel(depddid, null, null, "2017-02","2017-01-21","2017-02-20")),
                             type: "post",
                             headers: {'Content-Type': 'application/json'},
                             dataType: 'json',
-                            url: "../userinfosalary/querys.do",
+                            url: "../userinfosalary/RBquerys.do",
                             error: function (data) {
                                 alert("出错了！！:" + data.msg);
                             },
@@ -128,19 +138,19 @@
                     }
                 }
 
-                //查询成员列表（部门，姓名，电话，工号）
+                //查询日报
                 self.GetUserByQuery = function(){
                     if (nowDep != null){var depid = nowDep.name;} else {depid = Department;}
                     if  ($("#search_name").val() == "" && nowDep =="") {
                         alert("请输入名字或工号！");
                     } else {
                         $.ajax({
-                            data: JSON.stringify(new UserModel(depid, $("#search_name").val(), null, "2017-02")),
+                            data: JSON.stringify(new UserModel(depid, $("#search_name").val(), $("#staff_id").val(), "2017-02",$("#startdate").val(),$("#enddate").val())),
                             type: "post",
                             async: false,
                             headers: {'Content-Type': 'application/json'},
                             dataType: 'json',
-                            url: "../userinfosalary/select.do",
+                            url: "../userinfosalary/RBquerys.do",
                             error: function (data) {
                                 alert("出错了！！:" + data.msg);
                             },
@@ -179,7 +189,7 @@
                             headers: {'Content-Type': 'application/json'},
                             dataType: 'json',
                             async:'false',
-                            url: "../userinfosalary/updatesalary.do",
+                            url: "../userinfosalary/RBupdate.do",
                             error: function (data) {
                                 alert("出错了！！:" + data.msg);
 
@@ -201,10 +211,78 @@
                         });
                     }
                 }
-                // 点击事件-点击跳转到日报页
-                self.ClickJump = function(item){
-                    window.location.href="<%=basePath%>" + "userinfosalary/journal.do?staffid="+item.salaryid+"&&salaryState="+item.task;
+                //=======================================================
+                // 修改日报状态 type=0,1
+                self.UpdateRB = function(type,item){
+                        item.salaryState = type;
+                        if (type == '1'){
+                            //无效变有效
+                            item.journalState = '2';
+                        } else if (type == '0'){
+                            //有效变无效
+                            item.journalState = '3';
+                        } else {
+                            //项目经理提交了申请
+                            item.journalState = '1';
+                        }
+                        $.ajax({
+                            data: JSON.stringify(item),
+                            type: "post",
+                            headers: {'Content-Type': 'application/json'},
+                            dataType: 'json',
+                            async:'false',
+                            url: "../userinfosalary/RBupdate.do",
+                            error: function (data) {
+                                alert("出错了！！:" + data.msg);
+
+                            },
+                            success: function (data) {
+                                alert("提交结果:"+data.msg);
+                                if (data.ok == "ok") {
+                                    for (var i = 0; i < self.ShowList().length; i++) {
+                                        if (self.ShowList()[i].seqNo == item.seqNo) {
+
+                                            self.ShowList.splice(i, 1);
+                                            self.ShowList.splice(i, 0, item);
+                                            break;
+                                        }
+                                    }
+                                }
+
+                            }
+                        });
+
                 }
+                //======================================================
+
+                // 点击事件-点击设为有效考勤
+                self.ClickTrue = function(item) {
+                    //如果是项目经理，打开模态框
+                    if (role == "项目经理") {
+                        self.changeItem(item);
+                        self.rootid('0');
+                        $("#noModal").click();
+                    } else {
+
+                    //如果是部门经理,管理员，直接修改状态
+
+                    self.UpdateRB(1, item);
+                    }
+                }
+                // 点击事件-点击设为无效考勤
+                self.ClickFalse = function(item){
+                    //直接修改状态
+
+                    self.UpdateRB(0,item);
+                }
+                // 点击事件-点击查看申请状态
+                self.ClickWatch = function(item){
+                    //打开模态框查看状态-----或者直接发生页面跳转
+                    self.changeItem(item);
+                    self.rootid('1');
+                    $("#noModal").click();
+                }
+                //========================================================
                 // 点击事件-点击更新用户按钮
                 self.ClickUpdate = function(item){
                     self.changeItem(item);
@@ -264,7 +342,8 @@
                         window.event.returnValue = false;
                     }else{
 
-                        self.UpdateSalary(1,self.changeItem());
+                        self.UpdateRB(3,self.changeItem());
+                        $("#close1").click();
                         return true;
                     }
                 };
@@ -279,7 +358,7 @@
                         type: "post",
                         headers: {'Content-Type': 'application/json'},
                         dataType: 'json',
-                        url: "../userinfosalary/updatesalary.do",
+                        url: "../userinfosalary/RBupdate.do",
                         error: function (data) {
                             alert("出错了！！:" + data.msg);
 
@@ -362,13 +441,14 @@
             ko.applyBindings(new ViewModel);
         });
 
-        function UserModel(depid,name,salaryid,salarydate) {
-            this.sid = null;
-            this.salarydate=salarydate;
+        function UserModel(depid,name,salaryid,salarydate,startdate,enddate) {
+            this.seqNo = null;
             this.name = name;
             this.department=depid;
-            this.userid = null;
-            this.salaryid = salaryid;
+            this.staffid = salaryid;
+
+            this.startDate = startdate;
+            this.endDate = enddate;
             return this;
         }
         function getNowDate() {
@@ -398,31 +478,126 @@
                 <div class="caidan-tiku-s" style="margin-right:5%"> <span>姓名：</span>
                     <input id="search_name" type="text" name="name" class="shuruk-a2" placeholder="">
                 </div>
-                <div class="caidan-tiku-s" style="margin-right:5%"> <span>当前月份：</span>
-                    <%--<input id="search_salaryid" type="text" name="salaryid" class="shuruk-a2" placeholder="">--%>
-                    <span id="nowamonth"  > 2017-02 </span>
+                <div class="caidan-tiku-s" style="margin-right:5%"> <span>工号：</span>
+                    <input id="staff_id" type="text" name="id" class="shuruk-a2" placeholder="">
                 </div>
+                <div class="caidan-tiku-s" style="margin-right:5%"> <span>时间：</span>
+                    <input id="startdate" type="text" name="yoAskBeginDate" class="laydate-icon shuruk-a2 form_date" placeholder="" value="">
+                    <input id="enddate" type="text" name="yoAskEndDate" class="shuruk-a2 form_date" placeholder=""  value="">
+                </div>
+                <div style="float:right;margin-right:0px;padding-bottom:0px;" >
+                    <button  type="button"   class="btn btn_primary" data-bind="click:$root.ClickSearch">查询</button>
+                </div>
+
+            <%--                <div class="caidan-tiku-s" style="margin-right:5%"> <span>当前月份：</span>
+                    &lt;%&ndash;<input id="search_salaryid" type="text" name="salaryid" class="shuruk-a2" placeholder="">&ndash;%&gt;
+                    <span id="nowamonth"  > 2017-02 </span>
+                </div>--%>
                 <%--            <div class="caidan-tiku-s" style="margin-right:5%"> <span>日期：</span>
                                 <input id="search_salarydate" type="text" name="salarydate" class="shuruk-a2" placeholder="">
                             </div>--%>
 
-                <div class="caidan-tiku-s" style="margin-right:5%"> <span>当月满勤天数：</span>
+<%--                <div class="caidan-tiku-s" style="margin-right:5%"> <span>当月满勤天数：</span>
                     <span id="nowaday"  data-bind="text:$root.dateCount"> </span>
                 </div>
                 <div class="caidan-tiku-s" style="margin-right:5%"> <span>当前部门：</span>
                     <span id="nowdepartment"  data-bind="text:$root.nowDep"> </span>
-                </div>
-                <div style="float:right;margin-right:15px;padding-bottom:10px;" >
+                </div>--%>
+<%--                <div style="float:right;margin-right:15px;padding-bottom:10px;" >
                     <input data-bind="click:$root.ClickSearch" type="button" value="查询"  class="chaxun">
-                    <%--<input  data-bind="click:$root.ClickClear" type="button" value="清空"  class="chaxun" style="background:#fd9162">--%>
+                    &lt;%&ndash;<input  data-bind="click:$root.ClickClear" type="button" value="清空"  class="chaxun" style="background:#fd9162">&ndash;%&gt;
                 </div>
 
                 <div style="float:right;margin-right:15px;padding-bottom:10px;" >
                     <input data-bind="click:$root.ClickAllSearch" type="button" value="一键提交"  class="chaxun">
-                    <%--<input  data-bind="click:$root.ClickClear" type="button" value="清空"  class="chaxun" style="background:#fd9162">--%>
+                    &lt;%&ndash;<input  data-bind="click:$root.ClickClear" type="button" value="清空"  class="chaxun" style="background:#fd9162">&ndash;%&gt;
+                </div>--%>
+            </div>
+            <%--静态表单--%>
+            <table  width="100%" border="1" cellspacing="0" cellpadding="0" class="table-1 daily">
+                <thead class="table-1-tou">
+                <th style="width: 5%">日报编号</th>
+                <th style="width: 5%">工号</th>
+                <th style="width: 5%">姓名</th>
+                <th style="width: 5%">日期</th>
+                <th style="width: 5%">日期类型</th>
+                <th style="width: 8%">订单</th>
+                <th style="width: 5%">商务属性</th>
+                <th style="width: 5%">订单地市</th>
+                <th style="width: 5%">请假类型</th>
+                <th style="width: 5%">出勤状态</th>
+                <th style="width: 5%">出勤地市</th>
+                <th style="width: 5%">是否有效加班</th>
+                <th style="width: 5%">是否有效出差</th>
+                <th style="width: 10%">操作</th>
+                </thead>
+                <tbody data-bind="foreach:ShowList" >
+                <tr data-bind="style: { backgroundColor: journalState > 0 ? (journalState > 1  ? (journalState > 2 ? 'red' : 'blue' ) : 'yellow') : 'white' ,fontWeight:'bold' }">
+                    <td data-bind="text:seqNo">${entity.seqNo}</td>
+                    <td data-bind="text:staffid">${entity.staffid}</td>
+                    <td data-bind="text:name">${entity.name}</td>
+                    <td data-bind="text:date">${entity.date}</td>
+                    <td data-bind="text:dateType">${entity.dateType}</td>
+                    <td data-bind="text:orderName">${entity.orderName}</td>
+                    <td data-bind="text:businessAttribute">${entity.businessAttribute}</td>
+                    <td data-bind="text:orderProcity">${entity.orderProcity}</td>
+                    <td data-bind="text:askLeaveType">${entity.askLeaveType}</td>
+                    <td data-bind="text:whetherEffAtt">${entity.whetherEffAtt}</td>
+                    <td data-bind="text:attProcity">${entity.attProcity}</td>
+                    <td data-bind="text:whetherEffOt">${entity.whetherEffOt}</td>
+                    <td data-bind="text:whetherEffBt">${entity.whetherEffBt}</td>
+                    <td>
+                        <%--辣鸡--%>
+                            <button type="button"  data-bind="click:$root.ClickTrue, clickBubble: false,visible:journalState != '1' && whetherEffAtt == '0' && (salaryState =='0' && role == '项目经理' ||  (salaryState <'2' && role != '项目经理') ) ? 1 : 0 ,style: { color:'green'}">设为有效出勤</button>
+                            <button type="button"  data-bind="click:$root.ClickFalse, clickBubble: false,visible:journalState != '1' && whetherEffAtt != '0' && (salaryState =='0' && role == '项目经理' ||  (salaryState <'2' && role != '项目经理') )? 1 : 0 ,style: { color:'green'}">设为无效出勤</button>
+                            <button type="button"  data-bind="click:$root.ClickWatch, clickBubble: false">查看申请原因</button>
+
+
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
+            <button type="button" style="display: none" data-toggle="modal" data-target="#myModal0" id="noModal">查看申请原因</button>
+            <%--170318这个模态框虽然看起来很鱼，但出于效率的考虑，先用这个了--%>
+            <div class="container">
+                <!-- Modal -->
+                <%--这个加Id的方法绝对高端--%>
+                <div class="modal fade" id="myModal0" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false">
+                    <div class="modal-dialog c_side_modal_box"  role="document" style="margin: 0px;">
+                        <div class="modal-content c_side_modal">
+                            <div class="modal-header c_modal_head">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel1">用户信息详情</h4>
+                            </div>
+                            <div class="modal-body c_modal_body">
+                                <div data-bind="with:changeItem">
+                                    <div class="c_ding_form" >
+                                        <div class="c_ding_form_group" >
+                                            <label><i class="iconfont c_ding_from_icon" >*</i><span >申请原因:</span></label>
+                                            <div class="input_content">
+
+                                                <input type="text"  data-bind="textinput:effectReason,attr:{readonly:journalState == '1'  && $root.rootid == '1' }"   style="width: 300px; height: 300px">
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer c_modal_foot">
+                                <button id="close1" type="button" class="c_ding_btn" data-dismiss="modal">Close</button>
+
+                                <button type="submit" class="c_ding_btn c_ding_btn_primary" data-bind="click:$root.ClickModelYes,visible:journalState != '1' && $root.rootid != '1' ? 1 : 0">提交</button>
+                                <%--干掉干掉--%>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
+            <%--统统都干掉--%>
             <table  width="100%" border="1" cellspacing="0" cellpadding="0" class="table-1 daily">
                 <thead class="table-1-tou">
                     <th style="width: 5%">日报编号</th>

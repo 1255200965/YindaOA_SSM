@@ -92,6 +92,31 @@ public class UserInfoSalaryServiceImpl implements IUserInfoSalaryService {
         // TODO Auto-generated method stub
         return userMapper.search_Jan_salary(userid, salarydate);
     }
+//=================================================================================
+@Override
+public List<YoSalaryDaily> selectDailyByExample(YoSalaryDaily user) {
+   //查询日报列表
+    YoSalaryDailyExample example = new YoSalaryDailyExample();
+    YoSalaryDailyExample.Criteria criteria1 = example.createCriteria();
+    //姓名模糊查询
+    if (user.getName()!=null) criteria1.andNameLike("%"+user.getName()+"%");
+    if (user.getStaffid()!=null) criteria1.andStaffidEqualTo(user.getStaffid());
+    if (user.getStartDate()!= null && user.getStartDate()!= "") criteria1.andDateGreaterThanOrEqualTo( user.getStartDate() );
+    if (user.getEndDate()!= null && user.getEndDate()!= "") criteria1.andDateLessThan(user.getEndDate() );
+
+    if (user.getDepartment()!=null) criteria1.andDepartmentLike(user.getDepartment());
+    example.setOrderByClause("department,name,date asc");
+
+    return yoSalaryDailyMapper.selectByExample(example);
+}
+    @Override
+    public int updateDailyByUserSalary(YoSalaryDaily record) {
+        int result=yoSalaryDailyMapper.updateByPrimaryKey(record);
+        return result;
+    }
+
+
+    //================================================================================
 
     /*
     170316，接收工号，返回2月份日报。日报有31条
