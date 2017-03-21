@@ -666,7 +666,7 @@ public class WebExController {
 		webex.setMeetingPassword(meeting_password);
 		webex.setSessionKey(session_key);
 
-		String meeting_url="https://yinda.webex.com.cn/yinda/onstage/g.php?t=p&d="+session_key;
+		String meeting_url="https://yinda.webex.com.cn";
 
 		/*
 		 *webex免注册
