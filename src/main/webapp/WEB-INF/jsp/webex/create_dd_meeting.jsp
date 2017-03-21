@@ -183,7 +183,7 @@
    
   	// 邮政编码验证   
   	jQuery.validator.addMethod("IsChinese", function(value, element) {   
-  	    var tel = /^[\u4E00-\u9FA5]+$/;
+  	    var tel = /^([a-zA-Z0-9]|[._]){4,10}$/;
   	    return this.optional(element) || (tel.test(value));
   	}, "请填写汉字");
 
@@ -284,7 +284,7 @@ $().ready(function() {
 	    messages: {
 	      meeting_name: {
 	        required: "请输入会议名称",
-	        minlength: "长度不能小于6 个汉字"
+	        minlength: "长度不能小于6,不能含特殊字符"
 	      },
 	      meeting_password: {
 	        required: "请输入密码",
@@ -292,7 +292,7 @@ $().ready(function() {
 	      },
 	      meeting_desc: {
 	        required: "请输入会议描述",
-	        minlength: "长度不能小于6 个汉字",
+	        minlength: "长度不能小于6,不能含特殊字符",
 	       
 	      },
 	      meeting_length: {
