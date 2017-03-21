@@ -37,24 +37,16 @@ public class UserInfoSalaryServiceImpl implements IUserInfoSalaryService {
         return userMapper.selectByExample(example);
     }
 
-
     @Override
     public int insert(YoUserinfosalary record) {
         return userMapper.insert(record);
     }
-
-//    //修改工资
-//    @Override
-//    public YoUserinfosalary selectByPrimaryKey(YoUserinfosalary sid) {
-//        return userMapper.selectByPrimaryKey(sid);
-//    }
 
     @Override
     public int updateByUserSalary(YoUserinfosalary record) {
         int result=userMapper.updateByPrimaryKey(record);
         return result;
     }
-
 
     public List<YoUserinfosalary> searchUserInfoByEntity(YoUserinfosalary yo) {
         String staffid = yo.getSalaryid();
@@ -95,31 +87,35 @@ public class UserInfoSalaryServiceImpl implements IUserInfoSalaryService {
         // TODO Auto-generated method stub
         return userMapper.search_Jan_salary(userid, salarydate);
     }
-//=================================================================================
-@Override
-public List<YoSalaryDaily> selectDailyByExample(YoSalaryDaily user) {
-   //查询日报列表
-    YoSalaryDailyExample example = new YoSalaryDailyExample();
-    YoSalaryDailyExample.Criteria criteria1 = example.createCriteria();
-    //姓名模糊查询
-    if (user.getName()!=null) criteria1.andNameLike("%"+user.getName()+"%");
-    if (user.getStaffid()!=null) criteria1.andStaffidEqualTo(user.getStaffid());
-    if (user.getStartDate()!= null && user.getStartDate()!= "") criteria1.andDateGreaterThanOrEqualTo( user.getStartDate() );
-    if (user.getEndDate()!= null && user.getEndDate()!= "") criteria1.andDateLessThan(user.getEndDate() );
 
-    if (user.getDepartment()!=null) criteria1.andDepartmentLike(user.getDepartment());
-    example.setOrderByClause("department,name,date asc");
+    @Override
+    public List<YoSalaryDaily> selectDailyByExample(YoSalaryDaily user) {
+       //查询日报列表
+        YoSalaryDailyExample example = new YoSalaryDailyExample();
+        YoSalaryDailyExample.Criteria criteria1 = example.createCriteria();
+        //姓名模糊查询
+        if (user.getName()!=null) criteria1.andNameLike("%"+user.getName()+"%");
+        if (user.getStaffid()!=null) criteria1.andStaffidEqualTo(user.getStaffid());
+        if (user.getStartDate()!= null && user.getStartDate()!= "") criteria1.andDateGreaterThanOrEqualTo( user.getStartDate() );
+        if (user.getEndDate()!= null && user.getEndDate()!= "") criteria1.andDateLessThan(user.getEndDate() );
 
-    return yoSalaryDailyMapper.selectByExample(example);
-}
+        if (user.getDepartment()!=null) criteria1.andDepartmentLike(user.getDepartment());
+        example.setOrderByClause("department,name,date asc");
+
+        return yoSalaryDailyMapper.selectByExample(example);
+    }
+
+    /*
+    这个是更改考勤打卡状态的方法
+     */
     @Override
     public int updateDailyByUserSalary(YoSalaryDaily record) {
+        int seqNo = record.getSeqNo();
+        systemCall(seqNo);
+        // 170321我只能动在这之前的东西
         int result=yoSalaryDailyMapper.updateByPrimaryKey(record);
         return result;
     }
-
-
-    //================================================================================
 
     /*
     170316，接收工号，返回2月份日报。日报有31条
@@ -142,40 +138,6 @@ public List<YoSalaryDaily> selectDailyByExample(YoSalaryDaily user) {
         example.or().andJournalStateGreaterThanOrEqualTo("0").andDateGreaterThanOrEqualTo("2017-01-21");
         List<YoSalaryDaily> list = yoSalaryDailyMapper.selectByExample(example);
         return list;
-    }
-
-    // 提交改为有效考勤的审批，PM一级要用到
-    public void submitApprove(YoSalaryDaily yoSalaryDaily) {
-        // 不但要更新controller传过来的内容，日报状态也要更新
-        yoSalaryDaily.setJournalState("1");
-        yoSalaryDailyMapper.updateByPrimaryKeySelective(yoSalaryDaily);
-        return;
-    }
-
-    /*
-    无效改为有效
-     */
-    public void attEffective(int seqNo) {
-        YoSalaryDaily yoSalaryDaily = new YoSalaryDaily();
-        // 一定要设定主键编号，不然无法更新
-        yoSalaryDaily.setSeqNo(seqNo);
-        yoSalaryDaily.setWhetherEffAtt("1");
-        yoSalaryDaily.setJournalState("2");
-        yoSalaryDailyMapper.updateByPrimaryKeySelective(yoSalaryDaily);
-        return;
-    }
-
-    /*
-    有效改为无效
-     */
-    public void attInvalid(int seqNo) {
-        YoSalaryDaily yoSalaryDaily = new YoSalaryDaily();
-        // 一定要设定主键编号，不然无法更新
-        yoSalaryDaily.setSeqNo(seqNo);
-        yoSalaryDaily.setWhetherEffAtt("0");
-        yoSalaryDaily.setJournalState("3");
-        yoSalaryDailyMapper.updateByPrimaryKeySelective(yoSalaryDaily);
-        return;
     }
 
     /*
@@ -202,6 +164,24 @@ public List<YoSalaryDaily> selectDailyByExample(YoSalaryDaily user) {
      */
     public void approveJournal(int seqNo, String staffid) {
         // 第1步，调用系统命令，改掉这个人的出勤状态
+        systemCall(seqNo);
+
+        // 第2步，改日报状态，1变成2
+        YoSalaryDaily yoSalaryDaily = new YoSalaryDaily();
+        // 一定要设定主键编号，不然无法更新
+        yoSalaryDaily.setSeqNo(seqNo);
+        yoSalaryDaily.setJournalState("2");
+        yoSalaryDailyMapper.updateByPrimaryKeySelective(yoSalaryDaily);
+
+        // 第3步，根据工号查找当月所有日报，如果没有日报状态为1的日报，总表的工资状态3变成0
+        threeToOne(staffid);
+        return;
+    }
+
+    /*
+    170321，调用系统命令，改日报和工资信息。为了避免出现黄色波浪线
+     */
+    private void systemCall(int seqNo) {
         String command = "python C:\\workspace\\python_oa\\salary\\change_effatt.py " + seqNo;
         try {
             // 定义一个进程，执行系统命令。Windows会自动调用cmd，Linux会自动调用Shell，很智能！
@@ -227,17 +207,6 @@ public List<YoSalaryDaily> selectDailyByExample(YoSalaryDaily user) {
         } catch (Exception e) {
             System.out.println(e.toString());
         }
-
-        // 第2步，改日报状态，1变成2
-        YoSalaryDaily yoSalaryDaily = new YoSalaryDaily();
-        // 一定要设定主键编号，不然无法更新
-        yoSalaryDaily.setSeqNo(seqNo);
-        yoSalaryDaily.setJournalState("2");
-        yoSalaryDailyMapper.updateByPrimaryKeySelective(yoSalaryDaily);
-
-        // 第3步，根据工号查找当月所有日报，如果没有日报状态为1的日报，总表的工资状态3变成0
-        threeToOne(staffid);
-        return;
     }
 
     /*

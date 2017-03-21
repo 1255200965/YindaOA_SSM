@@ -116,26 +116,6 @@ public class SearchSalaryController {
         return map;
     }
 
-    /**
-     * 更新日报
-     */
-    @RequestMapping(value = "/RBupdate.do", method = RequestMethod.POST)
-    public @ResponseBody Map<String,Object> RBupdate(@RequestBody YoSalaryDaily totalSum) throws IOException {
-        Map<String,Object> map = new HashMap<String,Object>();
-
-        int result = userInfoService.updateDailyByUserSalary(totalSum);
-
-        if(result != 0){
-            map.put("msg", "更新成功");
-            map.put("ok", "ok");
-        }else{
-            map.put("msg", "更新失败");
-        }
-        return map;
-    }
-
-
-
     /*
     日报页面，点击工资后触发
     工号通过读取jsp的nama属性加RequestParam注解得到。注意写了注解就必须有对应的name，否则就报错了
@@ -192,42 +172,25 @@ public class SearchSalaryController {
     }
 
     /*
-    考勤设为有效
-    操作成功之后重定向到日报页面
+    170320马天立,当无效设为有效，或者当有效设为无效
+    比较幸运的是，我只需要在里面的service里加上一点东西
      */
-    @RequestMapping(value = "attEffective.do")
-    public String attEffective(int seqNo, String staffid, String salaryState, RedirectAttributes ra) {
-        userInfoService.attEffective(seqNo);
-        ra.addAttribute("staffid", staffid);
-        return "redirect:/userinfosalary/journal.do";
+    @RequestMapping(value = "/RBupdate.do", method = RequestMethod.POST)
+    public @ResponseBody Map<String,Object> RBupdate(@RequestBody YoSalaryDaily yoSalaryDaily) throws IOException {
+        Map<String,Object> map = new HashMap<String,Object>();
+        int result = userInfoService.updateDailyByUserSalary(yoSalaryDaily);
+        if(result != 0){
+            map.put("msg", "更新成功");
+            map.put("ok", "ok");
+        }else{
+            map.put("msg", "更新失败");
+        }
+        return map;
     }
 
     /*
-    考勤设为无效
-    操作成功之后重定向到日报页面
-     */
-    @RequestMapping(value = "attInvalid.do")
-    public String attInvalid(int seqNo, String staffid, String salaryState, RedirectAttributes ra) {
-        userInfoService.attInvalid(seqNo);
-        ra.addAttribute("staffid", staffid);
-        return "redirect:/userinfosalary/journal.do";
-    }
-
-    /*
-    170319,提交改为有效考勤的审批，PM一级要用到
-    操作成功之后重定向到日报页面
-    表单上的几个name都在同一个entity中，提交之后一次传过来
-     */
-    @RequestMapping(value = "submitApprove.do")
-    public String submitApprove( @RequestParam("salaryState") String salaryState, YoSalaryDaily yoSalaryDaily, RedirectAttributes ra) {
-        userInfoService.submitApprove(yoSalaryDaily);
-        String staffid = yoSalaryDaily.getStaffid();
-        ra.addAttribute("staffid", staffid);
-        return "redirect:/userinfosalary/journal.do";
-    }
-
-    /*
-    审批列表页面，只有我和黄照香能进入
+    进入审批列表页面
+    只有我和黄照香能进入
      */
     @RequestMapping(value = "checkJournal.do")
     public String checkJournal(Model m, HttpServletRequest request) {

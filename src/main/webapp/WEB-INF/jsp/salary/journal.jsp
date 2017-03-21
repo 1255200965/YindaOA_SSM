@@ -239,9 +239,9 @@
                             success: function (data) {
                                 alert("提交结果:"+data.msg);
                                 if (data.ok == "ok") {
+                                    // 这个循环也是写得碉堡了
                                     for (var i = 0; i < self.ShowList().length; i++) {
                                         if (self.ShowList()[i].seqNo == item.seqNo) {
-
                                             self.ShowList.splice(i, 1);
                                             self.ShowList.splice(i, 0, item);
                                             break;
@@ -259,20 +259,19 @@
                 self.ClickTrue = function(item) {
                     //如果是项目经理，打开模态框
                     if (role == "项目经理") {
+                        // 170321想看懂马天立的代码实在是难，这个item和changeItem都不知道是什么鬼
                         self.changeItem(item);
                         self.rootid('0');
                         $("#noModal").click();
                     } else {
 
                     //如果是部门经理,管理员，直接修改状态
-
                     self.UpdateRB(1, item);
                     }
                 }
                 // 点击事件-点击设为无效考勤
                 self.ClickFalse = function(item){
                     //直接修改状态
-
                     self.UpdateRB(0,item);
                 }
                 // 点击事件-点击查看申请状态

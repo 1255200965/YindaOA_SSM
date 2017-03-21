@@ -37,15 +37,6 @@ public interface IUserInfoSalaryService {
     // 得到员工日报
     List<YoSalaryDaily> getJournal(String staffid);
 
-    // 无效改为有效
-    void attEffective(int seqNo);
-
-    // 有效改为无效
-    void attInvalid(int seqNo);
-
-    // 提交改为有效考勤的审批，PM一级要用到
-    void submitApprove(YoSalaryDaily yoSalaryDaily);
-
     // 得到待审批的日报，只有我和黄照香才能看到
     List<YoSalaryDaily> getJournalOnCheck();
 
