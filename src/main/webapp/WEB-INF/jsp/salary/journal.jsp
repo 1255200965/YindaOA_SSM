@@ -352,14 +352,15 @@
 
                 //点击事件-模态框确定
                 self.ClickModelYes = function() {
-                    if (!confirm("确认要提交？")) {
-                        window.event.returnValue = false;
-                    }else{
-
-                        self.UpdateRB(3,self.changeItem());
-                        $("#close1").click();
-                        return true;
-                    }
+                    self.UpdateRB(3,self.changeItem());
+                    $("#close1").click();
+//                    if (!confirm("确认要提交？")) {
+//                        window.event.returnValue = false;
+//                    }else{
+//                        self.UpdateRB(3,self.changeItem());
+//                        $("#close1").click();
+//                        return true;
+//                    }
                 };
 
                 //点击事件-模态框关闭
@@ -478,6 +479,7 @@
 </head>
 <body>
     <div class="row-fluid c_box" style="">
+        <h3>日报查询</h3>
         <div class="col-md-2 c_left_box" >
             <div style="margin-top:3%"></div>
             <div id="tree" style="overflow:auto;height:800px;"></div>

@@ -120,7 +120,7 @@
 						<div class="btn-group">
 							<ul class="dropdown-menu" style="background-color: #3792F2;">
 								<%--loadcontent表明页面会从下面打开，不会挡住顶边栏--%>
-								<li><a href="${ctx}/userinfo/querys.do" target="loadcontent">奖金生成</a></li>
+								<li><a href="${ctx}/userinfo/querys.do" target="loadcontent">工资生成</a></li>
 								<li><a href="${ctx}/usersalary/search_salary_page.do" target="loadcontent">工资导出</a></li>
 								<%--注意这个写法需要很精确，多谢CSDN上的热心网友指点--%>
 								<c:if test="${staffid eq '16462' || staffid eq '19119'}">

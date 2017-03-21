@@ -131,9 +131,25 @@ public class UserInfoSalaryServiceImpl implements IUserInfoSalaryService {
     public int updateDailyByUserSalary(YoSalaryDaily record) {
         record.setWhetherEffAtt(null);
         int result=yoSalaryDailyMapper.updateByPrimaryKeySelective(record);
+
         // 170321我只能动在这之后的东西
-        int seqNo = record.getSeqNo();
-        systemCall(seqNo);
+        String journalStateNow = record.getJournalState();
+        String staffid = record.getStaffid();
+        // 如果日报状态改为1了，触发改task
+        if (journalStateNow.equals("1")) {
+            YoUserinfosalaryExample example1 = new YoUserinfosalaryExample();
+            example1.or().andSalaryidEqualTo(staffid).andSalarydateEqualTo("2017-02");
+            List<YoUserinfosalary> list1 = userMapper.selectByExample(example1);
+            // 这里不用try了，自信有日报的人必定有工资
+            YoUserinfosalary yoUserinfosalary = list1.get(0);
+            yoUserinfosalary.setTask("3");
+            userMapper.updateByPrimaryKey(yoUserinfosalary);
+        }
+        else {
+            // 否则，触发python
+            int seqNo = record.getSeqNo();
+            systemCall(seqNo);
+        }
         return result;
     }
 
@@ -154,8 +170,8 @@ public class UserInfoSalaryServiceImpl implements IUserInfoSalaryService {
     public List<YoSalaryDaily> getJournalOnCheck() {
         // 得到2月份的例子，注意要选择日期区间
         YoSalaryDailyExample example = new YoSalaryDailyExample();
-//        example.or().andJournalStateEqualTo("1").andDateGreaterThanOrEqualTo("2017-01-21");
-        example.or().andJournalStateGreaterThanOrEqualTo("0").andDateGreaterThanOrEqualTo("2017-01-21");
+        example.or().andJournalStateEqualTo("1").andDateGreaterThanOrEqualTo("2017-01-21");
+//        example.or().andJournalStateGreaterThanOrEqualTo("0").andDateGreaterThanOrEqualTo("2017-01-21");
         List<YoSalaryDaily> list = yoSalaryDailyMapper.selectByExample(example);
         return list;
     }
@@ -239,9 +255,10 @@ public class UserInfoSalaryServiceImpl implements IUserInfoSalaryService {
         // 170321，这一波为了节省一个变量和一个判断语句，直接在不达标时return了。当然不建议这么干
         for (int i=0; i<list.size(); i++) {
             YoSalaryDaily yoSalaryDaily = list.get(i);
-            if (yoSalaryDaily.getJournalState() == "1") {
-                return;
-            }
+            // 如果日报状态为空，说明不尖审批状态，达标，判断下一个
+            if (yoSalaryDaily.getJournalState() == null) continue;
+            // 如果日报状态为1，直接GG，不达标
+            if (yoSalaryDaily.getJournalState().equals("1")) return;
         }
         // 到这一步说明没有待审批的日报了，先得到工资实体类再update
         YoUserinfosalaryExample example1 = new YoUserinfosalaryExample();

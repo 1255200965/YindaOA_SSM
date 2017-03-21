@@ -197,9 +197,6 @@ public class SearchSalaryController {
         return map;
     }
 
-
-
-
     /*
     进入审批列表页面
     只有我和黄照香能进入
@@ -252,8 +249,5 @@ public class SearchSalaryController {
         userInfoService.approveJournal(seqNo, staffid);
         return "redirect:/userinfosalary/checkJournal.do";
     }
-
-
-
 
 }
