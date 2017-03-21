@@ -1,5 +1,6 @@
 package com.controller;
 
+import com.model.YoSalary;
 import com.model.YoSalaryDaily;
 import com.model.YoUserinfosalary;
 import com.model.YoUserinfosalaryExample;
@@ -71,8 +72,23 @@ public class SearchSalaryController {
 
         int result = userInfoService.updateByUserSalary(totalSum);
 
-        if(result != 0){
+        if(result != 0) {
             map.put("msg", "更新成功");
+            //既然更新成功，顺便更新一下日报吧
+            YoSalaryDaily temp = new YoSalaryDaily();
+            temp.setStaffid(totalSum.getSalaryid());
+            List<YoSalaryDaily> list1 = userInfoService.selectDailyByExample(temp);
+            //String starttime = totalSum.getSalarydate() + "-21";
+            String starttime ="2017-01-21";
+            for (int i=0;i<list1.size();i++){
+                YoSalaryDaily yo = list1.get(i);
+                if (yo.getDate().compareTo(starttime) < 0) continue;
+                //更新
+                yo.setSalaryState(totalSum.getTask());
+                int result0 = userInfoService.updateDailyByUserSalary(yo);
+                if (yo.getDate().equals("-20")) break;
+            }
+
             map.put("ok", "ok");
         }else{
             map.put("msg", "更新失败");
@@ -166,8 +182,7 @@ public class SearchSalaryController {
     }
 
     /*
-    170320马天立,当无效设为有效，或者当有效设为无效
-    比较幸运的是，我只需要在里面的service里加上一点东西
+    总表更新，分表更新
      */
     @RequestMapping(value = "/RBupdate.do", method = RequestMethod.POST)
     public @ResponseBody Map<String,Object> RBupdate(@RequestBody YoSalaryDaily yoSalaryDaily) throws IOException {
@@ -181,6 +196,9 @@ public class SearchSalaryController {
         }
         return map;
     }
+
+
+
 
     /*
     进入审批列表页面
@@ -234,5 +252,8 @@ public class SearchSalaryController {
         userInfoService.approveJournal(seqNo, staffid);
         return "redirect:/userinfosalary/checkJournal.do";
     }
+
+
+
 
 }

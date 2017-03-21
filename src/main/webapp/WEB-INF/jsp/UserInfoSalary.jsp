@@ -473,7 +473,7 @@
                 </thead>
 
                 <tbody data-bind="foreach:ShowList" >
-                <tr data-bind="style: { backgroundColor: task > 0 ? (task>1 ? '#66CCFF' : 'yellow' ) : 'white' ,fontWeight:'bold' },clickBubble: false">
+                <tr data-bind="style: { backgroundColor: task > 0 ? (task>1 ? (task>2 ? '#C0C0C0' : '#66CCFF'): 'yellow' ) : 'white' ,fontWeight:'bold' },clickBubble: false">
                     <td data-bind="text:$index()+1,click:$root.ClickJump">编号</td>
                     <td data-bind="text:name,click:$root.ClickJump">编号</td>
                     <%--<td data-bind="text:department">编号</td>--%>
@@ -499,7 +499,7 @@
 
                     <td data-bind="text:totalsalary,click:$root.ClickJump">编号</td>
                     <td>
-                        <input data-bind="click:$root.ClickUpdate, clickBubble: false" type="button" value="提交" class="gx-btn_large"/>
+                        <input data-bind="click:$root.ClickUpdate, clickBubble: false,attr:{disabled:task=='3'}" type="button" value="提交" class="gx-btn_large"/>
                         <input data-bind="click:$root.ClickJump, clickBubble: false" type="button" value="查看日报" class="gx-btn_large" style="background:orange"/>
                     </td>
                 </tr>

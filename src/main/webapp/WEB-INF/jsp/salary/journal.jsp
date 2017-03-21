@@ -144,7 +144,7 @@
                 self.GetUserByQuery = function(staffid){
                     if (staffid == "" || staffid == null) staffid =  $("#staff_id").val();
                     if (nowDep != null){var depid = nowDep.name;} else {depid = Department;}
-                    if  ($("#search_name").val() == "" && nowDep == null) {
+                    if  ($("#search_name").val() == "" && depid == null) {
                         alert("请输入名字或部门！");
                     } else if (role=="项目经理" && (Department.lastIndexOf(depid)==-1 || depid=="无线事业部") ){
                         //alert(depddid.lastIndexOf(Department));
@@ -562,7 +562,7 @@
                                             <label><i class="iconfont c_ding_from_icon" >*</i><span >申请原因：</span></label>
                                             <div class="input_content">
 
-                                                <input type="text"  data-bind="textinput:effectReason"   style="width: 300px; height: 300px">
+                                                <input type="text"  data-bind="textinput:effectReason"   style="width: 300px; height: 200px">
 
                                             </div>
                                         </div>

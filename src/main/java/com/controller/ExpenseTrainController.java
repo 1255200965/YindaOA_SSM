@@ -79,6 +79,7 @@ public class ExpenseTrainController {
     @RequestMapping("/toExpense_train.do")
     public ModelAndView toExpense_train(HttpServletRequest request,ExpenseApplayTrain expenseApplayTrain,String type){
     	ModelAndView mav = new ModelAndView();
+    	/*request.getSession().setAttribute(GlobalConstant.user_staffId, "015045384968");*/
     	List<BusinessTrip> businessTripList = businessTripService.selectByStaffId((String) request.getSession().getAttribute(GlobalConstant.user_staffId));
     	mav.addObject("businessTripList", businessTripList);
     	mav.setViewName("expense/expense_apply/expense_train");
@@ -158,7 +159,9 @@ public class ExpenseTrainController {
         	//用户新增的申请需要给管理员推送审批消息
 //    		DDSendMessageUtil.sendMessageTrain(expenseApplayTrain, id, toUser);
     		//设置对应的出差申请记录的bt_status状态为已提交
+    		if(expenseApplayTrain.getTripId() != null){
     		expenseApplayTrainService.updateBtData(expenseApplayTrain.getTripId());
+    		}
             //操作成功,重定向到历史信息查看界面
     		return "redirect:toExpense_history_train.do";
     	}catch(Exception e){
