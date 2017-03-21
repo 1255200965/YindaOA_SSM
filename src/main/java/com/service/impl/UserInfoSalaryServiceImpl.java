@@ -136,7 +136,7 @@ public class UserInfoSalaryServiceImpl implements IUserInfoSalaryService {
         String journalStateNow = record.getJournalState();
         String staffid = record.getStaffid();
         // 如果日报状态改为1了，触发改task
-        if (journalStateNow.equals("1")) {
+        if ("1".equals(journalStateNow)) {
             YoUserinfosalaryExample example1 = new YoUserinfosalaryExample();
             example1.or().andSalaryidEqualTo(staffid).andSalarydateEqualTo("2017-02");
             List<YoUserinfosalary> list1 = userMapper.selectByExample(example1);
