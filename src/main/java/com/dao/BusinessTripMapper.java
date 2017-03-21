@@ -18,5 +18,4 @@ public interface BusinessTripMapper {
     int updateByPrimaryKeySelective(BusinessTrip record);
 
     int updateByPrimaryKey(BusinessTrip record);
-    public List<BusinessTrip> selectByPropertities(BusinessTrip businessTrip);
 }

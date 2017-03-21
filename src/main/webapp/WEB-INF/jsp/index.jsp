@@ -12,6 +12,11 @@
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
+<%--开启c标签的使用--%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--定义变量ctx代表上下文路径--%>
+<c:set var="ctx" value="${pageContext.request.contextPath}"/>
+
 <html>
 <head>
 <title>人资管理平台</title>
@@ -113,38 +118,40 @@
 					</li>
 					<li>
 						<div class="btn-group">
+							<ul class="dropdown-menu" style="background-color: #3792F2;">
+								<%--loadcontent表明页面会从下面打开，不会挡住顶边栏--%>
+								<li><a href="${ctx}/userinfo/querys.do" target="loadcontent">奖金生成</a></li>
+								<li><a href="${ctx}/usersalary/search_salary_page.do" target="loadcontent">工资导出</a></li>
+								<%--注意这个写法需要很精确，多谢CSDN上的热心网友指点--%>
+								<c:if test="${staffid eq '16462' || staffid eq '19119'}">
+									<li><a href="${ctx}/userinfosalary/checkJournal.do" target="loadcontent">日报审批</a></li>
+								</c:if>
+							</ul>
 							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
 								工资奖金 <span class="caret"></span>
 							</a>
-							<ul class="dropdown-menu" style="background-color: #3792F2;">
-								<li
-										style="-webkit-border-radius: 10; -moz-border-radius: 10; border-radius: 10;"><a href="<%=basePath%>userinfo/querys.do" target="loadcontent"
-								>奖金生成</a></li>
-								<li><a href="<%=basePath%>usersalary/search_salary_page.do" target="loadcontent">工资导出</a></li> 
-								<%-- <li><a href="<%=basePath%>userinfo/test.do" target="loadcontent">工资查询</a></li> --%>
-							</ul>
 						</div>
 					</li>
 					<li>
 						<div class="btn-group">
-							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-								发文模块 <span class="caret"></span>
-							</a>
 							<ul class="dropdown-menu" style="background-color: #3792F2;">
+								<li><a href="${ctx}/userinfo/querys.do" target="loadcontent">日报发文</a></li>
 								<li style="-webkit-border-radius: 10; -moz-border-radius: 10; border-radius: 10;">
-								<a href="<%=basePath%>toAskForLeave.do"  target="loadcontent">请假发文</a>
+									<a href="<%=basePath%>toAskForLeave.do"  target="loadcontent">请假发文</a>
 								</li>
 								<li><a href="<%=basePath%>toOverTime.do" target="loadcontent">加班发文</a></li>
 								<li><a href="<%=basePath%>toSocialSecurity.do" target="loadcontent">社保发文</a></li>
-								<%-- <li><a href="<%=basePath%>toItemChange.do" target="loadcontent">项目变更发文</a></li> --%>
 								<li><a href="<%=basePath%>attendance_search.do" target="loadcontent">考勤导出</a></li>
 								<li><a href="<%=basePath%>advance/toAdvance_getList.do" target="loadcontent">预付款发文</a></li>
 								<li><a href="<%=basePath%>expenseWork/expenseWork_page.do" target="loadcontent">办事处报销发文</a></li>
 								<li><a href="<%=basePath%>loan/toLoan_operation.do" target="loadcontent">冲借款提交</a></li>
 								<li><a href="<%=basePath%>loan/toLoan_approveGetList.do" target="loadcontent">冲借款审批</a></li>
 								<li><a href="<%=basePath%>expenseApplyApprove/goApproveInPC.do" target="loadcontent">报销审批</a></li>
-								
+
 							</ul>
+							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+								发文模块 <span class="caret"></span>
+							</a>
 						</div>
 					</li>
 					<li>

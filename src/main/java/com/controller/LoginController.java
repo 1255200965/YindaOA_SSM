@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache.ValueWrapper;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -75,7 +76,6 @@ public class LoginController {
 		    			urlList.add(roleModule.getModuleUrl());
 		    		}
 		    	}
-		    	
 		    }
 		    System.out.println("user_url的长度为："+urlList.size());
 		    request.getSession().setAttribute("urlList",urlList);
@@ -83,17 +83,19 @@ public class LoginController {
 		 return "success";
 	 }
   }
+
   /**
    * 登录成功界面跳转
    * 170315注意这里的index是jsp里面的而不是和jsp同级的
+   * 项目中只有这一个入口调用标题栏，可以放心使用
    * @return
    */
   @RequestMapping("/loginSuccess.do")
-  public ModelAndView loginSuccess(){
-//	  就返回一个页面还mav，真的是鱼得一B
-	  ModelAndView mav =new ModelAndView();
-	  mav.setViewName("index");
-	  return mav;
+  public String loginSuccess(Model m, HttpServletRequest request){
+	  // 从request中得到工号，再传到jsp中用于判断
+	  String staffid = request.getSession().getAttribute(GlobalConstant.user_staffId).toString();
+	  m.addAttribute("staffid", staffid);
+	  return "index";
   }
 
 }

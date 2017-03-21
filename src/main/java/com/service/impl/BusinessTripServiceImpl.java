@@ -32,7 +32,8 @@ public class BusinessTripServiceImpl implements IBusinessTripService{
 	private StaffInfoMapper staffInfoMapper;
     @Override
     public List<BusinessTrip> selectByPropertities(BusinessTrip businessTrip){
-    	return businessTripMapper.selectByPropertities(businessTrip);
+    	//return businessTripMapper.selectByPropertities(businessTrip);
+		return null;
     }
     @Override
     public List<BusinessTrip> selectByStaffId(String staffId){

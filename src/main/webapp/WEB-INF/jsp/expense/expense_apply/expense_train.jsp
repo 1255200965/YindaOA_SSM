@@ -42,7 +42,7 @@
      		   <input class="weui_input" type="text" placeholder="请填写上车时间(必填)"  name="startTime"  id="startTime" onfocus="(this.type='date')">
    		    </div>
   		 </div>
-  	
+  	     <input type="text" name="tripId" id="tripId"  style="display:none;"/> 
   	     <div class="weui_cell">
     		<div class="weui_cell_bd weui_cell_primary font_title">
       			<label class="weui_label"><b>上车地点</b></label>
@@ -168,6 +168,7 @@
     		$("#endAddress").val(data.btAddress);
     		$("#endTime").val(data.btAskEndTime);
     		$("#startTime").val(data.btAskBeginTime);
+    		$("#tripId").val(data.btSequenceNo);
     	});
     }
   //文件上传反馈

@@ -32,4 +32,7 @@ public interface IExpenseApplayTrainService {
     public int selectApprovalCount(String staffUserId);
     //查询出上周管理员未审核的报销并进行驳回
     public void updateDelayApproval(String staffUserId);
+    //根据出差审批的ID更新该条出差申请的状态为已提交
+    public void updateBtData(int btId);
+   
 }

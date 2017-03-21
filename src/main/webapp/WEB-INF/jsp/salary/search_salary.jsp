@@ -181,10 +181,7 @@
     		minView: "month",
     	});
     	
-    	
-    	
-    	
-    	 var branchCompanythtml =$("#branchCompany").html();  
+    	 var branchCompanythtml =$("#branchCompany").html();
     	$.post("<%=path%>/usersalary/getbranchCompany.do",function(json){
     	
     		$.each(json, function (n, value) {

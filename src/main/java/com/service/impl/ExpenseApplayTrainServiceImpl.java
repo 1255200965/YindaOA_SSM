@@ -7,12 +7,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dao.BusinessTripMapper;
 import com.dao.ExpenseApplayTrainMapper;
+import com.model.BusinessTrip;
 import com.model.ExpenseApplayBus;
 import com.model.ExpenseApplayTrain;
 import com.model.ExpenseApplayTrainExample;
 import com.model.ExpenseApplySubway;
 import com.model.ToolsForselectApproval;
+import com.service.IBusinessTripService;
 import com.service.IExpenseApplayTrainService;
 import com.service.IStaffInfoService;
 import com.util.DDSendMessageUtil;
@@ -22,6 +25,8 @@ public class ExpenseApplayTrainServiceImpl implements IExpenseApplayTrainService
    private ExpenseApplayTrainMapper expenseApplayTrainMapper;
    @Autowired
    private IStaffInfoService staffInfoService;
+   @Autowired
+	private BusinessTripMapper businessTripMapper;
    @Override
    public List<ExpenseApplayTrain> selectByStaffId(String staffId){
 	   ExpenseApplayTrainExample example = new ExpenseApplayTrainExample();
@@ -178,4 +183,15 @@ public class ExpenseApplayTrainServiceImpl implements IExpenseApplayTrainService
    	    public void updateDelayApproval(String staffUserId){
    			expenseApplayTrainMapper.updateDelayApproval(staffUserId);
    		}
+   	    /**
+   	     * 根据出差审批的ID更新该条出差申请的状态为已提交
+   	     * @param btId
+   	     */
+   		@Override
+   	    public void updateBtData(int btId){
+   	    	BusinessTrip record = new BusinessTrip();
+   	    	record.setBtSequenceNo(btId);
+   	    	record.setBtStatus("已提交");
+   	    	businessTripMapper.updateByPrimaryKeySelective(record);
+   	    }
 }
