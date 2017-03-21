@@ -252,7 +252,7 @@ $().ready(function() {
 	      meeting_name: {
 	        required: true,
 	        minlength: 6,
-	        IsChinese: ""
+	      
 	   
 	      },
 	      meeting_password: {
@@ -263,7 +263,7 @@ $().ready(function() {
 	      meeting_desc: {
 		        required: true,
 		        minlength: 6,
-		        IsChinese: ""
+		       
 		      },
 	      meeting_time: {
 		        required: true,		      
@@ -284,7 +284,7 @@ $().ready(function() {
 	    messages: {
 	      meeting_name: {
 	        required: "请输入会议名称",
-	        minlength: "长度不能小于6,不能含特殊字符"
+	        minlength: "长度不能小于6"
 	      },
 	      meeting_password: {
 	        required: "请输入密码",
@@ -292,7 +292,7 @@ $().ready(function() {
 	      },
 	      meeting_desc: {
 	        required: "请输入会议描述",
-	        minlength: "长度不能小于6,不能含特殊字符",
+	        minlength: "长度不能小于6",
 	       
 	      },
 	      meeting_length: {
