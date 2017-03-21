@@ -61,7 +61,7 @@ public class UserInfoSalaryServiceImpl implements IUserInfoSalaryService {
                 if (user.getName()!=null && user.getName()!="") criteria0.andNameLike("%"+user.getName()+"%");
                 if (user.getSalaryid()!=null && user.getSalaryid()!= "") criteria0.andSalaryidLike("%"+user.getSalaryid()+"%");
                 if (user.getSalarydate()!= null && user.getSalarydate()!= "") criteria0.andSalarydateEqualTo( user.getSalarydate() );
-                criteria0.andDepartmentLike("%" + temp[i]);
+                criteria0.andDepartmentLike("%" + temp[i] );
                 staffInfoExample.or(criteria0);
             }
         } else{
@@ -108,7 +108,7 @@ public class UserInfoSalaryServiceImpl implements IUserInfoSalaryService {
                 if (user.getStaffid()!=null && user.getStaffid()!= "") criteria0.andStaffidLike("%"+user.getStaffid()+"%");
                 if (user.getStartDate()!= null && user.getStartDate()!= "") criteria0.andDateGreaterThanOrEqualTo( user.getStartDate() );
                 if (user.getEndDate()!= null && user.getEndDate()!= "") criteria0.andDateLessThan(user.getEndDate() );
-                criteria0.andDepartmentLike("%" + temp[i]);
+                criteria0.andDepartmentLike(temp[i] + "%");
                 example.or(criteria0);
             }
         } else{

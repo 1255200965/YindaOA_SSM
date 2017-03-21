@@ -474,30 +474,30 @@
 
                 <tbody data-bind="foreach:ShowList" >
                 <tr data-bind="style: { backgroundColor: task > 0 ? (task>1 ? (task>2 ? '#C0C0C0' : '#66CCFF'): 'yellow' ) : 'white' ,fontWeight:'bold' },clickBubble: false">
-                    <td data-bind="text:$index()+1,click:$root.ClickJump">编号</td>
-                    <td data-bind="text:name,click:$root.ClickJump">编号</td>
+                    <td data-bind="text:$index()+1">编号</td>
+                    <td data-bind="text:name">编号</td>
                     <%--<td data-bind="text:department">编号</td>--%>
-                    <td data-bind="text:salaryid,click:$root.ClickJump">编号</td>
-                    <td data-bind="text:contractType,click:$root.ClickJump"></td>
-                    <td data-bind="text:yindaIdentify,click:$root.ClickJump"></td>
-                    <td data-bind="text:salarydate,click:$root.ClickJump">编号</td>
-                    <td data-bind="text:baseSalary,click:$root.ClickJump"></td>
-                    <td data-bind="text:leavetype,click:$root.ClickJump">编号</td>
-                    <td data-bind="text:effectiveattendance,click:$root.ClickJump">编号</td>
-                    <td data-bind="text:attendancesalary,click:$root.ClickJump">编号</td>
-                    <td data-bind="text:worksalary,click:$root.ClickJump">编号</td>
-                    <td data-bind="text:allowance,click:$root.ClickJump">编号</td>
-                    <td data-bind="text:trafficsalary,click:$root.ClickJump">编号</td>
-                    <td data-bind="text:realityattendance,click:$root.ClickJump">编号</td>
-                    <td data-bind="text:timesalary,click:$root.ClickJump">编号</td>
+                    <td data-bind="text:salaryid">编号</td>
+                    <td data-bind="text:contractType"></td>
+                    <td data-bind="text:yindaIdentify"></td>
+                    <td data-bind="text:salarydate">编号</td>
+                    <td data-bind="text:baseSalary"></td>
+                    <td data-bind="text:leavetype">编号</td>
+                    <td data-bind="text:effectiveattendance">编号</td>
+                    <td data-bind="text:attendancesalary">编号</td>
+                    <td data-bind="text:worksalary">编号</td>
+                    <td data-bind="text:allowance">编号</td>
+                    <td data-bind="text:trafficsalary">编号</td>
+                    <td data-bind="text:realityattendance">编号</td>
+                    <td data-bind="text:timesalary">编号</td>
                     <%--如果这个人的角色是PM，触发readonly--%>
                     <td  ><input  class="c_ding_input" style="width:60px" data-bind="textinput:timebaseadd,attr:{readonly:role=='项目经理' ||  task>'1'},event:{ change: $root.changeValue }, clickBubble: false"/></td>
-                    <td data-bind="text:tasksalary,click:$root.ClickJump">编号</td>
+                    <td data-bind="text:tasksalary">编号</td>
                     <td ><input  class="c_ding_input" style="width:60px" data-bind="textinput:taskbaseadd,attr:{readonly:role=='项目经理' ||  task>'1'},event:{ change: $root.changeValue } , clickBubble: false"/></td>
 
                     <td ><input  class="c_ding_input" style="width:60px" data-bind="textinput:userbonus,attr:{readonly:role=='项目经理' ||  task>'1'},event:{ change: $root.changeValue }, clickBubble: false" /></td>
 
-                    <td data-bind="text:totalsalary,click:$root.ClickJump">编号</td>
+                    <td data-bind="text:totalsalary">编号</td>
                     <td>
                         <input data-bind="click:$root.ClickUpdate, clickBubble: false,attr:{disabled:task=='3'}" type="button" value="提交" class="gx-btn_large"/>
                         <input data-bind="click:$root.ClickJump, clickBubble: false" type="button" value="查看日报" class="gx-btn_large" style="background:orange"/>
