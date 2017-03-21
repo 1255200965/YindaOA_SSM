@@ -40,14 +40,7 @@ public class SearchSalaryController {
      */
     @RequestMapping(value = "/select.do", method = RequestMethod.POST)
     public @ResponseBody Map<String,Object> select(@RequestBody YoUserinfosalary user) throws IOException {
-        YoUserinfosalaryExample example = new YoUserinfosalaryExample();
-        YoUserinfosalaryExample.Criteria criteria1 = example.createCriteria();
-        //姓名模糊查询
-        if (user.getName()!=null) criteria1.andNameLike("%"+user.getName()+"%");
-        if (user.getSalarydate()!=null) criteria1.andSalarydateEqualTo(user.getSalarydate());
-        if (user.getSalaryid()!= null) criteria1.andSalaryidEqualTo(user.getSalaryid());
-        if (user.getDepartment()!=null) criteria1.andDepartmentLike(user.getDepartment());
-        List<YoUserinfosalary> list = userInfoService.selectByExample(example);
+        List<YoUserinfosalary> list =userInfoService.searchUserInfoByEntity(user);
 
         Map<String,Object> map = new HashMap<String,Object>();
         map.put("usertest",list);
@@ -136,6 +129,7 @@ public class SearchSalaryController {
         m.addAttribute("StaffName", StaffName);
         m.addAttribute("StaffID", StaffID);
         m.addAttribute("StaffUserID", StaffUserID);
+        m.addAttribute("staffid", staffid);
 
         // 第1步，操作者是9大PM，状态设为1，否则为2
         String operator;

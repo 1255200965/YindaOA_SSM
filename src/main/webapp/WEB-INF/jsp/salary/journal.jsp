@@ -45,6 +45,8 @@
         var Department  ="<%=request.getAttribute("Department")%>";
         var StaffID  ="<%=request.getAttribute("StaffID")%>";
         var StaffUserID  ="<%=request.getAttribute("StaffUserID")%>";
+
+        var RBStaffID  ="<%=request.getAttribute("staffid")%>";
         //=============================================
         var result = null;
 
@@ -97,7 +99,7 @@
                 //ko初始化数据加载
                 $(function () {
                     self.GetDepartment();
-
+                    self.GetUserByQuery(RBStaffID);
                 });
 
                 //===============================
@@ -139,13 +141,22 @@
                 }
 
                 //查询日报
-                self.GetUserByQuery = function(){
+                self.GetUserByQuery = function(staffid){
+                    if (staffid == "" || staffid == null) staffid =  $("#staff_id").val();
                     if (nowDep != null){var depid = nowDep.name;} else {depid = Department;}
-                    if  ($("#search_name").val() == "" && nowDep =="") {
-                        alert("请输入名字或工号！");
+                    if  ($("#search_name").val() == "" && nowDep == null) {
+                        alert("请输入名字或部门！");
+                    } else if (role=="项目经理" && (Department.lastIndexOf(depid)==-1 || depid=="无线事业部") ){
+                        //alert(depddid.lastIndexOf(Department));
+                        self.ShowList.removeAll();
+                        return ;
+                    } else  if (role=="部门经理" && depid.lastIndexOf(Department)==-1){
+                        //alert(depddid.lastIndexOf(Department));
+                        self.ShowList.removeAll();
+                        return ;
                     } else {
                         $.ajax({
-                            data: JSON.stringify(new UserModel(depid, $("#search_name").val(), $("#staff_id").val(), "2017-02",$("#startdate").val(),$("#enddate").val())),
+                            data: JSON.stringify(new UserModel(depid, $("#search_name").val(), staffid, "2017-02",$("#startdate").val(),$("#enddate").val())),
                             type: "post",
                             async: false,
                             headers: {'Content-Type': 'application/json'},
@@ -214,12 +225,14 @@
                 //=======================================================
                 // 修改日报状态 type=0,1
                 self.UpdateRB = function(type,item){
-                        item.salaryState = type;
+
                         if (type == '1'){
                             //无效变有效
+                            item.salaryState = type;
                             item.journalState = '2';
                         } else if (type == '0'){
                             //有效变无效
+                            item.salaryState = type;
                             item.journalState = '3';
                         } else {
                             //项目经理提交了申请
@@ -261,7 +274,7 @@
                     if (role == "项目经理") {
                         // 170321想看懂马天立的代码实在是难，这个item和changeItem都不知道是什么鬼
                         self.changeItem(item);
-                        self.rootid('0');
+                        self.rootid(0);
                         $("#noModal").click();
                     } else {
 
@@ -434,7 +447,7 @@
                         self.nowDep(id);
                     }
                     //获取部门用户
-                    self.GetUserListByDep(id);
+                    //self.GetUserListByDep(id);
                 }
             }
             ko.applyBindings(new ViewModel);
@@ -470,7 +483,7 @@
 
         <div class="col-md-10 c_right_box" style="overflow:scroll" >
             <div class="caidan-tiku" style="margin-bottom:5%">
-                <div class="caidan-tiku-s" style="margin-right:5%"> <span>姓名：</span>
+                <div class="caidan-tiku-s" style="margin-right:5%;margin-left: 3%"> <span>姓名：</span>
                     <input id="search_name" type="text" name="name" class="shuruk-a2" placeholder="">
                 </div>
                 <div class="caidan-tiku-s" style="margin-right:5%"> <span>工号：</span>
@@ -480,7 +493,7 @@
                     <input id="startdate" type="text" name="yoAskBeginDate" class="laydate-icon shuruk-a2 form_date" placeholder="" value="">
                     <input id="enddate" type="text" name="yoAskEndDate" class="shuruk-a2 form_date" placeholder=""  value="">
                 </div>
-                <div style="float:right;margin-right:0px;padding-bottom:0px;" >
+                <div style="float:right;margin-right:5%;padding-bottom:0px;" >
                     <button  type="button"   class="btn btn_primary" data-bind="click:$root.ClickSearch">查询</button>
                 </div>
             </div>
@@ -503,27 +516,30 @@
                     <th style="width: 10%">操作</th>
                 </thead>
                 <tbody data-bind="foreach:ShowList" >
-                    <tr data-bind="style: { backgroundColor: journalState > 0 ? (journalState > 1  ? (journalState > 2 ? 'red' : 'blue' ) : 'yellow') : 'white' }">
-                        <td data-bind="text:seqNo">${entity.seqNo}</td>
-                        <td data-bind="text:staffid">${entity.staffid}</td>
-                        <td data-bind="text:name">${entity.name}</td>
-                        <td data-bind="text:date">${entity.date}</td>
-                        <td data-bind="text:dateType">${entity.dateType}</td>
-                        <td data-bind="text:orderName">${entity.orderName}</td>
-                        <td data-bind="text:businessAttribute">${entity.businessAttribute}</td>
-                        <td data-bind="text:orderProcity">${entity.orderProcity}</td>
-                        <td data-bind="text:askLeaveType">${entity.askLeaveType}</td>
-                        <td data-bind="text:whetherEffAtt">${entity.whetherEffAtt}</td>
-                        <td data-bind="text:attProcity">${entity.attProcity}</td>
-                        <td data-bind="text:whetherEffOt">${entity.whetherEffOt}</td>
-                        <td data-bind="text:whetherEffBt">${entity.whetherEffBt}</td>
-                        <td>
-                            <%--辣鸡--%>
-                            <button type="button" data-bind="click:$root.ClickTrue, clickBubble: false,visible:journalState != '1' && whetherEffAtt == '0' && (salaryState =='0' && role == '项目经理' ||  (salaryState <'2' && role != '项目经理') ) ? 1 : 0 ,style: { color:'green' ,fontWeight:'bold'}">设为有效出勤</button>
-                            <button type="button" data-bind="click:$root.ClickFalse, clickBubble: false,visible:journalState != '1' && whetherEffAtt != '0' && (salaryState =='0' && role == '项目经理' ||  (salaryState <'2' && role != '项目经理') )? 1 : 0 ,style: { color:'green' ,fontWeight:'bold'}">设为无效出勤</button>
-                            <button type="button" data-bind="click:$root.ClickWatch, clickBubble: false, visible:journalState == '1'">查看申请原因</button>
-                        </td>
-                    </tr>
+                    <tr data-bind="style: { backgroundColor: journalState > 0 ? (journalState > 1  ? (journalState > 2 ? 'red' : '#66CCFF' ) : 'yellow') : 'white' }">
+                    <td data-bind="text:seqNo">${entity.seqNo}</td>
+                    <td data-bind="text:staffid">${entity.staffid}</td>
+                    <td data-bind="text:name">${entity.name}</td>
+                    <td data-bind="text:date">${entity.date}</td>
+                    <td data-bind="text:dateType">${entity.dateType}</td>
+                    <td data-bind="text:orderName">${entity.orderName}</td>
+                    <td data-bind="text:businessAttribute">${entity.businessAttribute}</td>
+                    <td data-bind="text:orderProcity">${entity.orderProcity}</td>
+                    <td data-bind="text:askLeaveType">${entity.askLeaveType}</td>
+                    <td data-bind="text:whetherEffAtt">${entity.whetherEffAtt}</td>
+                    <td data-bind="text:attProcity">${entity.attProcity}</td>
+                    <td data-bind="text:whetherEffOt">${entity.whetherEffOt}</td>
+                    <td data-bind="text:whetherEffBt">${entity.whetherEffBt}</td>
+                    <td>
+                        <%--辣鸡--%>
+                            <button type="button"  data-bind="click:$root.ClickTrue, clickBubble: false,visible:journalState != '1' && whetherEffAtt == '0' && (salaryState =='0' && role == '项目经理' ||  (salaryState <'2' && role != '项目经理') ) ? 1 : 0 ,style: { color:'green'  ,fontWeight:'bold'}">设为有效出勤</button>
+                            <button type="button"  data-bind="click:$root.ClickFalse, clickBubble: false,visible:journalState != '1' && whetherEffAtt != '0' && (salaryState =='0' && role == '项目经理' ||  (salaryState <'2' && role != '项目经理') )? 1 : 0 ,style: { color:'red'  ,fontWeight:'bold'}">设为无效出勤</button>
+                            <button type="button"  data-bind="click:$root.ClickWatch, clickBubble: false ,visible:journalState == '1'">查看申请原因</button>
+
+
+                    </td>
+
+                </tr>
                 </tbody>
             </table>
 
@@ -545,7 +561,9 @@
                                         <div class="c_ding_form_group" >
                                             <label><i class="iconfont c_ding_from_icon" >*</i><span >申请原因：</span></label>
                                             <div class="input_content">
-                                                <input type="text"  data-bind="textinput:effectReason,attr:{readonly:journalState == '1'  && $root.rootid == '1' }"   style="width: 300px; height: 200px">
+
+                                                <input type="text"  data-bind="textinput:effectReason"   style="width: 300px; height: 300px">
+
                                             </div>
                                         </div>
                                     </div>
@@ -553,13 +571,114 @@
                             </div>
                             <div class="modal-footer c_modal_foot">
                                 <button id="close1" type="button" class="c_ding_btn" data-dismiss="modal">Close</button>
-                                <button type="submit" class="c_ding_btn c_ding_btn_primary" data-bind="click:$root.ClickModelYes,visible:journalState != '1' && $root.rootid != '1' ? 1 : 0">提交</button>
+                                <button type="submit" class="c_ding_btn c_ding_btn_primary" data-bind="click:$root.ClickModelYes,visible: $root.rootid() == '1'  ? 0 : 1">提交</button>
+                                <%--干掉干掉--%>
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <%--统统都干掉--%>
+           <%-- <table  width="100%" border="1" cellspacing="0" cellpadding="0" class="table-1 daily">
+                <thead class="table-1-tou">
+                    <th style="width: 5%">日报编号</th>
+                    <th style="width: 5%">工号</th>
+                    <th style="width: 5%">姓名</th>
+                    <th style="width: 5%">日期</th>
+                    <th style="width: 5%">日期类型</th>
+                    <th style="width: 8%">订单</th>
+                    <th style="width: 5%">商务属性</th>
+                    <th style="width: 5%">订单地市</th>
+                    <th style="width: 5%">请假类型</th>
+                    <th style="width: 5%">出勤状态</th>
+                    <th style="width: 5%">出勤地市</th>
+                    <th style="width: 5%">是否有效加班</th>
+                    <th style="width: 5%">是否有效出差</th>
+                    <th style="width: 10%">操作</th>
+                </thead>
+
+                <c:forEach var="entity" items="${journal}" varStatus="sequence">
+                    <form action="${ctx}/userinfosalary/submitApprove.do">
+                        <tr>
+                            <td>${entity.seqNo}</td>
+                            <td>${entity.staffid}</td>
+                            <td>${entity.name}</td>
+                            <td>${entity.date}</td>
+                            <td>${entity.dateType}</td>
+                            <td>${entity.orderName}</td>
+                            <td>${entity.businessAttribute}</td>
+                            <td>${entity.orderProcity}</td>
+                            <td>${entity.askLeaveType}</td>
+                            <td style="font-size: large">${entity.whetherEffAtt}</td>
+                            <td>${entity.attProcity}</td>
+                            <td>${entity.whetherEffOt}</td>
+                            <td>${entity.whetherEffBt}</td>
+                            <td>
+                                &lt;%&ndash;如果是PM，打开modal&ndash;%&gt;
+                                <c:if test="${operatorState eq '1'}">
+                                    <button type="button" disabled="disabled" class="btn1" data-toggle="modal" data-target="#myModal">设为有效出勤</button>
+                                </c:if>
+
+                                &lt;%&ndash;如果是DM，直接跳转&ndash;%&gt;
+                                <c:if test="${operatorState eq '2'}">
+                                    <a href="${ctx}/userinfosalary/attEffective.do?seqNo=${entity.seqNo}&&staffid=${entity.staffid}&&salaryState=${salaryState}"><button type="button" class="btn1">设为有效出勤</button></a>
+                                </c:if>
+
+                                <a href="${ctx}/userinfosalary/attInvalid.do?seqNo=${entity.seqNo}&&staffid=${entity.staffid}&&salaryState=${salaryState}"><button type="button" class="btn2">设为无效出勤</button></a>
+                                <button type="button" class="btn3" data-toggle="modal" data-target="#myModal">查看申请原因</button>
+                            </td>
+                        </tr>
+
+                        &lt;%&ndash;170318这个模态框虽然看起来很鱼，但出于效率的考虑，先用这个了&ndash;%&gt;
+                        <div class="container">
+                            <!-- Modal -->
+                            &lt;%&ndash;这个加Id的方法绝对高端&ndash;%&gt;
+                            <div class="modal fade" id="myModal"+${sequence.index} tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false">
+                                <div class="modal-dialog c_side_modal_box"  role="document" style="margin: 0px;">
+                                    <div class="modal-content c_side_modal">
+                                        <div class="modal-header c_modal_head">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="myModalLabel">用户信息详情</h4>
+                                        </div>
+                                        <div class="modal-body c_modal_body">
+                                            <div data-bind="with:changeItem">
+                                                <div class="c_ding_form" >
+                                                    <div class="c_ding_form_group" >
+                                                        <label><i class="iconfont c_ding_from_icon" >*</i><span >申请原因:</span></label>
+                                                        <div class="input_content">
+                                                            &lt;%&ndash;如果日报状态为1的话，显示一个只读的inpux框，内容为自己写的内容&ndash;%&gt;
+                                                            <c:if test="${entity.journalState eq '1'}">
+                                                                <input type="text" readonly="readonly" value="${entity.comment}" style="width: 300px; height: 300px">
+                                                            </c:if>
+                                                            &lt;%&ndash;如果日报状态不为1的话，显示的inpux框是可以输入的，可以提交&ndash;%&gt;
+                                                            <c:if test="${entity.journalState ne '1'}">
+                                                                <input type="text" name="comment" style="width: 300px; height: 300px">
+                                                            </c:if>
+                                                            &lt;%&ndash;170319，定义一个看不到的input，用来显示日报编号。虽然很鱼但这次可能是救命的&ndash;%&gt;
+                                                            <input type="hidden" name="seqNo" value="${entity.seqNo}">
+                                                            <input type="hidden" name="staffid" value="${entity.staffid}">
+                                                            <input type="hidden" name="salaryState" value="${salaryState}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer c_modal_foot">
+                                            <button id="close1" type="button" class="c_ding_btn" data-dismiss="modal">Close</button>
+                                            &lt;%&ndash;如果日报状态不为1的话，才有这个提交按钮&ndash;%&gt;
+                                            <c:if test="${entity.journalState ne '1'}">
+                                                <button type="submit" class="c_ding_btn c_ding_btn_primary">提交</button>
+                                            </c:if>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </c:forEach>
+            </table>--%>
         </div>
     </div>
 

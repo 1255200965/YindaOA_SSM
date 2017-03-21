@@ -48,23 +48,27 @@ public class UserInfoSalaryServiceImpl implements IUserInfoSalaryService {
         return result;
     }
 
-    public List<YoUserinfosalary> searchUserInfoByEntity(YoUserinfosalary yo) {
-        String staffid = yo.getSalaryid();
-        String name = yo.getName();
-        String depart = "%"+yo.getDepartment() + "%";
-        if (!depart.contains("-")){
-            //如果不是子部门查询
-            depart = yo.getDepartment();
-        }
-        String date = yo.getSalarydate();
-
+    public List<YoUserinfosalary> searchUserInfoByEntity(YoUserinfosalary user) {
         YoUserinfosalaryExample staffInfoExample = new YoUserinfosalaryExample();
         YoUserinfosalaryExample.Criteria criteria = staffInfoExample.createCriteria();
-        if (staffid!=null) criteria.andSalaryidEqualTo(staffid);
-        if (name!=null) criteria.andNameEqualTo(name);
-        if (depart!=null) criteria.andDepartmentLike(depart);
-        if (date!=null) criteria.andSalarydateEqualTo(date);
 
+
+
+        if (user.getDepartment()!=null && user.getDepartment()!= ""){
+            String[] temp = user.getDepartment().split(",");
+            for (int i=0 ; i<temp.length; i++){
+                YoUserinfosalaryExample.Criteria criteria0 = staffInfoExample.createCriteria();
+                if (user.getName()!=null && user.getName()!="") criteria0.andNameLike("%"+user.getName()+"%");
+                if (user.getSalaryid()!=null && user.getSalaryid()!= "") criteria0.andSalaryidLike("%"+user.getSalaryid()+"%");
+                if (user.getSalarydate()!= null && user.getSalarydate()!= "") criteria0.andSalarydateEqualTo( user.getSalarydate() );
+                criteria0.andDepartmentLike("%" + temp[i]);
+                staffInfoExample.or(criteria0);
+            }
+        } else{
+            if (user.getName()!=null && user.getName()!="") criteria.andNameLike("%"+user.getName()+"%");
+            if (user.getSalaryid()!=null && user.getSalaryid()!= "") criteria.andSalaryidLike("%"+user.getSalaryid()+"%");
+            if (user.getSalarydate()!= null && user.getSalarydate()!= "") criteria.andSalarydateEqualTo( user.getSalarydate() );
+        }
         List<YoUserinfosalary> list = userMapper.selectByExample(staffInfoExample);
         return list;
     }
@@ -94,12 +98,27 @@ public class UserInfoSalaryServiceImpl implements IUserInfoSalaryService {
         YoSalaryDailyExample example = new YoSalaryDailyExample();
         YoSalaryDailyExample.Criteria criteria1 = example.createCriteria();
         //姓名模糊查询
-        if (user.getName()!=null) criteria1.andNameLike("%"+user.getName()+"%");
-        if (user.getStaffid()!=null) criteria1.andStaffidEqualTo(user.getStaffid());
-        if (user.getStartDate()!= null && user.getStartDate()!= "") criteria1.andDateGreaterThanOrEqualTo( user.getStartDate() );
-        if (user.getEndDate()!= null && user.getEndDate()!= "") criteria1.andDateLessThan(user.getEndDate() );
 
-        if (user.getDepartment()!=null) criteria1.andDepartmentLike(user.getDepartment());
+        //改写查询部门的方法！
+        if (user.getDepartment()!=null && user.getDepartment()!= ""){
+            String[] temp = user.getDepartment().split(",");
+            for (int i=0 ; i<temp.length; i++){
+                YoSalaryDailyExample.Criteria criteria0 = example.createCriteria();
+                if (user.getName()!=null && user.getName()!="") criteria0.andNameLike("%"+user.getName()+"%");
+                if (user.getStaffid()!=null && user.getStaffid()!= "") criteria0.andStaffidLike("%"+user.getStaffid()+"%");
+                if (user.getStartDate()!= null && user.getStartDate()!= "") criteria0.andDateGreaterThanOrEqualTo( user.getStartDate() );
+                if (user.getEndDate()!= null && user.getEndDate()!= "") criteria0.andDateLessThan(user.getEndDate() );
+                criteria0.andDepartmentLike("%" + temp[i]);
+                example.or(criteria0);
+            }
+        } else{
+            if (user.getName()!=null && user.getName()!="") criteria1.andNameLike("%"+user.getName()+"%");
+            if (user.getStaffid()!=null && user.getStaffid()!= "") criteria1.andStaffidLike("%"+user.getStaffid()+"%");
+            if (user.getStartDate()!= null && user.getStartDate()!= "") criteria1.andDateGreaterThanOrEqualTo( user.getStartDate() );
+            if (user.getEndDate()!= null && user.getEndDate()!= "") criteria1.andDateLessThan(user.getEndDate() );
+        }
+        //if (user.getDepartment()!=null) criteria1.andDepartmentLike(user.getDepartment());
+
         example.setOrderByClause("department,name,date asc");
 
         return yoSalaryDailyMapper.selectByExample(example);

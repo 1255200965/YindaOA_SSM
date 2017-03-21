@@ -145,9 +145,17 @@
                 //查询成员列表（部门，姓名，电话，工号）
                 self.GetUserByQuery = function(){
                     if (nowDep != null){var depid = nowDep.name;} else {depid = Department;}
-                    if  ($("#search_name").val() == "" && nowDep =="") {
-                        alert("请输入名字或工号！");
-                    } else {
+                    if  ($("#search_name").val() == "" && depid =="") {
+                        alert("请输入名字或部门！");
+                    }else if (role=="项目经理" && (Department.lastIndexOf(depid)==-1 || depid=="无线事业部") ){
+                        //alert(depddid.lastIndexOf(Department));
+                        self.ShowList.removeAll();
+                        return ;
+                    } else  if (role=="部门经理" && depid.lastIndexOf(Department)==-1){
+                        //alert(depddid.lastIndexOf(Department));
+                        self.ShowList.removeAll();
+                        return ;
+                    } else  {
                         $.ajax({
                             data: JSON.stringify(new UserModel(depid, $("#search_name").val(), null, "2017-02")),
                             type: "post",
@@ -186,7 +194,7 @@
                             {
                                 item.task = '2';
                             }
-
+                            //根据审批状态，更新日报条目
                             $.ajax({
                                 data: JSON.stringify(item),
                                 type: "post",
@@ -239,6 +247,8 @@
                 };
                 //点击事件-点击搜索
                 self.ClickSearch = function () {
+                    //判断某些情况不能查询
+
                     self.GetUserByQuery();
                 }
                 self.ClickAllSearch = function () {
@@ -463,7 +473,7 @@
                 </thead>
 
                 <tbody data-bind="foreach:ShowList" >
-                <tr data-bind="style: { backgroundColor: task > 0 ? (task>1 ? 'blue' : 'yellow' ) : 'white' ,fontWeight:'bold' },clickBubble: false">
+                <tr data-bind="style: { backgroundColor: task > 0 ? (task>1 ? '#66CCFF' : 'yellow' ) : 'white' ,fontWeight:'bold' },clickBubble: false">
                     <td data-bind="text:$index()+1,click:$root.ClickJump">编号</td>
                     <td data-bind="text:name,click:$root.ClickJump">编号</td>
                     <%--<td data-bind="text:department">编号</td>--%>
@@ -490,6 +500,7 @@
                     <td data-bind="text:totalsalary,click:$root.ClickJump">编号</td>
                     <td>
                         <input data-bind="click:$root.ClickUpdate, clickBubble: false" type="button" value="提交" class="gx-btn_large"/>
+                        <input data-bind="click:$root.ClickJump, clickBubble: false" type="button" value="查看日报" class="gx-btn_large" style="background:orange"/>
                     </td>
                 </tr>
                 </tbody>
