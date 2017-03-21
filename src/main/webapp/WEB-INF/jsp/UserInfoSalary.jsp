@@ -217,7 +217,7 @@
                 }
                 // 点击事件-点击跳转到日报页
                 self.ClickJump = function(item){
-                    window.location.href="<%=basePath%>" + "userinfosalary/journal.do?staffid="+item.salaryid+"&&salaryState="+item.task;
+                    window.location.href="<%=basePath%>" + "userinfosalary/journal.do?staffid="+item.salaryid;
                 }
                 // 点击事件-点击更新用户按钮
                 self.ClickUpdate = function(item){

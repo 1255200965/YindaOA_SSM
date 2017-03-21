@@ -135,7 +135,7 @@
 					<li>
 						<div class="btn-group">
 							<ul class="dropdown-menu" style="background-color: #3792F2;">
-								<li><a href="${ctx}/userinfo/querys.do" target="loadcontent">日报发文</a></li>
+								<li><a href="${ctx}/userinfosalary/journal.do" target="loadcontent">日报发文</a></li>
 								<li style="-webkit-border-radius: 10; -moz-border-radius: 10; border-radius: 10;">
 									<a href="<%=basePath%>toAskForLeave.do"  target="loadcontent">请假发文</a>
 								</li>

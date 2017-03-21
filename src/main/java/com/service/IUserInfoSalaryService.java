@@ -49,10 +49,10 @@ public interface IUserInfoSalaryService {
     // 得到待审批的日报，只有我和黄照香才能看到
     List<YoSalaryDaily> getJournalOnCheck();
 
-    // 点击同意后，日报状态从1改为2
-    void approveJournal(int seqNo);
+    // 点击打回后，日报状态1变成0，视情况将总表的工资状态3变成0
+    void rejectJournal(int seqNo, String staffid);
 
-    // 点击拒绝后，日报状态从1改为0
-    void rejectJournal(int seqNo);
+    // 点击同意后，改日报和工资数据，日报状态从1改为2，视情况将总表的工资状态3变成0
+    void approveJournal(int seqNo, String staffid);
 
 }

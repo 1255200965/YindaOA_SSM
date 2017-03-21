@@ -136,22 +136,14 @@ public class SearchSalaryController {
 
 
 
-
-
-
-
-
-
-
-
     /*
     日报页面，点击工资后触发
     工号通过读取jsp的nama属性加RequestParam注解得到。注意写了注解就必须有对应的name，否则就报错了
     返回一个实体类列表
      */
     @RequestMapping(value = "journal.do")
-    // 接收两个参数，用注解还可以忍的。3个参数如果同在一个实体类那还是传类进来吧
-    public String journal( @RequestParam("staffid") String staffid, @RequestParam("salaryState") String salaryState, Model m, HttpServletRequest request) {
+    // 接收一个参数，用注解还可以忍的。3个参数如果同在一个实体类那还是传类进来吧
+    public String journal( @RequestParam(value = "staffid", defaultValue = "") String staffid, Model m, HttpServletRequest request) {
         //写session 啊，统统干掉
         String userRole = (String) request.getSession().getAttribute("user_role");
         String Department = (String) request.getSession().getAttribute(GlobalConstant.user_department);
@@ -195,7 +187,6 @@ public class SearchSalaryController {
         List<YoSalaryDaily> list = userInfoService.getJournal(staffid);
         // 在页面中扒开这个列表，就是实体类了
         m.addAttribute("journal", list);
-        m.addAttribute("salaryState", salaryState);
         m.addAttribute("operatorState", operatorState);
         return "/salary/journal";
     }
@@ -208,7 +199,6 @@ public class SearchSalaryController {
     public String attEffective(int seqNo, String staffid, String salaryState, RedirectAttributes ra) {
         userInfoService.attEffective(seqNo);
         ra.addAttribute("staffid", staffid);
-        ra.addAttribute("salaryState", salaryState);
         return "redirect:/userinfosalary/journal.do";
     }
 
@@ -220,7 +210,6 @@ public class SearchSalaryController {
     public String attInvalid(int seqNo, String staffid, String salaryState, RedirectAttributes ra) {
         userInfoService.attInvalid(seqNo);
         ra.addAttribute("staffid", staffid);
-        ra.addAttribute("salaryState", salaryState);
         return "redirect:/userinfosalary/journal.do";
     }
 
@@ -234,7 +223,6 @@ public class SearchSalaryController {
         userInfoService.submitApprove(yoSalaryDaily);
         String staffid = yoSalaryDaily.getStaffid();
         ra.addAttribute("staffid", staffid);
-        ra.addAttribute("salaryState", salaryState);
         return "redirect:/userinfosalary/journal.do";
     }
 
@@ -268,45 +256,26 @@ public class SearchSalaryController {
     }
 
     /*
-    通过日报审批
-    只要能进入页面的人都可以做这个操作，日报状态设为2
-    直接用链接的方法不带参传进来，结束后重定向审批页面
-     */
-    @RequestMapping(value = "approveJournal.do")
-    public String approveJournal(int seqNo) {
-        userInfoService.approveJournal(seqNo);
-        return "redirect:/userinfosalary/checkJournal.do";
-    }
-
-    /*
-    拒绝日报的审批，和通过类似
+    打回日报审批
+    当黄照香点击打回时，日报状态1变成0
+    如果该员工没有审批中的日报时，总表的工资状态3变成0，分表维持0（改为3没有实际意义）
      */
     @RequestMapping(value = "rejectJournal.do")
-    public String rejectJournal(int seqNo) {
-        userInfoService.rejectJournal(seqNo);
+    // 170321读取页面值的时候，会自动做类型转换
+    public String rejectJournal(int seqNo, String staffid) {
+        userInfoService.rejectJournal(seqNo, staffid);
         return "redirect:/userinfosalary/checkJournal.do";
     }
 
     /*
-    这一首简单的歌，并没有什么独特
+    通过日报审批
+    当黄照香点击通过时，改日报和工资数据，日报状态1变成2
+    如果该员工没有审批中的日报时，总表的工资状态3变成0，分表维持0（改为3没有实际意义）
      */
-    @RequestMapping("easySong.do")
-    public String easySong() {
-        String command = "python C:\\workspace\\pythonPlay\\oa\\lab.py";
-        try {
-            Process p = Runtime.getRuntime().exec(command);
-            InputStream is = p.getInputStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-            String s = null;
-            while ((s = reader.readLine()) != null) {
-                System.out.println(s);
-            }
-        } catch (Exception e) {
-            System.out.println(e.toString());
-        }
-
-        // 跳到主页
-        return "index";
+    @RequestMapping(value = "approveJournal.do")
+    public String approveJournal(int seqNo, String staffid) {
+        userInfoService.approveJournal(seqNo, staffid);
+        return "redirect:/userinfosalary/checkJournal.do";
     }
 
 }
