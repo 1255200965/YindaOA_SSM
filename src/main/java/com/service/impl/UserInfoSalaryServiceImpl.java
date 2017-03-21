@@ -129,10 +129,11 @@ public class UserInfoSalaryServiceImpl implements IUserInfoSalaryService {
      */
     @Override
     public int updateDailyByUserSalary(YoSalaryDaily record) {
+        record.setWhetherEffAtt(null);
+        int result=yoSalaryDailyMapper.updateByPrimaryKeySelective(record);
+        // 170321我只能动在这之后的东西
         int seqNo = record.getSeqNo();
         systemCall(seqNo);
-        // 170321我只能动在这之前的东西
-        int result=yoSalaryDailyMapper.updateByPrimaryKey(record);
         return result;
     }
 

@@ -206,7 +206,7 @@
 
                             },
                             success: function (data) {
-                                if (type == 1) alert("提交结果:"+data.msg);
+//                                if (type == 1) alert("提交结果:"+data.msg);
                                 if (data.ok == "ok") {
                                     for (var i = 0; i < self.ShowList().length; i++) {
                                         if (self.ShowList()[i].sid == item.sid) {
@@ -230,10 +230,12 @@
                             //无效变有效
                             item.salaryState = type;
                             item.journalState = '2';
+                            item.whetherEffAtt = '1';
                         } else if (type == '0'){
                             //有效变无效
                             item.salaryState = type;
                             item.journalState = '3';
+                            item.whetherEffAtt = '0';
                         } else {
                             //项目经理提交了申请
                             item.journalState = '1';
@@ -250,7 +252,7 @@
 
                             },
                             success: function (data) {
-                                alert("提交结果:"+data.msg);
+//                                alert("提交结果:"+data.msg);
                                 if (data.ok == "ok") {
                                     // 这个循环也是写得碉堡了
                                     for (var i = 0; i < self.ShowList().length; i++) {
@@ -490,8 +492,8 @@
                     <input id="staff_id" type="text" name="id" class="shuruk-a2" placeholder="">
                 </div>
                 <div class="caidan-tiku-s" style="margin-right:5%"> <span>时间：</span>
-                    <input id="startdate" type="text" name="yoAskBeginDate" class="laydate-icon shuruk-a2 form_date" placeholder="" value="">
-                    <input id="enddate" type="text" name="yoAskEndDate" class="shuruk-a2 form_date" placeholder=""  value="">
+                    <input id="startdate" type="text" name="yoAskBeginDate" class="laydate-icon shuruk-a2 form_date" placeholder="" value="2017-01-21">
+                    <input id="enddate" type="text" name="yoAskEndDate" class="shuruk-a2 form_date" placeholder=""  value="2017-02-20">
                 </div>
                 <div style="float:right;margin-right:5%;padding-bottom:0px;" >
                     <button  type="button"   class="btn btn_primary" data-bind="click:$root.ClickSearch">查询</button>
@@ -572,113 +574,11 @@
                             <div class="modal-footer c_modal_foot">
                                 <button id="close1" type="button" class="c_ding_btn" data-dismiss="modal">Close</button>
                                 <button type="submit" class="c_ding_btn c_ding_btn_primary" data-bind="click:$root.ClickModelYes,visible: $root.rootid() == '1'  ? 0 : 1">提交</button>
-                                <%--干掉干掉--%>
-
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <%--统统都干掉--%>
-           <%-- <table  width="100%" border="1" cellspacing="0" cellpadding="0" class="table-1 daily">
-                <thead class="table-1-tou">
-                    <th style="width: 5%">日报编号</th>
-                    <th style="width: 5%">工号</th>
-                    <th style="width: 5%">姓名</th>
-                    <th style="width: 5%">日期</th>
-                    <th style="width: 5%">日期类型</th>
-                    <th style="width: 8%">订单</th>
-                    <th style="width: 5%">商务属性</th>
-                    <th style="width: 5%">订单地市</th>
-                    <th style="width: 5%">请假类型</th>
-                    <th style="width: 5%">出勤状态</th>
-                    <th style="width: 5%">出勤地市</th>
-                    <th style="width: 5%">是否有效加班</th>
-                    <th style="width: 5%">是否有效出差</th>
-                    <th style="width: 10%">操作</th>
-                </thead>
-
-                <c:forEach var="entity" items="${journal}" varStatus="sequence">
-                    <form action="${ctx}/userinfosalary/submitApprove.do">
-                        <tr>
-                            <td>${entity.seqNo}</td>
-                            <td>${entity.staffid}</td>
-                            <td>${entity.name}</td>
-                            <td>${entity.date}</td>
-                            <td>${entity.dateType}</td>
-                            <td>${entity.orderName}</td>
-                            <td>${entity.businessAttribute}</td>
-                            <td>${entity.orderProcity}</td>
-                            <td>${entity.askLeaveType}</td>
-                            <td style="font-size: large">${entity.whetherEffAtt}</td>
-                            <td>${entity.attProcity}</td>
-                            <td>${entity.whetherEffOt}</td>
-                            <td>${entity.whetherEffBt}</td>
-                            <td>
-                                &lt;%&ndash;如果是PM，打开modal&ndash;%&gt;
-                                <c:if test="${operatorState eq '1'}">
-                                    <button type="button" disabled="disabled" class="btn1" data-toggle="modal" data-target="#myModal">设为有效出勤</button>
-                                </c:if>
-
-                                &lt;%&ndash;如果是DM，直接跳转&ndash;%&gt;
-                                <c:if test="${operatorState eq '2'}">
-                                    <a href="${ctx}/userinfosalary/attEffective.do?seqNo=${entity.seqNo}&&staffid=${entity.staffid}&&salaryState=${salaryState}"><button type="button" class="btn1">设为有效出勤</button></a>
-                                </c:if>
-
-                                <a href="${ctx}/userinfosalary/attInvalid.do?seqNo=${entity.seqNo}&&staffid=${entity.staffid}&&salaryState=${salaryState}"><button type="button" class="btn2">设为无效出勤</button></a>
-                                <button type="button" class="btn3" data-toggle="modal" data-target="#myModal">查看申请原因</button>
-                            </td>
-                        </tr>
-
-                        &lt;%&ndash;170318这个模态框虽然看起来很鱼，但出于效率的考虑，先用这个了&ndash;%&gt;
-                        <div class="container">
-                            <!-- Modal -->
-                            &lt;%&ndash;这个加Id的方法绝对高端&ndash;%&gt;
-                            <div class="modal fade" id="myModal"+${sequence.index} tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false">
-                                <div class="modal-dialog c_side_modal_box"  role="document" style="margin: 0px;">
-                                    <div class="modal-content c_side_modal">
-                                        <div class="modal-header c_modal_head">
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                            <h4 class="modal-title" id="myModalLabel">用户信息详情</h4>
-                                        </div>
-                                        <div class="modal-body c_modal_body">
-                                            <div data-bind="with:changeItem">
-                                                <div class="c_ding_form" >
-                                                    <div class="c_ding_form_group" >
-                                                        <label><i class="iconfont c_ding_from_icon" >*</i><span >申请原因:</span></label>
-                                                        <div class="input_content">
-                                                            &lt;%&ndash;如果日报状态为1的话，显示一个只读的inpux框，内容为自己写的内容&ndash;%&gt;
-                                                            <c:if test="${entity.journalState eq '1'}">
-                                                                <input type="text" readonly="readonly" value="${entity.comment}" style="width: 300px; height: 300px">
-                                                            </c:if>
-                                                            &lt;%&ndash;如果日报状态不为1的话，显示的inpux框是可以输入的，可以提交&ndash;%&gt;
-                                                            <c:if test="${entity.journalState ne '1'}">
-                                                                <input type="text" name="comment" style="width: 300px; height: 300px">
-                                                            </c:if>
-                                                            &lt;%&ndash;170319，定义一个看不到的input，用来显示日报编号。虽然很鱼但这次可能是救命的&ndash;%&gt;
-                                                            <input type="hidden" name="seqNo" value="${entity.seqNo}">
-                                                            <input type="hidden" name="staffid" value="${entity.staffid}">
-                                                            <input type="hidden" name="salaryState" value="${salaryState}">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer c_modal_foot">
-                                            <button id="close1" type="button" class="c_ding_btn" data-dismiss="modal">Close</button>
-                                            &lt;%&ndash;如果日报状态不为1的话，才有这个提交按钮&ndash;%&gt;
-                                            <c:if test="${entity.journalState ne '1'}">
-                                                <button type="submit" class="c_ding_btn c_ding_btn_primary">提交</button>
-                                            </c:if>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </c:forEach>
-            </table>--%>
         </div>
     </div>
 
