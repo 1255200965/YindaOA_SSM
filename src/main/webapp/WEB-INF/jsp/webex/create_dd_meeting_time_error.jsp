@@ -24,7 +24,7 @@
 	
 	
 
-<title>申请成功</title>
+<title>创建会议冲突</title>
 </head>
 <style>
 .assess {
@@ -50,8 +50,9 @@ margin-bottom:3px;
 	<div class="weui-msg">
   <div class="weui-msg__icon-area"><i class="weui-icon-success weui-icon_msg"></i></div>
   <div class="weui-msg__text-area">
-    <h2 class="weui-msg__title">成功!</h2>
-   
+    <h2 class="weui-msg__title">会议冲突</h2>
+    <h3 class="weui-msg__title">您创建的会议与其他会议冲突，同一时段 只能有一个会议！</h3>
+    <h3 class="weui-msg__title">冲突的会议：${meeting_name}</h3>
       <%-- <a href="<%=path%>/findAll_WebEx;" class="weui-btn weui-btn_primary">会议列表</a> --%>
      <!--  <a href="javascript:;" class="weui-btn weui-btn_default">辅助操作</a> -->
     

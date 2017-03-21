@@ -24,7 +24,7 @@
 	
 	
 
-<title>创建会议成功</title>
+<title>创建会议失败</title>
 </head>
 <style>
 .assess {
@@ -46,26 +46,13 @@ margin-bottom:3px;
 
 </style>
 <body>
-	<div class="weui-pull-to-refresh-layer">
-		<div class="pull-to-refresh-arrow"></div>
-		<!-- 上下拉动的时候显示的箭头 -->
-		<div class="pull-to-refresh-preloader"></div>
-		<!-- 正在刷新的菊花 -->
-		<div class="down">下拉刷新</div>
-		<!-- 下拉过程显示的文案 -->
-		<div class="up">释放刷新</div>
-		<!-- 下拉超过50px显示的文案 -->
-		<div class="refresh">正在刷新...</div>
-		<!-- 正在刷新时显示的文案 -->
-	</div>
+
 	<div class="weui-msg">
   <div class="weui-msg__icon-area"><i class="weui-icon-success weui-icon_msg"></i></div>
   <div class="weui-msg__text-area">
     <h2 class="weui-msg__title">失败!请联系管理员！</h2>
    
-      <%-- <a href="<%=path%>/findAll_WebEx;" class="weui-btn weui-btn_primary">会议列表</a> --%>
-     <!--  <a href="javascript:;" class="weui-btn weui-btn_default">辅助操作</a> -->
-    
+
   </div>
   <div class="weui-msg__extra-area">
     <div class="weui-footer">

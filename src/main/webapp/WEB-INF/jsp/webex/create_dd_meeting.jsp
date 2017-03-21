@@ -183,9 +183,9 @@
    
   	// 邮政编码验证   
   	jQuery.validator.addMethod("IsChinese", function(value, element) {   
-  	    var tel = /^[\u4E00-\u9FA5]+$/;
+  	    var tel = /^([a-zA-Z0-9]|[._]){4,10}$/;
   	    return this.optional(element) || (tel.test(value));
-  	}, "请填写汉字");
+  	}, "不能包含特殊字符");
 
     </script> 
     
@@ -228,7 +228,7 @@ $().ready(function() {
 	            	return;
 	            }
 				 $.post("<%=path%>/WebEx/create_dd_meeting.do",$("#divform").serialize(),function(data){
-
+                      
 		             
 		                if(data == "success"){
 		                	
@@ -236,9 +236,11 @@ $().ready(function() {
 		                		
 		                		$("#bb").html(data);
 		                	})
-		                }else{
+		                }else if(data == "error"){
 		                	window.location = "<%=path%>/WebEx/create_dd_meeting_error.do";
-		                }
+		                } else {
+		                	window.location = "<%=path%>/WebEx/create_dd_meeting_time_error.do?meeting_name="+data;
+	                    }
 		             
 		         });
 	        } ,
@@ -250,7 +252,7 @@ $().ready(function() {
 	      meeting_name: {
 	        required: true,
 	        minlength: 6,
-	        IsChinese: ""
+	      
 	   
 	      },
 	      meeting_password: {
@@ -261,7 +263,7 @@ $().ready(function() {
 	      meeting_desc: {
 		        required: true,
 		        minlength: 6,
-		        IsChinese: ""
+		       
 		      },
 	      meeting_time: {
 		        required: true,		      
@@ -282,7 +284,7 @@ $().ready(function() {
 	    messages: {
 	      meeting_name: {
 	        required: "请输入会议名称",
-	        minlength: "长度不能小于6 个汉字"
+	        minlength: "长度不能小于6"
 	      },
 	      meeting_password: {
 	        required: "请输入密码",
@@ -290,7 +292,7 @@ $().ready(function() {
 	      },
 	      meeting_desc: {
 	        required: "请输入会议描述",
-	        minlength: "长度不能小于6 个汉字",
+	        minlength: "长度不能小于6",
 	       
 	      },
 	      meeting_length: {

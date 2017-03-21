@@ -19,7 +19,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.enterprise.inject.Model;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HeaderElement;
@@ -128,7 +130,7 @@ public class WebExController {
 	@RequestMapping("create_meeting_error.do")
 	public ModelAndView create_meeting_error(){
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("webex/create_dd_meeting_error");
+		mav.setViewName("webex/create_meeting_error");		
 		return mav;
 	}
 	/**
@@ -263,7 +265,7 @@ public class WebExController {
 				"<bodyContent xsi:type=\"java:com.webex.service.binding.event.SetEvent\">"+
 				"<accessControl>"+
 				"<listing>PUBLIC</listing>"+
-				"<sessionPassword>String123</sessionPassword>"+
+				"<sessionPassword></sessionPassword>"+
 				"</accessControl>"+
 				"<panelists>"+
 				"<panelist>"+
@@ -283,6 +285,50 @@ public class WebExController {
 		return  WebExUtil.methodPost(webexUrl, map);
 	}
 
+	public String reg_Event(String username,String user_email,String session_key) throws UnsupportedEncodingException{
+		String XML ="<?xml version=\"1.0\" encoding=\"UTF-8\"?>"+
+		"<serv:message xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:serv=\"http://www.webex.com/schemas/2002/06/service\" xsi:schemaLocation=\"http://www.webex.com/schemas/2002/06/service http://www.webex.com/schemas/2002/06/service/service.xsd\">"+
+		"<header>"+
+		"<securityContext>"+
+		"<webExID>webex@yindatech.com</webExID>"+
+		"<password>Abc123</password>"+
+		"<siteID>32757</siteID>"+
+		"<partnerID>vhS2rVHylENr0TpnV1Urkg</partnerID>"+
+		"<email>matl@yindatech.com</email>"+
+		"</securityContext>"+
+		"</header>"+
+		"<body>"+
+		"<bodyContent xsi:type= \"java:com.webex.service.binding.attendee.RegisterMeetingAttendee\">"+
+		"<attendees>"+
+		"<person>"+
+		"<name>"+username+"</name>"+
+		"<title>title</title>"+
+		"<company>yinda</company>"+
+		"<address>"+
+		"<addressType>PERSONAL</addressType>"+
+		"<city>shanghai</city>"+
+		"<country>china</country>"+
+		"</address>"+
+
+		"<email>"+user_email+"</email>"+
+		"<notes>notes</notes>"+
+		"<url>https://</url>"+
+		"<type>VISITOR</type>"+
+		"</person>"+
+		"<joinStatus>ACCEPT</joinStatus>"+
+		"<role>ATTENDEE</role>"+
+		"<emailInvitations>true</emailInvitations>"+
+		"<sessionKey>"+session_key+"</sessionKey>"+
+		"</attendees>"+
+
+		"</bodyContent>"+
+		"</body>"+
+		"</serv:message>";
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("XML", XML);
+
+		return  WebExUtil.methodPost(webexUrl, map);
+	}
 	public ModelAndView get_Event() throws ClientProtocolException, ParseException, IOException, URISyntaxException{
 
 		ModelAndView mav = new ModelAndView();
@@ -497,9 +543,9 @@ public class WebExController {
 		return mav;
 	}
 
-	@RequestMapping("create_dd_meeting.do")
+	@RequestMapping(value ="create_dd_meeting.do",produces="text/plain;charset=utf-8")
 	@ResponseBody
-	public String create_dd_meeting(String meeting_name,String meeting_desc,String meeting_time,String meeting_count,String meeting_password,String meeting_length){
+	public String create_dd_meeting(String meeting_name,String meeting_desc,String meeting_time,String meeting_count,String meeting_password,String meeting_length,HttpServletRequest request,HttpServletResponse response){
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("webex/create_dd_meeting_success");
 		/*
@@ -517,6 +563,15 @@ public class WebExController {
 			Date time = sdf.parse(meeting_time);
 			sdf1.format(time);
 			String webex_meeting_time = sdf1.format(time);
+			
+			/*
+			 * 比较是否与之前的会议冲突;
+			 */
+			List<String> w = webexMapper.select_by_time(meeting_time);
+			if(w!=null && w.size()>0){
+			
+				return w.get(0); 
+			}
 
 			/*
 			 *创建会议 
@@ -581,10 +636,27 @@ public class WebExController {
 		mav.setViewName("webex/create_dd_meeting_error");
 		return mav;
 	}
+	
+	@RequestMapping("create_dd_meeting_time_error.do")
+	public ModelAndView create_dd_meeting_time_error(String meeting_name){
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("meeting_name", meeting_name);
+		System.out.println("------------------"+meeting_name);
+		mav.setViewName("webex/create_dd_meeting_time_error");
+		return mav;
+	}
+	
 	@RequestMapping("add_dd_meeting")
 	public ModelAndView add_dd_meeting(String id,String session_key,String meeting_name,String meeting_time,String meeting_password,String user_email,HttpServletRequest request){
 		ModelAndView mav = new ModelAndView();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		/*
+		 * 获取用户信息
+		 */		
+		String username = (String) request.getSession().getAttribute(GlobalConstant.user_name);
+		if(username == null){
+			username = "匿名";
+		}
 		/*
 		 *界面返回值 
 		 */
@@ -594,14 +666,14 @@ public class WebExController {
 		webex.setMeetingPassword(meeting_password);
 		webex.setSessionKey(session_key);
 
-		String meeting_url="https://yinda.webex.com.cn/yinda/onstage/g.php?t=p&d="+session_key;
+		String meeting_url="https://yinda.webex.com.cn";
 
 		/*
 		 *webex免注册
 		 */
 		String res ="";
 		try {
-			res=set_Event(user_email, session_key);
+			res=reg_Event(username,user_email, session_key);
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
