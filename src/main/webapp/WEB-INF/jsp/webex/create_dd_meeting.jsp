@@ -228,7 +228,7 @@ $().ready(function() {
 	            	return;
 	            }
 				 $.post("<%=path%>/WebEx/create_dd_meeting.do",$("#divform").serialize(),function(data){
-
+                      
 		             
 		                if(data == "success"){
 		                	
@@ -236,9 +236,11 @@ $().ready(function() {
 		                		
 		                		$("#bb").html(data);
 		                	})
-		                }else{
+		                }else if(data == "error"){
 		                	window.location = "<%=path%>/WebEx/create_dd_meeting_error.do";
-		                }
+		                } else {
+		                	window.location = "<%=path%>/WebEx/create_dd_meeting_time_error.do?meeting_name="+data;
+	                    }
 		             
 		         });
 	        } ,
