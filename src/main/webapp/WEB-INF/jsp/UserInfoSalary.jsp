@@ -145,11 +145,19 @@
                 //查询成员列表（部门，姓名，电话，工号）
                 self.GetUserByQuery = function(){
                     if (nowDep != null){var depid = nowDep.name;} else {depid = Department;}
-                    if  ($("#search_name").val() == "" && nowDep =="") {
-                        alert("请输入名字或工号！");
-                    } else {
+                    if  ($("#search_name").val() == "" && depid =="") {
+                        alert("请输入名字或部门！");
+                    }else if (role=="项目经理" && (Department.lastIndexOf(depid)==-1 || depid=="无线事业部") ){
+                        //alert(depddid.lastIndexOf(Department));
+                        self.ShowList.removeAll();
+                        return ;
+                    } else  if (role=="部门经理" && depid.lastIndexOf(Department)==-1){
+                        //alert(depddid.lastIndexOf(Department));
+                        self.ShowList.removeAll();
+                        return ;
+                    } else  {
                         $.ajax({
-                            data: JSON.stringify(new UserModel(depid, $("#search_name").val(), null, "2017-02")),
+                            data: JSON.stringify(new UserModel(depid, $("#search_name").val(), $('#search_salaryid').val(), "2017-02")),
                             type: "post",
                             async: false,
                             headers: {'Content-Type': 'application/json'},
@@ -186,7 +194,7 @@
                             {
                                 item.task = '2';
                             }
-
+                            //根据审批状态，更新日报条目
                             $.ajax({
                                 data: JSON.stringify(item),
                                 type: "post",
@@ -217,7 +225,7 @@
                 }
                 // 点击事件-点击跳转到日报页
                 self.ClickJump = function(item){
-                    window.location.href="<%=basePath%>" + "userinfosalary/journal.do?staffid="+item.salaryid+"&&salaryState="+item.task;
+                    window.location.href="<%=basePath%>" + "userinfosalary/journal.do?staffid="+item.salaryid;
                 }
                 // 点击事件-点击更新用户按钮
                 self.ClickUpdate = function(item){
@@ -239,6 +247,8 @@
                 };
                 //点击事件-点击搜索
                 self.ClickSearch = function () {
+                    //判断某些情况不能查询
+
                     self.GetUserByQuery();
                 }
                 self.ClickAllSearch = function () {
@@ -397,7 +407,6 @@
 </head>
 <body>
 
-
 <div class="row-fluid c_box" style="">
     <div class="col-md-2 c_left_box" >
         <div style="margin-top:3%"></div>
@@ -409,8 +418,10 @@
             <div class="caidan-tiku-s" style="margin-right:5%"> <span>姓名：</span>
                 <input id="search_name" type="text" name="name" class="shuruk-a2" placeholder="">
             </div>
+            <div class="caidan-tiku-s" style="margin-right:5%"> <span>工号：</span>
+                <input id="search_salaryid" type="text" name="salaryid" class="shuruk-a2" placeholder="">
+            </div>
           <div class="caidan-tiku-s" style="margin-right:5%"> <span>当前月份：</span>
-                <%--<input id="search_salaryid" type="text" name="salaryid" class="shuruk-a2" placeholder="">--%>
               <span id="nowamonth"  > 2017-02 </span>
             </div>
 <%--            <div class="caidan-tiku-s" style="margin-right:5%"> <span>日期：</span>
@@ -463,33 +474,34 @@
                 </thead>
 
                 <tbody data-bind="foreach:ShowList" >
-                <tr data-bind="style: { backgroundColor: task > 0 ? (task>1 ? 'blue' : 'yellow' ) : 'white' ,fontWeight:'bold' },clickBubble: false">
-                    <td data-bind="text:$index()+1,click:$root.ClickJump">编号</td>
-                    <td data-bind="text:name,click:$root.ClickJump">编号</td>
+                <tr data-bind="style: { backgroundColor: task > 0 ? (task>1 ? (task>2 ? '#C0C0C0' : '#66CCFF'): 'yellow' ) : 'white' ,fontWeight:'bold' },clickBubble: false">
+                    <td data-bind="text:$index()+1">编号</td>
+                    <td data-bind="text:name">编号</td>
                     <%--<td data-bind="text:department">编号</td>--%>
-                    <td data-bind="text:salaryid,click:$root.ClickJump">编号</td>
-                    <td data-bind="text:contractType,click:$root.ClickJump"></td>
-                    <td data-bind="text:yindaIdentify,click:$root.ClickJump"></td>
-                    <td data-bind="text:salarydate,click:$root.ClickJump">编号</td>
-                    <td data-bind="text:baseSalary,click:$root.ClickJump"></td>
-                    <td data-bind="text:leavetype,click:$root.ClickJump">编号</td>
-                    <td data-bind="text:effectiveattendance,click:$root.ClickJump">编号</td>
-                    <td data-bind="text:attendancesalary,click:$root.ClickJump">编号</td>
-                    <td data-bind="text:worksalary,click:$root.ClickJump">编号</td>
-                    <td data-bind="text:allowance,click:$root.ClickJump">编号</td>
-                    <td data-bind="text:trafficsalary,click:$root.ClickJump">编号</td>
-                    <td data-bind="text:realityattendance,click:$root.ClickJump">编号</td>
-                    <td data-bind="text:timesalary,click:$root.ClickJump">编号</td>
+                    <td data-bind="text:salaryid">编号</td>
+                    <td data-bind="text:contractType"></td>
+                    <td data-bind="text:yindaIdentify"></td>
+                    <td data-bind="text:salarydate">编号</td>
+                    <td data-bind="text:baseSalary"></td>
+                    <td data-bind="text:leavetype">编号</td>
+                    <td data-bind="text:effectiveattendance">编号</td>
+                    <td data-bind="text:attendancesalary">编号</td>
+                    <td data-bind="text:worksalary">编号</td>
+                    <td data-bind="text:allowance">编号</td>
+                    <td data-bind="text:trafficsalary">编号</td>
+                    <td data-bind="text:realityattendance">编号</td>
+                    <td data-bind="text:timesalary">编号</td>
                     <%--如果这个人的角色是PM，触发readonly--%>
                     <td  ><input  class="c_ding_input" style="width:60px" data-bind="textinput:timebaseadd,attr:{readonly:role=='项目经理' ||  task>'1'},event:{ change: $root.changeValue }, clickBubble: false"/></td>
-                    <td data-bind="text:tasksalary,click:$root.ClickJump">编号</td>
+                    <td data-bind="text:tasksalary">编号</td>
                     <td ><input  class="c_ding_input" style="width:60px" data-bind="textinput:taskbaseadd,attr:{readonly:role=='项目经理' ||  task>'1'},event:{ change: $root.changeValue } , clickBubble: false"/></td>
 
                     <td ><input  class="c_ding_input" style="width:60px" data-bind="textinput:userbonus,attr:{readonly:role=='项目经理' ||  task>'1'},event:{ change: $root.changeValue }, clickBubble: false" /></td>
 
-                    <td data-bind="text:totalsalary,click:$root.ClickJump">编号</td>
+                    <td data-bind="text:totalsalary">编号</td>
                     <td>
-                        <input data-bind="click:$root.ClickUpdate, clickBubble: false" type="button" value="提交" class="gx-btn_large"/>
+                        <input data-bind="click:$root.ClickUpdate, clickBubble: false,attr:{disabled:task=='3'}" type="button" value="提交" class="gx-btn_large"/>
+                        <input data-bind="click:$root.ClickJump, clickBubble: false" type="button" value="查看日报" class="gx-btn_large" style="background:orange"/>
                     </td>
                 </tr>
                 </tbody>

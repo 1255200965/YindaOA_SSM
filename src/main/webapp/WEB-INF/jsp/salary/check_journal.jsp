@@ -39,6 +39,7 @@
             <th style="width: 5%">当前项目</th>
             <th style="width: 8%">订单</th>
             <th style="width: 5%">商务属性</th>
+            <th style="width: 5%">当前出勤状态</th>
             <th style="width: 5%">申请人</th>
             <th style="width: 12%">申请原因</th>
             <th style="width: 4%">日报状态</th>
@@ -56,13 +57,15 @@
                 <td>${entity.project}</td>
                 <td>${entity.orderName}</td>
                 <td>${entity.businessAttribute}</td>
+                <td>${entity.whetherEffAtt}</td>
                 <td>${entity.applyPerson}</td>
-                <td>${entity.comment}</td>
+                <td>${entity.effectReason}</td>
                 <td>${entity.journalState}</td>
                 <td>
-                    <%--a标签不占任何空间，内部加入button后被撑得跟button一样大--%>
-                    <a href="${ctx}/userinfosalary/approveJournal.do?seqNo=${entity.seqNo}"><button>通过</button></a>
-                    <a style="margin-left: 20px" href="${ctx}/userinfosalary/rejectJournal.do?seqNo=${entity.seqNo}"><button>打回</button></a>
+                    <%--a标签本不占空间，嵌入button后被其撑大--%>
+                    <%--点打回后，只变日报状态。点通过后，先变日报和工资，再变状态。考虑到黄照香的习惯，打回放在前面--%>
+                    <a href="${ctx}/userinfosalary/rejectJournal.do?seqNo=${entity.seqNo}&&staffid=${entity.staffid}"><button>打回</button></a>
+                    <a style="margin-left: 20px" href="${ctx}/userinfosalary/approveJournal.do?seqNo=${entity.seqNo}&&staffid=${entity.staffid}"><button>通过</button></a>
                 </td>
             </tr>
         </c:forEach>
