@@ -24,7 +24,7 @@
 	
 	
 
-<title>创建会议冲突</title>
+<title>创建会议失败</title>
 </head>
 <style>
 .assess {
