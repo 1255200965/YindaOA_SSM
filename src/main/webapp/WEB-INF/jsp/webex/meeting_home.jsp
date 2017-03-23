@@ -19,7 +19,7 @@
  <div class="weui_grids">
  
 
-  <a  class="weui_grid js_grid" href="<%=path%>/WebEx/create_dd_meeting_page.do" style ="display:none;" id ="apply_meeting">
+  <a  class="weui_grid js_grid" href="<%=path%>/WebEx/create_dd_meeting_page.do"  >
     <div class="weui_grid_icon">
       <img src="<%=path%>/images/train.png" alt="">
     </div>
@@ -75,14 +75,8 @@
             	 
                 //存储用户信息
                 $.post("<%=path%>/order/login.do",{"code":info.code});
-                var leader = '${sessionScope.leader}';
+              
                
-                if(leader == null|| leader ==""){
-                	location.reload();
-                }
-                if(leader == "是"){
-                	$("#apply_meeting").css('display','block'); 
-                }
                 
              },
              onFail : function(err) {

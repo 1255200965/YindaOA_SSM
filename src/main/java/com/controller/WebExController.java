@@ -93,9 +93,44 @@ public class WebExController {
 	 * @return
 	 */
 	@RequestMapping("create_dd_meeting_page.do")
-	public ModelAndView create_dd_meeting_Page(){
+	public ModelAndView create_dd_meeting_Page(HttpServletRequest request){
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("webex/create_dd_meeting");		
+//		王龙		    11261
+//		秦光远		17080
+//		方舒		    19561
+//		吴梦萍		10375
+//		魏群		    22031
+//		叶祥磊		16534
+//		杨旭兰		10389
+//		周靓		    10268
+//		黄照香		19119
+//		丁希林		19179
+//		高雪峰		10305
+//		韩永林		13025
+//		岳韶斌		41401
+//		章其波		16318
+//		孙华武		19355
+//		谭英花		14037
+//		吴成勇		19002
+//		钱忠诚		10272
+//		马天立		16360
+//		徐圆圆		17082
+//		潘佳蕾                   17084
+//      朱俊柯		19770
+//		余芳芳                  70664
+//      祁鑫炎                   16382
+		String [] staffidss  ={"11261","17080","19561","10375","22031","16534","10389","10268","19119","19179","10305","13025","41401","16318","19355","14037","19002","10272","16360","17082"
+				," 17084","19770","70664","16382"};
+		
+		String staffid = (String) request.getSession().getAttribute(GlobalConstant.user_staffId);
+		
+		for(int i =0;i<staffidss.length;i++){
+			if(staffidss[i].equals(staffid)){
+				mav.setViewName("webex/create_dd_meeting");	
+				return mav;
+			}
+		}
+		mav.setViewName("webex/create_dd_meeting_no_authority");	
 		return mav;
 	}
 
