@@ -34,6 +34,9 @@ public interface IUserInfoSalaryService {
     List<YoSalaryDaily> selectDailyByExample(YoSalaryDaily example);
     int updateDailyByUserSalary(YoSalaryDaily record);
 
+    // 根据主键查找实体类
+    YoSalaryDaily searchResult(int seqNo);
+
     // 得到员工日报
     List<YoSalaryDaily> getJournal(String staffid);
 

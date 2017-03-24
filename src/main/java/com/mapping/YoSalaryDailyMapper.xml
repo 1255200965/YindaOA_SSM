@@ -9,8 +9,8 @@
     <result column="contract_type" property="contractType" jdbcType="VARCHAR" />
     <result column="ordinary_address" property="ordinaryAddress" jdbcType="VARCHAR" />
     <result column="whether_bt_allowance" property="whetherBtAllowance" jdbcType="VARCHAR" />
-    <result column="base_salary" property="baseSalary" jdbcType="VARCHAR" />
     <result column="date" property="date" jdbcType="VARCHAR" />
+    <result column="work_state_current" property="workStateCurrent" jdbcType="VARCHAR" />
     <result column="date_type" property="dateType" jdbcType="VARCHAR" />
     <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
     <result column="ord_depart" property="ordDepart" jdbcType="VARCHAR" />
@@ -21,10 +21,9 @@
     <result column="outside_work" property="outsideWork" jdbcType="VARCHAR" />
     <result column="outdoor_work" property="outdoorWork" jdbcType="VARCHAR" />
     <result column="whether_att" property="whetherAtt" jdbcType="VARCHAR" />
-    <result column="att_procity" property="attProcity" jdbcType="VARCHAR" />
     <result column="att_type" property="attType" jdbcType="VARCHAR" />
     <result column="whether_sign" property="whetherSign" jdbcType="VARCHAR" />
-    <result column="sign_procity" property="signProcity" jdbcType="VARCHAR" />
+    <result column="att_procity" property="attProcity" jdbcType="VARCHAR" />
     <result column="ask_leave_type" property="askLeaveType" jdbcType="VARCHAR" />
     <result column="whether_bt" property="whetherBt" jdbcType="VARCHAR" />
     <result column="bt_procity" property="btProcity" jdbcType="VARCHAR" />
@@ -70,9 +69,9 @@
   </sql>
   <sql id="Base_Column_List" >
     seq_no, staffid, name, department, contract_type, ordinary_address, whether_bt_allowance, 
-    base_salary, date, date_type, order_no, ord_depart, project, order_name, order_procity, 
-    business_attribute, outside_work, outdoor_work, whether_att, att_procity, att_type, 
-    whether_sign, sign_procity, ask_leave_type, whether_bt, bt_procity, whether_ot, whether_ot_allowance, 
+    date, work_state_current, date_type, order_no, ord_depart, project, order_name, order_procity, 
+    business_attribute, outside_work, outdoor_work, whether_att, att_type, whether_sign, 
+    att_procity, ask_leave_type, whether_bt, bt_procity, whether_ot, whether_ot_allowance, 
     whether_eff_att, whether_eff_bt, whether_eff_ot, timebase, journal_state, salary_state, 
     effect_reason, apply_person
   </sql>
@@ -103,30 +102,28 @@
   <insert id="insert" parameterType="com.model.YoSalaryDaily" >
     insert into yo_salary_daily (seq_no, staffid, name, 
       department, contract_type, ordinary_address, 
-      whether_bt_allowance, base_salary, date, 
+      whether_bt_allowance, date, work_state_current, 
       date_type, order_no, ord_depart, 
       project, order_name, order_procity, 
       business_attribute, outside_work, outdoor_work, 
-      whether_att, att_procity, att_type, 
-      whether_sign, sign_procity, ask_leave_type, 
-      whether_bt, bt_procity, whether_ot, 
-      whether_ot_allowance, whether_eff_att, whether_eff_bt, 
-      whether_eff_ot, timebase, journal_state, 
-      salary_state, effect_reason, apply_person
-      )
+      whether_att, att_type, whether_sign, 
+      att_procity, ask_leave_type, whether_bt, 
+      bt_procity, whether_ot, whether_ot_allowance, 
+      whether_eff_att, whether_eff_bt, whether_eff_ot, 
+      timebase, journal_state, salary_state, 
+      effect_reason, apply_person)
     values (#{seqNo,jdbcType=INTEGER}, #{staffid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{department,jdbcType=VARCHAR}, #{contractType,jdbcType=VARCHAR}, #{ordinaryAddress,jdbcType=VARCHAR}, 
-      #{whetherBtAllowance,jdbcType=VARCHAR}, #{baseSalary,jdbcType=VARCHAR}, #{date,jdbcType=VARCHAR}, 
+      #{whetherBtAllowance,jdbcType=VARCHAR}, #{date,jdbcType=VARCHAR}, #{workStateCurrent,jdbcType=VARCHAR}, 
       #{dateType,jdbcType=VARCHAR}, #{orderNo,jdbcType=VARCHAR}, #{ordDepart,jdbcType=VARCHAR}, 
       #{project,jdbcType=VARCHAR}, #{orderName,jdbcType=VARCHAR}, #{orderProcity,jdbcType=VARCHAR}, 
       #{businessAttribute,jdbcType=VARCHAR}, #{outsideWork,jdbcType=VARCHAR}, #{outdoorWork,jdbcType=VARCHAR}, 
-      #{whetherAtt,jdbcType=VARCHAR}, #{attProcity,jdbcType=VARCHAR}, #{attType,jdbcType=VARCHAR}, 
-      #{whetherSign,jdbcType=VARCHAR}, #{signProcity,jdbcType=VARCHAR}, #{askLeaveType,jdbcType=VARCHAR}, 
-      #{whetherBt,jdbcType=VARCHAR}, #{btProcity,jdbcType=VARCHAR}, #{whetherOt,jdbcType=VARCHAR}, 
-      #{whetherOtAllowance,jdbcType=VARCHAR}, #{whetherEffAtt,jdbcType=VARCHAR}, #{whetherEffBt,jdbcType=VARCHAR}, 
-      #{whetherEffOt,jdbcType=VARCHAR}, #{timebase,jdbcType=VARCHAR}, #{journalState,jdbcType=VARCHAR}, 
-      #{salaryState,jdbcType=VARCHAR}, #{effectReason,jdbcType=VARCHAR}, #{applyPerson,jdbcType=VARCHAR}
-      )
+      #{whetherAtt,jdbcType=VARCHAR}, #{attType,jdbcType=VARCHAR}, #{whetherSign,jdbcType=VARCHAR}, 
+      #{attProcity,jdbcType=VARCHAR}, #{askLeaveType,jdbcType=VARCHAR}, #{whetherBt,jdbcType=VARCHAR}, 
+      #{btProcity,jdbcType=VARCHAR}, #{whetherOt,jdbcType=VARCHAR}, #{whetherOtAllowance,jdbcType=VARCHAR}, 
+      #{whetherEffAtt,jdbcType=VARCHAR}, #{whetherEffBt,jdbcType=VARCHAR}, #{whetherEffOt,jdbcType=VARCHAR}, 
+      #{timebase,jdbcType=VARCHAR}, #{journalState,jdbcType=VARCHAR}, #{salaryState,jdbcType=VARCHAR}, 
+      #{effectReason,jdbcType=VARCHAR}, #{applyPerson,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.model.YoSalaryDaily" >
     insert into yo_salary_daily
@@ -152,11 +149,11 @@
       <if test="whetherBtAllowance != null" >
         whether_bt_allowance,
       </if>
-      <if test="baseSalary != null" >
-        base_salary,
-      </if>
       <if test="date != null" >
         date,
+      </if>
+      <if test="workStateCurrent != null" >
+        work_state_current,
       </if>
       <if test="dateType != null" >
         date_type,
@@ -188,17 +185,14 @@
       <if test="whetherAtt != null" >
         whether_att,
       </if>
-      <if test="attProcity != null" >
-        att_procity,
-      </if>
       <if test="attType != null" >
         att_type,
       </if>
       <if test="whetherSign != null" >
         whether_sign,
       </if>
-      <if test="signProcity != null" >
-        sign_procity,
+      <if test="attProcity != null" >
+        att_procity,
       </if>
       <if test="askLeaveType != null" >
         ask_leave_type,
@@ -262,11 +256,11 @@
       <if test="whetherBtAllowance != null" >
         #{whetherBtAllowance,jdbcType=VARCHAR},
       </if>
-      <if test="baseSalary != null" >
-        #{baseSalary,jdbcType=VARCHAR},
-      </if>
       <if test="date != null" >
         #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="workStateCurrent != null" >
+        #{workStateCurrent,jdbcType=VARCHAR},
       </if>
       <if test="dateType != null" >
         #{dateType,jdbcType=VARCHAR},
@@ -298,17 +292,14 @@
       <if test="whetherAtt != null" >
         #{whetherAtt,jdbcType=VARCHAR},
       </if>
-      <if test="attProcity != null" >
-        #{attProcity,jdbcType=VARCHAR},
-      </if>
       <if test="attType != null" >
         #{attType,jdbcType=VARCHAR},
       </if>
       <if test="whetherSign != null" >
         #{whetherSign,jdbcType=VARCHAR},
       </if>
-      <if test="signProcity != null" >
-        #{signProcity,jdbcType=VARCHAR},
+      <if test="attProcity != null" >
+        #{attProcity,jdbcType=VARCHAR},
       </if>
       <if test="askLeaveType != null" >
         #{askLeaveType,jdbcType=VARCHAR},
@@ -372,11 +363,11 @@
       <if test="whetherBtAllowance != null" >
         whether_bt_allowance = #{whetherBtAllowance,jdbcType=VARCHAR},
       </if>
-      <if test="baseSalary != null" >
-        base_salary = #{baseSalary,jdbcType=VARCHAR},
-      </if>
       <if test="date != null" >
         date = #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="workStateCurrent != null" >
+        work_state_current = #{workStateCurrent,jdbcType=VARCHAR},
       </if>
       <if test="dateType != null" >
         date_type = #{dateType,jdbcType=VARCHAR},
@@ -408,17 +399,14 @@
       <if test="whetherAtt != null" >
         whether_att = #{whetherAtt,jdbcType=VARCHAR},
       </if>
-      <if test="attProcity != null" >
-        att_procity = #{attProcity,jdbcType=VARCHAR},
-      </if>
       <if test="attType != null" >
         att_type = #{attType,jdbcType=VARCHAR},
       </if>
       <if test="whetherSign != null" >
         whether_sign = #{whetherSign,jdbcType=VARCHAR},
       </if>
-      <if test="signProcity != null" >
-        sign_procity = #{signProcity,jdbcType=VARCHAR},
+      <if test="attProcity != null" >
+        att_procity = #{attProcity,jdbcType=VARCHAR},
       </if>
       <if test="askLeaveType != null" >
         ask_leave_type = #{askLeaveType,jdbcType=VARCHAR},
@@ -470,8 +458,8 @@
       contract_type = #{contractType,jdbcType=VARCHAR},
       ordinary_address = #{ordinaryAddress,jdbcType=VARCHAR},
       whether_bt_allowance = #{whetherBtAllowance,jdbcType=VARCHAR},
-      base_salary = #{baseSalary,jdbcType=VARCHAR},
       date = #{date,jdbcType=VARCHAR},
+      work_state_current = #{workStateCurrent,jdbcType=VARCHAR},
       date_type = #{dateType,jdbcType=VARCHAR},
       order_no = #{orderNo,jdbcType=VARCHAR},
       ord_depart = #{ordDepart,jdbcType=VARCHAR},
@@ -482,10 +470,9 @@
       outside_work = #{outsideWork,jdbcType=VARCHAR},
       outdoor_work = #{outdoorWork,jdbcType=VARCHAR},
       whether_att = #{whetherAtt,jdbcType=VARCHAR},
-      att_procity = #{attProcity,jdbcType=VARCHAR},
       att_type = #{attType,jdbcType=VARCHAR},
       whether_sign = #{whetherSign,jdbcType=VARCHAR},
-      sign_procity = #{signProcity,jdbcType=VARCHAR},
+      att_procity = #{attProcity,jdbcType=VARCHAR},
       ask_leave_type = #{askLeaveType,jdbcType=VARCHAR},
       whether_bt = #{whetherBt,jdbcType=VARCHAR},
       bt_procity = #{btProcity,jdbcType=VARCHAR},
