@@ -218,7 +218,8 @@ public class UserInfoSalaryServiceImpl implements IUserInfoSalaryService {
     170321，调用系统命令，改日报和工资信息。为了避免出现黄色波浪线
      */
     private void systemCall(int seqNo) {
-        String command = "python C:\\workspace\\python_oa\\salary\\change_effatt.py " + seqNo;
+//        String command = "python C:\\workspace\\python_oa\\salary\\change_effatt.py " + seqNo;
+        String command = "python root/python_projects/change_effatt.py " + seqNo;
         try {
             // 定义一个进程，执行系统命令。Windows会自动调用cmd，Linux会自动调用Shell，很智能！
             Process process = Runtime.getRuntime().exec(command);
