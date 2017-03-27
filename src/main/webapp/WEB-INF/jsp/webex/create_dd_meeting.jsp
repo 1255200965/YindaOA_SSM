@@ -67,7 +67,7 @@
 			</div>
 
 
-	  <div class="weui_cell">
+	        <div class="weui_cell">
 				<div class="weui_cell_hd">
 					<label class="weui_label">会议密码</label>
 				</div>
@@ -75,6 +75,17 @@
 					<input class="weui_input" type="number" placeholder=""
 						name ="meeting_password" id="meeting_password">
 						<input name="session_key" id="session_key" type="hidden">
+				</div>
+				
+			</div>
+			   <div class="weui_cell">
+				<div class="weui_cell_hd">
+					<label class="weui_label">主持人邮箱</label>
+				</div>
+				<div class="weui_cell_bd weui_cell_primary">
+					<input class="weui_input"  placeholder=""
+						name ="user_email" id="user_email">
+						
 				</div>
 				
 			</div>
@@ -199,7 +210,7 @@ $().ready(function() {
     	var meeting_password = $("#meeting_password").val();
     	var meeting_count = $("#meeting_count").val();
     	var meeting_length = $("#meeting_length").val();
-    
+        var user_email = $("#user_email").val();
     	
     	
 	  $("#divform").validate({
@@ -214,6 +225,9 @@ $().ready(function() {
 	        var day = date.getDate();
 	        var hh = date.getHours(); //截取小时 
 	        var mm = date.getMinutes()+10; //截取分钟
+	        if(mm>59){
+	        	mm=59;	        	
+	        }
 	        if(month<10){
 	        	month = "0"+month;
 	        }
@@ -222,7 +236,7 @@ $().ready(function() {
 	        }
 	        var nowtime = year+"-"+month+"-"+day+" "+hh+":"+mm;
 	        var meeting_time = $("input[name='meeting_time']").val();
-	        
+	       
 	            if(nowtime>meeting_time){
 	            	$.alert("会议时间必须为10分钟之后时间段");
 	            	return;
@@ -249,6 +263,11 @@ $().ready(function() {
 	      meeting_name: "required",
 	      meeting_password:"required",
 	      meeting_desc: "required",
+	      user_email: "required",
+	      user_email:{
+	    	  required: true,
+	    	  email:true  
+	      },
 	      meeting_name: {
 	        required: true,
 	        minlength: 6,
@@ -282,10 +301,14 @@ $().ready(function() {
     
 	    
 	    messages: {
-	      meeting_name: {
-	        required: "请输入会议名称",
-	        minlength: "长度不能小于6"
+	    	user_email: {
+	        required: "请输入主持人邮箱",
+	        minlength:"请输入正确邮箱地址"
 	      },
+	      meeting_name: {
+		        required: "请输入会议名称",
+		        minlength: "长度不能小于6"
+		      },
 	      meeting_password: {
 	        required: "请输入密码",
 	        minlength: "密码长度不能小于 6"

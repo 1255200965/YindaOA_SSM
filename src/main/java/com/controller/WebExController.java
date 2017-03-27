@@ -263,7 +263,14 @@ public class WebExController {
 				"  <duration>"+meeting_length+"</duration>"+
 				"  <timeZoneID>"+45+"</timeZoneID>"+
 				"   <entryExitTone>NOTONE</entryExitTone>"+
+				"<openTime>20</openTime>"+
 				" </schedule>"+
+//				"<telephony>"+
+//                "<telephonySupport>NONE</telephonySupport>"+
+//                "<extTelephonyDescription>"+
+//                ""+
+//                "</extTelephonyDescription>"+
+//                "</telephony>"+
 				" <enrollment>"+
 				" <endURLAfterEnroll>www.yahoo.com</endURLAfterEnroll>"+
 				"</enrollment>"+
@@ -282,7 +289,37 @@ public class WebExController {
 		return  WebExUtil.methodPost(webexUrl, map);
 
 	}
-
+   
+	
+	public String get_Event(String sessionKey) throws UnsupportedEncodingException{
+		String XML ="<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>"+
+		"<serv:message xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">"+
+		"<header>"+
+		"  <securityContext>"+
+		"  <webExID>webex@yindatech.com</webExID>"+
+		" <password>Abc123</password>"+
+		"  <siteID>32757</siteID>"+
+		"  <partnerID>vhS2rVHylENr0TpnV1Urkg</partnerID>"+
+		"  <email>matl@yindatech.com</email>"+
+		" </securityContext>"+
+		"</header>"+
+		"<body>"+
+		"<bodyContent xsi:type=\"java:com.webex.service.binding.event.GetEvent\">"+
+		"<sessionKey>"+sessionKey+"</sessionKey>"+
+		"</bodyContent>"+
+		"</body>"+
+		"</serv:message>";
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("XML", XML);
+		
+		String response = WebExUtil.methodPost(webexUrl, map);
+		
+		String hostkey =match("<event:hostKey>","</event:hostKey>",response);
+		
+        return hostkey;
+		
+	}
 
 	public String set_Event(String user_email,String session_key) throws UnsupportedEncodingException{
 		String XML ="<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>"+
@@ -580,7 +617,7 @@ public class WebExController {
 
 	@RequestMapping(value ="create_dd_meeting.do",produces="text/plain;charset=utf-8")
 	@ResponseBody
-	public String create_dd_meeting(String meeting_name,String meeting_desc,String meeting_time,String meeting_count,String meeting_password,String meeting_length,HttpServletRequest request,HttpServletResponse response){
+	public String create_dd_meeting(String meeting_name,String meeting_desc,String meeting_time,String meeting_count,String meeting_password,String meeting_length,String user_email,HttpServletRequest request,HttpServletResponse response){
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("webex/create_dd_meeting_success");
 		/*
@@ -645,8 +682,44 @@ public class WebExController {
 			String sessionKey =match("<event:sessionKey>","</event:sessionKey>",res);
 			webex.setSessionKey(sessionKey);
 			webexMapper.insert(webex);
-
-
+			
+			
+			/*
+			 *webex免注册
+			 */
+			String res1 ="";
+			try {
+				res1=reg_Event("主持人",user_email, sessionKey);
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				
+				return "error";
+			}
+			if(res==null){
+				
+					return "error";
+			}
+		   if(!res.contains("SUCCESS")){
+			   mav.setViewName("webex/dd_meeting_apply_error");
+				return "error";
+		   }
+            
+           /**
+            * 获取主持人秘钥
+            */
+			String hostKey  = get_Event(sessionKey);
+		
+			  /*
+			    *钉钉发送消息 
+			    */
+			   
+			String meeting_url="https://yinda.webex.com.cn";
+			String staff_user_id = (String) request.getSession().getAttribute(GlobalConstant.user_staff_user_id);
+			sendMessage("您好！您刚刚申请的音达的会议;\n会议名称："+meeting_name+";\n活动号："+sessionKey+";\n密码："+meeting_password +";\n会议地址(pc地址)："+meeting_url+" ; \n "+
+			"主持人邮箱："+user_email+"\n主持人秘钥为："+hostKey+"(提前20分钟进入会议，成为主持人；如若遗忘或者丢失，请联系管理员)\n"+sdf.format(new Date()),staff_user_id );
+				 
+			
 			mav.setViewName("webex/create_dd_meeting_success");
 			return "success";
 
@@ -654,6 +727,14 @@ public class WebExController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			mav.setViewName("webex/create_dd_meeting_error");
+			return "error";
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "error";
+		} catch (OApiException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 			return "error";
 		}  
 
