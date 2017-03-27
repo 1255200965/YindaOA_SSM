@@ -48,12 +48,12 @@ public class UserInfoSalaryServiceImpl implements IUserInfoSalaryService {
         return result;
     }
 
+    /*
+    170324估计这里的代码还是让作者亲自操作靠谱
+     */
     public List<YoUserinfosalary> searchUserInfoByEntity(YoUserinfosalary user) {
         YoUserinfosalaryExample staffInfoExample = new YoUserinfosalaryExample();
         YoUserinfosalaryExample.Criteria criteria = staffInfoExample.createCriteria();
-
-
-
         if (user.getDepartment()!=null && user.getDepartment()!= ""){
             String[] temp = user.getDepartment().split(",");
             for (int i=0 ; i<temp.length; i++){
@@ -100,6 +100,7 @@ public class UserInfoSalaryServiceImpl implements IUserInfoSalaryService {
         //姓名模糊查询
 
         //改写查询部门的方法！
+        // 因为example里用的是data，所以不用改example类
         if (user.getDepartment()!=null && user.getDepartment()!= ""){
             String[] temp = user.getDepartment().split(",");
             for (int i=0 ; i<temp.length; i++){
@@ -107,15 +108,15 @@ public class UserInfoSalaryServiceImpl implements IUserInfoSalaryService {
                 if (user.getName()!=null && user.getName()!="") criteria0.andNameLike("%"+user.getName()+"%");
                 if (user.getStaffid()!=null && user.getStaffid()!= "") criteria0.andStaffidLike("%"+user.getStaffid()+"%");
                 if (user.getStartDate()!= null && user.getStartDate()!= "") criteria0.andDateGreaterThanOrEqualTo( user.getStartDate() );
-                if (user.getEndDate()!= null && user.getEndDate()!= "") criteria0.andDateLessThan(user.getEndDate() );
+                if (user.getEndDate()!= null && user.getEndDate()!= "") criteria0.andDateLessThanOrEqualTo(user.getEndDate() );
                 criteria0.andDepartmentLike(temp[i] + "%");
                 example.or(criteria0);
             }
-        } else{
+        } else {
             if (user.getName()!=null && user.getName()!="") criteria1.andNameLike("%"+user.getName()+"%");
             if (user.getStaffid()!=null && user.getStaffid()!= "") criteria1.andStaffidLike("%"+user.getStaffid()+"%");
             if (user.getStartDate()!= null && user.getStartDate()!= "") criteria1.andDateGreaterThanOrEqualTo( user.getStartDate() );
-            if (user.getEndDate()!= null && user.getEndDate()!= "") criteria1.andDateLessThan(user.getEndDate() );
+            if (user.getEndDate()!= null && user.getEndDate()!= "") criteria1.andDateLessThanOrEqualTo(user.getEndDate() );
         }
         //if (user.getDepartment()!=null) criteria1.andDepartmentLike(user.getDepartment());
 
@@ -129,7 +130,11 @@ public class UserInfoSalaryServiceImpl implements IUserInfoSalaryService {
      */
     @Override
     public int updateDailyByUserSalary(YoSalaryDaily record) {
+        // 170324，如果不这样搞，会导致数据库改了，但页面不变，极其坑爹
         record.setWhetherEffAtt(null);
+        record.setWhetherBt(null);
+        record.setWhetherOt(null);
+        record.setTimebase(null);
         int result=yoSalaryDailyMapper.updateByPrimaryKeySelective(record);
 
         // 170321我只能动在这之后的东西
@@ -138,7 +143,7 @@ public class UserInfoSalaryServiceImpl implements IUserInfoSalaryService {
         // 如果日报状态改为1了，触发改task
         if ("1".equals(journalStateNow)) {
             YoUserinfosalaryExample example1 = new YoUserinfosalaryExample();
-            example1.or().andSalaryidEqualTo(staffid).andSalarydateEqualTo("2017-02");
+            example1.or().andSalaryidEqualTo(staffid).andSalarydateEqualTo("2017-03");
             List<YoUserinfosalary> list1 = userMapper.selectByExample(example1);
             // 这里不用try了，自信有日报的人必定有工资
             YoUserinfosalary yoUserinfosalary = list1.get(0);
@@ -153,13 +158,19 @@ public class UserInfoSalaryServiceImpl implements IUserInfoSalaryService {
         return result;
     }
 
+    @Override
+    public YoSalaryDaily searchResult(int seqNo) {
+        YoSalaryDaily yoSalaryDaily = yoSalaryDailyMapper.selectByPrimaryKey(seqNo);
+        return yoSalaryDaily;
+    }
+
     /*
     170316，接收工号，返回2月份日报。日报有31条
      */
     public List<YoSalaryDaily> getJournal(String staffid) {
         // 得到2月份的例子，注意要选择日期区间
         YoSalaryDailyExample example = new YoSalaryDailyExample();
-        example.or().andStaffidEqualTo(staffid).andDateGreaterThanOrEqualTo("2017-01-21");
+        example.or().andStaffidEqualTo(staffid).andDateGreaterThanOrEqualTo("2017-02-21");
         List<YoSalaryDaily> list = yoSalaryDailyMapper.selectByExample(example);
         return list;
     }
@@ -170,7 +181,7 @@ public class UserInfoSalaryServiceImpl implements IUserInfoSalaryService {
     public List<YoSalaryDaily> getJournalOnCheck() {
         // 得到2月份的例子，注意要选择日期区间
         YoSalaryDailyExample example = new YoSalaryDailyExample();
-        example.or().andJournalStateEqualTo("1").andDateGreaterThanOrEqualTo("2017-01-21");
+        example.or().andJournalStateEqualTo("1").andDateGreaterThanOrEqualTo("2017-02-21");
 //        example.or().andJournalStateGreaterThanOrEqualTo("0").andDateGreaterThanOrEqualTo("2017-01-21");
         List<YoSalaryDaily> list = yoSalaryDailyMapper.selectByExample(example);
         return list;
@@ -219,6 +230,7 @@ public class UserInfoSalaryServiceImpl implements IUserInfoSalaryService {
      */
     private void systemCall(int seqNo) {
         String command = "python C:\\workspace\\python_oa\\salary\\change_effatt.py " + seqNo;
+//        String command = "python root/python_projects/change_effatt.py " + seqNo;
         try {
             // 定义一个进程，执行系统命令。Windows会自动调用cmd，Linux会自动调用Shell，很智能！
             Process process = Runtime.getRuntime().exec(command);
@@ -250,7 +262,7 @@ public class UserInfoSalaryServiceImpl implements IUserInfoSalaryService {
      */
     private void threeToOne(String staffid) {
         YoSalaryDailyExample example = new YoSalaryDailyExample();
-        example.or().andStaffidEqualTo(staffid).andDateGreaterThanOrEqualTo("2017-01-21");
+        example.or().andStaffidEqualTo(staffid).andDateGreaterThanOrEqualTo("2017-02-21");
         List<YoSalaryDaily> list = yoSalaryDailyMapper.selectByExample(example);
         // 170321，这一波为了节省一个变量和一个判断语句，直接在不达标时return了。当然不建议这么干
         for (int i=0; i<list.size(); i++) {
@@ -262,7 +274,7 @@ public class UserInfoSalaryServiceImpl implements IUserInfoSalaryService {
         }
         // 到这一步说明没有待审批的日报了，先得到工资实体类再update
         YoUserinfosalaryExample example1 = new YoUserinfosalaryExample();
-        example1.or().andSalaryidEqualTo(staffid).andSalarydateEqualTo("2017-02");
+        example1.or().andSalaryidEqualTo(staffid).andSalarydateEqualTo("2017-03");
         List<YoUserinfosalary> list1 = userMapper.selectByExample(example1);
         // 这里不用try了，自信有日报的人必定有工资
         YoUserinfosalary yoUserinfosalary = list1.get(0);

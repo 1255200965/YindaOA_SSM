@@ -118,7 +118,7 @@
                     } else
                     {
                         $.ajax({
-                            data: JSON.stringify(new UserModel(depddid, null, null, "2017-02","2017-01-21","2017-02-20")),
+                            data: JSON.stringify(new UserModel(depddid, null, null, "2017-03","2017-02-21","2017-03-20")),
                             type: "post",
                             headers: {'Content-Type': 'application/json'},
                             dataType: 'json',
@@ -140,7 +140,7 @@
                     }
                 }
 
-                //查询日报
+                // 查询日报
                 self.GetUserByQuery = function(staffid){
                     if (staffid == "" || staffid == null) staffid =  $("#staff_id").val();
                     if (nowDep != null){var depid = nowDep.name;} else {depid = Department;}
@@ -226,46 +226,49 @@
                 // 修改日报状态 type=0,1
                 self.UpdateRB = function(type,item){
 
-                        if (type == '1'){
-                            //无效变有效
-                            item.salaryState = type;
-                            item.journalState = '2';
-                            item.whetherEffAtt = '1';
-                        } else if (type == '0'){
-                            //有效变无效
-                            item.salaryState = type;
-                            item.journalState = '3';
-                            item.whetherEffAtt = '0';
-                        } else {
-                            //项目经理提交了申请
-                            item.journalState = '1';
-                        }
-                        $.ajax({
-                            data: JSON.stringify(item),
-                            type: "post",
-                            headers: {'Content-Type': 'application/json'},
-                            dataType: 'json',
-                            async:'false',
-                            url: "../userinfosalary/RBupdate.do",
-                            error: function (data) {
-                                alert("出错了！！:" + data.msg);
+                    if (type == '1'){
+                        //无效变有效
+                        //item.salaryState = type;
+                        item.journalState = '2';
+                        item.whetherEffAtt = '1';
+                    } else if (type == '0'){
+                        //有效变无效
+                        //item.salaryState = type;
+                        item.journalState = '3';
+                        item.whetherEffAtt = '0';
+                    } else {
+                        //项目经理提交了申请
+                        item.journalState = '1';
+                    }
+                    $.ajax({
+                        data: JSON.stringify(item),
+                        type: "post",
+                        headers: {'Content-Type': 'application/json'},
+                        dataType: 'json',
+                        async:'false',
+                        url: "../userinfosalary/RBupdate.do",
+                        error: function (data) {
+//                                alert("出错了！！:" + data.msg);
 
-                            },
-                            success: function (data) {
+                        },
+                        success: function (data) {
 //                                alert("提交结果:"+data.msg);
-                                if (data.ok == "ok") {
-                                    // 这个循环也是写得碉堡了
-                                    for (var i = 0; i < self.ShowList().length; i++) {
-                                        if (self.ShowList()[i].seqNo == item.seqNo) {
-                                            self.ShowList.splice(i, 1);
-                                            self.ShowList.splice(i, 0, item);
-                                            break;
-                                        }
+                            if (data.ok == "ok") {
+                                item.whetherEffBt = data.whetherEffBt;
+                                item.whetherEffOt = data.whetherEffOt;
+                                item.timebase = data.timebase;
+                                // 这个循环也是写得碉堡了
+                                for (var i = 0; i < self.ShowList().length; i++) {
+                                    if (self.ShowList()[i].seqNo == item.seqNo) {
+                                        self.ShowList.splice(i, 1);
+                                        self.ShowList.splice(i, 0, item);
+                                        break;
                                     }
                                 }
-
                             }
-                        });
+
+                        }
+                    });
 
                 }
                 //======================================================
@@ -280,8 +283,8 @@
                         $("#noModal").click();
                     } else {
 
-                    //如果是部门经理,管理员，直接修改状态
-                    self.UpdateRB(1, item);
+                        //如果是部门经理,管理员，直接修改状态
+                        self.UpdateRB(1, item);
                     }
                 }
                 // 点击事件-点击设为无效考勤
@@ -478,115 +481,116 @@
 
 </head>
 <body>
-    <div class="row-fluid c_box" style="">
-        <h3>日报查询</h3>
-        <div class="col-md-2 c_left_box" >
-            <div style="margin-top:3%"></div>
-            <div id="tree" style="overflow:auto;height:800px;"></div>
-        </div>
+<div class="row-fluid c_box" style="">
+    <h3>日报查询</h3>
+    <div class="col-md-2 c_left_box" >
+        <div style="margin-top:3%"></div>
+        <div id="tree" style="overflow:auto;height:800px;"></div>
+    </div>
 
-        <div class="col-md-10 c_right_box" style="overflow:scroll" >
-            <div class="caidan-tiku" style="margin-bottom:5%">
-                <div class="caidan-tiku-s" style="margin-right:5%;margin-left: 3%"> <span>姓名：</span>
-                    <input id="search_name" type="text" name="name" class="shuruk-a2" placeholder="">
-                </div>
-                <div class="caidan-tiku-s" style="margin-right:5%"> <span>工号：</span>
-                    <input id="staff_id" type="text" name="id" class="shuruk-a2" placeholder="">
-                </div>
-                <div class="caidan-tiku-s" style="margin-right:5%"> <span>时间：</span>
-                    <input id="startdate" type="text" name="yoAskBeginDate" class="laydate-icon shuruk-a2 form_date" placeholder="" value="2017-01-21">
-                    <input id="enddate" type="text" name="yoAskEndDate" class="shuruk-a2 form_date" placeholder=""  value="2017-02-20">
-                </div>
-                <div style="float:right;margin-right:5%;padding-bottom:0px;" >
-                    <button  type="button"   class="btn btn_primary" data-bind="click:$root.ClickSearch">查询</button>
-                </div>
+    <div class="col-md-10 c_right_box" style="overflow:scroll" >
+        <div class="caidan-tiku" style="margin-bottom:5%">
+            <div class="caidan-tiku-s" style="margin-right:5%;margin-left: 3%"> <span>姓名：</span>
+                <input id="search_name" type="text" name="name" class="shuruk-a2" placeholder="">
             </div>
-            <%--静态表单--%>
-            <table  width="100%" border="1" cellspacing="0" cellpadding="0" class="table-1 daily">
-                <thead class="table-1-tou">
-                    <th style="width: 5%">日报编号</th>
-                    <th style="width: 5%">工号</th>
-                    <th style="width: 5%">姓名</th>
-                    <th style="width: 5%">日期</th>
-                    <th style="width: 5%">日期类型</th>
-                    <th style="width: 8%">订单</th>
-                    <th style="width: 5%">商务属性</th>
-                    <th style="width: 5%">订单地市</th>
-                    <th style="width: 5%">请假类型</th>
-                    <th style="width: 5%">出勤状态</th>
-                    <th style="width: 5%">出勤地市</th>
-                    <th style="width: 5%">是否有效加班</th>
-                    <th style="width: 5%">是否有效出差</th>
-                    <th style="width: 10%">操作</th>
-                </thead>
-                <tbody data-bind="foreach:ShowList" >
-                    <tr data-bind="style: { backgroundColor: journalState > 0 ? (journalState > 1  ? (journalState > 2 ? 'red' : '#66CCFF' ) : 'yellow') : 'white' }">
-                    <td data-bind="text:seqNo">${entity.seqNo}</td>
-                    <td data-bind="text:staffid">${entity.staffid}</td>
-                    <td data-bind="text:name">${entity.name}</td>
-                    <td data-bind="text:date">${entity.date}</td>
-                    <td data-bind="text:dateType">${entity.dateType}</td>
-                    <td data-bind="text:orderName">${entity.orderName}</td>
-                    <td data-bind="text:businessAttribute">${entity.businessAttribute}</td>
-                    <td data-bind="text:orderProcity">${entity.orderProcity}</td>
-                    <td data-bind="text:askLeaveType">${entity.askLeaveType}</td>
-                    <td data-bind="text:whetherEffAtt">${entity.whetherEffAtt}</td>
-                    <td data-bind="text:attProcity">${entity.attProcity}</td>
-                    <td data-bind="text:whetherEffOt">${entity.whetherEffOt}</td>
-                    <td data-bind="text:whetherEffBt">${entity.whetherEffBt}</td>
-                    <td>
-                        <%--辣鸡--%>
-                            <button type="button"  data-bind="click:$root.ClickTrue, clickBubble: false,visible:journalState != '1' && whetherEffAtt == '0' && (salaryState =='0' && role == '项目经理' ||  (salaryState <'2' && role != '项目经理') ) ? 1 : 0 ,style: { color:'green'  ,fontWeight:'bold'}">设为有效出勤</button>
-                            <button type="button"  data-bind="click:$root.ClickFalse, clickBubble: false,visible:journalState != '1' && whetherEffAtt != '0' && (salaryState =='0' && role == '项目经理' ||  (salaryState <'2' && role != '项目经理') )? 1 : 0 ,style: { color:'red'  ,fontWeight:'bold'}">设为无效出勤</button>
-                            <button type="button"  data-bind="click:$root.ClickWatch, clickBubble: false ,visible:journalState == '1'">查看申请原因</button>
+            <div class="caidan-tiku-s" style="margin-right:5%"> <span>工号：</span>
+                <input id="staff_id" type="text" name="id" class="shuruk-a2" placeholder="">
+            </div>
+            <div class="caidan-tiku-s" style="margin-right:5%"> <span>时间：</span>
+                <input id="startdate" type="text" name="yoAskBeginDate" class="laydate-icon shuruk-a2 form_date" placeholder="" value="2017-02-21">
+                <input id="enddate" type="text" name="yoAskEndDate" class="shuruk-a2 form_date" placeholder=""  value="2017-03-20">
+            </div>
+            <div style="float:right;margin-right:5%;padding-bottom:0px;" >
+                <button  type="button"   class="btn btn_primary" data-bind="click:$root.ClickSearch">查询</button>
+            </div>
+        </div>
+        <%--静态表单--%>
+        <table  width="100%" border="1" cellspacing="0" cellpadding="0" class="table-1 daily">
+            <thead class="table-1-tou">
+            <th style="width: 4%">工号</th>
+            <th style="width: 5%">姓名</th>
+            <th style="width: 6%">日期</th>
+            <th style="width: 5%">日期类型</th>
+            <th style="width: 5%">订单所属项目</th>
+            <th style="width: 10%">订单名</th>
+            <th style="width: 5%">商务属性</th>
+            <th style="width: 7%">订单地市</th>
+            <th style="width: 5%">当日在职状态</th>
+            <th style="width: 5%">请假类型</th>
+            <th style="width: 4%">出勤状态</th>
+            <th style="width: 5%">出勤地市</th>
+            <th style="width: 3%">是否有效出差</th>
+            <th style="width: 3%">是否有效加班</th>
+            <th style="width: 3%">是否发timebase奖金</th>
+            <th style="width: 7%">操作</th>
+            </thead>
+            <tbody data-bind="foreach:ShowList" >
+            <tr data-bind="style: { backgroundColor: journalState > 0 ? (journalState > 1  ? (journalState > 2 ? 'red' : '#66CCFF' ) : 'yellow') : 'white' }">
+                <td data-bind="text:staffid">${entity.staffid}</td>
+                <td data-bind="text:name">${entity.name}</td>
+                <td data-bind="text:date">${entity.date}</td>
+                <td data-bind="text:dateType">${entity.dateType}</td>
+                <td data-bind="text:project">${entity.project}</td>
+                <td data-bind="text:orderName">${entity.orderName}</td>
+                <td data-bind="text:businessAttribute">${entity.businessAttribute}</td>
+                <td data-bind="text:orderProcity">${entity.orderProcity}</td>
+                <td data-bind="text:workStateCurrent">${entity.workStateCurrent}</td>
+                <td data-bind="text:askLeaveType">${entity.askLeaveType}</td>
+                <td data-bind="text:whetherEffAtt">${entity.whetherEffAtt}</td>
+                <td data-bind="text:attProcity">${entity.attProcity}</td>
+                <td data-bind="text:whetherEffBt">${entity.whetherEffBt}</td>
+                <td data-bind="text:whetherEffOt">${entity.whetherEffOt}</td>
+                <td data-bind="text:timebase">${entity.timebase}</td>
+                <td>
+                    <%--辣鸡--%>
+                    <button type="button"  data-bind="click:$root.ClickTrue, clickBubble: false,visible:journalState != '1' && whetherEffAtt == '0' && (salaryState =='0' && role == '项目经理' ||  (salaryState <'2' && role != '项目经理') ) ? 1 : 0 ,style: { color:'green'  ,fontWeight:'bold'}">设为有效出勤</button>
+                    <button type="button"  data-bind="click:$root.ClickFalse, clickBubble: false,visible:journalState != '1' && whetherEffAtt != '0' && (salaryState =='0' && role == '项目经理' ||  (salaryState <'2' && role != '项目经理') )? 1 : 0 ,style: { color:'red'  ,fontWeight:'bold'}">设为无效出勤</button>
+                    <button type="button"  data-bind="click:$root.ClickWatch, clickBubble: false ,visible:journalState == '1'">查看申请原因</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
 
+        <button type="button" style="display: none" data-toggle="modal" data-target="#myModal0" id="noModal">查看申请原因</button>
+        <%--170318这个模态框虽然看起来很鱼，但出于效率的考虑，先用这个了--%>
+        <div class="container">
+            <!-- Modal -->
+            <%--这个加Id的方法绝对高端--%>
+            <div class="modal fade" id="myModal0" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false">
+                <div class="modal-dialog c_side_modal_box"  role="document" style="margin: 0px;">
+                    <div class="modal-content c_side_modal">
+                        <div class="modal-header c_modal_head">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel1">用户信息详情</h4>
+                        </div>
+                        <div class="modal-body c_modal_body">
+                            <div data-bind="with:changeItem">
+                                <div class="c_ding_form" >
+                                    <div class="c_ding_form_group" >
+                                        <label><i class="iconfont c_ding_from_icon" >*</i><span >申请原因：</span></label>
+                                        <div class="input_content">
 
-                    </td>
+                                            <input type="text"  data-bind="textinput:effectReason"   style="width: 300px; height: 200px">
 
-                </tr>
-                </tbody>
-            </table>
-
-            <button type="button" style="display: none" data-toggle="modal" data-target="#myModal0" id="noModal">查看申请原因</button>
-            <%--170318这个模态框虽然看起来很鱼，但出于效率的考虑，先用这个了--%>
-            <div class="container">
-                <!-- Modal -->
-                <%--这个加Id的方法绝对高端--%>
-                <div class="modal fade" id="myModal0" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false">
-                    <div class="modal-dialog c_side_modal_box"  role="document" style="margin: 0px;">
-                        <div class="modal-content c_side_modal">
-                            <div class="modal-header c_modal_head">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel1">用户信息详情</h4>
-                            </div>
-                            <div class="modal-body c_modal_body">
-                                <div data-bind="with:changeItem">
-                                    <div class="c_ding_form" >
-                                        <div class="c_ding_form_group" >
-                                            <label><i class="iconfont c_ding_from_icon" >*</i><span >申请原因：</span></label>
-                                            <div class="input_content">
-
-                                                <input type="text"  data-bind="textinput:effectReason"   style="width: 300px; height: 200px">
-
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="modal-footer c_modal_foot">
-                                <button id="close1" type="button" class="c_ding_btn" data-dismiss="modal">Close</button>
-                                <button type="submit" class="c_ding_btn c_ding_btn_primary" data-bind="click:$root.ClickModelYes,visible: $root.rootid() == '1'  ? 0 : 1">提交</button>
-                            </div>
+                        </div>
+                        <div class="modal-footer c_modal_foot">
+                            <button id="close1" type="button" class="c_ding_btn" data-dismiss="modal">Close</button>
+                            <button type="submit" class="c_ding_btn c_ding_btn_primary" data-bind="click:$root.ClickModelYes,visible: $root.rootid() == '1'  ? 0 : 1">提交</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <p class="p-middle">
-        <a href="javascript:history.go(-1)"><button class="btn-submit">返回上一页</button></a>
-    </p>
+<p class="p-middle">
+    <a href="javascript:history.go(-1)"><button class="btn-submit">返回上一页</button></a>
+</p>
 
 </body>
 </html>
@@ -609,33 +613,33 @@
     var operatorState = "${operatorState}";
 
     <c:forEach var="entity" items="${journal}" varStatus="sequence">
-        // 定义日报状态。注意一定要加引号，不然就雪崩了
-        var journalState = "${entity.journalState}";
-        // 定义是否有效出勤
-        var whetherEffAtt = "${entity.whetherEffAtt}";
-        // 定义序号
-        var seq = "${sequence.index}";
+    // 定义日报状态。注意一定要加引号，不然就雪崩了
+    var journalState = "${entity.journalState}";
+    // 定义是否有效出勤
+    var whetherEffAtt = "${entity.whetherEffAtt}";
+    // 定义序号
+    var seq = "${sequence.index}";
 
-        // 第1步，从日报状态判断该显示哪些按钮
-        // 如果是待审批状态，那就只能看到查看按钮
-        if (journalState == "1") {
+    // 第1步，从日报状态判断该显示哪些按钮
+    // 如果是待审批状态，那就只能看到查看按钮
+    if (journalState == "1") {
+        $("#btn1_"+seq).hide();
+        $("#btn2_"+seq).hide();
+        $("#btn3_"+seq).show();
+    }
+    // 其他的状态，有效只能改无效，无效只能改有效
+    else {
+        if (whetherEffAtt == "1") {
             $("#btn1_"+seq).hide();
+            $("#btn2_"+seq).show();
+            $("#btn3_"+seq).hide();
+        }
+        else if (whetherEffAtt == "0") {
+            $("#btn1_"+seq).show();
             $("#btn2_"+seq).hide();
-            $("#btn3_"+seq).show();
+            $("#btn3_"+seq).hide();
         }
-        // 其他的状态，有效只能改无效，无效只能改有效
-        else {
-            if (whetherEffAtt == "1") {
-                $("#btn1_"+seq).hide();
-                $("#btn2_"+seq).show();
-                $("#btn3_"+seq).hide();
-            }
-            else if (whetherEffAtt == "0") {
-                $("#btn1_"+seq).show();
-                $("#btn2_"+seq).hide();
-                $("#btn3_"+seq).hide();
-            }
-        }
+    }
     </c:forEach>
 
     // 第2步，由工资状态看权限，决定隐藏哪些按钮

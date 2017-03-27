@@ -78,8 +78,8 @@ public class SearchSalaryController {
             YoSalaryDaily temp = new YoSalaryDaily();
             temp.setStaffid(totalSum.getSalaryid());
             List<YoSalaryDaily> list1 = userInfoService.selectDailyByExample(temp);
-            //String starttime = totalSum.getSalarydate() + "-21";
-            String starttime ="2017-01-21";
+            String starttime = totalSum.getSalarydate() + "-21";
+//            String starttime ="2017-02-21";
             for (int i=0;i<list1.size();i++){
                 YoSalaryDaily yo = list1.get(i);
                 if (yo.getDate().compareTo(starttime) < 0) continue;
@@ -188,12 +188,19 @@ public class SearchSalaryController {
     public @ResponseBody Map<String,Object> RBupdate(@RequestBody YoSalaryDaily yoSalaryDaily) throws IOException {
         Map<String,Object> map = new HashMap<String,Object>();
         int result = userInfoService.updateDailyByUserSalary(yoSalaryDaily);
+        int seqNo = yoSalaryDaily.getSeqNo();
+        YoSalaryDaily yoSalaryDaily1 = userInfoService.searchResult(seqNo);
+
         if(result != 0){
+            map.put("whetherEffBt", yoSalaryDaily1.getWhetherEffBt());
+            map.put("whetherEffOt", yoSalaryDaily1.getWhetherEffOt());
+            map.put("timebase", yoSalaryDaily1.getTimebase());
             map.put("msg", "更新成功");
             map.put("ok", "ok");
         }else{
             map.put("msg", "更新失败");
         }
+
         return map;
     }
 

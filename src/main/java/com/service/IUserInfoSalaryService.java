@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * Created by ma on 2016/11/14.
- * 170316刘立人，不管你们信不信，马天立搞的这个服务接口制度，绝对是SB设计！
+ * 170316刘立人，这个服务接口制度实在是用着麻烦啊！
  */
 public interface IUserInfoSalaryService {
 
@@ -33,6 +33,9 @@ public interface IUserInfoSalaryService {
     List<YoUserinfosalary> search_Jan_salary(String userid,String salarydate);
     List<YoSalaryDaily> selectDailyByExample(YoSalaryDaily example);
     int updateDailyByUserSalary(YoSalaryDaily record);
+
+    // 根据主键查找实体类
+    YoSalaryDaily searchResult(int seqNo);
 
     // 得到员工日报
     List<YoSalaryDaily> getJournal(String staffid);

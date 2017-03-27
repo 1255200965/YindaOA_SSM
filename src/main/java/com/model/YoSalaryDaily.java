@@ -15,9 +15,9 @@ public class YoSalaryDaily {
 
     private String whetherBtAllowance;
 
-    private String baseSalary;
-
     private String date;
+
+    private String workStateCurrent;
 
     private String dateType;
 
@@ -39,13 +39,11 @@ public class YoSalaryDaily {
 
     private String whetherAtt;
 
-    private String attProcity;
-
     private String attType;
 
     private String whetherSign;
 
-    private String signProcity;
+    private String attProcity;
 
     private String askLeaveType;
 
@@ -149,20 +147,20 @@ public class YoSalaryDaily {
         this.whetherBtAllowance = whetherBtAllowance;
     }
 
-    public String getBaseSalary() {
-        return baseSalary;
-    }
-
-    public void setBaseSalary(String baseSalary) {
-        this.baseSalary = baseSalary;
-    }
-
     public String getDate() {
         return date;
     }
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getWorkStateCurrent() {
+        return workStateCurrent;
+    }
+
+    public void setWorkStateCurrent(String workStateCurrent) {
+        this.workStateCurrent = workStateCurrent;
     }
 
     public String getDateType() {
@@ -245,14 +243,6 @@ public class YoSalaryDaily {
         this.whetherAtt = whetherAtt;
     }
 
-    public String getAttProcity() {
-        return attProcity;
-    }
-
-    public void setAttProcity(String attProcity) {
-        this.attProcity = attProcity;
-    }
-
     public String getAttType() {
         return attType;
     }
@@ -269,12 +259,12 @@ public class YoSalaryDaily {
         this.whetherSign = whetherSign;
     }
 
-    public String getSignProcity() {
-        return signProcity;
+    public String getAttProcity() {
+        return attProcity;
     }
 
-    public void setSignProcity(String signProcity) {
-        this.signProcity = signProcity;
+    public void setAttProcity(String attProcity) {
+        this.attProcity = attProcity;
     }
 
     public String getAskLeaveType() {

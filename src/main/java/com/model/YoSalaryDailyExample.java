@@ -584,76 +584,6 @@ public class YoSalaryDailyExample {
             return (Criteria) this;
         }
 
-        public Criteria andBaseSalaryIsNull() {
-            addCriterion("base_salary is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseSalaryIsNotNull() {
-            addCriterion("base_salary is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseSalaryEqualTo(String value) {
-            addCriterion("base_salary =", value, "baseSalary");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseSalaryNotEqualTo(String value) {
-            addCriterion("base_salary <>", value, "baseSalary");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseSalaryGreaterThan(String value) {
-            addCriterion("base_salary >", value, "baseSalary");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseSalaryGreaterThanOrEqualTo(String value) {
-            addCriterion("base_salary >=", value, "baseSalary");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseSalaryLessThan(String value) {
-            addCriterion("base_salary <", value, "baseSalary");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseSalaryLessThanOrEqualTo(String value) {
-            addCriterion("base_salary <=", value, "baseSalary");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseSalaryLike(String value) {
-            addCriterion("base_salary like", value, "baseSalary");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseSalaryNotLike(String value) {
-            addCriterion("base_salary not like", value, "baseSalary");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseSalaryIn(List<String> values) {
-            addCriterion("base_salary in", values, "baseSalary");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseSalaryNotIn(List<String> values) {
-            addCriterion("base_salary not in", values, "baseSalary");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseSalaryBetween(String value1, String value2) {
-            addCriterion("base_salary between", value1, value2, "baseSalary");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseSalaryNotBetween(String value1, String value2) {
-            addCriterion("base_salary not between", value1, value2, "baseSalary");
-            return (Criteria) this;
-        }
-
         public Criteria andDateIsNull() {
             addCriterion("date is null");
             return (Criteria) this;
@@ -721,6 +651,76 @@ public class YoSalaryDailyExample {
 
         public Criteria andDateNotBetween(String value1, String value2) {
             addCriterion("date not between", value1, value2, "date");
+            return (Criteria) this;
+        }
+
+        public Criteria andWorkStateCurrentIsNull() {
+            addCriterion("work_state_current is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWorkStateCurrentIsNotNull() {
+            addCriterion("work_state_current is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWorkStateCurrentEqualTo(String value) {
+            addCriterion("work_state_current =", value, "workStateCurrent");
+            return (Criteria) this;
+        }
+
+        public Criteria andWorkStateCurrentNotEqualTo(String value) {
+            addCriterion("work_state_current <>", value, "workStateCurrent");
+            return (Criteria) this;
+        }
+
+        public Criteria andWorkStateCurrentGreaterThan(String value) {
+            addCriterion("work_state_current >", value, "workStateCurrent");
+            return (Criteria) this;
+        }
+
+        public Criteria andWorkStateCurrentGreaterThanOrEqualTo(String value) {
+            addCriterion("work_state_current >=", value, "workStateCurrent");
+            return (Criteria) this;
+        }
+
+        public Criteria andWorkStateCurrentLessThan(String value) {
+            addCriterion("work_state_current <", value, "workStateCurrent");
+            return (Criteria) this;
+        }
+
+        public Criteria andWorkStateCurrentLessThanOrEqualTo(String value) {
+            addCriterion("work_state_current <=", value, "workStateCurrent");
+            return (Criteria) this;
+        }
+
+        public Criteria andWorkStateCurrentLike(String value) {
+            addCriterion("work_state_current like", value, "workStateCurrent");
+            return (Criteria) this;
+        }
+
+        public Criteria andWorkStateCurrentNotLike(String value) {
+            addCriterion("work_state_current not like", value, "workStateCurrent");
+            return (Criteria) this;
+        }
+
+        public Criteria andWorkStateCurrentIn(List<String> values) {
+            addCriterion("work_state_current in", values, "workStateCurrent");
+            return (Criteria) this;
+        }
+
+        public Criteria andWorkStateCurrentNotIn(List<String> values) {
+            addCriterion("work_state_current not in", values, "workStateCurrent");
+            return (Criteria) this;
+        }
+
+        public Criteria andWorkStateCurrentBetween(String value1, String value2) {
+            addCriterion("work_state_current between", value1, value2, "workStateCurrent");
+            return (Criteria) this;
+        }
+
+        public Criteria andWorkStateCurrentNotBetween(String value1, String value2) {
+            addCriterion("work_state_current not between", value1, value2, "workStateCurrent");
             return (Criteria) this;
         }
 
@@ -1424,76 +1424,6 @@ public class YoSalaryDailyExample {
             return (Criteria) this;
         }
 
-        public Criteria andAttProcityIsNull() {
-            addCriterion("att_procity is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttProcityIsNotNull() {
-            addCriterion("att_procity is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttProcityEqualTo(String value) {
-            addCriterion("att_procity =", value, "attProcity");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttProcityNotEqualTo(String value) {
-            addCriterion("att_procity <>", value, "attProcity");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttProcityGreaterThan(String value) {
-            addCriterion("att_procity >", value, "attProcity");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttProcityGreaterThanOrEqualTo(String value) {
-            addCriterion("att_procity >=", value, "attProcity");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttProcityLessThan(String value) {
-            addCriterion("att_procity <", value, "attProcity");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttProcityLessThanOrEqualTo(String value) {
-            addCriterion("att_procity <=", value, "attProcity");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttProcityLike(String value) {
-            addCriterion("att_procity like", value, "attProcity");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttProcityNotLike(String value) {
-            addCriterion("att_procity not like", value, "attProcity");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttProcityIn(List<String> values) {
-            addCriterion("att_procity in", values, "attProcity");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttProcityNotIn(List<String> values) {
-            addCriterion("att_procity not in", values, "attProcity");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttProcityBetween(String value1, String value2) {
-            addCriterion("att_procity between", value1, value2, "attProcity");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttProcityNotBetween(String value1, String value2) {
-            addCriterion("att_procity not between", value1, value2, "attProcity");
-            return (Criteria) this;
-        }
-
         public Criteria andAttTypeIsNull() {
             addCriterion("att_type is null");
             return (Criteria) this;
@@ -1634,73 +1564,73 @@ public class YoSalaryDailyExample {
             return (Criteria) this;
         }
 
-        public Criteria andSignProcityIsNull() {
-            addCriterion("sign_procity is null");
+        public Criteria andAttProcityIsNull() {
+            addCriterion("att_procity is null");
             return (Criteria) this;
         }
 
-        public Criteria andSignProcityIsNotNull() {
-            addCriterion("sign_procity is not null");
+        public Criteria andAttProcityIsNotNull() {
+            addCriterion("att_procity is not null");
             return (Criteria) this;
         }
 
-        public Criteria andSignProcityEqualTo(String value) {
-            addCriterion("sign_procity =", value, "signProcity");
+        public Criteria andAttProcityEqualTo(String value) {
+            addCriterion("att_procity =", value, "attProcity");
             return (Criteria) this;
         }
 
-        public Criteria andSignProcityNotEqualTo(String value) {
-            addCriterion("sign_procity <>", value, "signProcity");
+        public Criteria andAttProcityNotEqualTo(String value) {
+            addCriterion("att_procity <>", value, "attProcity");
             return (Criteria) this;
         }
 
-        public Criteria andSignProcityGreaterThan(String value) {
-            addCriterion("sign_procity >", value, "signProcity");
+        public Criteria andAttProcityGreaterThan(String value) {
+            addCriterion("att_procity >", value, "attProcity");
             return (Criteria) this;
         }
 
-        public Criteria andSignProcityGreaterThanOrEqualTo(String value) {
-            addCriterion("sign_procity >=", value, "signProcity");
+        public Criteria andAttProcityGreaterThanOrEqualTo(String value) {
+            addCriterion("att_procity >=", value, "attProcity");
             return (Criteria) this;
         }
 
-        public Criteria andSignProcityLessThan(String value) {
-            addCriterion("sign_procity <", value, "signProcity");
+        public Criteria andAttProcityLessThan(String value) {
+            addCriterion("att_procity <", value, "attProcity");
             return (Criteria) this;
         }
 
-        public Criteria andSignProcityLessThanOrEqualTo(String value) {
-            addCriterion("sign_procity <=", value, "signProcity");
+        public Criteria andAttProcityLessThanOrEqualTo(String value) {
+            addCriterion("att_procity <=", value, "attProcity");
             return (Criteria) this;
         }
 
-        public Criteria andSignProcityLike(String value) {
-            addCriterion("sign_procity like", value, "signProcity");
+        public Criteria andAttProcityLike(String value) {
+            addCriterion("att_procity like", value, "attProcity");
             return (Criteria) this;
         }
 
-        public Criteria andSignProcityNotLike(String value) {
-            addCriterion("sign_procity not like", value, "signProcity");
+        public Criteria andAttProcityNotLike(String value) {
+            addCriterion("att_procity not like", value, "attProcity");
             return (Criteria) this;
         }
 
-        public Criteria andSignProcityIn(List<String> values) {
-            addCriterion("sign_procity in", values, "signProcity");
+        public Criteria andAttProcityIn(List<String> values) {
+            addCriterion("att_procity in", values, "attProcity");
             return (Criteria) this;
         }
 
-        public Criteria andSignProcityNotIn(List<String> values) {
-            addCriterion("sign_procity not in", values, "signProcity");
+        public Criteria andAttProcityNotIn(List<String> values) {
+            addCriterion("att_procity not in", values, "attProcity");
             return (Criteria) this;
         }
 
-        public Criteria andSignProcityBetween(String value1, String value2) {
-            addCriterion("sign_procity between", value1, value2, "signProcity");
+        public Criteria andAttProcityBetween(String value1, String value2) {
+            addCriterion("att_procity between", value1, value2, "attProcity");
             return (Criteria) this;
         }
 
-        public Criteria andSignProcityNotBetween(String value1, String value2) {
-            addCriterion("sign_procity not between", value1, value2, "signProcity");
+        public Criteria andAttProcityNotBetween(String value1, String value2) {
+            addCriterion("att_procity not between", value1, value2, "attProcity");
             return (Criteria) this;
         }
 
