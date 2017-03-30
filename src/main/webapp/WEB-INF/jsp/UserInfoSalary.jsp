@@ -120,7 +120,7 @@
                     } else
                     {
                         $.ajax({
-                            data: JSON.stringify(new UserModel(depddid, null, null, "2017-02")),
+                            data: JSON.stringify(new UserModel(depddid, null, null, "2017-03")),
                             type: "post",
                             headers: {'Content-Type': 'application/json'},
                             dataType: 'json',
@@ -157,7 +157,7 @@
                         return ;
                     } else  {
                         $.ajax({
-                            data: JSON.stringify(new UserModel(depid, $("#search_name").val(), $('#search_salaryid').val(), "2017-02")),
+                            data: JSON.stringify(new UserModel(depid, $("#search_name").val(), $('#search_salaryid').val(), "2017-03")),
                             type: "post",
                             async: false,
                             headers: {'Content-Type': 'application/json'},
@@ -422,7 +422,7 @@
                 <input id="search_salaryid" type="text" name="salaryid" class="shuruk-a2" placeholder="">
             </div>
           <div class="caidan-tiku-s" style="margin-right:5%"> <span>当前月份：</span>
-              <span id="nowamonth"  > 2017-02 </span>
+              <span id="nowamonth"  > 2017-03 </span>
             </div>
 <%--            <div class="caidan-tiku-s" style="margin-right:5%"> <span>日期：</span>
                 <input id="search_salarydate" type="text" name="salarydate" class="shuruk-a2" placeholder="">

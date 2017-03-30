@@ -112,19 +112,19 @@ public class ExcelSocialSecurityInfoServiceImpl implements IExcelSocialSecurityI
             yoSocialSecurityInfoExample.createCriteria().andSsiStaffIdEqualTo(staffId);
             List<YoSocialSecurityInfo> listSocialSecurityInfo = yoSocialSecurityInfoMapper.selectByExample(yoSocialSecurityInfoExample);
 
-            if (listSocialSecurityInfo.size() > 0) {
-                continue;
-            }
+//            if (listSocialSecurityInfo.size() > 0) {
+//                continue;
+//            }
 
             // 第6步，如果是一条新信息，就插入新数据
-            else {
+//            else {
                 try {
                     yoSocialSecurityInfoMapper.insert(yoSocialSecurityInfo);
                 } catch (Exception e) {
                     listFail.add(yoSocialSecurityInfo);
                     continue;
                 }
-            }
+//            }
 
             // 到了这一步，说明插入或更新成功，数目自加！
             successAmount++;
