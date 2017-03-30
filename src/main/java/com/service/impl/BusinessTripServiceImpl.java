@@ -30,16 +30,19 @@ public class BusinessTripServiceImpl implements IBusinessTripService{
 	private BusinessTripMapper businessTripMapper;
 	@Autowired
 	private StaffInfoMapper staffInfoMapper;
-    @Override
+	
+   /* @Override
     public List<BusinessTrip> selectByPropertities(BusinessTrip businessTrip){
-    	//return businessTripMapper.selectByPropertities(businessTrip);
-		return null;
-    }
+    	return businessTripMapper.selectByPropertities(businessTrip);
+    }*/
     @Override
     public List<BusinessTrip> selectByStaffId(String staffId){
     	BusinessTripExample example=new BusinessTripExample();
     	BusinessTripExample.Criteria criteria = example.createCriteria();
     	criteria.andBtAskStaffIdEqualTo(staffId);
+    	criteria.andBtStatusIsNull();
+    	criteria.andBtApproveStateEqualTo("已同意");
+    	criteria.andBtVehicleLike("%火车%");
     	return businessTripMapper.selectByExample(example);
     }
     @Override
@@ -108,7 +111,7 @@ public class BusinessTripServiceImpl implements IBusinessTripService{
         			businessTrip.setBtAskStaffUserId(row.getCell(j++).getStringCellValue().toString());
         		}
         			//用户工号
-        			/*System.out.println(row.getCell(j).getStringCellValue().toString());*/
+        			System.out.println(row.getCell(j).getStringCellValue().toString()+"==="+staffInfoMapper.selectByPrimaryKey(businessTrip.getBtAskStaffUserId()).getStaffId());
         			businessTrip.setBtAskStaffId(staffInfoMapper.selectByPrimaryKey(businessTrip.getBtAskStaffUserId()).getStaffId());
         	
         		//申请人名称
@@ -212,4 +215,5 @@ public class BusinessTripServiceImpl implements IBusinessTripService{
     	}
     	return false;
     }
+   
 }

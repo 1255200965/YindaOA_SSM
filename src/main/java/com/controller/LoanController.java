@@ -104,7 +104,7 @@ public class LoanController {
 				//更行预付款信息
 			advanceService.updateLoanStatus(advance);
 				//根据预付款记录生成对应的冲借款信息--置冲借款审批结果为待审批
-			YoLoan loan = loanService.construct(advance,approveInvoice,approveRepayment,imageUrl);
+			YoLoan loan = loanService.construct(advance,approveRepayment,approveInvoice,imageUrl);
 			loan.setImageUrl(imageUrl);
 				//如果是驳回重新提交的数据--此处缺少一个删除原先图片的方法
 			if("驳回".equals(loanStatus)){
@@ -215,8 +215,6 @@ public class LoanController {
 	/**
 	 * 财务审核操作
 	 * @param approveNo
-	 * @param operationStatus
-	 * @param operationReason
 	 * @return
 	 */
 	@RequestMapping("/approve.do")
