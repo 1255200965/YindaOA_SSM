@@ -27,7 +27,7 @@ public interface WebexMapper {
     int updateByPrimaryKey(Webex record);
     
     
-    @Select(value = { "SELECT meeting_name from (select *, webex.meeting_time as sart ,date_add(webex.meeting_time, interval webex.meeting_length minute) as e from webex )as t  where sart >= '${meeting_time}' and '${meeting_time}' <= t.e" })
+    @Select(value = { "SELECT meeting_name from (select *, webex.meeting_time as sart ,date_add(webex.meeting_time, interval webex.meeting_length minute) as e from webex )as t  where '${meeting_time}' >= sart  and '${meeting_time}' <= t.e" })
     @ResultType(value=String.class)
     //@Select(value = { "SELECT * from (select * from webex )as w, (select webex.meeting_time as sart ,date_add(webex.meeting_time, interval webex.meeting_length minute) as e from webex )as t where  t.sart <= '${meeting_time}'  and t.e >=  '${meeting_time}' " })
     List<String> select_by_time (@Param("meeting_time")String meeting_time);
