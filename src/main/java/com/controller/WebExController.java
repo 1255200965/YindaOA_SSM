@@ -717,7 +717,7 @@ public class WebExController {
 			String meeting_url="https://yinda.webex.com.cn";
 			String staff_user_id = (String) request.getSession().getAttribute(GlobalConstant.user_staff_user_id);
 			sendMessage("您好！您刚刚申请的音达的会议;\n会议名称："+meeting_name+";\n活动号："+sessionKey+";\n密码："+meeting_password +";\n会议地址(pc地址)："+meeting_url+" ; \n "+
-			"主持人邮箱："+user_email+"\n主持人秘钥为："+hostKey+"(提前20分钟进入会议，成为主持人；如若遗忘或者丢失，请联系管理员)\n"+sdf.format(new Date()),staff_user_id );
+			"主持人邮箱："+user_email+"\n主持人秘钥为："+hostKey+"(最多可提前20分钟进入会议，在“参加者”中通过密钥成为主持人；如若遗忘或者丢失，请联系管理员)\n"+sdf.format(new Date()),staff_user_id );
 				 
 			
 			mav.setViewName("webex/create_dd_meeting_success");
