@@ -772,6 +772,8 @@ public class WebExController {
 		String username = (String) request.getSession().getAttribute(GlobalConstant.user_name);
 		if(username == null){
 			username = "匿名";
+			mav.setViewName("webex/not_login");
+			return mav;
 		}
 		/*
 		 *界面返回值 
@@ -782,7 +784,7 @@ public class WebExController {
 		webex.setMeetingPassword(meeting_password);
 		webex.setSessionKey(session_key);
 
-		String meeting_url="https://yinda.webex.com.cn";
+		String meeting_url="https://yinda.webex.com.cn/yinda/onstage/g.php?t=a&d=";
 
 		/*
 		 *webex免注册
@@ -813,14 +815,14 @@ public class WebExController {
 	   try {
 		   
 		   String staff_user_id = (String) request.getSession().getAttribute(GlobalConstant.user_staff_user_id);
-		   sendMessage("您好！您刚刚申请的音达的会议;\n会议名称："+meeting_name+";\n活动号："+session_key+";\n密码："+meeting_password +";\n会议地址(pc地址)："+meeting_url+" ; \n "+sdf.format(new Date()),staff_user_id );
+		   sendMessage("您好！您刚刚申请的音达的会议;\n会议名称："+meeting_name+";\n活动号："+session_key+";\n密码："+meeting_password +";\n会议地址(pc地址)："+meeting_url+session_key+" ; \n "+sdf.format(new Date()),staff_user_id );
 		 
 	} catch (OApiException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
 		mav.addObject("webex", webex);	
-		mav.addObject("meeting_url", meeting_url);
+		mav.addObject("meeting_url", meeting_url+session_key);
 
 		mav.setViewName("webex/dd_meeting_apply_success");
 		return mav;
