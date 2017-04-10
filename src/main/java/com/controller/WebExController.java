@@ -593,10 +593,10 @@ public class WebExController {
 		ModelAndView mav = new ModelAndView();
 		WebexExample example = new WebexExample();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-		WebexExample.Criteria criteria = example.createCriteria();    	
-		
-		List<Webex> webexList = webexMapper.selectByExample(example);
+	
 		List<Webex> reList = new ArrayList<Webex>();
+		List<Webex> webexList  =webexMapper.select_all();
+
         for(Webex w :webexList){
         	try {
 				Date d =sdf.parse(w.getMeetingTime());

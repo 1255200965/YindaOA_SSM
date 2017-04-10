@@ -31,4 +31,8 @@ public interface WebexMapper {
     @ResultType(value=String.class)
     //@Select(value = { "SELECT * from (select * from webex )as w, (select webex.meeting_time as sart ,date_add(webex.meeting_time, interval webex.meeting_length minute) as e from webex )as t where  t.sart <= '${meeting_time}'  and t.e >=  '${meeting_time}' " })
     List<String> select_by_time (@Param("meeting_time")String meeting_time);
+    
+    @Select(value = { "SELECT meeting_name as meetingName,session_key as sessionKey, meeting_desc as meetingDesc ,meeting_count as meetingCount,meeting_time as meetingTime ,meeting_password as meetingPassword,meeting_length as meetingLength  from webex order by meeting_time desc " })
+    @ResultType(value=Webex.class)
+    List<Webex> select_all ();
 }
