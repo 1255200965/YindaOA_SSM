@@ -83,7 +83,7 @@ margin-bottom:3px;
 <p class="weui-footer__links">朱俊柯	   ——    19770</p>	
 <p class="weui-footer__links">余芳芳  	   ——    70664</p>	
 <p class="weui-footer__links">祁鑫炎 	   ——    16382</p>		  
-                      
+<p class="weui-footer__links">于会芳	   ——    71704</p>	                      
      
       
       <p class="weui-footer__text">上海音达科技实业有限公司</p>
