@@ -115,12 +115,13 @@ public class WebExController {
 //		钱忠诚		10272
 //		马天立		16360
 //		徐圆圆		17082
-//		潘佳蕾                   17084
+//		潘佳蕾      17084
 //      朱俊柯		19770
-//		余芳芳                  70664
-//      祁鑫炎                   16382
+//		余芳芳       70664
+//      祁鑫炎      16382
+//      于会芳       71704
 		String [] staffidss  ={"11261","17080","19561","10375","22031","16534","10389","10268","19119","19179","10305","13025","41401","16318","19355","14037","19002","10272","16360","17082"
-				," 17084","19770","70664","16382"};
+				,"17084","19770","70664","16382","71704"};
 		
 		String staffid = (String) request.getSession().getAttribute(GlobalConstant.user_staffId);
 		
@@ -427,15 +428,7 @@ public class WebExController {
 				"</serv:message>";
 		String json  ="{'XML':"+xml+"}";
 
-		//        	System.out.println("++++++++++");
-		//        	System.out.println(json);
-		//        	System.out.println("++++++++++");
-		//		    try {
-		//				httpPost(webexUrl, json);
-		//			} catch (OApiException e) {
-		//				// TODO Auto-generated catch block
-		//				e.printStackTrace();
-		//			}
+
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("XML", xml);
 		System.out.println("______________________");
@@ -593,10 +586,11 @@ public class WebExController {
 		ModelAndView mav = new ModelAndView();
 		WebexExample example = new WebexExample();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-	
+		
+	/*	WebexExample.Criteria criteria = example.createCriteria();    			
+		List<Webex> webexList = webexMapper.selectByExample(example);*/
 		List<Webex> reList = new ArrayList<Webex>();
 		List<Webex> webexList  =webexMapper.select_all();
-
         for(Webex w :webexList){
         	try {
 				Date d =sdf.parse(w.getMeetingTime());
@@ -717,7 +711,7 @@ public class WebExController {
 			String meeting_url="https://yinda.webex.com.cn";
 			String staff_user_id = (String) request.getSession().getAttribute(GlobalConstant.user_staff_user_id);
 			sendMessage("您好！您刚刚申请的音达的会议;\n会议名称："+meeting_name+";\n活动号："+sessionKey+";\n密码："+meeting_password +";\n会议地址(pc地址)："+meeting_url+" ; \n "+
-			"主持人邮箱："+user_email+"\n主持人秘钥为："+hostKey+"(最多可提前20分钟进入会议，在“参加者”中通过密钥成为主持人；如若遗忘或者丢失，请联系管理员)\n"+sdf.format(new Date()),staff_user_id );
+			"主持人邮箱："+user_email+"\n主持人秘钥为："+hostKey+"(提前20分钟进入会议，成为主持人；如若遗忘或者丢失，请联系管理员)\n"+sdf.format(new Date()),staff_user_id );
 				 
 			
 			mav.setViewName("webex/create_dd_meeting_success");
@@ -772,8 +766,6 @@ public class WebExController {
 		String username = (String) request.getSession().getAttribute(GlobalConstant.user_name);
 		if(username == null){
 			username = "匿名";
-			mav.setViewName("webex/not_login");
-			return mav;
 		}
 		/*
 		 *界面返回值 
@@ -784,7 +776,7 @@ public class WebExController {
 		webex.setMeetingPassword(meeting_password);
 		webex.setSessionKey(session_key);
 
-		String meeting_url="https://yinda.webex.com.cn/yinda/onstage/g.php?t=a&d=";
+		String meeting_url="https://yinda.webex.com.cn";
 
 		/*
 		 *webex免注册
@@ -815,14 +807,14 @@ public class WebExController {
 	   try {
 		   
 		   String staff_user_id = (String) request.getSession().getAttribute(GlobalConstant.user_staff_user_id);
-		   sendMessage("您好！您刚刚申请的音达的会议;\n会议名称："+meeting_name+";\n活动号："+session_key+";\n密码："+meeting_password +";\n会议地址(pc地址)："+meeting_url+session_key+" ; \n "+sdf.format(new Date()),staff_user_id );
+		   sendMessage("您好！您刚刚申请的音达的会议;\n会议名称："+meeting_name+";\n活动号："+session_key+";\n密码："+meeting_password +";\n会议地址(pc地址)："+meeting_url+" ; \n "+sdf.format(new Date()),staff_user_id );
 		 
 	} catch (OApiException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
 		mav.addObject("webex", webex);	
-		mav.addObject("meeting_url", meeting_url+session_key);
+		mav.addObject("meeting_url", meeting_url);
 
 		mav.setViewName("webex/dd_meeting_apply_success");
 		return mav;
